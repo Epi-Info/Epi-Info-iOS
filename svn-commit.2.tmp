@@ -1,0 +1,8 @@
+Package file status
+--This line, and those below, will be ignored--
+
+M    EpiInfo.xcodeproj/project.pbxproj
+M    EpiInfo/DataEntryViewController.h
+M    EpiInfo/DataEntryViewController.m
+A    EpiInfo/FeedbackView.h
+A    EpiInfo/FeedbackView.m

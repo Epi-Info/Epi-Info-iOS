@@ -1,0 +1,26 @@
+//
+//  CheckCode.swift
+//  EpiInfo
+//
+//  Created by John Copeland on 5/13/15.
+//  Copyright (c) 2015 John Copeland. All rights reserved.
+//
+
+import Foundation
+
+class CheckCode: NSObject {
+  var words = NSArray()
+  
+  override init() {
+    super.init()
+  }
+  
+  func setTheWords(wds: NSArray) {
+    println("setting words for " + (wds.objectAtIndex(0) as! String))
+    words = wds
+  }
+  
+  func Iamhere() {
+    println("I am back!")
+  }
+}

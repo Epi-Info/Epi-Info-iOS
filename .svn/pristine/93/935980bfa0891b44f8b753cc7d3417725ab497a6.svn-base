@@ -1,0 +1,14 @@
+//
+//  CohortSimulationModel.swift
+//  EpiInfo
+//
+//  Created by John Copeland on 3/9/15.
+//
+
+import Foundation
+
+class CohortSimulationModel {
+  class func compute(a: Float, b: Float, c: Float, d: Float) -> (Float, Float, Float) {
+    return (0.0, -1.0, 1.0)
+  }
+}

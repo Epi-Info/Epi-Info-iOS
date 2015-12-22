@@ -1,0 +1,17 @@
+//
+//  GrowthPercentilesCompute.h
+//  EpiInfo
+//
+//  Created by John Copeland on 6/20/14.
+//  Copyright (c) 2014 John Copeland. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "AnalysisDataObject.h"
+
+@interface GrowthPercentilesCompute : NSObject
+{
+    AnalysisDataObject *lengthForAgeData;
+}
+-(float)computePercentileOnLength:(float)lengthCM forAge:(float)age inMonths:(BOOL)isMonths forMale:(BOOL)isMale;
+@end

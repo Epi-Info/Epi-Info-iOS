@@ -1,0 +1,445 @@
+//
+//  AddAWSSimpleDBSchema.m
+//  EpiInfo
+//
+//  Created by John Copeland on 8/6/13.
+//  Copyright (c) 2013 John Copeland. All rights reserved.
+//
+
+#import "AddAWSSimpleDBSchema.h"
+#import "AnalysisViewController.h"
+
+@implementation AddAWSSimpleDBSchema
+{
+    UITextField *schema;
+    UITextField *accessKey;
+    UITextField *secretKey;
+    
+    UILabel *messageLabel;
+    
+    AnalysisViewController *avc;
+    
+    UIButton *submitButton;
+    UIButton *removeButton;
+    UIButton *cancelButton;
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+        UIColor *epiInfoLightBlue = [UIColor colorWithRed:99/255.0 green:166/255.0 blue:223/255.0 alpha:1.0];
+        [self setBackgroundColor:[UIColor whiteColor]];
+        //Start the view above the screen
+        [self setFrame:CGRectMake(0, -frame.size.height, frame.size.width, frame.size.height)];
+        
+        //Add the screen elements
+        UILabel *mainLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 40)];
+        [mainLabel setText:@"Add AWS SimpleDB Credentials"];
+        [mainLabel setFont:[UIFont boldSystemFontOfSize:18]];
+        [mainLabel setTextColor:epiInfoLightBlue];
+        [mainLabel setTextAlignment:NSTextAlignmentCenter];
+        [self addSubview:mainLabel];
+        
+        UILabel *schemaLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 30, frame.size.width - 8, 40)];
+        [schemaLabel setText:@"Database Nickname"];
+        [schemaLabel setFont:[UIFont boldSystemFontOfSize:16]];
+        [schemaLabel setTextColor:epiInfoLightBlue];
+        [schemaLabel setTextAlignment:NSTextAlignmentLeft];
+        [self addSubview:schemaLabel];
+        
+        schema = [[UITextField alloc] initWithFrame:CGRectMake(4, 60, frame.size.width - 8, 25)];
+        [schema setBorderStyle:UITextBorderStyleRoundedRect];
+        [schema setReturnKeyType:UIReturnKeyDone];
+        [schema setDelegate:self];
+        [self addSubview:schema];
+        
+        UILabel *accessKeyLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 90, frame.size.width - 8, 40)];
+        [accessKeyLabel setText:@"Access Key"];
+        [accessKeyLabel setFont:[UIFont boldSystemFontOfSize:16]];
+        [accessKeyLabel setTextColor:epiInfoLightBlue];
+        [accessKeyLabel setTextAlignment:NSTextAlignmentLeft];
+        [self addSubview:accessKeyLabel];
+        
+        accessKey = [[UITextField alloc] initWithFrame:CGRectMake(4, 125, frame.size.width - 8, 20)];
+        [accessKey setBorderStyle:UITextBorderStyleRoundedRect];
+        [accessKey setFont:[UIFont systemFontOfSize:10]];
+        [accessKey setReturnKeyType:UIReturnKeyDone];
+        [accessKey setDelegate:self];
+        [self addSubview:accessKey];
+        
+        UILabel *secretKeyLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 145, frame.size.width - 8, 40)];
+        [secretKeyLabel setText:@"Secret Key"];
+        [secretKeyLabel setFont:[UIFont boldSystemFontOfSize:16]];
+        [secretKeyLabel setTextColor:epiInfoLightBlue];
+        [secretKeyLabel setTextAlignment:NSTextAlignmentLeft];
+        [self addSubview:secretKeyLabel];
+        
+        secretKey = [[UITextField alloc] initWithFrame:CGRectMake(4, 180, frame.size.width - 8, 20)];
+        [secretKey setBorderStyle:UITextBorderStyleRoundedRect];
+        [secretKey setFont:[UIFont systemFontOfSize:10]];
+        [secretKey setReturnKeyType:UIReturnKeyDone];
+        [secretKey setDelegate:self];
+        [self addSubview:secretKey];
+        
+        messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 200, frame.size.width - 8, 80)];
+        [messageLabel setFont:[UIFont systemFontOfSize:16]];
+        [messageLabel setTextColor:[UIColor redColor]];
+        [messageLabel setTextAlignment:NSTextAlignmentLeft];
+        [messageLabel setNumberOfLines:0];
+        [messageLabel setLineBreakMode:NSLineBreakByWordWrapping];
+        [self addSubview:messageLabel];
+        
+        submitButton = [[UIButton alloc] initWithFrame:CGRectMake(10, frame.size.height - 110, frame.size.width / 2.0 - 20, 40)];
+        [submitButton setBackgroundColor:epiInfoLightBlue];
+        [submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [submitButton setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
+        [submitButton setTitle:@"Add" forState:UIControlStateNormal];
+        [[submitButton titleLabel] setFont:[UIFont boldSystemFontOfSize:16.0]];
+        [submitButton.layer setCornerRadius:10.0];
+        [submitButton addTarget:self action:@selector(submitButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:submitButton];
+        removeButton = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width / 2.0 + 10, frame.size.height - 110, frame.size.width / 2.0 - 20, 40)];
+        [removeButton setBackgroundColor:epiInfoLightBlue];
+        [removeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [removeButton setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
+        [removeButton setTitle:@"Remove" forState:UIControlStateNormal];
+        [[removeButton titleLabel] setFont:[UIFont boldSystemFontOfSize:16.0]];
+        [removeButton.layer setCornerRadius:10.0];
+        [removeButton addTarget:self action:@selector(removeButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:removeButton];
+        cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width / 2.0 - (frame.size.width / 2.0 - 20) / 2.0, frame.size.height - 60, frame.size.width / 2.0 - 20, 40)];
+        [cancelButton setBackgroundColor:epiInfoLightBlue];
+        [cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [cancelButton setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
+        [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+        [[cancelButton titleLabel] setFont:[UIFont boldSystemFontOfSize:16.0]];
+        [cancelButton.layer setCornerRadius:10.0];
+        [cancelButton addTarget:self action:@selector(cancelButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:cancelButton];
+        
+        //Move the view into view
+        [UIView animateWithDuration:0.3 delay:0.3 options:nil animations:^{
+            [self setFrame:frame];
+        }completion:nil];
+    }
+    return self;
+}
+
+-(id)initWithFrame:(CGRect)frame AndViewController:(UIViewController *)vc
+{
+    self = [self initWithFrame:frame];
+    
+    avc = (AnalysisViewController *)vc;
+    
+    return self;
+}
+
+- (void)submitButtonPressed
+{
+    //User pressed Add button
+    
+    //Clear the message
+    [messageLabel setText:@""];
+    
+    //Ensure all fields are completed
+    if (schema.text.length == 0)
+    {
+        [messageLabel setText:@"Database Nickname cannot be blank."];
+        return;
+    }
+    if (accessKey.text.length == 0)
+    {
+        [messageLabel setText:@"Access Key cannot be blank."];
+        return;
+    }
+    if (secretKey.text.length == 0)
+    {
+        [messageLabel setText:@"Secret Key cannot be blank."];
+        return;
+    }
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *pathAndFile = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfo/AWSSimpleDBKeys.db"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:pathAndFile])
+    {
+        sqlite3 *keysDB;
+        //Convert the databasePath NSString to a char array
+        const char *dbpath = [pathAndFile UTF8String];
+        sqlite3_stmt *statement;
+        
+        //Open sqlite3 analysisDB pointing to the databasePath
+        if (sqlite3_open(dbpath, &keysDB) == SQLITE_OK)
+        {
+            //Build the SELECT statement
+            NSString *sqlStmt = @"SELECT NAME, ACCESS_KEY FROM SIMPLE_DB_KEYS";
+            //Convert the sqlStmt to char array
+            const char *sql_stmt = [sqlStmt UTF8String];
+            
+            //Execute the SELECT statement
+            if (sqlite3_prepare_v2(keysDB, sql_stmt, -1, &statement, NULL) == SQLITE_OK)
+            {
+                //While the statement returns rows, read the column queried and put the value in the dataArray
+                while (sqlite3_step(statement) == SQLITE_ROW)
+                {
+                    if ([[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 0)] isEqualToString:schema.text])
+                    {
+                        [messageLabel setText:@"That Database Nickname is already in use."];
+                        return;
+                    }
+                    if ([[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 1)] isEqualToString:accessKey.text])
+                    {
+                        [messageLabel setText:[NSString stringWithFormat:@"That Access Key is already associated with \"%@\".", [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 0)]]];
+                        return;
+                    }
+                }
+            }
+            sqlite3_finalize(statement);
+        }
+        else
+        {
+            NSLog(@"Failed to open/create database");
+        }
+        
+        //Close the sqlite connection
+        sqlite3_close(keysDB);
+    }
+    
+    //Disable the buttons
+    [submitButton setEnabled:NO];
+    [cancelButton setEnabled:NO];
+    
+    //Request dispatch queue
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //Run the queue in the background
+    dispatch_async(queue, ^{
+        
+        //Start the activity indicator in the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        });
+        BOOL success = YES;
+        NSString *message = @"Database credentials successfully added.";
+                
+        //Allocate and instantiate the AmazonSimpleDBClient by
+        //sending the button's text to AWSSimpleDBConnectionInfo and
+        //getting the appropriate key values
+        AmazonSimpleDBClient *sdb;
+        @try {
+            sdb = [[AmazonSimpleDBClient alloc] initWithAccessKey:[accessKey text] withSecretKey:[secretKey text]];
+        }
+        @catch (NSException *e) {
+            success = NO;
+            message = [NSString stringWithFormat:@"%@", e.description];
+        }
+        @finally {
+            
+        }
+        
+        //Tell sdb which region to use?
+        sdb.endpoint = [AmazonEndpoints sdbEndpoint:US_WEST_2];
+        
+        //Send ListDomainsRequest to selected SimpleDB schema
+        SimpleDBListDomainsRequest  *listDomainsRequest  = [[SimpleDBListDomainsRequest alloc] init];
+        //Get the response
+        @try {
+        SimpleDBListDomainsResponse *listDomainsResponse = [sdb listDomains:listDomainsRequest];
+            if(listDomainsResponse.error != nil)
+            {
+                NSLog(@"Error: %@", listDomainsResponse.error);
+            }
+        }
+        @catch (AmazonServiceException *e) {
+            success = NO;
+            if ([e.errorCode isEqualToString:@"InvalidClientTokenId"])
+                message = @"Access Key not found.";
+            else if ([e.errorCode isEqualToString:@"SignatureDoesNotMatch"])
+                message = @"Secret Key does not match Access Key.";
+            else
+                message = [NSString stringWithFormat:@"%@", e.errorCode];
+        }
+        @finally {
+            
+        }
+        
+        
+        //Return to the main thread after completion of the above tasks
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //Hide the ActivityIndicator
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+            
+            [messageLabel setText:message];
+            
+            //Re-enable the buttons
+            [submitButton setEnabled:YES];
+            [cancelButton setEnabled:YES];
+            
+            if (success)
+            {
+                sqlite3 *analysisDB;
+                //Check to see if the database exists already.  If not, create it.
+                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                NSString *path = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfo"];
+                if (![[NSFileManager defaultManager] fileExistsAtPath:path])
+                    [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:NO attributes:nil error:nil];
+                
+                NSString *pathAndFile = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfo/AWSSimpleDBKeys.db"];
+
+                //Convert the databasePath NSString to a char array
+                const char *dbpath = [pathAndFile UTF8String];
+                char *errMsg;
+                
+                if (![[NSFileManager defaultManager] fileExistsAtPath:pathAndFile])
+                {
+                    //Open sqlite3 analysisDB pointing to the pathAndFile
+                    if (sqlite3_open(dbpath, &analysisDB) == SQLITE_OK)
+                    {
+                        //Build the CREATE TABLE statement
+                        NSString *sqlStmt = @"CREATE TABLE SIMPLE_DB_KEYS (NAME, ACCESS_KEY, SECRET_KEY)";
+                        //Convert the sqlStmt to char array
+                        const char *sql_stmt = [sqlStmt UTF8String];
+                        
+                        //Execute the CREATE TABLE statement
+                        if (sqlite3_exec(analysisDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                        {
+                            NSLog(@"Failed to create table");
+                        }
+                        //Close the sqlite connection
+                        sqlite3_close(analysisDB);
+                    }
+                    else
+                    {
+                        NSLog(@"Failed to open/create database");
+                    }
+                }
+                
+                if (sqlite3_open(dbpath, &analysisDB) == SQLITE_OK)
+                {
+                    NSString *insertStmt = @"INSERT INTO SIMPLE_DB_KEYS VALUES('";
+                    insertStmt = [insertStmt stringByAppendingString:[schema.text stringByReplacingOccurrencesOfString:@"'" withString:@"''"]];
+                    insertStmt = [insertStmt stringByAppendingString:@"', '"];
+                    insertStmt = [insertStmt stringByAppendingString:accessKey.text];
+                    insertStmt = [insertStmt stringByAppendingString:@"', '"];
+                    insertStmt = [insertStmt stringByAppendingString:secretKey.text];
+                    insertStmt = [insertStmt stringByAppendingString:@"')"];
+                    //Convert the insertStmt to char array
+                    const char *insert_stmt = [insertStmt UTF8String];
+                    
+                    //Execute the INSERTS
+                    if (sqlite3_exec(analysisDB, insert_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                    {
+                        NSLog(@"Failed to insert row into table");
+                    }
+                }
+                //Close the sqlite connection
+                sqlite3_close(analysisDB);
+                
+                [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
+                    [self setFrame:CGRectMake(0, -self.frame.size.height, self.frame.size.width, self.frame.size.height)];
+                }completion:^(BOOL finished){[self removeSelfFromSuperview];}];
+            }
+        });
+    });
+}
+
+- (void)removeButtonPressed
+{
+    //User pressed Remove button
+    
+    //Clear the message
+    [messageLabel setText:@""];
+    
+    //Ensure all fields are completed
+    if (schema.text.length == 0)
+    {
+        [messageLabel setText:@"Database Nickname cannot be blank."];
+        return;
+    }
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *pathAndFile = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfo/AWSSimpleDBKeys.db"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:pathAndFile])
+    {
+        sqlite3 *keysDB;
+        //Convert the databasePath NSString to a char array
+        const char *dbpath = [pathAndFile UTF8String];
+        char *errMsg;
+        sqlite3_stmt *statement;
+        
+        //Open sqlite3 analysisDB pointing to the databasePath
+        if (sqlite3_open(dbpath, &keysDB) == SQLITE_OK)
+        {
+            int rows = 0;
+            NSString *queryStmt = @"SELECT COUNT(*) AS N FROM SIMPLE_DB_KEYS WHERE NAME = '";
+            queryStmt = [queryStmt stringByAppendingString:[schema.text stringByReplacingOccurrencesOfString:@"'" withString:@"''"]];
+            queryStmt = [queryStmt stringByAppendingString:@"'"];
+            const char *query_stmt = [queryStmt UTF8String];
+            if (sqlite3_prepare_v2(keysDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+            {
+                if (sqlite3_step(statement) == SQLITE_ROW)
+                    rows = sqlite3_column_int(statement, 0);
+            }
+            sqlite3_finalize(statement);
+
+            if (rows > 0)
+            {
+                NSString *deleteStmt = @"DELETE FROM SIMPLE_DB_KEYS WHERE NAME = '";
+                deleteStmt = [deleteStmt stringByAppendingString:[schema.text stringByReplacingOccurrencesOfString:@"'" withString:@"''"]];
+                deleteStmt = [deleteStmt stringByAppendingString:@"'"];
+                //Convert the deleteStmt to char array
+                const char *delete_stmt = [deleteStmt UTF8String];
+                
+                //Execute the INSERTS
+                if (sqlite3_exec(keysDB, delete_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                {
+                    [messageLabel setText:@"Database name not found."];
+                    NSLog(@"%s", errMsg);
+                }
+                else
+                    [messageLabel setText:[NSString stringWithFormat:@"%@ removed from credentials list.", schema.text]];
+            }
+            else
+                [messageLabel setText:@"Database name not found."];
+        }
+        else
+        {
+            NSLog(@"Failed to open/create database");
+        }
+        //Close the sqlite connection
+        sqlite3_close(keysDB);
+    }
+}
+
+- (void)cancelButtonPressed
+{
+    //User pressed Cancel button
+    [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
+        [self setFrame:CGRectMake(0, -self.frame.size.height, self.frame.size.width, self.frame.size.height)];
+    }completion:^(BOOL finished){[self removeSelfFromSuperview];}];
+}
+
+- (BOOL)removeSelfFromSuperview
+{
+//    [avc lookupSimpleDBSources];
+    [self removeFromSuperview];
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
+}
+*/
+
+@end

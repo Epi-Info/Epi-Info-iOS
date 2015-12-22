@@ -1,0 +1,305 @@
+//
+//  GrowthPercentilesCompute.m
+//  EpiInfo
+//
+//  Created by John Copeland on 6/20/14.
+//  Copyright (c) 2014 John Copeland. All rights reserved.
+//
+
+#import "GrowthPercentilesCompute.h"
+#import "SharedResources.h"
+
+@implementation GrowthPercentilesCompute
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        NSString *csvPathForLength = [[NSBundle mainBundle] pathForResource:@"hgtagewho" ofType:@"csv"];
+        NSString *csvPathForWeight = [[NSBundle mainBundle] pathForResource:@"wgtagewho07" ofType:@"csv"];
+        NSString *csvPathForCircumference = [[NSBundle mainBundle] pathForResource:@"hcagewho" ofType:@"csv"];
+        lengthForAgeData = [[AnalysisDataObject alloc] initWithCSVFile:csvPathForLength];
+        weightForAgeData = [[AnalysisDataObject alloc] initWithCSVFile:csvPathForWeight];
+        circumferenceForAgeData = [[AnalysisDataObject alloc] initWithCSVFile:csvPathForCircumference];
+        NSString *csvPathForLengthCDC = [[NSBundle mainBundle] pathForResource:@"hgtagecdc" ofType:@"csv"];
+        NSString *csvPathForWeightCDC = [[NSBundle mainBundle] pathForResource:@"wgtagecdc" ofType:@"csv"];
+        NSString *csvPathForCircumferenceCDC = [[NSBundle mainBundle] pathForResource:@"hcageinf" ofType:@"csv"];
+        lengthForAgeDataCDC = [[AnalysisDataObject alloc] initWithCSVFile:csvPathForLengthCDC];
+        weightForAgeDataCDC = [[AnalysisDataObject alloc] initWithCSVFile:csvPathForWeightCDC];
+        circumferenceForAgeDataCDC = [[AnalysisDataObject alloc] initWithCSVFile:csvPathForCircumferenceCDC];
+    }
+    return self;
+}
+
+- (float)computePercentileOnLength:(float)lengthCM forAge:(float)age inMonths:(BOOL)isMonths forMale:(BOOL)isMale
+{
+    float workingAge = 0.0;
+    if (age == 36.0)
+        workingAge = 35.5;
+    else if (age >= 0.25)
+        workingAge = ((float)(int)age) + 0.5;
+    
+    workingAge = floorf(age);
+    
+    float sex = 2.0;
+    if (isMale)
+        sex = 1.0;
+    
+    float L = 0.0;
+    float M = 0.0;
+    float S = 0.0;
+    float L0 = 0.0;
+    float M0 = 0.0;
+    float S0 = 0.0;
+    float L1 = 0.0;
+    float M1 = 0.0;
+    float S1 = 0.0;
+    
+    BOOL breakNow = NO;
+    
+    if (age < 24.0)
+        for (NSObject *v in lengthForAgeData.dataSet)
+        {
+            if (breakNow)
+            {
+                L1 = [[(NSArray *)v objectAtIndex:2] floatValue];
+                M1 = [[(NSArray *)v objectAtIndex:3] floatValue];
+                S1 = [[(NSArray *)v objectAtIndex:4] floatValue];
+                break;
+            }
+            if ([[(NSArray *)v objectAtIndex:0] floatValue] == sex && [[(NSArray *)v objectAtIndex:1] floatValue] == workingAge)
+            {
+                L0 = [[(NSArray *)v objectAtIndex:2] floatValue];
+                M0 = [[(NSArray *)v objectAtIndex:3] floatValue];
+                S0 = [[(NSArray *)v objectAtIndex:4] floatValue];
+                breakNow = YES;
+            }
+        }
+    else
+    {
+        workingAge = roundf(age);
+        if (workingAge > 24.0)
+            workingAge -= 0.5;
+        for (NSObject *v in lengthForAgeDataCDC.dataSet)
+        {
+            if (breakNow)
+            {
+                L1 = [[(NSArray *)v objectAtIndex:2] floatValue];
+                M1 = [[(NSArray *)v objectAtIndex:3] floatValue];
+                S1 = [[(NSArray *)v objectAtIndex:4] floatValue];
+                break;
+            }
+            if ([[(NSArray *)v objectAtIndex:0] floatValue] == sex && [[(NSArray *)v objectAtIndex:1] floatValue] == workingAge)
+            {
+                L0 = [[(NSArray *)v objectAtIndex:2] floatValue];
+                M0 = [[(NSArray *)v objectAtIndex:3] floatValue];
+                S0 = [[(NSArray *)v objectAtIndex:4] floatValue];
+                breakNow = YES;
+            }
+        }
+    }
+    
+    float agediff = age - workingAge;
+    if (workingAge == 24.0)
+        agediff *= 2.0;
+    float Ldiff = L1 - L0;
+    float Mdiff = M1 - M0;
+    float Sdiff = S1 - S0;
+    
+    L = L0 + agediff * Ldiff;
+    M = M0 + agediff * Mdiff;
+    S = S0 + agediff * Sdiff;
+    
+    float Z = 0.0;
+    if (L != 0.0)
+        Z = (powf((lengthCM / M), L) - 1) / (L * S);
+    else
+        Z = logf(lengthCM / M) / S;
+    
+    double p = [SharedResources pFromZ:(double)Z];
+    
+    return 100 * (1.0 - (float)p);
+}
+
+- (float)computePercentileOnWeight:(float)weightKG forAge:(float)age inMonths:(BOOL)isMonths forMale:(BOOL)isMale
+{
+    float workingAge = 0.0;
+    if (age == 36.0)
+        workingAge = 35.5;
+    else if (age >= 0.25)
+        workingAge = ((float)(int)age) + 0.5;
+    
+    workingAge = roundf(age);
+    
+    float sex = 2.0;
+    if (isMale)
+        sex = 1.0;
+    
+    float L = 0.0;
+    float M = 0.0;
+    float S = 0.0;
+    float L0 = 0.0;
+    float M0 = 0.0;
+    float S0 = 0.0;
+    float L1 = 0.0;
+    float M1 = 0.0;
+    float S1 = 0.0;
+    
+    BOOL breakNow = NO;
+    
+    if (age < 24.0)
+        for (NSObject *v in weightForAgeData.dataSet)
+        {
+            //        NSLog(@"%f\t%f\t%f\t%f\t%f", [[(NSArray *)v objectAtIndex:0] floatValue], [[(NSArray *)v objectAtIndex:1] floatValue], [[(NSArray *)v objectAtIndex:2] floatValue], [[(NSArray *)v objectAtIndex:3] floatValue], [[(NSArray *)v objectAtIndex:4] floatValue]);
+            if (breakNow)
+            {
+                L1 = [[(NSArray *)v objectAtIndex:2] floatValue];
+                M1 = [[(NSArray *)v objectAtIndex:3] floatValue];
+                S1 = [[(NSArray *)v objectAtIndex:4] floatValue];
+                break;
+            }
+            if ([[(NSArray *)v objectAtIndex:0] floatValue] == sex && [[(NSArray *)v objectAtIndex:1] floatValue] == workingAge)
+            {
+                L0 = [[(NSArray *)v objectAtIndex:2] floatValue];
+                M0 = [[(NSArray *)v objectAtIndex:3] floatValue];
+                S0 = [[(NSArray *)v objectAtIndex:4] floatValue];
+                breakNow = YES;
+            }
+        }
+    else
+    {
+        workingAge = roundf(age);
+        if (workingAge > 24.0)
+            workingAge -= 0.5;
+        for (NSObject *v in weightForAgeDataCDC.dataSet)
+        {
+            if (breakNow)
+            {
+                L1 = [[(NSArray *)v objectAtIndex:2] floatValue];
+                M1 = [[(NSArray *)v objectAtIndex:3] floatValue];
+                S1 = [[(NSArray *)v objectAtIndex:4] floatValue];
+                break;
+            }
+            if ([[(NSArray *)v objectAtIndex:0] floatValue] == sex && [[(NSArray *)v objectAtIndex:1] floatValue] == workingAge)
+            {
+                L0 = [[(NSArray *)v objectAtIndex:2] floatValue];
+                M0 = [[(NSArray *)v objectAtIndex:3] floatValue];
+                S0 = [[(NSArray *)v objectAtIndex:4] floatValue];
+                breakNow = YES;
+            }
+        }
+    }
+    
+    float agediff = age - workingAge;
+    if (workingAge == 24.0)
+        agediff *= 2.0;
+    float Ldiff = L1 - L0;
+    float Mdiff = M1 - M0;
+    float Sdiff = S1 - S0;
+    
+    L = L0 + agediff * Ldiff;
+    M = M0 + agediff * Mdiff;
+    S = S0 + agediff * Sdiff;
+    
+    float Z = 0.0;
+    if (L != 0.0)
+        Z = (powf((weightKG / M), L) - 1) / (L * S);
+    else
+        Z = logf(weightKG / M) / S;
+    
+    double p = [SharedResources pFromZ:(double)Z];
+    
+//    NSLog(@"%f, %f, %f, %f: %f, %f", weightKG, L, M, S, Z, p);
+    
+    return 100 * (1.0 - (float)p);
+}
+
+- (float)computePercentileOnCircumference:(float)circumferenceCM forAge:(float)age inMonths:(BOOL)isMonths forMale:(BOOL)isMale
+{
+    float workingAge = 0.0;
+    if (age == 36.0)
+        workingAge = 35.5;
+    else if (age >= 0.25)
+        workingAge = ((float)(int)age) + 0.5;
+    
+    workingAge = roundf(age);
+    
+    float sex = 2.0;
+    if (isMale)
+        sex = 1.0;
+    
+    float L = 0.0;
+    float M = 0.0;
+    float S = 0.0;
+    float L0 = 0.0;
+    float M0 = 0.0;
+    float S0 = 0.0;
+    float L1 = 0.0;
+    float M1 = 0.0;
+    float S1 = 0.0;
+    
+    BOOL breakNow = NO;
+    
+    if (age < 24.0)
+        for (NSObject *v in circumferenceForAgeData.dataSet)
+        {
+            if (breakNow)
+            {
+                L1 = [[(NSArray *)v objectAtIndex:2] floatValue];
+                M1 = [[(NSArray *)v objectAtIndex:3] floatValue];
+                S1 = [[(NSArray *)v objectAtIndex:4] floatValue];
+                break;
+            }
+            if ([[(NSArray *)v objectAtIndex:0] floatValue] == sex && [[(NSArray *)v objectAtIndex:1] floatValue] == workingAge)
+            {
+                L0 = [[(NSArray *)v objectAtIndex:2] floatValue];
+                M0 = [[(NSArray *)v objectAtIndex:3] floatValue];
+                S0 = [[(NSArray *)v objectAtIndex:4] floatValue];
+                breakNow = YES;
+            }
+        }
+    else
+    {
+        workingAge = roundf(age);
+        if (workingAge > 24.0)
+            workingAge -= 0.5;
+        for (NSObject *v in circumferenceForAgeDataCDC.dataSet)
+        {
+            if (breakNow)
+            {
+                L1 = [[(NSArray *)v objectAtIndex:2] floatValue];
+                M1 = [[(NSArray *)v objectAtIndex:3] floatValue];
+                S1 = [[(NSArray *)v objectAtIndex:4] floatValue];
+                break;
+            }
+            if ([[(NSArray *)v objectAtIndex:0] floatValue] == sex && [[(NSArray *)v objectAtIndex:1] floatValue] == workingAge)
+            {
+                L0 = [[(NSArray *)v objectAtIndex:2] floatValue];
+                M0 = [[(NSArray *)v objectAtIndex:3] floatValue];
+                S0 = [[(NSArray *)v objectAtIndex:4] floatValue];
+                breakNow = YES;
+            }
+        }
+    }
+    
+    float agediff = age - workingAge;
+    if (workingAge == 24.0)
+        agediff *= 2.0;
+    float Ldiff = L1 - L0;
+    float Mdiff = M1 - M0;
+    float Sdiff = S1 - S0;
+    
+    L = L0 + agediff * Ldiff;
+    M = M0 + agediff * Mdiff;
+    S = S0 + agediff * Sdiff;
+    
+    float Z = 0.0;
+    if (L != 0.0)
+        Z = (powf((circumferenceCM / M), L) - 1) / (L * S);
+    else
+        Z = logf(circumferenceCM / M) / S;
+    
+    double p = [SharedResources pFromZ:(double)Z];
+    
+    return 100 * (1.0 - (float)p);
+}
+@end

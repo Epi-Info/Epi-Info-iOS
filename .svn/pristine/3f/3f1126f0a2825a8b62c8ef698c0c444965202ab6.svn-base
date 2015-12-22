@@ -1,0 +1,60 @@
+//
+//  DateField.m
+//  EpiInfo
+//
+//  Created by John Copeland on 11/27/13.
+//
+
+#import "DateField.h"
+
+@implementation DateField
+@synthesize columnName = _columnName;
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+        [self addTarget:self action:@selector(textFieldAction) forControlEvents:UIControlEventEditingChanged];
+        [self setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
+    }
+    return self;
+}
+
+- (void)textFieldAction
+{
+    int cursorPosition = (int)[self offsetFromPosition:[self endOfDocument] toPosition:[[self selectedTextRange] start]];
+    if (self.text.length + cursorPosition == 0)
+        return;
+    
+    NSCharacterSet *validSet;
+    validSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+    if ([[self.text substringToIndex:1] stringByTrimmingCharactersInSet:validSet].length > 0)
+        self.text = [self.text stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@"#"];
+    validSet = [NSCharacterSet characterSetWithCharactersInString:@"/0123456789"];
+    for (int i = 1; i < self.text.length; i++)
+    {
+        if ([[self.text substringWithRange:NSMakeRange(i, 1)] stringByTrimmingCharactersInSet:validSet].length > 0)
+            self.text = [self.text stringByReplacingCharactersInRange:NSMakeRange(i, 1) withString:@"#"];
+    }
+    self.text = [self.text stringByReplacingOccurrencesOfString:@"#" withString:@""];
+}
+
+- (void)setFormFieldValue:(NSString *)formFieldValue
+{
+    if ([formFieldValue isEqualToString:@"(null)"])
+        return;
+    
+    [self setText:formFieldValue];
+}
+
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
+}
+*/
+
+@end

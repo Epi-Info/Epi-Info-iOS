@@ -1,0 +1,21 @@
+//
+//  Checkbox.h
+//  EpiInfo
+//
+//  Created by John Copeland on 11/27/13.
+//
+
+#import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
+
+@interface Checkbox : UIView
+{
+    UIButton *button;
+    BOOL value;
+}
+
+-(BOOL)value;
+-(void)reset;
+
+@property NSString *columnName;
+@end

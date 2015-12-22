@@ -1,0 +1,41 @@
+//
+//  EpiInfoUniqueIDField.m
+//  EpiInfo
+//
+//  Created by John Copeland on 6/2/14.
+//  Copyright (c) 2014 John Copeland. All rights reserved.
+//
+
+#import "EpiInfoUniqueIDField.h"
+
+@implementation EpiInfoUniqueIDField
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+        [self setEnabled:NO];
+        [self setText:CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL)))];
+    }
+    return self;
+}
+
+- (void)setText:(NSString *)text
+{
+    NSString *newText = text;
+    if (text.length == 0)
+        newText = CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL)));
+    [super setText:newText];
+}
+
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
+}
+*/
+
+@end

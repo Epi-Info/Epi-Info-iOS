@@ -1,0 +1,112 @@
+//
+//  SimulationsViewControllerSwift.swift
+//  EpiInfo
+//
+//  Created by John Copeland on 3/4/15.
+//
+
+import UIKit
+
+class SimulationsViewControllerSwift: UIViewController {
+    
+    var fadingColorView = UIImageView()
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.navigationItem.title = "Simulate Study"
+        let titleViewLabel = UILabel(frame: CGRectMake(0, 0, 200, 44))
+        titleViewLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 24.0)
+        titleViewLabel.text = "Simulations"
+        titleViewLabel.textAlignment = NSTextAlignment.Center
+        titleViewLabel.textColor = UIColor.whiteColor()
+        titleViewLabel.backgroundColor = UIColor.clearColor()
+        self.navigationItem.titleView = titleViewLabel
+        
+        if (UIDevice.currentDevice().userInterfaceIdiom == .Pad)
+        {
+            // Change the standard NavigationController "Back" button to an "X"
+            let customBackButton = UIButton(frame: CGRectMake(0, 0, 30, 30))
+            customBackButton.setImage(UIImage(named: "StAndrewXButtonWhite.png"), forState: .Normal)
+            customBackButton.addTarget(self, action: "popCurrentViewController", forControlEvents: .TouchUpInside)
+            customBackButton.layer.masksToBounds = true
+            customBackButton.layer.cornerRadius = 8.0
+            customBackButton.setTitle("Back to previous screen", forState: .Normal)
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: customBackButton)
+            self.navigationItem.hidesBackButton = true
+        }
+        else
+        {
+            // Change the standard NavigationController "Back" button to an "X"
+            let customBackButton = UIButton(frame: CGRectMake(0, 0, 30, 30))
+            customBackButton.setImage(UIImage(named: "StAndrewXButtonWhite.png"), forState: .Normal)
+            customBackButton.addTarget(self, action: "popCurrentViewController", forControlEvents: .TouchUpInside)
+            customBackButton.layer.masksToBounds = true
+            customBackButton.layer.cornerRadius = 8.0
+            customBackButton.setTitle("Back to previous screen", forState: .Normal)
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: customBackButton)
+            self.navigationItem.hidesBackButton = true
+            
+            fadingColorView = UIImageView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height - self.navigationController!.navigationBar.frame.height - UIApplication.sharedApplication().statusBarFrame.height))
+            let frameHeight: Float = Float(self.view.frame.size.height)
+            if (frameHeight > 500)
+            {
+                let pictureHeight = UIImage(named: "iPhone5Background.png")!.size.height
+                let pictureWidth = UIImage(named: "iPhone5Background.png")!.size.width
+                fadingColorView.image = UIImage(named: "iPhone5Background.png")
+            }
+            else
+            {
+                let pictureHeight = UIImage(named: "iPhone4Background.png")!.size.height
+                let pictureWidth = UIImage(named: "iPhone4Background.png")!.size.width
+                fadingColorView.image = UIImage(named: "iPhone4Background.png")
+            }
+            self.view.addSubview(fadingColorView)
+            self.view.sendSubviewToBack(fadingColorView)
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+//        Commented lines were used to create a screenshot image.
+//        let tmpV = UIView(frame: CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height))
+//        
+//        let barView = UIImageView(frame: CGRectMake(0, 0, self.view.bounds.size.width, self.navigationController!.navigationBar.bounds.height))
+//        UIGraphicsBeginImageContext(self.navigationController!.navigationBar.bounds.size)
+//        self.navigationController!.navigationBar.layer.renderInContext(UIGraphicsGetCurrentContext())
+//        let bar = UIGraphicsGetImageFromCurrentImageContext()
+//        barView.image = bar
+//        UIGraphicsEndImageContext()
+//        
+//        let screenView = UIImageView(frame: CGRectMake(0, self.navigationController!.navigationBar.bounds.height, self.view.bounds.width, self.view.bounds.height - self.navigationController!.navigationBar.bounds.height + 40))
+//        UIGraphicsBeginImageContext(screenView.bounds.size)
+//        self.view.layer.renderInContext(UIGraphicsGetCurrentContext())
+//        let screen = UIGraphicsGetImageFromCurrentImageContext()
+//        screenView.image = screen
+//        UIGraphicsEndImageContext()
+//        
+//        tmpV.addSubview(barView)
+//        tmpV.addSubview(screenView)
+//        
+//        UIGraphicsBeginImageContext(CGSizeMake(self.view.bounds.width, self.view.bounds.height + self.navigationController!.navigationBar.bounds.height));
+//        tmpV.layer.renderInContext(UIGraphicsGetCurrentContext())
+//        let imageToSave = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//        let imageData = UIImagePNGRepresentation(imageToSave)
+//        imageData.writeToFile("/Users/zfj4/CodePlex/temp/Simulations5.png", atomically: true)
+//        To here
+    }
+    
+    func popCurrentViewController() {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+}

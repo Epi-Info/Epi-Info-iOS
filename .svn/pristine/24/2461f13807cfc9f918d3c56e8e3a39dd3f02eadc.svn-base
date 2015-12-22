@@ -1,0 +1,24 @@
+//
+//  Checkbox.h
+//  EpiInfo
+//
+//  Created by John Copeland on 11/27/13.
+//
+
+#import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
+
+@interface Checkbox : UIView
+{
+    UIButton *button;
+    BOOL value;
+}
+
+-(BOOL)value;
+-(void)reset;
+-(void)setTrueFalse:(NSInteger)trueFalse;
+-(void)setFormFieldValue:(NSString *)formFieldValue;
+-(void)setCheckboxAccessibilityLabel:(NSString *)accessibilityLabel;
+
+@property NSString *columnName;
+@end

@@ -1,0 +1,126 @@
+//
+//  MeansObject.m
+//  EpiInfo
+//
+//  Created by John Copeland on 8/21/14.
+//  Copyright (c) 2014 John Copeland. All rights reserved.
+//
+
+#import "MeansObject.h"
+
+@implementation MeansObject
+@synthesize meansVariable = _meansVariable;
+@synthesize meansVariableValues = _meansVariableValues;
+
+- (id)initWithAnalysisDataObject:(AnalysisDataObject *)dataSet AndMeansVariable:(NSString *)meansVariable AndIncludeMissing:(BOOL)includeMissing
+{
+    self = [super init];
+    return self;
+}
+
+- (id)initWithSQLiteData:(SQLiteData *)dataSet AndWhereClause:(NSString *)whereClause AndMeansVariable:(NSString *)meansVariable AndIncludeMissing:(BOOL)includeMissing
+{
+    self = [super init];
+    
+    [self setMeansVariable:meansVariable];
+    
+    //Make arrays to hold the row values for the variables
+    NSMutableArray *meansArray = [[NSMutableArray alloc] init];
+    
+    //Get the path to the sqlite database
+    NSString *databasePath = [[NSString alloc] initWithString:[NSTemporaryDirectory() stringByAppendingString:@"EpiInfo.db"]];
+    
+    //If the database exists, query the WORKING_DATASET
+    if ([[NSFileManager defaultManager] fileExistsAtPath:databasePath])
+    {
+        //Convert the databasePath to a char array
+        const char *dbpath = [databasePath UTF8String];
+        sqlite3_stmt *statement;
+        
+        //Open the database
+        if (sqlite3_open(dbpath, &analysisDB) == SQLITE_OK)
+        {
+            //Build the SELECT statement
+            NSString *queryStmt = [[@"SELECT " stringByAppendingString:meansVariable] stringByAppendingString:@" FROM WORKING_DATASET"];
+            if (whereClause)
+                queryStmt = [queryStmt stringByAppendingString:[NSString stringWithFormat:@" %@", whereClause]];
+            //Convert the SELECT statement to a char array
+            const char *query_stmt = [queryStmt UTF8String];
+            //Execute the SELECT statement
+            if (sqlite3_prepare_v2(analysisDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+            {
+                //While the statement returns rows, read the column queried and put the values in the outcomeArray and exposureArray
+                while (sqlite3_step(statement) == SQLITE_ROW)
+                {
+                    if (!sqlite3_column_text(statement, 0) || [[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 0)] isEqualToString:@"(null)"])
+                    {
+                    }
+                    else
+                    {
+                        NSNumber *rslt = [NSNumber numberWithDouble:sqlite3_column_double(statement, 0)];
+                        [meansArray addObject:rslt];
+                    }
+                }
+            }
+            sqlite3_finalize(statement);
+        }
+        //Close the sqlite database
+        sqlite3_close(analysisDB);
+    }
+    
+    float n = 0.0;
+    float sum = 0.0;
+    float min = 0.0;
+    float max = 0.0;
+    BOOL minMaxSet = NO;
+    
+    for (int i = 0; i < meansArray.count; i++)
+    {
+        if ([[meansArray objectAtIndex:i] isKindOfClass:[NSNull class]])
+            continue;
+        float currentValue = [(NSNumber *)[meansArray objectAtIndex:i] floatValue];
+        if (!minMaxSet)
+        {
+            min = currentValue;
+            min = currentValue;
+            minMaxSet = YES;
+        }
+        n += 1.0;
+        sum += currentValue;
+        if (currentValue > max)
+            max = currentValue;
+        if (currentValue < min)
+            min = currentValue;
+    }
+    float mean = sum / n;
+    NSLog(@"%f / %f = %f", sum, n, mean);
+    NSLog(@"Min = %f; Max = %f", min, max);
+    
+    int medianI0 = (int)roundf((float)meansArray.count / 2.0);
+    int medianI1 = medianI0;
+    if (roundf((float)meansArray.count / 2.0) == floorf((float)meansArray.count / 2.0))
+        medianI1 += 1.0;
+    
+    NSArray *sortedMeansAray = [meansArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [(NSNumber *)obj1 compare:(NSNumber *)obj2];
+    }];
+
+    float median = ([(NSNumber *)[sortedMeansAray objectAtIndex:medianI0] floatValue] + [(NSNumber *)[sortedMeansAray objectAtIndex:medianI1] floatValue]) / 2.0;
+    
+    NSLog(@"%d and %d for %f", medianI0, medianI1, median);
+    
+    float ss = 0.0;
+    for (int i = 0; i < meansArray.count; i++)
+    {
+        if ([[meansArray objectAtIndex:i] isKindOfClass:[NSNull class]])
+            continue;
+        float currentValue = [(NSNumber *)[meansArray objectAtIndex:i] floatValue];
+        ss += (mean - currentValue) * (mean - currentValue);
+    }
+    float variance = ss / (n - 1.0);
+    float sdev = sqrtf(variance);
+    NSLog(@"%f, %f", variance, sdev);
+
+    return self;
+}
+@end

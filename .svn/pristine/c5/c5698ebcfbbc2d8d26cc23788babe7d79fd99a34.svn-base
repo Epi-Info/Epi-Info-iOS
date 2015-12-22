@@ -1,0 +1,164 @@
+//
+//  SimulationsViewControllerSwift.swift
+//  EpiInfo
+//
+//  Created by John Copeland on 3/4/15.
+//
+
+import UIKit
+
+class SimulationsViewControllerSwift: UIViewController {
+  
+  var fadingColorView = UIImageView()
+  var v1 = UIView()
+  var customBackButton = UIButton()
+  var cohortSimulationView = CohortSimulationsView()
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    let titleViewLabel = UILabel(frame: CGRectMake(0, 0, 200, 44))
+    titleViewLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 24.0)
+    titleViewLabel.text = "Simulations"
+    titleViewLabel.textAlignment = NSTextAlignment.Center
+    titleViewLabel.textColor = UIColor.whiteColor()
+    titleViewLabel.backgroundColor = UIColor.clearColor()
+    self.navigationItem.titleView = titleViewLabel
+    
+    if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+      // Change the standard NavigationController "Back" button to an "X"
+      customBackButton = UIButton(frame: CGRectMake(0, 0, 30, 30))
+      customBackButton.setImage(UIImage(named: "StAndrewXButtonWhite.png"), forState: .Normal)
+      customBackButton.addTarget(self, action: "popCurrentViewController", forControlEvents: .TouchUpInside)
+      customBackButton.layer.masksToBounds = true
+      customBackButton.layer.cornerRadius = 8.0
+      customBackButton.setTitle("Back to previous screen", forState: .Normal)
+      self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: customBackButton)
+      self.navigationItem.hidesBackButton = true
+    } else {
+      // Change the standard NavigationController "Back" button to an "X"
+      customBackButton = UIButton(frame: CGRectMake(0, 0, 30, 30))
+      customBackButton.setImage(UIImage(named: "StAndrewXButtonWhite.png"), forState: .Normal)
+      customBackButton.addTarget(self, action: "popCurrentViewController", forControlEvents: .TouchUpInside)
+      customBackButton.layer.masksToBounds = true
+      customBackButton.layer.cornerRadius = 8.0
+      customBackButton.setTitle("Back to previous screen", forState: .Normal)
+      self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: customBackButton)
+      self.navigationItem.hidesBackButton = true
+      
+      // Add background image
+      fadingColorView = UIImageView(frame: CGRectMake(0, 0, self.view.frame.width, self.view.frame.height - self.navigationController!.navigationBar.frame.height - UIApplication.sharedApplication().statusBarFrame.height))
+      let frameHeight: Float = Float(self.view.frame.size.height)
+      if frameHeight > 500 {
+        let pictureHeight = UIImage(named: "iPhone5Background.png")!.size.height
+        let pictureWidth = UIImage(named: "iPhone5Background.png")!.size.width
+        fadingColorView.image = UIImage(named: "iPhone5Background.png")
+      } else {
+        let pictureHeight = UIImage(named: "iPhone4Background.png")!.size.height
+        let pictureWidth = UIImage(named: "iPhone4Background.png")!.size.width
+        fadingColorView.image = UIImage(named: "iPhone4Background.png")
+      }
+      self.view.addSubview(fadingColorView)
+      self.view.sendSubviewToBack(fadingColorView)
+      
+      // Add and wire up Cohort Study Simulation Button
+      v1 = UIView(frame: CGRectMake(CGFloat(sqrtf(800)), CGFloat(sqrtf(800)) + 60.0, 60, 90))
+      v1.backgroundColor = UIColor.clearColor()
+      self.view.addSubview(v1)
+      let cohortButton = UIButton(frame: CGRectMake(0, 0, 60, 60))
+      cohortButton.layer.cornerRadius = 10.0
+      cohortButton.layer.masksToBounds = true
+      cohortButton.addTarget(self, action: "cohortButtonTouched", forControlEvents: .TouchUpInside)
+      if UIScreen.mainScreen().scale > 1.0 {
+        cohortButton.setImage(UIImage(named: "SimulateCohort.png"), forState: .Normal)
+      } else {
+        cohortButton.setImage(UIImage(named: "SimulateCohortNR.png"), forState: .Normal)
+      }
+      v1.addSubview(cohortButton)
+      let label1 = UILabel(frame: CGRectMake(0, 64, 60, 12))
+      let label2 = UILabel(frame: CGRectMake(0, 76, 60, 14))
+      label1.text = "Cohort"
+      label2.text = "Study"
+      label1.backgroundColor = UIColor.clearColor()
+      label2.backgroundColor = UIColor.clearColor()
+      label1.textColor = UIColor.whiteColor()
+      label2.textColor = UIColor.whiteColor()
+      label1.textAlignment = NSTextAlignment.Center
+      label2.textAlignment = NSTextAlignment.Center
+      label1.font = UIFont(name: "HelveticaNeue-Bold", size: 12.0)
+      label2.font = UIFont(name: "HelveticaNeue-Bold", size: 12.0)
+      v1.addSubview(label1)
+      v1.addSubview(label2)
+    }
+  }
+  
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+    //        Commented lines were used to create a screenshot image.
+    //        let tmpV = UIView(frame: CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height))
+    //
+    //        let barView = UIImageView(frame: CGRectMake(0, 0, self.view.bounds.size.width, self.navigationController!.navigationBar.bounds.height))
+    //        UIGraphicsBeginImageContext(self.navigationController!.navigationBar.bounds.size)
+    //        self.navigationController!.navigationBar.layer.renderInContext(UIGraphicsGetCurrentContext())
+    //        let bar = UIGraphicsGetImageFromCurrentImageContext()
+    //        barView.image = bar
+    //        UIGraphicsEndImageContext()
+    //
+    //        let screenView = UIImageView(frame: CGRectMake(0, self.navigationController!.navigationBar.bounds.height, self.view.bounds.width, self.view.bounds.height - self.navigationController!.navigationBar.bounds.height + 40))
+    //        UIGraphicsBeginImageContext(screenView.bounds.size)
+    //        self.view.layer.renderInContext(UIGraphicsGetCurrentContext())
+    //        let screen = UIGraphicsGetImageFromCurrentImageContext()
+    //        screenView.image = screen
+    //        UIGraphicsEndImageContext()
+    //
+    //        tmpV.addSubview(barView)
+    //        tmpV.addSubview(screenView)
+    //
+    //        UIGraphicsBeginImageContext(CGSizeMake(self.view.bounds.width, self.view.bounds.height + self.navigationController!.navigationBar.bounds.height));
+    //        tmpV.layer.renderInContext(UIGraphicsGetCurrentContext())
+    //        let imageToSave = UIGraphicsGetImageFromCurrentImageContext()
+    //        UIGraphicsEndImageContext()
+    //        let imageData = UIImagePNGRepresentation(imageToSave)
+    //        imageData.writeToFile("/Users/zfj4/CodePlex/temp/Simulations4.png", atomically: true)
+    //        To here
+  }
+  
+  func cohortButtonTouched() {
+    cohortSimulationView = CohortSimulationsView(frame: self.fadingColorView.frame)
+    self.cohortSimulationView.changeFrame(CGRectMake(v1.frame.origin.x, v1.frame.origin.y, 60, 60))
+    self.view.addSubview(cohortSimulationView)
+    
+    UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveLinear, animations: {
+      self.cohortSimulationView.changeFrame(self.fadingColorView.frame)
+      }, completion: {
+        (value: Bool) in
+        self.customBackButton.removeTarget(self, action: "popCurrentViewController", forControlEvents: .TouchUpInside)
+        self.customBackButton.addTarget(self, action: "removeCohortView", forControlEvents: .TouchUpInside)
+    })
+  }
+  
+  func removeCohortView() {
+    UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveLinear, animations: {
+      self.cohortSimulationView.changeFrame(CGRectMake(self.v1.frame.origin.x, self.v1.frame.origin.y, 60, 60))
+      }, completion: {
+        (value: Bool) in
+        self.cohortSimulationView.killThread = true
+        self.cohortSimulationView.removeFromSuperview()
+        self.customBackButton.removeTarget(self, action: "removeCohortView", forControlEvents: .TouchUpInside)
+        self.customBackButton.addTarget(self, action: "popCurrentViewController", forControlEvents: .TouchUpInside)
+    })
+  }
+  
+  func popCurrentViewController() {
+    self.navigationController?.popViewControllerAnimated(true)
+  }
+  
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
+}

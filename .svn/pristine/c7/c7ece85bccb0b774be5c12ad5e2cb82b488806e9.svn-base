@@ -1,0 +1,59 @@
+//
+//  GrowthPercentilesCompute.m
+//  EpiInfo
+//
+//  Created by John Copeland on 6/20/14.
+//  Copyright (c) 2014 John Copeland. All rights reserved.
+//
+
+#import "GrowthPercentilesCompute.h"
+#import "SharedResources.h"
+
+@implementation GrowthPercentilesCompute
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        NSString *csvPathForLength = [[NSBundle mainBundle] pathForResource:@"lenageinf" ofType:@"csv"];
+        lengthForAgeData = [[AnalysisDataObject alloc] initWithCSVFile:csvPathForLength];
+    }
+    return self;
+}
+- (float)computePercentileOnLength:(float)lengthCM forAge:(float)age inMonths:(BOOL)isMonths forMale:(BOOL)isMale
+{
+    float workingAge = 0.0;
+    if (age == 36.0)
+        workingAge = 35.5;
+    else if (age >= 0.25)
+        workingAge = ((float)(int)age) + 0.5;
+    
+    float sex = 2.0;
+    if (isMale)
+        sex = 1.0;
+    
+    float L = 0.0;
+    float M = 0.0;
+    float S = 0.0;
+    
+    for (NSObject *v in lengthForAgeData.dataSet)
+    {
+        if ([[(NSArray *)v objectAtIndex:0] floatValue] == sex && [[(NSArray *)v objectAtIndex:1] floatValue] == workingAge)
+        {
+            L = [[(NSArray *)v objectAtIndex:2] floatValue];
+            M = [[(NSArray *)v objectAtIndex:3] floatValue];
+            S = [[(NSArray *)v objectAtIndex:4] floatValue];
+            break;
+        }
+    }
+    
+    float Z = 0.0;
+    if (L != 0.0)
+        Z = (powf((lengthCM / M), L) - 1) / (L * S);
+    else
+        Z = logf(lengthCM / M) / S;
+    
+    double p = [SharedResources pFromZ:(double)Z];
+    
+    return 100 * (1.0 - (float)p);
+}
+@end

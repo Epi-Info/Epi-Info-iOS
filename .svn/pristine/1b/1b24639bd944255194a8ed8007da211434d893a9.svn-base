@@ -1,0 +1,110 @@
+//
+//  AWSSimpleDBConnectionInfo.m
+//  EpiInfo
+//
+//  Created by John Copeland on 7/30/13.
+//  Copyright (c) 2013 John Copeland. All rights reserved.
+//
+
+#import "AWSSimpleDBConnectionInfo.h"
+
+@implementation AWSSimpleDBConnectionInfo
++ (NSArray *)connections
+{
+    //User selected AWS SimpleDB data type
+    //Get the schema from the file containing connection information
+    
+    //Name the path and file
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *pathAndFile = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfo/AWSSimpleDBKeys.db"];
+    
+    //Check to see that it exists
+    if ([[NSFileManager defaultManager] fileExistsAtPath:pathAndFile])
+    {
+        NSMutableArray *nsma = [[NSMutableArray alloc] init];
+        sqlite3 *keysDB;
+        //Convert the databasePath NSString to a char array
+        const char *dbpath = [pathAndFile UTF8String];
+        sqlite3_stmt *statement;
+        
+        //Open sqlite3 analysisDB pointing to the databasePath
+        if (sqlite3_open(dbpath, &keysDB) == SQLITE_OK)
+        {
+            //Build the SELECT statement
+            NSString *sqlStmt = @"SELECT NAME FROM SIMPLE_DB_KEYS";
+            //Convert the sqlStmt to char array
+            const char *sql_stmt = [sqlStmt UTF8String];
+            
+            //Execute the SELECT statement
+            if (sqlite3_prepare_v2(keysDB, sql_stmt, -1, &statement, NULL) == SQLITE_OK)
+            {
+                //While the statement returns rows, read the column queried and put the value in the dataArray
+                while (sqlite3_step(statement) == SQLITE_ROW)
+                {
+                    NSString *rslt = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 0)];
+                    [nsma addObject:rslt];
+                }
+            }
+            
+            //Close the sqlite connection
+            sqlite3_finalize(statement);
+            sqlite3_close(keysDB);
+            return [NSArray arrayWithArray:nsma];
+        }
+        else
+        {
+            NSLog(@"Failed to open/create database");
+        }
+    }
+    
+    //Return an empty array if no connections have been saved
+    return [NSArray arrayWithObjects:nil];
+}
++ (NSArray *)keys:(NSString *)connection
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *pathAndFile = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfo/AWSSimpleDBKeys.db"];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:pathAndFile])
+    {
+        NSMutableArray *nsma = [[NSMutableArray alloc] init];
+        sqlite3 *keysDB;
+        //Convert the databasePath NSString to a char array
+        const char *dbpath = [pathAndFile UTF8String];
+        sqlite3_stmt *statement;
+        
+        //Open sqlite3 analysisDB pointing to the databasePath
+        if (sqlite3_open(dbpath, &keysDB) == SQLITE_OK)
+        {
+            //Build the SELECT statement
+            NSString *sqlStmt = @"SELECT ACCESS_KEY, SECRET_KEY FROM SIMPLE_DB_KEYS WHERE NAME = '";
+            sqlStmt = [sqlStmt stringByAppendingString:[connection stringByReplacingOccurrencesOfString:@"'" withString:@"''"]];
+            sqlStmt = [sqlStmt stringByAppendingString:@"'"];
+            //Convert the sqlStmt to char array
+            const char *sql_stmt = [sqlStmt UTF8String];
+            
+            //Execute the SELECT statement
+            if (sqlite3_prepare_v2(keysDB, sql_stmt, -1, &statement, NULL) == SQLITE_OK)
+            {
+                //While the statement returns rows, read the column queried and put the value in the dataArray
+                if (sqlite3_step(statement) == SQLITE_ROW)
+                {
+                    [nsma addObject:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 0)]];
+                    [nsma addObject:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 1)]];
+                }
+            }
+            
+            //Close the sqlite connection
+            sqlite3_finalize(statement);
+            sqlite3_close(keysDB);
+            return [NSArray arrayWithArray:nsma];
+        }
+        else
+        {
+            NSLog(@"Failed to open/create database");
+        }
+    }
+
+    return [NSArray arrayWithObjects:nil];
+}
+@end

@@ -1,0 +1,26 @@
+//
+//  MeansObject.m
+//  EpiInfo
+//
+//  Created by John Copeland on 8/21/14.
+//  Copyright (c) 2014 John Copeland. All rights reserved.
+//
+
+#import "MeansObject.h"
+
+@implementation MeansObject
+@synthesize meansVariable = _meansVariable;
+@synthesize meansVariableValues = _meansVariableValues;
+
+- (id)initWithAnalysisDataObject:(AnalysisDataObject *)dataSet AndMeansVariable:(NSString *)meansVariable AndIncludeMissing:(BOOL)includeMissing
+{
+    self = [super init];
+    return self;
+}
+
+- (id)initWithSQLiteData:(SQLiteData *)dataSet AndWhereClause:(NSString *)whereClause AndMeansVariable:(NSString *)meansVariable AndIncludeMissing:(BOOL)includeMissing
+{
+    self = [super init];
+    return self;
+}
+@end

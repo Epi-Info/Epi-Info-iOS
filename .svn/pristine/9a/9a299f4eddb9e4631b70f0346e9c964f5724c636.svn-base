@@ -1,0 +1,763 @@
+//
+//  UIViewController+VHFViewController.m
+//  EpiInfo
+//
+//  Created by John Copeland on 10/8/14.
+//  Copyright (c) 2014 John Copeland. All rights reserved.
+//
+
+#import "VHFViewController.h"
+#import "EpiInfoViewForRounding.h"
+
+@implementation VHFViewController
+-(void)viewDidLoad
+{
+    Checkbox *checkbox0 = [[Checkbox alloc] initWithFrame:CGRectMake(2, 2, 30, 30)];
+    Checkbox *checkbox1 = [[Checkbox alloc] initWithFrame:CGRectMake(2, 2, 30, 30)];
+    Checkbox *checkbox2 = [[Checkbox alloc] initWithFrame:CGRectMake(2, 2, 30, 30)];
+    Checkbox *checkbox3 = [[Checkbox alloc] initWithFrame:CGRectMake(2, 2, 30, 30)];
+    Checkbox *checkbox4 = [[Checkbox alloc] initWithFrame:CGRectMake(2, 2, 30, 30)];
+    Checkbox *checkbox5 = [[Checkbox alloc] initWithFrame:CGRectMake(2, 2, 30, 30)];
+    [checkbox0.myButton addTarget:self action:@selector(makeFirstFourCheckboxesSingleSelect:) forControlEvents:UIControlEventTouchUpInside];
+    [checkbox1.myButton addTarget:self action:@selector(makeFirstFourCheckboxesSingleSelect:) forControlEvents:UIControlEventTouchUpInside];
+    [checkbox2.myButton addTarget:self action:@selector(makeFirstFourCheckboxesSingleSelect:) forControlEvents:UIControlEventTouchUpInside];
+    [checkbox3.myButton addTarget:self action:@selector(makeFirstFourCheckboxesSingleSelect:) forControlEvents:UIControlEventTouchUpInside];
+    [checkbox4.myButton addTarget:self action:@selector(makeOtherTwoCheckboxesSingleSelect:) forControlEvents:UIControlEventTouchUpInside];
+    [checkbox5.myButton addTarget:self action:@selector(makeOtherTwoCheckboxesSingleSelect:) forControlEvents:UIControlEventTouchUpInside];
+
+    arrayOfCheckboxes = @[checkbox0,checkbox1,checkbox2,checkbox3,checkbox4,checkbox5];
+    arrayOfLabels = [[NSMutableArray alloc] init];
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        // Change the standard NavigationController "Back" button to an "X"
+        customBackButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        [customBackButton setImage:[UIImage imageNamed:@"StAndrewXButtonWhite.png"] forState:UIControlStateNormal];
+        [customBackButton addTarget:self action:@selector(popCurrentViewController) forControlEvents:UIControlEventTouchUpInside];
+        [customBackButton.layer setMasksToBounds:YES];
+        [customBackButton.layer setCornerRadius:8.0];
+        [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
+        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+        [self.navigationItem setHidesBackButton:YES animated:NO];
+        
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)
+        {
+            if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+                fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height - 600)];
+            else
+                fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.height, [self.view frame].size.width - 300)];
+            [fadingColorView setImage:[UIImage imageNamed:@"FadeDown.png"]];
+        }
+        else
+        {
+            if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+                fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height)];
+            else
+                fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.height, [self.view frame].size.width)];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPadBackground.png"]];
+        }
+        
+        [self.view addSubview:fadingColorView];
+        [self.view sendSubviewToBack:fadingColorView];
+        
+        orangeBannerBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 36)];
+        [orangeBannerBackground setBackgroundColor:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:1.0]];
+        [self.view addSubview:orangeBannerBackground];
+        
+        orangeBanner = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 36)];
+        [orangeBanner setBackgroundColor:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:0.95]];
+        [self.view addSubview:orangeBanner];
+        
+        UILabel *header = [[UILabel alloc] initWithFrame:CGRectMake(30, 0, orangeBanner.frame.size.width - 60.0, 34)];
+        [header setBackgroundColor:[UIColor clearColor]];
+        [header setTextColor:[UIColor whiteColor]];
+        [header setTextAlignment:NSTextAlignmentCenter];
+        [orangeBanner addSubview:header];
+        
+        UIButton *lineListButton = [[UIButton alloc] initWithFrame:CGRectMake(2, 2, 30, 30)];
+        [lineListButton setBackgroundColor:[UIColor clearColor]];
+        [lineListButton setImage:[UIImage imageNamed:@"LineList6060.png"] forState:UIControlStateNormal];
+        [lineListButton setTitle:@"Show line listing" forState:UIControlStateNormal];
+        [lineListButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+        [lineListButton setAlpha:0.5];
+        [lineListButton.layer setMasksToBounds:YES];
+        [lineListButton.layer setCornerRadius:8.0];
+        [lineListButton addTarget:self action:@selector(lineListButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [orangeBanner addSubview:lineListButton];
+        
+        [header setText:@"VHF Contact Tracing"];
+        float fontSize = 24.0;
+        //        while ([header.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontSize]}].width > 240)
+        //            fontSize -= 0.1;
+        [header setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontSize]];
+        
+        displayView = [[UIView alloc] initWithFrame:CGRectMake(10, 40, 300, 100)];
+        [displayView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [displayView.layer setCornerRadius:10.0];
+        //        [self.view addSubview:displayView];
+        
+        UILabel *idLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 30)];
+        [idLabel setBackgroundColor:[UIColor clearColor]];
+        [idLabel setTextColor:[UIColor whiteColor]];
+        [idLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+        [idLabel setTextAlignment:NSTextAlignmentCenter];
+        [displayView addSubview:idLabel];
+        [arrayOfLabels addObject:idLabel];
+        
+        int rows = 6;
+        for (int i = 0; i < rows; i++)
+        {
+            EpiInfoViewForRounding *leftView = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(2, 30 + (float)i * 22.0, 147.0, 20.0) AndIsSquareLeft:YES AndIsSquareRight:YES];
+            [leftView setBackgroundColor:[UIColor whiteColor]];
+            [leftView.layer setCornerRadius:8.0];
+            UILabel *leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 0, leftView.frame.size.width - 8, leftView.frame.size.height)];
+            [leftLabel setBackgroundColor:[UIColor clearColor]];
+            [leftLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [leftLabel setTextColor:[UIColor blackColor]];
+            [leftView addSubview:leftLabel];
+            [arrayOfLabels addObject:leftLabel];
+            [displayView addSubview:leftView];
+            
+            EpiInfoViewForRounding *rightView = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(151, 30 + (float)i * 22.0, 147.0, 20.0) AndIsSquareLeft:YES AndIsSquareRight:YES];
+            [rightView setBackgroundColor:[UIColor whiteColor]];
+            [rightView.layer setCornerRadius:8.0];
+            UILabel *rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 0, leftView.frame.size.width - 8, leftView.frame.size.height)];
+            [rightLabel setBackgroundColor:[UIColor clearColor]];
+            [rightLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [rightLabel setTextColor:[UIColor blackColor]];
+            [rightView addSubview:rightLabel];
+            [arrayOfLabels addObject:rightLabel];
+            [displayView addSubview:rightView];
+            
+            if (i == rows - 1)
+            {
+                [leftView removeLeft];
+                [rightView removeRight];
+            }
+        }
+        [displayView setFrame:CGRectMake(displayView.frame.origin.x, displayView.frame.origin.y, displayView.frame.size.width, 30.0 + 22.0 * (float)rows)];
+        
+        checkboxView0 = [[UIView alloc] initWithFrame:CGRectMake(displayView.frame.origin.x, displayView.frame.origin.y + displayView.frame.size.height + 4.0, displayView.frame.size.width - 120, 4.0 * 36.0 + 2.0)];
+        [checkboxView0 setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [checkboxView0.layer setCornerRadius:10.0];
+        
+        UIView *topLeftView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, 34, 34)];
+        [topLeftView setBackgroundColor:[UIColor whiteColor]];
+        [topLeftView.layer setCornerRadius:8.0];
+        UIView *square0 = [[UIView alloc] initWithFrame:CGRectMake(17, 0, 17, 34)];
+        [square0 setBackgroundColor:[UIColor whiteColor]];
+        [topLeftView addSubview:square0];
+        UIView *square1 = [[UIView alloc] initWithFrame:CGRectMake(0, 17, 34, 17)];
+        [square1 setBackgroundColor:[UIColor whiteColor]];
+        [topLeftView addSubview:square1];
+        [topLeftView addSubview:(Checkbox *)[arrayOfCheckboxes objectAtIndex:0]];
+        [checkboxView0 addSubview:topLeftView];
+        UIView *topRightView = [[UIView alloc] initWithFrame:CGRectMake(topLeftView.frame.origin.x + topLeftView.frame.size.width + 2, 2, checkboxView0.frame.size.width - (topLeftView.frame.origin.x + topLeftView.frame.size.width + 2) - 2, topLeftView.frame.size.height)];
+        [topRightView setBackgroundColor:[UIColor whiteColor]];
+        [topRightView.layer setCornerRadius:8.0];
+        UIView *square2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, topRightView.frame.size.width / 2.0, topRightView.frame.size.height)];
+        [square2 setBackgroundColor:[UIColor whiteColor]];
+        [topRightView addSubview:square2];
+        UIView *square3 = [[UIView alloc] initWithFrame:CGRectMake(0, topRightView.frame.size.height / 2.0, topRightView.frame.size.width, topRightView.frame.size.height / 2.0)];
+        [square3 setBackgroundColor:[UIColor whiteColor]];
+        [topRightView addSubview:square3];
+        UILabel *topRightLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 0, topRightView.frame.size.width - 8, topRightView.frame.size.height)];
+        [topRightLabel setBackgroundColor:[UIColor clearColor]];
+        [topRightLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+        [topRightLabel setText:@"Seen and healthy"];
+        [topRightView addSubview:topRightLabel];
+        [checkboxView0 addSubview:topRightView];
+        
+        for (int i = 0; i < 3; i++)
+        {
+            EpiInfoViewForRounding *leftView = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(2, 38 + (float)i * 36.0, 34.0, 34.0) AndIsSquareLeft:YES AndIsSquareRight:YES];
+            [leftView setBackgroundColor:[UIColor whiteColor]];
+            [leftView.layer setCornerRadius:8.0];
+            [leftView addSubview:(Checkbox *)[arrayOfCheckboxes objectAtIndex:i + 1]];
+            [checkboxView0 addSubview:leftView];
+            
+            EpiInfoViewForRounding *rightView = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(topRightView.frame.origin.x, leftView.frame.origin.y, topRightView.frame.size.width, leftView.frame.size.height) AndIsSquareLeft:YES AndIsSquareRight:YES];
+            [rightView setBackgroundColor:[UIColor whiteColor]];
+            [rightView.layer setCornerRadius:8.0];
+            UILabel *rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 0, rightView.frame.size.width - 8, rightView.frame.size.height)];
+            [rightLabel setBackgroundColor:[UIColor clearColor]];
+            [rightLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            if (i == 0)
+                [rightLabel setText:@"Seen and sick"];
+            else if (i == 1)
+                [rightLabel setText:@"Not seen"];
+            else if (i == 2)
+                [rightLabel setText:@"No information"];
+            [rightView addSubview:rightLabel];
+            [checkboxView0 addSubview:rightView];
+            
+            if (i == 2)
+            {
+                [leftView removeLeft];
+                [rightView removeRight];
+            }
+        }
+        
+        checkboxView1 = [[UIView alloc] initWithFrame:CGRectMake(checkboxView0.frame.origin.x + checkboxView0.frame.size.width - 120, checkboxView0.frame.origin.y, 116, checkboxView0.frame.size.height)];
+        [checkboxView1 setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [checkboxView1.layer setCornerRadius:8.0];
+        
+        UILabel *isolatedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, checkboxView1.frame.size.width, 32)];
+        [isolatedLabel setBackgroundColor:[UIColor clearColor]];
+        [isolatedLabel setTextColor:[UIColor whiteColor]];
+        [isolatedLabel setTextAlignment:NSTextAlignmentCenter];
+        [isolatedLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+        [isolatedLabel setText:@"Isolated?"];
+        [checkboxView1 addSubview:isolatedLabel];
+        
+        for (int i = 0; i < 2; i++)
+        {
+            EpiInfoViewForRounding *leftView = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(2, 38 + (float)i * 36.0, 34.0, 34.0) AndIsSquareLeft:YES AndIsSquareRight:YES];
+            [leftView setBackgroundColor:[UIColor whiteColor]];
+            [leftView.layer setCornerRadius:8.0];
+            [leftView addSubview:(Checkbox *)[arrayOfCheckboxes objectAtIndex:i + 4]];
+            [checkboxView1 addSubview:leftView];
+            
+            EpiInfoViewForRounding *rightView = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(topRightView.frame.origin.x, leftView.frame.origin.y, checkboxView1.frame.size.width - 40, leftView.frame.size.height) AndIsSquareLeft:YES AndIsSquareRight:YES];
+            [rightView setBackgroundColor:[UIColor whiteColor]];
+            [rightView.layer setCornerRadius:8.0];
+            UILabel *rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 0, rightView.frame.size.width - 8, rightView.frame.size.height)];
+            [rightLabel setBackgroundColor:[UIColor clearColor]];
+            [rightLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            if (i == 0)
+                [rightLabel setText:@"Yes"];
+            else if (i == 1)
+                [rightLabel setText:@"No"];
+            [rightView addSubview:rightLabel];
+            [checkboxView1 addSubview:rightView];
+        }
+        
+        EpiInfoViewForRounding *bottomView = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(2, checkboxView1.frame.size.height - 36, checkboxView1.frame.size.width - 4, 34) AndIsSquareLeft:NO AndIsSquareRight:NO];
+        [bottomView setBackgroundColor:[UIColor whiteColor]];
+        [bottomView.layer setCornerRadius:8.0];
+        notes = [[EpiInfoTextField alloc] initWithFrame:CGRectMake(2, 2, bottomView.frame.size.width - 4, bottomView.frame.size.height - 4)];
+        [notes setBorderStyle:UITextBorderStyleRoundedRect];
+        [notes setDelegate:self];
+        [notes setReturnKeyType:UIReturnKeyDone];
+        [notes setAccessibilityLabel:@"Notes"];
+        [bottomView addSubview:notes];
+        [checkboxView1 addSubview:bottomView];
+        
+        smsButton = [[UIButton alloc] initWithFrame:CGRectMake(10, checkboxView0.frame.origin.y + checkboxView0.frame.size.height + 4, 120, 40)];
+        [smsButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [smsButton addTarget:self action:@selector(sendATextMessage) forControlEvents:UIControlEventTouchUpInside];
+        [smsButton.layer setMasksToBounds:YES];
+        [smsButton.layer setCornerRadius:4.0];
+        [smsButton setImage:[UIImage imageNamed:@"SubmitButton.png"] forState:UIControlStateNormal];
+        //        [self.view addSubview:smsButton];
+    }
+    else
+    {
+        // Change the standard NavigationController "Back" button to an "X"
+        customBackButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        [customBackButton setImage:[UIImage imageNamed:@"StAndrewXButtonWhite.png"] forState:UIControlStateNormal];
+        [customBackButton addTarget:self action:@selector(popCurrentViewController) forControlEvents:UIControlEventTouchUpInside];
+        [customBackButton.layer setMasksToBounds:YES];
+        [customBackButton.layer setCornerRadius:8.0];
+        [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
+        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+        [self.navigationItem setHidesBackButton:YES animated:NO];
+
+        fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height - self.navigationController.navigationBar.frame.size.height - [[UIApplication sharedApplication] statusBarFrame].size.height)];
+        if (self.view.frame.size.height > 500)
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5Background.png"]];
+        else
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4Background.png"]];
+        [self.view addSubview:fadingColorView];
+        [self.view sendSubviewToBack:fadingColorView];
+        
+        orangeBannerBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 36)];
+        [orangeBannerBackground setBackgroundColor:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:1.0]];
+        [self.view addSubview:orangeBannerBackground];
+        
+        orangeBanner = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 36)];
+        [orangeBanner setBackgroundColor:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:0.95]];
+        [self.view addSubview:orangeBanner];
+        
+        UILabel *header = [[UILabel alloc] initWithFrame:CGRectMake(30, 0, 320 - 60.0, 34)];
+        [header setBackgroundColor:[UIColor clearColor]];
+        [header setTextColor:[UIColor whiteColor]];
+        [header setTextAlignment:NSTextAlignmentCenter];
+        [orangeBanner addSubview:header];
+        
+        UIButton *lineListButton = [[UIButton alloc] initWithFrame:CGRectMake(2, 2, 30, 30)];
+        [lineListButton setBackgroundColor:[UIColor clearColor]];
+        [lineListButton setImage:[UIImage imageNamed:@"LineList6060.png"] forState:UIControlStateNormal];
+        [lineListButton setTitle:@"Show line listing" forState:UIControlStateNormal];
+        [lineListButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+        [lineListButton setAlpha:0.5];
+        [lineListButton.layer setMasksToBounds:YES];
+        [lineListButton.layer setCornerRadius:8.0];
+        [lineListButton addTarget:self action:@selector(lineListButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [orangeBanner addSubview:lineListButton];
+        
+        [header setText:@"VHF Contact Tracing"];
+        float fontSize = 24.0;
+//        while ([header.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontSize]}].width > 240)
+//            fontSize -= 0.1;
+        [header setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontSize]];
+        
+        displayView = [[UIView alloc] initWithFrame:CGRectMake(10, 40, 300, 100)];
+        [displayView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [displayView.layer setCornerRadius:10.0];
+//        [self.view addSubview:displayView];
+        
+        UILabel *idLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 30)];
+        [idLabel setBackgroundColor:[UIColor clearColor]];
+        [idLabel setTextColor:[UIColor whiteColor]];
+        [idLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+        [idLabel setTextAlignment:NSTextAlignmentCenter];
+        [displayView addSubview:idLabel];
+        [arrayOfLabels addObject:idLabel];
+        
+        int rows = 6;
+        for (int i = 0; i < rows; i++)
+        {
+            EpiInfoViewForRounding *leftView = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(2, 30 + (float)i * 22.0, 147.0, 20.0) AndIsSquareLeft:YES AndIsSquareRight:YES];
+            [leftView setBackgroundColor:[UIColor whiteColor]];
+            [leftView.layer setCornerRadius:8.0];
+            UILabel *leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 0, leftView.frame.size.width - 8, leftView.frame.size.height)];
+            [leftLabel setBackgroundColor:[UIColor clearColor]];
+            [leftLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [leftLabel setTextColor:[UIColor blackColor]];
+            [leftView addSubview:leftLabel];
+            [arrayOfLabels addObject:leftLabel];
+            [displayView addSubview:leftView];
+
+            EpiInfoViewForRounding *rightView = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(151, 30 + (float)i * 22.0, 147.0, 20.0) AndIsSquareLeft:YES AndIsSquareRight:YES];
+            [rightView setBackgroundColor:[UIColor whiteColor]];
+            [rightView.layer setCornerRadius:8.0];
+            UILabel *rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 0, leftView.frame.size.width - 8, leftView.frame.size.height)];
+            [rightLabel setBackgroundColor:[UIColor clearColor]];
+            [rightLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [rightLabel setTextColor:[UIColor blackColor]];
+            [rightView addSubview:rightLabel];
+            [arrayOfLabels addObject:rightLabel];
+            [displayView addSubview:rightView];
+            
+            if (i == rows - 1)
+            {
+                [leftView removeLeft];
+                [rightView removeRight];
+            }
+        }
+        [displayView setFrame:CGRectMake(displayView.frame.origin.x, displayView.frame.origin.y, displayView.frame.size.width, 30.0 + 22.0 * (float)rows)];
+        
+        checkboxView0 = [[UIView alloc] initWithFrame:CGRectMake(displayView.frame.origin.x, displayView.frame.origin.y + displayView.frame.size.height + 4.0, displayView.frame.size.width - 120, 4.0 * 36.0 + 2.0)];
+        [checkboxView0 setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [checkboxView0.layer setCornerRadius:10.0];
+        
+        UIView *topLeftView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, 34, 34)];
+        [topLeftView setBackgroundColor:[UIColor whiteColor]];
+        [topLeftView.layer setCornerRadius:8.0];
+        UIView *square0 = [[UIView alloc] initWithFrame:CGRectMake(17, 0, 17, 34)];
+        [square0 setBackgroundColor:[UIColor whiteColor]];
+        [topLeftView addSubview:square0];
+        UIView *square1 = [[UIView alloc] initWithFrame:CGRectMake(0, 17, 34, 17)];
+        [square1 setBackgroundColor:[UIColor whiteColor]];
+        [topLeftView addSubview:square1];
+        [topLeftView addSubview:(Checkbox *)[arrayOfCheckboxes objectAtIndex:0]];
+        [checkboxView0 addSubview:topLeftView];
+        UIView *topRightView = [[UIView alloc] initWithFrame:CGRectMake(topLeftView.frame.origin.x + topLeftView.frame.size.width + 2, 2, checkboxView0.frame.size.width - (topLeftView.frame.origin.x + topLeftView.frame.size.width + 2) - 2, topLeftView.frame.size.height)];
+        [topRightView setBackgroundColor:[UIColor whiteColor]];
+        [topRightView.layer setCornerRadius:8.0];
+        UIView *square2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, topRightView.frame.size.width / 2.0, topRightView.frame.size.height)];
+        [square2 setBackgroundColor:[UIColor whiteColor]];
+        [topRightView addSubview:square2];
+        UIView *square3 = [[UIView alloc] initWithFrame:CGRectMake(0, topRightView.frame.size.height / 2.0, topRightView.frame.size.width, topRightView.frame.size.height / 2.0)];
+        [square3 setBackgroundColor:[UIColor whiteColor]];
+        [topRightView addSubview:square3];
+        UILabel *topRightLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 0, topRightView.frame.size.width - 8, topRightView.frame.size.height)];
+        [topRightLabel setBackgroundColor:[UIColor clearColor]];
+        [topRightLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+        [topRightLabel setText:@"Seen and healthy"];
+        [topRightView addSubview:topRightLabel];
+        [checkboxView0 addSubview:topRightView];
+        
+        for (int i = 0; i < 3; i++)
+        {
+            EpiInfoViewForRounding *leftView = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(2, 38 + (float)i * 36.0, 34.0, 34.0) AndIsSquareLeft:YES AndIsSquareRight:YES];
+            [leftView setBackgroundColor:[UIColor whiteColor]];
+            [leftView.layer setCornerRadius:8.0];
+            [leftView addSubview:(Checkbox *)[arrayOfCheckboxes objectAtIndex:i + 1]];
+            [checkboxView0 addSubview:leftView];
+            
+            EpiInfoViewForRounding *rightView = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(topRightView.frame.origin.x, leftView.frame.origin.y, topRightView.frame.size.width, leftView.frame.size.height) AndIsSquareLeft:YES AndIsSquareRight:YES];
+            [rightView setBackgroundColor:[UIColor whiteColor]];
+            [rightView.layer setCornerRadius:8.0];
+            UILabel *rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 0, rightView.frame.size.width - 8, rightView.frame.size.height)];
+            [rightLabel setBackgroundColor:[UIColor clearColor]];
+            [rightLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            if (i == 0)
+                [rightLabel setText:@"Seen and sick"];
+            else if (i == 1)
+                [rightLabel setText:@"Not seen"];
+            else if (i == 2)
+                [rightLabel setText:@"No information"];
+            [rightView addSubview:rightLabel];
+            [checkboxView0 addSubview:rightView];
+            
+            if (i == 2)
+            {
+                [leftView removeLeft];
+                [rightView removeRight];
+            }
+        }
+        
+        checkboxView1 = [[UIView alloc] initWithFrame:CGRectMake(checkboxView0.frame.origin.x + checkboxView0.frame.size.width - 120, checkboxView0.frame.origin.y, 116, checkboxView0.frame.size.height)];
+        [checkboxView1 setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [checkboxView1.layer setCornerRadius:8.0];
+        
+        UILabel *isolatedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, checkboxView1.frame.size.width, 32)];
+        [isolatedLabel setBackgroundColor:[UIColor clearColor]];
+        [isolatedLabel setTextColor:[UIColor whiteColor]];
+        [isolatedLabel setTextAlignment:NSTextAlignmentCenter];
+        [isolatedLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+        [isolatedLabel setText:@"Isolated?"];
+        [checkboxView1 addSubview:isolatedLabel];
+        
+        for (int i = 0; i < 2; i++)
+        {
+            EpiInfoViewForRounding *leftView = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(2, 38 + (float)i * 36.0, 34.0, 34.0) AndIsSquareLeft:YES AndIsSquareRight:YES];
+            [leftView setBackgroundColor:[UIColor whiteColor]];
+            [leftView.layer setCornerRadius:8.0];
+            [leftView addSubview:(Checkbox *)[arrayOfCheckboxes objectAtIndex:i + 4]];
+            [checkboxView1 addSubview:leftView];
+            
+            EpiInfoViewForRounding *rightView = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(topRightView.frame.origin.x, leftView.frame.origin.y, checkboxView1.frame.size.width - 40, leftView.frame.size.height) AndIsSquareLeft:YES AndIsSquareRight:YES];
+            [rightView setBackgroundColor:[UIColor whiteColor]];
+            [rightView.layer setCornerRadius:8.0];
+            UILabel *rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 0, rightView.frame.size.width - 8, rightView.frame.size.height)];
+            [rightLabel setBackgroundColor:[UIColor clearColor]];
+            [rightLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            if (i == 0)
+                [rightLabel setText:@"Yes"];
+            else if (i == 1)
+                [rightLabel setText:@"No"];
+            [rightView addSubview:rightLabel];
+            [checkboxView1 addSubview:rightView];
+        }
+        
+        EpiInfoViewForRounding *bottomView = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(2, checkboxView1.frame.size.height - 36, checkboxView1.frame.size.width - 4, 34) AndIsSquareLeft:NO AndIsSquareRight:NO];
+        [bottomView setBackgroundColor:[UIColor whiteColor]];
+        [bottomView.layer setCornerRadius:8.0];
+        notes = [[EpiInfoTextField alloc] initWithFrame:CGRectMake(2, 2, bottomView.frame.size.width - 4, bottomView.frame.size.height - 4)];
+        [notes setBorderStyle:UITextBorderStyleRoundedRect];
+        [notes setDelegate:self];
+        [notes setReturnKeyType:UIReturnKeyDone];
+        [notes setAccessibilityLabel:@"Notes"];
+        [bottomView addSubview:notes];
+        [checkboxView1 addSubview:bottomView];
+        
+        smsButton = [[UIButton alloc] initWithFrame:CGRectMake(10, checkboxView0.frame.origin.y + checkboxView0.frame.size.height + 4, 120, 40)];
+        [smsButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [smsButton addTarget:self action:@selector(sendATextMessage) forControlEvents:UIControlEventTouchUpInside];
+        [smsButton.layer setMasksToBounds:YES];
+        [smsButton.layer setCornerRadius:4.0];
+        [smsButton setImage:[UIImage imageNamed:@"SubmitButton.png"] forState:UIControlStateNormal];
+//        [self.view addSubview:smsButton];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+//    Commented lines were used to create a screenshot image.
+//    UIView *tmpV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+//    
+//    UIImageView *barView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.navigationController.navigationBar.bounds.size.height)];
+//    UIGraphicsBeginImageContext(self.navigationController.navigationBar.bounds.size);
+//    [self.navigationController.navigationBar.layer renderInContext:UIGraphicsGetCurrentContext()];
+//    UIImage *bar = UIGraphicsGetImageFromCurrentImageContext();
+//    [barView setImage:bar];
+//    UIGraphicsEndImageContext();
+//    
+//    UIImageView *screenView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height + 40)];
+//    UIGraphicsBeginImageContext(screenView.bounds.size);
+//    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+//    UIImage *screen = UIGraphicsGetImageFromCurrentImageContext();
+//    [screenView setImage:screen];
+//    UIGraphicsEndImageContext();
+//    
+//    [tmpV addSubview:barView];
+//    [tmpV addSubview:screenView];
+//    
+//    UIGraphicsBeginImageContext(CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height + self.navigationController.navigationBar.bounds.size.height));
+//    [tmpV.layer renderInContext:UIGraphicsGetCurrentContext()];
+//    UIImage *imageToSave = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    NSData *imageData = UIImagePNGRepresentation(imageToSave);
+//    [imageData writeToFile:@"/Users/zfj4/CodePlex/temp/VHFPad.png" atomically:YES];
+//    To here
+}
+
+- (void)lineListButtonPressed
+{
+    // Initialize a Line List View and move it into place
+    EpiInfoLineListView *eillv = [[EpiInfoLineListView alloc] initWithFrame:CGRectMake(0, -self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - orangeBanner.frame.origin.y) andFormName:@"_VHFContactTracing" forVHFContactTracing:YES];
+    [self.view addSubview:eillv];
+    
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [eillv setFrame:CGRectMake(0, orangeBanner.frame.origin.y, eillv.frame.size.width, eillv.frame.size.height)];
+    } completion:^(BOOL finished){
+    }];
+}
+
+- (void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID
+{
+    NSMutableDictionary *queriedColumnsAndValues = [[NSMutableDictionary alloc] init];
+    
+    NSString *tableName = [tableNameAndGUID objectAtIndex:0];
+    NSString *guid = [tableNameAndGUID objectAtIndex:1];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+    sqlite3 *epiinfoDB;
+    if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+    {
+        NSString *selStmt = [NSString stringWithFormat:@"select * from %@ where id = '%@'", tableName, guid];
+        
+        const char *query_stmt = [selStmt UTF8String];
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+        {
+            while (sqlite3_step(statement) == SQLITE_ROW)
+            {
+                int i = 0;
+                while (sqlite3_column_name(statement, i))
+                {
+                    NSString *columnName = [[NSString alloc] initWithUTF8String:sqlite3_column_name(statement, i)];
+                    [queriedColumnsAndValues setObject:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] forKey:[columnName lowercaseString]];
+                    i++;
+                }
+                break;
+            }
+        }
+        sqlite3_finalize(statement);
+    }
+    sqlite3_close(epiinfoDB);
+    
+    [(UILabel *)[arrayOfLabels objectAtIndex:0] setText:[queriedColumnsAndValues objectForKey:@"id"]];
+    [(UILabel *)[arrayOfLabels objectAtIndex:1] setText:@"Surname"];
+    [(UILabel *)[arrayOfLabels objectAtIndex:2] setText:[queriedColumnsAndValues objectForKey:@"surname"]];
+    [(UILabel *)[arrayOfLabels objectAtIndex:3] setText:@"Other Names"];
+    [(UILabel *)[arrayOfLabels objectAtIndex:4] setText:[queriedColumnsAndValues objectForKey:@"othernames"]];
+    [(UILabel *)[arrayOfLabels objectAtIndex:5] setText:@"Age"];
+    [(UILabel *)[arrayOfLabels objectAtIndex:6] setText:[queriedColumnsAndValues objectForKey:@"age"]];
+    [(UILabel *)[arrayOfLabels objectAtIndex:7] setText:@"Sex"];
+    [(UILabel *)[arrayOfLabels objectAtIndex:8] setText:[queriedColumnsAndValues objectForKey:@"gender"]];
+    [(UILabel *)[arrayOfLabels objectAtIndex:9] setText:@"Last Contact"];
+    [(UILabel *)[arrayOfLabels objectAtIndex:10] setText:[queriedColumnsAndValues objectForKey:@"dateoflastcontact"]];
+    [(UILabel *)[arrayOfLabels objectAtIndex:11] setText:@"Last Follow-up"];
+    [(UILabel *)[arrayOfLabels objectAtIndex:12] setText:[queriedColumnsAndValues objectForKey:@"dateoflastfollowup"]];
+    
+    for (int i = 0; i < [arrayOfCheckboxes count]; i++)
+        [(Checkbox *)[arrayOfCheckboxes objectAtIndex:i] setTrueFalse:0];
+    
+    [notes setText:@""];
+    [notes setPlaceholder:@"Symptoms"];
+    if (![[queriedColumnsAndValues objectForKey:@"notes"] isEqualToString:@"(null)"])
+        [notes setText:[queriedColumnsAndValues objectForKey:@"notes"]];
+    
+    int statusRead = -1;
+    if (![[queriedColumnsAndValues objectForKey:@"status"] isEqualToString:@"(null)"])
+        statusRead = [(NSString *)[queriedColumnsAndValues objectForKey:@"status"] intValue];
+    
+    if (statusRead == 0)
+        [(Checkbox *)[arrayOfCheckboxes objectAtIndex:0] setTrueFalse:1];
+    else if (statusRead == 1)
+    {
+        [(Checkbox *)[arrayOfCheckboxes objectAtIndex:1] setTrueFalse:1];
+        [(Checkbox *)[arrayOfCheckboxes objectAtIndex:4] setTrueFalse:1];
+    }
+    else if (statusRead == 2)
+    {
+        [(Checkbox *)[arrayOfCheckboxes objectAtIndex:1] setTrueFalse:1];
+        [(Checkbox *)[arrayOfCheckboxes objectAtIndex:5] setTrueFalse:1];
+    }
+    else if (statusRead == 3)
+        [(Checkbox *)[arrayOfCheckboxes objectAtIndex:1] setTrueFalse:1];
+    else if (statusRead == 4)
+        [(Checkbox *)[arrayOfCheckboxes objectAtIndex:2] setTrueFalse:1];
+    else if (statusRead == 5)
+        [(Checkbox *)[arrayOfCheckboxes objectAtIndex:3] setTrueFalse:1];
+    
+    [self.view addSubview:displayView];
+    [self.view sendSubviewToBack:displayView];
+    [self.view addSubview:checkboxView0];
+    [self.view sendSubviewToBack:checkboxView0];
+    [self.view addSubview:checkboxView1];
+    [self.view sendSubviewToBack:checkboxView1];
+    [self.view addSubview:smsButton];
+    [self.view sendSubviewToBack:smsButton];
+    [self.view sendSubviewToBack:fadingColorView];
+    
+    [self moveCheckboxView1];
+}
+
+- (void)makeFirstFourCheckboxesSingleSelect:(Checkbox *)sender
+{
+    for (int i = 0; i < 4; i++)
+    {
+        if ([sender superview] == [arrayOfCheckboxes objectAtIndex:i])
+            continue;
+        [(Checkbox *)[arrayOfCheckboxes objectAtIndex:i] setTrueFalse:0];
+    }
+    [self moveCheckboxView1];
+}
+- (void)makeOtherTwoCheckboxesSingleSelect:(Checkbox *)sender
+{
+    for (int i = 4; i < 6; i++)
+    {
+        if ([sender superview] == [arrayOfCheckboxes objectAtIndex:i])
+            continue;
+        [(Checkbox *)[arrayOfCheckboxes objectAtIndex:i] setTrueFalse:0];
+    }
+}
+- (void)moveCheckboxView1
+{
+    if ([(Checkbox *)[arrayOfCheckboxes objectAtIndex:1] value])
+    {
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+            [checkboxView1 setFrame:CGRectMake(checkboxView0.frame.origin.x + checkboxView0.frame.size.width + 4, checkboxView1.frame.origin.y, checkboxView1.frame.size.width, checkboxView1.frame.size.height)];
+        } completion:^(BOOL finished){
+        }];
+    }
+    else
+    {
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+            [checkboxView1 setFrame:CGRectMake(checkboxView0.frame.origin.x + checkboxView0.frame.size.width - 120, checkboxView1.frame.origin.y, checkboxView1.frame.size.width, checkboxView1.frame.size.height)];
+        } completion:^(BOOL finished){
+            [(Checkbox *)[arrayOfCheckboxes objectAtIndex:4] setTrueFalse:0];
+            [(Checkbox *)[arrayOfCheckboxes objectAtIndex:5] setTrueFalse:0];
+            [notes setText:@""];
+        }];
+    }
+}
+
+- (void)popCurrentViewController
+{
+    //Method for the custom "Back" button on the NavigationController
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+//    NSLog(@"%u", result);
+    [controller dismissViewControllerAnimated:YES completion:^(void){
+        [smsButton setEnabled:YES];
+    }];
+}
+
+- (void)sendATextMessage
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+        [smsButton setEnabled:NO];
+    
+    int firstField = 2;
+    NSString *ID = [(UILabel *)[arrayOfLabels objectAtIndex:0] text];
+    int idLength = (int)ID.length;
+    NSString *secondField = [ID substringFromIndex:idLength - 3];
+    int thirdField = 6;
+    
+    if ([(Checkbox *)[arrayOfCheckboxes objectAtIndex:0] value])
+        thirdField = 0;
+    else if ([(Checkbox *)[arrayOfCheckboxes objectAtIndex:1] value])
+    {
+        if ([(Checkbox *)[arrayOfCheckboxes objectAtIndex:4] value])
+            thirdField = 1;
+        else if ([(Checkbox *)[arrayOfCheckboxes objectAtIndex:5] value])
+            thirdField = 2;
+        else
+            thirdField = 3;
+    }
+    else if ([(Checkbox *)[arrayOfCheckboxes objectAtIndex:2] value])
+        thirdField = 4;
+    else if ([(Checkbox *)[arrayOfCheckboxes objectAtIndex:3] value])
+        thirdField = 5;
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+    sqlite3 *epiinfoDB;
+    if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+    {
+        char *errMsg;
+        const char *sql_stmt = [[NSString stringWithFormat:@"update _VHFContactTracing set status = %d where id = '%@'", thirdField, ID] UTF8String];
+        if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) == SQLITE_OK)
+        {
+        }
+        else
+            NSLog(@"Failed to update:  %s", errMsg);
+        sql_stmt = [[NSString stringWithFormat:@"update _VHFContactTracing set notes = '%@' where id = '%@'", notes.text, ID] UTF8String];
+        if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) == SQLITE_OK)
+        {
+        }
+        else
+            NSLog(@"Failed to update:  %s", errMsg);
+    }
+    sqlite3_close(epiinfoDB);
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
+        if([MFMessageComposeViewController canSendText])
+        {
+            controller.body = [NSString stringWithFormat:@"%d %@ %d", firstField, secondField, thirdField];;
+            controller.recipients = [NSArray arrayWithObjects:@"1(404)317-6151", nil];
+            controller.messageComposeDelegate = self;
+            [self presentViewController:controller animated:YES completion:^(void){
+            }];
+        }
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        hasAFirstResponder = NO;
+    else
+    {
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            [displayView setFrame:CGRectMake(displayView.frame.origin.x, displayView.frame.origin.y + 120, displayView.frame.size.width, displayView.frame.size.height)];
+            [checkboxView0 setFrame:CGRectMake(checkboxView0.frame.origin.x, checkboxView0.frame.origin.y + 120, checkboxView0.frame.size.width, checkboxView0.frame.size.height)];
+            [checkboxView1 setFrame:CGRectMake(checkboxView1.frame.origin.x, checkboxView1.frame.origin.y + 120, checkboxView1.frame.size.width, checkboxView1.frame.size.height)];
+        } completion:^(BOOL finished){
+            hasAFirstResponder = NO;
+        }];
+    }
+    for (int i = 0; i < [arrayOfCheckboxes count]; i++)
+        [[arrayOfCheckboxes objectAtIndex:i] setEnabled:YES];
+    return YES;
+}
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        hasAFirstResponder = YES;
+    else
+    {
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            [displayView setFrame:CGRectMake(displayView.frame.origin.x, displayView.frame.origin.y - 120, displayView.frame.size.width, displayView.frame.size.height)];
+            [checkboxView0 setFrame:CGRectMake(checkboxView0.frame.origin.x, checkboxView0.frame.origin.y - 120, checkboxView0.frame.size.width, checkboxView0.frame.size.height)];
+            [checkboxView1 setFrame:CGRectMake(checkboxView1.frame.origin.x, checkboxView1.frame.origin.y - 120, checkboxView1.frame.size.width, checkboxView1.frame.size.height)];
+        } completion:^(BOOL finished){
+            hasAFirstResponder = YES;
+        }];
+    }
+    for (int i = 0; i < [arrayOfCheckboxes count]; i++)
+        [[arrayOfCheckboxes objectAtIndex:i] setEnabled:NO];
+    return YES;
+}
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    textField.placeholder = nil;
+}
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [textField setPlaceholder:@"Symptoms"];
+}
+@end

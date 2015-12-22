@@ -1,0 +1,218 @@
+//
+//  GrowthPercentilesViewController.m
+//  EpiInfo
+//
+//  Created by John Copeland on 6/19/14.
+//
+
+#import "GrowthPercentilesViewController.h"
+#import "EpiInfoScrollView.h"
+
+@interface GrowthPercentilesViewController ()
+@property (weak, nonatomic) IBOutlet EpiInfoScrollView *epiInfoScrollView;
+@end
+
+@implementation GrowthPercentilesViewController
+
+-(void)setEpiInfoScrollView:(EpiInfoScrollView *)epiInfoScrollView
+{
+    _epiInfoScrollView = epiInfoScrollView;
+    self.epiInfoScrollView.minimumZoomScale = 1.0;
+    self.epiInfoScrollView.maximumZoomScale = 2.0;
+    self.epiInfoScrollView.delegate = self;
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return zoomingView;
+}
+
+- (void)doubleTapAction
+{
+    if (self.epiInfoScrollView.zoomScale < 2.0)
+        [self.epiInfoScrollView setZoomScale:2.0 animated:YES];
+    else
+        [self.epiInfoScrollView setZoomScale:1.0 animated:YES];
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    // Scroll View added in the storyboard. Not needed for this calulator.
+    scrollViewFrame = CGRectMake(0, 43, 768,960);
+    [self.epiInfoScrollView0 setScrollEnabled:NO];
+    
+    self.epiInfoScrollView.contentSize = CGSizeMake(320, self.view.frame.size.height - 80.0);
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStyleBordered target: nil action: nil];
+    [self.navigationItem setBackBarButtonItem: backButton];
+    
+    // Set the title on the NavigationController
+    self.title = @"Epi Info StatCalc";
+    // Deprecation replacement
+    CGRect frame = CGRectMake(0, 0, [self.title sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:20.0]}].width, 44);
+    UILabel *label = [[UILabel alloc] initWithFrame:frame];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0];
+    label.textColor = [UIColor whiteColor];
+    label.shadowColor = [UIColor grayColor];
+    self.navigationItem.titleView = label;
+    label.text = self.title;
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        // Change the standard NavigationController "Back" button to an "X"
+        customBackButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        [customBackButton setImage:[UIImage imageNamed:@"StAndrewXButtonWhite.png"] forState:UIControlStateNormal];
+        [customBackButton addTarget:self action:@selector(popCurrentViewController) forControlEvents:UIControlEventTouchUpInside];
+        [customBackButton.layer setMasksToBounds:YES];
+        [customBackButton.layer setCornerRadius:8.0];
+        [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
+        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+        [self.navigationItem setHidesBackButton:YES animated:NO];
+        
+        fadingColorView = [[UIImageView alloc] initWithFrame:self.view.frame];
+        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackground.png"]];
+        [self.view addSubview:fadingColorView];
+        [self.view sendSubviewToBack:fadingColorView];
+        
+        // Checking version of user's OS
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+        {
+            [self.epiInfoScrollView0 setFrame:CGRectMake(scrollViewFrame.origin.x, scrollViewFrame.origin.y, scrollViewFrame.size.width, scrollViewFrame.size.height + 500)];
+        }
+    }
+    else // Phone
+    {
+        // Change the standard NavigationController "Back" button to an "X"
+        customBackButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        [customBackButton setImage:[UIImage imageNamed:@"StAndrewXButtonWhite.png"] forState:UIControlStateNormal];
+        [customBackButton addTarget:self action:@selector(popCurrentViewController) forControlEvents:UIControlEventTouchUpInside];
+        [customBackButton.layer setMasksToBounds:YES];
+        [customBackButton.layer setCornerRadius:8.0];
+        [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
+        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+        [self.navigationItem setHidesBackButton:YES animated:NO];
+        
+        // Set the background image
+        fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height - self.navigationController.navigationBar.frame.size.height - [[UIApplication sharedApplication] statusBarFrame].size.height)];
+        if (self.view.frame.size.height > 500)
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5Background.png"]];
+        else
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4Background.png"]];
+        [self.view addSubview:fadingColorView];
+        [self.view sendSubviewToBack:fadingColorView];
+        
+        //Set up the zoomingView
+        zoomingView = [[ZoomView alloc] initWithFrame:CGRectMake(0, 0, self.epiInfoScrollView.frame.size.width, self.epiInfoScrollView.frame.size.height)];
+        
+        headerView = [[UIView alloc] initWithFrame:CGRectMake(10, 4, 300, 60)];
+        [headerView setClipsToBounds:YES];
+        [headerView.layer setCornerRadius:10.0];
+        [headerView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.view addSubview:headerView];
+        
+        UILabel *headerLabel0 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 40)];
+        [headerLabel0 setBackgroundColor:[UIColor clearColor]];
+        [headerLabel0 setTextColor:[UIColor whiteColor]];
+        [headerLabel0 setTextAlignment:NSTextAlignmentCenter];
+        [headerLabel0 setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+        [headerLabel0 setText:@"Growth Percentiles"];
+        [headerView addSubview:headerLabel0];
+        
+        UILabel *headerLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 24, 300, 40)];
+        [headerLabel1 setBackgroundColor:[UIColor clearColor]];
+        [headerLabel1 setTextColor:[UIColor whiteColor]];
+        [headerLabel1 setTextAlignment:NSTextAlignmentCenter];
+        [headerLabel1 setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+        [headerLabel1 setText:@"For Children up to 36 Months"];
+        [headerView addSubview:headerLabel1];
+        
+        maleFemaleView = [[UIView alloc] initWithFrame:CGRectMake(10, 68, 300, 30)];
+        [self.view addSubview:maleFemaleView];
+        
+        maleChecked = [[Checkbox alloc] initWithFrame:CGRectMake(10, 0, 30, 30)];
+        [maleFemaleView addSubview:maleChecked];
+        [[maleChecked myButton] setTag:0];
+        [[maleChecked myButton] addTarget:self action:@selector(maleOrFemalePressed:) forControlEvents:UIControlEventTouchUpInside];
+        UILabel *maleLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 8, 100, 14)];
+        [maleLabel setBackgroundColor:[UIColor clearColor]];
+        [maleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+        [maleLabel setTextAlignment:NSTextAlignmentLeft];
+        [maleLabel setTextColor:[UIColor blackColor]];
+        [maleLabel setText:@"Male"];
+        [maleFemaleView addSubview:maleLabel];
+        
+        femaleChecked = [[Checkbox alloc] initWithFrame:CGRectMake(160, 0, 30, 30)];
+        [maleFemaleView addSubview:femaleChecked];
+        [[femaleChecked myButton] setTag:1];
+        [[femaleChecked myButton] addTarget:self action:@selector(maleOrFemalePressed:) forControlEvents:UIControlEventTouchUpInside];
+        UILabel *femaleLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 8, 100, 14)];
+        [femaleLabel setBackgroundColor:[UIColor clearColor]];
+        [femaleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+        [femaleLabel setTextAlignment:NSTextAlignmentLeft];
+        [femaleLabel setTextColor:[UIColor blackColor]];
+        [femaleLabel setText:@"Female"];
+        [maleFemaleView addSubview:femaleLabel];
+        
+        //Add everything to the zoomingView
+        for (UIView *view in self.view.subviews)
+        {
+            if (![view isKindOfClass:[UIScrollView class]])
+            {
+                [zoomingView addSubview:view];
+                //Remove all struts and springs
+                [view setAutoresizingMask:UIViewAutoresizingNone];
+            }
+        }
+        [self.epiInfoScrollView addSubview:zoomingView];
+        [self.epiInfoScrollView setShowsVerticalScrollIndicator:YES];
+        [self.epiInfoScrollView setShowsHorizontalScrollIndicator:YES];
+        
+        [fadingColorView removeFromSuperview];
+        [self.view addSubview:fadingColorView];
+        [self.view sendSubviewToBack:fadingColorView];
+    }
+}
+
+- (void)maleOrFemalePressed:(UIButton *)checkboxPressed
+{
+    if (checkboxPressed.tag == 0)
+        [femaleChecked reset];
+    else
+        [maleChecked reset];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+- (void)popCurrentViewController
+{
+    //Method for the custom "Back" button on the NavigationController
+    [self.navigationController popViewControllerAnimated:YES];
+}
+@end

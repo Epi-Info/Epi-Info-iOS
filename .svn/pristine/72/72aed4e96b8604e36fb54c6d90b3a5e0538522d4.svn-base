@@ -1,0 +1,21 @@
+//
+//  AWSSimpleDBConnectionInfo.h
+//  EpiInfo
+//
+//  Created by John Copeland on 7/30/13.
+//  Copyright (c) 2013 John Copeland. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "AnalysisDataObject.h"
+#import "sqlite3.h"
+
+#define ACCESS_KEY_ID_John                @"AKIAIBI5F4JI26UWTAXQ"
+#define SECRET_KEY_John                   @"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"
+#define ACCESS_KEY_ID_Asad                @"AKIAIVE6TVDQRLCT65VQ"
+#define SECRET_KEY_Asad                   @"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"
+
+@interface AWSSimpleDBConnectionInfo : NSObject
++(NSArray *)connections;
++(NSArray *)keys:(NSString *)connection;
+@end

@@ -1,0 +1,74 @@
+//
+//  EnterDataView.h
+//  EpiInfo
+//
+//  Created by John Copeland on 12/19/13.
+//  Copyright (c) 2013 John Copeland. All rights reserved.
+//
+
+#import "EpiInfoTextField.h"
+#import "EpiInfoTextView.h"
+#import "Checkbox.h"
+#import "YesNo.h"
+#import "NumberField.h"
+#import "PhoneNumberField.h"
+#import "DateField.h"
+#import "UppercaseTextField.h"
+#import "LegalValues.h"
+#import "SaveFormView.h"
+#import "BlurryView.h"
+#import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import "sqlite3.h"
+
+@interface EnterDataView : UIScrollView <NSXMLParserDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UITextViewDelegate>
+{
+    BOOL firstParse;
+    BOOL firstElement;
+    
+    NSXMLParser *xmlParser;
+    NSXMLParser *xmlParser1;
+    UIView *formCanvas;
+    NSString *dataText;
+    float contentSizeHeight;
+    NSMutableDictionary *legalValuesDictionary;
+    NSMutableArray *legalValuesArray;
+    NSString *lastLegalValuesKey;
+    
+    NSString *formName;
+    
+    NSString *createTableStatement;
+    BOOL beginColumList;
+    NSMutableDictionary *alterTableElements;
+
+    sqlite3 *epiinfoDB;
+    
+    BOOL hasAFirstResponder;
+    
+    NSMutableDictionary *queriedColumnsAndValues;
+    NSString *recordUIDForUpdate;
+    
+    BOOL seenFirstGeocodeField;
+    Checkbox *geocodingCheckbox;
+}
+
+@property NSURL *url;
+@property UIViewController *rootViewController;
+@property CLLocationManager *locationManager;
+@property NSThread *updateLocationThread;
+
+@property NSString *latitudeField;
+@property NSString *longitudeField;
+
+@property NSString *nameOfTheForm;
+
+@property NSMutableArray *pagesArray;
+@property NSMutableArray *pageIDs;
+@property NSMutableDictionary *checkboxes;
+
+-(NSString *)formName;
+-(id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndNameOfTheForm:(NSString *)notf;
+-(id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndNameOfTheForm:(NSString *)notf;
+-(void)getMyLocation;
+-(void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID;
+@end

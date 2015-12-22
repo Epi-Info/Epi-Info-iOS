@@ -1,0 +1,23 @@
+//
+//  EpiInfoLineListView.h
+//  EpiInfo
+//
+//  Created by John Copeland on 5/7/14.
+//  Copyright (c) 2014 John Copeland. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "sqlite3.h"
+
+@interface EpiInfoLineListView : UIView <UITableViewDelegate, UITableViewDataSource>
+{
+    NSString *formName;
+    NSMutableArray *dataLines;
+    NSMutableArray *guids;
+    sqlite3 *epiinfoDB;
+}
+
+@property UITableView *tv;
+
+-(id)initWithFrame:(CGRect)frame andFormName:(NSString *)fn;
+@end

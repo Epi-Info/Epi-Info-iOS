@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "5C2D3E35-0AA4-4220-8998-45DD6DA8850A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234" : "EpiInfo"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "EpiInfo",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "EpiInfo.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/epiinfoios.svn.codeplex.com\/svn",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234"
+    }
+  ]
+}

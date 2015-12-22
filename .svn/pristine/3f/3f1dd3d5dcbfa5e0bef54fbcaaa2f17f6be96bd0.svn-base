@@ -1,0 +1,209 @@
+//
+//  EpiInfoLineListView.m
+//  EpiInfo
+//
+//  Created by John Copeland on 5/7/14.
+//
+
+#import "EpiInfoLineListView.h"
+#import "DataEntryViewController.h"
+#import "VHFViewController.h"
+
+@implementation EpiInfoLineListView
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+        [self setBackgroundColor:[UIColor whiteColor]];
+        
+        // Add label and tool banner
+        UIView *banner = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 36)];
+        [banner setBackgroundColor:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:0.95]];
+        [self addSubview:banner];
+        
+        // Add X-button to banner
+        UIButton *xButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - 32.0, 2, 30, 30)];
+        [xButton setBackgroundColor:[UIColor clearColor]];
+        [xButton setImage:[UIImage imageNamed:@"StAndrewXButton.png"] forState:UIControlStateNormal];
+        [xButton setTitle:@"Close the form" forState:UIControlStateNormal];
+        [xButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+        [xButton setAlpha:0.5];
+        [xButton.layer setMasksToBounds:YES];
+        [xButton.layer setCornerRadius:8.0];
+        [xButton addTarget:self action:@selector(removeSelfFromSuperview) forControlEvents:UIControlEventTouchUpInside];
+        [banner addSubview:xButton];
+        
+        // Add label to banner
+        float labelOffset = xButton.frame.size.width + 4.0;
+        UILabel *formLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelOffset, 0, banner.frame.size.width - 2.0 * labelOffset, banner.frame.size.height)];
+        [formLabel setBackgroundColor:[UIColor clearColor]];
+        [formLabel setTextColor:[UIColor whiteColor]];
+        [formLabel setTextAlignment:NSTextAlignmentCenter];
+        [formLabel setText:formName];
+        [banner addSubview:formLabel];
+        float fontSize = 32.0;
+        if ([formName isEqualToString:@"_VHFContactTracing"])
+        {
+            [formLabel setText:@"VHF Contact Tracing"];
+            fontSize = 24.0;
+        }
+        while ([formLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontSize]}].width > formLabel.frame.size.width)
+            fontSize -= 0.1;
+        [formLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontSize]];
+        
+        // Add the UITableView
+        self.tv = [[UITableView alloc] initWithFrame:CGRectMake(0, banner.frame.size.height, self.frame.size.width, self.frame.size.height - banner.frame.size.height) style:UITableViewStylePlain];
+        [self.tv setDelegate:self];
+        [self.tv setDataSource:self];
+        [self.tv setSeparatorColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self addSubview:self.tv];
+        
+        // Get the data and put it into NSMutableArray
+        dataLines = [[NSMutableArray alloc] init];
+        guids = [[NSMutableArray alloc] init];
+//        for (int i=0; i <200; i++)
+//            [dataLines addObject:[NSString stringWithFormat:@"Row %d", i]];
+        [self getDataFromDatabase];
+    }
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame andFormName:(NSString *)fn;
+{
+    formName = fn;
+    self = [self initWithFrame:frame];
+    forVHF = NO;
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame andFormName:(NSString *)fn forVHFContactTracing:(BOOL)isVHF
+{
+    self = [self initWithFrame:frame andFormName:fn];
+    forVHF = YES;
+    return self;
+}
+
+- (void)removeSelfFromSuperview
+{
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [self setFrame:CGRectMake(0, -self.frame.size.height, self.frame.size.width, self.frame.size.height)];
+    } completion:^(BOOL finished){
+        [self removeFromSuperview];
+    }];
+}
+
+- (void)getDataFromDatabase
+{
+    int columsToDisplay = 4;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        columsToDisplay = 8;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+    if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+    {
+        NSString *selStmt = [NSString stringWithFormat:@"select * from %@", formName];
+        
+        const char *query_stmt = [selStmt UTF8String];
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+        {
+            while (sqlite3_step(statement) == SQLITE_ROW)
+            {
+                int i = 0;
+                int j = 0;
+                NSString *rowDisplay = @"";
+                while (sqlite3_column_name(statement, i))
+                {
+                    NSString *columnName = [[NSString alloc] initWithUTF8String:sqlite3_column_name(statement, i)];
+                    if ([[columnName lowercaseString] isEqualToString:@"globalrecordid"])
+                    {
+                        [guids addObject:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)]];
+                        i++;
+                        continue;
+                    }
+                    else if ([formName isEqualToString:@"_VHFContactTracing"] && [[columnName lowercaseString] isEqualToString:@"id"])
+                    {
+                        [guids addObject:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)]];
+                    }
+                    if ([formName isEqualToString:@"_VHFContactTracing"])
+                    {
+                        if ([[columnName lowercaseString] isEqualToString:@"id"] || [[columnName lowercaseString] isEqualToString:@"dateoflastfollowup"] || [[columnName lowercaseString] isEqualToString:@"status"] || [[columnName lowercaseString] isEqualToString:@"notes"])
+                        {
+                            if (![[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] isEqualToString:@"(null)"])
+                                rowDisplay = [rowDisplay stringByAppendingString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)]];
+                            rowDisplay = [rowDisplay stringByAppendingString:@" | "];
+                        }
+                        i++;
+                        continue;
+                    }
+                    else
+                        rowDisplay = [rowDisplay stringByAppendingString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)]];
+                    i++;
+                    j++;
+                    if (j >= columsToDisplay)
+                        break;
+                    rowDisplay = [rowDisplay stringByAppendingString:@" | "];
+                }
+                [dataLines addObject:rowDisplay];
+            }
+        }
+        sqlite3_finalize(statement);
+    }
+    sqlite3_close(epiinfoDB);
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *TableIdentifier = @"dataline";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TableIdentifier];
+    
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TableIdentifier];
+        [cell setFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, tableView.frame.size.width, cell.frame.size.height)];
+    }
+    
+    [cell.textLabel setText:[dataLines objectAtIndex:indexPath.row]];
+    [cell.textLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    
+    float fontSize = 16.0;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        fontSize = 20.0;
+    while ([cell.textLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:fontSize]}].width > cell.frame.size.width - 40.0)
+        fontSize -= 0.1;
+    [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:fontSize]];
+    
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [dataLines count];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (forVHF)
+    {
+        [(VHFViewController *)[self.superview nextResponder] populateFieldsWithRecord:[NSArray arrayWithObjects:formName, (NSString *)[guids objectAtIndex:indexPath.item], nil]];
+    }
+    else
+    {
+        [(DataEntryViewController *)[self.superview nextResponder] populateFieldsWithRecord:[NSArray arrayWithObjects:formName, (NSString *)[guids objectAtIndex:indexPath.item], nil]];
+    }
+    [self removeSelfFromSuperview];
+}
+
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
+}
+*/
+
+@end

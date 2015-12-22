@@ -1,0 +1,187 @@
+//
+//  MeansCrosstabCompute.m
+//  EpiInfo
+//
+//  Created by John Copeland on 9/11/14.
+//  Copyright (c) 2014 John Copeland. All rights reserved.
+//
+
+#import "MeansCrosstabCompute.h"
+
+@implementation MeansCrosstabCompute
++ (NSArray *)doT:(NSArray *)tInputs
+{
+    NSArray *tArray0 = (NSArray *)[tInputs objectAtIndex:0];
+    NSArray *tArray1 = (NSArray *)[tInputs objectAtIndex:1];
+    
+    float satterwaiteDF = powf([(NSNumber *)[tArray0 objectAtIndex:3] floatValue] / [(NSNumber *)[tArray0 objectAtIndex:0] floatValue] +
+                               [(NSNumber *)[tArray1 objectAtIndex:3] floatValue] / [(NSNumber *)[tArray1 objectAtIndex:0] floatValue],
+                               2.0) /
+    (1.0 / ([(NSNumber *)[tArray0 objectAtIndex:0] floatValue] - 1.0) *
+     powf([(NSNumber *)[tArray0 objectAtIndex:3] floatValue] / [(NSNumber *)[tArray0 objectAtIndex:0] floatValue], 2.0) +
+     1.0 / ([(NSNumber *)[tArray1 objectAtIndex:0] floatValue] - 1.0) *
+     powf([(NSNumber *)[tArray1 objectAtIndex:3] floatValue] / [(NSNumber *)[tArray1 objectAtIndex:0] floatValue], 2.0));
+    
+    float seU = sqrtf([(NSNumber *)[tArray0 objectAtIndex:3] floatValue] / [(NSNumber *)[tArray0 objectAtIndex:0] floatValue] +
+                      [(NSNumber *)[tArray1 objectAtIndex:3] floatValue] / [(NSNumber *)[tArray1 objectAtIndex:0] floatValue]);
+    
+    satterwaiteDF = powf(seU, 4.0) /
+    (1.0 / ([(NSNumber *)[tArray0 objectAtIndex:0] floatValue] - 1.0) *
+     powf([(NSNumber *)[tArray0 objectAtIndex:3] floatValue] / [(NSNumber *)[tArray0 objectAtIndex:0] floatValue], 2.0) +
+     1.0 / ([(NSNumber *)[tArray1 objectAtIndex:0] floatValue] - 1.0) *
+     powf([(NSNumber *)[tArray1 objectAtIndex:3] floatValue] / [(NSNumber *)[tArray1 objectAtIndex:0] floatValue], 2.0));
+    
+    float meansDiff = [(NSNumber *)[tArray0 objectAtIndex:2] floatValue] - [(NSNumber *)[tArray1 objectAtIndex:2] floatValue];
+    
+    float stdDevDiff = sqrtf((([(NSNumber *)[tArray0 objectAtIndex:0] floatValue] - 1.0) * [(NSNumber *)[tArray0 objectAtIndex:3] floatValue] +
+                              ([(NSNumber *)[tArray1 objectAtIndex:0] floatValue] - 1.0) * [(NSNumber *)[tArray1 objectAtIndex:3] floatValue]) /
+                             ([(NSNumber *)[tArray0 objectAtIndex:0] floatValue] + [(NSNumber *)[tArray1 objectAtIndex:0] floatValue] - 2.0));
+    
+    int df = (int)[(NSNumber *)[tArray0 objectAtIndex:0] floatValue] + (int)[(NSNumber *)[tArray1 objectAtIndex:0] floatValue] - 2;
+    
+    short shortDF = (short)df;
+    
+    float tProbability = 0.05;
+    
+    float intervalLength = [SharedResources TfromP:tProbability AndDF:shortDF] * stdDevDiff *
+    sqrtf(1.0 / [(NSNumber *)[tArray0 objectAtIndex:0] floatValue] + 1.0 / [(NSNumber *)[tArray1 objectAtIndex:0] floatValue]);
+    
+    float tStatistic = meansDiff / (stdDevDiff * sqrtf(1.0 / [(NSNumber *)[tArray0 objectAtIndex:0] floatValue] + 1.0 / [(NSNumber *)[tArray1 objectAtIndex:0] floatValue]));
+    
+    float pEqual = 2.0 * [SharedResources pFromT:(double)tStatistic DegreesOfFreedom:df];
+    
+    float tStatisticUnequal = meansDiff / seU;
+    
+    float pUnequalLower = 2.0 * [SharedResources pFromT:(double)tStatisticUnequal DegreesOfFreedom:(int)ceilf(satterwaiteDF)];
+    float pUnequalUpper = 2.0 * [SharedResources pFromT:(double)tStatisticUnequal DegreesOfFreedom:(int)floorf(satterwaiteDF)];
+    
+    float pUnequal = pUnequalLower + (satterwaiteDF - floorf(satterwaiteDF)) * (pUnequalUpper - pUnequalLower);
+    
+    short shortDFCeiling = (short)ceilf(satterwaiteDF);
+    short shortDFFloor = (short)floorf(satterwaiteDF);
+    
+    float unEqualIntervalTLower = [SharedResources TfromP:(double)tProbability AndDF:shortDFCeiling];
+    float unEqualIntervalTUpper = [SharedResources TfromP:(double)tProbability AndDF:shortDFFloor];
+    
+    float unEqualIntervalT = unEqualIntervalTLower + (satterwaiteDF - floorf(satterwaiteDF)) * (unEqualIntervalTUpper - unEqualIntervalTLower);
+    
+    float equalLCLMean = meansDiff - intervalLength;
+    float equalUCLMean = meansDiff + intervalLength;
+    float unequalLCLMean = meansDiff - seU * unEqualIntervalT;
+    float unequalUCLMean = meansDiff + seU * unEqualIntervalT;
+    
+    return @[[[[EpiInfoNumberFormatter alloc] initWithFloat:meansDiff] stringFromNumber:[NSNumber numberWithFloat:meansDiff]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:meansDiff] stringFromNumber:[NSNumber numberWithFloat:equalLCLMean]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:meansDiff] stringFromNumber:[NSNumber numberWithFloat:equalUCLMean]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:meansDiff] stringFromNumber:[NSNumber numberWithFloat:stdDevDiff]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:meansDiff] stringFromNumber:[NSNumber numberWithFloat:meansDiff]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:meansDiff] stringFromNumber:[NSNumber numberWithFloat:unequalLCLMean]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:meansDiff] stringFromNumber:[NSNumber numberWithFloat:unequalUCLMean]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:meansDiff] stringFromNumber:[NSNumber numberWithFloat:df]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:meansDiff] stringFromNumber:[NSNumber numberWithFloat:tStatistic]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:meansDiff] stringFromNumber:[NSNumber numberWithFloat:pEqual]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:meansDiff] stringFromNumber:[NSNumber numberWithFloat:satterwaiteDF]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:meansDiff] stringFromNumber:[NSNumber numberWithFloat:tStatisticUnequal]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:meansDiff] stringFromNumber:[NSNumber numberWithFloat:pUnequal]]
+             ];
+}
+
++ (NSArray *)doANOVA:(NSArray *)tInputs
+{
+    float grandSum = 0.0;
+    float grandObservations = 0.0;
+    NSMutableArray *observationsList = [[NSMutableArray alloc] init];
+    NSMutableArray *averagesList = [[NSMutableArray alloc] init];
+    NSMutableArray *variancesList = [[NSMutableArray alloc] init];
+    for (int i = 0; i < tInputs.count; i++)
+    {
+        NSArray *tmpArray = (NSArray *)[tInputs objectAtIndex:i];
+        grandObservations += [(NSNumber *)[tmpArray objectAtIndex:0] floatValue];
+        grandSum += [(NSNumber *)[tmpArray objectAtIndex:1] floatValue];
+        [observationsList addObject:(NSNumber *)[tmpArray objectAtIndex:0]];
+        [averagesList addObject:(NSNumber *)[tmpArray objectAtIndex:2]];
+        [variancesList addObject:(NSNumber *)[tmpArray objectAtIndex:3]];
+    }
+    
+    float grandMean = grandSum / grandObservations;
+    float ssBetween = [self calculateSSBetween:grandMean WithObservationsList:observationsList AndAveragesList:averagesList];
+    float dfBetween = (float)(tInputs.count - 1);
+    float msBetween = ssBetween / dfBetween;
+    float ssWithin = [self calculateSSWithin:observationsList WithObservationsListAndVariancesList:variancesList];
+    float dfWithin = grandObservations - (float)tInputs.count;
+    float dfError = grandObservations - (float)tInputs.count;
+    float msWithin = ssWithin / dfWithin;
+    float fStatistic = msBetween / msWithin;
+    float anovaPValue = [SharedResources pFromF:(double)fStatistic DegreesOfFreedom1:(double)dfBetween DegreesOfFreedom2:(double)dfError];
+    float chiSquare = [self calculateChiSquareWithDFWithin:dfWithin PooledVariance:msWithin Observations:observationsList AndVariances:variancesList];
+    float bartlettPValue = (float)[SharedResources PValFromChiSq:(double)chiSquare PVFCSdf:(double)dfBetween];
+
+    return @[[[[EpiInfoNumberFormatter alloc] initWithFloat:ssBetween] stringFromNumber:[NSNumber numberWithFloat:ssBetween]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:dfBetween] stringFromNumber:[NSNumber numberWithFloat:dfBetween]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:msBetween] stringFromNumber:[NSNumber numberWithFloat:msBetween]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:fStatistic] stringFromNumber:[NSNumber numberWithFloat:fStatistic]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:ssWithin] stringFromNumber:[NSNumber numberWithFloat:ssWithin]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:dfWithin] stringFromNumber:[NSNumber numberWithFloat:dfWithin]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:msWithin] stringFromNumber:[NSNumber numberWithFloat:msWithin]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:(ssBetween + ssWithin)] stringFromNumber:[NSNumber numberWithFloat:(ssBetween + ssWithin)]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:(dfBetween + dfWithin)] stringFromNumber:[NSNumber numberWithFloat:(dfBetween + dfWithin)]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:anovaPValue] stringFromNumber:[NSNumber numberWithFloat:anovaPValue]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:chiSquare] stringFromNumber:[NSNumber numberWithFloat:chiSquare]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:dfBetween] stringFromNumber:[NSNumber numberWithFloat:dfBetween]],
+             [[[EpiInfoNumberFormatter alloc] initWithFloat:bartlettPValue] stringFromNumber:[NSNumber numberWithFloat:bartlettPValue]]
+             
+    ];
+}
+
++ (float)calculateSSBetween:(float)grandMean WithObservationsList:(NSArray *)freqs AndAveragesList:(NSArray *)avgs
+{
+    float retval = 0.0;
+    
+    for (int i = 0; i < freqs.count; i++)
+        retval += [(NSNumber *)[freqs objectAtIndex:i] floatValue] * powf([(NSNumber *)[avgs objectAtIndex:i] floatValue] - grandMean, 2.0);
+
+    return retval;
+}
+
++ (float)calculateSSWithin:(NSArray *)freqs WithObservationsListAndVariancesList:(NSArray *)vars
+{
+    float retval = 0.0;
+    
+    for (int i = 0; i < freqs.count; i++)
+        retval += ([(NSNumber *)[freqs objectAtIndex:i] floatValue] - 1.0) * [(NSNumber *)[vars objectAtIndex:i] floatValue];
+    
+    return retval;
+}
+
++ (float)calculateChiSquareWithDFWithin:(float)dfWithin PooledVariance:(float)pooledVariance Observations:(NSArray *)freqs AndVariances:(NSArray *)vars
+{
+    float denominator = 0.0;
+    float result = 0.0;
+    
+    for (int j = 0; j < freqs.count; j++)
+    {
+        if (([(NSNumber *)[freqs objectAtIndex:j] floatValue] - 1.0 != 0.0) && ([(NSNumber *)[vars objectAtIndex:j] floatValue] - 1.0 != 0.0))
+        {
+            denominator += 1.0 / ([(NSNumber *)[freqs objectAtIndex:j] floatValue] - 1.0);
+            result += ([(NSNumber *)[freqs objectAtIndex:j] floatValue] - 1.0) * logf([(NSNumber *)[vars objectAtIndex:j] floatValue]);
+        }
+        else
+        {
+            denominator = 0.0;
+            result = 0.0;
+        }
+    }
+    
+    denominator = 1.0 + (1.0 / (3.0 * ((float)freqs.count - 1.0))) * (denominator - 1.0 / dfWithin);
+    
+    if (denominator != 0.0 && pooledVariance != 0.0)
+        result = (1.0 / denominator) * (dfWithin * logf(pooledVariance) - result);
+    
+    return result;
+}
+
++ (float)CalculateKruskalWallisWithHorizontalFrequencies:(NSArray *)freqHorizontal VerticalFrequencies:(NSArray *)freqVertical AllLocalFrequencies:(NSArray *)allLocalFreqs AndGrandRecordCount:(float)recordCount
+{
+    return  0.0;
+}
+@end

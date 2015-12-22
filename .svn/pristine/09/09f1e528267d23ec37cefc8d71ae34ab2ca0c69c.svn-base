@@ -1,0 +1,64 @@
+//
+//  Checkbox.m
+//  EpiInfo
+//
+//  Created by John Copeland on 11/27/13.
+//
+
+#import "Checkbox.h"
+
+@implementation Checkbox
+@synthesize columnName = _columnName;
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, 30, 30)];
+    if (self) {
+        // Initialization code
+        [self setBackgroundColor:[UIColor blackColor]];
+        [self.layer setCornerRadius:4.0];
+        value = NO;
+        button = [[UIButton alloc] initWithFrame:CGRectMake(1, 1, 28, 28)];
+        [button setBackgroundColor:[UIColor whiteColor]];
+        [button.layer setCornerRadius:3.0];
+        [button addTarget:self action:@selector(buttonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:button];
+    }
+    return self;
+}
+
+- (BOOL)value
+{
+    return value;
+}
+
+- (void)buttonPressed
+{
+    if (value)
+    {
+        value = NO;
+        [button setBackgroundColor:[UIColor whiteColor]];
+    }
+    else
+    {
+        value = YES;
+        [button setBackgroundColor:[UIColor clearColor]];
+    }
+}
+
+- (void)reset
+{
+    value = NO;
+    [button setBackgroundColor:[UIColor whiteColor]];
+}
+
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
+}
+*/
+
+@end

@@ -1,0 +1,271 @@
+//
+//  CaseControlSimulationView.swift
+//  EpiInfo
+//
+//  Created by John Copeland on 3/27/15.
+//  Copyright (c) 2015 John Copeland. All rights reserved.
+//
+
+import UIKit
+
+class CaseControlSimulationsView: UIView, UITextFieldDelegate {
+  
+  var fadingColorView = UIImageView()
+  var resignAllButton = UIButton()
+  var header = UILabel()
+  var inputBackground = UIButton()
+  var resultsLabel = EpiInfoMultiLineIndentedUILabel()
+  var exposedLabel = UIButton()
+  var exposed = NumberField()
+  var unexposedLabel = UIButton()
+  var unexposed = NumberField()
+  var percentInExposedLabel = UIButton()
+  var percentInExposed = NumberField()
+  var percentInUnexposedLabel = UIButton()
+  var percentInUnexposed = NumberField()
+  var maxWidth = CGFloat()
+  var maxHeight = CGFloat()
+  var killThread = false
+  
+  override init() {
+    super.init()
+  }
+  
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    if frame.height == 0.0 {
+      return
+    }
+    
+    self.clipsToBounds = true
+    maxHeight = frame.height
+    maxWidth = frame.width
+    
+    if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+    } else {
+      // Add background image
+      fadingColorView = UIImageView(frame: frame)
+      let frameHeight: Float = Float(frame.size.height)
+      if frameHeight > 500 {
+        fadingColorView.image = UIImage(named: "iPhone5Background.png")
+      } else {
+        fadingColorView.image = UIImage(named: "iPhone4Background.png")
+      }
+      self.addSubview(fadingColorView)
+      self.sendSubviewToBack(fadingColorView)
+      
+      //Add the screen-sized clear button to dismiss all keyboards
+      resignAllButton = UIButton(frame: frame)
+      resignAllButton.backgroundColor = .clearColor()
+      resignAllButton.addTarget(self, action: "resignAll", forControlEvents: .TouchUpInside)
+      self.addSubview(resignAllButton)
+      
+      //Screen header
+      header = UILabel(frame: CGRectMake(0, 4 * (frame.height / maxHeight), frame.width * (frame.width / maxWidth), 26 * (frame.height / maxHeight)))
+      header.backgroundColor = .clearColor()
+      header.textColor = .whiteColor()
+      header.textAlignment = .Center
+      header.font = UIFont(name: "HelveticaNeue-Bold", size: 24.0)
+      header.text = "Simulate Cohort Study"
+      self.addSubview(header)
+      
+      //Add navy background for input fields
+      inputBackground = UIButton(frame: CGRectMake(4 * (frame.width / maxWidth), 40 * (frame.height / maxHeight), 312 * (frame.width / maxWidth), 170 * (frame.height / maxHeight)))
+      inputBackground.backgroundColor = UIColor(red: 3/255.0, green: 36/255.0, blue: 77/255.0, alpha: 1.0)
+      inputBackground.layer.masksToBounds = true
+      inputBackground.layer.cornerRadius = 8.0
+      inputBackground.addTarget(self, action: "resignAll", forControlEvents: .TouchUpInside)
+      self.addSubview(inputBackground)
+      
+      //Add the NumberField for number of exposed
+      exposedLabel = UIButton(frame: CGRectMake(4 * (frame.width / maxWidth), 2 * (frame.height / maxHeight), 148 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
+      exposedLabel.backgroundColor = .clearColor()
+      exposedLabel.clipsToBounds = true
+      exposedLabel.setTitle("Number Exposed", forState: .Normal)
+      exposedLabel.contentHorizontalAlignment = .Left
+      exposedLabel.titleLabel!.textAlignment = .Left
+      exposedLabel.titleLabel!.textColor = .whiteColor()
+      exposedLabel.titleLabel!.font = UIFont(name: "HelveticaNeue-Bold", size: 14.0)
+      exposedLabel.addTarget(self, action: "resignAll", forControlEvents: .TouchUpInside)
+      inputBackground.addSubview(exposedLabel)
+      
+      exposed = NumberField(frame: CGRectMake(230 * (frame.width / maxWidth), 2 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
+      exposed.borderStyle = .RoundedRect
+      exposed.keyboardType = .NumberPad
+      exposed.delegate = self
+      exposed.returnKeyType = .Done
+      inputBackground.addSubview(exposed)
+      
+      //Add the NumberField for number of unexposed
+      unexposedLabel = UIButton(frame: CGRectMake(4 * (frame.width / maxWidth), 44 * (frame.height / maxHeight), 148 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
+      unexposedLabel.backgroundColor = .clearColor()
+      unexposedLabel.clipsToBounds = true
+      unexposedLabel.setTitle("Number Unexposed", forState: .Normal)
+      unexposedLabel.contentHorizontalAlignment = .Left
+      unexposedLabel.titleLabel!.textAlignment = .Left
+      unexposedLabel.titleLabel!.textColor = .whiteColor()
+      unexposedLabel.titleLabel!.font = UIFont(name: "HelveticaNeue-Bold", size: 14.0)
+      unexposedLabel.addTarget(self, action: "resignAll", forControlEvents: .TouchUpInside)
+      inputBackground.addSubview(unexposedLabel)
+      
+      unexposed = NumberField(frame: CGRectMake(230 * (frame.width / maxWidth), 44 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
+      unexposed.borderStyle = .RoundedRect
+      unexposed.keyboardType = .NumberPad
+      unexposed.delegate = self
+      unexposed.returnKeyType = .Done
+      inputBackground.addSubview(unexposed)
+      
+      //Add the NumberField for percent in exposed
+      percentInExposedLabel = UIButton(frame: CGRectMake(4 * (frame.width / maxWidth), 86 * (frame.height / maxHeight), 224 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
+      percentInExposedLabel.backgroundColor = .clearColor()
+      percentInExposedLabel.clipsToBounds = true
+      percentInExposedLabel.setTitle("Expected % Exposed with Outcome", forState: .Normal)
+      percentInExposedLabel.contentHorizontalAlignment = .Left
+      percentInExposedLabel.titleLabel!.textAlignment = .Left
+      percentInExposedLabel.titleLabel!.textColor = .whiteColor()
+      percentInExposedLabel.titleLabel!.font = UIFont(name: "HelveticaNeue-Bold", size: 14.0)
+      percentInExposedLabel.titleLabel?.adjustsFontSizeToFitWidth = true
+      percentInExposedLabel.addTarget(self, action: "resignAll", forControlEvents: .TouchUpInside)
+      inputBackground.addSubview(percentInExposedLabel)
+      
+      percentInExposed = NumberField(frame: CGRectMake(230 * (frame.width / maxWidth), 86 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
+      percentInExposed.borderStyle = .RoundedRect
+      percentInExposed.keyboardType = .DecimalPad
+      percentInExposed.delegate = self
+      percentInExposed.returnKeyType = .Done
+      inputBackground.addSubview(percentInExposed)
+      
+      //Add the NumberField for percent in unexposed
+      percentInUnexposedLabel = UIButton(frame: CGRectMake(4 * (frame.width / maxWidth), 128 * (frame.height / maxHeight), 224 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
+      percentInUnexposedLabel.backgroundColor = .clearColor()
+      percentInUnexposedLabel.clipsToBounds = true
+      percentInUnexposedLabel.setTitle("Expected % Unexposed with Outcome", forState: .Normal)
+      percentInUnexposedLabel.contentHorizontalAlignment = .Left
+      percentInUnexposedLabel.titleLabel!.textAlignment = .Left
+      percentInUnexposedLabel.titleLabel!.textColor = .whiteColor()
+      percentInUnexposedLabel.titleLabel!.font = UIFont(name: "HelveticaNeue-Bold", size: 14.0)
+      percentInUnexposedLabel.titleLabel?.adjustsFontSizeToFitWidth = true
+      percentInUnexposedLabel.addTarget(self, action: "resignAll", forControlEvents: .TouchUpInside)
+      inputBackground.addSubview(percentInUnexposedLabel)
+      
+      percentInUnexposed = NumberField(frame: CGRectMake(230 * (frame.width / maxWidth), 128 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
+      percentInUnexposed.borderStyle = .RoundedRect
+      percentInUnexposed.keyboardType = .DecimalPad
+      percentInUnexposed.delegate = self
+      percentInUnexposed.returnKeyType = .Done
+      inputBackground.addSubview(percentInUnexposed)
+      
+      //Add the results label
+      resultsLabel = EpiInfoMultiLineIndentedUILabel(frame: CGRectMake(4, frame.height - 60, 312, 60))
+      resultsLabel.backgroundColor = UIColor(red: 3/255.0, green: 36/255.0, blue: 77/255.0, alpha: 1.0)
+      resultsLabel.layer.masksToBounds = true
+      resultsLabel.layer.cornerRadius = 8.0
+      resultsLabel.textColor = .whiteColor()
+      resultsLabel.textAlignment = .Left
+      resultsLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18.0)
+      resultsLabel.numberOfLines = 0
+      resultsLabel.numLines = 2
+      resultsLabel.lineBreakMode = .ByWordWrapping
+      self.addSubview(resultsLabel)
+      resultsLabel.hidden = true
+    }
+  }
+  
+  func changeFrame(frame: CGRect) {
+    self.frame = frame
+    fadingColorView.frame = CGRectMake(0, 0, frame.width, frame.height)
+    resignAllButton.frame = fadingColorView.frame
+    if frame.width < maxWidth {
+      header.transform = CGAffineTransformScale(header.transform , 10 / maxWidth, 10 / maxHeight)
+    } else {
+      header.transform = CGAffineTransformScale(header.transform , maxWidth / 10, maxHeight / 10)
+    }
+    header.frame = CGRectMake(0, 4 * (frame.height / maxHeight), frame.width * (frame.width / maxWidth), 26 * (frame.height / maxHeight))
+    inputBackground.frame = CGRectMake(4 * (frame.width / maxWidth), 40 * (frame.height / maxHeight), 312 * (frame.width / maxWidth), 170 * (frame.height / maxHeight))
+    exposedLabel.frame = CGRectMake(4 * (frame.width / maxWidth), 2 * (frame.height / maxHeight), 148 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
+    exposed.frame = CGRectMake(230 * (frame.width / maxWidth), 2 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
+    unexposedLabel.frame = CGRectMake(4 * (frame.width / maxWidth), 44 * (frame.height / maxHeight), 148 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
+    unexposed.frame = CGRectMake(230 * (frame.width / maxWidth), 44 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
+    percentInExposedLabel.frame = CGRectMake(4 * (frame.width / maxWidth), 86 * (frame.height / maxHeight), 224 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
+    percentInExposed.frame = CGRectMake(230 * (frame.width / maxWidth), 86 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
+    percentInUnexposedLabel.frame = CGRectMake(4 * (frame.width / maxWidth), 128 * (frame.height / maxHeight), 224 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
+    percentInUnexposed.frame = CGRectMake(230 * (frame.width / maxWidth), 128 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
+    if !resultsLabel.hidden {
+      resultsLabel.frame = CGRectMake(resultsLabel.frame.origin.x * (frame.width / maxWidth), resultsLabel.frame.origin.y * (frame.height / maxHeight), resultsLabel.frame.width * (frame.width / maxWidth), resultsLabel.frame.height * (frame.height / maxHeight))
+    }
+  }
+  
+  func textFieldShouldReturn(textField: UITextField) -> Bool {
+    return textField.resignFirstResponder()
+  }
+  
+  func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    killThread = true
+    UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveLinear, animations: {
+      self.resultsLabel.frame = CGRectMake(4, self.frame.height - 60, 312, 60)
+      }, completion: {
+        (value: Bool) in
+        self.resultsLabel.hidden = true
+        self.resultsLabel.text = ""
+    })
+    return true
+  }
+  
+  func resignAll() {
+    var noFirstResponder = true
+    for v in inputBackground.subviews as [UIView] {
+      if let tf = v as? UITextField {
+        if tf.isFirstResponder() {
+          tf.resignFirstResponder()
+          noFirstResponder = false
+        }
+      }
+    }
+    if (noFirstResponder) {
+      return
+    }
+    
+    if countElements(exposed.text) > 0 && countElements(unexposed.text) > 0 && countElements(percentInExposed.text) > 0 && countElements(percentInUnexposed.text) > 0 {
+      let numExposed = (exposed.text as NSString).floatValue
+      let numUnexposed = (unexposed.text as NSString).floatValue
+      let pctExposed = (percentInExposed.text as NSString).floatValue
+      let pctUnexposed = (percentInUnexposed.text as NSString).floatValue
+      
+      if pctExposed > 100 {
+        percentInExposed.text = ""
+        percentInExposed.placeholder = "<=100"
+        return
+      } else if pctUnexposed > 100 {
+        percentInUnexposed.text = ""
+        percentInUnexposed.placeholder = "<=100"
+        return
+      }
+      
+      killThread = false
+      let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+      dispatch_async(queue) {
+        self.runComputer((numExposed, numUnexposed, pctExposed, pctUnexposed))
+      }
+      resultsLabel.hidden = false
+      UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+        self.resultsLabel.frame = CGRectMake(self.resultsLabel.frame.origin.x, self.inputBackground.frame.origin.y + self.inputBackground.frame.height + 8, self.resultsLabel.frame.width, self.resultsLabel.frame.height)
+        }, completion: {
+          (value: Bool) in
+      })
+    }
+  }
+  
+  func runComputer(inputs : (Float, Float, Float, Float)) {
+    while !killThread {
+      let rr = CohortSimulationModel.compute(inputs.0, b: inputs.1, c: inputs.2, d: inputs.3)
+      dispatch_async(dispatch_get_main_queue()) {
+        self.resultsLabel.text = "\(rr.0)% of simulations found a significant relative risk."
+      }
+      sleep(2)
+    }
+  }
+  
+  required init(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+}

@@ -1,0 +1,14 @@
+//
+//  PhoneNumberField.h
+//  EpiInfo
+//
+//  Created by John Copeland on 11/27/13.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface PhoneNumberField : UITextField
+-(NSString *)value;
+
+@property NSString *columnName;
+@end
