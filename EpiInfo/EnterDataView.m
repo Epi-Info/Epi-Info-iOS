@@ -298,12 +298,15 @@
 - (void)updateMyLocation
 {
   // Get coordinates
+  [self.locationManager requestWhenInUseAuthorization];
   while (YES)
   {
     if ([[NSThread currentThread] isCancelled])
       [NSThread exit];
-    if (geocodingCheckbox.value)
+    if (geocodingCheckbox.value && [CLLocationManager locationServicesEnabled])
+    {
       [self.locationManager startUpdatingLocation];
+    }
     sleep(10);
   }
 }

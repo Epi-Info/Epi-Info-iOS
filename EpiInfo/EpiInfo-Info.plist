@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleGetInfoString</key>
+	<string></string>
 	<key>CFBundleDisplayName</key>
 	<string>Epi Info</string>
 	<key>CFBundleDocumentTypes</key>
@@ -51,6 +53,8 @@
 	<string>MainStoryboard</string>
 	<key>UIMainStoryboardFile~ipad</key>
 	<string>MainStoryboard_iPad</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To populate Latitude and Longitude fields.</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
