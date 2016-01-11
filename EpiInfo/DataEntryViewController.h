@@ -26,6 +26,7 @@
     UILabel *pickerLabel;
     LegalValues *lv;
     UIButton *openButton;
+    UIButton *manageButton;
     UITextField *lvSelected;
     
     EnterDataView *edv;

@@ -162,6 +162,7 @@
 		9240E96219548243006345FE /* GrowthPercentilesCompute.m in Sources */ = {isa = PBXBuildFile; fileRef = 9240E96119548243006345FE /* GrowthPercentilesCompute.m */; };
 		924368EB1919736200E680BF /* LineList6060.png in Resources */ = {isa = PBXBuildFile; fileRef = 924368EA1919736200E680BF /* LineList6060.png */; };
 		924764C018B3E9700046129F /* UploadButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 924764BF18B3E9700046129F /* UploadButton.png */; };
+		924770821C4015EF008F8C90 /* ManageButtonOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 924770811C4015EF008F8C90 /* ManageButtonOrange.png */; };
 		9247F20F181ADB4E00C96F94 /* BlurryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9247F20E181ADB4E00C96F94 /* BlurryView.m */; };
 		9248261D19CB40E300A0C1DD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9248261C19CB40E300A0C1DD /* Images.xcassets */; };
 		9248EC94195AF6720055EC9B /* StatCalc4.png in Resources */ = {isa = PBXBuildFile; fileRef = 9248EC92195AF6720055EC9B /* StatCalc4.png */; };
@@ -559,6 +560,7 @@
 		9240E96119548243006345FE /* GrowthPercentilesCompute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrowthPercentilesCompute.m; sourceTree = "<group>"; };
 		924368EA1919736200E680BF /* LineList6060.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LineList6060.png; sourceTree = "<group>"; };
 		924764BF18B3E9700046129F /* UploadButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UploadButton.png; sourceTree = "<group>"; };
+		924770811C4015EF008F8C90 /* ManageButtonOrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ManageButtonOrange.png; sourceTree = "<group>"; };
 		9247F20D181ADB4E00C96F94 /* BlurryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlurryView.h; sourceTree = "<group>"; };
 		9247F20E181ADB4E00C96F94 /* BlurryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlurryView.m; sourceTree = "<group>"; };
 		9248261C19CB40E300A0C1DD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -1455,6 +1457,7 @@
 				92282505186387DA00DF9493 /* ClearButton.png */,
 				92282506186387DA00DF9493 /* ClearButtonOrange.png */,
 				92C419D81921595000FA46EA /* DeleteButton.png */,
+				924770811C4015EF008F8C90 /* ManageButtonOrange.png */,
 				92001B98186C979E00B87D21 /* NoButton.png */,
 				92001B99186C979E00B87D21 /* NoButtonOrange.png */,
 				926CDF3518AEB7480002B544 /* OKButton.png */,
@@ -1765,6 +1768,7 @@
 				92001B9E186C979E00B87D21 /* YesButton.png in Resources */,
 				925354A21823F49500065B69 /* PadCohortSSScreenshot.png in Resources */,
 				684CCA4216EFAB8B007C4E6E /* FadeDown.png in Resources */,
+				924770821C4015EF008F8C90 /* ManageButtonOrange.png in Resources */,
 				4AF6D4AB1704C7C000ED9A44 /* 2x2B0.png in Resources */,
 				926A0F0918340A7400D49165 /* iPadNonRetinaLaunch.png in Resources */,
 				922227A819BA150A002CD855 /* icon-40.png in Resources */,

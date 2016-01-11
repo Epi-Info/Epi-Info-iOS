@@ -95,7 +95,7 @@
             [openButton addTarget:self action:@selector(openButtonPressed) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
             [openButton setEnabled:NO];
-            
+           
             [self.view sendSubviewToBack:pickerLabel];
             [self.view sendSubviewToBack:lv];
             
@@ -203,6 +203,19 @@
             [openButton addTarget:self action:@selector(openButtonPressed) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
             
+            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182, 120, 40)];
+            [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [manageButton.layer setCornerRadius:4.0];
+            [manageButton setTitle:@"Manage. Double tap to manage." forState:UIControlStateNormal];
+            [manageButton setImage:[UIImage imageNamed:@"ManageButtonOrange.png"] forState:UIControlStateNormal];
+            [manageButton.layer setMasksToBounds:YES];
+            [manageButton.layer setCornerRadius:4.0];
+            [manageButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
+            [manageButton.layer setBorderWidth:1.0];
+            [manageButton addTarget:self action:@selector(manageButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:manageButton];
+            [manageButton setEnabled:NO];
+            
             [self.view sendSubviewToBack:pickerLabel];
             [self.view sendSubviewToBack:lv];
             
@@ -246,6 +259,18 @@
             [openButton addTarget:self action:@selector(openButtonPressed) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
             
+            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182, 120, 40)];
+            [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [manageButton.layer setCornerRadius:4.0];
+            [manageButton setTitle:@"Manage. Double tap to manage." forState:UIControlStateNormal];
+            [manageButton setImage:[UIImage imageNamed:@"ManageButtonOrange.png"] forState:UIControlStateNormal];
+            [manageButton.layer setMasksToBounds:YES];
+            [manageButton.layer setCornerRadius:4.0];
+            [manageButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
+            [manageButton.layer setBorderWidth:1.0];
+            [manageButton addTarget:self action:@selector(manageButtonPressed) forControlEvents:UIControlEventTouchDownRepeat];
+            [self.view addSubview:manageButton];
+            
             [self.view sendSubviewToBack:pickerLabel];
             [self.view sendSubviewToBack:lv];
         }
@@ -259,6 +284,7 @@
         [pickerLabel setAlpha:0.0];
         [newLabel setAlpha:1.0];
         [openButton setEnabled:NO];
+        [manageButton setEnabled:NO];
     } completion:^(BOOL finished){
     }];
 }
@@ -354,8 +380,131 @@
     mailComposerShown = NO;
 }
 
+- (void)manageButtonPressed
+{
+    if (lv.selectedIndex.intValue == 0)
+        return;
+    NSString *message = [NSString stringWithFormat:@"Delete table %@ and all of its data? (Double-tap \"Yes\" to delete.)", lvSelected.text];
+    
+    BlurryView *manageView = [[BlurryView alloc] initWithFrame:CGRectMake(0, -manageButton.frame.origin.y - manageButton.frame.size.height - 10.0, self.view.frame.size.width, manageButton.frame.origin.y + manageButton.frame.size.height + 10.0)];
+    [manageView setBackgroundColor:[UIColor whiteColor]];
+    [manageView setAlpha:0.96];
+    [self.view addSubview:manageView];
+    
+    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, manageView.frame.size.width - 20, 40.0)];
+    [messageLabel setText:message];
+    [messageLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [messageLabel setTextAlignment:NSTextAlignmentLeft];
+    [messageLabel setNumberOfLines:0];
+    [messageLabel setLineBreakMode:NSLineBreakByWordWrapping];
+    [manageView addSubview:messageLabel];
+    
+    UIButton *confirmDeleteForm = [[UIButton alloc] initWithFrame:CGRectMake(20, manageView.frame.size.height / 2.0, 120, 40)];
+    [confirmDeleteForm setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [confirmDeleteForm.layer setCornerRadius:4.0];
+    [confirmDeleteForm setTitle:@"Yes" forState:UIControlStateNormal];
+    [confirmDeleteForm setImage:[UIImage imageNamed:@"YesButtonOrange.png"] forState:UIControlStateNormal];
+    [confirmDeleteForm.layer setMasksToBounds:YES];
+    [confirmDeleteForm.layer setCornerRadius:4.0];
+    [confirmDeleteForm.layer setBorderColor:[[UIColor blackColor] CGColor]];
+    [confirmDeleteForm.layer setBorderWidth:1.0];
+    [confirmDeleteForm addTarget:self action:@selector(confirmDeleteFormPressed:) forControlEvents:UIControlEventTouchDownRepeat];
+    [confirmDeleteForm setTag:lv.selectedIndex.integerValue];
+    [manageView addSubview:confirmDeleteForm];
+    
+    UIButton *cancleDeleteForm = [[UIButton alloc] initWithFrame:CGRectMake(160, manageView.frame.size.height / 2.0, 120, 40)];
+    [cancleDeleteForm setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [cancleDeleteForm.layer setCornerRadius:4.0];
+    [cancleDeleteForm setTitle:@"No" forState:UIControlStateNormal];
+    [cancleDeleteForm setImage:[UIImage imageNamed:@"NoButtonOrange.png"] forState:UIControlStateNormal];
+    [cancleDeleteForm.layer setMasksToBounds:YES];
+    [cancleDeleteForm.layer setCornerRadius:4.0];
+    [cancleDeleteForm.layer setBorderColor:[[UIColor blackColor] CGColor]];
+    [cancleDeleteForm.layer setBorderWidth:1.0];
+    [cancleDeleteForm addTarget:self action:@selector(cancelDeleteFormPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [manageView addSubview:cancleDeleteForm];
+    
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [manageView setFrame:CGRectMake(0, 0, self.view.frame.size.width, manageButton.frame.origin.y + manageButton.frame.size.height + 10.0)];
+    } completion:^(BOOL finished){
+    }];
+}
+
+- (void)confirmDeleteFormPressed:(UIButton *)sender
+{
+    UIView *manageView = [sender superview];
+    
+    int deletedIndex = (int)[sender tag];
+    NSMutableArray *newArrayOfForms = [NSMutableArray arrayWithArray:[lv listOfValues]];
+    [newArrayOfForms removeObjectAtIndex:deletedIndex];
+    [lv setListOfValues:newArrayOfForms];
+    [lv.picker selectRow:0 inComponent:0 animated:NO];
+    [lv setSelectedIndex:0];
+
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *fileToRemove = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/"] stringByAppendingString:lvSelected.text] stringByAppendingString:@".xml"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:fileToRemove])
+    {
+        // Remove the template file
+        NSFileManager *nsfm = [NSFileManager defaultManager];
+        NSError *nse;
+        [nsfm removeItemAtPath:fileToRemove error:&nse];
+        
+        // Drop the data table
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
+        {
+            NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+            
+            //Convert the databasePath NSString to a char array
+            const char *dbpath = [databasePath UTF8String];
+            
+            //Open sqlite3 analysisDB pointing to the databasePath
+            if (sqlite3_open(dbpath, &epiinfoDB) == SQLITE_OK)
+            {
+                char *errMsg;
+                //Build the DROP TABLE statement
+                //Convert the sqlStmt to char array
+                const char *sql_stmt = [[NSString stringWithFormat:@"drop table %@", lvSelected.text] UTF8String];
+                
+                //Execute the DROP TABLE statement
+                if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                {
+                    NSLog(@"Failed to drop table: %s :::: %s", errMsg, sql_stmt);
+                }
+                else
+                {
+                    //                                        NSLog(@"Table dropped");
+                }
+                //Close the sqlite connection
+                sqlite3_close(epiinfoDB);
+            }
+            else
+            {
+                NSLog(@"Failed to open/create database");
+            }
+        }
+    }
+    
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [manageView setFrame:CGRectMake(0, -manageButton.frame.origin.y - manageButton.frame.size.height - 10.0, self.view.frame.size.width, manageButton.frame.origin.y + manageButton.frame.size.height + 10.0)];
+    } completion:^(BOOL finished){
+        [manageView removeFromSuperview];
+    }];
+}
+- (void)cancelDeleteFormPressed:(UIButton *)sender
+{
+    UIView *manageView = [sender superview];
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [manageView setFrame:CGRectMake(0, -manageButton.frame.origin.y - manageButton.frame.size.height - 10.0, self.view.frame.size.width, manageButton.frame.origin.y + manageButton.frame.size.height + 10.0)];
+    } completion:^(BOOL finished){
+        [manageView removeFromSuperview];
+    }];
+}
+
 - (void)openButtonPressed
 {
+    if (lv.selectedIndex.intValue == 0)
+        return;
     float viewWidth = self.view.frame.size.width;
     [[UIDevice currentDevice] playInputClick];
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -374,6 +523,7 @@
             [pickerLabel setHidden:YES];
             [lv setHidden:YES];
             [openButton setHidden:YES];
+            [manageButton setHidden:YES];
 
             orangeBannerBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 36)];
             [orangeBannerBackground setBackgroundColor:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:1.0]];
@@ -1773,6 +1923,7 @@
         [pickerLabel setHidden:NO];
         [lv setHidden:NO];
         [openButton setHidden:NO];
+        [manageButton setHidden:NO];
         
         for (UIView *v in [dismissView subviews])
         {
