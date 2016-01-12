@@ -275,7 +275,7 @@
         [unblurryView addSubview:v2];
         [unblurryView addSubview:v3];
         [unblurryView addSubview:v4];
-        [unblurryView addSubview:v5];
+//        [unblurryView addSubview:v5];
         
         // Make v4 appear in viewDidAppear, depending on presence of VHF data
         [v4 setHidden:YES];
