@@ -108,6 +108,7 @@
             [manageButton addTarget:self action:@selector(manageButtonPressed) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:manageButton];
             [manageButton setEnabled:NO];
+            [manageButton setEnabled:NO];
            
             [self.view sendSubviewToBack:pickerLabel];
             [self.view sendSubviewToBack:lv];
