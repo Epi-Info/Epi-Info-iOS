@@ -95,6 +95,19 @@
             [openButton addTarget:self action:@selector(openButtonPressed) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
             [openButton setEnabled:NO];
+            
+            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 187, 120, 40)];
+            [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [manageButton.layer setCornerRadius:4.0];
+            [manageButton setTitle:@"Manage. Double tap to manage." forState:UIControlStateNormal];
+            [manageButton setImage:[UIImage imageNamed:@"ManageButtonOrange.png"] forState:UIControlStateNormal];
+            [manageButton.layer setMasksToBounds:YES];
+            [manageButton.layer setCornerRadius:4.0];
+            [manageButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
+            [manageButton.layer setBorderWidth:1.0];
+            [manageButton addTarget:self action:@selector(manageButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:manageButton];
+            [manageButton setEnabled:NO];
            
             [self.view sendSubviewToBack:pickerLabel];
             [self.view sendSubviewToBack:lv];
@@ -138,6 +151,18 @@
             [openButton.layer setBorderWidth:1.0];
             [openButton addTarget:self action:@selector(openButtonPressed) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
+            
+            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 187, 120, 40)];
+            [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [manageButton.layer setCornerRadius:4.0];
+            [manageButton setTitle:@"Manage. Double tap to manage." forState:UIControlStateNormal];
+            [manageButton setImage:[UIImage imageNamed:@"ManageButtonOrange.png"] forState:UIControlStateNormal];
+            [manageButton.layer setMasksToBounds:YES];
+            [manageButton.layer setCornerRadius:4.0];
+            [manageButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
+            [manageButton.layer setBorderWidth:1.0];
+            [manageButton addTarget:self action:@selector(manageButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:manageButton];
             
             [self.view sendSubviewToBack:pickerLabel];
             [self.view sendSubviewToBack:lv];
