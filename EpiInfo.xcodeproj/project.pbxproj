@@ -113,9 +113,7 @@
 		92119A641923FD15008155F7 /* DataEntry5.png in Resources */ = {isa = PBXBuildFile; fileRef = 92119A631923FD15008155F7 /* DataEntry5.png */; };
 		92119A671923FDD3008155F7 /* DataEntry4.png in Resources */ = {isa = PBXBuildFile; fileRef = 92119A651923FDD3008155F7 /* DataEntry4.png */; };
 		92119A681923FDD3008155F7 /* DataEntryPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 92119A661923FDD3008155F7 /* DataEntryPad.png */; };
-		92119A6A1924002B008155F7 /* Entry5.png in Resources */ = {isa = PBXBuildFile; fileRef = 92119A691924002B008155F7 /* Entry5.png */; };
 		92119A6D192401F0008155F7 /* EnterData4.png in Resources */ = {isa = PBXBuildFile; fileRef = 92119A6B192401F0008155F7 /* EnterData4.png */; };
-		92119A6E192401F0008155F7 /* EnterDataPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 92119A6C192401F0008155F7 /* EnterDataPad.png */; };
 		9212FFFB1948C4F500519BFE /* AnalysisPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9212FFFA1948C4F500519BFE /* AnalysisPad.png */; };
 		9218EA5B1869D37500A4E2D9 /* ClickingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9218EA5A1869D37500A4E2D9 /* ClickingView.m */; };
 		9218EA611869E83800A4E2D9 /* iPhoneDataEntryBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 9218EA601869E83800A4E2D9 /* iPhoneDataEntryBackground.png */; };
@@ -268,6 +266,8 @@
 		9299CE9E185769B700B12461 /* 2x2Summary-2N.png in Resources */ = {isa = PBXBuildFile; fileRef = 9299CE9D185769B700B12461 /* 2x2Summary-2N.png */; };
 		9299CEA01857714300B12461 /* MatchedPTN.png in Resources */ = {isa = PBXBuildFile; fileRef = 9299CE9F1857714300B12461 /* MatchedPTN.png */; };
 		9299CEA218577D0A00B12461 /* MPBOTN.png in Resources */ = {isa = PBXBuildFile; fileRef = 9299CEA118577D0A00B12461 /* MPBOTN.png */; };
+		92A192431C481B3A0095E69F /* Entry5.png in Resources */ = {isa = PBXBuildFile; fileRef = 92A192411C481B3A0095E69F /* Entry5.png */; };
+		92A192441C481B3A0095E69F /* EnterDataPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 92A192421C481B3A0095E69F /* EnterDataPad.png */; };
 		92A1F68F1B03E9A4004654B8 /* CheckCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A1F68E1B03E9A4004654B8 /* CheckCode.swift */; };
 		92A25BFB1938D8F9003225E1 /* DateTimeField.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A25BFA1938D8F9003225E1 /* DateTimeField.m */; };
 		92A25BFE1938DAD2003225E1 /* TimePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A25BFD1938DAD2003225E1 /* TimePicker.m */; };
@@ -501,9 +501,7 @@
 		92119A631923FD15008155F7 /* DataEntry5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DataEntry5.png; sourceTree = "<group>"; };
 		92119A651923FDD3008155F7 /* DataEntry4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DataEntry4.png; sourceTree = "<group>"; };
 		92119A661923FDD3008155F7 /* DataEntryPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DataEntryPad.png; sourceTree = "<group>"; };
-		92119A691924002B008155F7 /* Entry5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Entry5.png; sourceTree = "<group>"; };
 		92119A6B192401F0008155F7 /* EnterData4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EnterData4.png; sourceTree = "<group>"; };
-		92119A6C192401F0008155F7 /* EnterDataPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EnterDataPad.png; sourceTree = "<group>"; };
 		9212FFFA1948C4F500519BFE /* AnalysisPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AnalysisPad.png; sourceTree = "<group>"; };
 		9218EA591869D37500A4E2D9 /* ClickingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClickingView.h; sourceTree = "<group>"; };
 		9218EA5A1869D37500A4E2D9 /* ClickingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClickingView.m; sourceTree = "<group>"; };
@@ -696,6 +694,8 @@
 		9299CE9D185769B700B12461 /* 2x2Summary-2N.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2x2Summary-2N.png"; sourceTree = "<group>"; };
 		9299CE9F1857714300B12461 /* MatchedPTN.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MatchedPTN.png; sourceTree = "<group>"; };
 		9299CEA118577D0A00B12461 /* MPBOTN.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPBOTN.png; sourceTree = "<group>"; };
+		92A192411C481B3A0095E69F /* Entry5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Entry5.png; sourceTree = "<group>"; };
+		92A192421C481B3A0095E69F /* EnterDataPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EnterDataPad.png; sourceTree = "<group>"; };
 		92A1F68E1B03E9A4004654B8 /* CheckCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckCode.swift; sourceTree = "<group>"; };
 		92A25BF91938D8F9003225E1 /* DateTimeField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateTimeField.h; sourceTree = "<group>"; };
 		92A25BFA1938D8F9003225E1 /* DateTimeField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateTimeField.m; sourceTree = "<group>"; };
@@ -968,8 +968,8 @@
 				92D03BEA18848C450062D75A /* CohortSSScreen5.png */,
 				921D534B1892E12900FA8E0A /* CohortSSScreenPad.png */,
 				92119A6B192401F0008155F7 /* EnterData4.png */,
-				92119A6C192401F0008155F7 /* EnterDataPad.png */,
-				92119A691924002B008155F7 /* Entry5.png */,
+				92A192411C481B3A0095E69F /* Entry5.png */,
+				92A192421C481B3A0095E69F /* EnterDataPad.png */,
 				92119A631923FD15008155F7 /* DataEntry5.png */,
 				92119A651923FDD3008155F7 /* DataEntry4.png */,
 				92119A661923FDD3008155F7 /* DataEntryPad.png */,
@@ -1671,7 +1671,6 @@
 				68D769FF16A9DDF900D831EB /* MPB.png in Resources */,
 				9212FFFB1948C4F500519BFE /* AnalysisPad.png in Resources */,
 				92D4BB63184F77CC00B2D70C /* CancelButton.png in Resources */,
-				92119A6A1924002B008155F7 /* Entry5.png in Resources */,
 				924764C018B3E9700046129F /* UploadButton.png in Resources */,
 				92FD4078182D33AD004B4729 /* Binomial.png in Resources */,
 				92D03BD418848B2C0062D75A /* 2x2Screen5.png in Resources */,
@@ -1695,6 +1694,7 @@
 				9218EA611869E83800A4E2D9 /* iPhoneDataEntryBackground.png in Resources */,
 				926CDF3618AEB7480002B544 /* OKButton.png in Resources */,
 				922227A719BA150A002CD855 /* icon-29.png in Resources */,
+				92A192441C481B3A0095E69F /* EnterDataPad.png in Resources */,
 				68D76A0516A9DDF900D831EB /* splash-page.png in Resources */,
 				68D76A0616A9DDF900D831EB /* background-1.png in Resources */,
 				68D76A0716A9DDF900D831EB /* BinomialB.png in Resources */,
@@ -1702,6 +1702,7 @@
 				92867AC5183EAE6000CCC2B5 /* PoissonNR.png in Resources */,
 				92E42B261959DD9C0077EF41 /* hcagewho.csv in Resources */,
 				925A5DAC1858C0C7000C2E9E /* CalculatorButtonNR.png in Resources */,
+				92A192431C481B3A0095E69F /* Entry5.png in Resources */,
 				68D76A0816A9DDF900D831EB /* BinomialT.png in Resources */,
 				92119A6D192401F0008155F7 /* EnterData4.png in Resources */,
 				92D03BE018848BA00062D75A /* PoissonScreen5.png in Resources */,
@@ -1747,7 +1748,6 @@
 				926A0F0A18340A7400D49165 /* iPadRetinaLaunch.png in Resources */,
 				9208F825186250070022C6FB /* OpenButtonOrange.png in Resources */,
 				68F0E84116E5368A00ADD7A3 /* ChiB1.png in Resources */,
-				92119A6E192401F0008155F7 /* EnterDataPad.png in Resources */,
 				926DFB391832753100FACCD2 /* CaseControlNR.png in Resources */,
 				92E42B2E1959F06B0077EF41 /* wgtagecdc.csv in Resources */,
 				922227AD19BA150A002CD855 /* icon-152.png in Resources */,
