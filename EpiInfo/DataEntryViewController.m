@@ -65,6 +65,7 @@
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
         {
+            NSLog(@"%@", [paths objectAtIndex:0]);
             pickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 28)];
             [pickerLabel setTextColor:[UIColor whiteColor]];
             [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
@@ -198,10 +199,11 @@
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
         {
+            NSLog(@"%@", [paths objectAtIndex:0]);
             pickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 28)];
             [pickerLabel setTextColor:[UIColor whiteColor]];
             [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0]];
-            [pickerLabel setText:@"Choose form:"];
+            [pickerLabel setText:@"No forms found on this device."];
             [pickerLabel setBackgroundColor:[UIColor clearColor]];
             [self.view addSubview:pickerLabel];
             UILabel *altPickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 28)];
