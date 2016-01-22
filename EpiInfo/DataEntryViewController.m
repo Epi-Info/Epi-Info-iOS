@@ -116,7 +116,60 @@
             NSThread *noFormsThread = [[NSThread alloc] initWithTarget:self selector:@selector(noFormsFound:) object:altPickerLabel];
             [noFormsThread start];
         }
-        if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
+        else if ([[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] error:nil].count == 0)
+        {
+            NSLog(@"%@", [paths objectAtIndex:0]);
+            pickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 28)];
+            [pickerLabel setTextColor:[UIColor whiteColor]];
+            [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+            [pickerLabel setText:@"No forms found on this device."];
+            [pickerLabel setBackgroundColor:[UIColor clearColor]];
+            [self.view addSubview:pickerLabel];
+            UILabel *altPickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 28)];
+            [altPickerLabel setTextColor:[UIColor whiteColor]];
+            [altPickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+            [altPickerLabel setText:@"No forms found on this device."];
+            [altPickerLabel setBackgroundColor:[UIColor clearColor]];
+            [self.view addSubview:altPickerLabel];
+            [altPickerLabel setAlpha:0.0];
+            
+            lvSelected = [[UITextField alloc] init];
+            
+            lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, 20, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
+            
+            openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 187, 120, 40)];
+            [openButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [openButton.layer setCornerRadius:4.0];
+            [openButton setTitle:@"Open" forState:UIControlStateNormal];
+            [openButton setImage:[UIImage imageNamed:@"OpenButtonOrange.png"] forState:UIControlStateNormal];
+            [openButton.layer setMasksToBounds:YES];
+            [openButton.layer setCornerRadius:4.0];
+            [openButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
+            [openButton.layer setBorderWidth:1.0];
+            [openButton addTarget:self action:@selector(openButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:openButton];
+            [openButton setEnabled:NO];
+            
+            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 187, 120, 40)];
+            [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [manageButton.layer setCornerRadius:4.0];
+            [manageButton setTitle:@"Manage. Double tap to manage." forState:UIControlStateNormal];
+            [manageButton setImage:[UIImage imageNamed:@"ManageButtonOrange.png"] forState:UIControlStateNormal];
+            [manageButton.layer setMasksToBounds:YES];
+            [manageButton.layer setCornerRadius:4.0];
+            [manageButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
+            [manageButton.layer setBorderWidth:1.0];
+            [manageButton addTarget:self action:@selector(manageButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:manageButton];
+            [manageButton setEnabled:NO];
+            
+            [self.view sendSubviewToBack:pickerLabel];
+            [self.view sendSubviewToBack:lv];
+            
+            NSThread *noFormsThread = [[NSThread alloc] initWithTarget:self selector:@selector(noFormsFound:) object:altPickerLabel];
+            [noFormsThread start];
+        }
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]] && [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] error:nil].count > 0)
         {
             int selectedindex = 0;
             NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] error:nil];
@@ -162,7 +215,7 @@
             [manageButton.layer setCornerRadius:4.0];
             [manageButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
             [manageButton.layer setBorderWidth:1.0];
-            [manageButton addTarget:self action:@selector(manageButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+            [manageButton addTarget:self action:@selector(manageButtonPressed) forControlEvents:UIControlEventTouchDownRepeat];
             [self.view addSubview:manageButton];
             
             [self.view sendSubviewToBack:pickerLabel];
@@ -239,7 +292,7 @@
             [manageButton.layer setCornerRadius:4.0];
             [manageButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
             [manageButton.layer setBorderWidth:1.0];
-            [manageButton addTarget:self action:@selector(manageButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+            [manageButton addTarget:self action:@selector(manageButtonPressed) forControlEvents:UIControlEventTouchDownRepeat];
             [self.view addSubview:manageButton];
             [manageButton setEnabled:NO];
             
@@ -249,7 +302,59 @@
             NSThread *noFormsThread = [[NSThread alloc] initWithTarget:self selector:@selector(noFormsFound:) object:altPickerLabel];
             [noFormsThread start];
         }
-        if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
+        else if ([[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] error:nil].count == 0)
+        {
+            NSLog(@"%@", [paths objectAtIndex:0]);
+            pickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 28)];
+            [pickerLabel setTextColor:[UIColor whiteColor]];
+            [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0]];
+            [pickerLabel setText:@"No forms found on this device."];
+            [pickerLabel setBackgroundColor:[UIColor clearColor]];
+            [self.view addSubview:pickerLabel];
+            UILabel *altPickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 28)];
+            [altPickerLabel setTextColor:[UIColor whiteColor]];
+            [altPickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+            [altPickerLabel setText:@"No forms found on this device."];
+            [altPickerLabel setBackgroundColor:[UIColor clearColor]];
+            [self.view addSubview:altPickerLabel];
+            [altPickerLabel setAlpha:0.0];
+            
+            lvSelected = [[UITextField alloc] init];
+            
+            lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, 15, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
+            
+            openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 182, 120, 40)];
+            [openButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [openButton.layer setCornerRadius:4.0];
+            [openButton setTitle:@"Open" forState:UIControlStateNormal];
+            [openButton setImage:[UIImage imageNamed:@"OpenButtonOrange.png"] forState:UIControlStateNormal];
+            [openButton.layer setMasksToBounds:YES];
+            [openButton.layer setCornerRadius:4.0];
+            [openButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
+            [openButton.layer setBorderWidth:1.0];
+            [openButton addTarget:self action:@selector(openButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:openButton];
+            
+            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182, 120, 40)];
+            [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [manageButton.layer setCornerRadius:4.0];
+            [manageButton setTitle:@"Manage. Double tap to manage." forState:UIControlStateNormal];
+            [manageButton setImage:[UIImage imageNamed:@"ManageButtonOrange.png"] forState:UIControlStateNormal];
+            [manageButton.layer setMasksToBounds:YES];
+            [manageButton.layer setCornerRadius:4.0];
+            [manageButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
+            [manageButton.layer setBorderWidth:1.0];
+            [manageButton addTarget:self action:@selector(manageButtonPressed) forControlEvents:UIControlEventTouchDownRepeat];
+            [self.view addSubview:manageButton];
+            [manageButton setEnabled:NO];
+            
+            [self.view sendSubviewToBack:pickerLabel];
+            [self.view sendSubviewToBack:lv];
+            
+            NSThread *noFormsThread = [[NSThread alloc] initWithTarget:self selector:@selector(noFormsFound:) object:altPickerLabel];
+            [noFormsThread start];
+        }
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]] && [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] error:nil].count > 0)
         {
             int selectedindex = 0;
             NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] error:nil];
