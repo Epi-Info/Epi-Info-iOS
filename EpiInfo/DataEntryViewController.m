@@ -1179,6 +1179,9 @@
 
 - (void)packageDataForiTunes:(UIButton *)sender
 {
+    NSDate *dateObject = [NSDate date];
+    BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+    
     NSString *userPassword;
     for (UIView *v in [[sender superview] subviews])
         if ([v isKindOfClass:[UITextField class]])
@@ -1340,11 +1343,11 @@
                             NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
                             [nsnf setMaximumFractionDigits:6];
                             
-                            NSNumber *testFloat = [NSNumber numberWithFloat:1.1];
-                            NSString *testFloatString = [nsnf stringFromNumber:testFloat];
+//                            NSNumber *testFloat = [NSNumber numberWithFloat:1.1];
+//                            NSString *testFloatString = [nsnf stringFromNumber:testFloat];
                             
-                            if ([testFloatString characterAtIndex:1] == ',')
-                                value = [value stringByReplacingOccurrencesOfString:@"." withString:@","];
+//                            if ([testFloatString characterAtIndex:1] == ',')
+//                                value = [value stringByReplacingOccurrencesOfString:@"." withString:@","];
                             
                             //                                xmlFileText = [[[[[[[xmlFileText stringByAppendingString:@"\n\t\t<ResponseDetail QuestionName=\""]
                             //                                                    stringByAppendingString:columnName]
@@ -1380,6 +1383,32 @@
                         }
                         else
                         {
+                            NSString *stringValue = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)];
+                            @try {
+                                NSDateFormatter *nsdf = [[NSDateFormatter alloc] init];
+                                if (dmy)
+                                {
+                                    [nsdf setDateFormat:@"dd/MM/yyyy"];
+                                }
+                                else
+                                {
+                                    [nsdf setDateFormat:@"MM/dd/yyyy"];
+                                }
+                                NSDate *dt = [nsdf dateFromString:stringValue];
+                                if (dt)
+                                {
+                                    NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+                                    NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:dt];
+                                    stringValue = [NSString stringWithFormat:@"%d-%d-%d", [components year], [components month], [components day]];
+                                }
+                                NSLog(@"%@", stringValue);
+                            }
+                            @catch (NSException *exception) {
+                                NSLog(@"%@", exception);
+                            }
+                            @finally {
+                                //
+                            }
                             //                                xmlFileText = [[[[[[[xmlFileText stringByAppendingString:@"\n\t\t<ResponseDetail QuestionName=\""]
                             //                                                    stringByAppendingString:columnName]
                             //                                                   stringByAppendingString:@"\">"]
@@ -1390,7 +1419,7 @@
                             [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
                             [xmlFileText appendString:columnName];
                             [xmlFileText appendString:@"\">"];
-                            [xmlFileText appendString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)]];
+                            [xmlFileText appendString:stringValue];
                             [xmlFileText appendString:@"</"];
                             [xmlFileText appendString:@"ResponseDetail"];
                             [xmlFileText appendString:@">"];
@@ -1407,7 +1436,8 @@
         sqlite3_close(epiinfoDB);
     }
 
-    xmlFileText = [[[xmlFileText stringByAppendingString:@"\n</"] stringByAppendingString:@"SurveyResponses"] stringByAppendingString:@">"];
+//    xmlFileText = [[[xmlFileText stringByAppendingString:@"\n</"] stringByAppendingString:@"SurveyResponses"] stringByAppendingString:@">"];
+    [xmlFileText appendString:@"</SurveyResponses>"];
 //    NSLog(@"%@", xmlFileText);
     
     [xmlFileText writeToFile:tmpFile atomically:NO encoding:NSUTF8StringEncoding error:nil];
@@ -1558,6 +1588,9 @@
 }
 - (void)packageAndEmailData:(UIButton *)sender
 {
+    NSDate *dateObject = [NSDate date];
+    BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+    
     if (!mailComposerShown)
     {
         NSString *userPassword;
@@ -1721,11 +1754,11 @@
                                 NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
                                 [nsnf setMaximumFractionDigits:6];
                                 
-                                NSNumber *testFloat = [NSNumber numberWithFloat:1.1];
-                                NSString *testFloatString = [nsnf stringFromNumber:testFloat];
+//                                NSNumber *testFloat = [NSNumber numberWithFloat:1.1];
+//                                NSString *testFloatString = [nsnf stringFromNumber:testFloat];
                                 
-                                if ([testFloatString characterAtIndex:1] == ',')
-                                    value = [value stringByReplacingOccurrencesOfString:@"." withString:@","];
+//                                if ([testFloatString characterAtIndex:1] == ',')
+//                                    value = [value stringByReplacingOccurrencesOfString:@"." withString:@","];
                                 
 //                                xmlFileText = [[[[[[[xmlFileText stringByAppendingString:@"\n\t\t<ResponseDetail QuestionName=\""]
 //                                                    stringByAppendingString:columnName]
@@ -1761,6 +1794,32 @@
                             }
                             else
                             {
+                                NSString *stringValue = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)];
+                                @try {
+                                    NSDateFormatter *nsdf = [[NSDateFormatter alloc] init];
+                                    if (dmy)
+                                    {
+                                        [nsdf setDateFormat:@"dd/MM/yyyy"];
+                                    }
+                                    else
+                                    {
+                                        [nsdf setDateFormat:@"MM/dd/yyyy"];
+                                    }
+                                    NSDate *dt = [nsdf dateFromString:stringValue];
+                                    if (dt)
+                                    {
+                                        NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+                                        NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:dt];
+                                        stringValue = [NSString stringWithFormat:@"%d-%d-%d", [components year], [components month], [components day]];
+                                    }
+                                    NSLog(@"%@", stringValue);
+                                }
+                                @catch (NSException *exception) {
+                                    NSLog(@"%@", exception);
+                                }
+                                @finally {
+                                    //
+                                }
 //                                xmlFileText = [[[[[[[xmlFileText stringByAppendingString:@"\n\t\t<ResponseDetail QuestionName=\""]
 //                                                    stringByAppendingString:columnName]
 //                                                   stringByAppendingString:@"\">"]
@@ -1771,7 +1830,7 @@
                                 [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
                                 [xmlFileText appendString:columnName];
                                 [xmlFileText appendString:@"\">"];
-                                [xmlFileText appendString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)]];
+                                [xmlFileText appendString:stringValue];
                                 [xmlFileText appendString:@"</"];
                                 [xmlFileText appendString:@"ResponseDetail"];
                                 [xmlFileText appendString:@">"];
