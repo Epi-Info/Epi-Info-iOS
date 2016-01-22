@@ -39,8 +39,8 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
       [daysLV.picker setFrame:CGRectMake(0, 0, 140, 162)];
-      [daysLV setListOfValues:days];
     }
+      [daysLV setListOfValues:days];
     [daysLV.picker selectRow:day - 1 inComponent:0 animated:NO];
     [daysLV setPicked:[NSString stringWithFormat:@"%d", day]];
     [daysLV setViewToAlertOfChanges:self];
@@ -53,8 +53,8 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
       [yearsLV.picker setFrame:CGRectMake(0, 0, 140, 162)];
-      [yearsLV setListOfValues:years];
     }
+      [yearsLV setListOfValues:years];
     [yearsLV.picker selectRow:[[[NSCalendar currentCalendar] components:NSYearCalendarUnit fromDate:[NSDate date]] year] - 1901 inComponent:0 animated:NO];
     [yearsLV setPicked:[NSString stringWithFormat:@"%ld", (long)[[[NSCalendar currentCalendar] components:NSYearCalendarUnit fromDate:[NSDate date]] year]]];
     [yearsLV setViewToAlertOfChanges:self];
@@ -82,8 +82,8 @@
     {
       [daysLV.picker setFrame:CGRectMake(10, 10, 160, 162)];
       [daysLV setFrame:CGRectMake(320, 10, 180, 180)];
-      [yearsLV.picker setFrame:CGRectMake(10, 10, 120, 162)];
-      [yearsLV setFrame:CGRectMake(510, 10, 140, 180)];
+      [yearsLV.picker setFrame:CGRectMake(10, 10, 160, 162)];
+      [yearsLV setFrame:CGRectMake(510, 10, 180, 180)];
       
       [noButton setFrame:CGRectMake(noButton.frame.origin.x, 370, noButton.frame.size.width, noButton.frame.size.height)];
       [okButton setFrame:CGRectMake(okButton.frame.origin.x, 370, okButton.frame.size.width, okButton.frame.size.height)];
