@@ -786,6 +786,44 @@
     [areYouSure setNumberOfLines:0];
     [messageView addSubview:areYouSure];
     
+    UILabel *decimalSeparatorLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 106, 142, 40)];
+    [decimalSeparatorLabel setBackgroundColor:[UIColor clearColor]];
+    [decimalSeparatorLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [decimalSeparatorLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [decimalSeparatorLabel setTextAlignment:NSTextAlignmentLeft];
+    [decimalSeparatorLabel setText:@"Decimal separator:"];
+    [messageView addSubview:decimalSeparatorLabel];
+    
+    useDotForDecimal = YES;
+    
+    dotDecimalSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(150, 110, 30, 30)];
+    [dotDecimalSeparatorView setBackgroundColor:[UIColor redColor]];
+    [dotDecimalSeparatorView.layer setCornerRadius:10.0];
+    [messageView addSubview:dotDecimalSeparatorView];
+    
+    UIButton *dotDecimalSeparatorButton = [[UIButton alloc] initWithFrame:CGRectMake(2, 2, 26, 26)];
+    [dotDecimalSeparatorButton setBackgroundColor:[UIColor whiteColor]];
+    [dotDecimalSeparatorButton.layer setMasksToBounds:YES];
+    [dotDecimalSeparatorButton setTitle:@"Use dot for decimal separator" forState:UIControlStateNormal];
+    [dotDecimalSeparatorButton setImage:[UIImage imageNamed:@"Dot.png"] forState:UIControlStateNormal];
+    [dotDecimalSeparatorButton.layer setCornerRadius:8.0];
+    [dotDecimalSeparatorButton addTarget:self action:@selector(chooseDecimalSeparator:) forControlEvents:UIControlEventTouchUpInside];
+    [dotDecimalSeparatorView addSubview:dotDecimalSeparatorButton];
+    
+    commaDecimalSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(186, 110, 30, 30)];
+    [commaDecimalSeparatorView setBackgroundColor:[UIColor clearColor]];
+    [commaDecimalSeparatorView.layer setCornerRadius:10.0];
+    [messageView addSubview:commaDecimalSeparatorView];
+    
+    UIButton *commaDecimalSeparatorButton = [[UIButton alloc] initWithFrame:CGRectMake(2, 2, 26, 26)];
+    [commaDecimalSeparatorButton setBackgroundColor:[UIColor whiteColor]];
+    [commaDecimalSeparatorButton.layer setMasksToBounds:YES];
+    [commaDecimalSeparatorButton setTitle:@"Use comma for decimal separator" forState:UIControlStateNormal];
+    [commaDecimalSeparatorButton setImage:[UIImage imageNamed:@"Comma.png"] forState:UIControlStateNormal];
+    [commaDecimalSeparatorButton.layer setCornerRadius:8.0];
+    [commaDecimalSeparatorButton addTarget:self action:@selector(chooseDecimalSeparator:) forControlEvents:UIControlEventTouchUpInside];
+    [commaDecimalSeparatorView addSubview:commaDecimalSeparatorButton];
+    
     UIActivityIndicatorView *uiaiv = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(130, 80, 40, 40)];
     [uiaiv setColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
     [uiaiv setHidden:YES];
@@ -998,6 +1036,22 @@
         [dismissView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     } completion:^(BOOL finished){
     }];
+}
+
+- (void)chooseDecimalSeparator:(UIButton *)sender
+{
+    if ([sender.titleLabel.text isEqualToString:@"Use dot for decimal separator"])
+    {
+        useDotForDecimal = YES;
+        [dotDecimalSeparatorView setBackgroundColor:[UIColor redColor]];
+        [commaDecimalSeparatorView setBackgroundColor:[UIColor clearColor]];
+    }
+    else
+    {
+        useDotForDecimal = NO;
+        [dotDecimalSeparatorView setBackgroundColor:[UIColor clearColor]];
+        [commaDecimalSeparatorView setBackgroundColor:[UIColor redColor]];
+    }
 }
 
 - (void)confirmDismissal
@@ -1346,8 +1400,8 @@
 //                            NSNumber *testFloat = [NSNumber numberWithFloat:1.1];
 //                            NSString *testFloatString = [nsnf stringFromNumber:testFloat];
                             
-//                            if ([testFloatString characterAtIndex:1] == ',')
-//                                value = [value stringByReplacingOccurrencesOfString:@"." withString:@","];
+                            if (!useDotForDecimal)
+                                value = [value stringByReplacingOccurrencesOfString:@"." withString:@","];
                             
                             //                                xmlFileText = [[[[[[[xmlFileText stringByAppendingString:@"\n\t\t<ResponseDetail QuestionName=\""]
                             //                                                    stringByAppendingString:columnName]
@@ -1757,8 +1811,8 @@
 //                                NSNumber *testFloat = [NSNumber numberWithFloat:1.1];
 //                                NSString *testFloatString = [nsnf stringFromNumber:testFloat];
                                 
-//                                if ([testFloatString characterAtIndex:1] == ',')
-//                                    value = [value stringByReplacingOccurrencesOfString:@"." withString:@","];
+                                if (!useDotForDecimal)
+                                    value = [value stringByReplacingOccurrencesOfString:@"." withString:@","];
                                 
 //                                xmlFileText = [[[[[[[xmlFileText stringByAppendingString:@"\n\t\t<ResponseDetail QuestionName=\""]
 //                                                    stringByAppendingString:columnName]
@@ -1810,7 +1864,7 @@
                                     {
                                         NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
                                         NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:dt];
-                                        stringValue = [NSString stringWithFormat:@"%d-%d-%d", [components year], [components month], [components day]];
+                                        stringValue = [NSString stringWithFormat:@"%d-%d-%d", (int)[components year], (int)[components month], (int)[components day]];
                                     }
                                     NSLog(@"%@", stringValue);
                                 }

@@ -40,22 +40,7 @@
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
-      "filename" : "iPhone4RetinaLaunch.png",
-      "minimum-system-version" : "7.0",
-      "scale" : "2x"
-    },
-    {
-      "orientation" : "portrait",
-      "idiom" : "iphone",
       "filename" : "iPhone5Launch.png",
-      "minimum-system-version" : "7.0",
-      "subtype" : "retina4",
-      "scale" : "2x"
-    },
-    {
-      "orientation" : "portrait",
-      "idiom" : "iphone",
-      "filename" : "iPhone5RetinaLaunch.png",
       "minimum-system-version" : "7.0",
       "subtype" : "retina4",
       "scale" : "2x"

@@ -203,8 +203,8 @@
 		926817841AA8C54E00935BE9 /* SimulateCohort.png in Resources */ = {isa = PBXBuildFile; fileRef = 926817821AA8C54E00935BE9 /* SimulateCohort.png */; };
 		926817851AA8C54E00935BE9 /* SimulateCohortNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 926817831AA8C54E00935BE9 /* SimulateCohortNR.png */; };
 		9268178B1AA8D27900935BE9 /* CohortSimulationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268178A1AA8D27900935BE9 /* CohortSimulationView.swift */; };
-		926A0F0918340A7400D49165 /* iPadNonRetinaLaunch.png in Resources */ = {isa = PBXBuildFile; fileRef = 926A0F0718340A7400D49165 /* iPadNonRetinaLaunch.png */; };
-		926A0F0A18340A7400D49165 /* iPadRetinaLaunch.png in Resources */ = {isa = PBXBuildFile; fileRef = 926A0F0818340A7400D49165 /* iPadRetinaLaunch.png */; };
+		926A0F0918340A7400D49165 /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 926A0F0718340A7400D49165 /* Default-Portrait.png */; };
+		926A0F0A18340A7400D49165 /* Default-Portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 926A0F0818340A7400D49165 /* Default-Portrait@2x.png */; };
 		926C9D561A7AA8FE004A6ADD /* SimulationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926C9D551A7AA8FE004A6ADD /* SimulationsViewController.m */; };
 		926C9D591A7AB3EC004A6ADD /* SimulationButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 926C9D571A7AB3EC004A6ADD /* SimulationButton.png */; };
 		926C9D5A1A7AB3EC004A6ADD /* SimulationButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 926C9D581A7AB3EC004A6ADD /* SimulationButtonNR.png */; };
@@ -268,6 +268,8 @@
 		9299CEA218577D0A00B12461 /* MPBOTN.png in Resources */ = {isa = PBXBuildFile; fileRef = 9299CEA118577D0A00B12461 /* MPBOTN.png */; };
 		92A192431C481B3A0095E69F /* Entry5.png in Resources */ = {isa = PBXBuildFile; fileRef = 92A192411C481B3A0095E69F /* Entry5.png */; };
 		92A192441C481B3A0095E69F /* EnterDataPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 92A192421C481B3A0095E69F /* EnterDataPad.png */; };
+		92A192471C56B33D0095E69F /* Dot.png in Resources */ = {isa = PBXBuildFile; fileRef = 92A192451C56B33D0095E69F /* Dot.png */; };
+		92A192481C56B33D0095E69F /* Comma.png in Resources */ = {isa = PBXBuildFile; fileRef = 92A192461C56B33D0095E69F /* Comma.png */; };
 		92A1F68F1B03E9A4004654B8 /* CheckCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A1F68E1B03E9A4004654B8 /* CheckCode.swift */; };
 		92A25BFB1938D8F9003225E1 /* DateTimeField.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A25BFA1938D8F9003225E1 /* DateTimeField.m */; };
 		92A25BFE1938DAD2003225E1 /* TimePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A25BFD1938DAD2003225E1 /* TimePicker.m */; };
@@ -617,8 +619,8 @@
 		926817821AA8C54E00935BE9 /* SimulateCohort.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SimulateCohort.png; sourceTree = "<group>"; };
 		926817831AA8C54E00935BE9 /* SimulateCohortNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SimulateCohortNR.png; sourceTree = "<group>"; };
 		9268178A1AA8D27900935BE9 /* CohortSimulationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CohortSimulationView.swift; sourceTree = "<group>"; };
-		926A0F0718340A7400D49165 /* iPadNonRetinaLaunch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPadNonRetinaLaunch.png; sourceTree = "<group>"; };
-		926A0F0818340A7400D49165 /* iPadRetinaLaunch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPadRetinaLaunch.png; sourceTree = "<group>"; };
+		926A0F0718340A7400D49165 /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
+		926A0F0818340A7400D49165 /* Default-Portrait@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x.png"; sourceTree = "<group>"; };
 		926C9D541A7AA8FE004A6ADD /* SimulationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimulationsViewController.h; sourceTree = "<group>"; };
 		926C9D551A7AA8FE004A6ADD /* SimulationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimulationsViewController.m; sourceTree = "<group>"; };
 		926C9D571A7AB3EC004A6ADD /* SimulationButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SimulationButton.png; sourceTree = "<group>"; };
@@ -696,6 +698,8 @@
 		9299CEA118577D0A00B12461 /* MPBOTN.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPBOTN.png; sourceTree = "<group>"; };
 		92A192411C481B3A0095E69F /* Entry5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Entry5.png; sourceTree = "<group>"; };
 		92A192421C481B3A0095E69F /* EnterDataPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EnterDataPad.png; sourceTree = "<group>"; };
+		92A192451C56B33D0095E69F /* Dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dot.png; sourceTree = "<group>"; };
+		92A192461C56B33D0095E69F /* Comma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Comma.png; sourceTree = "<group>"; };
 		92A1F68E1B03E9A4004654B8 /* CheckCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckCode.swift; sourceTree = "<group>"; };
 		92A25BF91938D8F9003225E1 /* DateTimeField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateTimeField.h; sourceTree = "<group>"; };
 		92A25BFA1938D8F9003225E1 /* DateTimeField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateTimeField.m; sourceTree = "<group>"; };
@@ -865,8 +869,8 @@
 				92095BE41835686200B7A0ED /* Default-1024h@2x.png */,
 				926DFB521832AA5500FACCD2 /* iPhone5RetinaLaunch.png */,
 				926DFB541832B0A400FACCD2 /* iPhone4RetinaLaunch.png */,
-				926A0F0718340A7400D49165 /* iPadNonRetinaLaunch.png */,
-				926A0F0818340A7400D49165 /* iPadRetinaLaunch.png */,
+				926A0F0718340A7400D49165 /* Default-Portrait.png */,
+				926A0F0818340A7400D49165 /* Default-Portrait@2x.png */,
 				92243A79182C3A4600E6156B /* PhoneRH.png */,
 				92FD405C182D2208004B4729 /* PadNRH.png */,
 				92FD405A182D216C004B4729 /* PadRH.png */,
@@ -1009,6 +1013,8 @@
 				92867ABE183EAE5100CCC2B5 /* ChiSquare.png */,
 				92867ABF183EAE5100CCC2B5 /* ChiSquareNR.png */,
 				926DFB3A1832772800FACCD2 /* Cohort.png */,
+				92A192451C56B33D0095E69F /* Dot.png */,
+				92A192461C56B33D0095E69F /* Comma.png */,
 				926DFB3B1832772800FACCD2 /* CohortNR.png */,
 				92E81ADA1861F3E900C7CAED /* FormsButton.png */,
 				92E81ADB1861F3E900C7CAED /* FormsButtonNR.png */,
@@ -1699,6 +1705,7 @@
 				68D76A0616A9DDF900D831EB /* background-1.png in Resources */,
 				68D76A0716A9DDF900D831EB /* BinomialB.png in Resources */,
 				92095BDB1835645E00B7A0ED /* SpotlightR.png in Resources */,
+				92A192481C56B33D0095E69F /* Comma.png in Resources */,
 				92867AC5183EAE6000CCC2B5 /* PoissonNR.png in Resources */,
 				92E42B261959DD9C0077EF41 /* hcagewho.csv in Resources */,
 				925A5DAC1858C0C7000C2E9E /* CalculatorButtonNR.png in Resources */,
@@ -1735,6 +1742,7 @@
 				921D53501892E1F900FA8E0A /* CaseControlSSScreenPad.png in Resources */,
 				926817851AA8C54E00935BE9 /* SimulateCohortNR.png in Resources */,
 				925354A11823F49500065B69 /* PadChiSquareScreenshot.png in Resources */,
+				92A192471C56B33D0095E69F /* Dot.png in Resources */,
 				921D53461892DF9C00FA8E0A /* PMCCScreenPad.png in Resources */,
 				9240E959195479D3006345FE /* InchesButton.png in Resources */,
 				92C419D91921595000FA46EA /* DeleteButton.png in Resources */,
@@ -1745,7 +1753,7 @@
 				92E42B211959CBBD0077EF41 /* wgtagewho.csv in Resources */,
 				92FD405B182D216C004B4729 /* PadRH.png in Resources */,
 				68BA38F316C585D000236D06 /* 2x2Summary-2.png in Resources */,
-				926A0F0A18340A7400D49165 /* iPadRetinaLaunch.png in Resources */,
+				926A0F0A18340A7400D49165 /* Default-Portrait@2x.png in Resources */,
 				9208F825186250070022C6FB /* OpenButtonOrange.png in Resources */,
 				68F0E84116E5368A00ADD7A3 /* ChiB1.png in Resources */,
 				926DFB391832753100FACCD2 /* CaseControlNR.png in Resources */,
@@ -1770,7 +1778,7 @@
 				684CCA4216EFAB8B007C4E6E /* FadeDown.png in Resources */,
 				924770821C4015EF008F8C90 /* ManageButtonOrange.png in Resources */,
 				4AF6D4AB1704C7C000ED9A44 /* 2x2B0.png in Resources */,
-				926A0F0918340A7400D49165 /* iPadNonRetinaLaunch.png in Resources */,
+				926A0F0918340A7400D49165 /* Default-Portrait.png in Resources */,
 				922227A819BA150A002CD855 /* icon-40.png in Resources */,
 				9248EC97195B102C0055EC9B /* StatCalcPad.png in Resources */,
 				9248EC99195B66D20055EC9B /* GrowthPercentileScreenPad.png in Resources */,
@@ -1979,7 +1987,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2012,7 +2019,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

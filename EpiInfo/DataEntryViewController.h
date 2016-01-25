@@ -40,6 +40,10 @@
     BOOL mailComposerShown;
   
   int recordsToBeWrittenToPackageFile;
+    
+    UIView *dotDecimalSeparatorView;
+    UIView *commaDecimalSeparatorView;
+    BOOL useDotForDecimal;
 }
 @property NSMutableDictionary *legalValuesDictionary;
 -(void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID;
