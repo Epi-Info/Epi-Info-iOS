@@ -24,6 +24,8 @@
 - (void)setPicked:(NSString *)pkd;
 - (id)initWithFrame:(CGRect)frame AndListOfValues:(NSMutableArray *)lov;
 - (id)initWithFrame:(CGRect)frame AndListOfValues:(NSMutableArray *)lov AndTextFieldToUpdate:(UITextField *)tftu;
+- (id)initWithFrame:(CGRect)frame AndListOfValues:(NSMutableArray *)lov NoFixedDimensions:(BOOL)nfd;
+- (id)initWithFrame:(CGRect)frame AndListOfValues:(NSMutableArray *)lov AndTextFieldToUpdate:(UITextField *)tftu NoFixedDimensions:(BOOL)nfd;
 -(void)reset;
 -(void)setSelectedLegalValue:(NSString *)selectedLegalValue;
 -(void)setFormFieldValue:(NSString *)formFieldValue;

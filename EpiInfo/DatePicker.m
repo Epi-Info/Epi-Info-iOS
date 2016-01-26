@@ -26,7 +26,7 @@
     [self addSubview:bv];
     
     NSMutableArray *months = [NSMutableArray arrayWithArray:@[@"January",@"February",@"March",@"April",@"May",@"June",@"July",@"August",@"September",@"October",@"November",@"December"]];
-    monthsLV = [[LegalValues alloc] initWithFrame:CGRectMake(10, 10, 300, 180) AndListOfValues:months];
+    monthsLV = [[LegalValues alloc] initWithFrame:CGRectMake(10, 10, 200, 180) AndListOfValues:months NoFixedDimensions:YES];
     [monthsLV.picker selectRow:month - 1 inComponent:0 animated:NO];
     [monthsLV setPicked:[months objectAtIndex:month - 1]];
     [monthsLV setViewToAlertOfChanges:self];
@@ -35,12 +35,12 @@
     NSMutableArray *days = [[NSMutableArray alloc] init];
     for (int i = 1; i < 32; i++)
       [days addObject:[NSString stringWithFormat:@"%d", i]];
-    daysLV = [[LegalValues alloc] initWithFrame:CGRectMake(10, 200, 140, 180) AndListOfValues:days];
+    daysLV = [[LegalValues alloc] initWithFrame:CGRectMake(10, 200, 140, 180) AndListOfValues:days NoFixedDimensions:YES];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
       [daysLV.picker setFrame:CGRectMake(0, 0, 140, 162)];
-    }
       [daysLV setListOfValues:days];
+    }
     [daysLV.picker selectRow:day - 1 inComponent:0 animated:NO];
     [daysLV setPicked:[NSString stringWithFormat:@"%d", day]];
     [daysLV setViewToAlertOfChanges:self];
@@ -49,12 +49,12 @@
     NSMutableArray *years = [[NSMutableArray alloc] init];
     for (int i = 1901; i < 2101; i++)
       [years addObject:[NSString stringWithFormat:@"%d", i]];
-    yearsLV = [[LegalValues alloc] initWithFrame:CGRectMake(170, 200, 140, 180) AndListOfValues:years];
+    yearsLV = [[LegalValues alloc] initWithFrame:CGRectMake(170, 200, 140, 180) AndListOfValues:years NoFixedDimensions:YES];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
       [yearsLV.picker setFrame:CGRectMake(0, 0, 140, 162)];
-    }
       [yearsLV setListOfValues:years];
+    }
     [yearsLV.picker selectRow:[[[NSCalendar currentCalendar] components:NSYearCalendarUnit fromDate:[NSDate date]] year] - 1901 inComponent:0 animated:NO];
     [yearsLV setPicked:[NSString stringWithFormat:@"%ld", (long)[[[NSCalendar currentCalendar] components:NSYearCalendarUnit fromDate:[NSDate date]] year]]];
     [yearsLV setViewToAlertOfChanges:self];
@@ -80,16 +80,20 @@
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
-      [daysLV.picker setFrame:CGRectMake(10, 10, 160, 162)];
-      [daysLV setFrame:CGRectMake(320, 10, 180, 180)];
-      [yearsLV.picker setFrame:CGRectMake(10, 10, 160, 162)];
-      [yearsLV setFrame:CGRectMake(510, 10, 180, 180)];
+      [monthsLV setFrame:CGRectMake(134, 40, 200, 180)];
+//      [daysLV.picker setFrame:CGRectMake(10, 10, 280, 160)];
+      [daysLV setFrame:CGRectMake(344, 40, 140, 180)];
+      [daysLV setListOfValues:days];
+//      [yearsLV.picker setFrame:CGRectMake(10, 10, 280, 160)];
+      [yearsLV setFrame:CGRectMake(494, 40, 140, 180)];
+      [yearsLV setListOfValues:years];
       
       [noButton setFrame:CGRectMake(noButton.frame.origin.x, 370, noButton.frame.size.width, noButton.frame.size.height)];
       [okButton setFrame:CGRectMake(okButton.frame.origin.x, 370, okButton.frame.size.width, okButton.frame.size.height)];
     }
     else
     {
+      [monthsLV setFrame:CGRectMake(50, monthsLV.frame.origin.y, monthsLV.frame.size.width, monthsLV.frame.size.height)];
       [daysLV.picker setFrame:CGRectMake(0, 0, 140, 162)];
       [daysLV setFrame:CGRectMake(10, 200, 140, 180)];
       [yearsLV.picker setFrame:CGRectMake(10, 0, 120, 162)];

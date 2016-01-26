@@ -75,6 +75,37 @@
     return self;
 }
 
+- (id)initWithFrame:(CGRect)frame AndListOfValues:(NSMutableArray *)lov NoFixedDimensions:(BOOL)nfd
+{
+    self = [self initWithFrame:frame];
+    if (self) {
+        // Initialization code
+        [self setListOfValues:lov];
+        //        [self setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self setBackgroundColor:[UIColor clearColor]];
+        [self.layer setCornerRadius:4.0];
+        picked = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 40, 10)];
+        //        [self addSubview:picked];
+        self.picker = [[UIPickerView alloc] initWithFrame:CGRectMake(10, 10, frame.size.width - 20, frame.size.height - 20)];
+        [self.picker setDelegate:self];
+        [self.picker setDataSource:self];
+        [self.picker setShowsSelectionIndicator:YES];
+        [self.picker setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:self.picker];
+    }
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame AndListOfValues:(NSMutableArray *)lov AndTextFieldToUpdate:(UITextField *)tftu NoFixedDimensions:(BOOL)nfd
+{
+    self = [self initWithFrame:frame AndListOfValues:lov NoFixedDimensions:nfd];
+    if (self)
+    {
+        [self setTextFieldToUpdate:tftu];
+    }
+    return self;
+}
+
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
     return 1;
