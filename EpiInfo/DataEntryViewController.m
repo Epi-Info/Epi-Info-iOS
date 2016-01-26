@@ -786,7 +786,7 @@
     [areYouSure setNumberOfLines:0];
     [messageView addSubview:areYouSure];
     
-    UILabel *decimalSeparatorLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 106, 142, 40)];
+    UILabel *decimalSeparatorLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 104, 142, 40)];
     [decimalSeparatorLabel setBackgroundColor:[UIColor clearColor]];
     [decimalSeparatorLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
     [decimalSeparatorLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
@@ -796,12 +796,12 @@
     
     useDotForDecimal = YES;
     
-    dotDecimalSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(150, 110, 30, 30)];
+    dotDecimalSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(150, 106, 34, 34)];
     [dotDecimalSeparatorView setBackgroundColor:[UIColor redColor]];
     [dotDecimalSeparatorView.layer setCornerRadius:10.0];
     [messageView addSubview:dotDecimalSeparatorView];
     
-    UIButton *dotDecimalSeparatorButton = [[UIButton alloc] initWithFrame:CGRectMake(2, 2, 26, 26)];
+    UIButton *dotDecimalSeparatorButton = [[UIButton alloc] initWithFrame:CGRectMake(4, 4, 26, 26)];
     [dotDecimalSeparatorButton setBackgroundColor:[UIColor whiteColor]];
     [dotDecimalSeparatorButton.layer setMasksToBounds:YES];
     [dotDecimalSeparatorButton setTitle:@"Use dot for decimal separator" forState:UIControlStateNormal];
@@ -810,12 +810,12 @@
     [dotDecimalSeparatorButton addTarget:self action:@selector(chooseDecimalSeparator:) forControlEvents:UIControlEventTouchUpInside];
     [dotDecimalSeparatorView addSubview:dotDecimalSeparatorButton];
     
-    commaDecimalSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(186, 110, 30, 30)];
+    commaDecimalSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(186, 106, 34, 34)];
     [commaDecimalSeparatorView setBackgroundColor:[UIColor clearColor]];
     [commaDecimalSeparatorView.layer setCornerRadius:10.0];
     [messageView addSubview:commaDecimalSeparatorView];
     
-    UIButton *commaDecimalSeparatorButton = [[UIButton alloc] initWithFrame:CGRectMake(2, 2, 26, 26)];
+    UIButton *commaDecimalSeparatorButton = [[UIButton alloc] initWithFrame:CGRectMake(4, 4, 26, 26)];
     [commaDecimalSeparatorButton setBackgroundColor:[UIColor whiteColor]];
     [commaDecimalSeparatorButton.layer setMasksToBounds:YES];
     [commaDecimalSeparatorButton setTitle:@"Use comma for decimal separator" forState:UIControlStateNormal];
