@@ -6,7 +6,7 @@
 //
 
 #import "YesNo.h"
-
+#import "EnterDataView.h"
 @implementation YesNo
 @synthesize columnName = _columnName;
 
@@ -62,6 +62,8 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     [picked setText:[NSString stringWithFormat:@"%@", [[NSArray arrayWithObjects:@"", @"1", @"0", nil] objectAtIndex:row]]];
+    [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+
 }
 
 - (void)reset

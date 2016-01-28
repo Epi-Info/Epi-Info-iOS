@@ -7,6 +7,7 @@
 
 #import "EpiInfo-Swift.h"
 #import "NumberField.h"
+#import "EnterDataView.h"
 
 @implementation NumberField
 @synthesize columnName = _columnName;
@@ -129,6 +130,8 @@
 - (BOOL)becomeFirstResponder
 {
   NSLog(@"%@ becoming first responder", self.columnName);
+    [(EnterDataView *)[[self superview] superview] fieldBecameFirstResponder:self];
+
   return [super becomeFirstResponder];
 }
 
@@ -136,6 +139,8 @@
 {
   NSLog(@"%@ resigning first responder", self.columnName);
   [(CheckCode *)checkcode ownerDidResign];
+    [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+
   return [super resignFirstResponder];
 }
 

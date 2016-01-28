@@ -7,6 +7,7 @@
 //
 
 #import "EpiInfoTextView.h"
+#import "EnterDataView.h"
 
 @implementation EpiInfoTextView
 @synthesize columnName = _columnName;
@@ -31,13 +32,19 @@
 - (BOOL)becomeFirstResponder
 {
   NSLog(@"%@ becoming first responder", self.columnName);
+    [(EnterDataView *)[[self superview] superview] fieldBecameFirstResponder:self];
+
   return [super becomeFirstResponder];
 }
 
 - (BOOL)resignFirstResponder
 {
   if (self.columnName)
+  {
     NSLog(@"%@ resigning first responder", self.columnName);
+      [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+
+  }
   return [super resignFirstResponder];
 }
 

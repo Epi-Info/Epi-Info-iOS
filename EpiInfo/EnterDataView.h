@@ -26,7 +26,9 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "sqlite3.h"
+#import <CoreText/CoreText.h>
 
+@class CheckCodeParser;
 @interface EnterDataView : UIScrollView <NSXMLParserDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UITextViewDelegate>
 {
     BOOL firstParse;
@@ -58,6 +60,13 @@
     Checkbox *geocodingCheckbox;
     
     NSMutableDictionary *legalValuesDictionaryForRVC;
+    
+    NSMutableArray *elementsArray;
+    NSMutableArray *conditionsArray;
+    NSMutableArray *elementListArray;
+    int tagNum;
+    int require;
+    CheckCodeParser *ccp;
 }
 
 @property NSURL *url;
@@ -77,6 +86,15 @@
 @property NSMutableDictionary *dictionaryOfFields;
 @property NSMutableDictionary *dictionaryOfWordsArrays;
 
+@property (nonatomic) NSMutableArray *elementsArray;
+@property (nonatomic) NSMutableArray *conditionsArray;
+@property (nonatomic) NSMutableArray *elementListArray;
+@property (nonatomic) NSString *afterString;
+
+
+
+
+
 -(NSString *)formName;
 -(id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndNameOfTheForm:(NSString *)notf;
 -(id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndNameOfTheForm:(NSString *)notf;
@@ -86,4 +104,7 @@
 -(void)fieldBecameFirstResponder:(id)field;
 -(void)fieldResignedFirstResponder:(id)field;
 -(void)checkboxChanged:(Checkbox *)checkbox;
+-(void)copyToArray:(NSMutableArray *)eleArray;
+-(BOOL)checkElements:(NSString *)name Tag:(NSInteger *)newTag type:(int)newType from:(NSString *)befAft;
+
 @end

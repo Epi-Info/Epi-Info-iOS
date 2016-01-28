@@ -8,6 +8,7 @@
 
 #import "TimeField.h"
 #include "TimePicker.h"
+#import "EnterDataView.h"
 
 @implementation TimeField
 @synthesize columnName = _columnName;
@@ -42,7 +43,16 @@
         [tp setFrame:finalFrame];
     } completion:^(BOOL finished){
     }];
+    [(EnterDataView *)[[self superview] superview] fieldBecameFirstResponder:self];
+
     return NO;
+}
+- (BOOL)resignFirstResponder
+{
+    NSLog(@"%@ resigning first responder", self.columnName);
+    [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+    
+    return [super resignFirstResponder];
 }
 
 /*
