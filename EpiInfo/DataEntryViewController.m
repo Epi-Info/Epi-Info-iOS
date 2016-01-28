@@ -1325,6 +1325,7 @@
                             if ([[columnName lowercaseString] isEqualToString:[[(NSMutableArray *)[edv.pagesArray objectAtIndex:j] objectAtIndex:0] lowercaseString]])
                             {
                                 //                                    xmlFileText = [[[xmlFileText stringByAppendingString:@"\n\t</Page>\n\t<Page PageId=\""] stringByAppendingString:[edv.pageIDs objectAtIndex:j]] stringByAppendingString:@"\">"];
+                                //new test comment
                                 [xmlFileText appendString:@"\n\t</Page>\n\t<Page PageId=\""];
                                 [xmlFileText appendString:[edv.pageIDs objectAtIndex:j]];
                                 [xmlFileText appendString:@"\">"];
