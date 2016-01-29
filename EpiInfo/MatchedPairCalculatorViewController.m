@@ -197,9 +197,11 @@
         [phoneInputsView addSubview:self.nnField];
         [phoneInputsView addSubview:self.phoneCasesLabel];
         [phoneInputsView addSubview:self.phoneCasesPlusLabel];
+        [self.phoneCasesMinusLabel setAccessibilityLabel:@"Minus"];
         [phoneInputsView addSubview:self.phoneCasesMinusLabel];
         [phoneInputsView addSubview:self.phoneControlsLabel];
         [phoneInputsView addSubview:self.phoneControlsPlusLabel];
+        [self.phoneControlsMinusLabel setAccessibilityLabel:@"Minus"];
         [phoneInputsView addSubview:self.phoneControlsMinusLabel];
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
         {
@@ -349,8 +351,10 @@
         [self.phoneStatisticalTestsSectionLabel  setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [self.phoneStatisticalTestsSectionLabel setTextColor:[UIColor whiteColor]];
         [self.phoneStatisticalTestsSectionLabel.layer setCornerRadius:10.0];
+        [self.phoneX2Label setAccessibilityLabel:@"Ky square"];
         [phoneStatisticalTestsView addSubview:self.phoneX2Label];
         [phoneStatisticalTestsView addSubview:self.phoneX2PLabel];
+        [self.phoneMcNemarLabel setAccessibilityLabel:@"Mack neh mar"];
         [phoneStatisticalTestsView addSubview:self.phoneMcNemarLabel];
         [phoneStatisticalTestsView addSubview:self.phoneCorrectedLabel];
         [phoneStatisticalTestsView addSubview:self.phone1TailedPLabel];

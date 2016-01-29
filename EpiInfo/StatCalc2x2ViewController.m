@@ -529,6 +529,7 @@
         [phoneOddsBasedParametersView addSubview:self.orEstimate];
         [phoneOddsBasedParametersView addSubview:self.orLower];
         [phoneOddsBasedParametersView addSubview:self.orUpper];
+        [self.phoneMLEORLabel setAccessibilityLabel:@"M.L.E. Odds Ratio"];
         [phoneOddsBasedParametersView addSubview:self.phoneMLEORLabel];
         [phoneOddsBasedParametersView addSubview:self.mleOR];
         [phoneOddsBasedParametersView addSubview:self.mleLower];
@@ -824,6 +825,7 @@
         [self.fisherExact setFrame:phoneFisherExactFrame];
         [self.fisherExact2 setFrame:phoneFisherExact2Frame];
         [phoneStatisticalTestsView addSubview:self.phoneStatisticalTestsLabel];
+        [self.phoneX2Label setAccessibilityLabel:@"Ky square"];
         [phoneStatisticalTestsView addSubview:self.phoneX2Label];
         [phoneStatisticalTestsView addSubview:self.phoneX2PLabel];
         [phoneStatisticalTestsView addSubview:self.phoneUncorrectedLabel];

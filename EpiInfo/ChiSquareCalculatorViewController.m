@@ -125,6 +125,7 @@
         [self.phoneChiSquareLabel setFrame:phoneChiSquareLabelFrame];
         [self.phoneChiSquareLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [self.phoneChiSquareLabel.layer setCornerRadius:10.0];
+        [self.phoneChiSquareLabel setAccessibilityLabel:@"Ky square"];
         [self.chiSquareResult setFrame:phoneChiSquareResultFrame];
         [self.phonePValueLabel setFrame:phonePValueLabelFrame];
         [self.phonePValueLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];

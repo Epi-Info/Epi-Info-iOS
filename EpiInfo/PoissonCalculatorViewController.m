@@ -301,6 +301,10 @@
             float W = self.phoneSectionHeaderLabel.frame.size.width;
             H = self.phoneSectionHeaderLabel.frame.size.height + self.ltLabel.frame.size.height * 7;
             
+            [self.phoneSectionHeaderLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
+            [self.phoneObservedEventsLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
+            [self.phoneExpectedEventsLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
+            
             [phoneColorBox setFrame:CGRectMake(X, Y, W, H + 2.0)];
             
             X = self.ltLabel.frame.origin.x;
@@ -644,14 +648,19 @@
         [computer Calculate:observedValue VariableLambda:expectedValue ProbabilityArray:probs];
         
         self.ltLabel.text = [[NSString alloc] initWithFormat:@"< %d", observedValue];
+        self.ltLabel.accessibilityLabel = [NSString stringWithFormat:@"less than %d", observedValue];
         self.ltValue.text = [[NSString alloc] initWithFormat:@"%g", probs[0]];
         self.leLabel.text = [[NSString alloc] initWithFormat:@"<= %d", observedValue];
+        self.leLabel.accessibilityLabel = [NSString stringWithFormat:@"less than or equal to %d", observedValue];
         self.leValue.text = [[NSString alloc] initWithFormat:@"%g", probs[1]];
         self.eqLabel.text = [[NSString alloc] initWithFormat:@"= %d", observedValue];
+        self.eqLabel.accessibilityLabel = [NSString stringWithFormat:@"equal to %d", observedValue];
         self.eqValue.text = [[NSString alloc] initWithFormat:@"%g", probs[2]];
         self.geLabel.text = [[NSString alloc] initWithFormat:@">= %d", observedValue];
+        self.geLabel.accessibilityLabel = [NSString stringWithFormat:@"greater than or equal to %d", observedValue];
         self.geValue.text = [[NSString alloc] initWithFormat:@"%g", probs[3]];
         self.gtLabel.text = [[NSString alloc] initWithFormat:@"> %d", observedValue];
+        self.gtLabel.accessibilityLabel = [NSString stringWithFormat:@"greater than %d", observedValue];
         self.gtValue.text = [[NSString alloc] initWithFormat:@"%g", probs[4]];
     }
     else

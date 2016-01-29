@@ -207,12 +207,14 @@
         [phoneInputsView addSubview:secondLabelControl];
         
         [self.phonePopulationSizeLabel setFrame:phonePopulationSizeLabelFrame];
+        [self.phonePopulationSizeLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
         [phoneInputsView addSubview:self.phonePopulationSizeLabel];
         
         [self.populationSizeField setFrame:phonePopulationSizeFieldFrame];
         [phoneInputsView addSubview:self.populationSizeField];
         
         [self.phoneExpectedFrequencyLabel setFrame:phoneExpectedFrequencyLabelFrame];
+        [self.phoneExpectedFrequencyLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
         [phoneInputsView addSubview:self.phoneExpectedFrequencyLabel];
         
         [self.expectedFrequencyField setFrame:phoneExpectedFrequencyFieldFrame];
@@ -300,6 +302,8 @@
         [phoneResultsView addSubview:self.phoneConfidenceLevelLabel];
         [self.phoneClusterSizeLabel setFrame:phoneClusterSizeLabelFrame];
         [self.phoneClusterSizeLabel setBackgroundColor:[UIColor clearColor]];
+        [self.phoneClusterSizeLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0]];
+        [self.phoneClusterSizeLabel setLineBreakMode:NSLineBreakByWordWrapping];
         [phoneResultsView addSubview:self.phoneClusterSizeLabel];
         [self.phoneTotalSampleLabel setFrame:phoneTotalSampleLabelFrame];
         [self.phoneTotalSampleLabel setLineBreakMode:NSLineBreakByWordWrapping];

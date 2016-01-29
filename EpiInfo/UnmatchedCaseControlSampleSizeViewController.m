@@ -185,7 +185,10 @@
         [self.populationSurveyView addSubview:phoneResultsView];
         [self.phoneKelseyLabel setFrame:CGRectMake(87 - 18, 395 - 395, 67, 21)];
         [self.phoneFleissLabel setFrame:CGRectMake(154 - 18, 395 - 395, 67, 21)];
+        [self.phoneFleissLabel setAccessibilityLabel:@"Flice"];
         [self.phoneFleissWithCCLabel setFrame:CGRectMake(221 - 18, 395 - 395, 70, 21)];
+        [self.phoneFleissWithCCLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
+        [self.phoneFleissWithCCLabel setAccessibilityLabel:@"Flice with continuity correction"];
         [self.phoneExposedOrCasesResultsLabel setTextColor:[UIColor whiteColor]];
         [self.phoneUnexposedOrControlsResultsLabel setTextColor:[UIColor whiteColor]];
         [self.phoneTotalResultsLabel setTextColor:[UIColor whiteColor]];
@@ -313,7 +316,7 @@
         [self.phoneCasesOrExposedPercentLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [self.controlsExposedField setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [self.casesExposedField setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-        [self.phoneConfidenceLevelLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
+        [self.phoneConfidenceLevelLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
         [self.phoneConfidenceLevelValue setFont:[UIFont boldSystemFontOfSize:12.0]];
         [self.phonePowerLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
         [self.phonePowerPercentLabel setFont:[UIFont boldSystemFontOfSize:12.0]];

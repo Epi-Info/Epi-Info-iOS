@@ -155,9 +155,11 @@
         [self.phoneTitleLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [self.phoneTitleLabel.layer setCornerRadius:10.0];
         [self.phoneTitleLabel setTextColor:[UIColor whiteColor]];
+        [self.phoneTitleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
         [self.phoneKelseyLabel setBackgroundColor:[UIColor clearColor]];
         [self.phoneFleissLabel setBackgroundColor:[UIColor clearColor]];
         [self.phoneFleissWithCCLabel setBackgroundColor:[UIColor clearColor]];
+        [self.phoneFleissWithCCLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
         
         //Build the box for Odds Ratio (and Risk Ratio if Cohort Calculator)
         [self.phoneOddsRatioLabel setFrame:CGRectMake(0, 0, 66, 21)];
@@ -201,9 +203,12 @@
         [self.populationSurveyView addSubview:phoneResultsView];
         [self.phoneKelseyLabel setFrame:CGRectMake(87 - 18, 395 - 395, 67, 21)];
         [self.phoneFleissLabel setFrame:CGRectMake(154 - 18, 395 - 395, 67, 21)];
+        [self.phoneFleissLabel setAccessibilityLabel:@"Flice"];
         [self.phoneFleissWithCCLabel setFrame:CGRectMake(221 - 18, 395 - 395, 70, 21)];
+        [self.phoneFleissWithCCLabel setAccessibilityLabel:@"Flice with continuity correction"];
         [self.phoneExposedOrCasesResultsLabel setTextColor:[UIColor whiteColor]];
         [self.phoneUnexposedOrControlsResultsLabel setTextColor:[UIColor whiteColor]];
+        [self.phoneUnexposedOrControlsResultsLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
         [self.phoneTotalResultsLabel setTextColor:[UIColor whiteColor]];
         [self.phoneExposedOrCasesResultsLabel setFrame:CGRectMake(20 - 18, 416 - 395, 67, 21)];
         [self.exposedKelseyLabel setFrame:CGRectMake(87 - 18, 416 - 395, 67, 21)];
@@ -331,13 +336,13 @@
         [self.phoneCasesOrExposedPercentLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [self.unexposedField setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [self.exposedField setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-        [self.phoneConfidenceLevelLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
+        [self.phoneConfidenceLevelLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
         [self.phoneConfidenceLevelValue setFont:[UIFont boldSystemFontOfSize:12.0]];
         [self.phonePowerLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
         [self.phonePowerPercentLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
         [self.powerField setFont:[UIFont boldSystemFontOfSize:12.0]];
         [self.phoneRatioLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
-        [self.phoneControlsOrUnexposedLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
+        [self.phoneControlsOrUnexposedLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0]];
         [self.phoneControlsOrUnexposedLabel setFrame:CGRectMake(self.phoneControlsOrUnexposedLabel.frame.origin.x, self.phoneControlsOrUnexposedLabel.frame.origin.y, self.phoneControlsOrUnexposedLabel.frame.size.width + 66.0, self.phoneControlsOrUnexposedLabel.frame.size.height)];
         [self.phoneControlsOrUnexposedPercentLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
         [self.phoneCasesOrExposedLabel setFont:[UIFont boldSystemFontOfSize:12.0]];

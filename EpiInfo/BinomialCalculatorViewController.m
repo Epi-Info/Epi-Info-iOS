@@ -498,6 +498,8 @@
             [self.phoneExpectedPercentageLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
             [self.expectedPercentageSlider setMinimumTrackTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
             [self.expectedPercentageSlider setMaximumTrackTintColor:[UIColor whiteColor]];
+            
+            [self.phoneExpectedPercentageLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
         }
         
         [fadingColorView removeFromSuperview];
@@ -799,14 +801,19 @@
         }
         
         self.ltLabel.text = [[NSString alloc] initWithFormat:@"< %d", numeratorValue];
+        self.ltLabel.accessibilityLabel = [NSString stringWithFormat:@"less than %d", numeratorValue];
         self.ltValue.text = [[NSString alloc] initWithFormat:@"%g", probs[0]];
         self.leLabel.text = [[NSString alloc] initWithFormat:@"<= %d", numeratorValue];
+        self.leLabel.accessibilityLabel = [NSString stringWithFormat:@"less than or equal to %d", numeratorValue];
         self.leValue.text = [[NSString alloc] initWithFormat:@"%g", probs[1]];
         self.eqLabel.text = [[NSString alloc] initWithFormat:@"= %d", numeratorValue];
+        self.eqLabel.accessibilityLabel = [NSString stringWithFormat:@"equal to %d", numeratorValue];
         self.eqValue.text = [[NSString alloc] initWithFormat:@"%g", probs[2]];
         self.geLabel.text = [[NSString alloc] initWithFormat:@">= %d", numeratorValue];
+        self.geLabel.accessibilityLabel = [NSString stringWithFormat:@"greater than or equal to %d", numeratorValue];
         self.geValue.text = [[NSString alloc] initWithFormat:@"%g", probs[3]];
         self.gtLabel.text = [[NSString alloc] initWithFormat:@"> %d", numeratorValue];
+        self.gtLabel.accessibilityLabel = [NSString stringWithFormat:@"greater than %d", numeratorValue];
         self.gtValue.text = [[NSString alloc] initWithFormat:@"%g", probs[4]];
         self.pValue.text = [[NSString alloc] initWithFormat:@"%g", probs[5]];
         if ([sender isKindOfClass:[UITextField class]])
