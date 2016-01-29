@@ -100,7 +100,7 @@
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 187, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
-            [manageButton setTitle:@"Manage. Double tap to manage." forState:UIControlStateNormal];
+            [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
             [manageButton setImage:[UIImage imageNamed:@"ManageButtonOrange.png"] forState:UIControlStateNormal];
             [manageButton.layer setMasksToBounds:YES];
             [manageButton.layer setCornerRadius:4.0];
@@ -153,7 +153,7 @@
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 187, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
-            [manageButton setTitle:@"Manage. Double tap to manage." forState:UIControlStateNormal];
+            [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
             [manageButton setImage:[UIImage imageNamed:@"ManageButtonOrange.png"] forState:UIControlStateNormal];
             [manageButton.layer setMasksToBounds:YES];
             [manageButton.layer setCornerRadius:4.0];
@@ -209,7 +209,7 @@
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 187, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
-            [manageButton setTitle:@"Manage. Double tap to manage." forState:UIControlStateNormal];
+            [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
             [manageButton setImage:[UIImage imageNamed:@"ManageButtonOrange.png"] forState:UIControlStateNormal];
             [manageButton.layer setMasksToBounds:YES];
             [manageButton.layer setCornerRadius:4.0];
@@ -286,7 +286,7 @@
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
-            [manageButton setTitle:@"Manage. Double tap to manage." forState:UIControlStateNormal];
+            [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
             [manageButton setImage:[UIImage imageNamed:@"ManageButtonOrange.png"] forState:UIControlStateNormal];
             [manageButton.layer setMasksToBounds:YES];
             [manageButton.layer setCornerRadius:4.0];
@@ -338,7 +338,7 @@
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
-            [manageButton setTitle:@"Manage. Double tap to manage." forState:UIControlStateNormal];
+            [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
             [manageButton setImage:[UIImage imageNamed:@"ManageButtonOrange.png"] forState:UIControlStateNormal];
             [manageButton.layer setMasksToBounds:YES];
             [manageButton.layer setCornerRadius:4.0];
@@ -394,7 +394,7 @@
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
-            [manageButton setTitle:@"Manage. Double tap to manage." forState:UIControlStateNormal];
+            [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
             [manageButton setImage:[UIImage imageNamed:@"ManageButtonOrange.png"] forState:UIControlStateNormal];
             [manageButton.layer setMasksToBounds:YES];
             [manageButton.layer setCornerRadius:4.0];
