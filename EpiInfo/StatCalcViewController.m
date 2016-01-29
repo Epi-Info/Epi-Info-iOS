@@ -387,14 +387,14 @@
             UILabel *label3b = [[UILabel alloc] initWithFrame:CGRectMake(0, 96, 76, 16)];
             UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 76, 16)];
             UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 76, 16)];
-            UILabel *label6 = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 76, 16)];
+            UILabel *label6 = [[UILabel alloc] initWithFrame:CGRectMake(-4, 80, 84, 16)];
             UILabel *label6b = [[UILabel alloc] initWithFrame:CGRectMake(0, 96, 76, 16)];
             UILabel *label7 = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 76, 16)];
-            UILabel *label7b = [[UILabel alloc] initWithFrame:CGRectMake(-21, 96, 118, 16)];
-            UILabel *label8 = [[UILabel alloc] initWithFrame:CGRectMake(-5, 80, 86, 16)];
+            UILabel *label7b = [[UILabel alloc] initWithFrame:CGRectMake(-24, 96, 124, 16)];
+            UILabel *label8 = [[UILabel alloc] initWithFrame:CGRectMake(-8, 80, 92, 16)];
             UILabel *label8b = [[UILabel alloc] initWithFrame:CGRectMake(-12, 96, 100, 16)];
             UILabel *label10 = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 76, 16)];
-            UILabel *label10b = [[UILabel alloc] initWithFrame:CGRectMake(-4, 96, 84, 16)];
+            UILabel *label10b = [[UILabel alloc] initWithFrame:CGRectMake(-6, 96, 88, 16)];
             
             [label1 setBackgroundColor:[UIColor clearColor]];
             [label2 setBackgroundColor:[UIColor clearColor]];
