@@ -563,6 +563,11 @@
         [fadingColorView removeFromSuperview];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
+        
+        [self.yyField setAccessibilityLabel:@"Cases and Controls both exposed"];
+        [self.ynField setAccessibilityLabel:@"Cases exposed and Controls un exposed"];
+        [self.nyField setAccessibilityLabel:@"Cases un exposed and Controls exposed"];
+        [self.nnField setAccessibilityLabel:@"Cases and Controls both un exposed"];
     }
 }
 

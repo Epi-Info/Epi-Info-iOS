@@ -336,7 +336,7 @@
     adjustedMLELabel = [[UILabel alloc] initWithFrame:phoneAdjustedMLELabelFrame];
 //    [adjustedMLELabel setCenter:CGPointMake([self.mleORLabel center].x, [self.mleORLabel center].y + 1.5 * [self.mleORLabel bounds].size.height)];
     [adjustedMLELabel setText:@"Adjusted (MLE)"];
-    [adjustedMLELabel setFont:[self.mleORLabel font]];
+    [adjustedMLELabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
     [adjustedMLELabel setBackgroundColor:[UIColor clearColor]];
     [adjustedMLELabel setHidden:YES];
     [phoneOddsBasedParametersView addSubview:adjustedMLELabel];
@@ -1006,6 +1006,10 @@
         {
             label.text = @"StatCalc 2x2xn";
         }
+        [self.yyField setAccessibilityLabel:@"Yes, yes"];
+        [self.ynField setAccessibilityLabel:@"Yes, no"];
+        [self.nyField setAccessibilityLabel:@"No, yes"];
+        [self.nnField setAccessibilityLabel:@"No, no"];
     }
     else
     {
@@ -1286,6 +1290,7 @@
 //        [self.mhX2P setCenter:CGPointMake([self.mhX2P center].x, [self.mhX2P center].y - 2.0 * [self.mhX2P bounds].size.height)];
         [self.correctedLabel setHidden:NO];
         [self.correctedLabel setText:@"Corrected"];
+        [self.correctedLabel setAccessibilityLabel:@"Corrected"];
         [self.correctedLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
     }
     
@@ -1385,9 +1390,11 @@
             [self.twoTailedPForExactTestsLabel setHidden:NO];
             [self.midPExactLabel setHidden:NO];
             [self.midPExactLabel setText:@"Mid P Exact"];
+            [self.midPExactLabel setAccessibilityLabel:@"Mid P Exact"];
             [self.midPExactLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
             [self.fisherExactLabel setHidden:NO];
             [self.fisherExactLabel setText:@"Fisher Exact"];
+            [self.fisherExactLabel setAccessibilityLabel:@"Fisher Exact"];
             [self.fisherExactLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
             [self.phone2TailedPLabel setText:@"2 Tailed P"];
             [self.phone2TailedPLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
@@ -1524,9 +1531,11 @@
 //            [self.twoTailedPForExactTestsLabel setHidden:YES];
 //            [self.midPExactLabel setHidden:YES];
             [self.midPExactLabel setText:@"Breslow-Day RR"];
+            [self.midPExactLabel setAccessibilityLabel:@"Breslow Day Risk Ratio"];
             [self.midPExactLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
 //            [self.fisherExactLabel setHidden:YES];
             [self.fisherExactLabel setText:@"Breslow-Day OR"];
+            [self.fisherExactLabel setAccessibilityLabel:@"Breslow Day Odds Ratio"];
             [self.fisherExactLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
             [self.fisherExactLabel setFrame:CGRectMake(self.fisherExactLabel.frame.origin.x, self.oneTailedPLabel.frame.origin.y, self.fisherExactLabel.frame.size.width, self.fisherExactLabel.frame.size.height)];
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
@@ -1584,6 +1593,7 @@
 //            [self.twoTailedPLabel setCenter:CGPointMake([self.twoTailedPLabel center].x, [self.twoTailedPLabel center].y + 2.0 * [self.twoTailedPLabel bounds].size.height)];
 //            [self.uncorrectedLabel setCenter:CGPointMake([self.uncorrectedLabel center].x, [self.uncorrectedLabel center].y + 2.0 * [self.uncorrectedLabel bounds].size.height)];
             [self.uncorrectedLabel setText:@"Uncorrected (MH)"];
+            [self.uncorrectedLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
 //            [self.uX2 setCenter:CGPointMake([self.uX2 center].x, [self.uX2 center].y + 2.0 * [self.uX2 bounds].size.height)];
 //            [self.uX2P setCenter:CGPointMake([self.uX2P center].x, [self.uX2P center].y + 2.0 * [self.uX2P bounds].size.height)];
 //            [self.mantelHaenszelLabel setCenter:CGPointMake([self.mantelHaenszelLabel center].x, [self.mantelHaenszelLabel center].y + 2.0 * [self.mantelHaenszelLabel bounds].size.height)];
@@ -1592,6 +1602,7 @@
 //            [self.mhX2P setCenter:CGPointMake([self.mhX2P center].x, [self.mhX2P center].y + 2.0 * [self.mhX2P bounds].size.height)];
 //            [self.correctedLabel setHidden:YES];
             [self.correctedLabel setText:@"Breslow-Day-Tarone"];
+            [self.correctedLabel setAccessibilityLabel:@"Breslow Day Tarone"];
             [self.correctedLabel setFont:[UIFont boldSystemFontOfSize:10.0]];
 
             if ([strataData[0] hasStatistics] || [strataData[1] hasStatistics] || [strataData[2] hasStatistics] || [strataData[3] hasStatistics] || [strataData[4] hasStatistics])
