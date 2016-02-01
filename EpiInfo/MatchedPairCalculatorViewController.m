@@ -178,6 +178,29 @@
             [self.lowerNavigationBar setFrame:CGRectMake(0, -4, self.view.frame.size.width, 44)];
             [self.lowerNavigationBar setBarTintColor:[UIColor colorWithRed:50/255.0 green:71/255.0 blue:92/255.0 alpha:1.0]];
         }
+        
+        [self.yyField setAccessibilityLabel:@"Cases and Controls both exposed"];
+        [self.ynField setAccessibilityLabel:@"Cases exposed and Controls un exposed"];
+        [self.nyField setAccessibilityLabel:@"Cases un exposed and Controls exposed"];
+        [self.nnField setAccessibilityLabel:@"Cases and Controls both un exposed"];
+        
+        int i = 0;
+        for (UIView *v in [self.twox2CalculatorView subviews])
+        {
+            int j = 0;
+            for (UIView *vi in [v subviews])
+            {
+                j++;
+                if ([vi isKindOfClass:[UILabel class]])
+                {
+                    if ([[(UILabel *)vi text] isEqualToString:@"X2"])
+                        [vi setAccessibilityLabel:@"Ky square"];
+                    if ([[(UILabel *)vi text] isEqualToString:@"McNemar"])
+                        [vi setAccessibilityLabel:@"Mack neh Mar"];
+                }
+            }
+            i++;
+        }
     }
     else
     {

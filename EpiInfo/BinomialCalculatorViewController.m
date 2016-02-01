@@ -893,6 +893,7 @@
 {
     //Avoid exceptions by having the main thread perform all writing to the ciValue field.
     self.ciValue.text = [[NSString alloc] initWithFormat:@"%@ - %@", ll, ul];
+    self.ciValue.accessibilityLabel = [[NSString alloc] initWithFormat:@"%@ to %@", ll, ul];
 }
 
 - (void)stopTheActivityIndicator

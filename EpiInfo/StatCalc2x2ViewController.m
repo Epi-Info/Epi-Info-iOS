@@ -1007,6 +1007,31 @@
             label.text = @"StatCalc 2x2xn";
         }
     }
+    else
+    {
+        [self.yyField setAccessibilityLabel:@"Yes, yes"];
+        [self.ynField setAccessibilityLabel:@"Yes, no"];
+        [self.nyField setAccessibilityLabel:@"No, yes"];
+        [self.nnField setAccessibilityLabel:@"No, no"];
+        
+        int i = 0;
+        for (UIView *v in [self.twox2CalculatorView subviews])
+        {
+            int j = 0;
+            for (UIView *vi in [v subviews])
+            {
+                j++;
+                if ([vi isKindOfClass:[UILabel class]])
+                {
+                    if ([[(UILabel *)vi text] isEqualToString:@"X2"])
+                        [vi setAccessibilityLabel:@"Ky square"];
+                    if ([[(UILabel *)vi text] isEqualToString:@"MLE OR"])
+                        [vi setAccessibilityLabel:@"M.L.E. Odds Ratio"];
+                }
+            }
+            i++;
+        }
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated

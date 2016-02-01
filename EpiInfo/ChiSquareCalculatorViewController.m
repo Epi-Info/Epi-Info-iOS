@@ -418,6 +418,21 @@
             [self.lowerNavigationBar setFrame:CGRectMake(0, -4, self.view.frame.size.width, 44)];
             [self.lowerNavigationBar setBarTintColor:[UIColor colorWithRed:50/255.0 green:71/255.0 blue:92/255.0 alpha:1.0]];
         }
+        int i = 0;
+        for (UIView *v in [self.epiInfoScrollView subviews])
+        {
+            int j = 0;
+            for (UIView *vi in [v subviews])
+            {
+                j++;
+                if ([vi isKindOfClass:[UILabel class]])
+                {
+                    if ([[(UILabel *)vi text] isEqualToString:@"Chi Square"])
+                        [vi setAccessibilityLabel:@"Ky square"];
+                }
+            }
+            i++;
+        }
     }
 }
 
