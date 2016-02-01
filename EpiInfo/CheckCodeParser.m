@@ -93,15 +93,15 @@
 -(void)getField
 {
     NSScanner *scanner = [NSScanner scannerWithString:check];
-    [scanner scanUpToString:@"Field " intoString:nil]; // Scan all characters before
+    [scanner scanUpToString:@"field " intoString:nil]; // Scan all characters before
     while(![scanner isAtEnd]) {
         NSString *substring = nil;
-        [scanner scanString:@"Field " intoString:nil]; // Scan the  character
-        if([scanner scanUpToString:@"End-Field" intoString:&substring]) {
+        [scanner scanString:@"field " intoString:nil]; // Scan the  character
+        if([scanner scanUpToString:@"end-field" intoString:&substring]) {
             [fieldArray addObject:substring];
             // NSLog(@"Satya %@ field string",substring);
         }
-        [scanner scanUpToString:@"Field " intoString:nil]; // Scan all characters before next
+        [scanner scanUpToString:@" field " intoString:nil]; // Scan all characters before next
     }
     
     [self BeforeAfter];

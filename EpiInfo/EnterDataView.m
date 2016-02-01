@@ -2995,13 +2995,13 @@
         NSString *elmt;
         int eleCount = [self numberOfWordsInString:epc.stringValue];
         NSString *eleSp= [self removeSp:epc.stringValue];
-        for (int j = 0; j<=eleCount; j++) {
+        for (int j = 0; j<eleCount; j++) {
             //elmt = [[epc.stringValue componentsSeparatedByString:@" "]objectAtIndex:j];
             elmt = [[eleSp componentsSeparatedByString:@" "]objectAtIndex:j];
 
             NSLog(@"Satya - %@ %d",elmt,j);
             
-            if (![elmt isEqualToString:@""])
+            if (![elmt isEqualToString:@""] && elmt)
             {
                 if ([elmt isEqualToString:@"disable"]) {
                     ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] beforeAfter:epc.condition condition:@"disable"];
@@ -3064,7 +3064,8 @@
     NSString *tmp;
     
     tmp= [newStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    return tmp;
+    NSString *newTmp = [tmp stringByReplacingOccurrencesOfString:@"  " withString:@" "];
+    return newTmp;
     
 }
 
@@ -3396,8 +3397,13 @@ newStr{
             break;
         }
         case 12:
+        {
             NSLog(@"options");
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            [utf setUserInteractionEnabled:YES];
+            [utf setAlpha:1.0f];
             break;
+        }
         case 15:
             NSLog(@"mirror");
             break;
