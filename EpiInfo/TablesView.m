@@ -326,7 +326,7 @@
 
 - (void)setFrame:(CGRect)frame
 {
-    [super setFrame:frame];
+    [super setFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, 10.0 * frame.size.height)];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         if (frame.size.width > 0.0 && frame.size.height > 0.0)
@@ -335,7 +335,7 @@
             [gadgetTitle setFrame:CGRectMake(2, 116, 316 - 96, 44)];
             [xButton setFrame:CGRectMake(316 - 46, 116, 44, 44)];
             [gearButton setFrame:CGRectMake(316 - 92, 116, 44, 44)];
-            [outputView setFrame:CGRectMake(0, 46, frame.size.width, frame.size.height - 46)];
+            [outputView setFrame:CGRectMake(0, 46, frame.size.width, 10.0 *frame.size.height - 46)];
             if (inputViewDisplayed)
             {
                 if ([avc portraitOrientation])
@@ -1388,17 +1388,21 @@
         double chiSqP = [SharedResources PValFromChiSq:chiSq PVFCSdf:(double)((to.exposureValues.count - 1) * (to.outcomeValues.count - 1))];
         EpiInfoUILabel *chiSqLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, outputTableView.frame.origin.y + outputTableView.frame.size.height, outputV.frame.size.width, 20)];
         [chiSqLabel setBackgroundColor:[UIColor clearColor]];
-        [chiSqLabel setText:[NSString stringWithFormat:@"Chi Square: %.2f, df: %d, p-value: %.3f", chiSq, (to.exposureValues.count - 1) * (to.outcomeValues.count - 1), chiSqP]];
+        [chiSqLabel setText:[NSString stringWithFormat:@"Chi Square: %.2f, df: %lu, p-value: %.3f", chiSq, (to.exposureValues.count - 1) * (to.outcomeValues.count - 1), chiSqP]];
+        [chiSqLabel setAccessibilityLabel:[NSString stringWithFormat:@"Ky Square: %.2f, degrees of freedom: %lu, p-value: %.3f", chiSq, (to.exposureValues.count - 1) * (to.outcomeValues.count - 1), chiSqP]];
         [chiSqLabel setTextAlignment:NSTextAlignmentCenter];
         [outputV addSubview: chiSqLabel];
+        outputTableViewHeight += chiSqLabel.frame.size.height;
         if (lowExpectation)
         {
             EpiInfoUILabel *lowExpectationLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, chiSqLabel.frame.origin.y + 20.0, chiSqLabel.frame.size.width, 20)];
             [lowExpectationLabel setBackgroundColor:[UIColor clearColor]];
             [lowExpectationLabel setText:@"An expected cell count is <5. Chi squared may not be valid."];
+            [lowExpectationLabel setAccessibilityLabel:@"An expected cell count is <5. Ky squared may not be valid."];
             [lowExpectationLabel setTextAlignment:NSTextAlignmentCenter];
             [lowExpectationLabel setFont:[UIFont systemFontOfSize:10.0]];
             [outputV addSubview:lowExpectationLabel];
+            outputTableViewHeight += lowExpectationLabel.frame.size.height;
         }
     }
     
@@ -1816,6 +1820,7 @@
         [gridBox setTextAlignment:NSTextAlignmentLeft];
         [gridBox setFont:[UIFont boldSystemFontOfSize:12.0]];
         [gridBox setText:@" MLE OR"];
+        [gridBox setAccessibilityLabel:@"M.L.E. Odds Ratio"];
         [oddsBasedParametersView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + fourWidth0, 66, fourWidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -2015,6 +2020,7 @@
         [gridBox setTextAlignment:NSTextAlignmentCenter];
         [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
         [gridBox setText:@"X2"];
+        [gridBox setAccessibilityLabel:@"Ky Square"];
         [statisticalTestsView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + threeWidth0 + threewidth1, 22, threewidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -2570,6 +2576,7 @@
         [gridBox setTextAlignment:NSTextAlignmentLeft];
         [gridBox setFont:[UIFont boldSystemFontOfSize:12.0]];
         [gridBox setText:@" MLE OR"];
+        [gridBox setAccessibilityLabel:@"M.L.E. Odds Ratio"];
         [oddsBasedParametersView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + fourWidth0, 66, fourWidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -2769,6 +2776,7 @@
         [gridBox setTextAlignment:NSTextAlignmentCenter];
         [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
         [gridBox setText:@"X2"];
+        [gridBox setAccessibilityLabel:@"Ky Square"];
         [statisticalTestsView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + threeWidth0 + threewidth1, 22, threewidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -3322,6 +3330,7 @@
         [gridBox setTextAlignment:NSTextAlignmentLeft];
         [gridBox setFont:[UIFont boldSystemFontOfSize:12.0]];
         [gridBox setText:@" MLE"];
+        [gridBox setAccessibilityLabel:@"M.L.E."];
         [oddsBasedParametersView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + fourWidth0, 66, fourWidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -3378,6 +3387,7 @@
         [gridBox setTextAlignment:NSTextAlignmentLeft];
         [gridBox setFont:[UIFont boldSystemFontOfSize:11.0]];
         [gridBox setText:@" Adjusted (MH)"];
+        [gridBox setAccessibilityLabel:@"Adjusted, M.H."];
         [oddsBasedParametersView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + fourWidth0, 110, fourWidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -3407,6 +3417,7 @@
         [gridBox setTextAlignment:NSTextAlignmentLeft];
         [gridBox setFont:[UIFont boldSystemFontOfSize:10.0]];
         [gridBox setText:@" Adjusted (MLE)"];
+        [gridBox setAccessibilityLabel:@"Adjusted, M.L.E."];
         [oddsBasedParametersView addSubview:gridBox];
         UIView *ew = [[UIView alloc] initWithFrame:CGRectMake(2 + fourWidth0 / 2.0, 132, fourWidth0 / 2.0, 20)];
         [ew setBackgroundColor:[UIColor whiteColor]];
@@ -3563,6 +3574,7 @@
         [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
         [gridBox setTextAlignment:NSTextAlignmentCenter];
         [gridBox setText:@"Chi Square"];
+        [gridBox setAccessibilityLabel:@"Ky Square"];
         [statisticalTestsView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(2, 22, threeWidth0, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -3577,6 +3589,7 @@
         [gridBox setTextAlignment:NSTextAlignmentCenter];
         [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
         [gridBox setText:@"X2"];
+        [gridBox setAccessibilityLabel:@"Ky Square"];
         [statisticalTestsView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + threeWidth0 + threewidth1, 22, threewidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -3591,6 +3604,7 @@
         [gridBox setTextAlignment:NSTextAlignmentLeft];
         [gridBox setFont:[UIFont boldSystemFontOfSize:11.0]];
         [gridBox setText:@" Uncorrected (MH)"];
+        [gridBox setAccessibilityLabel:@"Uncorrected, M.H."];
         [statisticalTestsView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + threeWidth0, 44, threewidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -3613,6 +3627,7 @@
         [gridBox setTextAlignment:NSTextAlignmentLeft];
         [gridBox setFont:[UIFont boldSystemFontOfSize:12.0]];
         [gridBox setText:@" Corrected (MH)"];
+        [gridBox setAccessibilityLabel:@"Corrected, M.H."];
         [statisticalTestsView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + threeWidth0, 66, threewidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -3666,6 +3681,7 @@
         [gridBox setTextAlignment:NSTextAlignmentCenter];
         [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
         [gridBox setText:@"X2"];
+        [gridBox setAccessibilityLabel:@"Ky Square"];
         [homogeneityTestsView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + threeWidth0 + threewidth1, 22, threewidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -3701,6 +3717,7 @@
         [gridBox setTextAlignment:NSTextAlignmentLeft];
         [gridBox setFont:[UIFont boldSystemFontOfSize:12.0]];
         [gridBox setText:@" Breslow-Day OR"];
+        [gridBox setAccessibilityLabel:@"Breslow-Day Odds Ratio"];
         [homogeneityTestsView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + threeWidth0, 66, threewidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -3723,6 +3740,7 @@
         [gridBox setTextAlignment:NSTextAlignmentLeft];
         [gridBox setFont:[UIFont boldSystemFontOfSize:12.0]];
         [gridBox setText:@" Breslow-Day RR"];
+        [gridBox setAccessibilityLabel:@"Breslow-Day Risk Ratio"];
         [homogeneityTestsView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + threeWidth0, 88, threewidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -4152,6 +4170,7 @@
         [gridBox setTextAlignment:NSTextAlignmentLeft];
         [gridBox setFont:[UIFont boldSystemFontOfSize:12.0]];
         [gridBox setText:@" MLE"];
+        [gridBox setAccessibilityLabel:@"M.L.E."];
         [oddsBasedParametersView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + fourWidth0, 66, fourWidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -4208,6 +4227,7 @@
         [gridBox setTextAlignment:NSTextAlignmentLeft];
         [gridBox setFont:[UIFont boldSystemFontOfSize:11.0]];
         [gridBox setText:@" Adjusted (MH)"];
+        [gridBox setAccessibilityLabel:@"Adjusted, M.H."];
         [oddsBasedParametersView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + fourWidth0, 110, fourWidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -4237,6 +4257,7 @@
         [gridBox setTextAlignment:NSTextAlignmentLeft];
         [gridBox setFont:[UIFont boldSystemFontOfSize:10.0]];
         [gridBox setText:@" Adjusted (MLE)"];
+        [gridBox setAccessibilityLabel:@"Adjusted, M.L.E."];
         [oddsBasedParametersView addSubview:gridBox];
         UIView *ew = [[UIView alloc] initWithFrame:CGRectMake(2 + fourWidth0 / 2.0, 132, fourWidth0 / 2.0, 20)];
         [ew setBackgroundColor:[UIColor whiteColor]];
@@ -4393,6 +4414,7 @@
         [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
         [gridBox setTextAlignment:NSTextAlignmentCenter];
         [gridBox setText:@"Chi Square"];
+        [gridBox setAccessibilityLabel:@"Ky Square"];
         [statisticalTestsView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(2, 22, threeWidth0, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -4407,6 +4429,7 @@
         [gridBox setTextAlignment:NSTextAlignmentCenter];
         [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
         [gridBox setText:@"X2"];
+        [gridBox setAccessibilityLabel:@"Ky Square"];
         [statisticalTestsView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + threeWidth0 + threewidth1, 22, threewidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -4421,6 +4444,7 @@
         [gridBox setTextAlignment:NSTextAlignmentLeft];
         [gridBox setFont:[UIFont boldSystemFontOfSize:11.0]];
         [gridBox setText:@" Uncorrected (MH)"];
+        [gridBox setAccessibilityLabel:@"Uncorrected, M.H."];
         [statisticalTestsView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + threeWidth0, 44, threewidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -4443,6 +4467,7 @@
         [gridBox setTextAlignment:NSTextAlignmentLeft];
         [gridBox setFont:[UIFont boldSystemFontOfSize:12.0]];
         [gridBox setText:@" Corrected (MH)"];
+        [gridBox setAccessibilityLabel:@"Corrected, M.H."];
         [statisticalTestsView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + threeWidth0, 66, threewidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -4496,6 +4521,7 @@
         [gridBox setTextAlignment:NSTextAlignmentCenter];
         [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
         [gridBox setText:@"X2"];
+        [gridBox setAccessibilityLabel:@"Ky Square"];
         [homogeneityTestsView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + threeWidth0 + threewidth1, 22, threewidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -4531,6 +4557,7 @@
         [gridBox setTextAlignment:NSTextAlignmentLeft];
         [gridBox setFont:[UIFont boldSystemFontOfSize:12.0]];
         [gridBox setText:@" Breslow-Day OR"];
+        [gridBox setAccessibilityLabel:@"Breslow-Day Odds Ratio"];
         [homogeneityTestsView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + threeWidth0, 66, threewidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
@@ -4553,6 +4580,7 @@
         [gridBox setTextAlignment:NSTextAlignmentLeft];
         [gridBox setFont:[UIFont boldSystemFontOfSize:12.0]];
         [gridBox setText:@" Breslow-Day RR"];
+        [gridBox setAccessibilityLabel:@"Breslow-Day Risk Ratio"];
         [homogeneityTestsView addSubview:gridBox];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + threeWidth0, 88, threewidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];

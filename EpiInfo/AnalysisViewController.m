@@ -1188,6 +1188,7 @@
     //Change the title of the setDataSource button itself (if necessary) to indicate
     //that a source has been selected
     [setDataSource setTitle:@"  Data Source" forState:UIControlStateNormal];
+    [setDataSource setAccessibilityLabel:[NSString stringWithFormat:@"Data Source:  %@ (%d) Records)", [b.titleLabel.text substringFromIndex:2], recordCount]];
     
     //Move the dataSourceList off the screen and move the chooseAnalysis button onto the screen
     [UIView animateWithDuration:0.3 animations:^{
