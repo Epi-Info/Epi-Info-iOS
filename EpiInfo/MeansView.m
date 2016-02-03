@@ -404,7 +404,7 @@
             [gadgetTitle setFrame:CGRectMake(2, 116, frame.size.width - 4.0 - 96, 44)];
             [xButton setFrame:CGRectMake(frame.size.width - 4.0 - 46, 116, 44, 44)];
             [gearButton setFrame:CGRectMake(frame.size.width - 4.0 - 92, 116, 44, 44)];
-            [outputView setFrame:CGRectMake(0, 46, frame.size.width, frame.size.height - 46)];
+            [outputView setFrame:CGRectMake(0, 46, frame.size.width, 4.0 * frame.size.height - 46)];
             if (inputViewDisplayed)
             {
                 if ([avc portraitOrientation])
@@ -1135,6 +1135,7 @@
             [sectionLabel setTextAlignment:NSTextAlignmentCenter];
             [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
             [sectionLabel setText:@"Difference (Group 1 - Group 2)"];
+            [sectionLabel setAccessibilityLabel:@"Difference (Group 1 minus Group 2)"];
             [whiteBox addSubview:sectionLabel];
             [tTestView addSubview:whiteBox];
             

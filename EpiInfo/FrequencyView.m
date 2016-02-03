@@ -296,7 +296,7 @@
             [gadgetTitle setFrame:CGRectMake(2, 8, 316 - 96, 44)];
             [xButton setFrame:CGRectMake(frame.size.width - 4.0 - 46, 2, 44, 44)];
             [gearButton setFrame:CGRectMake(frame.size.width - 4.0 - 92, 2, 44, 44)];
-            [outputView setFrame:CGRectMake(0, 46, frame.size.width, frame.size.height - 46)];
+            [outputView setFrame:CGRectMake(0, 46, frame.size.width, 10.0 * frame.size.height - 46)];
             if (inputViewDisplayed)
             {
                 [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, MIN(860.0, frame.size.height - 50))];
