@@ -3276,8 +3276,13 @@ newStr{
             break;
         }
         case 12:
+        {
             NSLog(@"options");
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            [utf setUserInteractionEnabled:NO];
+            [utf setAlpha:1.0f];
             break;
+        }
         case 15:
             NSLog(@"mirror");
             break;
