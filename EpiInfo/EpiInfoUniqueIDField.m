@@ -6,6 +6,7 @@
 //
 
 #import "EpiInfoUniqueIDField.h"
+#import "EnterDataView.h"
 
 @implementation EpiInfoUniqueIDField
 
@@ -31,12 +32,16 @@
 - (BOOL)becomeFirstResponder
 {
   NSLog(@"%@ becoming first responder", self.columnName);
+    [(EnterDataView *)[[self superview] superview] fieldBecameFirstResponder:self];
+
   return [super becomeFirstResponder];
 }
 
 - (BOOL)resignFirstResponder
 {
-  NSLog(@"%@ resigning first responder", self.columnName);  
+  NSLog(@"%@ resigning first responder", self.columnName);
+    [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+
   return [super resignFirstResponder];
 }
   

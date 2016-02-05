@@ -1181,10 +1181,51 @@
 - (void)confirmSubmitOrClear:(UIButton *)sender
 {
   [self resignAll];
+    for (id v in [formCanvas subviews])
+    {
+        if ([v isKindOfClass:[EpiInfoTextField class]]) {
+            NSString *value = [(EpiInfoTextField *)v text];
+            NSLog(@"%@ %@", value,[(EpiInfoTextField *)v columnName]);
+            //        if (![[(NumberField *)v value] isEqualToString:@"NULL"])
+
+        }
+        if ([v isKindOfClass:[EpiInfoTextView class]]) {
+            NSString *value = [(EpiInfoTextField *)v text];
+            NSLog(@"%@ %@", value,[(EpiInfoTextView *)v columnName]);
+            //        if (![[(NumberField *)v value] isEqualToString:@"NULL"])
+            
+        }
+        if ([v isKindOfClass:[NumberField class]]) {
+            NSString *value = [(NumberField *)v text];
+            NSLog(@"%@ %@", value,[(NumberField *)v columnName]);
+            //        if (![[(NumberField *)v value] isEqualToString:@"NULL"])
+            
+        }
+        if ([v isKindOfClass:[PhoneNumberField class]]) {
+            NSString *value = [(PhoneNumberField *)v text];
+            NSLog(@"%@ %@", value,[(PhoneNumberField *)v columnName]);
+            //        if (![[(NumberField *)v value] isEqualToString:@"NULL"])
+            
+        }
+        if ([v isKindOfClass:[UppercaseTextField class]]) {
+            NSString *value = [(UppercaseTextField *)v text];
+            NSLog(@"%@ %@", value,[(UppercaseTextField *)v columnName]);
+            //        if (![[(NumberField *)v value] isEqualToString:@"NULL"])
+            
+        }
+        if ([v isKindOfClass:[YesNo class]]) {
+            NSString *value = [(YesNo *)v picked];
+            NSLog(@"%@ %@", value,[(EpiInfoTextField *)v columnName]);
+            //        if (![[(NumberField *)v value] isEqualToString:@"NULL"])
+            
+        }
+    }
   
   for (id v in [formCanvas subviews])
+  {
     if (![v isKindOfClass:[UILabel class]])
       [v setEnabled:NO];
+  }
   
   BlurryView *bv = [[BlurryView alloc] initWithFrame:CGRectMake(sender.frame.origin.x, self.superview.frame.size.height - (formCanvas.frame.size.height - sender.frame.origin.y), sender.frame.size.width, sender.frame.size.height)];
   
@@ -1491,8 +1532,8 @@
         commaOrParen = @",";
       
       float elementLabelHeight = 40.0;
-        if (tagNum<1) {
-            tagNum = 1;
+        if (tagNum<100) {
+            tagNum = 100;
         }
       UILabel *elementLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, contentSizeHeight, self.frame.size.width - 40, 40)];
 
@@ -1593,8 +1634,19 @@
           /*UILabel *eleLabel = (UILabel *)[formCanvas viewWithTag:2];
           eleLabel.text = @"test";*/
           tagNum++;
+          [tf setHidden:YES];
+          if([tf isHidden])
+          {
+//              self.bViewTopConstraint.constant = self.aViewTopConstraint.constant;
+              contentSizeHeight -= 40.0;
+          }
+          else
+          {
+              contentSizeHeight += 40.0;
+
+          }
         [formCanvas addSubview:tf];
-        contentSizeHeight += 40.0;
+//        contentSizeHeight += 40.0;
         [tf setDelegate:self];
         [tf setReturnKeyType:UIReturnKeyDone];
         createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
@@ -2920,6 +2972,91 @@
 
         
     }
+    
+    if ([field isKindOfClass:[EpiInfoOptionField class]])
+    {
+        EpiInfoOptionField *etf = (EpiInfoOptionField *)field;
+        NSLog(@"%@",[etf columnName]);
+        [self checkElements:[etf columnName] Tag:[etf tag] type:11 from:@"after"];
+        NSLog(@"%@",etf.picked);
+        if ([[etf picked]intValue] == 0)
+        {
+            BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:11 from:@"after" str:@""];
+            if (required) {
+                NSLog(@"if");
+                etf.layer.borderWidth = 1.0f;
+                etf.layer.borderColor = [[UIColor redColor] CGColor];
+                etf.layer.cornerRadius = 5;
+                etf.clipsToBounds      = YES;
+                require++;
+                
+            }
+            else
+            {
+                etf.layer.borderWidth = 1.0f;
+                etf.layer.borderColor = [[UIColor clearColor] CGColor];
+                etf.layer.cornerRadius = 5;
+                etf.clipsToBounds      = YES;
+                [etf setAlpha:1.0f];
+                require--;
+                
+            }
+        }
+        
+        else if ([etf picked].length == 1)
+        {
+            BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:11 from:@"after" str:@"value"];
+            if (required) {
+                etf.layer.borderWidth = 1.0f;
+                etf.layer.borderColor = [[UIColor redColor] CGColor];
+                etf.layer.cornerRadius = 5;
+                etf.clipsToBounds      = YES;
+                require++;
+                
+            }
+            else
+            {
+                etf.layer.borderWidth = 1.0f;
+                etf.layer.borderColor = [[UIColor clearColor] CGColor];
+                etf.layer.cornerRadius = 5;
+                etf.clipsToBounds      = YES;
+                [etf setAlpha:1.0f];
+                require--;
+            }
+        }
+        
+        
+        
+    }
+    if ([field isKindOfClass:[EpiInfoUniqueIDField class]])
+    {
+        EpiInfoUniqueIDField *etf = (EpiInfoUniqueIDField *)field;
+        NSLog(@"%@",[etf columnName]);
+        [self checkElements:[etf columnName] Tag:[etf tag] type:25 from:@"after"];
+        
+        BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:25 from:@"after" str:etf.text];
+        if (required) {
+            etf.layer.borderWidth = 1.0f;
+            etf.layer.borderColor = [[UIColor redColor] CGColor];
+            etf.layer.cornerRadius = 5;
+            etf.clipsToBounds      = YES;
+            require++;
+            
+        }
+        else
+        {
+            etf.layer.borderWidth = 1.0f;
+            etf.layer.borderColor = [[UIColor clearColor] CGColor];
+            etf.layer.cornerRadius = 5;
+            etf.clipsToBounds      = YES;
+            [etf setAlpha:1.0f];
+            require--;
+            
+        }
+        
+        
+    }
+
 //    if ([field isKindOfClass:[EpiInfoOptionField class]])
 //    {
 //        EpiInfoOptionField *etf = (EpiInfoOptionField *)field;
@@ -3177,6 +3314,10 @@ newStr{
             {
                 reqYes = NO;
             }
+        }
+        else
+        {
+            reqYes = NO;
         }
     }
     

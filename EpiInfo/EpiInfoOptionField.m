@@ -6,6 +6,7 @@
 //
 
 #import "EpiInfoOptionField.h"
+#import "EnterDataView.h"
 
 @implementation EpiInfoOptionField
 
@@ -29,6 +30,8 @@
     {
         [self.viewToAlertOfChanges didChangeValueForKey:[NSString stringWithString:[listOfValues objectAtIndex:row]]];
     }
+    [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+
 }
 
 - (void)setSelectedLegalValue:(NSString *)selectedLegalValue
