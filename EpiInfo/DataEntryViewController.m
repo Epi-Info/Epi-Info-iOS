@@ -534,7 +534,7 @@
     UIButton *confirmDeleteForm = [[UIButton alloc] initWithFrame:CGRectMake(20, manageView.frame.size.height / 2.0, 120, 40)];
     [confirmDeleteForm setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
     [confirmDeleteForm.layer setCornerRadius:4.0];
-    [confirmDeleteForm setTitle:@"Yes" forState:UIControlStateNormal];
+    [confirmDeleteForm setTitle:@"Yes. Triple tap to confirm." forState:UIControlStateNormal];
     [confirmDeleteForm setImage:[UIImage imageNamed:@"YesButtonOrange.png"] forState:UIControlStateNormal];
     [confirmDeleteForm.layer setMasksToBounds:YES];
     [confirmDeleteForm.layer setCornerRadius:4.0];
