@@ -19,24 +19,5 @@
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
-<<<<<<< Updated upstream
-=======
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EpiInfo/DataEntryViewController.m"
-            timestampString = "476637953.059069"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1504"
-            endingLineNumber = "1504"
-            landmarkName = "-packageDataForiTunes:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
->>>>>>> Stashed changes
    </Breakpoints>
 </Bucket>
