@@ -75,15 +75,15 @@
 -(void)getPage
 {
     NSScanner *scanner = [NSScanner scannerWithString:check];
-    [scanner scanUpToString:@"page [" intoString:nil]; // Scan all characters before
+    [scanner scanUpToString:@"page " intoString:nil]; // Scan all characters before
     while(![scanner isAtEnd]) {
         NSString *substring = nil;
-        [scanner scanString:@"page [" intoString:nil]; // Scan the character
+        [scanner scanString:@"page " intoString:nil]; // Scan the character
         if([scanner scanUpToString:@"end-page" intoString:&substring]) {
             [pageArray addObject:substring];
             //NSLog(@"%@",substring);
         }
-        [scanner scanUpToString:@"page [" intoString:nil]; // Scan all characters before next
+        [scanner scanUpToString:@" page" intoString:nil]; // Scan all characters before next
     }
     
 }

@@ -15,9 +15,9 @@
     NSString *condition;
 }
 
-@property(nonatomic,strong) NSString *name;
-@property(nonatomic,strong) NSString *condition;
-@property(nonatomic,strong) NSString *stringValue;
+@property(nonatomic) NSString *name;
+@property(nonatomic) NSString *condition;
+@property(nonatomic) NSString *stringValue;
 
 
 -(id)initWithName:(NSString *)newName condition:(NSString *)newCondition stringValue:(NSString *)newStringValue;

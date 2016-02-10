@@ -15,14 +15,17 @@
     int type;
     int tag;
     BOOL req;
+    NSString *promptText;
 }
 
-@property(nonatomic, strong) NSString *elementName;
-@property(nonatomic, strong) NSString *uniqueId;
+@property(nonatomic) NSString *elementName;
+@property(nonatomic) NSString *uniqueId;
 @property(nonatomic) int type;
 @property(nonatomic) int tag;
 @property(nonatomic)BOOL req;
+@property(nonatomic) NSString *promptText;
 
--(id)initWithElement:(NSString *)newElement uniqueId:(NSString *)newUniqueId type:(int)newType tag:(int)newTag required:(BOOL)newReq;
+
+-(id)initWithElement:(NSString *)newElement uniqueId:(NSString *)newUniqueId type:(int)newType tag:(int)newTag required:(BOOL)newReq prompt:(NSString *)newPrompt;
 
 @end

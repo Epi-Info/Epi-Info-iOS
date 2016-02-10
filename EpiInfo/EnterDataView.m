@@ -1624,17 +1624,17 @@
           epc.elementName = [attributeDict objectForKey:@"Name"];
           epc.type = 1;
           epc.tag = tagNum;
+          epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
         if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:1 from:@"before"])
         {
             [tf setUserInteractionEnabled:NO];
             [tf setAlpha:0.5f];
         }
-          [self setLabelReq:epc.elementName tag:epc.tag text:[attributeDict objectForKey:@"PromptText"]];
-          /*UILabel *eleLabel = (UILabel *)[formCanvas viewWithTag:2];
-          eleLabel.text = @"test";*/
+          [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:1];
+
           tagNum++;
-          [tf setHidden:YES];
+         /* [tf setHidden:YES];
           if([tf isHidden])
           {
 //              self.bViewTopConstraint.constant = self.aViewTopConstraint.constant;
@@ -1644,9 +1644,9 @@
           {
               contentSizeHeight += 40.0;
 
-          }
+          }*/
         [formCanvas addSubview:tf];
-//        contentSizeHeight += 40.0;
+        contentSizeHeight += 40.0;
         [tf setDelegate:self];
         [tf setReturnKeyType:UIReturnKeyDone];
         createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
@@ -1706,14 +1706,15 @@
           epc.elementName = [attributeDict objectForKey:@"Name"];
           epc.type = 3;
           epc.tag = tagNum;
+          epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
-          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:2 from:@"before"])
+          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:3 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
               [tf setAlpha:0.5f];
 
           }
-          [self setLabelReq:epc.elementName tag:epc.tag text:[attributeDict objectForKey:@"PromptText"]];
+          [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:3];
 
           tagNum++;
         [formCanvas addSubview:tf];
@@ -1768,13 +1769,14 @@
           epc.elementName = [attributeDict objectForKey:@"Name"];
           epc.type = 4;
           epc.tag = tagNum;
+          epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:4 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
               [tf setAlpha:0.5f];
           }
-          [self setLabelReq:epc.elementName tag:epc.tag text:[attributeDict objectForKey:@"PromptText"]];
+          [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:4];
 
           tagNum++;
         [formCanvas addSubview:tf];
@@ -1821,13 +1823,15 @@
           epc.elementName = [attributeDict objectForKey:@"Name"];
           epc.type = 5;
           epc.tag = tagNum;
+          epc.promptText = [attributeDict objectForKey:@"PromptText"];
+
           [elementListArray addObject:epc];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:5 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
               [tf setAlpha:0.5f];
           }
-          [self setLabelReq:epc.elementName tag:epc.tag text:[attributeDict objectForKey:@"PromptText"]];
+          [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:5];
 
           tagNum++;
         [formCanvas addSubview:tf];
@@ -1900,13 +1904,14 @@
           epc.elementName = [attributeDict objectForKey:@"Name"];
           epc.type = 6;
           epc.tag = tagNum;
+          epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:6 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
               [tf setAlpha:0.5f];
           }
-          [self setLabelReq:epc.elementName tag:epc.tag text:[attributeDict objectForKey:@"PromptText"]];
+          [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:6];
 
           tagNum++;
         [formCanvas addSubview:tf];
@@ -1955,13 +1960,14 @@
           epc.elementName = [attributeDict objectForKey:@"Name"];
           epc.type = 7;
           epc.tag = tagNum;
+          epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:7 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
               [tf setAlpha:0.5f];
           }
-          [self setLabelReq:epc.elementName tag:epc.tag text:[attributeDict objectForKey:@"PromptText"]];
+          [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:7];
 
           tagNum++;
         [formCanvas addSubview:tf];
@@ -2011,13 +2017,14 @@
           epc.elementName = [attributeDict objectForKey:@"Name"];
           epc.type = 8;
           epc.tag = tagNum;
+          epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:8 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
               [tf setAlpha:0.5f];
           }
-          [self setLabelReq:epc.elementName tag:epc.tag text:[attributeDict objectForKey:@"PromptText"]];
+          [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:8];
 
           tagNum++;
         [formCanvas addSubview:tf];
@@ -2066,13 +2073,14 @@
           epc.elementName = [attributeDict objectForKey:@"Name"];
           epc.type = 9;
           epc.tag = tagNum;
+          epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:9 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
               [tf setAlpha:0.5f];
           }
-          [self setLabelReq:epc.elementName tag:epc.tag text:[attributeDict objectForKey:@"PromptText"]];
+          [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:9];
 
           tagNum++;
         [formCanvas addSubview:tf];
@@ -2122,13 +2130,14 @@
           epc.elementName = [attributeDict objectForKey:@"Name"];
           epc.type = 10;
           epc.tag = tagNum;
+          epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:10 from:@"before"])
           {
               [cb setUserInteractionEnabled:NO];
               [cb setAlpha:0.5f];
           }
-          [self setLabelReq:epc.elementName tag:epc.tag text:[attributeDict objectForKey:@"PromptText"]];
+          [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:10];
 
           tagNum++;
         [formCanvas addSubview:cb];
@@ -2168,13 +2177,14 @@
           epc.elementName = [attributeDict objectForKey:@"Name"];
           epc.type = 11;
           epc.tag = tagNum;
+          epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:11 from:@"before"])
           {
               [yn setUserInteractionEnabled:NO];
               [yn setAlpha:0.5f];
           }
-          [self setLabelReq:epc.elementName tag:epc.tag text:[attributeDict objectForKey:@"PromptText"]];
+          [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:11];
 
           tagNum++;
         [formCanvas addSubview:yn];
@@ -2218,13 +2228,14 @@
           epc.elementName = [attributeDict objectForKey:@"Name"];
           epc.type = 15;
           epc.tag = tagNum;
+          epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:15 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
               [tf setAlpha:0.5f];
           }
-          [self setLabelReq:epc.elementName tag:epc.tag text:[attributeDict objectForKey:@"PromptText"]];
+          [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:15];
 
           tagNum++;
         [formCanvas addSubview:tf];
@@ -2264,13 +2275,14 @@
           epc.elementName = [attributeDict objectForKey:@"Name"];
           epc.type = 17;
           epc.tag = tagNum;
+          epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:17 from:@"before"])
           {
               [lv setUserInteractionEnabled:NO];
               [lv setAlpha:0.5f];
           }
-          [self setLabelReq:epc.elementName tag:epc.tag text:[attributeDict objectForKey:@"PromptText"]];
+          [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:17];
 
           tagNum++;
         [formCanvas addSubview:lv];
@@ -2314,13 +2326,14 @@
           epc.elementName = [attributeDict objectForKey:@"Name"];
           epc.type = 18;
           epc.tag = tagNum;
+          epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:18 from:@"before"])
           {
               [lv setUserInteractionEnabled:NO];
               [lv setAlpha:0.5f];
           }
-          [self setLabelReq:epc.elementName tag:epc.tag text:[attributeDict objectForKey:@"PromptText"]];
+          [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:18];
 
           tagNum++;
         [formCanvas addSubview:lv];
@@ -2351,11 +2364,16 @@
           epc.elementName = [attributeDict objectForKey:@"Name"];
           epc.type = 19;
           epc.tag = tagNum;
+          epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:19 from:@"before"])
+          {
+          [lv setUserInteractionEnabled:NO];
+              [lv setAlpha:0.5];
+          }
+          [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:19];
 
-          [lv setUserInteractionEnabled:NO];;
-        [formCanvas addSubview:lv];
+          [formCanvas addSubview:lv];
         contentSizeHeight += 160;
         createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
         [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
@@ -2382,13 +2400,14 @@
           epc.elementName = [attributeDict objectForKey:@"Name"];
           epc.type = 14;
           epc.tag = tagNum;
+          epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:14 from:@"before"])
           {
               [iv setUserInteractionEnabled:NO];
               [iv setAlpha:0.5f];
           }
-          [self setLabelReq:epc.elementName tag:epc.tag text:[attributeDict objectForKey:@"PromptText"]];
+          [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:14];
 
               tagNum++;
         [formCanvas addSubview:iv];
@@ -2416,13 +2435,14 @@
           epc.elementName = [attributeDict objectForKey:@"Name"];
           epc.type = 12;
           epc.tag = tagNum;
+          epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:12 from:@"before"])
           {
               [lv setUserInteractionEnabled:NO];
               [lv setAlpha:0.5f];
           }
-          [self setLabelReq:epc.elementName tag:epc.tag text:[attributeDict objectForKey:@"PromptText"]];
+          [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:12];
 
           tagNum++;
         [formCanvas addSubview:lv];
@@ -2464,13 +2484,14 @@
           epc.elementName = [attributeDict objectForKey:@"Name"];
           epc.type = 25;
           epc.tag = tagNum;
+          epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:25 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
               [tf setAlpha:0.5f];
           }
-          [self setLabelReq:epc.elementName tag:epc.tag text:[attributeDict objectForKey:@"PromptText"]];
+          [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:25];
 
           tagNum++;
         [tf setBorderStyle:UITextBorderStyleRoundedRect];
@@ -2924,10 +2945,14 @@
         NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:11 from:@"after"];
         NSLog(@"%@",etf.picked);
-        if ([[etf picked]intValue] == 0)
+//        if ([[etf picked]intValue] == 0)
+       // if (![[etf picked]containsString:@"1"])//||[[etf picked]containsString:@"0"])
+        if ([[etf picked]isEqualToString:@"NULL"])
         {
+            NSLog(@"%d",[[etf picked]intValue]);
         BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:11 from:@"after" str:@""];
-        if (required) {
+        if (required)
+        {
             NSLog(@"if");
             etf.layer.borderWidth = 1.0f;
             etf.layer.borderColor = [[UIColor redColor] CGColor];
@@ -3133,7 +3158,6 @@
         int eleCount = [self numberOfWordsInString:epc.stringValue];
         NSString *eleSp= [self removeSp:epc.stringValue];
         for (int j = 0; j<eleCount; j++) {
-            //elmt = [[epc.stringValue componentsSeparatedByString:@" "]objectAtIndex:j];
             elmt = [[eleSp componentsSeparatedByString:@" "]objectAtIndex:j];
 
             NSLog(@"Satya - %@ %d",elmt,j);
@@ -3167,32 +3191,17 @@
             
         }
 
-       /* NSArray *notRequiredArray = [epc.stringValue componentsSeparatedByString:@"set-not-required"];
-        for (int i = 0; i<notRequiredArray.count; i++)
-        {
-            if(![[notRequiredArray objectAtIndex:i] isEqualToString:@""])
-            {
-                NSString *ele = [self removeSp:[notRequiredArray objectAtIndex:i]];
-                if ([[ele componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] count]==1)
-                {
-                    ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:ele beforeAfter:epc.condition condition:@"notrequired"];
-                    [conditionsArray addObject:cModel];
-                }
-            }
-        }*/
-
-
     }
 
 }
 - (NSUInteger)numberOfWordsInString:(NSString *)str
 {
-    __block NSUInteger count = 0;
-    [str enumerateSubstringsInRange:NSMakeRange(0, [str length])
-                            options:NSStringEnumerationByWords|NSStringEnumerationSubstringNotRequired
-                         usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
-                             count++;
-                         }];
+    NSArray *words = [str componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];    
+    NSInteger count = 0;
+    for (NSString *word in words) {
+        if (![word isEqualToString:@""])
+            count++;
+    }
     return count;
 }
 
@@ -3234,35 +3243,8 @@
                 {
                     value = NO;
                 }
-        }
-        if ([cpm.condition isEqualToString:@"required"])
-        {
-            for (int i = 0; i<elementListArray.count; i++) {
-                ElementsModel *emc = [elementListArray objectAtIndex:i];
-            
-                if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
-                {
-                    emc.req = YES;
-                    [elementListArray replaceObjectAtIndex:i withObject:emc];
-                    
-                }
+        
             }
-    
-        }
-        if ([cpm.condition isEqualToString:@"notrequired"])
-        {
-            for (int i = 0; i<elementListArray.count; i++) {
-                ElementsModel *emc = [elementListArray objectAtIndex:i];
-                
-                if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
-                {
-                    emc.req = NO;
-                    [elementListArray replaceObjectAtIndex:i withObject:emc];
-                    
-                }
-            }
-            
-        }
    
     /*AFTER*/
         else if ([befAft caseInsensitiveCompare:@"after"]==NSOrderedSame)
@@ -3292,6 +3274,39 @@
                 }
 
             }
+            if ([cpm.condition isEqualToString:@"required"]&&([cpm.name caseInsensitiveCompare:name] == NSOrderedSame))
+            {
+                for (int i = 0; i<elementListArray.count; i++) {
+                    ElementsModel *emc = [elementListArray objectAtIndex:i];
+                    
+                    if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
+                    {
+                        NSLog(@"SATYA - %@-----%@",emc.elementName,cpm.element);
+                        emc.req = YES;
+                        [elementListArray replaceObjectAtIndex:i withObject:emc];
+                        [self setLabelReqAfter:emc.elementName tag:emc.tag text:emc.promptText reqnot:YES];
+
+                        
+                    }
+                }
+                
+            }
+            if ([cpm.condition isEqualToString:@"notrequired"]&&([cpm.name caseInsensitiveCompare:name] == NSOrderedSame))
+            {
+                for (int i = 0; i<elementListArray.count; i++) {
+                    ElementsModel *emc = [elementListArray objectAtIndex:i];
+                    
+                    if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
+                    {
+                        emc.req = NO;
+                        [elementListArray replaceObjectAtIndex:i withObject:emc];
+                        [self setLabelReqAfter:emc.elementName tag:emc.tag text:emc.promptText reqnot:NO];
+
+                        
+                    }
+                }
+                
+            }
         }
     }
     return value;
@@ -3304,15 +3319,21 @@ newStr{
     BOOL reqYes;
     for (ElementsModel *emc in elementListArray)
     {
+       /* for (ConditionsModel *cmp in conditionsArray) {
+            NSLog(@"%@" cmp);
+        }*/
+        //Set conditions model
         //reverse the emc.req condition
-        if ([emc.elementName isEqualToString:name] && (emc.req == true ))
+        if (([emc.elementName caseInsensitiveCompare:name]==NSOrderedSame) && (emc.req == true ))
         {
             if ([newStr isEqualToString:@""]) {
                 reqYes = YES;
+                break;
             }
             else
             {
                 reqYes = NO;
+                break;
             }
         }
         else
@@ -3579,9 +3600,71 @@ newStr{
     
 }
 
--(void)setLabelReq:(NSString *)newName tag:(int)newTag text:(NSString *)newText
+-(void)setLabelReq:(NSString *)newName tag:(int)newTag text:(NSString *)newText type:(int)newType
 {
-    BOOL req = [self checkRequiredstr:newName Tag:newTag type:1 from:@"before" str:@""];
+   // BOOL req = [self checkRequiredstr:newName Tag:newTag type:1 from:@"before" str:@""];
+    BOOL req = NO;
+    BOOL notReq = NO;//= [self checkElements:newName Tag:tagNum type:1 from:@"before"];
+    for (ConditionsModel *cpm in conditionsArray)
+    {
+    if ([cpm.condition isEqualToString:@"required"] && [cpm.beforeAfter isEqualToString:@"before"])
+    {
+        for (int i = 0; i<elementListArray.count; i++)
+        {
+            ElementsModel *emc = [elementListArray objectAtIndex:i];
+            
+            if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
+            {
+                NSLog(@"SATYA - %@-----%@",emc.elementName,cpm.element);
+                emc.req = YES;
+                req = YES;
+                [elementListArray replaceObjectAtIndex:i withObject:emc];
+                
+            }
+        }
+        
+    }
+    if ([cpm.condition isEqualToString:@"notrequired"]&&[cpm.beforeAfter isEqualToString:@"before"])
+    {
+        for (int i = 0; i<elementListArray.count; i++)
+        {
+            ElementsModel *emc = [elementListArray objectAtIndex:i];
+            
+            if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
+            {
+                emc.req = NO;
+                notReq = YES;
+                [elementListArray replaceObjectAtIndex:i withObject:emc];
+                
+            }
+         }
+        
+    }
+    }
+
+
+    UILabel *eleLabel = (UILabel *)[formCanvas viewWithTag:newTag-1];
+
+    if (req == YES) {
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]  initWithString:@"*"];
+        
+        [eleLabel setText:[NSString stringWithFormat:@"%@ %@", newText,attributedString]];
+        [eleLabel setText:[[eleLabel.text stringByReplacingOccurrencesOfString:@"{" withString:@""] stringByReplacingOccurrencesOfString:@"}" withString:@""]];
+        NSMutableAttributedString *text = [[NSMutableAttributedString alloc]  initWithAttributedString: eleLabel.attributedText];
+        
+        [text addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(text.length-2, 1)];
+        [eleLabel setAttributedText: text];
+    }
+    else if (notReq == YES)
+    {
+        eleLabel.text = newText;
+
+    }
+}
+
+-(void)setLabelReqAfter:(NSString *)newName tag:(int)newTag text:(NSString *)newText reqnot:(BOOL)newReq;
+{
+    BOOL req = newReq;
     UILabel *eleLabel = (UILabel *)[formCanvas viewWithTag:newTag-1];
 
     if (req == YES) {
@@ -3597,8 +3680,9 @@ newStr{
     else if (req == NO)
     {
         eleLabel.text = newText;
-
+        
     }
+
 }
 
 /*

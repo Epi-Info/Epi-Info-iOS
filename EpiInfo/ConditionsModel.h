@@ -17,11 +17,11 @@
     NSString *condition;
 }
 
-@property(nonatomic,strong) NSString *from;
-@property(nonatomic,strong) NSString *name;
-@property(nonatomic,strong) NSString *element;
-@property(nonatomic,strong) NSString *beforeAfter;
-@property(nonatomic,strong) NSString *condition;
+@property(nonatomic) NSString *from;
+@property(nonatomic) NSString *name;
+@property(nonatomic) NSString *element;
+@property(nonatomic) NSString *beforeAfter;
+@property(nonatomic) NSString *condition;
 
 -(id)initWithFrom:(NSString *)newFrom name:(NSString *)newName element:(NSString *)newElement beforeAfter:(NSString *)newbeforeAfter condition:(NSString *)newCondition;
 @end
