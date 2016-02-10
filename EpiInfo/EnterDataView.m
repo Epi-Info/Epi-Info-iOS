@@ -1627,7 +1627,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
-          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
+          [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
         if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:1 from:@"before"])
         {
             [tf setUserInteractionEnabled:NO];
@@ -1710,7 +1710,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
-          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
+          [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:3 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
@@ -1774,7 +1774,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
-          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
+          [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:4 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
@@ -1829,7 +1829,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
-          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
+          [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:5 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
@@ -1910,7 +1910,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
-          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
+          [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:6 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
@@ -1967,7 +1967,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
-          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
+          [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:7 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
@@ -2025,7 +2025,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
-          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
+          [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:8 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
@@ -2082,7 +2082,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
-          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
+          [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:9 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
@@ -2140,7 +2140,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
-          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
+          [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:10 from:@"before"])
           {
               [cb setUserInteractionEnabled:NO];
@@ -2188,7 +2188,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
-          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
+          [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:11 from:@"before"])
           {
               [yn setUserInteractionEnabled:NO];
@@ -2240,7 +2240,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
-          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
+          [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:15 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
@@ -2288,7 +2288,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
-          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
+          [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:17 from:@"before"])
           {
               [lv setUserInteractionEnabled:NO];
@@ -2340,7 +2340,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
-          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
+          [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:18 from:@"before"])
           {
               [lv setUserInteractionEnabled:NO];
@@ -2379,7 +2379,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
-          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
+          [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:19 from:@"before"])
           {
           [lv setUserInteractionEnabled:NO];
@@ -2416,7 +2416,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
-          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
+          [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:14 from:@"before"])
           {
               [iv setUserInteractionEnabled:NO];
@@ -2452,7 +2452,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
-          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
+          [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:12 from:@"before"])
           {
               [lv setUserInteractionEnabled:NO];
@@ -2502,7 +2502,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
-          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
+          [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:25 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
@@ -3334,9 +3334,7 @@
 newStr{
     
     BOOL reqYes;
-    NSInteger *idx = [elmArray indexOfObject:name];
-    NSLog(@"%d",idx);
-    
+    NSInteger *idx = [elmArray indexOfObject:[name lowercaseString]];
     ElementsModel *emc = [elementListArray objectAtIndex:idx];
     if (([emc.elementName caseInsensitiveCompare:name]==NSOrderedSame) && (emc.req == true ))
     {
@@ -3619,36 +3617,28 @@ newStr{
     {
     if ([cpm.condition isEqualToString:@"required"] && [cpm.beforeAfter isEqualToString:@"before"])
     {
-        for (int i = 0; i<elementListArray.count; i++)
-        {
-            ElementsModel *emc = [elementListArray objectAtIndex:i];
+        BOOL there = [elmArray containsObject:cpm.element];
+        if (there) {
+            NSUInteger idx = [elmArray indexOfObject:cpm.element];
+            ElementsModel *emc = [elementListArray objectAtIndex:idx];
+            emc.req = YES;
+            req = YES;
+            [elementListArray replaceObjectAtIndex:idx withObject:emc];
             
-            if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
-            {
-                NSLog(@"SATYA - %@-----%@",emc.elementName,cpm.element);
-                emc.req = YES;
-                req = YES;
-                [elementListArray replaceObjectAtIndex:i withObject:emc];
-                
-            }
         }
         
     }
     if ([cpm.condition isEqualToString:@"notrequired"]&&[cpm.beforeAfter isEqualToString:@"before"])
     {
-        for (int i = 0; i<elementListArray.count; i++)
-        {
-            ElementsModel *emc = [elementListArray objectAtIndex:i];
-            
-            if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
-            {
-                emc.req = NO;
-                notReq = YES;
-                [elementListArray replaceObjectAtIndex:i withObject:emc];
-                
-            }
-         }
-        
+        BOOL there = [elmArray containsObject:cpm.element];
+        if (there) {
+            NSUInteger idx = [elmArray indexOfObject:cpm.element];
+            ElementsModel *emc = [elementListArray objectAtIndex:idx];
+            emc.req = NO;
+            notReq = YES;
+            [elementListArray replaceObjectAtIndex:idx withObject:emc];
+
+        }
     }
     }
 
