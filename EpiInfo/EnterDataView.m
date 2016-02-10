@@ -1409,6 +1409,7 @@
     if(elementListArray.count<1)
     {
         elementListArray = [[NSMutableArray alloc]init];
+        elmArray = [[NSMutableArray alloc]init];
         require = 0;
     }
   NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
@@ -1626,6 +1627,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
+          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
         if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:1 from:@"before"])
         {
             [tf setUserInteractionEnabled:NO];
@@ -1708,6 +1710,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
+          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:3 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
@@ -1771,6 +1774,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
+          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:4 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
@@ -1824,8 +1828,8 @@
           epc.type = 5;
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
-
           [elementListArray addObject:epc];
+          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:5 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
@@ -1906,6 +1910,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
+          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:6 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
@@ -1962,6 +1967,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
+          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:7 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
@@ -2019,6 +2025,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
+          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:8 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
@@ -2075,6 +2082,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
+          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:9 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
@@ -2132,6 +2140,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
+          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:10 from:@"before"])
           {
               [cb setUserInteractionEnabled:NO];
@@ -2179,6 +2188,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
+          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:11 from:@"before"])
           {
               [yn setUserInteractionEnabled:NO];
@@ -2230,6 +2240,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
+          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:15 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
@@ -2277,6 +2288,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
+          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:17 from:@"before"])
           {
               [lv setUserInteractionEnabled:NO];
@@ -2328,6 +2340,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
+          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:18 from:@"before"])
           {
               [lv setUserInteractionEnabled:NO];
@@ -2366,6 +2379,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
+          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:19 from:@"before"])
           {
           [lv setUserInteractionEnabled:NO];
@@ -2402,6 +2416,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
+          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:14 from:@"before"])
           {
               [iv setUserInteractionEnabled:NO];
@@ -2437,6 +2452,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
+          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:12 from:@"before"])
           {
               [lv setUserInteractionEnabled:NO];
@@ -2486,6 +2502,7 @@
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
+          [elmArray addObject:[attributeDict objectForKey:@"Name"]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:25 from:@"before"])
           {
               [tf setUserInteractionEnabled:NO];
@@ -3317,31 +3334,24 @@
 newStr{
     
     BOOL reqYes;
-    for (ElementsModel *emc in elementListArray)
+    NSInteger *idx = [elmArray indexOfObject:name];
+    NSLog(@"%d",idx);
+    
+    ElementsModel *emc = [elementListArray objectAtIndex:idx];
+    if (([emc.elementName caseInsensitiveCompare:name]==NSOrderedSame) && (emc.req == true ))
     {
-       /* for (ConditionsModel *cmp in conditionsArray) {
-            NSLog(@"%@" cmp);
-        }*/
-        //Set conditions model
-        //reverse the emc.req condition
-        if (([emc.elementName caseInsensitiveCompare:name]==NSOrderedSame) && (emc.req == true ))
-        {
-            if ([newStr isEqualToString:@""]) {
-                reqYes = YES;
-                break;
-            }
-            else
-            {
-                reqYes = NO;
-                break;
-            }
+        if ([newStr isEqualToString:@""]) {
+            reqYes = YES;
         }
         else
         {
             reqYes = NO;
         }
     }
-    
+    else
+    {
+        reqYes = NO;
+    }
     return reqYes;
 }
 -(void)disable:(int)eleTag type:(int)newType
