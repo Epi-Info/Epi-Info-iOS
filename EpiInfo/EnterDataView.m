@@ -3680,6 +3680,13 @@ newStr{
     else if (req == NO)
     {
         eleLabel.text = newText;
+        UITextField *utf = (UITextField *)[formCanvas viewWithTag:newTag];
+        utf.layer.borderWidth = 1.0f;
+        utf.layer.borderColor = [[UIColor clearColor] CGColor];
+        utf.layer.cornerRadius = 5;
+        utf.clipsToBounds      = YES;
+        [utf setAlpha:1.0f];
+
         
     }
 
