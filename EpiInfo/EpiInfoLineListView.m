@@ -35,6 +35,15 @@
         [xButton addTarget:self action:@selector(removeSelfFromSuperview) forControlEvents:UIControlEventTouchUpInside];
         [banner addSubview:xButton];
         
+        // Add search field
+        searchField = [[UITextField alloc] initWithFrame:CGRectMake(2, 2, 252, 32)];
+        [searchField setBackgroundColor:[UIColor whiteColor]];
+//        [searchField addTarget:self action:@selector(searchFieldAction:) forControlEvents:UIControlEventEditingChanged];
+        [searchField setReturnKeyType:UIReturnKeyDone];
+        [searchField setDelegate:self];
+        [searchField setPlaceholder:@"Search"];
+        [banner addSubview:searchField];
+        
         // Add label to banner
         float labelOffset = xButton.frame.size.width + 4.0;
         UILabel *formLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelOffset, 0, banner.frame.size.width - 2.0 * labelOffset, banner.frame.size.height)];
@@ -42,7 +51,7 @@
         [formLabel setTextColor:[UIColor whiteColor]];
         [formLabel setTextAlignment:NSTextAlignmentCenter];
         [formLabel setText:formName];
-        [banner addSubview:formLabel];
+//        [banner addSubview:formLabel];
         float fontSize = 32.0;
         if ([formName isEqualToString:@"_VHFContactTracing"])
         {
@@ -152,6 +161,8 @@
         sqlite3_finalize(statement);
     }
     sqlite3_close(epiinfoDB);
+    allDataLines = [NSMutableArray arrayWithArray:dataLines];
+    allGuids = [NSMutableArray arrayWithArray:guids];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -195,6 +206,44 @@
         [(DataEntryViewController *)[self.superview nextResponder] populateFieldsWithRecord:[NSArray arrayWithObjects:formName, (NSString *)[guids objectAtIndex:indexPath.item], nil]];
     }
     [self removeSelfFromSuperview];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField.text.length == 0)
+    {
+        dataLines = [NSMutableArray arrayWithArray:allDataLines];
+        guids = [NSMutableArray arrayWithArray:allGuids];
+    }
+    else
+    {
+        [dataLines removeAllObjects];
+        [guids removeAllObjects];
+        int i = 0;
+        for (id s in allDataLines)
+        {
+            if ([[(NSString *)s lowercaseString] containsString:[textField.text lowercaseString]])
+            {
+                [dataLines addObject:(NSString *)s];
+                [guids addObject:[allGuids objectAtIndex:i]];
+            }
+            i++;
+        }
+    }
+    // Re-Add the UITableView
+    CGRect tvFrame = self.tv.frame;
+    [self.tv removeFromSuperview];
+    self.tv = [[UITableView alloc] initWithFrame:tvFrame style:UITableViewStylePlain];
+    [self.tv setDelegate:self];
+    [self.tv setDataSource:self];
+    [self.tv setSeparatorColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [self addSubview:self.tv];
+    return [textField resignFirstResponder];
+}
+
+- (void)searchFieldAction:(UITextField *)sender
+{
+    NSLog(@"%@", sender.text);
 }
 
 /*

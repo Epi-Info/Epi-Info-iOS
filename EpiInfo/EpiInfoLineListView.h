@@ -8,13 +8,16 @@
 #import <UIKit/UIKit.h>
 #import "sqlite3.h"
 
-@interface EpiInfoLineListView : UIView <UITableViewDelegate, UITableViewDataSource>
+@interface EpiInfoLineListView : UIView <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 {
     NSString *formName;
     NSMutableArray *dataLines;
+    NSMutableArray *allDataLines;
     NSMutableArray *guids;
+    NSMutableArray *allGuids;
     sqlite3 *epiinfoDB;
     BOOL forVHF;
+    UITextField *searchField;
 }
 
 @property UITableView *tv;

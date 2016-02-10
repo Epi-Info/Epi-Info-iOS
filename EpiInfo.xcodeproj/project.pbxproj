@@ -270,6 +270,8 @@
 		92A192441C481B3A0095E69F /* EnterDataPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 92A192421C481B3A0095E69F /* EnterDataPad.png */; };
 		92A192471C56B33D0095E69F /* Dot.png in Resources */ = {isa = PBXBuildFile; fileRef = 92A192451C56B33D0095E69F /* Dot.png */; };
 		92A192481C56B33D0095E69F /* Comma.png in Resources */ = {isa = PBXBuildFile; fileRef = 92A192461C56B33D0095E69F /* Comma.png */; };
+		92A192501C690DD40095E69F /* NextPage.png in Resources */ = {isa = PBXBuildFile; fileRef = 92A1924E1C690DD40095E69F /* NextPage.png */; };
+		92A192511C690DD40095E69F /* PreviousPage.png in Resources */ = {isa = PBXBuildFile; fileRef = 92A1924F1C690DD40095E69F /* PreviousPage.png */; };
 		92A1F68F1B03E9A4004654B8 /* CheckCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A1F68E1B03E9A4004654B8 /* CheckCode.swift */; };
 		92A25BFB1938D8F9003225E1 /* DateTimeField.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A25BFA1938D8F9003225E1 /* DateTimeField.m */; };
 		92A25BFE1938DAD2003225E1 /* TimePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A25BFD1938DAD2003225E1 /* TimePicker.m */; };
@@ -700,6 +702,8 @@
 		92A192421C481B3A0095E69F /* EnterDataPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EnterDataPad.png; sourceTree = "<group>"; };
 		92A192451C56B33D0095E69F /* Dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dot.png; sourceTree = "<group>"; };
 		92A192461C56B33D0095E69F /* Comma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Comma.png; sourceTree = "<group>"; };
+		92A1924E1C690DD40095E69F /* NextPage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NextPage.png; sourceTree = "<group>"; };
+		92A1924F1C690DD40095E69F /* PreviousPage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PreviousPage.png; sourceTree = "<group>"; };
 		92A1F68E1B03E9A4004654B8 /* CheckCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckCode.swift; sourceTree = "<group>"; };
 		92A25BF91938D8F9003225E1 /* DateTimeField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateTimeField.h; sourceTree = "<group>"; };
 		92A25BFA1938D8F9003225E1 /* DateTimeField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateTimeField.m; sourceTree = "<group>"; };
@@ -1012,6 +1016,8 @@
 				926DFB371832753100FACCD2 /* CaseControlNR.png */,
 				92867ABE183EAE5100CCC2B5 /* ChiSquare.png */,
 				92867ABF183EAE5100CCC2B5 /* ChiSquareNR.png */,
+				92A1924E1C690DD40095E69F /* NextPage.png */,
+				92A1924F1C690DD40095E69F /* PreviousPage.png */,
 				926DFB3A1832772800FACCD2 /* Cohort.png */,
 				92A192451C56B33D0095E69F /* Dot.png */,
 				92A192461C56B33D0095E69F /* Comma.png */,
@@ -1673,6 +1679,7 @@
 				9248EC95195AF6720055EC9B /* StatCalc5.png in Resources */,
 				92D03BD818848B4E0062D75A /* PMCCScreen5.png in Resources */,
 				92EEE3551C28815900912007 /* icon-87.png in Resources */,
+				92A192511C690DD40095E69F /* PreviousPage.png in Resources */,
 				925ACD38191D60480067CE7A /* UpdateButton.png in Resources */,
 				68D769FF16A9DDF900D831EB /* MPB.png in Resources */,
 				9212FFFB1948C4F500519BFE /* AnalysisPad.png in Resources */,
@@ -1740,6 +1747,7 @@
 				92E42B331959FD100077EF41 /* GrowthPercentileScreen5.png in Resources */,
 				92987CAC1857AB3C00D250D4 /* BinomialTN.png in Resources */,
 				921D53501892E1F900FA8E0A /* CaseControlSSScreenPad.png in Resources */,
+				92A192501C690DD40095E69F /* NextPage.png in Resources */,
 				926817851AA8C54E00935BE9 /* SimulateCohortNR.png in Resources */,
 				925354A11823F49500065B69 /* PadChiSquareScreenshot.png in Resources */,
 				92A192471C56B33D0095E69F /* Dot.png in Resources */,
