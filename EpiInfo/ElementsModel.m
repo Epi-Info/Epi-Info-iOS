@@ -15,8 +15,9 @@
 @synthesize tag;
 @synthesize req;
 @synthesize promptText;
+@synthesize input;
 
--(id)initWithElement:(NSString *)newElement uniqueId:(NSString *)newUniqueId type:(int)newType tag:(int)newTag required:(BOOL)newReq prompt:(NSString *)newPrompt;
+-(id)initWithElement:(NSString *)newElement uniqueId:(NSString *)newUniqueId type:(int)newType tag:(int)newTag required:(BOOL)newReq prompt:(NSString *)newPrompt value:(BOOL)newValue;
 {
     self = [super init];
     if (self!=nil) {
@@ -26,6 +27,7 @@
         tag = newTag;
         req = newReq;
         promptText = newPrompt;
+        input = newValue;
     }
     return self;
 }

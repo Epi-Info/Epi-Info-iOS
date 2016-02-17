@@ -16,6 +16,7 @@
     int tag;
     BOOL req;
     NSString *promptText;
+    BOOL input;
 }
 
 @property(nonatomic) NSString *elementName;
@@ -24,8 +25,9 @@
 @property(nonatomic) int tag;
 @property(nonatomic)BOOL req;
 @property(nonatomic) NSString *promptText;
+@property(nonatomic)BOOL input;
 
 
--(id)initWithElement:(NSString *)newElement uniqueId:(NSString *)newUniqueId type:(int)newType tag:(int)newTag required:(BOOL)newReq prompt:(NSString *)newPrompt;
+-(id)initWithElement:(NSString *)newElement uniqueId:(NSString *)newUniqueId type:(int)newType tag:(int)newTag required:(BOOL)newReq prompt:(NSString *)newPrompt value:(BOOL)newValue;
 
 @end

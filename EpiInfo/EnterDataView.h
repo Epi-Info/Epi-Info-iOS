@@ -67,6 +67,8 @@
     NSMutableArray *elmArray;
     int tagNum;
     int require;
+    int valid;
+    NSMutableArray *requiredArray;
     CheckCodeParser *ccp;
 }
 
@@ -91,6 +93,7 @@
 @property (nonatomic) NSMutableArray *conditionsArray;
 @property (nonatomic) NSMutableArray *elementListArray;
 @property (nonatomic) NSMutableArray *elmArray;
+@property (nonatomic) NSMutableArray *requiredArray;
 @property (nonatomic) NSString *afterString;
 
 

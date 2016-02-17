@@ -41,6 +41,7 @@
 @synthesize elementListArray;
 @synthesize conditionsArray;
 @synthesize afterString;
+@synthesize  requiredArray;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -78,6 +79,7 @@
     
     [self addSubview:formCanvas];
     [self setScrollEnabled:YES];
+    //self.contentSize = formCanvas.frame.size;
     
     xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:self.url];
     [xmlParser setDelegate:self];
@@ -1181,53 +1183,12 @@
 - (void)confirmSubmitOrClear:(UIButton *)sender
 {
   [self resignAll];
-    for (id v in [formCanvas subviews])
-    {
-        if ([v isKindOfClass:[EpiInfoTextField class]]) {
-            NSString *value = [(EpiInfoTextField *)v text];
-            NSLog(@"%@ %@", value,[(EpiInfoTextField *)v columnName]);
-            //        if (![[(NumberField *)v value] isEqualToString:@"NULL"])
-
-        }
-        if ([v isKindOfClass:[EpiInfoTextView class]]) {
-            NSString *value = [(EpiInfoTextField *)v text];
-            NSLog(@"%@ %@", value,[(EpiInfoTextView *)v columnName]);
-            //        if (![[(NumberField *)v value] isEqualToString:@"NULL"])
-            
-        }
-        if ([v isKindOfClass:[NumberField class]]) {
-            NSString *value = [(NumberField *)v text];
-            NSLog(@"%@ %@", value,[(NumberField *)v columnName]);
-            //        if (![[(NumberField *)v value] isEqualToString:@"NULL"])
-            
-        }
-        if ([v isKindOfClass:[PhoneNumberField class]]) {
-            NSString *value = [(PhoneNumberField *)v text];
-            NSLog(@"%@ %@", value,[(PhoneNumberField *)v columnName]);
-            //        if (![[(NumberField *)v value] isEqualToString:@"NULL"])
-            
-        }
-        if ([v isKindOfClass:[UppercaseTextField class]]) {
-            NSString *value = [(UppercaseTextField *)v text];
-            NSLog(@"%@ %@", value,[(UppercaseTextField *)v columnName]);
-            //        if (![[(NumberField *)v value] isEqualToString:@"NULL"])
-            
-        }
-        if ([v isKindOfClass:[YesNo class]]) {
-            NSString *value = [(YesNo *)v picked];
-            NSLog(@"%@ %@", value,[(EpiInfoTextField *)v columnName]);
-            //        if (![[(NumberField *)v value] isEqualToString:@"NULL"])
-            
-        }
-    }
-  
-  for (id v in [formCanvas subviews])
-  {
-    if (![v isKindOfClass:[UILabel class]])
-      [v setEnabled:NO];
-  }
-  
-  BlurryView *bv = [[BlurryView alloc] initWithFrame:CGRectMake(sender.frame.origin.x, self.superview.frame.size.height - (formCanvas.frame.size.height - sender.frame.origin.y), sender.frame.size.width, sender.frame.size.height)];
+//    int i=0;
+//    if ((require == valid)||(require ==0)) {
+    if ([self onSubmitRequiredFrom:@"if"]) {
+        
+    
+   BlurryView *bv = [[BlurryView alloc] initWithFrame:CGRectMake(sender.frame.origin.x, self.superview.frame.size.height - (formCanvas.frame.size.height - sender.frame.origin.y), sender.frame.size.width, sender.frame.size.height)];
   
   UILabel *areYouSure = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, bv.frame.size.width - 20, 36)];
   [areYouSure setBackgroundColor:[UIColor clearColor]];
@@ -1281,6 +1242,11 @@
     [noButton setFrame:CGRectMake(bv.frame.size.width / 2.0 - 60.0, bv.frame.size.height / 2.0 + 22.0, 120, 40)];
   } completion:^(BOOL finished){
   }];
+    }
+    
+    else{
+        [self onSubmitRequiredFrom:@"else"];
+    }
 }
 - (void)doNotSubmitOrClear
 {
@@ -1410,7 +1376,9 @@
     {
         elementListArray = [[NSMutableArray alloc]init];
         elmArray = [[NSMutableArray alloc]init];
+        requiredArray = [[NSMutableArray alloc]init];
         require = 0;
+        valid = 0;
     }
   NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
   [nsnf setMaximumFractionDigits:6];
@@ -1611,11 +1579,13 @@
           fieldWidth = 50.0;
         EpiInfoTextField *tf = [[EpiInfoTextField alloc] initWithFrame:CGRectMake(20, contentSizeHeight + 40, fieldWidth, 40)];
         [tf setBorderStyle:UITextBorderStyleRoundedRect];
+          
           tf.tag = tagNum;
           BOOL required;
           if ([[attributeDict objectForKey:@"IsRequired"]caseInsensitiveCompare:@"true"]==NSOrderedSame)
           {
               required = YES;
+              require++;
           }
           else
           {
@@ -1628,11 +1598,15 @@
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
-        if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:1 from:@"before"])
+        if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:1 from:@"before" from:@"page"])
         {
             [tf setUserInteractionEnabled:NO];
             [tf setAlpha:0.5f];
         }
+          if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:1 from:@"before" from:@"page"])
+          {
+              [tf setBackgroundColor:[UIColor yellowColor]];
+          }
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:1];
 
           tagNum++;
@@ -1711,12 +1685,17 @@
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
-          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:3 from:@"before"])
+          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:3 from:@"before" from:@"page"])
           {
               [tf setUserInteractionEnabled:NO];
               [tf setAlpha:0.5f];
 
           }
+          if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:3 from:@"before" from:@"page"])
+          {
+              [tf setBackgroundColor:[UIColor yellowColor]];
+          }
+
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:3];
 
           tagNum++;
@@ -1763,6 +1742,8 @@
           if ([[attributeDict objectForKey:@"IsRequired"]caseInsensitiveCompare:@"true"]==NSOrderedSame)
           {
               required = YES;
+              require++;
+
           }
           else
           {
@@ -1775,11 +1756,16 @@
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
-          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:4 from:@"before"])
+          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:4 from:@"before" from:@"page"])
           {
               [tf setUserInteractionEnabled:NO];
               [tf setAlpha:0.5f];
           }
+          if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:4 from:@"before" from:@"page"])
+          {
+              [tf setBackgroundColor:[UIColor yellowColor]];
+          }
+
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:4];
 
           tagNum++;
@@ -1818,6 +1804,8 @@
           if ([[attributeDict objectForKey:@"IsRequired"]caseInsensitiveCompare:@"true"]==NSOrderedSame)
           {
               required = YES;
+              require++;
+
           }
           else
           {
@@ -1830,11 +1818,16 @@
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
-          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:5 from:@"before"])
+          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:5 from:@"before" from:@"page"])
           {
               [tf setUserInteractionEnabled:NO];
               [tf setAlpha:0.5f];
           }
+          if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:5 from:@"before" from:@"page"])
+          {
+              [tf setBackgroundColor:[UIColor yellowColor]];
+          }
+
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:5];
 
           tagNum++;
@@ -1899,6 +1892,7 @@
           if ([[attributeDict objectForKey:@"IsRequired"]caseInsensitiveCompare:@"true"]==NSOrderedSame)
           {
               required = YES;
+              require++;
           }
           else
           {
@@ -1911,11 +1905,16 @@
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
-          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:6 from:@"before"])
+          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:6 from:@"before" from:@"page"])
           {
               [tf setUserInteractionEnabled:NO];
               [tf setAlpha:0.5f];
           }
+          if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:6 from:@"before" from:@"page"])
+          {
+              [tf setBackgroundColor:[UIColor yellowColor]];
+          }
+
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:6];
 
           tagNum++;
@@ -1956,6 +1955,7 @@
           if ([[attributeDict objectForKey:@"IsRequired"]caseInsensitiveCompare:@"true"]==NSOrderedSame)
           {
               required = YES;
+              require++;
           }
           else
           {
@@ -1968,11 +1968,16 @@
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
-          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:7 from:@"before"])
+          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:7 from:@"before" from:@"page"])
           {
               [tf setUserInteractionEnabled:NO];
               [tf setAlpha:0.5f];
           }
+          if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:7 from:@"before" from:@"page"])
+          {
+              [tf setBackgroundColor:[UIColor yellowColor]];
+          }
+
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:7];
 
           tagNum++;
@@ -2014,6 +2019,7 @@
           if ([[attributeDict objectForKey:@"IsRequired"]caseInsensitiveCompare:@"true"]==NSOrderedSame)
           {
               required = YES;
+              require++;
           }
           else
           {
@@ -2026,11 +2032,16 @@
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
-          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:8 from:@"before"])
+          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:8 from:@"before" from:@"page"])
           {
               [tf setUserInteractionEnabled:NO];
               [tf setAlpha:0.5f];
           }
+          if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:8 from:@"before" from:@"page"])
+          {
+              [tf setBackgroundColor:[UIColor yellowColor]];
+          }
+
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:8];
 
           tagNum++;
@@ -2071,6 +2082,7 @@
           if ([[attributeDict objectForKey:@"IsRequired"]caseInsensitiveCompare:@"true"]==NSOrderedSame)
           {
               required = YES;
+              require++;
           }
           else
           {
@@ -2083,11 +2095,16 @@
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
-          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:9 from:@"before"])
+          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:9 from:@"before" from:@"page"])
           {
               [tf setUserInteractionEnabled:NO];
               [tf setAlpha:0.5f];
           }
+          if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:9 from:@"before" from:@"page"])
+          {
+              [tf setBackgroundColor:[UIColor yellowColor]];
+          }
+
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:9];
 
           tagNum++;
@@ -2129,6 +2146,7 @@
           if ([[attributeDict objectForKey:@"IsRequired"]caseInsensitiveCompare:@"true"]==NSOrderedSame)
           {
               required = YES;
+              require++;
           }
           else
           {
@@ -2141,11 +2159,16 @@
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
-          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:10 from:@"before"])
+          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:10 from:@"before" from:@"page"])
           {
               [cb setUserInteractionEnabled:NO];
               [cb setAlpha:0.5f];
           }
+          if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:10 from:@"before" from:@"page"])
+          {
+              [cb setBackgroundColor:[UIColor yellowColor]];
+          }
+
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:10];
 
           tagNum++;
@@ -2177,6 +2200,7 @@
           if ([[attributeDict objectForKey:@"IsRequired"]caseInsensitiveCompare:@"true"]==NSOrderedSame)
           {
               required = YES;
+              require++;
           }
           else
           {
@@ -2189,11 +2213,16 @@
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
-          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:11 from:@"before"])
+          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:11 from:@"before" from:@"page"])
           {
               [yn setUserInteractionEnabled:NO];
               [yn setAlpha:0.5f];
           }
+          if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:11 from:@"before" from:@"page"])
+          {
+              [yn setBackgroundColor:[UIColor yellowColor]];
+          }
+
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:11];
 
           tagNum++;
@@ -2229,6 +2258,7 @@
           if ([[attributeDict objectForKey:@"IsRequired"]caseInsensitiveCompare:@"true"]==NSOrderedSame)
           {
               required = YES;
+              require++;
           }
           else
           {
@@ -2241,11 +2271,16 @@
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
-          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:15 from:@"before"])
+          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:15 from:@"before" from:@"page"])
           {
               [tf setUserInteractionEnabled:NO];
               [tf setAlpha:0.5f];
           }
+          if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:15 from:@"before" from:@"page"])
+          {
+              [tf setBackgroundColor:[UIColor yellowColor]];
+          }
+
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:15];
 
           tagNum++;
@@ -2277,6 +2312,7 @@
           if ([[attributeDict objectForKey:@"IsRequired"]caseInsensitiveCompare:@"true"]==NSOrderedSame)
           {
               required = YES;
+              require++;
           }
           else
           {
@@ -2289,11 +2325,16 @@
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
-          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:17 from:@"before"])
+          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:17 from:@"before" from:@"page"])
           {
               [lv setUserInteractionEnabled:NO];
               [lv setAlpha:0.5f];
           }
+          if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:17 from:@"before" from:@"page"])
+          {
+              [lv setBackgroundColor:[UIColor yellowColor]];
+          }
+
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:17];
 
           tagNum++;
@@ -2329,6 +2370,7 @@
           if ([[attributeDict objectForKey:@"IsRequired"]caseInsensitiveCompare:@"true"]==NSOrderedSame)
           {
               required = YES;
+              require++;
           }
           else
           {
@@ -2341,11 +2383,16 @@
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
-          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:18 from:@"before"])
+          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:18 from:@"before" from:@"page"])
           {
               [lv setUserInteractionEnabled:NO];
               [lv setAlpha:0.5f];
           }
+          if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:18 from:@"before" from:@"page"])
+          {
+              [lv setBackgroundColor:[UIColor yellowColor]];
+          }
+
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:18];
 
           tagNum++;
@@ -2368,6 +2415,7 @@
           if ([[attributeDict objectForKey:@"IsRequired"]caseInsensitiveCompare:@"true"]==NSOrderedSame)
           {
               required = YES;
+              require++;
           }
           else
           {
@@ -2380,11 +2428,16 @@
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
-          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:19 from:@"before"])
+          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:19 from:@"before" from:@"page"])
           {
           [lv setUserInteractionEnabled:NO];
               [lv setAlpha:0.5];
           }
+          if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:19 from:@"before" from:@"page"])
+          {
+              [lv setBackgroundColor:[UIColor yellowColor]];
+          }
+
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:19];
 
           [formCanvas addSubview:lv];
@@ -2405,6 +2458,7 @@
           if ([[attributeDict objectForKey:@"IsRequired"]caseInsensitiveCompare:@"true"]==NSOrderedSame)
           {
               required = YES;
+              require++;
           }
           else
           {
@@ -2417,11 +2471,16 @@
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
-          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:14 from:@"before"])
+          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:14 from:@"before" from:@"page"])
           {
               [iv setUserInteractionEnabled:NO];
               [iv setAlpha:0.5f];
           }
+          if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:14 from:@"before" from:@"page"])
+          {
+              [iv setBackgroundColor:[UIColor yellowColor]];
+          }
+
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:14];
 
               tagNum++;
@@ -2441,6 +2500,7 @@
           if ([[attributeDict objectForKey:@"IsRequired"]caseInsensitiveCompare:@"true"]==NSOrderedSame)
           {
               required = YES;
+              require++;
           }
           else
           {
@@ -2453,11 +2513,16 @@
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
-          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:12 from:@"before"])
+          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:12 from:@"before" from:@"page"])
           {
               [lv setUserInteractionEnabled:NO];
               [lv setAlpha:0.5f];
           }
+          if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:12 from:@"before" from:@"page"])
+          {
+              [lv setBackgroundColor:[UIColor yellowColor]];
+          }
+
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:12];
 
           tagNum++;
@@ -2491,6 +2556,7 @@
           if ([[attributeDict objectForKey:@"IsRequired"]caseInsensitiveCompare:@"true"]==NSOrderedSame)
           {
               required = YES;
+              require++;
           }
           else
           {
@@ -2503,11 +2569,16 @@
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
           [elementListArray addObject:epc];
           [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
-          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:25 from:@"before"])
+          if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:25 from:@"before" from:@"page"])
           {
               [tf setUserInteractionEnabled:NO];
               [tf setAlpha:0.5f];
           }
+          if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:25 from:@"before" from:@"page"])
+          {
+              [tf setBackgroundColor:[UIColor yellowColor]];
+          }
+
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:25];
 
           tagNum++;
@@ -2709,19 +2780,20 @@
         elementsArray = [ccp sendArray];
     NSLog(@"FIELD satya %lu",(unsigned long)elementsArray.count);
     }
+    
   if ([field isKindOfClass:[DateField class]])
   {
     [self resignAll];
     DateField *dateField = (DateField *)field;
     NSLog(@"%@ became first responder", [dateField columnName]);
-
-//      NSLog(@"count %lu ",(unsigned long)elementsArray.count);
   }
     if ([field isKindOfClass:[EpiInfoTextField class]])
     {
         [self resignAll];
         EpiInfoTextField *etf = (EpiInfoTextField *)field;
         NSLog(@"%@",[etf columnName]);
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
+
 
     }
     if ([field isKindOfClass:[YesNo class]])
@@ -2742,7 +2814,7 @@
     {
         EpiInfoTextField *etf = (EpiInfoTextField *)field;
         NSLog(@"%@",[etf columnName]);
-        [self checkElements:[etf columnName] Tag:[etf tag] type:1 from:@"after"];
+        [self checkElements:[etf columnName] Tag:[etf tag] type:1 from:@"after" from:@"field"];
 
         BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:1 from:@"after" str:etf.text];
         if (required) {
@@ -2750,7 +2822,6 @@
             etf.layer.borderColor = [[UIColor redColor] CGColor];
             etf.layer.cornerRadius = 5;
             etf.clipsToBounds      = YES;
-            require++;
 
         }
         else
@@ -2760,7 +2831,6 @@
             etf.layer.cornerRadius = 5;
             etf.clipsToBounds      = YES;
             [etf setAlpha:1.0f];
-            require--;
 
         }
 
@@ -2770,14 +2840,13 @@
     {
         UppercaseTextField *etf = (UppercaseTextField *)field;
         NSLog(@"%@",[etf columnName]);
-        [self checkElements:[etf columnName] Tag:[etf tag] type:3 from:@"after"];
+        [self checkElements:[etf columnName] Tag:[etf tag] type:3 from:@"after" from:@"field"];
         BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:3 from:@"after" str:etf.text];
         if (required) {
             etf.layer.borderWidth = 1.0f;
             etf.layer.borderColor = [[UIColor redColor] CGColor];
             etf.layer.cornerRadius = 5;
             etf.clipsToBounds      = YES;
-            require++;
 
         }
         else
@@ -2787,7 +2856,6 @@
             etf.layer.cornerRadius = 5;
             etf.clipsToBounds      = YES;
             [etf setAlpha:1.0f];
-            require--;
 
         }
 
@@ -2798,14 +2866,13 @@
     {
         EpiInfoTextView *etf = (EpiInfoTextView *)field;
         NSLog(@"%@",[etf columnName]);
-        [self checkElements:[etf columnName] Tag:[etf tag] type:4 from:@"after"];
+        [self checkElements:[etf columnName] Tag:[etf tag] type:4 from:@"after" from:@"field"];
         BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:4 from:@"after" str:etf.text];
         if (required) {
             etf.layer.borderWidth = 1.0f;
             etf.layer.borderColor = [[UIColor redColor] CGColor];
             etf.layer.cornerRadius = 5;
             etf.clipsToBounds      = YES;
-            require++;
 
         }
         else
@@ -2815,7 +2882,6 @@
             etf.layer.cornerRadius = 5;
             etf.clipsToBounds      = YES;
             [etf setAlpha:1.0f];
-            require--;
 
         }
 
@@ -2825,14 +2891,13 @@
     {
         NumberField *numField = (NumberField *)field;
         NSLog(@"%@ resigned first responder", [numField columnName]);
-        [self checkElements:[numField columnName] Tag:[numField tag] type:5 from:@"after"];
+        [self checkElements:[numField columnName] Tag:[numField tag] type:5 from:@"after" from:@"field"];
         BOOL required = [self checkRequiredstr:[numField columnName] Tag:[numField tag] type:5 from:@"after" str:numField.text];
         if (required) {
             numField.layer.borderWidth = 1.0f;
             numField.layer.borderColor = [[UIColor redColor] CGColor];
             numField.layer.cornerRadius = 5;
             numField.clipsToBounds      = YES;
-            require++;
 
         }
         else
@@ -2842,7 +2907,6 @@
             numField.layer.cornerRadius = 5;
             numField.clipsToBounds      = YES;
             [numField setAlpha:1.0f];
-            require--;
 
         }
 
@@ -2853,14 +2917,13 @@
     {
         PhoneNumberField *numField = (PhoneNumberField *)field;
         NSLog(@"%@ resigned first responder", [numField columnName]);
-        [self checkElements:[numField columnName] Tag:[numField tag] type:6 from:@"after"];
+        [self checkElements:[numField columnName] Tag:[numField tag] type:6 from:@"after" from:@"field"];
         BOOL required = [self checkRequiredstr:[numField columnName] Tag:[numField tag] type:6 from:@"after" str:numField.text];
         if (required) {
             numField.layer.borderWidth = 1.0f;
             numField.layer.borderColor = [[UIColor redColor] CGColor];
             numField.layer.cornerRadius = 5;
             numField.clipsToBounds      = YES;
-            require++;
 
         }
         else
@@ -2870,7 +2933,6 @@
             numField.layer.cornerRadius = 5;
             numField.clipsToBounds      = YES;
             [numField setAlpha:1.0f];
-            require--;
 
         }
         
@@ -2881,14 +2943,13 @@
     {
         DateField *dateField = (DateField *)field;
         NSLog(@"%@ resigned first responder", [dateField columnName]);
-        [self checkElements:[dateField columnName] Tag:[dateField tag] type:7 from:@"after"];
+        [self checkElements:[dateField columnName] Tag:[dateField tag] type:7 from:@"after" from:@"field"];
         BOOL required = [self checkRequiredstr:[dateField columnName] Tag:[dateField tag] type:7 from:@"after" str:dateField.text];
         if (required) {
             dateField.layer.borderWidth = 1.0f;
             dateField.layer.borderColor = [[UIColor redColor] CGColor];
             dateField.layer.cornerRadius = 5;
             dateField.clipsToBounds      = YES;
-            require++;
 
         }
         else
@@ -2898,7 +2959,6 @@
             dateField.layer.cornerRadius = 5;
             dateField.clipsToBounds      = YES;
             [dateField setAlpha:1.0f];
-            require--;
 
         }
         
@@ -2914,7 +2974,6 @@
             timeField.layer.borderColor = [[UIColor redColor] CGColor];
             timeField.layer.cornerRadius = 5;
             timeField.clipsToBounds      = YES;
-            require++;
 
         }
         else
@@ -2924,7 +2983,6 @@
             timeField.layer.cornerRadius = 5;
             timeField.clipsToBounds      = YES;
             [timeField setAlpha:1.0f];
-            require--;
 
         }
         
@@ -2933,14 +2991,13 @@
     {
         DateTimeField *dateTimeField = (DateTimeField *)field;
         NSLog(@"%@ resigned first responder", [dateTimeField columnName]);
-        [self checkElements:[dateTimeField columnName] Tag:[dateTimeField tag] type:9 from:@"after"];
+        [self checkElements:[dateTimeField columnName] Tag:[dateTimeField tag] type:9 from:@"after" from:@"field"];
         BOOL required = [self checkRequiredstr:[dateTimeField columnName] Tag:[dateTimeField tag] type:9 from:@"after" str:dateTimeField.text];
         if (required) {
             dateTimeField.layer.borderWidth = 1.0f;
             dateTimeField.layer.borderColor = [[UIColor redColor] CGColor];
             dateTimeField.layer.cornerRadius = 5;
             dateTimeField.clipsToBounds      = YES;
-            require++;
 
         }
         else
@@ -2950,7 +3007,6 @@
             dateTimeField.layer.cornerRadius = 5;
             dateTimeField.clipsToBounds      = YES;
             [dateTimeField setAlpha:1.0f];
-            require--;
 
         }
         
@@ -2960,7 +3016,7 @@
     {
         YesNo *etf = (YesNo *)field;
         NSLog(@"%@",[etf columnName]);
-        [self checkElements:[etf columnName] Tag:[etf tag] type:11 from:@"after"];
+        [self checkElements:[etf columnName] Tag:[etf tag] type:11 from:@"after" from:@"field"];
         NSLog(@"%@",etf.picked);
 //        if ([[etf picked]intValue] == 0)
        // if (![[etf picked]containsString:@"1"])//||[[etf picked]containsString:@"0"])
@@ -2975,7 +3031,6 @@
             etf.layer.borderColor = [[UIColor redColor] CGColor];
             etf.layer.cornerRadius = 5;
             etf.clipsToBounds      = YES;
-            require++;
 
         }
         else
@@ -2985,7 +3040,6 @@
             etf.layer.cornerRadius = 5;
             etf.clipsToBounds      = YES;
             [etf setAlpha:1.0f];
-            require--;
 
         }
         }
@@ -2998,7 +3052,6 @@
                 etf.layer.borderColor = [[UIColor redColor] CGColor];
                 etf.layer.cornerRadius = 5;
                 etf.clipsToBounds      = YES;
-                require++;
 
             }
             else
@@ -3008,7 +3061,6 @@
                 etf.layer.cornerRadius = 5;
                 etf.clipsToBounds      = YES;
                 [etf setAlpha:1.0f];
-                require--;
             }
         }
 
@@ -3019,18 +3071,17 @@
     {
         EpiInfoOptionField *etf = (EpiInfoOptionField *)field;
         NSLog(@"%@",[etf columnName]);
-        [self checkElements:[etf columnName] Tag:[etf tag] type:11 from:@"after"];
+        [self checkElements:[etf columnName] Tag:[etf tag] type:12 from:@"after" from:@"field"];
         NSLog(@"%@",etf.picked);
-        if ([[etf picked]intValue] == 0)
+        if ([[etf picked]isEqualToString:@"NULL"])
         {
-            BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:11 from:@"after" str:@""];
+            BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:12 from:@"after" str:@""];
             if (required) {
                 NSLog(@"if");
                 etf.layer.borderWidth = 1.0f;
                 etf.layer.borderColor = [[UIColor redColor] CGColor];
                 etf.layer.cornerRadius = 5;
                 etf.clipsToBounds      = YES;
-                require++;
                 
             }
             else
@@ -3040,20 +3091,18 @@
                 etf.layer.cornerRadius = 5;
                 etf.clipsToBounds      = YES;
                 [etf setAlpha:1.0f];
-                require--;
                 
             }
         }
         
         else if ([etf picked].length == 1)
         {
-            BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:11 from:@"after" str:@"value"];
+            BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:12 from:@"after" str:@"value"];
             if (required) {
                 etf.layer.borderWidth = 1.0f;
                 etf.layer.borderColor = [[UIColor redColor] CGColor];
                 etf.layer.cornerRadius = 5;
                 etf.clipsToBounds      = YES;
-                require++;
                 
             }
             else
@@ -3063,18 +3112,72 @@
                 etf.layer.cornerRadius = 5;
                 etf.clipsToBounds      = YES;
                 [etf setAlpha:1.0f];
-                require--;
             }
         }
         
         
         
     }
+    if ([field isKindOfClass:[LegalValues class]])
+    {
+        LegalValues *etf = (LegalValues *)field;
+        NSLog(@"%@",[etf columnName]);
+        [self checkElements:[etf columnName] Tag:[etf tag] type:17 from:@"after" from:@"field"];
+        NSLog(@"%@",etf.picked);
+        //        if ([[etf picked]intValue] == 0)
+        // if (![[etf picked]containsString:@"1"])//||[[etf picked]containsString:@"0"])
+        if ([[etf picked]isEqualToString:@"NULL"])
+        {
+            NSLog(@"%d",[[etf picked]intValue]);
+            BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:17 from:@"after" str:@""];
+            if (required)
+            {
+                NSLog(@"if");
+                etf.layer.borderWidth = 1.0f;
+                etf.layer.borderColor = [[UIColor redColor] CGColor];
+                etf.layer.cornerRadius = 5;
+                etf.clipsToBounds      = YES;
+                
+            }
+            else
+            {
+                etf.layer.borderWidth = 1.0f;
+                etf.layer.borderColor = [[UIColor clearColor] CGColor];
+                etf.layer.cornerRadius = 5;
+                etf.clipsToBounds      = YES;
+                [etf setAlpha:1.0f];
+                
+            }
+        }
+        
+        else if ([etf picked].length == 1)
+        {
+            BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:17 from:@"after" str:@"value"];
+            if (required) {
+                etf.layer.borderWidth = 1.0f;
+                etf.layer.borderColor = [[UIColor redColor] CGColor];
+                etf.layer.cornerRadius = 5;
+                etf.clipsToBounds      = YES;
+                
+            }
+            else
+            {
+                etf.layer.borderWidth = 1.0f;
+                etf.layer.borderColor = [[UIColor clearColor] CGColor];
+                etf.layer.cornerRadius = 5;
+                etf.clipsToBounds      = YES;
+                [etf setAlpha:1.0f];
+            }
+        }
+        
+        
+    }
+    
     if ([field isKindOfClass:[EpiInfoUniqueIDField class]])
     {
         EpiInfoUniqueIDField *etf = (EpiInfoUniqueIDField *)field;
         NSLog(@"%@",[etf columnName]);
-        [self checkElements:[etf columnName] Tag:[etf tag] type:25 from:@"after"];
+        [self checkElements:[etf columnName] Tag:[etf tag] type:25 from:@"after" from:@"field"];
         
         BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:25 from:@"after" str:etf.text];
         if (required) {
@@ -3082,7 +3185,6 @@
             etf.layer.borderColor = [[UIColor redColor] CGColor];
             etf.layer.cornerRadius = 5;
             etf.clipsToBounds      = YES;
-            require++;
             
         }
         else
@@ -3092,7 +3194,6 @@
             etf.layer.cornerRadius = 5;
             etf.clipsToBounds      = YES;
             [etf setAlpha:1.0f];
-            require--;
             
         }
         
@@ -3141,7 +3242,7 @@
 - (void)checkboxChanged:(Checkbox *)checkbox
 {
     NSLog(@"%@ changed", [checkbox columnName]);
-    [self checkElements:[checkbox columnName] Tag:[checkbox tag] type:10 from:@"after"];
+    [self checkElements:[checkbox columnName] Tag:[checkbox tag] type:10 from:@"after" from:@"field"];
 
 }
 
@@ -3202,6 +3303,16 @@
                     [conditionsArray addObject:cModel];
                     j++;
                 }
+                else if ([elmt isEqualToString:@"highlight"]) {
+                    ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] beforeAfter:epc.condition condition:@"highlight"];
+                    [conditionsArray addObject:cModel];
+                    j++;
+                }
+                else if ([elmt isEqualToString:@"unhighlight"]) {
+                    ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] beforeAfter:epc.condition condition:@"unhighlight"];
+                    [conditionsArray addObject:cModel];
+                    j++;
+                }
             }
             
             
@@ -3232,9 +3343,9 @@
     
 }
 
--(BOOL)checkElements:(NSString *)name Tag:(NSInteger *)newTag type:(int)newType from:(NSString *)befAft
+-(BOOL)checkElements:(NSString *)name Tag:(NSInteger *)newTag type:(int)newType from:(NSString *)befAft from:(NSString *)newFrom
 {
-    BOOL value;
+    BOOL value = NO;
     ConditionsModel *cpm = [[ConditionsModel alloc]init];
     if (conditionsArray.count<1)
     {
@@ -3260,8 +3371,8 @@
                 {
                     value = NO;
                 }
-        
-            }
+            
+        }
    
     /*AFTER*/
         else if ([befAft caseInsensitiveCompare:@"after"]==NSOrderedSame)
@@ -3299,31 +3410,66 @@
                     if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
                     {
                         NSLog(@"SATYA - %@-----%@",emc.elementName,cpm.element);
+                        if (!(emc.req == YES)) {
+                            
+                            require++;
                         emc.req = YES;
                         [elementListArray replaceObjectAtIndex:i withObject:emc];
                         [self setLabelReqAfter:emc.elementName tag:emc.tag text:emc.promptText reqnot:YES];
 
-                        
+                        }
                     }
                 }
                 
             }
             if ([cpm.condition isEqualToString:@"notrequired"]&&([cpm.name caseInsensitiveCompare:name] == NSOrderedSame))
             {
-                for (int i = 0; i<elementListArray.count; i++) {
+                for (int i = 0; i<elementListArray.count; i++)
+                {
                     ElementsModel *emc = [elementListArray objectAtIndex:i];
                     
                     if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
                     {
+                        if (emc.req ==  YES)
+                        {
+                            require--;
+                        
                         emc.req = NO;
                         [elementListArray replaceObjectAtIndex:i withObject:emc];
                         [self setLabelReqAfter:emc.elementName tag:emc.tag text:emc.promptText reqnot:NO];
-
+                        }
                         
                     }
                 }
                 
             }
+            
+            //Highlight
+            if (([cpm.name caseInsensitiveCompare:name] == NSOrderedSame) &&  [befAft isEqualToString:cpm.beforeAfter] && [cpm.condition isEqualToString:@"highlight"])
+            {
+                for (ElementsModel *emc in elementListArray)
+                {
+                    if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
+                    {
+                        [self highlight:emc.tag type:emc.type];
+                        
+                    }
+                }
+                
+            }
+            if (([cpm.name caseInsensitiveCompare:name] == NSOrderedSame) &&  [befAft isEqualToString:cpm.beforeAfter] && [cpm.condition isEqualToString:@"unhighlight"])
+            {
+                for (ElementsModel *emc in elementListArray)
+                {
+                    if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
+                    {
+                        [self unhighlight:emc.tag type:emc.type];
+                        
+                    }
+                }
+                
+            }
+
         }
     }
     return value;
@@ -3338,19 +3484,103 @@ newStr{
     ElementsModel *emc = [elementListArray objectAtIndex:idx];
     if (([emc.elementName caseInsensitiveCompare:name]==NSOrderedSame) && (emc.req == true ))
     {
-        if ([newStr isEqualToString:@""]) {
+        if ([newStr isEqualToString:@""])
+        {
             reqYes = YES;
+            emc.input = 0;
+            [elementListArray replaceObjectAtIndex:idx withObject:emc];
+            if (![requiredArray containsObject:emc.elementName]) {
+                [requiredArray addObject:emc.elementName];
+                if (valid>0)
+                {
+                valid--;
+                }
+            }
         }
         else
         {
             reqYes = NO;
+            emc.input = 1;
+            [elementListArray replaceObjectAtIndex:idx withObject:emc];
+
+
+            if ([requiredArray containsObject:emc.elementName]) {
+                [requiredArray removeObject:emc.elementName];
+                valid++;
+            }
         }
     }
     else
     {
         reqYes = NO;
+        emc.input = 1;
+        [elementListArray replaceObjectAtIndex:idx withObject:emc];
+
+
     }
     return reqYes;
+}
+
+-(BOOL)checkHighlight:(NSString *)name Tag:(NSInteger *)newTag type:(int)newType from:(NSString *)befAft from:(NSString *)newFrom
+{
+    BOOL value = NO;
+    ConditionsModel *cpm = [[ConditionsModel alloc]init];
+    if (conditionsArray.count<1)
+    {
+        [self getDisEnb];
+    }
+    
+    for (cpm in conditionsArray)
+    {
+        if ([cpm.beforeAfter isEqualToString:@"before"]) {
+
+        if ([newFrom isEqualToString:@"page"])
+        {
+            if (([cpm.element caseInsensitiveCompare:name] == NSOrderedSame) &&  [befAft isEqualToString:cpm.beforeAfter] && [cpm.condition isEqualToString:@"highlight"])
+            {
+                //[self highlight:newTag type:newType];
+                value = YES;
+            }
+            
+            if (([cpm.element caseInsensitiveCompare:name] == NSOrderedSame) &&  [befAft isEqualToString:cpm.beforeAfter] && [cpm.condition isEqualToString:@"unhighlight"])
+            {
+                //[self unhighlight:newTag type:newType];
+                value = NO;
+            }
+        }
+        
+        else if([newFrom isEqualToString:@"field"])
+        {
+        
+            if (([cpm.name caseInsensitiveCompare:name] == NSOrderedSame) &&  [befAft isEqualToString:cpm.beforeAfter] && [cpm.condition isEqualToString:@"highlight"])
+            {
+                for (ElementsModel *emc in elementListArray)
+                {
+                    if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
+                    {
+                        [self highlight:emc.tag type:emc.type];
+                        
+                    }
+                }
+                
+            }
+            if (([cpm.name caseInsensitiveCompare:name] == NSOrderedSame) &&  [befAft isEqualToString:cpm.beforeAfter] && [cpm.condition isEqualToString:@"unhighlight"])
+            {
+                for (ElementsModel *emc in elementListArray)
+                {
+                    if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
+                    {
+                        [self unhighlight:emc.tag type:emc.type];
+                        
+                    }
+                }
+                
+            }
+
+        }
+    }
+    }
+    return value;
 }
 -(void)disable:(int)eleTag type:(int)newType
 {
@@ -3450,15 +3680,20 @@ newStr{
             NSLog(@"options");
             UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
-            [utf setAlpha:1.0f];
+            [utf setAlpha:0.5f];
             break;
         }
         case 15:
             NSLog(@"mirror");
             break;
         case 17:
+        {
             NSLog(@"legal");
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            [utf setUserInteractionEnabled:NO];
+            [utf setAlpha:0.5f];
             break;
+        }
         case 18:
             NSLog(@"codes");
             break;
@@ -3583,8 +3818,133 @@ newStr{
             NSLog(@"mirror");
             break;
         case 17:
+        {
             NSLog(@"legal");
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            [utf setUserInteractionEnabled:YES];
+            [utf setAlpha:1.0f];
             break;
+        }
+        case 18:
+            NSLog(@"codes");
+            break;
+        case 19:
+            NSLog(@"legalcomment");
+            break;
+        case 14:
+            NSLog(@"image");
+            break;
+        case 25:
+            NSLog(@"unique");
+            break;
+        default:
+            break;
+    }
+    
+}
+//Highlight & Unhighlight
+-(void)highlight:(int)eleTag type:(int)newType
+{
+    switch (newType)
+    {
+        case 1:
+        {
+            NSLog(@"text");
+            UITextField *utf = (UITextField *)[formCanvas viewWithTag:eleTag];
+//            [utf setBackgroundColor:[UIColor yellowColor]];
+            [utf setBackgroundColor:[UIColor yellowColor]];
+
+            break;
+        }
+        case 3:
+        {
+            NSLog(@"text");
+            UITextField *utf = (UITextField *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor yellowColor]];
+            
+            break;
+        }
+        case 4:
+        {
+            NSLog(@"textview");
+            UITextView *utf = (UITextView *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor yellowColor]];
+            
+            break;
+        }
+        case 5:
+        {
+            NSLog(@"text");
+            UITextField *utf = (UITextField *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor yellowColor]];
+            
+            break;
+        }
+        case 6:
+        {
+            NSLog(@"textph");
+            UITextField *utf = (UITextField *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor yellowColor]];
+            
+            break;
+        }
+        case 7:
+        {
+            NSLog(@"date");
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor yellowColor]];
+            
+            break;
+        }
+        case 8:
+        {
+            NSLog(@"time");
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor yellowColor]];
+            
+            break;
+        }
+        case 9:
+        {
+            NSLog(@"datetime");
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor yellowColor]];
+            
+            break;
+        }
+        case 10:
+        {
+            NSLog(@"checkbox");
+            UIButton *utf = (UIButton *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor yellowColor]];
+            
+            break;
+        }
+        case 11:
+        {
+            NSLog(@"y/n");
+            UIButton *utf = (UIButton *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor yellowColor]];
+            
+            break;
+        }
+        case 12:
+        {
+            NSLog(@"options");
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor yellowColor]];
+            break;
+        }
+        case 15:
+            NSLog(@"mirror");
+            break;
+        case 17:
+        {
+            NSLog(@"legal");
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor yellowColor]];
+            break;
+        }
         case 18:
             NSLog(@"codes");
             break;
@@ -3603,11 +3963,331 @@ newStr{
     
 }
 
--(void)onSubmitRequired
+-(void)unhighlight:(int)eleTag type:(int)newType
 {
+    switch (newType)
+    {
+        case 1:
+        {
+            NSLog(@"text");
+            UITextField *utf = (UITextField *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor whiteColor]];
+            //            etf.layer.borderColor = [[UIColor redColor] CGColor];
+
+            
+            break;
+        }
+        case 3:
+        {
+            NSLog(@"text");
+            UITextField *utf = (UITextField *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor whiteColor]];
+            
+            break;
+        }
+        case 4:
+        {
+            NSLog(@"textview");
+            UITextView *utf = (UITextView *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor whiteColor]];
+            
+            break;
+        }
+        case 5:
+        {
+            NSLog(@"text");
+            UITextField *utf = (UITextField *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor whiteColor]];
+            
+            break;
+        }
+        case 6:
+        {
+            NSLog(@"textph");
+            UITextField *utf = (UITextField *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor whiteColor]];
+            
+            break;
+        }
+        case 7:
+        {
+            NSLog(@"date");
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor clearColor]];
+            
+            break;
+        }
+        case 8:
+        {
+            NSLog(@"time");
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor clearColor]];
+            break;
+        }
+        case 9:
+        {
+            NSLog(@"datetime");
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor clearColor]];
+            
+            break;
+        }
+        case 10:
+        {
+            NSLog(@"checkbox");
+            UIButton *utf = (UIButton *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor whiteColor]];
+            
+            break;
+        }
+        case 11:
+        {
+            NSLog(@"y/n");
+            UIButton *utf = (UIButton *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor clearColor]];
+            
+            break;
+        }
+        case 12:
+        {
+            NSLog(@"options");
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor clearColor]];
+            break;
+        }
+        case 15:
+            NSLog(@"mirror");
+            break;
+        case 17:
+        {
+            NSLog(@"legal");
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor clearColor]];
+            break;
+        }
+        case 18:
+            NSLog(@"codes");
+            break;
+        case 19:
+            NSLog(@"legalcomment");
+            break;
+        case 14:
+            NSLog(@"image");
+            break;
+        case 25:
+            NSLog(@"unique");
+            break;
+        default:
+            break;
+    }
     
 }
 
+-(BOOL)onSubmitRequiredFrom:(NSString *)from
+{
+    BOOL done = NO;
+    int counter = 0;
+  
+    for (ElementsModel *emc in elementListArray) {
+        counter++;
+        if (emc.req == YES && emc.input == NO)
+        {
+            if ([from isEqualToString:@"else"]) {
+            [self showAlertForType:emc.type tag:emc.tag];
+            }
+            done = NO;
+            break;
+
+        }
+        if (counter == elementListArray.count) {
+            done = YES;
+        }
+    }
+    return done;
+}
+
+-(void)showAlertForType:(int)newType tag:(NSInteger *)newTag
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Missing Required Fields" message:@"Please enter all valid fields data" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        [self gotoMissingFieldtype:newType tag:newTag];
+
+    }];
+    
+    [alert addAction:defaultAction];
+   // UIViewController *uvc = [[[[UIApplication sharedApplication] delegate] window] rootViewController] ;
+    //[self presentViewController:alert animated:YES completion:nil];
+    
+    UIWindow *keyWin = [[UIApplication sharedApplication]keyWindow];
+    UIViewController *mainVC = [keyWin rootViewController];
+    [mainVC presentViewController:alert animated:YES completion:nil];
+
+}
+
+-(void)gotoMissingFieldtype:(int)newType tag:(NSInteger *)newTag
+{
+    switch (newType) {
+        case 1:
+        {
+            UITextField *utf = (UITextField *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            break;
+        }
+        case 3:
+        {
+            NSLog(@"text");
+            UITextField *utf = (UITextField *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            
+            break;
+        }
+        case 4:
+        {
+            NSLog(@"textview");
+            UITextView *utf = (UITextView *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            
+            break;
+        }
+        case 5:
+        {
+            NSLog(@"text");
+            UITextField *utf = (UITextField *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            
+            break;
+        }
+        case 6:
+        {
+            NSLog(@"textph");
+            UITextField *utf = (UITextField *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            
+            break;
+        }
+        case 7:
+        {
+            NSLog(@"date");
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            
+            break;
+        }
+        case 8:
+        {
+            NSLog(@"time");
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            break;
+        }
+        case 9:
+        {
+            NSLog(@"datetime");
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            
+            break;
+        }
+        case 10:
+        {
+            NSLog(@"checkbox");
+            UIButton *utf = (UIButton *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            
+            break;
+        }
+        case 11:
+        {
+            NSLog(@"y/n");
+            UIButton *utf = (UIButton *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            
+            break;
+        }
+        case 12:
+        {
+            NSLog(@"options");
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            break;
+        }
+        case 15:
+            NSLog(@"mirror");
+            break;
+        case 17:
+        {
+            NSLog(@"legal");
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            break;
+        }
+        case 18:
+            NSLog(@"codes");
+            break;
+        case 19:
+            NSLog(@"legalcomment");
+            break;
+        case 14:
+            NSLog(@"image");
+            break;
+        case 25:
+            NSLog(@"unique");
+            break;
+      
+    
+        default:
+            break;
+    }
+}
 -(void)setLabelReq:(NSString *)newName tag:(int)newTag text:(NSString *)newText type:(int)newType
 {
    // BOOL req = [self checkRequiredstr:newName Tag:newTag type:1 from:@"before" str:@""];
@@ -3621,9 +4301,13 @@ newStr{
         if (there) {
             NSUInteger idx = [elmArray indexOfObject:cpm.element];
             ElementsModel *emc = [elementListArray objectAtIndex:idx];
-            emc.req = YES;
-            req = YES;
-            [elementListArray replaceObjectAtIndex:idx withObject:emc];
+            if (!(emc.req == YES)) {
+                require++;
+                emc.req = YES;
+                req = YES;
+                [elementListArray replaceObjectAtIndex:idx withObject:emc];
+            }
+           
             
         }
         
@@ -3634,10 +4318,12 @@ newStr{
         if (there) {
             NSUInteger idx = [elmArray indexOfObject:cpm.element];
             ElementsModel *emc = [elementListArray objectAtIndex:idx];
+            if (emc.req == YES) {
+                require--;
             emc.req = NO;
             notReq = YES;
             [elementListArray replaceObjectAtIndex:idx withObject:emc];
-
+            }
         }
     }
     }
