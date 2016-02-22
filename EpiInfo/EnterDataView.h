@@ -18,6 +18,7 @@
 #import "UppercaseTextField.h"
 #import "MirrorField.h"
 #import "LegalValues.h"
+#import "LegalValuesEnter.h"
 #import "EpiInfoOptionField.h"
 #import "EpiInfoCodesField.h"
 #import "EpiInfoUniqueIDField.h"

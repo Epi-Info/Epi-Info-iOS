@@ -347,6 +347,8 @@
   [manager stopUpdatingLocation];
 }
 
+#pragma mark Submit
+
 - (void)submitButtonPressed
 {
   BlurryView *bv = [[BlurryView alloc] initWithFrame:CGRectMake(self.superview.frame.size.width - 5.0, self.superview.frame.size.height - 5.0, 10, 10)];
@@ -423,7 +425,7 @@
         if ([[(YesNo *)v picked] length] == 1)
           [azureDictionary setObject:[NSNumber numberWithInt:[[(YesNo *)v picked] intValue]] forKey:[(YesNo *)v columnName]];
       }
-      else if ([v isKindOfClass:[LegalValues class]])
+      else if ([v isKindOfClass:[LegalValuesEnter class]])
       {
         if (valuesClauseBegun)
         {
@@ -431,15 +433,15 @@
           valuesClause = [valuesClause stringByAppendingString:@",\n"];
         }
         valuesClauseBegun = YES;
-        insertStatement = [insertStatement stringByAppendingString:[(LegalValues *)v columnName]];
-        if ([[(LegalValues *)v picked] isEqualToString:@"NULL"])
+        insertStatement = [insertStatement stringByAppendingString:[(LegalValuesEnter *)v columnName]];
+        if ([[(LegalValuesEnter *)v picked] isEqualToString:@"NULL"])
         {
           valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
         }
         else
         {
-          valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [(LegalValues *)v picked]]];
-          [azureDictionary setObject:[NSNumber numberWithFloat:(float)[(LegalValues *)v selectedIndex].intValue] forKey:[(LegalValues *)v columnName]];
+          valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [(LegalValuesEnter *)v picked]]];
+          [azureDictionary setObject:[NSNumber numberWithFloat:(float)[(LegalValuesEnter *)v selectedIndex].intValue] forKey:[(LegalValuesEnter *)v columnName]];
         }
       }
       else if ([v isKindOfClass:[NumberField class]])
@@ -714,6 +716,8 @@
   }];
 }
 
+#pragma mark Update
+
 - (void)updateButtonPressed
 {
   BlurryView *bv = [[BlurryView alloc] initWithFrame:CGRectMake(self.superview.frame.size.width - 5.0, self.superview.frame.size.height - 5.0, 10, 10)];
@@ -784,7 +788,7 @@
         if ([[(YesNo *)v picked] length] == 1)
           [azureDictionary setObject:[NSNumber numberWithInt:[[(YesNo *)v picked] intValue]] forKey:[(YesNo *)v columnName]];
       }
-      else if ([v isKindOfClass:[LegalValues class]])
+      else if ([v isKindOfClass:[LegalValuesEnter class]])
       {
         if (valuesClauseBegun)
         {
@@ -792,15 +796,15 @@
           valuesClause = [valuesClause stringByAppendingString:@",\n"];
         }
         valuesClauseBegun = YES;
-        insertStatement = [insertStatement stringByAppendingString:[(LegalValues *)v columnName]];
-        if ([[(LegalValues *)v picked] isEqualToString:@"NULL"])
+        insertStatement = [insertStatement stringByAppendingString:[(LegalValuesEnter *)v columnName]];
+        if ([[(LegalValuesEnter *)v picked] isEqualToString:@"NULL"])
         {
           insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
         }
         else
         {
-          insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [(LegalValues *)v picked]]];
-          [azureDictionary setObject:[NSNumber numberWithFloat:(float)[(LegalValues *)v selectedIndex].intValue] forKey:[(LegalValues *)v columnName]];
+          insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [(LegalValuesEnter *)v picked]]];
+          [azureDictionary setObject:[NSNumber numberWithFloat:(float)[(LegalValuesEnter *)v selectedIndex].intValue] forKey:[(LegalValuesEnter *)v columnName]];
         }
       }
       else if ([v isKindOfClass:[NumberField class]])
@@ -1048,6 +1052,8 @@
   }];
 }
 
+#pragma mark Delete
+
 - (void)deleteButtonPressed
 {
   BlurryView *bv = [[BlurryView alloc] initWithFrame:CGRectMake(self.superview.frame.size.width - 5.0, self.superview.frame.size.height - 5.0, 10, 10)];
@@ -1270,8 +1276,8 @@
       [(UITextView *)v setText:nil];
     else if ([v isKindOfClass:[YesNo class]])
       [(YesNo *)v reset];
-    else if ([v isKindOfClass:[LegalValues class]])
-      [(LegalValues *)v reset];
+    else if ([v isKindOfClass:[LegalValuesEnter class]])
+      [(LegalValuesEnter *)v reset];
     else if ([v isKindOfClass:[Checkbox class]])
       [(Checkbox *)v reset];
     [v setEnabled:YES];
@@ -1309,6 +1315,8 @@
       }];
     }
 }
+
+#pragma mark ResignAll
 
 - (void)resignAll
 {
@@ -1360,6 +1368,7 @@
     }];
   }];
 }
+#pragma mark XmlParser
 
 - (void)parserDidStartDocument:(NSXMLParser *)parser
 {
@@ -1605,7 +1614,12 @@
         }
           if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:1 from:@"before" from:@"page"])
           {
-              [tf setBackgroundColor:[UIColor yellowColor]];
+//              [tf setBackgroundColor:[UIColor yellowColor]];
+              UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
+              [tf setBackgroundColor:selectedColor];
+
+
+
           }
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:1];
 
@@ -1693,7 +1707,8 @@
           }
           if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:3 from:@"before" from:@"page"])
           {
-              [tf setBackgroundColor:[UIColor yellowColor]];
+              UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
+              [tf setBackgroundColor:selectedColor];
           }
 
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:3];
@@ -1763,7 +1778,8 @@
           }
           if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:4 from:@"before" from:@"page"])
           {
-              [tf setBackgroundColor:[UIColor yellowColor]];
+              UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
+              [tf setBackgroundColor:selectedColor];
           }
 
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:4];
@@ -1825,7 +1841,8 @@
           }
           if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:5 from:@"before" from:@"page"])
           {
-              [tf setBackgroundColor:[UIColor yellowColor]];
+              UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
+              [tf setBackgroundColor:selectedColor];
           }
 
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:5];
@@ -1912,7 +1929,8 @@
           }
           if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:6 from:@"before" from:@"page"])
           {
-              [tf setBackgroundColor:[UIColor yellowColor]];
+              UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
+              [tf setBackgroundColor:selectedColor];
           }
 
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:6];
@@ -1975,7 +1993,9 @@
           }
           if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:7 from:@"before" from:@"page"])
           {
-              [tf setBackgroundColor:[UIColor yellowColor]];
+              UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
+//              [elementLabel setBackgroundColor:selectedColor];
+              [tf setBackgroundColor:selectedColor];
           }
 
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:7];
@@ -2039,7 +2059,9 @@
           }
           if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:8 from:@"before" from:@"page"])
           {
-              [tf setBackgroundColor:[UIColor yellowColor]];
+              UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
+//              [elementLabel setBackgroundColor:selectedColor];
+              [tf setBackgroundColor:selectedColor];
           }
 
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:8];
@@ -2102,7 +2124,10 @@
           }
           if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:9 from:@"before" from:@"page"])
           {
-              [tf setBackgroundColor:[UIColor yellowColor]];
+              UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
+//              [elementLabel setBackgroundColor:selectedColor];
+              [tf setBackgroundColor:selectedColor];
+
           }
 
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:9];
@@ -2166,7 +2191,8 @@
           }
           if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:10 from:@"before" from:@"page"])
           {
-              [cb setBackgroundColor:[UIColor yellowColor]];
+              UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
+              [cb setBackgroundColor:selectedColor];
           }
 
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:10];
@@ -2220,7 +2246,10 @@
           }
           if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:11 from:@"before" from:@"page"])
           {
-              [yn setBackgroundColor:[UIColor yellowColor]];
+              UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
+//              [elementLabel setBackgroundColor:selectedColor];
+              [yn setBackgroundColor:selectedColor];
+
           }
 
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:11];
@@ -2278,7 +2307,8 @@
           }
           if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:15 from:@"before" from:@"page"])
           {
-              [tf setBackgroundColor:[UIColor yellowColor]];
+              UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
+              [tf setBackgroundColor:selectedColor];
           }
 
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:15];
@@ -2304,7 +2334,7 @@
       }
       else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"17"])
       {
-        LegalValues *lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 300, 180) AndListOfValues:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]]];
+        LegalValuesEnter *lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 300, 180) AndListOfValues:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]]];
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
           [lv setFrame:CGRectMake(20, lv.frame.origin.y, lv.frame.size.width, lv.frame.size.height)];
           lv.tag = tagNum;
@@ -2332,7 +2362,10 @@
           }
           if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:17 from:@"before" from:@"page"])
           {
-              [lv setBackgroundColor:[UIColor yellowColor]];
+              UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
+//              [elementLabel setBackgroundColor:selectedColor];
+              [lv setBackgroundColor:selectedColor];
+
           }
 
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:17];
@@ -2390,7 +2423,8 @@
           }
           if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:18 from:@"before" from:@"page"])
           {
-              [lv setBackgroundColor:[UIColor yellowColor]];
+              UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
+              [lv setBackgroundColor:selectedColor];
           }
 
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:18];
@@ -2407,7 +2441,7 @@
       }
       else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"19"])
       {
-        LegalValues *lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 300, 180) AndListOfValues:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]]];
+        LegalValuesEnter *lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 300, 180) AndListOfValues:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]]];
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
           [lv setFrame:CGRectMake(20, lv.frame.origin.y, lv.frame.size.width, lv.frame.size.height)];
           lv.tag = tagNum;
@@ -2435,7 +2469,8 @@
           }
           if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:19 from:@"before" from:@"page"])
           {
-              [lv setBackgroundColor:[UIColor yellowColor]];
+              UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
+              [lv setBackgroundColor:selectedColor];
           }
 
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:19];
@@ -2478,7 +2513,8 @@
           }
           if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:14 from:@"before" from:@"page"])
           {
-              [iv setBackgroundColor:[UIColor yellowColor]];
+              UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
+              [iv setBackgroundColor:selectedColor];
           }
 
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:14];
@@ -2520,7 +2556,10 @@
           }
           if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:12 from:@"before" from:@"page"])
           {
-              [lv setBackgroundColor:[UIColor yellowColor]];
+              UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
+//              [elementLabel setBackgroundColor:selectedColor];
+               [lv setBackgroundColor:selectedColor];
+
           }
 
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:12];
@@ -2576,7 +2615,8 @@
           }
           if([self checkHighlight:[attributeDict objectForKey:@"Name"] Tag:tagNum type:25 from:@"before" from:@"page"])
           {
-              [tf setBackgroundColor:[UIColor yellowColor]];
+              UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
+              [tf setBackgroundColor:selectedColor];
           }
 
           [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:25];
@@ -2642,39 +2682,6 @@
   }
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-  [textField resignFirstResponder];
-    //NSUInteger *tagnu= textField.tag;
-    
-    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-    [self setContentSize:CGSizeMake(self.contentSize.width, self.contentSize.height - 200.0)];
-  } completion:^(BOOL finished){
-    hasAFirstResponder = NO;
-  }];
-  return YES;
-}
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-  if (hasAFirstResponder)
-    return YES;
-  
-  [self setContentSize:CGSizeMake(self.contentSize.width, self.contentSize.height + 200.0)];
-  hasAFirstResponder = YES;
-  
-  return YES;
-}
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
-{
-  if (hasAFirstResponder)
-    return YES;
-  
-  [self setContentSize:CGSizeMake(self.contentSize.width, self.contentSize.height + 200.0)];
-  hasAFirstResponder = YES;
-  
-  return YES;
-}
-
 - (void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID
 {
   [self clearButtonPressed];
@@ -2736,10 +2743,10 @@
       [(DateField *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(DateField *)v columnName] lowercaseString]]];
     else if ([v isKindOfClass:[UppercaseTextField class]])
       [(UppercaseTextField *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(UppercaseTextField *)v columnName] lowercaseString]]];
-    else if ([v isKindOfClass:[LegalValues class]])
+    else if ([v isKindOfClass:[LegalValuesEnter class]])
     {
-      [(LegalValues *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(LegalValues *)v columnName] lowercaseString]]];
-      [(LegalValues *)v setPicked:(NSString *)[queriedColumnsAndValues objectForKey:[[(LegalValues *)v columnName] lowercaseString]]];
+      [(LegalValuesEnter *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(LegalValuesEnter *)v columnName] lowercaseString]]];
+      [(LegalValuesEnter *)v setPicked:(NSString *)[queriedColumnsAndValues objectForKey:[[(LegalValuesEnter *)v columnName] lowercaseString]]];
     }
     else
       continue;
@@ -2760,19 +2767,43 @@
     }
   }
 }
--(void)getCheckCodeValues:(NSString *)eleName from:(NSString *)fromVal befAf:(NSString *)befAfVal ty:(int)type
+
+#pragma mark UIResponders
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    [textField resignFirstResponder];
     
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [self setContentSize:CGSizeMake(self.contentSize.width, self.contentSize.height - 200.0)];
+    } completion:^(BOOL finished){
+        hasAFirstResponder = NO;
+    }];
+    return YES;
 }
--(void)copyToArray:(NSMutableArray *)eleArray
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    if (elementsArray.count<1) {
-        elementsArray = [[NSMutableArray alloc]init];
-    elementsArray = eleArray;
-    NSLog(@"count %lu %lu",(unsigned long)elementsArray.count,(unsigned long)eleArray.count);
-    }
-    NSLog(@"OUT");
+    if (hasAFirstResponder)
+        return YES;
+    
+    [self setContentSize:CGSizeMake(self.contentSize.width, self.contentSize.height + 200.0)];
+    hasAFirstResponder = YES;
+    
+    return YES;
 }
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    if (hasAFirstResponder)
+        return YES;
+    
+    [self setContentSize:CGSizeMake(self.contentSize.width, self.contentSize.height + 200.0)];
+    hasAFirstResponder = YES;
+    
+    return YES;
+}
+
+
+#pragma mark responder
 
 - (void)fieldBecameFirstResponder:(id)field
 {
@@ -2831,7 +2862,6 @@
             etf.layer.cornerRadius = 5;
             etf.clipsToBounds      = YES;
             [etf setAlpha:1.0f];
-
         }
 
 
@@ -3118,9 +3148,9 @@
         
         
     }
-    if ([field isKindOfClass:[LegalValues class]])
+    if ([field isKindOfClass:[LegalValuesEnter class]])
     {
-        LegalValues *etf = (LegalValues *)field;
+        LegalValuesEnter *etf = (LegalValuesEnter *)field;
         NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:17 from:@"after" from:@"field"];
         NSLog(@"%@",etf.picked);
@@ -3199,44 +3229,7 @@
         
         
     }
-
-//    if ([field isKindOfClass:[EpiInfoOptionField class]])
-//    {
-//        EpiInfoOptionField *etf = (EpiInfoOptionField *)field;
-//        NSLog(@"%@",[etf columnName]);
-//        [self checkElements:[etf columnName] Tag:[etf tag] type:12 from:@"after"];
-//        
-//    }
-//    if ([field isKindOfClass:[MirrorField class]])
-//    {
-//        MirrorField *etf = (MirrorField *)field;
-//        NSLog(@"%@",[etf columnName]);
-//        [self checkElements:[etf columnName] Tag:[etf tag] type:15 from:@"after"];
-//        
-//    }
-//    if ([field isKindOfClass:[LegalValues class]])
-//    {
-//        LegalValues *etf = (LegalValues *)field;
-//        NSLog(@"%@",[etf columnName]);
-//        [self checkElements:[etf columnName] Tag:[etf tag] type:17 from:@"after"];
-//        
-//    }
-//    
-//    if ([field isKindOfClass:[EpiInfoCodesField class]])
-//    {
-//        EpiInfoCodesField *etf = (EpiInfoCodesField *)field;
-//        NSLog(@"%@",[etf columnName]);
-//        [self checkElements:[etf columnName] Tag:[etf tag] type:18 from:@"after"];
-//        
-//    }
-//
-//    if ([field isKindOfClass:[EpiInfoUniqueIDField class]])
-//    {
-//        EpiInfoUniqueIDField *etf = (EpiInfoUniqueIDField *)field;
-//        NSLog(@"%@",[etf columnName]);
-//        [self checkElements:[etf columnName] Tag:[etf tag] type:25 from:@"after"];
-//        
-//    }
+    
 }
 
 - (void)checkboxChanged:(Checkbox *)checkbox
@@ -3247,6 +3240,21 @@
 }
 
 #pragma mark Checkcode
+
+-(void)getCheckCodeValues:(NSString *)eleName from:(NSString *)fromVal befAf:(NSString *)befAfVal ty:(int)type
+{
+    
+}
+-(void)copyToArray:(NSMutableArray *)eleArray
+{
+    if (elementsArray.count<1) {
+        elementsArray = [[NSMutableArray alloc]init];
+        elementsArray = eleArray;
+        NSLog(@"count %lu %lu",(unsigned long)elementsArray.count,(unsigned long)eleArray.count);
+    }
+    NSLog(@"OUT");
+}
+
 
 -(void)getDisEnb
 {
@@ -3342,6 +3350,8 @@
     return newTmp;
     
 }
+
+#pragma mark checkElements
 
 -(BOOL)checkElements:(NSString *)name Tag:(NSInteger *)newTag type:(int)newType from:(NSString *)befAft from:(NSString *)newFrom
 {
@@ -3476,6 +3486,8 @@
 }
 //Required
 
+#pragma mark checkRequire
+
 -(BOOL)checkRequiredstr:(NSString *)name Tag:(NSInteger *)newTag type:(int)newType from:(NSString *)befAft str:(NSString *)
 newStr{
     
@@ -3520,6 +3532,8 @@ newStr{
     }
     return reqYes;
 }
+
+#pragma mark checkHighlight
 
 -(BOOL)checkHighlight:(NSString *)name Tag:(NSInteger *)newTag type:(int)newType from:(NSString *)befAft from:(NSString *)newFrom
 {
@@ -3582,6 +3596,9 @@ newStr{
     }
     return value;
 }
+
+#pragma mark checkUIManipulation
+
 -(void)disable:(int)eleTag type:(int)newType
 {
     switch (newType)
@@ -3669,7 +3686,7 @@ newStr{
         case 11:
         {
             NSLog(@"y/n");
-            UIButton *utf = (UIButton *)[formCanvas viewWithTag:eleTag];
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
 
@@ -3845,14 +3862,17 @@ newStr{
 //Highlight & Unhighlight
 -(void)highlight:(int)eleTag type:(int)newType
 {
+    UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
+
     switch (newType)
     {
+
         case 1:
         {
             NSLog(@"text");
             UITextField *utf = (UITextField *)[formCanvas viewWithTag:eleTag];
 //            [utf setBackgroundColor:[UIColor yellowColor]];
-            [utf setBackgroundColor:[UIColor yellowColor]];
+            [utf setBackgroundColor:selectedColor];
 
             break;
         }
@@ -3860,7 +3880,7 @@ newStr{
         {
             NSLog(@"text");
             UITextField *utf = (UITextField *)[formCanvas viewWithTag:eleTag];
-            [utf setBackgroundColor:[UIColor yellowColor]];
+            [utf setBackgroundColor:selectedColor];
             
             break;
         }
@@ -3868,7 +3888,7 @@ newStr{
         {
             NSLog(@"textview");
             UITextView *utf = (UITextView *)[formCanvas viewWithTag:eleTag];
-            [utf setBackgroundColor:[UIColor yellowColor]];
+            [utf setBackgroundColor:selectedColor];
             
             break;
         }
@@ -3876,7 +3896,7 @@ newStr{
         {
             NSLog(@"text");
             UITextField *utf = (UITextField *)[formCanvas viewWithTag:eleTag];
-            [utf setBackgroundColor:[UIColor yellowColor]];
+            [utf setBackgroundColor:selectedColor];
             
             break;
         }
@@ -3884,15 +3904,16 @@ newStr{
         {
             NSLog(@"textph");
             UITextField *utf = (UITextField *)[formCanvas viewWithTag:eleTag];
-            [utf setBackgroundColor:[UIColor yellowColor]];
+            [utf setBackgroundColor:selectedColor];
             
             break;
         }
         case 7:
         {
             NSLog(@"date");
-            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
-            [utf setBackgroundColor:[UIColor yellowColor]];
+//            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            UILabel *utf = (UILabel *)[formCanvas viewWithTag:eleTag-1];
+            [utf setBackgroundColor:selectedColor];
             
             break;
         }
@@ -3900,7 +3921,8 @@ newStr{
         {
             NSLog(@"time");
             UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
-            [utf setBackgroundColor:[UIColor yellowColor]];
+//            UILabel *utf = (UILabel *)[formCanvas viewWithTag:eleTag-1];
+            [utf setBackgroundColor:selectedColor];
             
             break;
         }
@@ -3908,7 +3930,8 @@ newStr{
         {
             NSLog(@"datetime");
             UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
-            [utf setBackgroundColor:[UIColor yellowColor]];
+//            UILabel *utf = (UILabel *)[formCanvas viewWithTag:eleTag-1];
+            [utf setBackgroundColor:selectedColor];
             
             break;
         }
@@ -3916,15 +3939,16 @@ newStr{
         {
             NSLog(@"checkbox");
             UIButton *utf = (UIButton *)[formCanvas viewWithTag:eleTag];
-            [utf setBackgroundColor:[UIColor yellowColor]];
+            [utf setBackgroundColor:selectedColor];
             
             break;
         }
         case 11:
         {
             NSLog(@"y/n");
-            UIButton *utf = (UIButton *)[formCanvas viewWithTag:eleTag];
-            [utf setBackgroundColor:[UIColor yellowColor]];
+            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+//            UILabel *utf = (UILabel *)[formCanvas viewWithTag:eleTag-1];
+            [utf setBackgroundColor:selectedColor];
             
             break;
         }
@@ -3932,7 +3956,8 @@ newStr{
         {
             NSLog(@"options");
             UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
-            [utf setBackgroundColor:[UIColor yellowColor]];
+//            UILabel *utf = (UILabel *)[formCanvas viewWithTag:eleTag-1];
+            [utf setBackgroundColor:selectedColor];
             break;
         }
         case 15:
@@ -3942,7 +3967,8 @@ newStr{
         {
             NSLog(@"legal");
             UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
-            [utf setBackgroundColor:[UIColor yellowColor]];
+//            UILabel *utf = (UILabel *)[formCanvas viewWithTag:eleTag-1];
+            [utf setBackgroundColor:selectedColor];
             break;
         }
         case 18:
@@ -4083,6 +4109,8 @@ newStr{
     
 }
 
+#pragma mark checkSubmitValidation
+
 -(BOOL)onSubmitRequiredFrom:(NSString *)from
 {
     BOOL done = NO;
@@ -4095,6 +4123,9 @@ newStr{
             if ([from isEqualToString:@"else"]) {
             [self showAlertForType:emc.type tag:emc.tag];
             }
+//            if ([from isEqualToString:@"elsealert"]) {
+//            [self gotoMissingFieldtype:emc.type tag:emc.tag];
+//            }
             done = NO;
             break;
 
@@ -4288,6 +4319,9 @@ newStr{
             break;
     }
 }
+
+#pragma mark checkRequiredLabels
+
 -(void)setLabelReq:(NSString *)newName tag:(int)newTag text:(NSString *)newText type:(int)newType
 {
    // BOOL req = [self checkRequiredstr:newName Tag:newTag type:1 from:@"before" str:@""];

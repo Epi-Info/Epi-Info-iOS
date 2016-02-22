@@ -1,14 +1,15 @@
 //
-//  LegalValues.m
+//  LegalValuesEnter.m
 //  EpiInfo
 //
-//  Created by John Copeland on 11/27/13.
+//  Created by admin on 2/19/16.
+//  Copyright © 2016 John Copeland. All rights reserved.
 //
 
-#import "LegalValues.h"
+#import "LegalValuesEnter.h"
 #import "EnterDataView.h"
 
-@implementation LegalValues
+@implementation LegalValuesEnter
 @synthesize columnName = _columnName;
 @synthesize picker = _picker;
 @synthesize textFieldToUpdate = _textFieldToUpdate;
@@ -51,11 +52,11 @@
     if (self) {
         // Initialization code
         [self setListOfValues:lov];
-//        [self setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        //        [self setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [self setBackgroundColor:[UIColor clearColor]];
         [self.layer setCornerRadius:4.0];
         picked = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 40, 10)];
-//        [self addSubview:picked];
+        //        [self addSubview:picked];
         self.picker = [[UIPickerView alloc] initWithFrame:CGRectMake(10, 10, 280, 160)];
         [self.picker setDelegate:self];
         [self.picker setDataSource:self];
@@ -144,8 +145,8 @@
     {
         [self.viewToAlertOfChanges didChangeValueForKey:[NSString stringWithString:[listOfValues objectAtIndex:row]]];
     }
-//    [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
-
+       [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+    
 }
 
 - (void)setSelectedLegalValue:(NSString *)selectedLegalValue
@@ -178,12 +179,12 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 @end
