@@ -93,7 +93,8 @@
             [openButton.layer setCornerRadius:4.0];
             [openButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
             [openButton.layer setBorderWidth:1.0];
-            [openButton addTarget:self action:@selector(openButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+            [openButton setTag:1];
+            [openButton addTarget:self action:@selector(openButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
             [openButton setEnabled:NO];
             
@@ -146,7 +147,8 @@
             [openButton.layer setCornerRadius:4.0];
             [openButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
             [openButton.layer setBorderWidth:1.0];
-            [openButton addTarget:self action:@selector(openButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+            [openButton setTag:1];
+            [openButton addTarget:self action:@selector(openButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
             [openButton setEnabled:NO];
             
@@ -203,7 +205,8 @@
             [openButton.layer setCornerRadius:4.0];
             [openButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
             [openButton.layer setBorderWidth:1.0];
-            [openButton addTarget:self action:@selector(openButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+            [openButton setTag:1];
+            [openButton addTarget:self action:@selector(openButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
             
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 187, 120, 40)];
@@ -280,7 +283,8 @@
             [openButton.layer setCornerRadius:4.0];
             [openButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
             [openButton.layer setBorderWidth:1.0];
-            [openButton addTarget:self action:@selector(openButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+            [openButton setTag:1];
+            [openButton addTarget:self action:@selector(openButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
             
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182, 120, 40)];
@@ -332,7 +336,8 @@
             [openButton.layer setCornerRadius:4.0];
             [openButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
             [openButton.layer setBorderWidth:1.0];
-            [openButton addTarget:self action:@selector(openButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+            [openButton setTag:1];
+            [openButton addTarget:self action:@selector(openButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
             
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182, 120, 40)];
@@ -388,7 +393,8 @@
             [openButton.layer setCornerRadius:4.0];
             [openButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
             [openButton.layer setBorderWidth:1.0];
-            [openButton addTarget:self action:@selector(openButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+            [openButton setTag:1];
+            [openButton addTarget:self action:@selector(openButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
             
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182, 120, 40)];
@@ -633,7 +639,7 @@
     }];
 }
 
-- (void)openButtonPressed
+- (void)openButtonPressed:(UIButton *)sender
 {
     if (lv.selectedIndex.intValue == 0)
         return;
@@ -665,12 +671,12 @@
             NSURL *url = [NSURL fileURLWithPath:path];
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
             {
-                edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, self.view.frame.size.height) AndURL:url AndRootViewController:self AndNameOfTheForm:lvSelected.text];
+                edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, self.view.frame.size.height) AndURL:url AndRootViewController:self AndNameOfTheForm:lvSelected.text AndPageToDisplay:[sender tag]];
                 orangeBanner = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, 36)];
             }
             else
             {
-                edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, 320, 506) AndURL:url AndRootViewController:self AndNameOfTheForm:lvSelected.text];
+                edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, 320, 506) AndURL:url AndRootViewController:self AndNameOfTheForm:lvSelected.text AndPageToDisplay:[sender tag]];
                 orangeBanner = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 36)];
             }
             [self.view addSubview:edv];
@@ -2188,7 +2194,7 @@
         orangeBanner = nil;
         
         for (UIView *v in [self.view subviews])
-            if ([v isKindOfClass:[BlurryView class]])
+            if ([v isKindOfClass:[BlurryView class]] || [v isKindOfClass:[EnterDataView class]])
                 [v removeFromSuperview];
         // Return the Back button to the nav controller
 //        [self.navigationItem setHidesBackButton:NO animated:YES];
@@ -2221,7 +2227,10 @@
 
 - (void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID
 {
+    [edv setGuidBeingUpdated:nil];
+    [edv setPopulateInstructionCameFromLineList:YES];
     [edv populateFieldsWithRecord:tableNameAndGUID];
+    [edv setPopulateInstructionCameFromLineList:NO];
 }
 
 - (void)didReceiveMemoryWarning

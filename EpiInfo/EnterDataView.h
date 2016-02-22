@@ -58,6 +58,16 @@
     Checkbox *geocodingCheckbox;
     
     NSMutableDictionary *legalValuesDictionaryForRVC;
+    
+    int pageToDisplay;
+    BOOL isCurrentPage;
+    BOOL isFirstPage;
+    BOOL isLastPage;
+    NSMutableDictionary *dictionaryOfPages;
+    NSString *guidBeingUpdated;
+    NSString *tableBeingUpdated;
+    BOOL updatevisibleScreenOnly;
+    BOOL populateInstructionCameFromLineList;
 }
 
 @property NSURL *url;
@@ -78,10 +88,18 @@
 @property NSMutableDictionary *dictionaryOfWordsArrays;
 
 -(NSString *)formName;
--(id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndNameOfTheForm:(NSString *)notf;
--(id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndNameOfTheForm:(NSString *)notf;
+-(id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndNameOfTheForm:(NSString *)notf AndPageToDisplay:(int)page;
+-(id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndNameOfTheForm:(NSString *)notf AndPageToDisplay:(int)page;
 -(void)getMyLocation;
 -(void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID;
+-(void)setPageToDisplay:(int)pageNumber;
+
+-(BOOL)getIsFirstPage;
+-(BOOL)getIsLastPage;
+-(void)setDictionaryOfPages:(NSMutableDictionary *)dop;
+-(UIView *)formCanvas;
+-(void)setGuidBeingUpdated:(NSString *)gbu;
+-(void)setPopulateInstructionCameFromLineList:(BOOL)yesNo;
 
 -(void)fieldBecameFirstResponder:(id)field;
 -(void)fieldResignedFirstResponder:(id)field;

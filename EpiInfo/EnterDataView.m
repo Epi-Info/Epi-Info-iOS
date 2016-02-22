@@ -34,6 +34,41 @@
 @synthesize nameOfTheForm = _nameOfTheForm;
 @synthesize dictionaryOfFields = _dictionaryOfFields;
 
+- (void)setPageToDisplay:(int)pageNumber
+{
+    pageToDisplay = pageNumber;
+}
+
+- (BOOL)getIsFirstPage
+{
+    return isFirstPage;
+}
+-(BOOL)getIsLastPage
+{
+    return isLastPage;
+}
+
+- (void)setDictionaryOfPages:(NSMutableDictionary *)dop
+{
+    dictionaryOfPages = dop;
+    [dictionaryOfPages setObject:self forKey:[NSString stringWithFormat:@"Page%d", pageToDisplay]];
+}
+
+- (UIView *)formCanvas
+{
+    return formCanvas;
+}
+
+- (void)setGuidBeingUpdated:(NSString *)gbu
+{
+    guidBeingUpdated = gbu;
+}
+
+- (void)setPopulateInstructionCameFromLineList:(BOOL)yesNo
+{
+    populateInstructionCameFromLineList = yesNo;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
   self = [super initWithFrame:frame];
@@ -48,12 +83,13 @@
   return self;
 }
 
-- (id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndNameOfTheForm:(NSString *)notf
+- (id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndNameOfTheForm:(NSString *)notf AndPageToDisplay:(int)page
 {
   self = [self initWithFrame:frame];
   
   if (self)
   {
+    pageToDisplay = page;
     [self setNameOfTheForm:notf];
     [self setUrl:url];
     
@@ -105,6 +141,11 @@
     [submitButton.layer setCornerRadius:4.0];
     [submitButton addTarget:self action:@selector(confirmSubmitOrClear:) forControlEvents:UIControlEventTouchUpInside];
     [submitButton setTag:1];
+    // New code for separating pages
+    if (!isLastPage)
+    {
+        [submitButton setEnabled:NO];
+    }
     [self addSubview:submitButton];
     UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0 - 158.0, contentSizeHeight, 120, 40)];
     [clearButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
@@ -128,6 +169,50 @@
     [deleteButton setHidden:YES];
     [self addSubview:deleteButton];
     contentSizeHeight += 60.0;
+    
+    // New code for separating pages
+    UIButton *previousPageButton = [[UIButton alloc] initWithFrame:CGRectMake(clearButton.frame.origin.x - 44, clearButton.frame.origin.y, 40, 40)];
+    [previousPageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [previousPageButton.layer setCornerRadius:4.0];
+    [previousPageButton setTitle:@"Previous Page" forState:UIControlStateNormal];
+    [previousPageButton setImage:[UIImage imageNamed:@"PreviousPage.png"] forState:UIControlStateNormal];
+    [previousPageButton.layer setMasksToBounds:YES];
+    [previousPageButton.layer setCornerRadius:4.0];
+    [previousPageButton addTarget:self action:@selector(previousOrNextPageButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [previousPageButton setTag:pageToDisplay - 1];
+    [self addSubview:previousPageButton];
+    if (isFirstPage)
+    {
+        [previousPageButton setEnabled:NO];
+    }
+    else
+    {
+        [previousPageButton setEnabled:YES];
+    }
+    UIButton *nextPageButton = [[UIButton alloc] initWithFrame:CGRectMake(submitButton.frame.origin.x + 124, submitButton.frame.origin.y, 40, 40)];
+    [nextPageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [nextPageButton.layer setCornerRadius:4.0];
+    [nextPageButton setTitle:@"Next Page" forState:UIControlStateNormal];
+    [nextPageButton setImage:[UIImage imageNamed:@"NextPage.png"] forState:UIControlStateNormal];
+    [nextPageButton.layer setMasksToBounds:YES];
+    [nextPageButton.layer setCornerRadius:4.0];
+    [nextPageButton addTarget:self action:@selector(previousOrNextPageButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [nextPageButton setTag:pageToDisplay + 1];
+    [self addSubview:nextPageButton];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        [previousPageButton setFrame:CGRectMake(clearButton.frame.origin.x, clearButton.frame.origin.y + 42, 40, 40)];
+        [nextPageButton setFrame:CGRectMake(submitButton.frame.origin.x + submitButton.frame.size.width - 40, submitButton.frame.origin.y + 42, 40, 40)];
+        contentSizeHeight += 42;
+    }
+    if (isLastPage)
+    {
+        [nextPageButton setEnabled:NO];
+    }
+    else
+    {
+        [nextPageButton setEnabled:YES];
+    }
     
     if (contentSizeHeight > 506)
     {
@@ -166,9 +251,45 @@
   return self;
 }
 
-- (id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndNameOfTheForm:(NSString *)notf
+// New code for separating pages
+- (void)previousOrNextPageButtonPressed:(UIButton *)sender
 {
-  self = [self initWithFrame:frame AndURL:url AndNameOfTheForm:(NSString *)notf];
+    if (!dictionaryOfPages)
+    {
+        dictionaryOfPages = [[NSMutableDictionary alloc] init];
+    }
+    [dictionaryOfPages setObject:self forKey:[NSString stringWithFormat:@"Page%d", pageToDisplay]];
+    [self removeFromSuperview];
+    [self setContentOffset:CGPointZero animated:NO];
+    if ([dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]])
+    {
+        [self.rootViewController.view addSubview:[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]]];
+        [self.rootViewController.view bringSubviewToFront:[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]]];
+    }
+    else
+    {
+        EnterDataView *edv = [[EnterDataView alloc] initWithFrame:self.frame AndURL:self.url AndRootViewController:self.rootViewController AndNameOfTheForm:self.nameOfTheForm AndPageToDisplay:(int)[sender tag]];
+        [edv setDictionaryOfPages:dictionaryOfPages];
+        [edv setGuidBeingUpdated:guidBeingUpdated];
+        if (guidBeingUpdated)
+        {
+            [edv populateFieldsWithRecord:@[tableBeingUpdated, guidBeingUpdated]];
+        }
+        [self.rootViewController.view addSubview:edv];
+        [self.rootViewController.view bringSubviewToFront:edv];
+    }
+    for (UIView *v in [self.rootViewController.view subviews])
+    {
+        if ([[v backgroundColor] isEqual:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:0.95]])
+        {
+            [self.rootViewController.view bringSubviewToFront:v];
+        }
+    }
+}
+
+- (id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndNameOfTheForm:(NSString *)notf AndPageToDisplay:(int)page
+{
+  self = [self initWithFrame:frame AndURL:url AndNameOfTheForm:(NSString *)notf AndPageToDisplay:page];
   if (self)
   {
     [self setRootViewController:rvc];
@@ -260,6 +381,12 @@
       }
     }
   }
+    // New code for separating pages
+  if (!dictionaryOfPages)
+  {
+    dictionaryOfPages = [[NSMutableDictionary alloc] init];
+  }
+  [dictionaryOfPages setObject:self forKey:[NSString stringWithFormat:@"Page%d", pageToDisplay]];
   return self;
 }
 
@@ -328,6 +455,7 @@
 
 - (void)submitButtonPressed
 {
+  guidBeingUpdated = nil;
   BlurryView *bv = [[BlurryView alloc] initWithFrame:CGRectMake(self.superview.frame.size.width - 5.0, self.superview.frame.size.height - 5.0, 10, 10)];
   
   UILabel *areYouSure = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
@@ -375,144 +503,148 @@
     BOOL valuesClauseBegun = YES;
     NSMutableDictionary *azureDictionary = [[NSMutableDictionary alloc] init];
     [azureDictionary setObject:recordUUID forKey:@"id"];
-    for (UIView *v in [formCanvas subviews])
-    {
-      if ([v isKindOfClass:[Checkbox class]])
+      for (id key in dictionaryOfPages)
       {
-        if (valuesClauseBegun)
-        {
-          insertStatement = [insertStatement stringByAppendingString:@",\n"];
-          valuesClause = [valuesClause stringByAppendingString:@",\n"];
-        }
-        valuesClauseBegun = YES;
-        insertStatement = [insertStatement stringByAppendingString:[(Checkbox *)v columnName]];
-        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%d", [(Checkbox *)v value]]];
-        [azureDictionary setObject:[NSNumber numberWithBool:[(Checkbox *)v value]] forKey:[(Checkbox *)v columnName]];
+          EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
+          for (UIView *v in [[tempedv formCanvas] subviews])
+          {
+              if ([v isKindOfClass:[Checkbox class]])
+              {
+                  if (valuesClauseBegun)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                      valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                  }
+                  valuesClauseBegun = YES;
+                  insertStatement = [insertStatement stringByAppendingString:[(Checkbox *)v columnName]];
+                  valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%d", [(Checkbox *)v value]]];
+                  [azureDictionary setObject:[NSNumber numberWithBool:[(Checkbox *)v value]] forKey:[(Checkbox *)v columnName]];
+              }
+              else if ([v isKindOfClass:[YesNo class]])
+              {
+                  if (valuesClauseBegun)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                      valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                  }
+                  valuesClauseBegun = YES;
+                  insertStatement = [insertStatement stringByAppendingString:[(YesNo *)v columnName]];
+                  valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", [(YesNo *)v picked]]];
+                  if ([[(YesNo *)v picked] length] == 1)
+                      [azureDictionary setObject:[NSNumber numberWithInt:[[(YesNo *)v picked] intValue]] forKey:[(YesNo *)v columnName]];
+              }
+              else if ([v isKindOfClass:[LegalValues class]])
+              {
+                  if (valuesClauseBegun)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                      valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                  }
+                  valuesClauseBegun = YES;
+                  insertStatement = [insertStatement stringByAppendingString:[(LegalValues *)v columnName]];
+                  if ([[(LegalValues *)v picked] isEqualToString:@"NULL"])
+                  {
+                      valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
+                  }
+                  else
+                  {
+                      valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [(LegalValues *)v picked]]];
+                      [azureDictionary setObject:[NSNumber numberWithFloat:(float)[(LegalValues *)v selectedIndex].intValue] forKey:[(LegalValues *)v columnName]];
+                  }
+              }
+              else if ([v isKindOfClass:[NumberField class]])
+              {
+                  if (valuesClauseBegun)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                      valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                  }
+                  valuesClauseBegun = YES;
+                  insertStatement = [insertStatement stringByAppendingString:[(NumberField *)v columnName]];
+                  valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", [(NumberField *)v value]]];
+                  if (![[(NumberField *)v value] isEqualToString:@"NULL"])
+                  {
+                      [azureDictionary setObject:[NSNumber numberWithFloat:[[(NumberField *)v value] floatValue]] forKey:[(NumberField *)v columnName]];
+                  }
+              }
+              else if ([v isKindOfClass:[PhoneNumberField class]])
+              {
+                  if (valuesClauseBegun)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                      valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                  }
+                  valuesClauseBegun = YES;
+                  insertStatement = [insertStatement stringByAppendingString:[(PhoneNumberField *)v columnName]];
+                  if ([[(PhoneNumberField *)v value] isEqualToString:@"NULL"])
+                  {
+                      valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
+                  }
+                  else
+                  {
+                      valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [(PhoneNumberField *)v value]]];
+                      [azureDictionary setObject:[(PhoneNumberField *)v value] forKey:[(PhoneNumberField *)v columnName]];
+                  }
+              }
+              else if ([v isKindOfClass:[DateField class]])
+              {
+                  if (valuesClauseBegun)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                      valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                  }
+                  valuesClauseBegun = YES;
+                  insertStatement = [insertStatement stringByAppendingString:[(DateField *)v columnName]];
+                  if ([[(DateField *)v text] length] == 0)
+                  {
+                      valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
+                  }
+                  else
+                  {
+                      valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [(DateField *)v text]]];
+                      [azureDictionary setObject:[(DateField *)v text] forKey:[(DateField *)v columnName]];
+                  }
+              }
+              else if ([v isKindOfClass:[EpiInfoTextView class]])
+              {
+                  if (valuesClauseBegun)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                      valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                  }
+                  valuesClauseBegun = YES;
+                  insertStatement = [insertStatement stringByAppendingString:[(EpiInfoTextView *)v columnName]];
+                  if ([[(EpiInfoTextView *)v text] length] == 0)
+                  {
+                      valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
+                  }
+                  else
+                  {
+                      valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [(EpiInfoTextView *)v text]]];
+                      [azureDictionary setObject:[(EpiInfoTextView *)v text] forKey:[(EpiInfoTextView *)v columnName]];
+                  }
+              }
+              else if ([v isKindOfClass:[EpiInfoTextField class]])
+              {
+                  if (valuesClauseBegun)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                      valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                  }
+                  valuesClauseBegun = YES;
+                  insertStatement = [insertStatement stringByAppendingString:[(EpiInfoTextField *)v columnName]];
+                  if ([[(EpiInfoTextField *)v text] length] == 0)
+                  {
+                      valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
+                  }
+                  else
+                  {
+                      valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [(EpiInfoTextField *)v text]]];
+                      [azureDictionary setObject:[(EpiInfoTextField *)v text] forKey:[(EpiInfoTextField *)v columnName]];
+                  }
+              }
+          }
       }
-      else if ([v isKindOfClass:[YesNo class]])
-      {
-        if (valuesClauseBegun)
-        {
-          insertStatement = [insertStatement stringByAppendingString:@",\n"];
-          valuesClause = [valuesClause stringByAppendingString:@",\n"];
-        }
-        valuesClauseBegun = YES;
-        insertStatement = [insertStatement stringByAppendingString:[(YesNo *)v columnName]];
-        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", [(YesNo *)v picked]]];
-        if ([[(YesNo *)v picked] length] == 1)
-          [azureDictionary setObject:[NSNumber numberWithInt:[[(YesNo *)v picked] intValue]] forKey:[(YesNo *)v columnName]];
-      }
-      else if ([v isKindOfClass:[LegalValues class]])
-      {
-        if (valuesClauseBegun)
-        {
-          insertStatement = [insertStatement stringByAppendingString:@",\n"];
-          valuesClause = [valuesClause stringByAppendingString:@",\n"];
-        }
-        valuesClauseBegun = YES;
-        insertStatement = [insertStatement stringByAppendingString:[(LegalValues *)v columnName]];
-        if ([[(LegalValues *)v picked] isEqualToString:@"NULL"])
-        {
-          valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
-        }
-        else
-        {
-          valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [(LegalValues *)v picked]]];
-          [azureDictionary setObject:[NSNumber numberWithFloat:(float)[(LegalValues *)v selectedIndex].intValue] forKey:[(LegalValues *)v columnName]];
-        }
-      }
-      else if ([v isKindOfClass:[NumberField class]])
-      {
-        if (valuesClauseBegun)
-        {
-          insertStatement = [insertStatement stringByAppendingString:@",\n"];
-          valuesClause = [valuesClause stringByAppendingString:@",\n"];
-        }
-        valuesClauseBegun = YES;
-        insertStatement = [insertStatement stringByAppendingString:[(NumberField *)v columnName]];
-        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", [(NumberField *)v value]]];
-        if (![[(NumberField *)v value] isEqualToString:@"NULL"])
-        {
-          [azureDictionary setObject:[NSNumber numberWithFloat:[[(NumberField *)v value] floatValue]] forKey:[(NumberField *)v columnName]];
-        }
-      }
-      else if ([v isKindOfClass:[PhoneNumberField class]])
-      {
-        if (valuesClauseBegun)
-        {
-          insertStatement = [insertStatement stringByAppendingString:@",\n"];
-          valuesClause = [valuesClause stringByAppendingString:@",\n"];
-        }
-        valuesClauseBegun = YES;
-        insertStatement = [insertStatement stringByAppendingString:[(PhoneNumberField *)v columnName]];
-        if ([[(PhoneNumberField *)v value] isEqualToString:@"NULL"])
-        {
-          valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
-        }
-        else
-        {
-          valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [(PhoneNumberField *)v value]]];
-          [azureDictionary setObject:[(PhoneNumberField *)v value] forKey:[(PhoneNumberField *)v columnName]];
-        }
-      }
-      else if ([v isKindOfClass:[DateField class]])
-      {
-        if (valuesClauseBegun)
-        {
-          insertStatement = [insertStatement stringByAppendingString:@",\n"];
-          valuesClause = [valuesClause stringByAppendingString:@",\n"];
-        }
-        valuesClauseBegun = YES;
-        insertStatement = [insertStatement stringByAppendingString:[(DateField *)v columnName]];
-        if ([[(DateField *)v text] length] == 0)
-        {
-          valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
-        }
-        else
-        {
-          valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [(DateField *)v text]]];
-          [azureDictionary setObject:[(DateField *)v text] forKey:[(DateField *)v columnName]];
-        }
-      }
-      else if ([v isKindOfClass:[EpiInfoTextView class]])
-      {
-        if (valuesClauseBegun)
-        {
-          insertStatement = [insertStatement stringByAppendingString:@",\n"];
-          valuesClause = [valuesClause stringByAppendingString:@",\n"];
-        }
-        valuesClauseBegun = YES;
-        insertStatement = [insertStatement stringByAppendingString:[(EpiInfoTextView *)v columnName]];
-        if ([[(EpiInfoTextView *)v text] length] == 0)
-        {
-          valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
-        }
-        else
-        {
-          valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [(EpiInfoTextView *)v text]]];
-          [azureDictionary setObject:[(EpiInfoTextView *)v text] forKey:[(EpiInfoTextView *)v columnName]];
-        }
-      }
-      else if ([v isKindOfClass:[EpiInfoTextField class]])
-      {
-        if (valuesClauseBegun)
-        {
-          insertStatement = [insertStatement stringByAppendingString:@",\n"];
-          valuesClause = [valuesClause stringByAppendingString:@",\n"];
-        }
-        valuesClauseBegun = YES;
-        insertStatement = [insertStatement stringByAppendingString:[(EpiInfoTextField *)v columnName]];
-        if ([[(EpiInfoTextField *)v text] length] == 0)
-        {
-          valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
-        }
-        else
-        {
-          valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [(EpiInfoTextField *)v text]]];
-          [azureDictionary setObject:[(EpiInfoTextField *)v text] forKey:[(EpiInfoTextField *)v columnName]];
-        }
-      }
-    }
     insertStatement = [insertStatement stringByAppendingString:@")"];
     valuesClause = [valuesClause stringByAppendingString:@")"];
     insertStatement = [insertStatement stringByAppendingString:valuesClause];
@@ -695,6 +827,7 @@
 
 - (void)updateButtonPressed
 {
+  guidBeingUpdated = nil;
   BlurryView *bv = [[BlurryView alloc] initWithFrame:CGRectMake(self.superview.frame.size.width - 5.0, self.superview.frame.size.height - 5.0, 10, 10)];
   
   UILabel *areYouSure = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
@@ -736,144 +869,148 @@
     BOOL valuesClauseBegun = NO;
     NSMutableDictionary *azureDictionary = [[NSMutableDictionary alloc] init];
     [azureDictionary setObject:recordUUID forKey:@"id"];
-    for (UIView *v in [formCanvas subviews])
-    {
-      if ([v isKindOfClass:[Checkbox class]])
+      for (id key in dictionaryOfPages)
       {
-        if (valuesClauseBegun)
-        {
-          insertStatement = [insertStatement stringByAppendingString:@",\n"];
-          valuesClause = [valuesClause stringByAppendingString:@",\n"];
-        }
-        valuesClauseBegun = YES;
-        insertStatement = [insertStatement stringByAppendingString:[(Checkbox *)v columnName]];
-        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %d", [(Checkbox *)v value]]];
-        [azureDictionary setObject:[NSNumber numberWithBool:[(Checkbox *)v value]] forKey:[(Checkbox *)v columnName]];
+          EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
+          for (UIView *v in [[tempedv formCanvas] subviews])
+          {
+              if ([v isKindOfClass:[Checkbox class]])
+              {
+                  if (valuesClauseBegun)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                      valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                  }
+                  valuesClauseBegun = YES;
+                  insertStatement = [insertStatement stringByAppendingString:[(Checkbox *)v columnName]];
+                  insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %d", [(Checkbox *)v value]]];
+                  [azureDictionary setObject:[NSNumber numberWithBool:[(Checkbox *)v value]] forKey:[(Checkbox *)v columnName]];
+              }
+              else if ([v isKindOfClass:[YesNo class]])
+              {
+                  if (valuesClauseBegun)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                      valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                  }
+                  valuesClauseBegun = YES;
+                  insertStatement = [insertStatement stringByAppendingString:[(YesNo *)v columnName]];
+                  insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", [(YesNo *)v picked]]];
+                  if ([[(YesNo *)v picked] length] == 1)
+                      [azureDictionary setObject:[NSNumber numberWithInt:[[(YesNo *)v picked] intValue]] forKey:[(YesNo *)v columnName]];
+              }
+              else if ([v isKindOfClass:[LegalValues class]])
+              {
+                  if (valuesClauseBegun)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                      valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                  }
+                  valuesClauseBegun = YES;
+                  insertStatement = [insertStatement stringByAppendingString:[(LegalValues *)v columnName]];
+                  if ([[(LegalValues *)v picked] isEqualToString:@"NULL"])
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
+                  }
+                  else
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [(LegalValues *)v picked]]];
+                      [azureDictionary setObject:[NSNumber numberWithFloat:(float)[(LegalValues *)v selectedIndex].intValue] forKey:[(LegalValues *)v columnName]];
+                  }
+              }
+              else if ([v isKindOfClass:[NumberField class]])
+              {
+                  if (valuesClauseBegun)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                      valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                  }
+                  valuesClauseBegun = YES;
+                  insertStatement = [insertStatement stringByAppendingString:[(NumberField *)v columnName]];
+                  insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", [(NumberField *)v value]]];
+                  if (![[(NumberField *)v value] isEqualToString:@"NULL"])
+                  {
+                      [azureDictionary setObject:[NSNumber numberWithFloat:[[(NumberField *)v value] floatValue]] forKey:[(NumberField *)v columnName]];
+                  }
+              }
+              else if ([v isKindOfClass:[PhoneNumberField class]])
+              {
+                  if (valuesClauseBegun)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                      valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                  }
+                  valuesClauseBegun = YES;
+                  insertStatement = [insertStatement stringByAppendingString:[(PhoneNumberField *)v columnName]];
+                  if ([[(PhoneNumberField *)v value] isEqualToString:@"NULL"])
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
+                  }
+                  else
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [(PhoneNumberField *)v value]]];
+                      [azureDictionary setObject:[(PhoneNumberField *)v value] forKey:[(PhoneNumberField *)v columnName]];
+                  }
+              }
+              else if ([v isKindOfClass:[DateField class]])
+              {
+                  if (valuesClauseBegun)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                      valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                  }
+                  valuesClauseBegun = YES;
+                  insertStatement = [insertStatement stringByAppendingString:[(DateField *)v columnName]];
+                  if ([[(DateField *)v text] length] == 0)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
+                  }
+                  else
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [(DateField *)v text]]];
+                      [azureDictionary setObject:[(DateField *)v text] forKey:[(DateField *)v columnName]];
+                  }
+              }
+              else if ([v isKindOfClass:[EpiInfoTextView class]])
+              {
+                  if (valuesClauseBegun)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                      valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                  }
+                  valuesClauseBegun = YES;
+                  insertStatement = [insertStatement stringByAppendingString:[(EpiInfoTextView *)v columnName]];
+                  if ([[(EpiInfoTextView *)v text] length] == 0)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
+                  }
+                  else
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [(EpiInfoTextView *)v text]]];
+                      [azureDictionary setObject:[(EpiInfoTextView *)v text] forKey:[(EpiInfoTextView *)v columnName]];
+                  }
+              }
+              else if ([v isKindOfClass:[EpiInfoTextField class]])
+              {
+                  if (valuesClauseBegun)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                      valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                  }
+                  valuesClauseBegun = YES;
+                  insertStatement = [insertStatement stringByAppendingString:[(EpiInfoTextField *)v columnName]];
+                  if ([[(EpiInfoTextField *)v text] length] == 0)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
+                  }
+                  else
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [(EpiInfoTextField *)v text]]];
+                      [azureDictionary setObject:[(EpiInfoTextField *)v text] forKey:[(EpiInfoTextField *)v columnName]];
+                  }
+              }
+          }
       }
-      else if ([v isKindOfClass:[YesNo class]])
-      {
-        if (valuesClauseBegun)
-        {
-          insertStatement = [insertStatement stringByAppendingString:@",\n"];
-          valuesClause = [valuesClause stringByAppendingString:@",\n"];
-        }
-        valuesClauseBegun = YES;
-        insertStatement = [insertStatement stringByAppendingString:[(YesNo *)v columnName]];
-        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", [(YesNo *)v picked]]];
-        if ([[(YesNo *)v picked] length] == 1)
-          [azureDictionary setObject:[NSNumber numberWithInt:[[(YesNo *)v picked] intValue]] forKey:[(YesNo *)v columnName]];
-      }
-      else if ([v isKindOfClass:[LegalValues class]])
-      {
-        if (valuesClauseBegun)
-        {
-          insertStatement = [insertStatement stringByAppendingString:@",\n"];
-          valuesClause = [valuesClause stringByAppendingString:@",\n"];
-        }
-        valuesClauseBegun = YES;
-        insertStatement = [insertStatement stringByAppendingString:[(LegalValues *)v columnName]];
-        if ([[(LegalValues *)v picked] isEqualToString:@"NULL"])
-        {
-          insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
-        }
-        else
-        {
-          insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [(LegalValues *)v picked]]];
-          [azureDictionary setObject:[NSNumber numberWithFloat:(float)[(LegalValues *)v selectedIndex].intValue] forKey:[(LegalValues *)v columnName]];
-        }
-      }
-      else if ([v isKindOfClass:[NumberField class]])
-      {
-        if (valuesClauseBegun)
-        {
-          insertStatement = [insertStatement stringByAppendingString:@",\n"];
-          valuesClause = [valuesClause stringByAppendingString:@",\n"];
-        }
-        valuesClauseBegun = YES;
-        insertStatement = [insertStatement stringByAppendingString:[(NumberField *)v columnName]];
-        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", [(NumberField *)v value]]];
-        if (![[(NumberField *)v value] isEqualToString:@"NULL"])
-        {
-          [azureDictionary setObject:[NSNumber numberWithFloat:[[(NumberField *)v value] floatValue]] forKey:[(NumberField *)v columnName]];
-        }
-      }
-      else if ([v isKindOfClass:[PhoneNumberField class]])
-      {
-        if (valuesClauseBegun)
-        {
-          insertStatement = [insertStatement stringByAppendingString:@",\n"];
-          valuesClause = [valuesClause stringByAppendingString:@",\n"];
-        }
-        valuesClauseBegun = YES;
-        insertStatement = [insertStatement stringByAppendingString:[(PhoneNumberField *)v columnName]];
-        if ([[(PhoneNumberField *)v value] isEqualToString:@"NULL"])
-        {
-          insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
-        }
-        else
-        {
-          insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [(PhoneNumberField *)v value]]];
-          [azureDictionary setObject:[(PhoneNumberField *)v value] forKey:[(PhoneNumberField *)v columnName]];
-        }
-      }
-      else if ([v isKindOfClass:[DateField class]])
-      {
-        if (valuesClauseBegun)
-        {
-          insertStatement = [insertStatement stringByAppendingString:@",\n"];
-          valuesClause = [valuesClause stringByAppendingString:@",\n"];
-        }
-        valuesClauseBegun = YES;
-        insertStatement = [insertStatement stringByAppendingString:[(DateField *)v columnName]];
-        if ([[(DateField *)v text] length] == 0)
-        {
-          insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
-        }
-        else
-        {
-          insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [(DateField *)v text]]];
-          [azureDictionary setObject:[(DateField *)v text] forKey:[(DateField *)v columnName]];
-        }
-      }
-      else if ([v isKindOfClass:[EpiInfoTextView class]])
-      {
-        if (valuesClauseBegun)
-        {
-          insertStatement = [insertStatement stringByAppendingString:@",\n"];
-          valuesClause = [valuesClause stringByAppendingString:@",\n"];
-        }
-        valuesClauseBegun = YES;
-        insertStatement = [insertStatement stringByAppendingString:[(EpiInfoTextView *)v columnName]];
-        if ([[(EpiInfoTextView *)v text] length] == 0)
-        {
-          insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
-        }
-        else
-        {
-          insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [(EpiInfoTextView *)v text]]];
-          [azureDictionary setObject:[(EpiInfoTextView *)v text] forKey:[(EpiInfoTextView *)v columnName]];
-        }
-      }
-      else if ([v isKindOfClass:[EpiInfoTextField class]])
-      {
-        if (valuesClauseBegun)
-        {
-          insertStatement = [insertStatement stringByAppendingString:@",\n"];
-          valuesClause = [valuesClause stringByAppendingString:@",\n"];
-        }
-        valuesClauseBegun = YES;
-        insertStatement = [insertStatement stringByAppendingString:[(EpiInfoTextField *)v columnName]];
-        if ([[(EpiInfoTextField *)v text] length] == 0)
-        {
-          insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
-        }
-        else
-        {
-          insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [(EpiInfoTextField *)v text]]];
-          [azureDictionary setObject:[(EpiInfoTextField *)v text] forKey:[(EpiInfoTextField *)v columnName]];
-        }
-      }
-    }
     insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@"\nwhere GlobalRecordID = '%@'", recordUIDForUpdate]];
     
     [azureDictionary setObject:@NO forKey:@"complete"];
@@ -1014,10 +1151,11 @@
       NSLog(@"Could not find table");
     }
   }
-  
-  [self clearButtonPressed];
+    updatevisibleScreenOnly = NO;
   
   [self.superview addSubview:bv];
+    NSLog(@"Superview == %@", self.superview);
+    [self clearButtonPressed];
   [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
     [bv setFrame:CGRectMake(0, 0, self.superview.frame.size.width, self.superview.frame.size.width)];
     [areYouSure setFrame:CGRectMake(10, 10, bv.frame.size.width - 20, 72)];
@@ -1029,6 +1167,7 @@
 
 - (void)deleteButtonPressed
 {
+  guidBeingUpdated = nil;
   BlurryView *bv = [[BlurryView alloc] initWithFrame:CGRectMake(self.superview.frame.size.width - 5.0, self.superview.frame.size.height - 5.0, 10, 10)];
   
   UILabel *areYouSure = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
@@ -1146,10 +1285,11 @@
       NSLog(@"Could not find table");
     }
   }
+    updatevisibleScreenOnly = NO;
+    [self clearButtonPressed];
   
-  [self clearButtonPressed];
-  
-  [self.superview addSubview:bv];
+  [((EnterDataView *)[dictionaryOfPages objectForKey:@"Page1"]).superview addSubview:bv];
+    NSLog(@"Superview == %@", ((EnterDataView *)[dictionaryOfPages objectForKey:@"Page1"]).superview);
   [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
     [bv setFrame:CGRectMake(0, 0, self.superview.frame.size.width, self.superview.frame.size.width)];
     [areYouSure setFrame:CGRectMake(10, 10, bv.frame.size.width - 20, 72)];
@@ -1236,40 +1376,60 @@
 }
 - (void)clearButtonPressed
 {
-  for (id v in [formCanvas subviews])
-  {
-    if ([v isKindOfClass:[UITextField class]])
-      [(UITextField *)v setText:nil];
-    else if ([v isKindOfClass:[UITextView class]])
-      [(UITextView *)v setText:nil];
-    else if ([v isKindOfClass:[YesNo class]])
-      [(YesNo *)v reset];
-    else if ([v isKindOfClass:[LegalValues class]])
-      [(LegalValues *)v reset];
-    else if ([v isKindOfClass:[Checkbox class]])
-      [(Checkbox *)v reset];
-    [v setEnabled:YES];
-  }
-  [self resignAll];
-  [self setContentOffset:CGPointZero animated:YES];
-  [self doNotSubmitOrClear];
-  //    [self.locationManager stopUpdatingLocation];
-  //    [self getMyLocation];
-  for (UIView *v in [self subviews])
-  {
-    if ([v isKindOfClass:[UIButton class]])
+    // New code for separating pages
+    guidBeingUpdated = nil;
+    for (id key in dictionaryOfPages)
     {
-      if ([(UIButton *)v tag] == 8)
-      {
-        [(UIButton *)v setTag:1];
-        [(UIButton *)v setImage:[UIImage imageNamed:@"SubmitButton.png"] forState:UIControlStateNormal];
-      }
-      if ([(UIButton *)v tag] == 7)
-      {
-        [(UIButton *)v setHidden:YES];
-      }
+        if (updatevisibleScreenOnly && ![(NSString *)key isEqualToString:[NSString stringWithFormat:@"Page%d", pageToDisplay]])
+            continue;
+        EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
+        if ([(NSString *)key isEqualToString:@"Page1"])
+            [[self superview] addSubview:tempedv];
+        else if (!populateInstructionCameFromLineList)
+            [tempedv removeFromSuperview];
+        for (UIView *v in [self.rootViewController.view subviews])
+        {
+            if ([[v backgroundColor] isEqual:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:0.95]])
+            {
+                [self.rootViewController.view bringSubviewToFront:v];
+            }
+        }
+        
+        for (id v in [[tempedv formCanvas] subviews])
+        {
+            if ([v isKindOfClass:[UITextField class]])
+                [(UITextField *)v setText:nil];
+            else if ([v isKindOfClass:[UITextView class]])
+                [(UITextView *)v setText:nil];
+            else if ([v isKindOfClass:[YesNo class]])
+                [(YesNo *)v reset];
+            else if ([v isKindOfClass:[LegalValues class]])
+                [(LegalValues *)v reset];
+            else if ([v isKindOfClass:[Checkbox class]])
+                [(Checkbox *)v reset];
+            [v setEnabled:YES];
+        }
+        [tempedv resignAll];
+        [tempedv setContentOffset:CGPointZero animated:YES];
+        [self doNotSubmitOrClear];
+        //    [self.locationManager stopUpdatingLocation];
+        //    [self getMyLocation];
+        for (UIView *v in [tempedv subviews])
+        {
+            if ([v isKindOfClass:[UIButton class]])
+            {
+                if ([(UIButton *)v tag] == 8 && v.frame.size.width > 40)
+                {
+                    [(UIButton *)v setTag:1];
+                    [(UIButton *)v setImage:[UIImage imageNamed:@"SubmitButton.png"] forState:UIControlStateNormal];
+                }
+                if ([(UIButton *)v tag] == 7 && v.frame.size.width > 40)
+                {
+                    [(UIButton *)v setHidden:YES];
+                }
+            }
+        }
     }
-  }
 }
 - (void)okButtonPressed
 {
@@ -1448,7 +1608,38 @@
         }
       }
     }
-    if ([elementName isEqualToString:@"Field"])
+      // New code for separating pages
+    if ([elementName isEqualToString:@"Page"])
+    {
+        NSString *pageNo = [attributeDict objectForKey:@"PageId"];
+        int pageNumber = [pageNo intValue];
+        NSLog(@"Page %d", pageNumber);
+        isFirstPage = (pageToDisplay == 1);
+        isLastPage = YES;
+        if (pageNumber == pageToDisplay)
+        {
+            isCurrentPage = YES;
+            NSLog(@"PageId attribute (%d) equals pageToDisplay(%d)", pageNumber, pageToDisplay);
+        }
+        else if (pageNumber == pageToDisplay + 1)
+        {
+            isCurrentPage = NO;
+            isLastPage = NO;
+            NSLog(@"PageId attribute (%d) is the next page", pageNumber);
+        }
+        else if (pageNumber == pageToDisplay - 1)
+        {
+            isCurrentPage = NO;
+            NSLog(@"PageId attribute (%d) is the previous page", pageNumber);
+        }
+        else
+        {
+            isCurrentPage = NO;
+            NSLog(@"PageId attribute (%d) is neither the next or the previous page", pageNumber);
+        }
+    }
+      // New code for separating pages
+    if ([elementName isEqualToString:@"Field"] && isCurrentPage)
     {
       if (beginColumList)
         commaOrParen = @",";
@@ -2066,6 +2257,9 @@
 
 - (void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID
 {
+  updatevisibleScreenOnly = NO;
+  if (guidBeingUpdated)
+    updatevisibleScreenOnly = YES;
   [self clearButtonPressed];
   if (geocodingCheckbox)
     [geocodingCheckbox reset];
@@ -2074,6 +2268,8 @@
   
   NSString *tableName = [tableNameAndGUID objectAtIndex:0];
   NSString *guid = [tableNameAndGUID objectAtIndex:1];
+  guidBeingUpdated = guid;
+  tableBeingUpdated = tableName;
   recordUIDForUpdate = guid;
   
   NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -2107,46 +2303,54 @@
   }
   sqlite3_close(epiinfoDB);
   
-  for (UIView *v in [formCanvas subviews])
+  // New code for separating pages
+  for (id key in dictionaryOfPages)
   {
-    if ([v isKindOfClass:[EpiInfoTextField class]])
-      [(EpiInfoTextField *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(EpiInfoTextField *)v columnName] lowercaseString]]];
-    else if ([v isKindOfClass:[EpiInfoTextView class]])
-      [(EpiInfoTextView *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(EpiInfoTextView *)v columnName] lowercaseString]]];
-    else if ([v isKindOfClass:[Checkbox class]])
-      [(Checkbox *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(Checkbox *)v columnName] lowercaseString]]];
-    else if ([v isKindOfClass:[YesNo class]])
-      [(YesNo *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(YesNo *)v columnName] lowercaseString]]];
-    else if ([v isKindOfClass:[NumberField class]])
-      [(NumberField *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(NumberField *)v columnName] lowercaseString]]];
-    else if ([v isKindOfClass:[PhoneNumberField class]])
-      [(PhoneNumberField *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(PhoneNumberField *)v columnName] lowercaseString]]];
-    else if ([v isKindOfClass:[DateField class]])
-      [(DateField *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(DateField *)v columnName] lowercaseString]]];
-    else if ([v isKindOfClass:[UppercaseTextField class]])
-      [(UppercaseTextField *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(UppercaseTextField *)v columnName] lowercaseString]]];
-    else if ([v isKindOfClass:[LegalValues class]])
-    {
-      [(LegalValues *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(LegalValues *)v columnName] lowercaseString]]];
-      [(LegalValues *)v setPicked:(NSString *)[queriedColumnsAndValues objectForKey:[[(LegalValues *)v columnName] lowercaseString]]];
-    }
-    else
-      continue;
-  }
-  for (UIView *v in [self subviews])
-  {
-    if ([v isKindOfClass:[UIButton class]])
-    {
-      if ([(UIButton *)v tag] == 1)
+      if (updatevisibleScreenOnly && ![(NSString *)key isEqualToString:[NSString stringWithFormat:@"Page%d", pageToDisplay]])
+          continue;
+      
+      EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
+      for (UIView *v in [[tempedv formCanvas] subviews])
       {
-        [(UIButton *)v setTag:8];
-        [(UIButton *)v setImage:[UIImage imageNamed:@"UpdateButton.png"] forState:UIControlStateNormal];
+          if ([v isKindOfClass:[EpiInfoTextField class]])
+              [(EpiInfoTextField *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(EpiInfoTextField *)v columnName] lowercaseString]]];
+          else if ([v isKindOfClass:[EpiInfoTextView class]])
+              [(EpiInfoTextView *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(EpiInfoTextView *)v columnName] lowercaseString]]];
+          else if ([v isKindOfClass:[Checkbox class]])
+              [(Checkbox *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(Checkbox *)v columnName] lowercaseString]]];
+          else if ([v isKindOfClass:[YesNo class]])
+              [(YesNo *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(YesNo *)v columnName] lowercaseString]]];
+          else if ([v isKindOfClass:[NumberField class]])
+              [(NumberField *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(NumberField *)v columnName] lowercaseString]]];
+          else if ([v isKindOfClass:[PhoneNumberField class]])
+              [(PhoneNumberField *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(PhoneNumberField *)v columnName] lowercaseString]]];
+          else if ([v isKindOfClass:[DateField class]])
+              [(DateField *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(DateField *)v columnName] lowercaseString]]];
+          else if ([v isKindOfClass:[UppercaseTextField class]])
+              [(UppercaseTextField *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(UppercaseTextField *)v columnName] lowercaseString]]];
+          else if ([v isKindOfClass:[LegalValues class]])
+          {
+              [(LegalValues *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(LegalValues *)v columnName] lowercaseString]]];
+              [(LegalValues *)v setPicked:(NSString *)[queriedColumnsAndValues objectForKey:[[(LegalValues *)v columnName] lowercaseString]]];
+          }
+          else
+              continue;
       }
-      if ([(UIButton *)v tag] == 7)
+      for (UIView *v in [tempedv subviews])
       {
-        [(UIButton *)v setHidden:NO];
+          if ([v isKindOfClass:[UIButton class]])
+          {
+              if ([(UIButton *)v tag] == 1 && v.frame.size.width > 40)
+              {
+                  [(UIButton *)v setTag:8];
+                  [(UIButton *)v setImage:[UIImage imageNamed:@"UpdateButton.png"] forState:UIControlStateNormal];
+              }
+              if ([(UIButton *)v tag] == 7 && v.frame.size.width > 40)
+              {
+                  [(UIButton *)v setHidden:NO];
+              }
+          }
       }
-    }
   }
 }
 
