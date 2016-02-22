@@ -62,6 +62,7 @@
     
     NSMutableDictionary *legalValuesDictionaryForRVC;
     
+    NSMutableArray *keywordsArray;
     NSMutableArray *elementsArray;
     NSMutableArray *conditionsArray;
     NSMutableArray *elementListArray;
@@ -90,6 +91,7 @@
 @property NSMutableDictionary *dictionaryOfFields;
 @property NSMutableDictionary *dictionaryOfWordsArrays;
 
+@property (nonatomic) NSMutableArray *keywordsArray;
 @property (nonatomic) NSMutableArray *elementsArray;
 @property (nonatomic) NSMutableArray *conditionsArray;
 @property (nonatomic) NSMutableArray *elementListArray;

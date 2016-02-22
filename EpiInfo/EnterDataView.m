@@ -37,6 +37,7 @@
 @synthesize longitudeField = _longitudeField;
 @synthesize nameOfTheForm = _nameOfTheForm;
 @synthesize dictionaryOfFields = _dictionaryOfFields;
+@synthesize keywordsArray;
 @synthesize elementsArray;
 @synthesize elementListArray;
 @synthesize conditionsArray;
@@ -88,7 +89,7 @@
     xmlParser1 = [[NSXMLParser alloc] initWithContentsOfURL:self.url];
     [xmlParser1 setDelegate:self];
     [xmlParser1 setShouldResolveExternalEntities:YES];
-    
+      keywordsArray = [[NSMutableArray alloc]initWithObjects:@"enable",@"disable",@"highlight",@"unhighlight",@"set-required",@"set-not-required",@"assign",@"autosearch",@"call",@"clear",@"define",@"dialog",@"execute",@"geocode",@"goto",@"hide",@"unhide",@"if",@"newrecord",@"quit",@"gotoform", nil];
     firstParse = YES;
     BOOL success = [xmlParser parse];
     
@@ -3281,6 +3282,7 @@
             
         }
         NSString *elmt;
+        NSString *lastElmt;
         int eleCount = [self numberOfWordsInString:epc.stringValue];
         NSString *eleSp= [self removeSp:epc.stringValue];
         for (int j = 0; j<eleCount; j++) {
@@ -3290,36 +3292,51 @@
             
             if (![elmt isEqualToString:@""] && elmt)
             {
-                if ([elmt isEqualToString:@"disable"]) {
-                    ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] beforeAfter:epc.condition condition:@"disable"];
-                    [conditionsArray addObject:cModel];
-                    j++;
+                if ([self checkKeyWordArray:elmt])
+                {
+                    if ([elmt isEqualToString:@"disable"]) {
+                        
+                        ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] beforeAfter:epc.condition condition:@"disable"];
+                        [conditionsArray addObject:cModel];
+                        lastElmt = @"disable";
+                        j++;
 
+                    }
+                    else if ([elmt isEqualToString:@"enable"]) {
+                        ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] beforeAfter:epc.condition condition:@"enable"];
+                        [conditionsArray addObject:cModel];
+                        lastElmt = @"enable";
+                        j++;
+                    }
+                    else if ([elmt isEqualToString:@"set-required"]) {
+                        ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] beforeAfter:epc.condition condition:@"required"];
+                        [conditionsArray addObject:cModel];
+                        lastElmt = @"required";
+                        j++;
+                    }
+                    else if ([elmt isEqualToString:@"set-not-required"]) {
+                        ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] beforeAfter:epc.condition condition:@"notrequired"];
+                        [conditionsArray addObject:cModel];
+                        lastElmt = @"notrequired";
+                        j++;
+                    }
+                    else if ([elmt isEqualToString:@"highlight"]) {
+                        ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] beforeAfter:epc.condition condition:@"highlight"];
+                        [conditionsArray addObject:cModel];
+                        lastElmt = @"highlight";
+                        j++;
+                    }
+                    else if ([elmt isEqualToString:@"unhighlight"]) {
+                        ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] beforeAfter:epc.condition condition:@"unhighlight"];
+                        [conditionsArray addObject:cModel];
+                        lastElmt = @"unhighlight";
+                        j++;
+                    }
                 }
-                else if ([elmt isEqualToString:@"enable"]) {
-                    ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] beforeAfter:epc.condition condition:@"enable"];
+                
+                else{
+                    ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j] beforeAfter:epc.condition condition:lastElmt];
                     [conditionsArray addObject:cModel];
-                    j++;
-                }
-                else if ([elmt isEqualToString:@"set-required"]) {
-                    ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] beforeAfter:epc.condition condition:@"required"];
-                    [conditionsArray addObject:cModel];
-                    j++;
-                }
-                else if ([elmt isEqualToString:@"set-not-required"]) {
-                    ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] beforeAfter:epc.condition condition:@"notrequired"];
-                    [conditionsArray addObject:cModel];
-                    j++;
-                }
-                else if ([elmt isEqualToString:@"highlight"]) {
-                    ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] beforeAfter:epc.condition condition:@"highlight"];
-                    [conditionsArray addObject:cModel];
-                    j++;
-                }
-                else if ([elmt isEqualToString:@"unhighlight"]) {
-                    ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] beforeAfter:epc.condition condition:@"unhighlight"];
-                    [conditionsArray addObject:cModel];
-                    j++;
                 }
             }
             
@@ -3329,6 +3346,26 @@
 
     }
 
+}
+//      keywordsArray = [[NSMutableArray alloc]initWithObjects:@"enable",@"disable",@"highlight",@"unhighlight",@"set-required",@"set-not-required", nil];
+/* if ([self checkKeyWordArray:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j]])
+ {
+ }
+ else
+ {
+ ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j] beforeAfter:epc.condition condition:@"disable"];
+ [conditionsArray addObject:cModel];
+ }
+*/
+
+-(BOOL)checkKeyWordArray:(NSString *)str
+{
+    BOOL present =  NO;
+    
+    if ([keywordsArray containsObject:str]) {
+        present = YES;
+    }
+    return present;
 }
 - (NSUInteger)numberOfWordsInString:(NSString *)str
 {
