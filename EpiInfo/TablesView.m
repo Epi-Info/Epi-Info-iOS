@@ -335,7 +335,7 @@
             [gadgetTitle setFrame:CGRectMake(2, 116, 316 - 96, 44)];
             [xButton setFrame:CGRectMake(316 - 46, 116, 44, 44)];
             [gearButton setFrame:CGRectMake(316 - 92, 116, 44, 44)];
-            [outputView setFrame:CGRectMake(0, 46, frame.size.width, 10.0 *frame.size.height - 46)];
+            [outputView setFrame:CGRectMake(0, 46, frame.size.width, 10.0 * frame.size.height - 46)];
             if (inputViewDisplayed)
             {
                 if ([avc portraitOrientation])
@@ -831,7 +831,7 @@
                 else
                 {
                     //Add another output view
-                    UIView *outputView2 = [[UIView alloc] initWithFrame:CGRectMake(0 + 420.0 * rightSide, contentSizeHeight - amountToSubtract * rightSide, outputView.frame.size.width, outputView.frame.size.height)];
+                    UIView *outputView2 = [[UIView alloc] initWithFrame:CGRectMake(0 + 420.0 * rightSide, contentSizeHeight - amountToSubtract * rightSide, outputView.frame.size.width, 10 * outputView.frame.size.height)];
                     [outputView2 setBackgroundColor:[UIColor whiteColor]];
                     [self addSubview:outputView2];
                     [self doTwoByTwo:to OnOutputView:outputView2 StratificationVariable:stratificationVariableName StratificationValue:[fo.variableValues objectAtIndex:i]];
