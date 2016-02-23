@@ -68,6 +68,8 @@
     NSString *tableBeingUpdated;
     BOOL updatevisibleScreenOnly;
     BOOL populateInstructionCameFromLineList;
+    UIButton *nextPageButton;
+    UIButton *previousPageButton;
 }
 
 @property NSURL *url;

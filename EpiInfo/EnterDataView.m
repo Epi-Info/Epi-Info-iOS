@@ -171,7 +171,7 @@
     contentSizeHeight += 60.0;
     
     // New code for separating pages
-    UIButton *previousPageButton = [[UIButton alloc] initWithFrame:CGRectMake(clearButton.frame.origin.x - 44, clearButton.frame.origin.y, 40, 40)];
+    previousPageButton = [[UIButton alloc] initWithFrame:CGRectMake(clearButton.frame.origin.x - 44, clearButton.frame.origin.y, 40, 40)];
     [previousPageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
     [previousPageButton.layer setCornerRadius:4.0];
     [previousPageButton setTitle:@"Previous Page" forState:UIControlStateNormal];
@@ -180,6 +180,7 @@
     [previousPageButton.layer setCornerRadius:4.0];
     [previousPageButton addTarget:self action:@selector(previousOrNextPageButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [previousPageButton setTag:pageToDisplay - 1];
+    [previousPageButton setHidden:YES];
     [self addSubview:previousPageButton];
     if (isFirstPage)
     {
@@ -189,7 +190,7 @@
     {
         [previousPageButton setEnabled:YES];
     }
-    UIButton *nextPageButton = [[UIButton alloc] initWithFrame:CGRectMake(submitButton.frame.origin.x + 124, submitButton.frame.origin.y, 40, 40)];
+    nextPageButton = [[UIButton alloc] initWithFrame:CGRectMake(submitButton.frame.origin.x + 124, submitButton.frame.origin.y, 40, 40)];
     [nextPageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
     [nextPageButton.layer setCornerRadius:4.0];
     [nextPageButton setTitle:@"Next Page" forState:UIControlStateNormal];
@@ -198,12 +199,13 @@
     [nextPageButton.layer setCornerRadius:4.0];
     [nextPageButton addTarget:self action:@selector(previousOrNextPageButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [nextPageButton setTag:pageToDisplay + 1];
+    [nextPageButton setHidden:YES];
     [self addSubview:nextPageButton];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         [previousPageButton setFrame:CGRectMake(clearButton.frame.origin.x, clearButton.frame.origin.y + 42, 40, 40)];
         [nextPageButton setFrame:CGRectMake(submitButton.frame.origin.x + submitButton.frame.size.width - 40, submitButton.frame.origin.y + 42, 40, 40)];
-        contentSizeHeight += 42;
+//        contentSizeHeight += 42;
     }
     if (isLastPage)
     {
@@ -227,6 +229,16 @@
     UIButton *resignAllButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, formCanvas.frame.size.width, formCanvas.frame.size.height)];
     [resignAllButton setBackgroundColor:[UIColor clearColor]];
     [resignAllButton addTarget:self action:@selector(resignAll) forControlEvents:UIControlEventTouchUpInside];
+//    [resignAllButton addTarget:self action:@selector(userSwipedToTheRight) forControlEvents:UISwipeGestureRecognizerDirectionRight];
+      UISwipeGestureRecognizer *leftRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(userSwipedToTheLeft)];
+      [leftRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
+      [leftRecognizer setNumberOfTouchesRequired:1];
+      [resignAllButton addGestureRecognizer:leftRecognizer];
+      UISwipeGestureRecognizer *rightRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(userSwipedToTheRight)];
+      [rightRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
+      [rightRecognizer setNumberOfTouchesRequired:1];
+      [resignAllButton addGestureRecognizer:rightRecognizer];
+//    [resignAllButton addTarget:self action:@selector(userSwipedToTheLeft) forControlEvents:UISwipeGestureRecognizerDirectionLeft];
     [formCanvas addSubview:resignAllButton];
     [formCanvas sendSubviewToBack:resignAllButton];
     
@@ -245,13 +257,27 @@
     //        [self addSubview:dismissFormButton];
     
     //        [formCanvas setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"iPhoneDataEntryBackground.png"]]];
-    [formCanvas setBackgroundColor:[UIColor clearColor]];
+    [formCanvas setBackgroundColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:240/255.0 alpha:1.0]];
   }
   
   return self;
 }
 
 // New code for separating pages
+- (void)userSwipedToTheLeft
+{
+    if ([nextPageButton isEnabled])
+    {
+        [self previousOrNextPageButtonPressed:nextPageButton];
+    }
+}
+- (void)userSwipedToTheRight
+{
+    if ([previousPageButton isEnabled])
+    {
+        [self previousOrNextPageButtonPressed:previousPageButton];
+    }
+}
 - (void)previousOrNextPageButtonPressed:(UIButton *)sender
 {
     if (!dictionaryOfPages)
@@ -259,6 +285,28 @@
         dictionaryOfPages = [[NSMutableDictionary alloc] init];
     }
     [dictionaryOfPages setObject:self forKey:[NSString stringWithFormat:@"Page%d", pageToDisplay]];
+    if ([sender tag] < pageToDisplay)
+    {
+        [UIView transitionWithView:self.window
+                          duration:0.4f
+                           options:UIViewAnimationOptionTransitionFlipFromLeft
+                        animations:^{
+                        }
+                        completion:^(BOOL finished){
+                            [self removeFromSuperview];
+                        }];
+    }
+    else
+    {
+        [UIView transitionWithView:self.window
+                          duration:0.4f
+                           options:UIViewAnimationOptionTransitionFlipFromRight
+                        animations:^{
+                        }
+                        completion:^(BOOL finished){
+                            [self removeFromSuperview];
+                        }];
+    }
     [self removeFromSuperview];
     [self setContentOffset:CGPointZero animated:NO];
     if ([dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]])
