@@ -1480,7 +1480,7 @@
           commaPosition = (int)[geocodeString rangeOfString:@"End-Click"].location;
           [self setLongitudeField:[[[[geocodeString substringToIndex:commaPosition] stringByReplacingOccurrencesOfString:@" " withString:@""] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""]];
         }
-        while ((int)[checkCodeString rangeOfString:@"//"].location >= 0 && (int)[checkCodeString rangeOfString:@"//"].location < checkCodeString.length)
+      /* while ((int)[checkCodeString rangeOfString:@"//"].location >= 0 && (int)[checkCodeString rangeOfString:@"//"].location < checkCodeString.length)
         {
           NSRange slashrange = [checkCodeString rangeOfString:@"//"];
           NSRange crrange = [[checkCodeString substringFromIndex:(int)slashrange.location] rangeOfString:@"\n"];
@@ -1497,7 +1497,7 @@
 //          NSLog(@"%@", wordsArray);
           [self.dictionaryOfWordsArrays setObject:wordsArray forKey:(NSString *)[wordsArray objectAtIndex:0]];
           checkCodeString = [checkCodeString substringFromIndex:endfieldrange.location + endfieldrange.length];
-        }
+        }*/
           NSMutableArray *eleTemArray = [[NSMutableArray alloc]init];
           eleTemArray=[ccp sendArray];
           [self copyToArray:eleTemArray];
@@ -1505,6 +1505,18 @@
     }
     if ([elementName isEqualToString:@"Field"])
     {
+        if ([[attributeDict objectForKey:@"FieldTypeId"] intValue] < 26 &&
+            [[attributeDict objectForKey:@"FieldTypeId"] intValue] != 2 &&
+            [[attributeDict objectForKey:@"FieldTypeId"] intValue] != 13 &&
+            [[attributeDict objectForKey:@"FieldTypeId"] intValue] != 15 &&
+            [[attributeDict objectForKey:@"FieldTypeId"] intValue] != 20 &&
+            [[attributeDict objectForKey:@"FieldTypeId"] intValue] != 21 &&
+            [[attributeDict objectForKey:@"FieldTypeId"] intValue] != 22 &&
+            [[attributeDict objectForKey:@"FieldTypeId"] intValue] != 23 &&
+            [[attributeDict objectForKey:@"FieldTypeId"] intValue] != 24 &&
+            [[attributeDict objectForKey:@"FieldTypeId"] intValue] != 16)
+        {
+
       if (beginColumList)
         commaOrParen = @",";
       else
@@ -2378,7 +2390,15 @@
         [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
         [lv setColumnName:[attributeDict objectForKey:@"Name"]];
         // Add the array of values to the root view controller's legal values dictionary
-        [legalValuesDictionaryForRVC setObject:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]] forKey:[lv.columnName lowercaseString]];
+        //Add check for nil
+          //if ([attributeDict objectForKey:@"SourceTableName"]) {
+          if([legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]])
+          {
+          NSString *tblName = [attributeDict objectForKey:@"SourceTableName"];
+              NSLog(@"*****%@",tblName);
+          
+          [legalValuesDictionaryForRVC setObject:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]] forKey:[lv.columnName lowercaseString]];
+          }
         beginColumList = YES;
         [self.dictionaryOfFields setObject:lv forKey:[attributeDict objectForKey:@"Name"]];
       }
@@ -2607,6 +2627,7 @@
           epc.type = 25;
           epc.tag = tagNum;
           epc.promptText = [attributeDict objectForKey:@"PromptText"];
+          epc.input = 1;
           [elementListArray addObject:epc];
           [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
           if([self checkElements:[attributeDict objectForKey:@"Name"] Tag:tagNum type:25 from:@"before" from:@"page"])
@@ -2650,6 +2671,7 @@
       }
       contentSizeHeight += 60.0;
     }
+  }
   }
   
   for (id key in attributeDict)
@@ -4176,7 +4198,7 @@ newStr{
 
 -(void)showAlertForType:(int)newType tag:(NSInteger *)newTag
 {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Missing Required Fields" message:@"Please enter all valid fields data" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Missing Required Fields" message:@"Please fill in all required fields" preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         [self gotoMissingFieldtype:newType tag:newTag];
