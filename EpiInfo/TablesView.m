@@ -831,7 +831,7 @@
                 else
                 {
                     //Add another output view
-                    UIView *outputView2 = [[UIView alloc] initWithFrame:CGRectMake(0 + 420.0 * rightSide, contentSizeHeight - amountToSubtract * rightSide, outputView.frame.size.width, outputView.frame.size.height)];
+                    UIView *outputView2 = [[UIView alloc] initWithFrame:CGRectMake(0 + 420.0 * rightSide, contentSizeHeight - amountToSubtract * rightSide, outputView.frame.size.width, 10.0 * outputView.frame.size.height)];
                     [outputView2 setBackgroundColor:[UIColor whiteColor]];
                     [self addSubview:outputView2];
                     [self doTwoByTwo:to OnOutputView:outputView2 StratificationVariable:stratificationVariableName StratificationValue:[fo.variableValues objectAtIndex:i]];
