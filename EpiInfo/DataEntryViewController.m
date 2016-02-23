@@ -728,7 +728,8 @@
             [lineListButton addTarget:self action:@selector(lineListButtonPressed) forControlEvents:UIControlEventTouchUpInside];
             [orangeBanner addSubview:lineListButton];
             
-            [header setText:[NSString stringWithFormat:@"%@", [edv formName]]];
+            [edv setPageBeingDisplayed:[NSNumber numberWithInt:1]];
+            [header setText:[NSString stringWithFormat:@"%@, page %d of %lu", [edv formName], [edv pageBeingDisplayed].intValue, (unsigned long)[edv pagesArray].count]];
             float fontSize = 32.0;
             while ([header.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontSize]}].width > 180)
                 fontSize -= 0.1;

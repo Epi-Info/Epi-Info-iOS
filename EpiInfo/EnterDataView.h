@@ -70,6 +70,8 @@
     BOOL populateInstructionCameFromLineList;
     UIButton *nextPageButton;
     UIButton *previousPageButton;
+    
+    NSNumber *pageBeingDisplayed;
 }
 
 @property NSURL *url;
@@ -106,4 +108,7 @@
 -(void)fieldBecameFirstResponder:(id)field;
 -(void)fieldResignedFirstResponder:(id)field;
 -(void)checkboxChanged:(Checkbox *)checkbox;
+
+-(void)setPageBeingDisplayed:(NSNumber *)page;
+-(NSNumber *)pageBeingDisplayed;
 @end

@@ -69,6 +69,15 @@
     populateInstructionCameFromLineList = yesNo;
 }
 
+- (void)setPageBeingDisplayed:(NSNumber *)page
+{
+    pageBeingDisplayed = page;
+}
+- (NSNumber *)pageBeingDisplayed
+{
+    return pageBeingDisplayed;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
   self = [super initWithFrame:frame];
@@ -331,6 +340,13 @@
         if ([[v backgroundColor] isEqual:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:0.95]])
         {
             [self.rootViewController.view bringSubviewToFront:v];
+            for (UIView *l in [v subviews])
+            {
+                if ([l isKindOfClass:[UILabel class]])
+                {
+                    [(UILabel *)l setText:[NSString stringWithFormat:@"%@, page %d of %lu", formName, (int)[sender tag], (unsigned long)[self pagesArray].count]];
+                }
+            }
         }
     }
 }
@@ -1440,6 +1456,13 @@
             if ([[v backgroundColor] isEqual:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:0.95]])
             {
                 [self.rootViewController.view bringSubviewToFront:v];
+                for (UIView *l in [v subviews])
+                {
+                    if ([l isKindOfClass:[UILabel class]])
+                    {
+                        [(UILabel *)l setText:[NSString stringWithFormat:@"%@, page 1 of %lu", formName, (unsigned long)[self pagesArray].count]];
+                    }
+                }
             }
         }
         
