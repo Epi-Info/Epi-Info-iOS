@@ -62,6 +62,7 @@
 - (void)setGuidBeingUpdated:(NSString *)gbu
 {
     guidBeingUpdated = gbu;
+    recordUIDForUpdate = gbu;
 }
 
 - (void)setPopulateInstructionCameFromLineList:(BOOL)yesNo
@@ -322,6 +323,7 @@
     {
         [self.rootViewController.view addSubview:[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]]];
         [self.rootViewController.view bringSubviewToFront:[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]]];
+        [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] setGuidBeingUpdated:recordUIDForUpdate];
     }
     else
     {
