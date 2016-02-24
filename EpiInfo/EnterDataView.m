@@ -317,6 +317,7 @@
                             [self removeFromSuperview];
                         }];
     }
+    [self resignAll];
     [self removeFromSuperview];
     [self setContentOffset:CGPointZero animated:NO];
     if ([dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]])
