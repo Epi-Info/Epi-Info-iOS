@@ -94,6 +94,11 @@
 		68F0E84316E5393600ADD7A3 /* PopT.png in Resources */ = {isa = PBXBuildFile; fileRef = 68F0E84216E5393600ADD7A3 /* PopT.png */; };
 		68F0E84516E53BA700ADD7A3 /* PoissonTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 68F0E84416E53BA700ADD7A3 /* PoissonTop.png */; };
 		68F0E84716E53C5C00ADD7A3 /* MPBOT.png in Resources */ = {isa = PBXBuildFile; fileRef = 68F0E84616E53C5C00ADD7A3 /* MPBOT.png */; };
+		84FDC0621C5BF31F0090A744 /* CheckCodeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FDC05B1C5BF31F0090A744 /* CheckCodeParser.m */; };
+		84FDC0631C5BF31F0090A744 /* ConditionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FDC05D1C5BF31F0090A744 /* ConditionsModel.m */; };
+		84FDC0641C5BF31F0090A744 /* ElementPairsCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FDC05F1C5BF31F0090A744 /* ElementPairsCheck.m */; };
+		84FDC0651C5BF31F0090A744 /* ElementsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FDC0611C5BF31F0090A744 /* ElementsModel.m */; };
+		84FDC0691C776EAC0090A744 /* LegalValuesEnter.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FDC0681C776EAC0090A744 /* LegalValuesEnter.m */; };
 		92001B97186C8C2E00B87D21 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92001B96186C8C2E00B87D21 /* CoreImage.framework */; };
 		92001B9C186C979E00B87D21 /* NoButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92001B98186C979E00B87D21 /* NoButton.png */; };
 		92001B9D186C979E00B87D21 /* NoButtonOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 92001B99186C979E00B87D21 /* NoButtonOrange.png */; };
@@ -483,6 +488,16 @@
 		68F0E84216E5393600ADD7A3 /* PopT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopT.png; sourceTree = "<group>"; };
 		68F0E84416E53BA700ADD7A3 /* PoissonTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoissonTop.png; sourceTree = "<group>"; };
 		68F0E84616E53C5C00ADD7A3 /* MPBOT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPBOT.png; sourceTree = "<group>"; };
+		84FDC05A1C5BF31F0090A744 /* CheckCodeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckCodeParser.h; sourceTree = "<group>"; };
+		84FDC05B1C5BF31F0090A744 /* CheckCodeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckCodeParser.m; sourceTree = "<group>"; };
+		84FDC05C1C5BF31F0090A744 /* ConditionsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionsModel.h; sourceTree = "<group>"; };
+		84FDC05D1C5BF31F0090A744 /* ConditionsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionsModel.m; sourceTree = "<group>"; };
+		84FDC05E1C5BF31F0090A744 /* ElementPairsCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElementPairsCheck.h; sourceTree = "<group>"; };
+		84FDC05F1C5BF31F0090A744 /* ElementPairsCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElementPairsCheck.m; sourceTree = "<group>"; };
+		84FDC0601C5BF31F0090A744 /* ElementsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElementsModel.h; sourceTree = "<group>"; };
+		84FDC0611C5BF31F0090A744 /* ElementsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElementsModel.m; sourceTree = "<group>"; };
+		84FDC0671C776EAC0090A744 /* LegalValuesEnter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegalValuesEnter.h; sourceTree = "<group>"; };
+		84FDC0681C776EAC0090A744 /* LegalValuesEnter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegalValuesEnter.m; sourceTree = "<group>"; };
 		92001B96186C8C2E00B87D21 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		92001B98186C979E00B87D21 /* NoButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoButton.png; sourceTree = "<group>"; };
 		92001B99186C979E00B87D21 /* NoButtonOrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoButtonOrange.png; sourceTree = "<group>"; };
@@ -1274,6 +1289,21 @@
 			name = Analysis;
 			sourceTree = "<group>";
 		};
+		84FDC0661C5BF32C0090A744 /* CheckCode */ = {
+			isa = PBXGroup;
+			children = (
+				84FDC05A1C5BF31F0090A744 /* CheckCodeParser.h */,
+				84FDC05B1C5BF31F0090A744 /* CheckCodeParser.m */,
+				84FDC05C1C5BF31F0090A744 /* ConditionsModel.h */,
+				84FDC05D1C5BF31F0090A744 /* ConditionsModel.m */,
+				84FDC05E1C5BF31F0090A744 /* ElementPairsCheck.h */,
+				84FDC05F1C5BF31F0090A744 /* ElementPairsCheck.m */,
+				84FDC0601C5BF31F0090A744 /* ElementsModel.h */,
+				84FDC0611C5BF31F0090A744 /* ElementsModel.m */,
+			);
+			name = CheckCode;
+			sourceTree = "<group>";
+		};
 		921974981880589F007F6DFA /* MSAzure */ = {
 			isa = PBXGroup;
 			children = (
@@ -1378,6 +1408,7 @@
 		9266C5251846571B00739AF2 /* Entry */ = {
 			isa = PBXGroup;
 			children = (
+				84FDC0661C5BF32C0090A744 /* CheckCode */,
 				92E9801218A538B40011CC8B /* ButtonImages */,
 				9266C526184657E900739AF2 /* DataEntryViewController.h */,
 				9266C527184657E900739AF2 /* DataEntryViewController.m */,
@@ -1411,6 +1442,8 @@
 				9266C53F184684FD00739AF2 /* UppercaseTextField.m */,
 				9266C54118468CCF00739AF2 /* LegalValues.h */,
 				9266C54218468CCF00739AF2 /* LegalValues.m */,
+				84FDC0671C776EAC0090A744 /* LegalValuesEnter.h */,
+				84FDC0681C776EAC0090A744 /* LegalValuesEnter.m */,
 				92DBD601193CC57100A40691 /* EpiInfoOptionField.h */,
 				92DBD602193CC57100A40691 /* EpiInfoOptionField.m */,
 				92A25C0519391A97003225E1 /* EpiInfoCodesField.h */,
@@ -1533,7 +1566,7 @@
 				ORGANIZATIONNAME = "John Copeland";
 				TargetAttributes = {
 					4AFD8524161F137B00FFBA65 = {
-						DevelopmentTeam = Z827RBGAJC;
+						DevelopmentTeam = PATB5TL5AY;
 						SystemCapabilities = {
 							com.apple.DataProtection = {
 								enabled = 1;
@@ -1828,6 +1861,7 @@
 				4AFD8563161F17D900FFBA65 /* MatchedPairCompute.m in Sources */,
 				9291F43E1AA779C60041DE6E /* SimulationsViewControllerSwift.swift in Sources */,
 				9247F20F181ADB4E00C96F94 /* BlurryView.m in Sources */,
+				84FDC0641C5BF31F0090A744 /* ElementPairsCheck.m in Sources */,
 				92DBD603193CC57100A40691 /* EpiInfoOptionField.m in Sources */,
 				4AFD8564161F17D900FFBA65 /* Twox2Compute.m in Sources */,
 				4AFD8567161F413B00FFBA65 /* SharedResources.m in Sources */,
@@ -1839,6 +1873,7 @@
 				4AFD8574161F531400FFBA65 /* PopulationSurveyView.m in Sources */,
 				4AFD8577161F563100FFBA65 /* SampleSizeAndPowerViewController.m in Sources */,
 				92119A601923FBD3008155F7 /* EpiInfoViewController.m in Sources */,
+				84FDC0631C5BF31F0090A744 /* ConditionsModel.m in Sources */,
 				4A409A6D161F6CFB0038F572 /* PopulationSurveySampleSizeCompute.m in Sources */,
 				4AC7D6241625BD640056A8AC /* CohortSampleSizeViewController.m in Sources */,
 				9266C53D184684CA00739AF2 /* DateField.m in Sources */,
@@ -1850,6 +1885,7 @@
 				922825041863821700DF9493 /* EnterDataView.m in Sources */,
 				4AB23ED316284EE600AE47C0 /* UnmatchedCaseControlSampleSizeCompute.m in Sources */,
 				92E1A83918730614003E58A5 /* EpiInfoTextField.m in Sources */,
+				84FDC0691C776EAC0090A744 /* LegalValuesEnter.m in Sources */,
 				924D8AAA1AAE2BA1005A6253 /* CohortSimulationModel.swift in Sources */,
 				92921B9919A6427000AA9477 /* MeansView.m in Sources */,
 				4AB23ED616288B9900AE47C0 /* ChiSquareCalculatorViewController.m in Sources */,
@@ -1858,6 +1894,7 @@
 				4AB23EDF16289C8C00AE47C0 /* PoissonCalculatorCompute.m in Sources */,
 				4A071E891639C2E3002C05E9 /* BinomialCalculatorCompute.m in Sources */,
 				4A943006163F144400138E0A /* ChiSquareCalculatorCompute.m in Sources */,
+				84FDC0621C5BF31F0090A744 /* CheckCodeParser.m in Sources */,
 				92EBAD03194A400D000EF983 /* EpiInfoUILabel.m in Sources */,
 				92B8E4CC191A8011007E4ECC /* EpiInfoLineListView.m in Sources */,
 				9268178B1AA8D27900935BE9 /* CohortSimulationView.swift in Sources */,
@@ -1865,6 +1902,7 @@
 				4A50FF0E16A4443F00A638C4 /* Twox2SummaryData.m in Sources */,
 				9262713B18213D5D002C1C73 /* EpiInfoIconSegue.m in Sources */,
 				6878E46C16EF55840081F949 /* DrawCurveView.m in Sources */,
+				84FDC0651C5BF31F0090A744 /* ElementsModel.m in Sources */,
 				6836D0AA16F3478400AC190E /* AnalysisViewController.m in Sources */,
 				4A0B99BB174BA98F00FF417B /* ZoomView.m in Sources */,
 				92A25C041939005A003225E1 /* MirrorField.m in Sources */,
@@ -2005,7 +2043,7 @@
 					"$(SRCROOT)",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = EpiInfo;
+				PRODUCT_BUNDLE_IDENTIFIER = EpiInfoS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "EpiInfo/EpiInfo-Bridging-Header.h";
@@ -2037,7 +2075,7 @@
 					"$(SRCROOT)",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = EpiInfo;
+				PRODUCT_BUNDLE_IDENTIFIER = EpiInfoS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "EpiInfo/EpiInfo-Bridging-Header.h";
