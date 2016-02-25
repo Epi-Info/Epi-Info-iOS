@@ -125,6 +125,8 @@
 		921D534C1892E12900FA8E0A /* CohortSSScreenPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 921D534B1892E12900FA8E0A /* CohortSSScreenPad.png */; };
 		921D534E1892E18E00FA8E0A /* PopulationSSScreenPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 921D534D1892E18E00FA8E0A /* PopulationSSScreenPad.png */; };
 		921D53501892E1F900FA8E0A /* CaseControlSSScreenPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 921D534F1892E1F800FA8E0A /* CaseControlSSScreenPad.png */; };
+		921ED31E1C7F7043004C6091 /* RelateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 921ED31D1C7F7043004C6091 /* RelateButton.m */; };
+		921ED3201C7F7462004C6091 /* PlainPurpleButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 921ED31F1C7F7462004C6091 /* PlainPurpleButton.png */; };
 		922227A719BA150A002CD855 /* icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 922227A019BA150A002CD855 /* icon-29.png */; };
 		922227A819BA150A002CD855 /* icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 922227A119BA150A002CD855 /* icon-40.png */; };
 		922227A919BA150A002CD855 /* icon-58.png in Resources */ = {isa = PBXBuildFile; fileRef = 922227A219BA150A002CD855 /* icon-58.png */; };
@@ -521,6 +523,9 @@
 		921D534B1892E12900FA8E0A /* CohortSSScreenPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CohortSSScreenPad.png; sourceTree = "<group>"; };
 		921D534D1892E18E00FA8E0A /* PopulationSSScreenPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopulationSSScreenPad.png; sourceTree = "<group>"; };
 		921D534F1892E1F800FA8E0A /* CaseControlSSScreenPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CaseControlSSScreenPad.png; sourceTree = "<group>"; };
+		921ED31C1C7F7043004C6091 /* RelateButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelateButton.h; sourceTree = "<group>"; };
+		921ED31D1C7F7043004C6091 /* RelateButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelateButton.m; sourceTree = "<group>"; };
+		921ED31F1C7F7462004C6091 /* PlainPurpleButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlainPurpleButton.png; sourceTree = "<group>"; };
 		922227A019BA150A002CD855 /* icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-29.png"; sourceTree = "<group>"; };
 		922227A119BA150A002CD855 /* icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40.png"; sourceTree = "<group>"; };
 		922227A219BA150A002CD855 /* icon-58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-58.png"; sourceTree = "<group>"; };
@@ -1430,6 +1435,8 @@
 				92A25BFC1938DAD2003225E1 /* TimePicker.h */,
 				92A25BFD1938DAD2003225E1 /* TimePicker.m */,
 				92A1F68E1B03E9A4004654B8 /* CheckCode.swift */,
+				921ED31C1C7F7043004C6091 /* RelateButton.h */,
+				921ED31D1C7F7043004C6091 /* RelateButton.m */,
 			);
 			name = Entry;
 			sourceTree = "<group>";
@@ -1470,6 +1477,7 @@
 				92282506186387DA00DF9493 /* ClearButtonOrange.png */,
 				92C419D81921595000FA46EA /* DeleteButton.png */,
 				924770811C4015EF008F8C90 /* ManageButtonOrange.png */,
+				921ED31F1C7F7462004C6091 /* PlainPurpleButton.png */,
 				92001B98186C979E00B87D21 /* NoButton.png */,
 				92001B99186C979E00B87D21 /* NoButtonOrange.png */,
 				926CDF3518AEB7480002B544 /* OKButton.png */,
@@ -1677,6 +1685,7 @@
 				92E9801718A538C30011CC8B /* MSAzureNR.png in Resources */,
 				926C9D591A7AB3EC004A6ADD /* SimulationButton.png in Resources */,
 				9248EC95195AF6720055EC9B /* StatCalc5.png in Resources */,
+				921ED3201C7F7462004C6091 /* PlainPurpleButton.png in Resources */,
 				92D03BD818848B4E0062D75A /* PMCCScreen5.png in Resources */,
 				92EEE3551C28815900912007 /* icon-87.png in Resources */,
 				92A192511C690DD40095E69F /* PreviousPage.png in Resources */,
@@ -1827,6 +1836,7 @@
 				920AE61019C88D71001C96CE /* EpiInfoViewForRounding.m in Sources */,
 				4AFD8557161F179600FFBA65 /* StatCalc2x2ViewController.m in Sources */,
 				4AFD8558161F179600FFBA65 /* Twox2CalculatorView.m in Sources */,
+				921ED31E1C7F7043004C6091 /* RelateButton.m in Sources */,
 				926F4AA11946361200F476C3 /* UIPickerViewWithBlurryBackground.m in Sources */,
 				4AFD855D161F17B000FFBA65 /* MatchedPairCalculatorView.m in Sources */,
 				9295554A192BC8C5008DEC5C /* DatePicker.m in Sources */,

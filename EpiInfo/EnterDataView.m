@@ -1432,6 +1432,7 @@
 - (void)doNotSubmitOrClear
 {
   for (UIView *v in [self.superview subviews])
+  {
     if ([v isKindOfClass:[BlurryView class]])
     {
       [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -1440,6 +1441,10 @@
         [v removeFromSuperview];
       }];
     }
+  }
+    for (id v in [formCanvas subviews])
+        if (![v isKindOfClass:[UILabel class]])
+            [v setEnabled:YES];
 }
 - (void)clearButtonPressed
 {
@@ -2255,13 +2260,24 @@
         beginColumList = YES;
         [self.dictionaryOfFields setObject:tf forKey:[attributeDict objectForKey:@"Name"]];
       }
+      else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"20"])
+      {
+          NSLog(@"Adding a relate button.");
+          RelateButton *tf = [[RelateButton alloc] initWithFrame:CGRectMake(20, contentSizeHeight + 40, 240, 40)];
+          [tf.layer setCornerRadius:8.0];
+          [tf setTitle:[attributeDict objectForKey:@"PromptText"] forState:UIControlStateNormal];
+          [formCanvas addSubview:tf];
+          contentSizeHeight += 40.0;
+          [elementLabel setHidden:YES];
+      }
       else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"21"])
       {
-        contentSizeHeight -= 25.0;
+          contentSizeHeight -= 25.0;
       }
       else
       {
         //                                NSLog(@"%@", [attributeDict objectForKey:@"FieldTypeId"]);
+          [elementLabel setHidden:YES];
       }
       contentSizeHeight += 60.0;
     }

@@ -21,6 +21,7 @@
 #import "EpiInfoOptionField.h"
 #import "EpiInfoCodesField.h"
 #import "EpiInfoUniqueIDField.h"
+#import "RelateButton.h"
 #import "SaveFormView.h"
 #import "BlurryView.h"
 #import <UIKit/UIKit.h>
