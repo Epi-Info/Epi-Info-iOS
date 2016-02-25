@@ -8,5 +8,9 @@
 #import <UIKit/UIKit.h>
 
 @interface RelateButton : UIButton
-
+{
+    NSString *relatedViewName;
+}
+-(void)setRelatedViewName:(NSString *)rvn;
+-(NSString *)relatedViewName;
 @end

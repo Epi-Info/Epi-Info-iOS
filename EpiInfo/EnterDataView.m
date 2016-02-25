@@ -2262,10 +2262,11 @@
       }
       else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"20"])
       {
-          NSLog(@"Adding a relate button.");
           RelateButton *tf = [[RelateButton alloc] initWithFrame:CGRectMake(20, contentSizeHeight + 40, 240, 40)];
-          [tf.layer setCornerRadius:8.0];
+          [tf.layer setCornerRadius:4.0];
           [tf setTitle:[attributeDict objectForKey:@"PromptText"] forState:UIControlStateNormal];
+          if ([attributeDict objectForKey:@"RelatedViewName"])
+              [tf setRelatedViewName:[attributeDict objectForKey:@"RelatedViewName"]];
           [formCanvas addSubview:tf];
           contentSizeHeight += 40.0;
           [elementLabel setHidden:YES];

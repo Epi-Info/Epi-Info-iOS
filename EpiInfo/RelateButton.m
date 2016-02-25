@@ -9,6 +9,15 @@
 
 @implementation RelateButton
 
+- (void)setRelatedViewName:(NSString *)rvn
+{
+    relatedViewName = rvn;
+}
+- (NSString *)relatedViewName
+{
+    return relatedViewName;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -40,7 +49,7 @@
 
 - (void)selfPressed:(UIButton *)sender
 {
-    NSLog(@"Self pressed");
+    NSLog(@"Load table %@", relatedViewName);
 }
 
 /*
