@@ -88,6 +88,7 @@
             [includeMissingLabel setTextAlignment:NSTextAlignmentLeft];
             [includeMissingLabel setTextColor:epiInfoLightBlue];
             [includeMissingLabel setText:@"Include missing"];
+            [includeMissingLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
             [inputView addSubview:includeMissingLabel];
             [inputView sendSubviewToBack:includeMissingLabel];
             
