@@ -2240,6 +2240,14 @@
     [edv setPopulateInstructionCameFromLineList:NO];
 }
 
+- (void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID OnEnterDataView:(UIView *)onEdv
+{
+    [(EnterDataView *)onEdv setGuidBeingUpdated:nil];
+    [(EnterDataView *)onEdv setPopulateInstructionCameFromLineList:YES];
+    [(EnterDataView *)onEdv populateFieldsWithRecord:tableNameAndGUID];
+    [(EnterDataView *)onEdv setPopulateInstructionCameFromLineList:NO];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

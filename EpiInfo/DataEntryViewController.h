@@ -48,5 +48,6 @@
 @property NSMutableDictionary *legalValuesDictionary;
 -(UIButton *)openButton;
 -(void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID;
+-(void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID OnEnterDataView:(UIView *)onEdv;
 -(UIImageView *)backgroundImage;
 @end

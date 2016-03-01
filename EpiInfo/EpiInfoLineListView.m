@@ -94,6 +94,14 @@
     return self;
 }
 
+- (id)initWithFrame:(CGRect)frame andFormName:(NSString *)fn forChildForm:(UIView *)childForm
+{
+    self = [self initWithFrame:frame andFormName:fn];
+    forChildForm = YES;
+    targetEnterDataView = childForm;
+    return self;
+}
+
 - (void)removeSelfFromSuperview
 {
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -200,6 +208,10 @@
     if (forVHF)
     {
         [(VHFViewController *)[self.superview nextResponder] populateFieldsWithRecord:[NSArray arrayWithObjects:formName, (NSString *)[guids objectAtIndex:indexPath.item], nil]];
+    }
+    else if (forChildForm)
+    {
+        [(DataEntryViewController *)[self.superview nextResponder] populateFieldsWithRecord:[NSArray arrayWithObjects:formName, (NSString *)[guids objectAtIndex:indexPath.item], nil] OnEnterDataView:targetEnterDataView];
     }
     else
     {

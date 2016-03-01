@@ -17,11 +17,14 @@
     NSMutableArray *allGuids;
     sqlite3 *epiinfoDB;
     BOOL forVHF;
+    BOOL forChildForm;
     UITextField *searchField;
+    UIView *targetEnterDataView;
 }
 
 @property UITableView *tv;
 
 -(id)initWithFrame:(CGRect)frame andFormName:(NSString *)fn;
 -(id)initWithFrame:(CGRect)frame andFormName:(NSString *)fn forVHFContactTracing:(BOOL)isVHF;
+-(id)initWithFrame:(CGRect)frame andFormName:(NSString *)fn forChildForm:(UIView *)childForm;
 @end

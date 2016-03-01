@@ -115,6 +115,17 @@
         //            [xButton.layer setBorderWidth:1.0];
         [xButton addTarget:self action:@selector(confirmDismissal) forControlEvents:UIControlEventTouchUpInside];
         [orangeBanner addSubview:xButton];
+        
+        UIButton *lineListButton = [[UIButton alloc] initWithFrame:CGRectMake(34, 2, 30, 30)];
+        [lineListButton setBackgroundColor:[UIColor clearColor]];
+        [lineListButton setImage:[UIImage imageNamed:@"LineList6060.png"] forState:UIControlStateNormal];
+        [lineListButton setTitle:@"Show line listing" forState:UIControlStateNormal];
+        [lineListButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+        [lineListButton setAlpha:0.5];
+        [lineListButton.layer setMasksToBounds:YES];
+        [lineListButton.layer setCornerRadius:8.0];
+        [lineListButton addTarget:self action:@selector(lineListButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [orangeBanner addSubview:lineListButton];
     }
 }
 
@@ -234,6 +245,18 @@
     } completion:^(BOOL finished){
         [dismissView removeFromSuperview];
         dismissView = nil;
+    }];
+}
+
+- (void)lineListButtonPressed
+{
+    // Initialize a Line List View and move it into place
+    EpiInfoLineListView *eillv = [[EpiInfoLineListView alloc] initWithFrame:CGRectMake(0, -parentEDV.superview.frame.size.height, parentEDV.superview.frame.size.width, parentEDV.superview.frame.size.height - orangeBanner.frame.origin.y) andFormName:[(EnterDataView *)edv formName] forChildForm:(EnterDataView *)edv];
+    [parentEDV.superview addSubview:eillv];
+    
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [eillv setFrame:CGRectMake(0, orangeBanner.frame.origin.y, eillv.frame.size.width, eillv.frame.size.height)];
+    } completion:^(BOOL finished){
     }];
 }
 
