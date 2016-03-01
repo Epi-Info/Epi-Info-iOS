@@ -298,7 +298,9 @@
         
         [self.phoneConfidenceLevelLabel setFrame:phoneConfidenceLevelLabelFrame];
         [self.phoneConfidenceLevelLabel setBackgroundColor:[UIColor clearColor]];
-        [self.phoneConfidenceLevelLabel setText:@"Power"];
+        [self.phoneConfidenceLevelLabel setLineBreakMode:NSLineBreakByWordWrapping];
+        [self.phoneConfidenceLevelLabel setText:@"Conf. Level"];
+        [self.phoneConfidenceLevelLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0]];
         [phoneResultsView addSubview:self.phoneConfidenceLevelLabel];
         [self.phoneClusterSizeLabel setFrame:phoneClusterSizeLabelFrame];
         [self.phoneClusterSizeLabel setBackgroundColor:[UIColor clearColor]];
