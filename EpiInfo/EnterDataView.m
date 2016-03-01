@@ -79,6 +79,15 @@
     return pageBeingDisplayed;
 }
 
+- (void)setMyOrangeBanner:(UIView *)mob
+{
+    myOrangeBanner = mob;
+}
+- (UIView *)myOrangeBanner
+{
+    return myOrangeBanner;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
   self = [super initWithFrame:frame];
@@ -1461,7 +1470,7 @@
             [tempedv removeFromSuperview];
         for (UIView *v in [self.rootViewController.view subviews])
         {
-            if ([[v backgroundColor] isEqual:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:0.95]])
+            if ([[v backgroundColor] isEqual:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:0.95]] && v == myOrangeBanner)
             {
                 [self.rootViewController.view bringSubviewToFront:v];
                 for (UIView *l in [v subviews])

@@ -46,6 +46,7 @@
     BOOL useDotForDecimal;
 }
 @property NSMutableDictionary *legalValuesDictionary;
+-(UIButton *)openButton;
 -(void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID;
 -(UIImageView *)backgroundImage;
 @end

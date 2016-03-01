@@ -73,6 +73,8 @@
     UIButton *previousPageButton;
     
     NSNumber *pageBeingDisplayed;
+    
+    UIView *myOrangeBanner;
 }
 
 @property NSURL *url;
@@ -91,6 +93,9 @@
 
 @property NSMutableDictionary *dictionaryOfFields;
 @property NSMutableDictionary *dictionaryOfWordsArrays;
+
+-(void)setMyOrangeBanner:(UIView *)mob;
+-(UIView *)myOrangeBanner;
 
 -(NSString *)formName;
 -(id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndNameOfTheForm:(NSString *)notf AndPageToDisplay:(int)page;

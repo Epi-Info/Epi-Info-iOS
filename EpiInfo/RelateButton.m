@@ -76,6 +76,7 @@
         NSString *path = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/"] stringByAppendingString:relatedViewName] stringByAppendingString:@".xml"];
         NSURL *url = [NSURL fileURLWithPath:path];
         edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, parentEDV.frame.size.width, parentEDV.frame.size.height) AndURL:url AndRootViewController:[(EnterDataView *)parentEDV rootViewController] AndNameOfTheForm:relatedViewName AndPageToDisplay:1];
+        rootViewController = [(EnterDataView *)edv rootViewController];
 
         orangeBannerBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, parentEDV.frame.size.width, 36)];
         [orangeBannerBackground setBackgroundColor:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:1.0]];
@@ -87,6 +88,7 @@
         orangeBanner = [[UIView alloc] initWithFrame:[orangeBannerBackground frame]];
         [orangeBanner setBackgroundColor:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:0.95]];
         [parentEDV.superview addSubview:orangeBanner];
+        [(EnterDataView *)edv setMyOrangeBanner:orangeBanner];
         
         UILabel *header = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, orangeBanner.frame.size.width - 120.0, 34)];
         [header setBackgroundColor:[UIColor clearColor]];
@@ -150,7 +152,7 @@
     [messageView addSubview:areYouSure];
     
     //    UIButton *yesButton = [[UIButton alloc] initWithFrame:dismissImageView.frame];
-    UIButton *yesButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, 280, 40)];
+    UIButton *yesButton = [[UIButton alloc] initWithFrame:([(DataEntryViewController *)rootViewController openButton]).frame];
     [yesButton setImage:[UIImage imageNamed:@"YesButton.png"] forState:UIControlStateNormal];
     [yesButton setTitle:@"Yes" forState:UIControlStateNormal];
     [yesButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
@@ -160,7 +162,7 @@
     [dismissView addSubview:yesButton];
     
     //    UIButton *noButton = [[UIButton alloc] initWithFrame:dismissImageView.frame];
-    UIButton *noButton = [[UIButton alloc] initWithFrame:CGRectMake(300 - yesButton.frame.size.width, yesButton.frame.origin.y + 60, yesButton.frame.size.width, yesButton.frame.size.height)];
+    UIButton *noButton = [[UIButton alloc] initWithFrame:CGRectMake(300 - yesButton.frame.size.width, yesButton.frame.origin.y, yesButton.frame.size.width, yesButton.frame.size.height)];
     [noButton setImage:[UIImage imageNamed:@"NoButton.png"] forState:UIControlStateNormal];
     [noButton setTitle:@"No" forState:UIControlStateNormal];
     [noButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
@@ -219,6 +221,19 @@
             [parentEDV.superview.layer setTransform:rotate];
         } completion:^(BOOL finished){
         }];
+    }];
+}
+
+- (void)doNotDismiss
+{
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        //        [dismissView setFrame:CGRectMake(288, 2, 30, 30)];
+        [dismissView setFrame:CGRectMake(0, -parentEDV.superview.frame.size.height, parentEDV.superview.frame.size.width, parentEDV.superview.frame.size.height)];
+        //        for (UIView *v in [dismissView subviews])
+        //            [v setFrame:CGRectMake(0, 0, 30, 30)];
+    } completion:^(BOOL finished){
+        [dismissView removeFromSuperview];
+        dismissView = nil;
     }];
 }
 

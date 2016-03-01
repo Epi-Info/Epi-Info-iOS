@@ -29,6 +29,11 @@
 //@synthesize epiinfoService = _epiinfoService;
 @synthesize legalValuesDictionary = _legalValuesDictionary;
 
+- (UIButton *)openButton
+{
+    return openButton;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -679,6 +684,7 @@
                 edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, 320, 506) AndURL:url AndRootViewController:self AndNameOfTheForm:lvSelected.text AndPageToDisplay:[sender tag]];
                 orangeBanner = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 36)];
             }
+            [edv setMyOrangeBanner:orangeBanner];
             [self.view addSubview:edv];
             [self.view bringSubviewToFront:edv];
             
