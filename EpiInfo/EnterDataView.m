@@ -98,8 +98,24 @@
     seenFirstGeocodeField = NO;
     legalValuesDictionaryForRVC = [[NSMutableDictionary alloc] init];
     self.dictionaryOfFields = [[NSMutableDictionary alloc] init];
+      newRecordGUID = CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL)));
+      
+      NSThread *guidThread = [[NSThread alloc] initWithTarget:self selector:@selector(logTheGUIDS) object:nil];
+      [guidThread start];
   }
   return self;
+}
+
+- (void)logTheGUIDS
+{
+    while (YES)
+    {
+        NSLog(@"newRecordGUID = %@", newRecordGUID);
+        NSLog(@"guidBeingUpdated = %@", guidBeingUpdated);
+        sleep(5);
+        if (!self)
+            break;
+    }
 }
 
 - (id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndNameOfTheForm:(NSString *)notf AndPageToDisplay:(int)page
@@ -1459,6 +1475,7 @@
 {
     // New code for separating pages
     guidBeingUpdated = nil;
+    newRecordGUID = CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL)));
     for (id key in dictionaryOfPages)
     {
         if (updatevisibleScreenOnly && ![(NSString *)key isEqualToString:[NSString stringWithFormat:@"Page%d", pageToDisplay]])
@@ -2370,6 +2387,7 @@
   NSString *tableName = [tableNameAndGUID objectAtIndex:0];
   NSString *guid = [tableNameAndGUID objectAtIndex:1];
   guidBeingUpdated = guid;
+    newRecordGUID = nil;
   tableBeingUpdated = tableName;
   recordUIDForUpdate = guid;
   

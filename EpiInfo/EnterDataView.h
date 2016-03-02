@@ -75,6 +75,8 @@
     NSNumber *pageBeingDisplayed;
     
     UIView *myOrangeBanner;
+    
+    NSString *newRecordGUID;
 }
 
 @property NSURL *url;
