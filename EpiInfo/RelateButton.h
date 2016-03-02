@@ -6,8 +6,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BlurryView.h"
+#import "FeedbackView.h"
+#import "Reachability.h"
+#import "sqlite3.h"
+#import <CoreImage/CoreImage.h>
+#import <MessageUI/MFMailComposeViewController.h>
+#import <CommonCrypto/CommonCrypto.h>
+#import <CommonCrypto/CommonKeyDerivation.h>
 
-@interface RelateButton : UIButton
+@interface RelateButton : UIButton <MFMailComposeViewControllerDelegate, UITextFieldDelegate>
 {
     NSString *relatedViewName;
     UIViewController *rootViewController;
@@ -16,6 +24,14 @@
     UIView *edv;
     UIView *orangeBannerBackground;
     UIView *orangeBanner;
+    
+    sqlite3 *epiinfoDB;
+    int recordsToBeWrittenToPackageFile;
+    UIView *dotDecimalSeparatorView;
+    UIView *commaDecimalSeparatorView;
+    BOOL useDotForDecimal;
+    
+    BOOL mailComposerShown;
 }
 -(void)setRelatedViewName:(NSString *)rvn;
 -(NSString *)relatedViewName;

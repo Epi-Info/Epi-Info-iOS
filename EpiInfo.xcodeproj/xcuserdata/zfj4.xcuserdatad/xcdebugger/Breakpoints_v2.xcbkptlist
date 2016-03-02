@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "478551637.485227"
+            timestampString = "476825011.492749"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "359"
-            endingLineNumber = "359"
-            landmarkName = "-previousOrNextPageButtonPressed:"
+            startingLineNumber = "1289"
+            endingLineNumber = "1289"
+            landmarkName = "-deleteButtonPressed"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
