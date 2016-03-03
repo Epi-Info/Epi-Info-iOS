@@ -39,7 +39,7 @@
     parentRecordGUID = prguid;
     
     int lengthOfCreateTableStatement = (int)[createTableStatement length];
-    createTableStatement = [[createTableStatement substringToIndex:lengthOfCreateTableStatement - 1] stringByAppendingString:@",\nForeignKey text)"];
+    createTableStatement = [[createTableStatement substringToIndex:lengthOfCreateTableStatement - 1] stringByAppendingString:@",\nFKEY text)"];
 }
 - (NSString *)parentRecordGUID
 {
@@ -617,7 +617,7 @@
     BOOL valuesClauseBegun = YES;
       if (parentRecordGUID)
       {
-          insertStatement = [insertStatement stringByAppendingString:@",\nForeignKey"];
+          insertStatement = [insertStatement stringByAppendingString:@",\nFKEY"];
           valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@",\n'%@'", parentRecordGUID]];
       }
     NSMutableDictionary *azureDictionary = [[NSMutableDictionary alloc] init];
@@ -1732,6 +1732,8 @@
         {
           NSRange fieldrange = [checkCodeString rangeOfString:@"Field "];
           NSRange endfieldrange = [checkCodeString rangeOfString:@"End-Field"];
+            if (endfieldrange.location > checkCodeString.length)
+                break;
 //          NSLog(@"\n%@", [[checkCodeString substringToIndex:endfieldrange.location] substringFromIndex:fieldrange.location + fieldrange.length]);
           NSArray *wordsArray = [[[[checkCodeString substringToIndex:endfieldrange.location] substringFromIndex:fieldrange.location + fieldrange.length] stringByReplacingOccurrencesOfString:@"\t" withString:@""] componentsSeparatedByString:@"\n"];
 //          NSLog(@"%@", wordsArray);
@@ -2212,7 +2214,10 @@
         [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
         [lv setColumnName:[attributeDict objectForKey:@"Name"]];
         // Add the array of values to the root view controller's legal values dictionary
-        [legalValuesDictionaryForRVC setObject:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]] forKey:[lv.columnName lowercaseString]];
+          if ([legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]])
+          {
+              [legalValuesDictionaryForRVC setObject:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]] forKey:[lv.columnName lowercaseString]];
+          }
         beginColumList = YES;
         [self.dictionaryOfFields setObject:lv forKey:[attributeDict objectForKey:@"Name"]];
       }
@@ -2252,7 +2257,10 @@
         createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
         [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
         [lv setColumnName:[attributeDict objectForKey:@"Name"]];
-        [legalValuesDictionaryForRVC setObject:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]] forKey:[lv.columnName lowercaseString]];
+          if ([legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]])
+          {
+              [legalValuesDictionaryForRVC setObject:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]] forKey:[lv.columnName lowercaseString]];
+          }
         beginColumList = YES;
         [self.dictionaryOfFields setObject:lv forKey:[attributeDict objectForKey:@"Name"]];
       }
