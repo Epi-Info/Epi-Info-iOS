@@ -77,6 +77,8 @@
     UIView *myOrangeBanner;
     
     NSString *newRecordGUID;
+    
+    NSString *parentRecordGUID;
 }
 
 @property NSURL *url;
@@ -95,6 +97,10 @@
 
 @property NSMutableDictionary *dictionaryOfFields;
 @property NSMutableDictionary *dictionaryOfWordsArrays;
+
+-(void)setParentRecordGUID:(NSString *)prguid;
+-(NSString *)parentRecordGUID;
+-(NSString *)guidToSendToChild;
 
 -(void)setMyOrangeBanner:(UIView *)mob;
 -(UIView *)myOrangeBanner;

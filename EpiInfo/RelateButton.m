@@ -78,6 +78,8 @@
         NSURL *url = [NSURL fileURLWithPath:path];
         edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, parentEDV.frame.size.width, parentEDV.frame.size.height) AndURL:url AndRootViewController:[(EnterDataView *)parentEDV rootViewController] AndNameOfTheForm:relatedViewName AndPageToDisplay:1];
         rootViewController = [(EnterDataView *)edv rootViewController];
+        
+        [(EnterDataView *)edv setParentRecordGUID:[(EnterDataView *)parentEDV guidToSendToChild]];
 
         orangeBannerBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, parentEDV.frame.size.width, 36)];
         [orangeBannerBackground setBackgroundColor:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:1.0]];

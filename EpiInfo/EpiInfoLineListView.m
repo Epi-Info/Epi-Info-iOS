@@ -96,6 +96,7 @@
 
 - (id)initWithFrame:(CGRect)frame andFormName:(NSString *)fn forChildForm:(UIView *)childForm
 {
+    targetEnterDataView = childForm;
     self = [self initWithFrame:frame andFormName:fn];
     forChildForm = YES;
     targetEnterDataView = childForm;
@@ -121,6 +122,10 @@
     if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
     {
         NSString *selStmt = [NSString stringWithFormat:@"select * from %@", formName];
+        if ([(EnterDataView *)targetEnterDataView parentRecordGUID])
+        {
+            selStmt = [selStmt stringByAppendingString:[NSString stringWithFormat:@"\nwhere ForeignKey = '%@'", [(EnterDataView *)targetEnterDataView parentRecordGUID]]];
+        }
         
         const char *query_stmt = [selStmt UTF8String];
         sqlite3_stmt *statement;

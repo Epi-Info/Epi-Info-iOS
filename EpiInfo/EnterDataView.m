@@ -34,6 +34,27 @@
 @synthesize nameOfTheForm = _nameOfTheForm;
 @synthesize dictionaryOfFields = _dictionaryOfFields;
 
+- (void)setParentRecordGUID:(NSString *)prguid
+{
+    parentRecordGUID = prguid;
+    
+    int lengthOfCreateTableStatement = (int)[createTableStatement length];
+    createTableStatement = [[createTableStatement substringToIndex:lengthOfCreateTableStatement - 1] stringByAppendingString:@",\nForeignKey text)"];
+}
+- (NSString *)parentRecordGUID
+{
+    return parentRecordGUID;
+}
+
+- (NSString *)guidToSendToChild
+{
+    if (guidBeingUpdated)
+        return guidBeingUpdated;
+    else if (newRecordGUID)
+        return newRecordGUID;
+    else return @"";
+}
+
 - (void)setPageToDisplay:(int)pageNumber
 {
     pageToDisplay = pageNumber;
@@ -100,8 +121,8 @@
     self.dictionaryOfFields = [[NSMutableDictionary alloc] init];
       newRecordGUID = CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL)));
       
-      NSThread *guidThread = [[NSThread alloc] initWithTarget:self selector:@selector(logTheGUIDS) object:nil];
-      [guidThread start];
+//      NSThread *guidThread = [[NSThread alloc] initWithTarget:self selector:@selector(logTheGUIDS) object:nil];
+//      [guidThread start];
   }
   return self;
 }
@@ -590,11 +611,17 @@
     
     NSString *insertStatement = [NSString stringWithFormat:@"\ninsert into %@(GlobalRecordID", formName];
     //        NSString *valuesClause = @" values(";
-    NSString *recordUUID = CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL)));
-    NSString *valuesClause = [NSString stringWithFormat:@" values('%@'", recordUUID];
+      // Switched from creating UID at submit time to load-form/clear-form time
+//    NSString *recordUUID = CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL)));
+    NSString *valuesClause = [NSString stringWithFormat:@" values('%@'", newRecordGUID];
     BOOL valuesClauseBegun = YES;
+      if (parentRecordGUID)
+      {
+          insertStatement = [insertStatement stringByAppendingString:@",\nForeignKey"];
+          valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@",\n'%@'", parentRecordGUID]];
+      }
     NSMutableDictionary *azureDictionary = [[NSMutableDictionary alloc] init];
-    [azureDictionary setObject:recordUUID forKey:@"id"];
+    [azureDictionary setObject:newRecordGUID forKey:@"id"];
       for (id key in dictionaryOfPages)
       {
           EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
