@@ -1673,6 +1673,10 @@
     {
       //            NSLog(@"\t%@", [attributeDict objectForKey:@"Name"]);
       [(NSMutableArray *)[[self pagesArray] objectAtIndex:self.pagesArray.count - 1] addObject:[attributeDict objectForKey:@"Name"]];
+        if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"10"])
+        {
+            [self.checkboxes setObject:@"A" forKey:[attributeDict objectForKey:@"Name"]];
+        }
     }
     if ([elementName isEqualToString:@"SourceTable"])
     {
@@ -2141,7 +2145,7 @@
         [alterTableElements setObject:@"integer" forKey:[attributeDict objectForKey:@"Name"]];
         [cb setColumnName:[attributeDict objectForKey:@"Name"]];
         [cb setCheckboxAccessibilityLabel:[attributeDict objectForKey:@"Name"]];
-        [self.checkboxes setObject:@"A" forKey:[attributeDict objectForKey:@"Name"]];
+//        [self.checkboxes setObject:@"A" forKey:[attributeDict objectForKey:@"Name"]];
         beginColumList = YES;
         [self.dictionaryOfFields setObject:cb forKey:[attributeDict objectForKey:@"Name"]];
         if (self.dictionaryOfWordsArrays)

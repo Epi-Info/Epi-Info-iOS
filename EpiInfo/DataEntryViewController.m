@@ -1755,7 +1755,6 @@
                                     [xmlFileText appendString:@"\">"];
                                 }
                             }
-                            
                             if ([edv.checkboxes objectForKey:columnName])
                             {
                                 switch (sqlite3_column_int(statement, i))
