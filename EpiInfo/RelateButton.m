@@ -71,10 +71,18 @@
 - (void)selfPressed:(UIButton *)sender
 {
     NSLog(@"Load table %@", relatedViewName);
+    if (!relatedViewName)
+        return;
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
     {
         NSString *path = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/"] stringByAppendingString:relatedViewName] stringByAppendingString:@".xml"];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:path])
+        {
+            return;
+        }
+        
         NSURL *url = [NSURL fileURLWithPath:path];
         edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, parentEDV.frame.size.width, parentEDV.frame.size.height) AndURL:url AndRootViewController:[(EnterDataView *)parentEDV rootViewController] AndNameOfTheForm:relatedViewName AndPageToDisplay:1];
         rootViewController = [(EnterDataView *)edv rootViewController];

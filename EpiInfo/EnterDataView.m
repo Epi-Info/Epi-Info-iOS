@@ -2328,6 +2328,8 @@
           [tf setTitle:[attributeDict objectForKey:@"PromptText"] forState:UIControlStateNormal];
           if ([attributeDict objectForKey:@"RelatedViewName"])
               [tf setRelatedViewName:[attributeDict objectForKey:@"RelatedViewName"]];
+          else
+              [tf setEnabled:NO];
           [tf setParentEDV:self];
           [formCanvas addSubview:tf];
           contentSizeHeight += 40.0;
