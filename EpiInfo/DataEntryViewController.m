@@ -653,12 +653,12 @@
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         CATransform3D rotate = CATransform3DIdentity;
         rotate.m34 = 1.0 / -2000;
-        rotate = CATransform3DRotate(rotate, M_PI * 0.5, 0.0, 1.0, 0.0);
+        rotate = CATransform3DRotate(rotate, -M_PI * 0.5, 0.0, 1.0, 0.0);
         [self.view.layer setTransform:rotate];
     } completion:^(BOOL finished){
         CATransform3D rotate = CATransform3DIdentity;
         rotate.m34 = 1.0 / -2000;
-        rotate = CATransform3DRotate(rotate, M_PI * 1.5, 0.0, 1.0, 0.0);
+        rotate = CATransform3DRotate(rotate, M_PI * 0.5, 0.0, 1.0, 0.0);
         [self.view.layer setTransform:rotate];
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
