@@ -377,6 +377,7 @@
         EnterDataView *edv = [[EnterDataView alloc] initWithFrame:self.frame AndURL:self.url AndRootViewController:self.rootViewController AndNameOfTheForm:self.nameOfTheForm AndPageToDisplay:(int)[sender tag]];
         [edv setDictionaryOfPages:dictionaryOfPages];
         [edv setGuidBeingUpdated:guidBeingUpdated];
+        [edv setMyOrangeBanner:myOrangeBanner];
         if (guidBeingUpdated)
         {
             [edv populateFieldsWithRecord:@[tableBeingUpdated, guidBeingUpdated]];
