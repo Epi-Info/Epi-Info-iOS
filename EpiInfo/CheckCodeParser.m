@@ -216,6 +216,46 @@
     
     [self getConditions];
 }
+-(void)getDialogs
+{
+    NSString *beforeString;
+    
+    ElementPairsCheck *elePairs = [[ElementPairsCheck alloc]init];
+    if (allArray.count>0) {
+        for (int i=0; i<allArray.count; i++)
+        {
+            elePairs = [allArray objectAtIndex:i];
+            NSString *tmp = [[elePairs.name componentsSeparatedByString:@" "] objectAtIndex:0];
+            if ([tmp isEqualToString:@"page"]) {
+                if ([elePairs.condition isEqualToString:@"before"]) {
+                    beforeString = elePairs.stringValue;
+                    [self fetchIfEnd:@"if" end:@"end-if" parameter:beforeString from:@"pagebeforeif"];
+                }
+                else if ([elePairs.condition isEqualToString:@"after"])
+                {
+                    beforeString = elePairs.stringValue;
+                    [self fetchIfEnd:@"if" end:@"end-if" parameter:beforeString from:@"pageafterif"];
+                    
+                }
+            }
+            else if ([elePairs.name containsString:@"field"]) {
+                if ([elePairs.condition isEqualToString:@"before"]) {
+                    beforeString = elePairs.stringValue;
+                    [self fetchIfEnd:@"if" end:@"end-if" parameter:beforeString from:@"fieldbeforeif"];
+                }
+                else if ([elePairs.condition isEqualToString:@"after"])
+                {
+                    beforeString = elePairs.stringValue;
+                    [self fetchIfEnd:@"if" end:@"end-if" parameter:beforeString from:@"fieldafterif"];
+                    
+                }
+            }
+        }
+        
+    }
+    [self removeIfEnd];
+
+}
 -(void)fetchBeforeAfter:(NSString *)startValue end:(NSString *)endValue parameter:(NSString *)newParameter from:(NSString *)fromValue
 {
     

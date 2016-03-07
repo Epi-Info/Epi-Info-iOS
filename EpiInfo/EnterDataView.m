@@ -12,6 +12,7 @@
 #import "ElementPairsCheck.h"
 #import "ConditionsModel.h"
 #import "ElementsModel.h"
+#import "DialogModel.h"
 
 
 #pragma mark * Private Interface
@@ -38,6 +39,7 @@
 @synthesize nameOfTheForm = _nameOfTheForm;
 @synthesize dictionaryOfFields = _dictionaryOfFields;
 @synthesize keywordsArray;
+@synthesize dialogArray;
 @synthesize elementsArray;
 @synthesize elementListArray;
 @synthesize conditionsArray;
@@ -277,6 +279,7 @@
 {
     elementsArray = [[NSMutableArray alloc]init];
     conditionsArray = [[NSMutableArray alloc]init];
+    dialogArray = [[NSMutableArray alloc]init];
 
 }
 
@@ -1377,6 +1380,7 @@
 
 - (void)parserDidEndDocument:(NSXMLParser *)parser
 {
+   
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
@@ -1400,6 +1404,11 @@
     //        int pageNo = 0;
     if ([elementName isEqualToString:@"Page"])
     {
+        NSString *pageName = [attributeDict objectForKey:@"Name"];
+        [[NSUserDefaults standardUserDefaults] setObject:pageName forKey:@"pageName"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        firstEdit = FALSE;
+
       //            NSLog(@"Page %@", [attributeDict objectForKey:@"PageId"]);
       //            pageNo = [[attributeDict objectForKey:@"PageId"] intValue];
       if (!self.pagesArray)
@@ -1410,6 +1419,7 @@
       }
       [[self pagesArray] addObject:[[NSMutableArray alloc] init]];
       [[self pageIDs] addObject:[attributeDict objectForKey:@"PageId"]];
+        
       //            NSLog(@"%d", [[self pagesArray] count]);
     }
     if ([elementName isEqualToString:@"Field"] && [[attributeDict objectForKey:@"FieldTypeId"] intValue] < 26 &&
@@ -1516,7 +1526,7 @@
             [[attributeDict objectForKey:@"FieldTypeId"] intValue] != 24 &&
             [[attributeDict objectForKey:@"FieldTypeId"] intValue] != 16)
         {
-
+            
       if (beginColumList)
         commaOrParen = @",";
       else
@@ -1556,7 +1566,7 @@
       [elementLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]];
         elementLabel.tag = tagNum;
         tagNum++;
-        NSLog(@"tag is %d",tagNum);
+        //NSLog(@"tag is %d",tagNum);
       [formCanvas addSubview:elementLabel];
       if ([elementLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]}].width > self.frame.size.width - 40.0)
       {
@@ -2834,12 +2844,21 @@
         elementsArray = [ccp sendArray];
     NSLog(@"FIELD satya %lu",(unsigned long)elementsArray.count);
     }
-    
+    if (firstEdit == FALSE) {
+        NSLog(@"false");
+        NSString *pageName = [[NSUserDefaults standardUserDefaults]
+                                stringForKey:@"pageName"];
+        
+        [self checkDialogs:[pageName lowercaseString] Tag:1 type:1 from:@"before" from:@"page"];
+        firstEdit = TRUE;
+    }
   if ([field isKindOfClass:[DateField class]])
   {
     [self resignAll];
     DateField *dateField = (DateField *)field;
     NSLog(@"%@ became first responder", [dateField columnName]);
+      [self checkDialogs:[dateField columnName] Tag:1 type:1 from:@"before" from:@"field"];
+
   }
     if ([field isKindOfClass:[EpiInfoTextField class]])
     {
@@ -2847,14 +2866,128 @@
         EpiInfoTextField *etf = (EpiInfoTextField *)field;
         NSLog(@"%@",[etf columnName]);
         [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
 
 
+
+    }
+    if ([field isKindOfClass:[EpiInfoTextView class]])
+    {
+        [self resignAll];
+        EpiInfoTextView *etf = (EpiInfoTextView *)field;
+        NSLog(@"%@",[etf columnName]);
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
+        
+        
+        
+    }
+    if ([field isKindOfClass:[UppercaseTextField class]])
+    {
+        [self resignAll];
+        UppercaseTextField *etf = (UppercaseTextField *)field;
+        NSLog(@"%@",[etf columnName]);
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
+        
+        
+        
+    }
+    if ([field isKindOfClass:[NumberField class]])
+    {
+        [self resignAll];
+        NumberField *etf = (NumberField *)field;
+        NSLog(@"%@",[etf columnName]);
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
+        
+        
+        
+    }
+    if ([field isKindOfClass:[PhoneNumberField class]])
+    {
+        [self resignAll];
+        PhoneNumberField *etf = (PhoneNumberField *)field;
+        NSLog(@"%@",[etf columnName]);
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
+        
+        
+        
+    }
+    if ([field isKindOfClass:[TimeField class]])
+    {
+        [self resignAll];
+        TimeField *etf = (TimeField *)field;
+        NSLog(@"%@",[etf columnName]);
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
+        
+        
+        
+    }
+    if ([field isKindOfClass:[DateTimeField class]])
+    {
+        [self resignAll];
+        DateTimeField *etf = (DateTimeField *)field;
+        NSLog(@"%@",[etf columnName]);
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
+        
+        
+        
+    }
+    if ([field isKindOfClass:[EpiInfoOptionField class]])
+    {
+        [self resignAll];
+        EpiInfoOptionField *etf = (EpiInfoOptionField *)field;
+        NSLog(@"%@",[etf columnName]);
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
+        
+        
+        
+    }
+    if ([field isKindOfClass:[LegalValuesEnter class]])
+    {
+        [self resignAll];
+        LegalValuesEnter *etf = (LegalValuesEnter *)field;
+        NSLog(@"%@",[etf columnName]);
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
+        
+        
+        
+    }
+    if ([field isKindOfClass:[EpiInfoUniqueIDField class]])
+    {
+        [self resignAll];
+        EpiInfoUniqueIDField *etf = (EpiInfoUniqueIDField *)field;
+        NSLog(@"%@",[etf columnName]);
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
+        
+        
+        
+    }
+    if ([field isKindOfClass:[Checkbox class]])
+    {
+        [self resignAll];
+        Checkbox *etf = (Checkbox *)field;
+        NSLog(@"%@",[etf columnName]);
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
+        
+        
+        
     }
     if ([field isKindOfClass:[YesNo class]])
     {
         [self resignAll];
         YesNo *etf = (YesNo *)field;
         NSLog(@"%@",[etf columnName]);
+        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
+
         
     }
     //[self resignFirstResponder];
@@ -2869,6 +3002,7 @@
         EpiInfoTextField *etf = (EpiInfoTextField *)field;
         NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:1 from:@"after" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"after" from:@"field"];
 
         BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:1 from:@"after" str:etf.text];
         if (required) {
@@ -2894,6 +3028,8 @@
         UppercaseTextField *etf = (UppercaseTextField *)field;
         NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:3 from:@"after" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"after" from:@"field"];
+
         BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:3 from:@"after" str:etf.text];
         if (required) {
             etf.layer.borderWidth = 1.0f;
@@ -2920,6 +3056,8 @@
         EpiInfoTextView *etf = (EpiInfoTextView *)field;
         NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:4 from:@"after" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"after" from:@"field"];
+
         BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:4 from:@"after" str:etf.text];
         if (required) {
             etf.layer.borderWidth = 1.0f;
@@ -2945,6 +3083,8 @@
         NumberField *numField = (NumberField *)field;
         NSLog(@"%@ resigned first responder", [numField columnName]);
         [self checkElements:[numField columnName] Tag:[numField tag] type:5 from:@"after" from:@"field"];
+        [self checkDialogs:[numField columnName] Tag:1 type:1 from:@"after" from:@"field"];
+
         BOOL required = [self checkRequiredstr:[numField columnName] Tag:[numField tag] type:5 from:@"after" str:numField.text];
         if (required) {
             numField.layer.borderWidth = 1.0f;
@@ -2971,6 +3111,8 @@
         PhoneNumberField *numField = (PhoneNumberField *)field;
         NSLog(@"%@ resigned first responder", [numField columnName]);
         [self checkElements:[numField columnName] Tag:[numField tag] type:6 from:@"after" from:@"field"];
+        [self checkDialogs:[numField columnName] Tag:1 type:1 from:@"after" from:@"field"];
+
         BOOL required = [self checkRequiredstr:[numField columnName] Tag:[numField tag] type:6 from:@"after" str:numField.text];
         if (required) {
             numField.layer.borderWidth = 1.0f;
@@ -2997,6 +3139,8 @@
         DateField *dateField = (DateField *)field;
         NSLog(@"%@ resigned first responder", [dateField columnName]);
         [self checkElements:[dateField columnName] Tag:[dateField tag] type:7 from:@"after" from:@"field"];
+        [self checkDialogs:[dateField columnName] Tag:1 type:1 from:@"after" from:@"field"];
+
         BOOL required = [self checkRequiredstr:[dateField columnName] Tag:[dateField tag] type:7 from:@"after" str:dateField.text];
         if (required) {
             dateField.layer.borderWidth = 1.0f;
@@ -3021,6 +3165,8 @@
         TimeField *timeField = (TimeField *)field;
         NSLog(@"%@ resigned first responder", [timeField columnName]);
         [self checkElements:[timeField columnName] Tag:[timeField tag] type:8 from:@"after"];
+        [self checkDialogs:[timeField columnName] Tag:1 type:1 from:@"after" from:@"field"];
+
         BOOL required = [self checkRequiredstr:[timeField columnName] Tag:[timeField tag] type:8 from:@"after" str:timeField.text];
         if (required) {
             timeField.layer.borderWidth = 1.0f;
@@ -3045,6 +3191,8 @@
         DateTimeField *dateTimeField = (DateTimeField *)field;
         NSLog(@"%@ resigned first responder", [dateTimeField columnName]);
         [self checkElements:[dateTimeField columnName] Tag:[dateTimeField tag] type:9 from:@"after" from:@"field"];
+        [self checkDialogs:[dateTimeField columnName] Tag:1 type:1 from:@"after" from:@"field"];
+
         BOOL required = [self checkRequiredstr:[dateTimeField columnName] Tag:[dateTimeField tag] type:9 from:@"after" str:dateTimeField.text];
         if (required) {
             dateTimeField.layer.borderWidth = 1.0f;
@@ -3070,6 +3218,8 @@
         YesNo *etf = (YesNo *)field;
         NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:11 from:@"after" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"after" from:@"field"];
+
         NSLog(@"%@",etf.picked);
 //        if ([[etf picked]intValue] == 0)
        // if (![[etf picked]containsString:@"1"])//||[[etf picked]containsString:@"0"])
@@ -3125,6 +3275,8 @@
         EpiInfoOptionField *etf = (EpiInfoOptionField *)field;
         NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:12 from:@"after" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"after" from:@"field"];
+
         NSLog(@"%@",etf.picked);
         if ([[etf picked]isEqualToString:@"NULL"])
         {
@@ -3176,6 +3328,8 @@
         LegalValuesEnter *etf = (LegalValuesEnter *)field;
         NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:17 from:@"after" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"after" from:@"field"];
+
         NSLog(@"%@",etf.picked);
         //        if ([[etf picked]intValue] == 0)
         // if (![[etf picked]containsString:@"1"])//||[[etf picked]containsString:@"0"])
@@ -3231,6 +3385,8 @@
         EpiInfoUniqueIDField *etf = (EpiInfoUniqueIDField *)field;
         NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:25 from:@"after" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"after" from:@"field"];
+
         
         BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:25 from:@"after" str:etf.text];
         if (required) {
@@ -3259,6 +3415,8 @@
 {
     NSLog(@"%@ changed", [checkbox columnName]);
     [self checkElements:[checkbox columnName] Tag:[checkbox tag] type:10 from:@"after" from:@"field"];
+    [self checkDialogs:[checkbox columnName] Tag:1 type:1 from:@"after" from:@"field"];
+
 
 }
 
@@ -3273,12 +3431,127 @@
     if (elementsArray.count<1) {
         elementsArray = [[NSMutableArray alloc]init];
         elementsArray = eleArray;
-        NSLog(@"count %lu %lu",(unsigned long)elementsArray.count,(unsigned long)eleArray.count);
+    //    NSLog(@"count %lu %lu",(unsigned long)elementsArray.count,(unsigned long)eleArray.count);
     }
-    NSLog(@"OUT");
+    //NSLog(@"OUT");
 }
 
+-(void)getDialogs
+{
+    ElementPairsCheck *epc = [[ElementPairsCheck alloc]init];
+    if (dialogArray.count<1) {
+        dialogArray = [[NSMutableArray alloc]init];
+        
 
+    }
+    if (elementsArray.count<1) {
+        elementsArray = [ccp sendArray];
+        
+    }
+    for (int i=0; i<elementsArray.count; i++)
+    {
+        epc = [elementsArray objectAtIndex:i];
+        NSString *conditionWord;
+        NSString *conditionWordOne;
+        NSUInteger count = [self numberOfWordsInString:epc.name];
+        conditionWord= [[epc.name componentsSeparatedByString:@" "] objectAtIndex:0];
+        NSMutableArray *target = [NSMutableArray array];
+        if (count>1) {
+            NSRange range = [epc.name rangeOfString:conditionWord];
+            conditionWordOne=[epc.name stringByReplacingCharactersInRange:range withString:@""];
+            conditionWordOne = [self removeSp:conditionWordOne];
+        }
+        NSString *elmt;
+        NSString *lastElmt;
+        int eleCount = [self numberOfWordsInString:epc.stringValue];
+        NSString *eleSp= [self removeSp:epc.stringValue];
+        if([eleSp containsString:@"dialog"])
+        {
+            NSArray* dialogArraySingle = [eleSp componentsSeparatedByString: @"dialog"];
+            for (int i=0; i<dialogArraySingle.count; i++) {
+                
+                NSString *item = [dialogArraySingle objectAtIndex:i];
+                if ([item containsString:@"\""]) {
+                    //[dialogArraySingle removeObject:item];
+                    DialogModel *dmc = [[DialogModel alloc]initWithFrom:conditionWord name:conditionWordOne beforeAfter:epc.condition title:item subject:@"" displayed:NO];
+
+                    [dialogArray addObject:dmc];
+                }
+                
+    }
+    }
+    }
+    
+    /*for (int j = 0; j<dialogArray.count; j++) {
+     */
+   // for (DialogModel *dmc in dialogArray) {
+        for (int i =0; i<dialogArray.count; i++)
+        {
+        DialogModel *dmc = [dialogArray objectAtIndex:i];
+        BOOL isFirst = FALSE;
+        NSScanner *scanner = [NSScanner scannerWithString:dmc.title];
+        NSString *tmp;
+        NSMutableArray *target = [NSMutableArray array];
+        
+        
+        while ([scanner isAtEnd] == NO)
+        {
+            [scanner scanUpToString:@"\"" intoString:NULL];
+            [scanner scanString:@"\"" intoString:NULL];
+            [scanner scanUpToString:@"\"" intoString:&tmp];
+            if ([scanner isAtEnd] == NO)
+            {
+                if (isFirst == FALSE)
+                {
+                [target addObject:tmp];
+                [scanner scanString:@"\"" intoString:NULL];
+                    isFirst = TRUE;
+                    dmc.subject = tmp;
+                    [dialogArray replaceObjectAtIndex:i withObject:dmc];
+                }
+                else
+                {
+                    break;
+                }
+
+            }
+        }
+            NSLog(@"OUT");
+            NSString *tempo = dmc.title;
+            NSString *replace=[NSString stringWithFormat:@"\"%@\"",dmc.subject];
+            tempo = [tempo stringByReplacingOccurrencesOfString:replace withString:@""];
+//            NSLog(@"%@---%@",tempo,replace);
+            tempo = [self removeSp:tempo];
+            if ([[[tempo componentsSeparatedByString:@" "] objectAtIndex:0] containsString:@"titletext"])
+            {
+                //NSLog(@"%@",tempo);
+                NSScanner *scanner = [NSScanner scannerWithString:tempo];
+                NSString *tmp;
+                
+                while ([scanner isAtEnd] == NO)
+                {
+                    [scanner scanUpToString:@"\"" intoString:NULL];
+                    [scanner scanString:@"\"" intoString:NULL];
+                    [scanner scanUpToString:@"\"" intoString:&tmp];
+                    if ([scanner isAtEnd] == NO)
+                    {
+                        [scanner scanString:@"\"" intoString:NULL];
+                        dmc.title = tmp;
+                        [dialogArray replaceObjectAtIndex:i withObject:dmc];
+                        
+                    }
+                }
+            
+            }
+            else
+            {
+                [dialogArray removeObjectAtIndex:i];
+                i--;
+            }
+            
+    }
+   
+}
 -(void)getDisEnb
 {
     ElementPairsCheck *epc = [[ElementPairsCheck alloc]init];
@@ -3310,7 +3583,7 @@
         for (int j = 0; j<eleCount; j++) {
             elmt = [[eleSp componentsSeparatedByString:@" "]objectAtIndex:j];
 
-            NSLog(@"Satya - %@ %d",elmt,j);
+           // NSLog(@"Satya - %@ %d",elmt,j);
             
             if (![elmt isEqualToString:@""] && elmt)
             {
@@ -3354,6 +3627,7 @@
                         lastElmt = @"unhighlight";
                         j++;
                     }
+                
                 }
                 
                 else{
@@ -3419,8 +3693,9 @@
     if (conditionsArray.count<1)
     {
         [self getDisEnb];
+        [self getDialogs];
     }
-    
+
     for (cpm in conditionsArray)
     {
         /*BEFORE*/
@@ -3431,7 +3706,7 @@
            if (([cpm.element caseInsensitiveCompare:name] == NSOrderedSame) &&  [befAft isEqualToString:cpm.beforeAfter] && [cpm.condition isEqualToString:@"disable"])
                 {
                     value = YES;
-                    NSLog(@"%@---%@",cpm.element,name);
+                   // NSLog(@"%@---%@",cpm.element,name);
 
                     
                 }
@@ -3442,7 +3717,7 @@
                 }
             
         }
-   
+
     /*AFTER*/
         else if ([befAft caseInsensitiveCompare:@"after"]==NSOrderedSame)
         {
@@ -3478,7 +3753,7 @@
                     
                     if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
                     {
-                        NSLog(@"SATYA - %@-----%@",emc.elementName,cpm.element);
+                       // NSLog(@"SATYA - %@-----%@",emc.elementName,cpm.element);
                         if (!(emc.req == YES)) {
                             
                             require++;
@@ -3543,7 +3818,53 @@
     }
     return value;
 }
-//Required
+#pragma mark Dialog
+
+-(void)checkDialogs:(NSString *)name Tag:(NSInteger *)newTag type:(int)newType from:(NSString *)befAft from:(NSString *)newFrom
+{
+        for (int i = 0; i<dialogArray.count; i++)
+        {
+            DialogModel *dmc = [dialogArray objectAtIndex:i];
+            if ([dmc.beforeAfter caseInsensitiveCompare:@"before"] == NSOrderedSame)
+            {
+                if (([dmc.name containsString:name]) &&  [befAft isEqualToString:dmc.beforeAfter]&& (dmc.displayed == NO))
+                {
+                     //NSLog(@"%@---%@",dmc.name,name);
+                    [self dialogTitle:dmc.title subject:dmc.subject];
+                    dmc.displayed = YES;
+                    [dialogArray replaceObjectAtIndex:i withObject:dmc];
+                    alertBefore = FALSE;
+                    
+                }
+
+            
+            }
+            else if ([dmc.beforeAfter caseInsensitiveCompare:@"after"] == NSOrderedSame)
+            {
+                if (([dmc.name caseInsensitiveCompare:name] == NSOrderedSame) &&  [befAft isEqualToString:dmc.beforeAfter] && (dmc.displayed == NO))
+                {
+                    alertBefore = TRUE;
+                    //NSLog(@"%@---%@",dmc.name,name);
+                    dmc.displayed = YES;
+                    [dialogArray replaceObjectAtIndex:i withObject:dmc];
+                    [self dialogTitle:dmc.title subject:dmc.subject];
+                    break;
+                }
+                /*else
+                {
+                    if (alertBefore == TRUE) {
+                        [self dialogTitle:dmc.title subject:dmc.subject];
+                        alertBefore = FALSE;
+
+                    }
+                }*/
+            
+            
+            }
+
+        }
+    
+}
 
 #pragma mark checkRequire
 
@@ -4167,7 +4488,29 @@ newStr{
     }
     
 }
+-(NSUInteger)getIndexEle:(NSString *)newElet
+{
+    NSUInteger idx = [elmArray indexOfObject:newElet];
+    return idx;
+}
 
+-(void)dialogTitle:(NSString *)newTitle subject:(NSString *)newSubject
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:newTitle message:newSubject preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+    }];
+    
+    [alert addAction:defaultAction];
+    
+    // UIViewController *uvc = [[[[UIApplication sharedApplication] delegate] window] rootViewController] ;
+    //[self presentViewController:alert animated:YES completion:nil];
+    
+    UIWindow *keyWin = [[UIApplication sharedApplication]keyWindow];
+    UIViewController *mainVC = [keyWin rootViewController];
+    [mainVC presentViewController:alert animated:YES completion:nil];
+
+}
 #pragma mark checkSubmitValidation
 
 -(BOOL)onSubmitRequiredFrom:(NSString *)from

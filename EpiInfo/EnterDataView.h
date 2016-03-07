@@ -66,12 +66,15 @@
     NSMutableArray *elementsArray;
     NSMutableArray *conditionsArray;
     NSMutableArray *elementListArray;
+    NSMutableArray* dialogArray;
     NSMutableArray *elmArray;
     int tagNum;
     int require;
     int valid;
     NSMutableArray *requiredArray;
     CheckCodeParser *ccp;
+    BOOL firstEdit;
+    BOOL alertBefore;
 }
 
 @property NSURL *url;
@@ -97,6 +100,7 @@
 @property (nonatomic) NSMutableArray *elementListArray;
 @property (nonatomic) NSMutableArray *elmArray;
 @property (nonatomic) NSMutableArray *requiredArray;
+@property (nonatomic) NSMutableArray *dialogArray;
 @property (nonatomic) NSString *afterString;
 
 

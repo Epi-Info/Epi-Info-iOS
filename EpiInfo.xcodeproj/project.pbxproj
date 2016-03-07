@@ -99,6 +99,7 @@
 		84FDC0641C5BF31F0090A744 /* ElementPairsCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FDC05F1C5BF31F0090A744 /* ElementPairsCheck.m */; };
 		84FDC0651C5BF31F0090A744 /* ElementsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FDC0611C5BF31F0090A744 /* ElementsModel.m */; };
 		84FDC0691C776EAC0090A744 /* LegalValuesEnter.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FDC0681C776EAC0090A744 /* LegalValuesEnter.m */; };
+		84FDC06C1C84D42A0090A744 /* DialogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FDC06B1C84D4290090A744 /* DialogModel.m */; };
 		92001B97186C8C2E00B87D21 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92001B96186C8C2E00B87D21 /* CoreImage.framework */; };
 		92001B9C186C979E00B87D21 /* NoButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92001B98186C979E00B87D21 /* NoButton.png */; };
 		92001B9D186C979E00B87D21 /* NoButtonOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 92001B99186C979E00B87D21 /* NoButtonOrange.png */; };
@@ -498,6 +499,8 @@
 		84FDC0611C5BF31F0090A744 /* ElementsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElementsModel.m; sourceTree = "<group>"; };
 		84FDC0671C776EAC0090A744 /* LegalValuesEnter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegalValuesEnter.h; sourceTree = "<group>"; };
 		84FDC0681C776EAC0090A744 /* LegalValuesEnter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegalValuesEnter.m; sourceTree = "<group>"; };
+		84FDC06A1C84D4290090A744 /* DialogModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogModel.h; sourceTree = "<group>"; };
+		84FDC06B1C84D4290090A744 /* DialogModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogModel.m; sourceTree = "<group>"; };
 		92001B96186C8C2E00B87D21 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		92001B98186C979E00B87D21 /* NoButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoButton.png; sourceTree = "<group>"; };
 		92001B99186C979E00B87D21 /* NoButtonOrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoButtonOrange.png; sourceTree = "<group>"; };
@@ -1296,6 +1299,8 @@
 				84FDC05B1C5BF31F0090A744 /* CheckCodeParser.m */,
 				84FDC05C1C5BF31F0090A744 /* ConditionsModel.h */,
 				84FDC05D1C5BF31F0090A744 /* ConditionsModel.m */,
+				84FDC06A1C84D4290090A744 /* DialogModel.h */,
+				84FDC06B1C84D4290090A744 /* DialogModel.m */,
 				84FDC05E1C5BF31F0090A744 /* ElementPairsCheck.h */,
 				84FDC05F1C5BF31F0090A744 /* ElementPairsCheck.m */,
 				84FDC0601C5BF31F0090A744 /* ElementsModel.h */,
@@ -1850,6 +1855,7 @@
 				4AFD854F161F142600FFBA65 /* StatCalcViewController.m in Sources */,
 				92A1F68F1B03E9A4004654B8 /* CheckCode.swift in Sources */,
 				920AE61019C88D71001C96CE /* EpiInfoViewForRounding.m in Sources */,
+				84FDC06C1C84D42A0090A744 /* DialogModel.m in Sources */,
 				4AFD8557161F179600FFBA65 /* StatCalc2x2ViewController.m in Sources */,
 				4AFD8558161F179600FFBA65 /* Twox2CalculatorView.m in Sources */,
 				926F4AA11946361200F476C3 /* UIPickerViewWithBlurryBackground.m in Sources */,
