@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1289"
             endingLineNumber = "1289"
-            landmarkName = "-deleteButtonPressed"
+            landmarkName = "-resignAll"
             landmarkType = "5">
             <Locations>
                <Location
@@ -26,12 +26,12 @@
                   moduleName = "EpiInfo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/EnterDataView.m"
-                  timestampString = "478545267.302047"
+                  timestampString = "479050279.760687"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1289"
                   endingLineNumber = "1289"
-                  offsetFromSymbolStart = "68">
+                  offsetFromSymbolStart = "72">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -41,62 +41,14 @@
                   moduleName = "EpiInfo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/EnterDataView.m"
-                  timestampString = "478545267.302334"
+                  timestampString = "479050279.760961"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1289"
                   endingLineNumber = "1289"
-                  offsetFromSymbolStart = "90">
+                  offsetFromSymbolStart = "100">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "476825272.431004"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1383"
-            endingLineNumber = "1383"
-            landmarkName = "-clearButtonPressed"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "476825358.122417"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1432"
-            endingLineNumber = "1432"
-            landmarkName = "-clearButtonPressed"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "476825476.111909"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1414"
-            endingLineNumber = "1414"
-            landmarkName = "-clearButtonPressed"
-            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

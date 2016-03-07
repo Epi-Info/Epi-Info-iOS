@@ -1441,6 +1441,8 @@
           NSRange fieldrange = [checkCodeString rangeOfString:@"Field "];
           NSRange endfieldrange = [checkCodeString rangeOfString:@"End-Field"];
 //          NSLog(@"\n%@", [[checkCodeString substringToIndex:endfieldrange.location] substringFromIndex:fieldrange.location + fieldrange.length]);
+            if (endfieldrange.location > checkCodeString.length)
+                break;
           NSArray *wordsArray = [[[[checkCodeString substringToIndex:endfieldrange.location] substringFromIndex:fieldrange.location + fieldrange.length] stringByReplacingOccurrencesOfString:@"\t" withString:@""] componentsSeparatedByString:@"\n"];
 //          NSLog(@"%@", wordsArray);
           [self.dictionaryOfWordsArrays setObject:wordsArray forKey:(NSString *)[wordsArray objectAtIndex:0]];
@@ -1889,7 +1891,10 @@
         [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
         [lv setColumnName:[attributeDict objectForKey:@"Name"]];
         // Add the array of values to the root view controller's legal values dictionary
-        [legalValuesDictionaryForRVC setObject:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]] forKey:[lv.columnName lowercaseString]];
+          if ([legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]])
+          {
+              [legalValuesDictionaryForRVC setObject:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]] forKey:[lv.columnName lowercaseString]];
+          }
         beginColumList = YES;
         [self.dictionaryOfFields setObject:lv forKey:[attributeDict objectForKey:@"Name"]];
       }
@@ -1929,7 +1934,10 @@
         createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
         [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
         [lv setColumnName:[attributeDict objectForKey:@"Name"]];
-        [legalValuesDictionaryForRVC setObject:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]] forKey:[lv.columnName lowercaseString]];
+          if ([legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]])
+          {
+              [legalValuesDictionaryForRVC setObject:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]] forKey:[lv.columnName lowercaseString]];
+          }
         beginColumList = YES;
         [self.dictionaryOfFields setObject:lv forKey:[attributeDict objectForKey:@"Name"]];
       }
