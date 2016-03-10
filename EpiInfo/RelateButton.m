@@ -84,12 +84,12 @@
         }
         
         NSURL *url = [NSURL fileURLWithPath:path];
-        edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, parentEDV.frame.size.width, parentEDV.frame.size.height) AndURL:url AndRootViewController:[(EnterDataView *)parentEDV rootViewController] AndNameOfTheForm:relatedViewName AndPageToDisplay:1];
+        edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, parentEDV.frame.size.height, parentEDV.frame.size.width, parentEDV.frame.size.height) AndURL:url AndRootViewController:[(EnterDataView *)parentEDV rootViewController] AndNameOfTheForm:relatedViewName AndPageToDisplay:1];
         rootViewController = [(EnterDataView *)edv rootViewController];
         
         [(EnterDataView *)edv setParentRecordGUID:[(EnterDataView *)parentEDV guidToSendToChild]];
 
-        orangeBannerBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, parentEDV.frame.size.width, 36)];
+        orangeBannerBackground = [[UIView alloc] initWithFrame:CGRectMake(0, parentEDV.frame.size.height, parentEDV.frame.size.width, 36)];
         [orangeBannerBackground setBackgroundColor:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:1.0]];
         [parentEDV.superview addSubview:orangeBannerBackground];
         
@@ -146,6 +146,13 @@
         [lineListButton.layer setCornerRadius:8.0];
         [lineListButton addTarget:self action:@selector(lineListButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         [orangeBanner addSubview:lineListButton];
+        
+        [UIView animateWithDuration:0.15 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+            [orangeBannerBackground setFrame:CGRectMake(0, 0, parentEDV.frame.size.width, 36)];
+            [edv setFrame:CGRectMake(0, 0, parentEDV.frame.size.width, parentEDV.frame.size.height)];
+            [orangeBanner setFrame:[orangeBannerBackground frame]];
+        } completion:^(BOOL finished){
+        }];
     }
 }
 
