@@ -79,6 +79,8 @@
     NSString *newRecordGUID;
     
     NSString *parentRecordGUID;
+    
+    NSString *formCheckCodeString;
 }
 
 @property NSURL *url;
@@ -101,6 +103,8 @@
 -(void)setParentRecordGUID:(NSString *)prguid;
 -(NSString *)parentRecordGUID;
 -(NSString *)guidToSendToChild;
+
+-(NSString *)formCheckCodeString;
 
 -(void)setMyOrangeBanner:(UIView *)mob;
 -(UIView *)myOrangeBanner;

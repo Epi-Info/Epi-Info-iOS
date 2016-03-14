@@ -182,6 +182,7 @@
 		925354A31823F49500065B69 /* PadPMCCScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = 9253549C1823F49500065B69 /* PadPMCCScreenshot.png */; };
 		925354A41823F49500065B69 /* PadPoissonScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = 9253549D1823F49500065B69 /* PadPoissonScreenshot.png */; };
 		925354A51823F49500065B69 /* PadPopulationSSScreenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = 9253549E1823F49500065B69 /* PadPopulationSSScreenshot.png */; };
+		9259D2E61C9327D200AE9181 /* ChildFormFieldAssignments.m in Sources */ = {isa = PBXBuildFile; fileRef = 9259D2E51C9327D200AE9181 /* ChildFormFieldAssignments.m */; };
 		925A5DAB1858C0C7000C2E9E /* CalculatorButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 925A5DA91858C0C7000C2E9E /* CalculatorButton.png */; };
 		925A5DAC1858C0C7000C2E9E /* CalculatorButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 925A5DAA1858C0C7000C2E9E /* CalculatorButtonNR.png */; };
 		925A5DAF1858C0E2000C2E9E /* PlainOrangeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 925A5DAD1858C0E2000C2E9E /* PlainOrangeButton.png */; };
@@ -591,6 +592,8 @@
 		9253549C1823F49500065B69 /* PadPMCCScreenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PadPMCCScreenshot.png; sourceTree = "<group>"; };
 		9253549D1823F49500065B69 /* PadPoissonScreenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PadPoissonScreenshot.png; sourceTree = "<group>"; };
 		9253549E1823F49500065B69 /* PadPopulationSSScreenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PadPopulationSSScreenshot.png; sourceTree = "<group>"; };
+		9259D2E41C9327D200AE9181 /* ChildFormFieldAssignments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildFormFieldAssignments.h; sourceTree = "<group>"; };
+		9259D2E51C9327D200AE9181 /* ChildFormFieldAssignments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildFormFieldAssignments.m; sourceTree = "<group>"; };
 		925A5DA91858C0C7000C2E9E /* CalculatorButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CalculatorButton.png; sourceTree = "<group>"; };
 		925A5DAA1858C0C7000C2E9E /* CalculatorButtonNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CalculatorButtonNR.png; sourceTree = "<group>"; };
 		925A5DAD1858C0E2000C2E9E /* PlainOrangeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlainOrangeButton.png; sourceTree = "<group>"; };
@@ -1437,6 +1440,8 @@
 				92A1F68E1B03E9A4004654B8 /* CheckCode.swift */,
 				921ED31C1C7F7043004C6091 /* RelateButton.h */,
 				921ED31D1C7F7043004C6091 /* RelateButton.m */,
+				9259D2E41C9327D200AE9181 /* ChildFormFieldAssignments.h */,
+				9259D2E51C9327D200AE9181 /* ChildFormFieldAssignments.m */,
 			);
 			name = Entry;
 			sourceTree = "<group>";
@@ -1867,6 +1872,7 @@
 				92605C5119C36E1300827CB0 /* EpiInfoNumberFormatter.m in Sources */,
 				922825041863821700DF9493 /* EnterDataView.m in Sources */,
 				4AB23ED316284EE600AE47C0 /* UnmatchedCaseControlSampleSizeCompute.m in Sources */,
+				9259D2E61C9327D200AE9181 /* ChildFormFieldAssignments.m in Sources */,
 				92E1A83918730614003E58A5 /* EpiInfoTextField.m in Sources */,
 				924D8AAA1AAE2BA1005A6253 /* CohortSimulationModel.swift in Sources */,
 				92921B9919A6427000AA9477 /* MeansView.m in Sources */,

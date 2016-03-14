@@ -18,6 +18,7 @@
 @interface RelateButton : UIButton <MFMailComposeViewControllerDelegate, UITextFieldDelegate>
 {
     NSString *relatedViewName;
+    NSString *relateButtonName;
     UIViewController *rootViewController;
     UIView *parentEDV;
     UIView *dismissView;
@@ -35,6 +36,8 @@
 }
 -(void)setRelatedViewName:(NSString *)rvn;
 -(NSString *)relatedViewName;
+-(void)setRelateButtonName:(NSString *)rbn;
+-(NSString *)relateButtonName;
 -(void)setRootViewController:(UIViewController *)rvc;
 -(UIViewController *)rootViewController;
 -(void)setParentEDV:(UIView *)medv;

@@ -9,6 +9,7 @@
 #import "DataEntryViewController.h"
 #import "EnterDataView.h"
 #import "ConverterMethods.h"
+#import "ChildFormFieldAssignments.h"
 
 @implementation RelateButton
 
@@ -19,6 +20,15 @@
 - (NSString *)relatedViewName
 {
     return relatedViewName;
+}
+
+- (void)setRelateButtonName:(NSString *)rbn
+{
+    relateButtonName = rbn;
+}
+- (NSString *)relateButtonName
+{
+    return relateButtonName;
 }
 
 - (void)setRootViewController:(UIViewController *)rvc
@@ -88,6 +98,9 @@
         rootViewController = [(EnterDataView *)edv rootViewController];
         
         [(EnterDataView *)edv setParentRecordGUID:[(EnterDataView *)parentEDV guidToSendToChild]];
+        
+        NSLog(@"Child form Check Code: %@", [(EnterDataView *)edv formCheckCodeString]);
+        [ChildFormFieldAssignments parseForAssignStatements:[(EnterDataView *)edv formCheckCodeString] parentForm:(EnterDataView *)parentEDV childForm:(EnterDataView *)edv relateButtonName:relateButtonName];
 
         orangeBannerBackground = [[UIView alloc] initWithFrame:CGRectMake(0, parentEDV.frame.size.height, parentEDV.frame.size.width, 36)];
         [orangeBannerBackground setBackgroundColor:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:1.0]];

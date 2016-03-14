@@ -109,6 +109,11 @@
     return myOrangeBanner;
 }
 
+- (NSString *)formCheckCodeString
+{
+    return formCheckCodeString;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
   self = [super initWithFrame:frame];
@@ -1713,6 +1718,7 @@
       if ([attributeDict objectForKey:@"CheckCode"])
       {
         NSString *checkCodeString = [attributeDict objectForKey:@"CheckCode"];
+          formCheckCodeString = checkCodeString;
         int geocodePosition = (int)[[checkCodeString stringByReplacingOccurrencesOfString:@"The GEOCODE command requires an active Internet connection" withString:@""] rangeOfString:@"GEOCODE"].location;
         if (geocodePosition >= 0 && geocodePosition < [checkCodeString stringByReplacingOccurrencesOfString:@"The GEOCODE command requires an active Internet connection" withString:@""].length)
         {
@@ -2335,6 +2341,8 @@
               [tf setRelatedViewName:[attributeDict objectForKey:@"RelatedViewName"]];
           else
               [tf setEnabled:NO];
+          if ([attributeDict objectForKey:@"Name"])
+              [tf setRelateButtonName:[attributeDict objectForKey:@"Name"]];
           [tf setParentEDV:self];
           [formCanvas addSubview:tf];
           contentSizeHeight += 40.0;
