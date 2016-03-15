@@ -105,7 +105,21 @@
                            {
                                if ([[[childForm dictionaryOfFields] objectForKey:key] isKindOfClass:[UITextField class]])
                                {
-                                   [(UITextField *)[[childForm dictionaryOfFields] objectForKey:key] setText:[self daysBetweenTwoDates:objectForKey parentFormValues:buttonClickAssignments]];
+                                   [(UITextField *)[[childForm dictionaryOfFields] objectForKey:key] setText:[self timeBetweenTwoDates:objectForKey parentFormValues:buttonClickAssignments timeUnit:0]];
+                               }
+                           }
+                           else if ([[objectForKey uppercaseString] rangeOfString:@"MONTHS"].location == 0)
+                           {
+                               if ([[[childForm dictionaryOfFields] objectForKey:key] isKindOfClass:[UITextField class]])
+                               {
+                                   [(UITextField *)[[childForm dictionaryOfFields] objectForKey:key] setText:[self timeBetweenTwoDates:objectForKey parentFormValues:buttonClickAssignments timeUnit:1]];
+                               }
+                           }
+                           else if ([[objectForKey uppercaseString] rangeOfString:@"YEARS"].location == 0)
+                           {
+                               if ([[[childForm dictionaryOfFields] objectForKey:key] isKindOfClass:[UITextField class]])
+                               {
+                                   [(UITextField *)[[childForm dictionaryOfFields] objectForKey:key] setText:[self timeBetweenTwoDates:objectForKey parentFormValues:buttonClickAssignments timeUnit:2]];
                                }
                            }
                        }
@@ -264,8 +278,10 @@
     return [NSDictionary dictionaryWithDictionary:nsmd2];
 }
 
-+ (NSString *)daysBetweenTwoDates:(NSString *)checkCodeDaysFunction parentFormValues:(NSDictionary *)parentFormFields
++ (NSString *)timeBetweenTwoDates:(NSString *)checkCodeDaysFunction parentFormValues:(NSDictionary *)parentFormFields timeUnit:(int)timeUnit
 {
+    NSString *returnString = @"";
+    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MM/dd/yyyy"];
     
@@ -333,7 +349,14 @@
     
     NSCalendarUnit unitFlags = NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit;
     NSDateComponents *components = [[NSCalendar currentCalendar] components:unitFlags fromDate:startNSDate toDate:endNSDate options:0];
+    
+    if (timeUnit == 0)
+        returnString = [NSString stringWithFormat:@"%d", (int)[components day]];
+    else if (timeUnit == 1)
+        returnString = [NSString stringWithFormat:@"%d", (int)[components month]];
+    else if (timeUnit == 2)
+        returnString = [NSString stringWithFormat:@"%d", (int)[components year]];
    
-    return [NSString stringWithFormat:@"%d", (int)[components day]];
+    return returnString;
 }
 @end
