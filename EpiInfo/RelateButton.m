@@ -80,7 +80,7 @@
 
 - (void)selfPressed:(UIButton *)sender
 {
-    NSLog(@"Load table %@", relatedViewName);
+//    NSLog(@"Load table %@", relatedViewName);
     if (!relatedViewName)
         return;
     
@@ -99,7 +99,7 @@
         
         [(EnterDataView *)edv setParentRecordGUID:[(EnterDataView *)parentEDV guidToSendToChild]];
         
-        NSLog(@"Child form Check Code: %@", [(EnterDataView *)edv formCheckCodeString]);
+//        NSLog(@"Child form Check Code: %@", [(EnterDataView *)edv formCheckCodeString]);
         [ChildFormFieldAssignments parseForAssignStatements:[(EnterDataView *)edv formCheckCodeString] parentForm:(EnterDataView *)parentEDV childForm:(EnterDataView *)edv relateButtonName:relateButtonName];
 
         orangeBannerBackground = [[UIView alloc] initWithFrame:CGRectMake(0, parentEDV.frame.size.height, parentEDV.frame.size.width, 36)];

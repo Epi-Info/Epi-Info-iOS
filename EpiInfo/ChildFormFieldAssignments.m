@@ -19,7 +19,7 @@
     {
         ccs = [ccs substringFromIndex:[ccs rangeOfString:@"Before"].location];
         ccs = [ccs substringToIndex:[ccs rangeOfString:@"End-Before"].location + 11];
-        NSLog(@"ccs:\n%@\n\n%d", ccs, (int)[ccs rangeOfString:@"\n"].location);
+//        NSLog(@"ccs:\n%@\n\n%d", ccs, (int)[ccs rangeOfString:@"\n"].location);
         
         while ([ccs length] > 0)
         {
@@ -74,12 +74,72 @@
                 [nonIfs removeObjectAtIndex:i];
             }
         }
-        NSLog(@"%@", unconditionalAssigns);
-        NSLog(@"%@", nonIfs);
+        NSLog(@"nonIfs:\n%@", nonIfs);
         
         NSDictionary *buttonClickAssignments = [self buttonClickAssignmentsFromParentForm:parentForm andButtonName:relateButtonName];
         NSLog(@"%@", buttonClickAssignments);
+        
+        NSDictionary *unconditionalAssignmentsDictionary = [self unconditionalAssignmentsDictionaryFromUnconditionalAssignsArray:unconditionalAssigns];
+        NSLog(@"unconditionalAssigns in child form:\n%@", unconditionalAssignmentsDictionary);
+        
+       for (id key in unconditionalAssignmentsDictionary)
+       {
+           if ([[childForm dictionaryOfFields] objectForKey:key])
+           {
+               NSString *objectForKey = (NSString *)[unconditionalAssignmentsDictionary objectForKey:key];
+               if ([buttonClickAssignments objectForKey:objectForKey])
+               {
+                   if ([[[childForm dictionaryOfFields] objectForKey:key] isKindOfClass:[UITextField class]])
+                   {
+                       [(UITextField *)[[childForm dictionaryOfFields] objectForKey:key] setText:[buttonClickAssignments objectForKey:objectForKey]];
+                   }
+               }
+               else
+               {
+                   if ([objectForKey containsString:@"&"] ||
+                       ([objectForKey containsString:@"("] && [objectForKey containsString:@")"]))
+                   {
+                       if ([objectForKey containsString:@"("] && [objectForKey containsString:@")"])
+                       {
+                           if ([[objectForKey uppercaseString] rangeOfString:@"DAYS"].location == 0)
+                           {
+                               if ([[[childForm dictionaryOfFields] objectForKey:key] isKindOfClass:[UITextField class]])
+                               {
+                                   [(UITextField *)[[childForm dictionaryOfFields] objectForKey:key] setText:[self daysBetweenTwoDates:objectForKey parentFormValues:buttonClickAssignments]];
+                               }
+                           }
+                       }
+                       else
+                       {
+                           
+                       }
+                   }
+               }
+           }
+       }
     }
+}
+
++ (NSDictionary *)unconditionalAssignmentsDictionaryFromUnconditionalAssignsArray:(NSArray *)unconditionalAssigns
+{
+    NSMutableDictionary *nsmd = [[NSMutableDictionary alloc] init];
+    
+    for (NSString *s in unconditionalAssigns)
+    {
+        int equalsLocation = (int)[s rangeOfString:@"="].location;
+        if (equalsLocation > -1)
+        {
+            NSString *objectString = [s substringFromIndex:equalsLocation + 1];
+            while ([objectString characterAtIndex:0] == ' ')
+                objectString = [objectString substringFromIndex:1];
+            NSString *keyString = [s substringToIndex:equalsLocation];
+            while ([keyString characterAtIndex:[keyString length] - 1] == ' ')
+                keyString = [keyString substringToIndex:[keyString length] - 1];
+            [nsmd setObject:objectString forKey:keyString];
+        }
+    }
+    
+    return [NSDictionary dictionaryWithDictionary:nsmd];
 }
 
 + (NSDictionary *)buttonClickAssignmentsFromParentForm:(EnterDataView *)parentForm andButtonName:(NSString *)relateButtonName
@@ -126,11 +186,19 @@
                     NSMutableString *valueString = [[NSMutableString alloc] init];
                     for (NSNumber *num in arrayOfAmpersandIndexes)
                     {
-                        NSString *section = [[objectForKey substringToIndex:[num intValue] - 1] substringFromIndex:startIndex];
+                        NSString *section = [[objectForKey substringToIndex:[num intValue]] substringFromIndex:startIndex];
+                        while ([section characterAtIndex:0] == ' ')
+                        {
+                            section = [section substringFromIndex:1];
+                        }
+                        while ([section characterAtIndex:[section length] - 1] == ' ')
+                        {
+                            section = [section substringToIndex:[section length] - 1];
+                        }
                         startIndex = [num intValue] + 1;
                         if ([[parentForm dictionaryOfFields] objectForKey:section])
                         {
-                            [valueString appendString:[(EpiInfoTextField *)[[parentForm dictionaryOfFields] objectForKey:section] text]];
+                            [valueString appendString:[(UITextField *)[[parentForm dictionaryOfFields] objectForKey:section] text]];
                         }
                         else
                         {
@@ -138,9 +206,17 @@
                         }
                     }
                     NSString *section = [objectForKey substringFromIndex:startIndex];
+                    while ([section characterAtIndex:0] == ' ')
+                    {
+                        section = [section substringFromIndex:1];
+                    }
+                    while ([section characterAtIndex:[section length] - 1] == ' ')
+                    {
+                        section = [section substringToIndex:[section length] - 1];
+                    }
                     if ([[parentForm dictionaryOfFields] objectForKey:[section stringByReplacingOccurrencesOfString:@" " withString:@""]])
                     {
-                        [valueString appendString:[(EpiInfoTextField *)[[parentForm dictionaryOfFields] objectForKey:[section stringByReplacingOccurrencesOfString:@" " withString:@""]] text]];
+                        [valueString appendString:[(UITextField *)[[parentForm dictionaryOfFields] objectForKey:[section stringByReplacingOccurrencesOfString:@" " withString:@""]] text]];
                     }
                     else
                     {
@@ -156,6 +232,96 @@
         }
     }
     
+    for (id key in [parentForm dictionaryOfFields])
+    {
+        if ([[[parentForm dictionaryOfFields] objectForKey:key] isKindOfClass:[UITextField class]])
+        {
+            if (![nsmd2 objectForKey:key])
+                [nsmd2 setObject:[(UITextField *)[[parentForm dictionaryOfFields] objectForKey:key] text] forKey:key];
+        }
+        else if ([[[parentForm dictionaryOfFields] objectForKey:key] isKindOfClass:[Checkbox class]])
+        {
+            if (![nsmd2 objectForKey:key])
+                [nsmd2 setObject:[NSNumber numberWithBool:[(Checkbox *)[[parentForm dictionaryOfFields] objectForKey:key] value]] forKey:key];
+        }
+        else if ([[[parentForm dictionaryOfFields] objectForKey:key] isKindOfClass:[UITextView class]])
+        {
+            if (![nsmd2 objectForKey:key])
+                [nsmd2 setObject:[(UITextView *)[[parentForm dictionaryOfFields] objectForKey:key] text] forKey:key];
+        }
+        else if ([[[parentForm dictionaryOfFields] objectForKey:key] isKindOfClass:[LegalValues class]])
+        {
+            if (![nsmd2 objectForKey:key])
+                [nsmd2 setObject:[(LegalValues *)[[parentForm dictionaryOfFields] objectForKey:key] picked] forKey:key];
+        }
+        else if ([[[parentForm dictionaryOfFields] objectForKey:key] isKindOfClass:[YesNo class]])
+        {
+            if (![nsmd2 objectForKey:key])
+                [nsmd2 setObject:[(YesNo *)[[parentForm dictionaryOfFields] objectForKey:key] picked] forKey:key];
+        }
+    }
+    
     return [NSDictionary dictionaryWithDictionary:nsmd2];
+}
+
++ (NSString *)daysBetweenTwoDates:(NSString *)checkCodeDaysFunction parentFormValues:(NSDictionary *)parentFormFields
+{
+    NSString *returnString = @"NaN";
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MM/dd/yyyy"];
+    
+    int openParenPosition = (int)[checkCodeDaysFunction rangeOfString:@"("].location;
+    int closeParenPosition = (int)[checkCodeDaysFunction rangeOfString:@")"].location;
+    int commaPosition = (int)[checkCodeDaysFunction rangeOfString:@","].location;
+    
+    NSString *startDate = [checkCodeDaysFunction substringWithRange:NSMakeRange(openParenPosition + 1, commaPosition - openParenPosition - 1)];
+    NSString *endDate = [checkCodeDaysFunction substringWithRange:NSMakeRange(commaPosition + 1, closeParenPosition - commaPosition - 1)];
+    
+    while ([startDate characterAtIndex:0] == ' ')
+        startDate = [startDate substringFromIndex:1];
+    while ([startDate characterAtIndex:[startDate length] - 1] == ' ')
+        startDate = [startDate substringToIndex:[startDate length] - 1];
+    
+    while ([endDate characterAtIndex:0] == ' ')
+        endDate = [endDate substringFromIndex:1];
+    while ([endDate characterAtIndex:[endDate length] - 1] == ' ')
+        endDate = [endDate substringToIndex:[endDate length] - 1];
+    
+    NSDate *startNSDate = nil;
+    NSDate *endNSDate = nil;
+    
+    if ([[startDate uppercaseString] isEqualToString:@"SYSTEMDATE"])
+    {
+        startNSDate = [NSDate date];
+    }
+    else
+    {
+        NSString *stringDate = [parentFormFields objectForKey:startDate];
+        if ([stringDate characterAtIndex:2] == '/')
+            [formatter setDateFormat:@"MM/dd/yyyy"];
+        else
+            [formatter setDateFormat:@"yyyy/MM/dd"];
+        startNSDate = [formatter dateFromString:stringDate];
+    }
+    
+    if ([[endDate uppercaseString] isEqualToString:@"SYSTEMDATE"])
+    {
+        endNSDate = [NSDate date];
+    }
+    else
+    {
+        NSString *stringDate = [parentFormFields objectForKey:endDate];
+        if ([stringDate characterAtIndex:2] == '/')
+            [formatter setDateFormat:@"MM/dd/yyyy"];
+        else
+            [formatter setDateFormat:@"yyyy/MM/dd"];
+        endNSDate = [formatter dateFromString:stringDate];
+    }
+    
+    NSCalendarUnit unitFlags = NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit;
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:unitFlags fromDate:startNSDate toDate:endNSDate options:0];
+   
+    return [NSString stringWithFormat:@"%d", (int)[components day]];
 }
 @end
