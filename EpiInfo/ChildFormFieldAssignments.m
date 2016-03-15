@@ -266,8 +266,6 @@
 
 + (NSString *)daysBetweenTwoDates:(NSString *)checkCodeDaysFunction parentFormValues:(NSDictionary *)parentFormFields
 {
-    NSString *returnString = @"NaN";
-    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MM/dd/yyyy"];
     
@@ -297,12 +295,19 @@
     }
     else
     {
-        NSString *stringDate = [parentFormFields objectForKey:startDate];
-        if ([stringDate characterAtIndex:2] == '/')
-            [formatter setDateFormat:@"MM/dd/yyyy"];
+        if ([parentFormFields objectForKey:startDate])
+        {
+            NSString *stringDate = [parentFormFields objectForKey:startDate];
+            if (![stringDate containsString:@"/"])
+                return @"";
+            if ([stringDate characterAtIndex:2] == '/')
+                [formatter setDateFormat:@"MM/dd/yyyy"];
+            else
+                [formatter setDateFormat:@"yyyy/MM/dd"];
+            startNSDate = [formatter dateFromString:stringDate];
+        }
         else
-            [formatter setDateFormat:@"yyyy/MM/dd"];
-        startNSDate = [formatter dateFromString:stringDate];
+            return  @"";
     }
     
     if ([[endDate uppercaseString] isEqualToString:@"SYSTEMDATE"])
@@ -311,12 +316,19 @@
     }
     else
     {
-        NSString *stringDate = [parentFormFields objectForKey:endDate];
-        if ([stringDate characterAtIndex:2] == '/')
-            [formatter setDateFormat:@"MM/dd/yyyy"];
+        if ([parentFormFields objectForKey:endDate])
+        {
+            NSString *stringDate = [parentFormFields objectForKey:endDate];
+            if (![stringDate containsString:@"/"])
+                return @"";
+            if ([stringDate characterAtIndex:2] == '/')
+                [formatter setDateFormat:@"MM/dd/yyyy"];
+            else
+                [formatter setDateFormat:@"yyyy/MM/dd"];
+            endNSDate = [formatter dateFromString:stringDate];
+        }
         else
-            [formatter setDateFormat:@"yyyy/MM/dd"];
-        endNSDate = [formatter dateFromString:stringDate];
+            return @"";
     }
     
     NSCalendarUnit unitFlags = NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit;
