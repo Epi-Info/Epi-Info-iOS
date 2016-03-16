@@ -67,7 +67,7 @@
     myFinalAgain = [myFinalAgain stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
     [check setString:@""];
     check = [myFinalAgain mutableCopy];
-    [check setString:[check lowercaseString]];
+    //[check setString:[check lowercaseString]];
     NSLog(@"FinalString %@",check);
     [self getPage];
     [self getField];
@@ -81,7 +81,7 @@
         NSString *substring = nil;
         [scanner scanString:@"page " intoString:nil]; // Scan the character
         if([scanner scanUpToString:@"end-page" intoString:&substring]) {
-            //substring = [[substring stringByReplacingOccurrencesOfString:@"[" withString:@""] stringByReplacingOccurrencesOfString:@"]" withString:@""];
+            substring = [[substring stringByReplacingOccurrencesOfString:@"[" withString:@""] stringByReplacingOccurrencesOfString:@"]" withString:@""];
             [pageArray addObject:substring];
             //NSLog(@"%@",substring);
         }

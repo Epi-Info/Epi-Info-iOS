@@ -49,7 +49,7 @@
     NSString *createTableStatement;
     BOOL beginColumList;
     NSMutableDictionary *alterTableElements;
-
+    
     sqlite3 *epiinfoDB;
     
     BOOL hasAFirstResponder;
@@ -67,6 +67,8 @@
     NSMutableArray *conditionsArray;
     NSMutableArray *elementListArray;
     NSMutableArray* dialogArray;
+    NSMutableArray* dialogListArray;
+    NSMutableArray *dialogTitleArray;
     NSMutableArray *elmArray;
     int tagNum;
     int require;
@@ -75,6 +77,10 @@
     CheckCodeParser *ccp;
     BOOL firstEdit;
     BOOL alertBefore;
+    NSString *pageName;
+    UITextField *activeField;
+    
+    CGRect permRect;
 }
 
 @property NSURL *url;
@@ -101,6 +107,8 @@
 @property (nonatomic) NSMutableArray *elmArray;
 @property (nonatomic) NSMutableArray *requiredArray;
 @property (nonatomic) NSMutableArray *dialogArray;
+@property (nonatomic) NSMutableArray *dialogListArray;
+@property (nonatomic) NSMutableArray *dialogTitleArray;
 @property (nonatomic) NSString *afterString;
 
 
@@ -117,6 +125,6 @@
 -(void)fieldResignedFirstResponder:(id)field;
 -(void)checkboxChanged:(Checkbox *)checkbox;
 -(void)copyToArray:(NSMutableArray *)eleArray;
--(BOOL)checkElements:(NSString *)name Tag:(NSInteger *)newTag type:(int)newType from:(NSString *)befAft;
+-(BOOL)checkElements:(NSString *)name Tag:(NSInteger *)newTag type:(int)newType from:(NSString *)befAft from:(NSString *)newFrom;
 
 @end
