@@ -124,7 +124,7 @@
         NSString *selStmt = [NSString stringWithFormat:@"select * from %@", formName];
         if ([(EnterDataView *)targetEnterDataView parentRecordGUID])
         {
-            selStmt = [selStmt stringByAppendingString:[NSString stringWithFormat:@"\nwhere ForeignKey = '%@'", [(EnterDataView *)targetEnterDataView parentRecordGUID]]];
+            selStmt = [selStmt stringByAppendingString:[NSString stringWithFormat:@"\nwhere FKEY = '%@'", [(EnterDataView *)targetEnterDataView parentRecordGUID]]];
         }
         
         const char *query_stmt = [selStmt UTF8String];
