@@ -14,8 +14,7 @@
     NSMutableArray *arrayOfLines = [[NSMutableArray alloc] init];
     
     NSString *ccs = [NSString stringWithString:checkCodeString];
-    
-    if ([ccs rangeOfString:@"End-Before"].location > 0)
+    if ((int)[ccs rangeOfString:@"End-Before"].location > 0)
     {
         ccs = [ccs substringFromIndex:[ccs rangeOfString:@"Before"].location];
         ccs = [ccs substringToIndex:[ccs rangeOfString:@"End-Before"].location + 11];

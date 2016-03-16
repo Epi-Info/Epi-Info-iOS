@@ -8,6 +8,7 @@
 #import "EnterDataView.h"
 //#import "QSEpiInfoService.h"
 #import "DataEntryViewController.h"
+#import "ChildFormFieldAssignments.h"
 
 
 #pragma mark * Private Interface
@@ -33,6 +34,20 @@
 @synthesize longitudeField = _longitudeField;
 @synthesize nameOfTheForm = _nameOfTheForm;
 @synthesize dictionaryOfFields = _dictionaryOfFields;
+
+- (void)setRelateButtonName:(NSString *)rbn
+{
+    relateButtonName = rbn;
+}
+
+- (void)setParentEnterDataView:(EnterDataView *)parentEDV
+{
+    parentEnterDataView = parentEDV;
+}
+- (EnterDataView *)parentEnterDataView
+{
+    return (EnterDataView *)parentEnterDataView;
+}
 
 - (void)setParentRecordGUID:(NSString *)prguid
 {
@@ -1568,6 +1583,8 @@
             }
         }
     }
+    if (parentEnterDataView)
+        [ChildFormFieldAssignments parseForAssignStatements:[self formCheckCodeString] parentForm:(EnterDataView *)parentEnterDataView childForm:self relateButtonName:relateButtonName];
 }
 - (void)okButtonPressed
 {

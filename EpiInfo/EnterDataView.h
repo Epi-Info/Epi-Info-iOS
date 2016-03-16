@@ -79,6 +79,8 @@
     NSString *newRecordGUID;
     
     NSString *parentRecordGUID;
+    UIView *parentEnterDataView;
+    NSString *relateButtonName;
     
     NSString *formCheckCodeString;
 }
@@ -103,6 +105,11 @@
 -(void)setParentRecordGUID:(NSString *)prguid;
 -(NSString *)parentRecordGUID;
 -(NSString *)guidToSendToChild;
+
+-(void)setParentEnterDataView:(EnterDataView *)parentEDV;
+-(EnterDataView *)parentEnterDataView;
+
+-(void)setRelateButtonName:(NSString *)rbn;
 
 -(NSString *)formCheckCodeString;
 

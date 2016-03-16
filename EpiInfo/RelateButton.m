@@ -98,6 +98,8 @@
         rootViewController = [(EnterDataView *)edv rootViewController];
         
         [(EnterDataView *)edv setParentRecordGUID:[(EnterDataView *)parentEDV guidToSendToChild]];
+        [(EnterDataView *)edv setParentEnterDataView:(EnterDataView *)parentEDV];
+        [(EnterDataView *)edv setRelateButtonName:relateButtonName];
         
 //        NSLog(@"Child form Check Code: %@", [(EnterDataView *)edv formCheckCodeString]);
         [ChildFormFieldAssignments parseForAssignStatements:[(EnterDataView *)edv formCheckCodeString] parentForm:(EnterDataView *)parentEDV childForm:(EnterDataView *)edv relateButtonName:relateButtonName];
