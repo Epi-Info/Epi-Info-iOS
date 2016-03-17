@@ -215,7 +215,18 @@
                         }
                         else
                         {
-                            [valueString appendString:[section stringByReplacingOccurrencesOfString:@"\"" withString:@""]];
+                            BOOL notFound = YES;
+                            for (id keyy in [parentForm dictionaryOfPages])
+                            {
+                                if ([[(EnterDataView *)[[parentForm dictionaryOfPages] objectForKey:keyy] dictionaryOfFields] objectForKey:section])
+                                {
+                                    [valueString appendString:[(EpiInfoTextField *)[[(EnterDataView *)[[parentForm dictionaryOfPages] objectForKey:keyy] dictionaryOfFields] objectForKey:section] text]];
+                                    notFound = NO;
+                                    break;
+                                }
+                            }
+                            if (notFound)
+                                [valueString appendString:[section stringByReplacingOccurrencesOfString:@"\"" withString:@""]];
                         }
                     }
                     NSString *section = [objectForKey substringFromIndex:startIndex];
@@ -233,44 +244,71 @@
                     }
                     else
                     {
-                        [valueString appendString:[section stringByReplacingOccurrencesOfString:@"\"" withString:@""]];
+                        BOOL notFound = YES;
+                        for (id keyy in [parentForm dictionaryOfPages])
+                        {
+                            if ([[(EnterDataView *)[[parentForm dictionaryOfPages] objectForKey:keyy] dictionaryOfFields] objectForKey:[section stringByReplacingOccurrencesOfString:@" " withString:@""]])
+                            {
+                                [valueString appendString:[(EpiInfoTextField *)[[(EnterDataView *)[[parentForm dictionaryOfPages] objectForKey:keyy] dictionaryOfFields] objectForKey:[section stringByReplacingOccurrencesOfString:@" " withString:@""]] text]];
+                                notFound = NO;
+                                break;
+                            }
+                        }
+                        if (notFound)
+                            [valueString appendString:[section stringByReplacingOccurrencesOfString:@"\"" withString:@""]];
                     }
                     [nsmd2 setObject:valueString forKey:key];
                 }
             }
             else
             {
-                [nsmd2 setObject:[(EpiInfoTextField *)[[parentForm dictionaryOfFields] objectForKey:objectForKey] text] forKey:key];
+                if ([[parentForm dictionaryOfFields] objectForKey:objectForKey])
+                    [nsmd2 setObject:[(EpiInfoTextField *)[[parentForm dictionaryOfFields] objectForKey:objectForKey] text] forKey:key];
+                else
+                {
+                    for (id keyy in [parentForm dictionaryOfPages])
+                    {
+                        if ([[(EnterDataView *)[[parentForm dictionaryOfPages] objectForKey:keyy] dictionaryOfFields] objectForKey:objectForKey])
+                        {
+                            [nsmd2 setObject:[(EpiInfoTextField *)[[(EnterDataView *)[[parentForm dictionaryOfPages] objectForKey:keyy] dictionaryOfFields] objectForKey:objectForKey] text] forKey:key];
+                            break;
+                        }
+                    }
+                }
             }
         }
     }
     
-    for (id key in [parentForm dictionaryOfFields])
+    for (id keyy in [parentForm dictionaryOfPages])
     {
-        if ([[[parentForm dictionaryOfFields] objectForKey:key] isKindOfClass:[UITextField class]])
+        EnterDataView *parentFormPage = (EnterDataView *)[[parentForm dictionaryOfPages] objectForKey:keyy];
+        for (id key in [parentFormPage dictionaryOfFields])
         {
-            if (![nsmd2 objectForKey:key])
-                [nsmd2 setObject:[(UITextField *)[[parentForm dictionaryOfFields] objectForKey:key] text] forKey:key];
-        }
-        else if ([[[parentForm dictionaryOfFields] objectForKey:key] isKindOfClass:[Checkbox class]])
-        {
-            if (![nsmd2 objectForKey:key])
-                [nsmd2 setObject:[NSNumber numberWithBool:[(Checkbox *)[[parentForm dictionaryOfFields] objectForKey:key] value]] forKey:key];
-        }
-        else if ([[[parentForm dictionaryOfFields] objectForKey:key] isKindOfClass:[UITextView class]])
-        {
-            if (![nsmd2 objectForKey:key])
-                [nsmd2 setObject:[(UITextView *)[[parentForm dictionaryOfFields] objectForKey:key] text] forKey:key];
-        }
-        else if ([[[parentForm dictionaryOfFields] objectForKey:key] isKindOfClass:[LegalValues class]])
-        {
-            if (![nsmd2 objectForKey:key])
-                [nsmd2 setObject:[(LegalValues *)[[parentForm dictionaryOfFields] objectForKey:key] picked] forKey:key];
-        }
-        else if ([[[parentForm dictionaryOfFields] objectForKey:key] isKindOfClass:[YesNo class]])
-        {
-            if (![nsmd2 objectForKey:key])
-                [nsmd2 setObject:[(YesNo *)[[parentForm dictionaryOfFields] objectForKey:key] picked] forKey:key];
+            if ([[[parentFormPage dictionaryOfFields] objectForKey:key] isKindOfClass:[UITextField class]])
+            {
+                if (![nsmd2 objectForKey:key])
+                    [nsmd2 setObject:[(UITextField *)[[parentFormPage dictionaryOfFields] objectForKey:key] text] forKey:key];
+            }
+            else if ([[[parentFormPage dictionaryOfFields] objectForKey:key] isKindOfClass:[Checkbox class]])
+            {
+                if (![nsmd2 objectForKey:key])
+                    [nsmd2 setObject:[NSNumber numberWithBool:[(Checkbox *)[[parentFormPage dictionaryOfFields] objectForKey:key] value]] forKey:key];
+            }
+            else if ([[[parentFormPage dictionaryOfFields] objectForKey:key] isKindOfClass:[UITextView class]])
+            {
+                if (![nsmd2 objectForKey:key])
+                    [nsmd2 setObject:[(UITextView *)[[parentFormPage dictionaryOfFields] objectForKey:key] text] forKey:key];
+            }
+            else if ([[[parentFormPage dictionaryOfFields] objectForKey:key] isKindOfClass:[LegalValues class]])
+            {
+                if (![nsmd2 objectForKey:key])
+                    [nsmd2 setObject:[(LegalValues *)[[parentFormPage dictionaryOfFields] objectForKey:key] picked] forKey:key];
+            }
+            else if ([[[parentFormPage dictionaryOfFields] objectForKey:key] isKindOfClass:[YesNo class]])
+            {
+                if (![nsmd2 objectForKey:key])
+                    [nsmd2 setObject:[(YesNo *)[[parentFormPage dictionaryOfFields] objectForKey:key] picked] forKey:key];
+            }
         }
     }
     

@@ -35,6 +35,11 @@
 @synthesize nameOfTheForm = _nameOfTheForm;
 @synthesize dictionaryOfFields = _dictionaryOfFields;
 
+- (NSDictionary *)dictionaryOfPages
+{
+    return dictionaryOfPages;
+}
+
 - (void)setRelateButtonName:(NSString *)rbn
 {
     relateButtonName = rbn;
