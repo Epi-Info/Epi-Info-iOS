@@ -165,10 +165,17 @@
   
   if (self)
   {
+      NSString *xmlString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+      if ((int)[xmlString rangeOfString:@"ActualPageNumber"].location < 0)
+      {
+          xmlString = [self fixPageIdValues:[NSMutableString stringWithString:xmlString]];
+          [xmlString writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:nil];
+      }
+      
     pageToDisplay = page;
     [self setNameOfTheForm:notf];
     [self setUrl:url];
-    
+      
     dataText = @"";
     formName = @"";
     contentSizeHeight = 32.0;
@@ -1773,7 +1780,7 @@
       // New code for separating pages
     if ([elementName isEqualToString:@"Page"])
     {
-        NSString *pageNo = [attributeDict objectForKey:@"PageId"];
+        NSString *pageNo = [attributeDict objectForKey:@"ActualPageNumber"];
         int pageNumber = [pageNo intValue];
         NSLog(@"Page %d", pageNumber);
         isFirstPage = (pageToDisplay == 1);
@@ -2562,6 +2569,25 @@
 - (void)checkboxChanged:(Checkbox *)checkbox
 {
   NSLog(@"%@ changed", [checkbox columnName]);
+}
+
+- (NSString *)fixPageIdValues:(NSMutableString *)xmlText
+{
+    int substringStartPosition = 0;
+    int pageNumber = 1;
+    while ((int)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"<Page "].location > -1)
+    {
+        substringStartPosition += (int)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"<Page "].location;
+        substringStartPosition += (int)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"PageId=\""].location + 8;
+        NSString *pageNumberString = [NSString stringWithFormat:@"%d", pageNumber++];
+        int relativePositionOfSecondQuote = (int)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"\""].location;
+        substringStartPosition += relativePositionOfSecondQuote + 1;
+        NSString *actualPageString = [NSString stringWithFormat:@" ActualPageNumber=\"%@\"", pageNumberString];
+        int actualPageStringLength = (int)[actualPageString length];
+        [xmlText insertString:actualPageString atIndex:substringStartPosition];
+        substringStartPosition += actualPageStringLength;
+    }
+    return [NSString stringWithString:xmlText];
 }
 
 /*

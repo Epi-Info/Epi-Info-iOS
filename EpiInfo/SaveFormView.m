@@ -290,7 +290,7 @@
                 {
                     [[NSFileManager defaultManager] removeItemAtPath:filePathAndName error:nil];
                 }
-                NSString *xmlText = [NSString stringWithContentsOfFile:[NSString stringWithUTF8String:[self.url fileSystemRepresentation]] encoding:NSUTF8StringEncoding error:nil];
+                NSString *xmlText = [self fixPageIdValues:[NSMutableString stringWithString:[NSString stringWithContentsOfFile:[NSString stringWithUTF8String:[self.url fileSystemRepresentation]] encoding:NSUTF8StringEncoding error:nil]]];
                 [xmlText writeToFile:filePathAndName atomically:YES encoding:NSUTF8StringEncoding error:nil];
                 
                 // Write the cloud info to the cloud database
@@ -437,6 +437,25 @@
         } completion:^(BOOL finished){
         }];
     }];
+}
+
+- (NSString *)fixPageIdValues:(NSMutableString *)xmlText
+{
+    int substringStartPosition = 0;
+    int pageNumber = 1;
+    while ((int)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"<Page "].location > -1)
+    {
+        substringStartPosition += (int)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"<Page "].location;
+        substringStartPosition += (int)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"PageId=\""].location + 8;
+        NSString *pageNumberString = [NSString stringWithFormat:@"%d", pageNumber++];
+        int relativePositionOfSecondQuote = (int)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"\""].location;
+        substringStartPosition += relativePositionOfSecondQuote + 1;
+        NSString *actualPageString = [NSString stringWithFormat:@" ActualPageNumber=\"%@\"", pageNumberString];
+        int actualPageStringLength = (int)[actualPageString length];
+        [xmlText insertString:actualPageString atIndex:substringStartPosition];
+        substringStartPosition += actualPageStringLength;
+    }
+    return [NSString stringWithString:xmlText];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
