@@ -414,6 +414,11 @@
         {
             [edv populateFieldsWithRecord:@[tableBeingUpdated, guidBeingUpdated]];
         }
+        if (parentRecordGUID)
+        {
+            [edv setParentRecordGUID:parentRecordGUID];
+            [edv setParentEnterDataView:(EnterDataView *)parentEnterDataView];
+        }
         [self.rootViewController.view addSubview:edv];
         [self.rootViewController.view bringSubviewToFront:edv];
     }
@@ -431,6 +436,8 @@
             }
         }
     }
+    if (parentEnterDataView)
+        [ChildFormFieldAssignments parseForAssignStatements:[self formCheckCodeString] parentForm:(EnterDataView *)parentEnterDataView childForm:self relateButtonName:relateButtonName];
 }
 
 - (id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndNameOfTheForm:(NSString *)notf AndPageToDisplay:(int)page

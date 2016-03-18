@@ -16,25 +16,30 @@
     NSString *ccs = [NSString stringWithString:checkCodeString];
     if ((int)[ccs rangeOfString:@"End-Before"].location > 0)
     {
-        ccs = [ccs substringFromIndex:[ccs rangeOfString:@"Before"].location];
-        ccs = [ccs substringToIndex:[ccs rangeOfString:@"End-Before"].location + 11];
-//        NSLog(@"ccs:\n%@\n\n%d", ccs, (int)[ccs rangeOfString:@"\n"].location);
-        
-        while ([ccs length] > 0)
+        int nextSubstringLocation = 0;
+        while ((int)[ccs rangeOfString:@"End-Before"].location > 0)
         {
-            [arrayOfLines addObject:[[ccs substringToIndex:[ccs rangeOfString:@"\n"].location] stringByReplacingOccurrencesOfString:@"\t" withString:@""]];
-            ccs = [ccs substringFromIndex:[ccs rangeOfString:@"\n"].location + 1];
-            NSLog(@"%@", [arrayOfLines lastObject]);
-        }
-        
-        for (int i = (int)[arrayOfLines count] - 1; i > -1; i--)
-        {
-            if ([(NSString *)[arrayOfLines objectAtIndex:i] isEqualToString:@"Before"] ||
-                [(NSString *)[arrayOfLines objectAtIndex:i] isEqualToString:@"End-Before"] ||
-                [[(NSString *)[arrayOfLines objectAtIndex:i] substringToIndex:2] isEqualToString:@"//"])
+            nextSubstringLocation += (int)[ccs rangeOfString:@"End-Before"].location + 9;
+            ccs = [ccs substringFromIndex:[ccs rangeOfString:@"Before"].location];
+            ccs = [ccs substringToIndex:[ccs rangeOfString:@"End-Before"].location + 11];
+            
+            while ([ccs length] > 0)
             {
-                [arrayOfLines removeObjectAtIndex:i];
+                [arrayOfLines addObject:[[ccs substringToIndex:[ccs rangeOfString:@"\n"].location] stringByReplacingOccurrencesOfString:@"\t" withString:@""]];
+                ccs = [ccs substringFromIndex:[ccs rangeOfString:@"\n"].location + 1];
+                NSLog(@"%@", [arrayOfLines lastObject]);
             }
+            
+            for (int i = (int)[arrayOfLines count] - 1; i > -1; i--)
+            {
+                if ([(NSString *)[arrayOfLines objectAtIndex:i] isEqualToString:@"Before"] ||
+                    [(NSString *)[arrayOfLines objectAtIndex:i] isEqualToString:@"End-Before"] ||
+                    [[(NSString *)[arrayOfLines objectAtIndex:i] substringToIndex:2] isEqualToString:@"//"])
+                {
+                    [arrayOfLines removeObjectAtIndex:i];
+                }
+            }
+            ccs = [checkCodeString substringFromIndex:nextSubstringLocation];
         }
         
         NSMutableArray *ifs = [[NSMutableArray alloc] init];
@@ -126,6 +131,60 @@
                        {
                            
                        }
+                   }
+               }
+           }
+           else
+           {
+               for (id keyy in [childForm dictionaryOfPages])
+               {
+                   EnterDataView *endavi = (EnterDataView *)[[childForm dictionaryOfPages] objectForKey:keyy];
+                   if ([[endavi dictionaryOfFields] objectForKey:key])
+                   {
+                       NSString *objectForKey = (NSString *)[unconditionalAssignmentsDictionary objectForKey:key];
+                       if ([buttonClickAssignments objectForKey:objectForKey])
+                       {
+                           if ([[[endavi dictionaryOfFields] objectForKey:key] isKindOfClass:[UITextField class]])
+                           {
+                               [(UITextField *)[[endavi dictionaryOfFields] objectForKey:key] setText:[buttonClickAssignments objectForKey:objectForKey]];
+                           }
+                       }
+                       else
+                       {
+                           if ([objectForKey containsString:@"&"] ||
+                               ([objectForKey containsString:@"("] && [objectForKey containsString:@")"]))
+                           {
+                               if ([objectForKey containsString:@"("] && [objectForKey containsString:@")"])
+                               {
+                                   if ([[objectForKey uppercaseString] rangeOfString:@"DAYS"].location == 0)
+                                   {
+                                       if ([[[endavi dictionaryOfFields] objectForKey:key] isKindOfClass:[UITextField class]])
+                                       {
+                                           [(UITextField *)[[endavi dictionaryOfFields] objectForKey:key] setText:[self timeBetweenTwoDates:objectForKey parentFormValues:buttonClickAssignments timeUnit:0]];
+                                       }
+                                   }
+                                   else if ([[objectForKey uppercaseString] rangeOfString:@"MONTHS"].location == 0)
+                                   {
+                                       if ([[[endavi dictionaryOfFields] objectForKey:key] isKindOfClass:[UITextField class]])
+                                       {
+                                           [(UITextField *)[[endavi dictionaryOfFields] objectForKey:key] setText:[self timeBetweenTwoDates:objectForKey parentFormValues:buttonClickAssignments timeUnit:1]];
+                                       }
+                                   }
+                                   else if ([[objectForKey uppercaseString] rangeOfString:@"YEARS"].location == 0)
+                                   {
+                                       if ([[[endavi dictionaryOfFields] objectForKey:key] isKindOfClass:[UITextField class]])
+                                       {
+                                           [(UITextField *)[[endavi dictionaryOfFields] objectForKey:key] setText:[self timeBetweenTwoDates:objectForKey parentFormValues:buttonClickAssignments timeUnit:2]];
+                                       }
+                                   }
+                               }
+                               else
+                               {
+                                   
+                               }
+                           }
+                       }
+                       break;
                    }
                }
            }
