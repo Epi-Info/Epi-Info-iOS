@@ -418,6 +418,7 @@
         {
             [edv setParentRecordGUID:parentRecordGUID];
             [edv setParentEnterDataView:(EnterDataView *)parentEnterDataView];
+            [edv setRelateButtonName:relateButtonName];
         }
         [self.rootViewController.view addSubview:edv];
         [self.rootViewController.view bringSubviewToFront:edv];
