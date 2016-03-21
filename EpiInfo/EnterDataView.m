@@ -287,6 +287,7 @@
         firstEdit = TRUE;
     }
     [self registerForKeyboardNotifications];
+    [self gotoField:@"before" element:[pageName lowercaseString]];
     
     return self;
 }
@@ -3173,7 +3174,7 @@
         //  NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:1 from:@"after" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:[etf tag] type:1 from:@"after" from:@"field"];
-        
+
         BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:1 from:@"after" str:etf.text];
         if (required) {
             etf.layer.borderWidth = 1.0f;
@@ -3190,7 +3191,8 @@
             etf.clipsToBounds      = YES;
             [etf setAlpha:1.0f];
         }
-        
+        [self gotoField:@"after" element:[etf columnName]];
+
         
     }
     if ([field isKindOfClass:[UppercaseTextField class]])
@@ -3199,7 +3201,7 @@
         //  NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:3 from:@"after" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:[etf tag] type:1 from:@"after" from:@"field"];
-        
+
         BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:3 from:@"after" str:etf.text];
         if (required) {
             etf.layer.borderWidth = 1.0f;
@@ -3218,7 +3220,8 @@
             
         }
         
-        
+        [self gotoField:@"after" element:[etf columnName]];
+
     }
     
     if ([field isKindOfClass:[EpiInfoTextView class]])
@@ -3227,7 +3230,7 @@
         //   NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:4 from:@"after" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:[etf tag] type:1 from:@"after" from:@"field"];
-        
+
         BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:4 from:@"after" str:etf.text];
         if (required) {
             etf.layer.borderWidth = 1.0f;
@@ -3245,7 +3248,8 @@
             [etf setAlpha:1.0f];
             
         }
-        
+        [self gotoField:@"after" element:[etf columnName]];
+
         
     }
     if ([field isKindOfClass:[NumberField class]])
@@ -3254,7 +3258,7 @@
         //   NSLog(@"%@ resigned first responder", [numField columnName]);
         [self checkElements:[numField columnName] Tag:[numField tag] type:5 from:@"after" from:@"field"];
         [self checkDialogs:[numField columnName] Tag:[numField tag] type:1 from:@"after" from:@"field"];
-        
+
         BOOL required = [self checkRequiredstr:[numField columnName] Tag:[numField tag] type:5 from:@"after" str:numField.text];
         if (required) {
             numField.layer.borderWidth = 1.0f;
@@ -3273,7 +3277,8 @@
             
         }
         
-        
+        [self gotoField:@"after" element:[numField columnName]];
+
     }
     
     if ([field isKindOfClass:[PhoneNumberField class]])
@@ -3282,7 +3287,7 @@
         //     NSLog(@"%@ resigned first responder", [numField columnName]);
         [self checkElements:[numField columnName] Tag:[numField tag] type:6 from:@"after" from:@"field"];
         [self checkDialogs:[numField columnName] Tag:[numField tag] type:1 from:@"after" from:@"field"];
-        
+
         BOOL required = [self checkRequiredstr:[numField columnName] Tag:[numField tag] type:6 from:@"after" str:numField.text];
         if (required) {
             numField.layer.borderWidth = 1.0f;
@@ -3300,7 +3305,8 @@
             [numField setAlpha:1.0f];
             
         }
-        
+        [self gotoField:@"after" element:[numField columnName]];
+
     }
     
     
@@ -3310,7 +3316,7 @@
         // NSLog(@"%@ resigned first responder", [dateField columnName]);
         [self checkElements:[dateField columnName] Tag:[dateField tag] type:7 from:@"after" from:@"field"];
         [self checkDialogs:[dateField columnName] Tag:[dateField tag] type:1 from:@"after" from:@"field"];
-        
+
         BOOL required = [self checkRequiredstr:[dateField columnName] Tag:[dateField tag] type:7 from:@"after" str:dateField.text];
         if (required) {
             dateField.layer.borderWidth = 1.0f;
@@ -3328,7 +3334,8 @@
             [dateField setAlpha:1.0f];
             
         }
-        
+        [self gotoField:@"after" element:[dateField columnName]];
+
     }
     if ([field isKindOfClass:[TimeField class]])
     {
@@ -3336,7 +3343,7 @@
         //    NSLog(@"%@ resigned first responder", [timeField columnName]);
         [self checkElements:[timeField columnName] Tag:[timeField tag] type:8 from:@"after" from:@"field"];
         [self checkDialogs:[timeField columnName] Tag:[timeField tag] type:1 from:@"after" from:@"field"];
-        
+
         BOOL required = [self checkRequiredstr:[timeField columnName] Tag:[timeField tag] type:8 from:@"after" str:timeField.text];
         if (required) {
             timeField.layer.borderWidth = 1.0f;
@@ -3354,7 +3361,8 @@
             [timeField setAlpha:1.0f];
             
         }
-        
+        [self gotoField:@"after" element:[timeField columnName]];
+ 
     }
     if ([field isKindOfClass:[DateTimeField class]])
     {
@@ -3362,7 +3370,7 @@
         //   NSLog(@"%@ resigned first responder", [dateTimeField columnName]);
         [self checkElements:[dateTimeField columnName] Tag:[dateTimeField tag] type:9 from:@"after" from:@"field"];
         [self checkDialogs:[dateTimeField columnName] Tag:[dateTimeField tag] type:1 from:@"after" from:@"field"];
-        
+
         BOOL required = [self checkRequiredstr:[dateTimeField columnName] Tag:[dateTimeField tag] type:9 from:@"after" str:dateTimeField.text];
         if (required) {
             dateTimeField.layer.borderWidth = 1.0f;
@@ -3380,7 +3388,8 @@
             [dateTimeField setAlpha:1.0f];
             
         }
-        
+        [self gotoField:@"after" element:[dateTimeField columnName]];
+
     }
     
     if ([field isKindOfClass:[YesNo class]])
@@ -3389,7 +3398,7 @@
         //  NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:11 from:@"after" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:[etf tag] type:1 from:@"after" from:@"field"];
-        
+
         //  NSLog(@"%@",etf.picked);
         //        if ([[etf picked]intValue] == 0)
         // if (![[etf picked]containsString:@"1"])//||[[etf picked]containsString:@"0"])
@@ -3415,6 +3424,7 @@
                 [etf setAlpha:1.0f];
                 
             }
+
         }
         
         else if ([etf picked].length == 1)
@@ -3436,7 +3446,8 @@
                 [etf setAlpha:1.0f];
             }
         }
-        
+        [self gotoField:@"after" element:[etf columnName]];
+
         
     }
     
@@ -3446,7 +3457,7 @@
         //   NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:12 from:@"after" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:[etf tag] type:1 from:@"after" from:@"field"];
-        
+
         // NSLog(@"%@",etf.picked);
         if ([[etf picked]isEqualToString:@"NULL"])
         {
@@ -3490,7 +3501,8 @@
             }
         }
         
-        
+        [self gotoField:@"after" element:[etf columnName]];
+
         
     }
     if ([field isKindOfClass:[LegalValuesEnter class]])
@@ -3499,7 +3511,7 @@
         //     NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:17 from:@"after" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:[etf tag] type:1 from:@"after" from:@"field"];
-        
+
         //    NSLog(@"%@",etf.picked);
         //        if ([[etf picked]intValue] == 0)
         // if (![[etf picked]containsString:@"1"])//||[[etf picked]containsString:@"0"])
@@ -3547,7 +3559,8 @@
             }
         }
         
-        
+        [self gotoField:@"after" element:[etf columnName]];
+
     }
     
     if ([field isKindOfClass:[EpiInfoUniqueIDField class]])
@@ -3556,7 +3569,7 @@
         //    NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:25 from:@"after" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:[etf tag] type:1 from:@"after" from:@"field"];
-        
+
         
         BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:25 from:@"after" str:etf.text];
         if (required) {
@@ -3576,7 +3589,8 @@
             
         }
         
-        
+        [self gotoField:@"after" element:[etf columnName]];
+
     }
     
 }
@@ -3586,6 +3600,8 @@
     // NSLog(@"%@ changed", [checkbox columnName]);
     [self checkElements:[checkbox columnName] Tag:[checkbox tag] type:10 from:@"after" from:@"field"];
     [self checkDialogs:[checkbox columnName] Tag:[checkbox tag] type:1 from:@"after" from:@"field"];
+    [self gotoField:@"after" element:[checkbox columnName]];
+
     
     
 }
@@ -3754,6 +3770,8 @@
             conditionWordOne = [[self removeSp:conditionWordOne]lowercaseString];
             
         }
+        conditionWordOne=[[conditionWordOne stringByReplacingOccurrencesOfString:@" Before" withString:@""]stringByReplacingOccurrencesOfString:@" before" withString:@""];
+
         NSString *elmt;
         NSString *lastElmt;
         int eleCount = [self numberOfWordsInString:epc.stringValue];
@@ -3998,18 +4016,18 @@
                 }
                 
             }
-            if (([cpm.name caseInsensitiveCompare:name] == NSOrderedSame) &&  [befAft isEqualToString:cpm.beforeAfter] && [cpm.condition isEqualToString:@"goto"])
-            {
-                for (ElementsModel *emc in elementListArray)
-                {
-                    if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
-                    {
-                        [self highlight:emc.tag type:emc.type];
-                        
-                    }
-                }
-                
-            }
+//            if (([cpm.name caseInsensitiveCompare:name] == NSOrderedSame) &&  [befAft isEqualToString:cpm.beforeAfter] && [cpm.condition isEqualToString:@"goto"])
+//            {
+//                for (ElementsModel *emc in elementListArray)
+//                {
+//                    if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
+//                    {
+//                        [self gotoFormField:emc.tag type:emc.type];
+//                        
+//                    }
+//                }
+//                
+//            }
 
             
         }
@@ -4182,6 +4200,57 @@ newStr{
     return value;
 }
 
+-(void)gotoField:(NSString *)newFrom element:(NSString *)newElement
+{
+    for (ConditionsModel *cpm in conditionsArray)
+    {
+        if ([newFrom isEqualToString:@"before"])
+        {
+            if ([cpm.condition isEqualToString:@"goto"] && [cpm.beforeAfter isEqualToString:@"before"] )
+            {
+                if ([cpm.name isEqualToString:newElement])
+                {
+                    BOOL there = [elmArray containsObject:cpm.element];
+                    if (there)
+                    {
+                        NSUInteger idx = [elmArray indexOfObject:cpm.element];
+                        ElementsModel *emc = [elementListArray objectAtIndex:idx];
+                        [self gotoFormField:emc.type tag:emc.tag];
+                        break;
+                        
+                    }
+                }
+            }
+        }
+        else if([newFrom isEqualToString:@"after"])
+        {
+            if ([cpm.condition isEqualToString:@"goto"] && [cpm.beforeAfter isEqualToString:@"after"])
+            {
+                if ([cpm.name caseInsensitiveCompare:newElement]==NSOrderedSame)
+                {
+                    BOOL there = [elmArray containsObject:cpm.element];
+                    if (there)
+                    {
+                        NSUInteger idx = [elmArray indexOfObject:cpm.element];
+                        ElementsModel *emc = [elementListArray objectAtIndex:idx];
+                        //[self gotoFormField:emc.type tag:emc.tag];
+                        //DELAY by .5 secs for first responder to resign
+
+                       double delayInSeconds = 0.5;
+                        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                            [self gotoFormField:emc.type tag:emc.tag];
+                        });
+                        break;
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
 #pragma mark checkUIManipulation
 
 -(void)disable:(int)eleTag type:(int)newType
@@ -4208,7 +4277,7 @@ newStr{
         case 4:
         {
             NSLog(@"textview");
-            UITextView *utf = (UITextView *)[formCanvas viewWithTag:eleTag];
+            EpiInfoTextView *utf = (EpiInfoTextView *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
             
@@ -4217,7 +4286,7 @@ newStr{
         case 5:
         {
             NSLog(@"text");
-            UITextField *utf = (UITextField *)[formCanvas viewWithTag:eleTag];
+            NumberField *utf = (NumberField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
             
@@ -4226,7 +4295,7 @@ newStr{
         case 6:
         {
             NSLog(@"textph");
-            UITextField *utf = (UITextField *)[formCanvas viewWithTag:eleTag];
+            PhoneNumberField *utf = (PhoneNumberField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
             
@@ -4235,7 +4304,7 @@ newStr{
         case 7:
         {
             NSLog(@"date");
-            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            DateField *utf = (DateField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
             
@@ -4244,7 +4313,7 @@ newStr{
         case 8:
         {
             NSLog(@"time");
-            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            TimeField *utf = (TimeField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
             
@@ -4253,7 +4322,7 @@ newStr{
         case 9:
         {
             NSLog(@"datetime");
-            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            DateTimeField *utf = (DateTimeField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
             
@@ -4262,7 +4331,7 @@ newStr{
         case 10:
         {
             NSLog(@"checkbox");
-            UIButton *utf = (UIButton *)[formCanvas viewWithTag:eleTag];
+            Checkbox *utf = (Checkbox *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
             
@@ -4271,7 +4340,7 @@ newStr{
         case 11:
         {
             NSLog(@"y/n");
-            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            YesNo *utf = (YesNo *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
             
@@ -4280,7 +4349,7 @@ newStr{
         case 12:
         {
             NSLog(@"options");
-            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            EpiInfoOptionField *utf = (EpiInfoOptionField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
             break;
@@ -4291,7 +4360,7 @@ newStr{
         case 17:
         {
             NSLog(@"legal");
-            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
             break;
@@ -4451,8 +4520,7 @@ newStr{
     
     switch (newType)
     {
-            
-        case 1:
+            case 1:
         {
             NSLog(@"text");
             EpiInfoTextField *utf = (EpiInfoTextField *)[formCanvas viewWithTag:eleTag];
@@ -4581,7 +4649,7 @@ newStr{
         case 1:
         {
             NSLog(@"text");
-            UITextField *utf = (UITextField *)[formCanvas viewWithTag:eleTag];
+            EpiInfoTextField *utf = (EpiInfoTextField *)[formCanvas viewWithTag:eleTag];
             [utf setBackgroundColor:[UIColor whiteColor]];
             //            etf.layer.borderColor = [[UIColor redColor] CGColor];
             
@@ -4591,7 +4659,7 @@ newStr{
         case 3:
         {
             NSLog(@"text");
-            UITextField *utf = (UITextField *)[formCanvas viewWithTag:eleTag];
+            UppercaseTextField *utf = (UppercaseTextField *)[formCanvas viewWithTag:eleTag];
             [utf setBackgroundColor:[UIColor whiteColor]];
             
             break;
@@ -4599,7 +4667,7 @@ newStr{
         case 4:
         {
             NSLog(@"textview");
-            UITextView *utf = (UITextView *)[formCanvas viewWithTag:eleTag];
+            EpiInfoTextView *utf = (EpiInfoTextView *)[formCanvas viewWithTag:eleTag];
             [utf setBackgroundColor:[UIColor whiteColor]];
             
             break;
@@ -4607,7 +4675,7 @@ newStr{
         case 5:
         {
             NSLog(@"text");
-            UITextField *utf = (UITextField *)[formCanvas viewWithTag:eleTag];
+            NumberField *utf = (NumberField *)[formCanvas viewWithTag:eleTag];
             [utf setBackgroundColor:[UIColor whiteColor]];
             
             break;
@@ -4615,7 +4683,7 @@ newStr{
         case 6:
         {
             NSLog(@"textph");
-            UITextField *utf = (UITextField *)[formCanvas viewWithTag:eleTag];
+            PhoneNumberField *utf = (PhoneNumberField *)[formCanvas viewWithTag:eleTag];
             [utf setBackgroundColor:[UIColor whiteColor]];
             
             break;
@@ -4623,7 +4691,7 @@ newStr{
         case 7:
         {
             NSLog(@"date");
-            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            DateField *utf = (DateField *)[formCanvas viewWithTag:eleTag];
             [utf setBackgroundColor:[UIColor clearColor]];
             
             break;
@@ -4631,14 +4699,14 @@ newStr{
         case 8:
         {
             NSLog(@"time");
-            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            TimeField *utf = (TimeField *)[formCanvas viewWithTag:eleTag];
             [utf setBackgroundColor:[UIColor clearColor]];
             break;
         }
         case 9:
         {
             NSLog(@"datetime");
-            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            DateTimeField *utf = (DateTimeField *)[formCanvas viewWithTag:eleTag];
             [utf setBackgroundColor:[UIColor clearColor]];
             
             break;
@@ -4646,7 +4714,7 @@ newStr{
         case 10:
         {
             NSLog(@"checkbox");
-            UIButton *utf = (UIButton *)[formCanvas viewWithTag:eleTag];
+            Checkbox *utf = (Checkbox *)[formCanvas viewWithTag:eleTag];
             [utf setBackgroundColor:[UIColor whiteColor]];
             
             break;
@@ -4654,7 +4722,7 @@ newStr{
         case 11:
         {
             NSLog(@"y/n");
-            UIButton *utf = (UIButton *)[formCanvas viewWithTag:eleTag];
+            YesNo *utf = (YesNo *)[formCanvas viewWithTag:eleTag];
             [utf setBackgroundColor:[UIColor clearColor]];
             
             break;
@@ -4662,7 +4730,7 @@ newStr{
         case 12:
         {
             NSLog(@"options");
-            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            EpiInfoOptionField *utf = (EpiInfoOptionField *)[formCanvas viewWithTag:eleTag];
             [utf setBackgroundColor:[UIColor clearColor]];
             break;
         }
@@ -4672,7 +4740,7 @@ newStr{
         case 17:
         {
             NSLog(@"legal");
-            UIPickerView *utf = (UIPickerView *)[formCanvas viewWithTag:eleTag];
+            LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
             [utf setBackgroundColor:[UIColor clearColor]];
             break;
         }
@@ -4693,6 +4761,282 @@ newStr{
     }
     
 }
+
+-(void)gotoMissingFieldtype:(int)newType tag:(NSInteger *)newTag
+{
+    switch (newType) {
+        case 1:
+        {
+            EpiInfoTextField *utf = (EpiInfoTextField *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            break;
+        }
+        case 3:
+        {
+            NSLog(@"text");
+            UppercaseTextField *utf = (UppercaseTextField *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            
+            break;
+        }
+        case 4:
+        {
+            NSLog(@"textview");
+            EpiInfoTextView *utf = (EpiInfoTextView *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            
+            break;
+        }
+        case 5:
+        {
+            NSLog(@"text");
+            NumberField *utf = (NumberField *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            
+            break;
+        }
+        case 6:
+        {
+            NSLog(@"textph");
+            PhoneNumberField *utf = (PhoneNumberField *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            
+            break;
+        }
+        case 7:
+        {
+            NSLog(@"date");
+            DateField *utf = (DateField *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            
+            break;
+        }
+        case 8:
+        {
+            NSLog(@"time");
+            TimeField *utf = (TimeField *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            break;
+        }
+        case 9:
+        {
+            NSLog(@"datetime");
+            DateTimeField *utf = (DateTimeField *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            
+            break;
+        }
+        case 10:
+        {
+            NSLog(@"checkbox");
+            Checkbox *utf = (Checkbox *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            
+            break;
+        }
+        case 11:
+        {
+            NSLog(@"y/n");
+            YesNo *utf = (YesNo *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            
+            break;
+        }
+        case 12:
+        {
+            NSLog(@"options");
+            EpiInfoOptionField *utf = (EpiInfoOptionField *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            break;
+        }
+        case 15:
+            NSLog(@"mirror");
+            break;
+        case 17:
+        {
+            NSLog(@"legal");
+            LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
+            break;
+        }
+        case 18:
+            NSLog(@"codes");
+            break;
+        case 19:
+            NSLog(@"legalcomment");
+            break;
+        case 14:
+            NSLog(@"image");
+            break;
+        case 25:
+            NSLog(@"unique");
+            break;
+            
+            
+        default:
+            break;
+    }
+}
+
+-(void)gotoFormField:(int)newType tag:(NSInteger *)newTag
+{
+   // [self endEditing:YES];
+    switch (newType) {
+        case 1:
+        {
+            EpiInfoTextField *utf = (EpiInfoTextField *)[formCanvas viewWithTag:newTag];
+            [utf becomeFirstResponder];
+            break;
+        }
+        case 3:
+        {
+            NSLog(@"text");
+            UppercaseTextField *utf = (UppercaseTextField *)[formCanvas viewWithTag:newTag];
+            [utf becomeFirstResponder];
+            break;
+        }
+        case 4:
+        {
+            NSLog(@"textview");
+            EpiInfoTextView *utf = (EpiInfoTextView *)[formCanvas viewWithTag:newTag];
+            [utf becomeFirstResponder];
+            break;
+        }
+        case 5:
+        {
+            NSLog(@"text");
+            NumberField *utf = (NumberField *)[formCanvas viewWithTag:newTag];
+            [utf becomeFirstResponder];
+            break;
+        }
+        case 6:
+        {
+            NSLog(@"textph");
+            PhoneNumberField *utf = (PhoneNumberField *)[formCanvas viewWithTag:newTag];
+            [utf becomeFirstResponder];
+            
+            break;
+        }
+        case 7:
+        {
+            NSLog(@"date");
+            DateField *utf = (DateField *)[formCanvas viewWithTag:newTag];
+            [utf becomeFirstResponder];
+            break;
+        }
+        case 8:
+        {
+            NSLog(@"time");
+            TimeField *utf = (TimeField *)[formCanvas viewWithTag:newTag];
+            [utf becomeFirstResponder];
+            break;
+        }
+        case 9:
+        {
+            NSLog(@"datetime");
+            DateTimeField *utf = (DateTimeField *)[formCanvas viewWithTag:newTag];
+            [utf becomeFirstResponder];
+            break;
+        }
+        case 10:
+        {
+            NSLog(@"checkbox");
+            Checkbox *utf = (Checkbox *)[formCanvas viewWithTag:newTag];
+            [utf becomeFirstResponder];
+            break;
+        }
+        case 11:
+        {
+            NSLog(@"y/n");
+            YesNo *utf = (YesNo *)[formCanvas viewWithTag:newTag];
+            [utf becomeFirstResponder];
+            break;
+        }
+        case 12:
+        {
+            NSLog(@"options");
+            EpiInfoOptionField *utf = (EpiInfoOptionField *)[formCanvas viewWithTag:newTag];
+            [utf becomeFirstResponder];
+            break;
+        }
+        case 15:
+            NSLog(@"mirror");
+            break;
+        case 17:
+        {
+            NSLog(@"legal");
+            LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:newTag];
+            [utf becomeFirstResponder];
+            break;
+        }
+        case 18:
+            NSLog(@"codes");
+            break;
+        case 19:
+            NSLog(@"legalcomment");
+            break;
+        case 14:
+            NSLog(@"image");
+            break;
+        case 25:
+            NSLog(@"unique");
+            break;
+            
+            
+        default:
+            break;
+    }
+}
+
+
 -(NSUInteger)getIndexEle:(NSString *)newElet
 {
     NSUInteger idx = [elmArray indexOfObject:newElet];
@@ -4840,170 +5184,6 @@ newStr{
     }];
     
 }
-
--(void)gotoMissingFieldtype:(int)newType tag:(NSInteger *)newTag
-    {
-     switch (newType) {
-     case 1:
-     {
-         EpiInfoTextField *utf = (EpiInfoTextField *)[formCanvas viewWithTag:newTag];
-         utf.layer.borderWidth = 1.0f;
-         utf.layer.borderColor = [[UIColor redColor] CGColor];
-         utf.layer.cornerRadius = 5;
-         utf.clipsToBounds      = YES;
-         [utf becomeFirstResponder];
-         break;
-     }
-     case 3:
-     {
-         NSLog(@"text");
-         UppercaseTextField *utf = (UppercaseTextField *)[formCanvas viewWithTag:newTag];
-         utf.layer.borderWidth = 1.0f;
-         utf.layer.borderColor = [[UIColor redColor] CGColor];
-         utf.layer.cornerRadius = 5;
-         utf.clipsToBounds      = YES;
-         [utf becomeFirstResponder];
-         
-         break;
-     }
-     case 4:
-     {
-         NSLog(@"textview");
-         EpiInfoTextView *utf = (EpiInfoTextView *)[formCanvas viewWithTag:newTag];
-         utf.layer.borderWidth = 1.0f;
-         utf.layer.borderColor = [[UIColor redColor] CGColor];
-         utf.layer.cornerRadius = 5;
-         utf.clipsToBounds      = YES;
-         [utf becomeFirstResponder];
-         
-         break;
-     }
-     case 5:
-     {
-         NSLog(@"text");
-         NumberField *utf = (NumberField *)[formCanvas viewWithTag:newTag];
-         utf.layer.borderWidth = 1.0f;
-         utf.layer.borderColor = [[UIColor redColor] CGColor];
-         utf.layer.cornerRadius = 5;
-         utf.clipsToBounds      = YES;
-         [utf becomeFirstResponder];
-         
-         break;
-     }
-     case 6:
-     {
-         NSLog(@"textph");
-         PhoneNumberField *utf = (PhoneNumberField *)[formCanvas viewWithTag:newTag];
-         utf.layer.borderWidth = 1.0f;
-         utf.layer.borderColor = [[UIColor redColor] CGColor];
-         utf.layer.cornerRadius = 5;
-         utf.clipsToBounds      = YES;
-         [utf becomeFirstResponder];
-         
-         break;
-     }
-     case 7:
-     {
-         NSLog(@"date");
-         DateField *utf = (DateField *)[formCanvas viewWithTag:newTag];
-         utf.layer.borderWidth = 1.0f;
-         utf.layer.borderColor = [[UIColor redColor] CGColor];
-         utf.layer.cornerRadius = 5;
-         utf.clipsToBounds      = YES;
-         [utf becomeFirstResponder];
-         
-         break;
-     }
-     case 8:
-     {
-         NSLog(@"time");
-         TimeField *utf = (TimeField *)[formCanvas viewWithTag:newTag];
-         utf.layer.borderWidth = 1.0f;
-         utf.layer.borderColor = [[UIColor redColor] CGColor];
-         utf.layer.cornerRadius = 5;
-         utf.clipsToBounds      = YES;
-         [utf becomeFirstResponder];
-         break;
-     }
-     case 9:
-     {
-         NSLog(@"datetime");
-         DateTimeField *utf = (DateTimeField *)[formCanvas viewWithTag:newTag];
-         utf.layer.borderWidth = 1.0f;
-         utf.layer.borderColor = [[UIColor redColor] CGColor];
-         utf.layer.cornerRadius = 5;
-         utf.clipsToBounds      = YES;
-         [utf becomeFirstResponder];
-         
-         break;
-     }
-     case 10:
-     {
-         NSLog(@"checkbox");
-         Checkbox *utf = (Checkbox *)[formCanvas viewWithTag:newTag];
-         utf.layer.borderWidth = 1.0f;
-         utf.layer.borderColor = [[UIColor redColor] CGColor];
-         utf.layer.cornerRadius = 5;
-         utf.clipsToBounds      = YES;
-         [utf becomeFirstResponder];
-         
-         break;
-     }
-     case 11:
-     {
-         NSLog(@"y/n");
-         YesNo *utf = (YesNo *)[formCanvas viewWithTag:newTag];
-         utf.layer.borderWidth = 1.0f;
-         utf.layer.borderColor = [[UIColor redColor] CGColor];
-         utf.layer.cornerRadius = 5;
-         utf.clipsToBounds      = YES;
-         [utf becomeFirstResponder];
-         
-         break;
-     }
-     case 12:
-     {
-         NSLog(@"options");
-         EpiInfoOptionField *utf = (EpiInfoOptionField *)[formCanvas viewWithTag:newTag];
-         utf.layer.borderWidth = 1.0f;
-         utf.layer.borderColor = [[UIColor redColor] CGColor];
-         utf.layer.cornerRadius = 5;
-         utf.clipsToBounds      = YES;
-         [utf becomeFirstResponder];
-         break;
-     }
-     case 15:
-         NSLog(@"mirror");
-         break;
-     case 17:
-     {
-         NSLog(@"legal");
-         LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:newTag];
-         utf.layer.borderWidth = 1.0f;
-         utf.layer.borderColor = [[UIColor redColor] CGColor];
-         utf.layer.cornerRadius = 5;
-         utf.clipsToBounds      = YES;
-         [utf becomeFirstResponder];
-         break;
-     }
-     case 18:
-             NSLog(@"codes");
-             break;
-     case 19:
-         NSLog(@"legalcomment");
-         break;
-     case 14:
-         NSLog(@"image");
-         break;
-     case 25:
-         NSLog(@"unique");
-         break;
-     
-     
-     default:
-     break;
-     }
-    }
 
 #pragma mark checkRequiredLabels
 

@@ -126,5 +126,5 @@
 -(void)checkboxChanged:(Checkbox *)checkbox;
 -(void)copyToArray:(NSMutableArray *)eleArray;
 -(BOOL)checkElements:(NSString *)name Tag:(NSInteger *)newTag type:(int)newType from:(NSString *)befAft from:(NSString *)newFrom;
-
+-(void)gotoFormField:(int)newType tag:(NSInteger *)newTag;
 @end
