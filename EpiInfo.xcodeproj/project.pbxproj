@@ -194,6 +194,7 @@
 		925CA7AE182999FA008A7C8D /* FadeDownX.png in Resources */ = {isa = PBXBuildFile; fileRef = 925CA7AD182999FA008A7C8D /* FadeDownX.png */; };
 		92605C5119C36E1300827CB0 /* EpiInfoNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 92605C5019C36E1300827CB0 /* EpiInfoNumberFormatter.m */; };
 		9262713B18213D5D002C1C73 /* EpiInfoIconSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 9262713A18213D5D002C1C73 /* EpiInfoIconSegue.m */; };
+		92631B3E1CA2D5FD00934929 /* SwipeButtonPurple.png in Resources */ = {isa = PBXBuildFile; fileRef = 92631B3D1CA2D5FD00934929 /* SwipeButtonPurple.png */; };
 		9266C528184657E900739AF2 /* DataEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9266C527184657E900739AF2 /* DataEntryViewController.m */; };
 		9266C52B1846613000739AF2 /* FormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9266C52A1846613000739AF2 /* FormView.m */; };
 		9266C53118466ED600739AF2 /* Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9266C53018466ED600739AF2 /* Checkbox.m */; };
@@ -608,6 +609,7 @@
 		92605C5019C36E1300827CB0 /* EpiInfoNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpiInfoNumberFormatter.m; sourceTree = "<group>"; };
 		9262713918213D5D002C1C73 /* EpiInfoIconSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpiInfoIconSegue.h; sourceTree = "<group>"; };
 		9262713A18213D5D002C1C73 /* EpiInfoIconSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpiInfoIconSegue.m; sourceTree = "<group>"; };
+		92631B3D1CA2D5FD00934929 /* SwipeButtonPurple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SwipeButtonPurple.png; sourceTree = "<group>"; };
 		9266C526184657E900739AF2 /* DataEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataEntryViewController.h; sourceTree = "<group>"; };
 		9266C527184657E900739AF2 /* DataEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataEntryViewController.m; sourceTree = "<group>"; };
 		9266C5291846613000739AF2 /* FormView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormView.h; sourceTree = "<group>"; };
@@ -1494,6 +1496,7 @@
 				92D4BB62184F77CC00B2D70C /* SaveButton.png */,
 				92282507186387DA00DF9493 /* SubmitButton.png */,
 				92282508186387DA00DF9493 /* SubmitButtonOrange.png */,
+				92631B3D1CA2D5FD00934929 /* SwipeButtonPurple.png */,
 				92AED73C186E09D5004A4DB9 /* StAndrewXButton.png */,
 				92AED740186E0CF9004A4DB9 /* StAndrewXButtonWhite.png */,
 				924368EA1919736200E680BF /* LineList6060.png */,
@@ -1763,6 +1766,7 @@
 				921D53501892E1F900FA8E0A /* CaseControlSSScreenPad.png in Resources */,
 				92A192501C690DD40095E69F /* NextPage.png in Resources */,
 				926817851AA8C54E00935BE9 /* SimulateCohortNR.png in Resources */,
+				92631B3E1CA2D5FD00934929 /* SwipeButtonPurple.png in Resources */,
 				925354A11823F49500065B69 /* PadChiSquareScreenshot.png in Resources */,
 				92A192471C56B33D0095E69F /* Dot.png in Resources */,
 				921D53461892DF9C00FA8E0A /* PMCCScreenPad.png in Resources */,

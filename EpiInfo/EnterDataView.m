@@ -233,6 +233,7 @@
     if (!isLastPage)
     {
         [submitButton setEnabled:NO];
+        [submitButton setImage:[UIImage imageNamed:@"SwipeButtonPurple.png"] forState:UIControlStateNormal];
     }
     [self addSubview:submitButton];
     UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0 - 158.0, contentSizeHeight, 120, 40)];
