@@ -102,6 +102,8 @@
 @property NSMutableDictionary *dictionaryOfFields;
 @property NSMutableDictionary *dictionaryOfWordsArrays;
 
+-(void)setRecordUIDForUpdate:(NSString *)uid;
+
 -(NSDictionary *)dictionaryOfPages;
 
 -(void)setParentRecordGUID:(NSString *)prguid;

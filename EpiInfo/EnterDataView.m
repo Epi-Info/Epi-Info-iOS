@@ -35,6 +35,11 @@
 @synthesize nameOfTheForm = _nameOfTheForm;
 @synthesize dictionaryOfFields = _dictionaryOfFields;
 
+- (void)setRecordUIDForUpdate:(NSString *)uid
+{
+    recordUIDForUpdate = uid;
+}
+
 - (NSDictionary *)dictionaryOfPages
 {
     return dictionaryOfPages;
@@ -132,6 +137,15 @@
 - (NSString *)formCheckCodeString
 {
     return formCheckCodeString;
+}
+
+- (void)recordUIDForUpdateLogThreadMethod
+{
+    while (YES)
+    {
+        sleep(4);
+        NSLog(@"recordUIDForUpdate = %@", recordUIDForUpdate);
+    }
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -1582,12 +1596,14 @@
 {
     // New code for separating pages
     guidBeingUpdated = nil;
+    recordUIDForUpdate = nil;
     newRecordGUID = CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL)));
     for (id key in dictionaryOfPages)
     {
         if (updatevisibleScreenOnly && ![(NSString *)key isEqualToString:[NSString stringWithFormat:@"Page%d", pageToDisplay]])
             continue;
         EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
+        [tempedv setRecordUIDForUpdate:nil];
         if ([(NSString *)key isEqualToString:@"Page1"])
             [[self superview] addSubview:tempedv];
         else if (!populateInstructionCameFromLineList)
@@ -2516,6 +2532,10 @@
     newRecordGUID = nil;
   tableBeingUpdated = tableName;
   recordUIDForUpdate = guid;
+    for (id key in dictionaryOfPages)
+    {
+        [(EnterDataView *)[dictionaryOfPages objectForKey:key] setRecordUIDForUpdate:guid];
+    }
   
   NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
