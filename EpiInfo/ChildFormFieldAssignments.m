@@ -17,7 +17,7 @@
     if ((int)[ccs rangeOfString:@"End-Before"].location > 0)
     {
         int nextSubstringLocation = 0;
-        while ((int)[ccs rangeOfString:@"End-Before"].location > 0)
+        while ([ccs containsString:@"End-Before"])
         {
             nextSubstringLocation += (int)[ccs rangeOfString:@"End-Before"].location + 9;
             ccs = [ccs substringFromIndex:[ccs rangeOfString:@"Before"].location];
