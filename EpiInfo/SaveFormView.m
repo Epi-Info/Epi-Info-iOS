@@ -30,7 +30,7 @@
             [imageBackground setImage:[UIImage imageNamed:@"iPadBackground.png"]];
         [self addSubview:imageBackground];
         
-        UILabel *fakeNavBar = [[UILabel alloc] initWithFrame:CGRectMake(0, -40, 320, 40)];
+        UILabel *fakeNavBar = [[UILabel alloc] initWithFrame:CGRectMake(0, -40, frame.size.width, 40)];
         [fakeNavBar setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [fakeNavBar setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:22.0]];
         [fakeNavBar setTextAlignment:NSTextAlignmentCenter];
@@ -441,19 +441,22 @@
 
 - (NSString *)fixPageIdValues:(NSMutableString *)xmlText
 {
-    int substringStartPosition = 0;
+    long substringStartPosition = 0;
     int pageNumber = 1;
-    while ((int)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"<Page "].location > -1)
+    BOOL containsPage = [[xmlText substringFromIndex:substringStartPosition] containsString:@"<Page "];
+    while ([[xmlText substringFromIndex:substringStartPosition] containsString:@"<Page "])
     {
-        substringStartPosition += (int)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"<Page "].location;
-        substringStartPosition += (int)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"PageId=\""].location + 8;
+        containsPage = [[xmlText substringFromIndex:substringStartPosition] containsString:@"<Page "];
+        substringStartPosition += (long)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"<Page "].location;
+        substringStartPosition += (long)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"PageId=\""].location + 8;
         NSString *pageNumberString = [NSString stringWithFormat:@"%d", pageNumber++];
-        int relativePositionOfSecondQuote = (int)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"\""].location;
+        long relativePositionOfSecondQuote = (long)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"\""].location;
         substringStartPosition += relativePositionOfSecondQuote + 1;
         NSString *actualPageString = [NSString stringWithFormat:@" ActualPageNumber=\"%@\"", pageNumberString];
         int actualPageStringLength = (int)[actualPageString length];
         [xmlText insertString:actualPageString atIndex:substringStartPosition];
         substringStartPosition += actualPageStringLength;
+        containsPage = [[xmlText substringFromIndex:substringStartPosition] containsString:@"<Page "];
     }
     return [NSString stringWithString:xmlText];
 }
