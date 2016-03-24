@@ -804,6 +804,25 @@
                       [azureDictionary setObject:[(EpiInfoTextField *)v text] forKey:[(EpiInfoTextField *)v columnName]];
                   }
               }
+              else if ([v isKindOfClass:[UppercaseTextField class]])
+              {
+                  if (valuesClauseBegun)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                      valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                  }
+                  valuesClauseBegun = YES;
+                  insertStatement = [insertStatement stringByAppendingString:[(UppercaseTextField *)v columnName]];
+                  if ([[(UppercaseTextField *)v text] length] == 0)
+                  {
+                      valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
+                  }
+                  else
+                  {
+                      valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [[(UppercaseTextField *)v text] uppercaseString]]];
+                      [azureDictionary setObject:[(UppercaseTextField *)v text] forKey:[(UppercaseTextField *)v columnName]];
+                  }
+              }
           }
       }
     insertStatement = [insertStatement stringByAppendingString:@")"];
@@ -1168,6 +1187,25 @@
                   {
                       insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [(EpiInfoTextField *)v text]]];
                       [azureDictionary setObject:[(EpiInfoTextField *)v text] forKey:[(EpiInfoTextField *)v columnName]];
+                  }
+              }
+              else if ([v isKindOfClass:[UppercaseTextField class]])
+              {
+                  if (valuesClauseBegun)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                      valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                  }
+                  valuesClauseBegun = YES;
+                  insertStatement = [insertStatement stringByAppendingString:[(UppercaseTextField *)v columnName]];
+                  if ([[(UppercaseTextField *)v text] length] == 0)
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
+                  }
+                  else
+                  {
+                      insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [[(UppercaseTextField *)v text] uppercaseString]]];
+                      [azureDictionary setObject:[(UppercaseTextField *)v text] forKey:[(UppercaseTextField *)v columnName]];
                   }
               }
           }
