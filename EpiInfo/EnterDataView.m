@@ -1635,13 +1635,19 @@
     for (id key in dictionaryOfPages)
     {
         if (updatevisibleScreenOnly && ![(NSString *)key isEqualToString:[NSString stringWithFormat:@"Page%d", pageToDisplay]])
+        {
             continue;
+        }
         EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
         [tempedv setRecordUIDForUpdate:nil];
         if ([(NSString *)key isEqualToString:@"Page1"])
+        {
             [[self superview] addSubview:tempedv];
+        }
         else if (!populateInstructionCameFromLineList)
+        {
             [tempedv removeFromSuperview];
+        }
         for (UIView *v in [self.rootViewController.view subviews])
         {
             if ([[v backgroundColor] isEqual:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:0.95]] && v == myOrangeBanner)
@@ -2738,6 +2744,7 @@
                     break;
                     
                 case 1:
+                    updatevisibleScreenOnly = NO;
                     [self clearButtonPressed];
                     break;
             }
