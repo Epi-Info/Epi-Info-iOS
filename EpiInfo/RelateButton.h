@@ -15,7 +15,7 @@
 #import <CommonCrypto/CommonCrypto.h>
 #import <CommonCrypto/CommonKeyDerivation.h>
 
-@interface RelateButton : UIButton <MFMailComposeViewControllerDelegate, UITextFieldDelegate>
+@interface RelateButton : UIButton <MFMailComposeViewControllerDelegate, UITextFieldDelegate, UIAlertViewDelegate>
 {
     NSString *relatedViewName;
     NSString *relateButtonName;

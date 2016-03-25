@@ -1069,94 +1069,96 @@
 
 - (void)confirmDismissal
 {
-    // Create a confirmation view with frosted glass effect.
-    // This requires capturing what was in view in an image, then blurring it and adding translucent white layer on top.
-    
-    // First, capture the screen
-//    UIImageView *screenView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height + 40)];
-//    UIGraphicsBeginImageContext(screenView.bounds.size);
-//    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
-//    UIImage *screen = UIGraphicsGetImageFromCurrentImageContext();
-//    [screenView setImage:screen];
-//    UIGraphicsEndImageContext();
-    
-    // Then blur the captured image.
-//    CIImage *blurryScreen = [CIImage imageWithCGImage:[screen CGImage]];
-//    CIFilter *gaussianBlurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
-//    [gaussianBlurFilter setValue:blurryScreen forKey:@"inputImage"];
-//    [gaussianBlurFilter setValue:[NSNumber numberWithFloat:5] forKey:@"inputRadius"];
-//    CIImage *blurryResult = [gaussianBlurFilter valueForKey:@"outputImage"];
-//    UIImage *endImage = [[UIImage alloc] initWithCIImage:blurryResult];
-
-//    dismissView = [[UIView alloc] initWithFrame:CGRectMake(288, 2, 30, 30)];
-    dismissView = [[UIView alloc] initWithFrame:CGRectMake(0, -self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
-    
-    // Add the blurred image to an image view.
-//    UIImageView *dismissImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-//    [dismissImageView setImage:endImage];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dismiss Form" message:@"Dismiss this form?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    [alert show];
+//    // Create a confirmation view with frosted glass effect.
+//    // This requires capturing what was in view in an image, then blurring it and adding translucent white layer on top.
+//    
+//    // First, capture the screen
+////    UIImageView *screenView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - self.navigationController.navigationBar.bounds.size.height + 40)];
+////    UIGraphicsBeginImageContext(screenView.bounds.size);
+////    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+////    UIImage *screen = UIGraphicsGetImageFromCurrentImageContext();
+////    [screenView setImage:screen];
+////    UIGraphicsEndImageContext();
+//    
+//    // Then blur the captured image.
+////    CIImage *blurryScreen = [CIImage imageWithCGImage:[screen CGImage]];
+////    CIFilter *gaussianBlurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
+////    [gaussianBlurFilter setValue:blurryScreen forKey:@"inputImage"];
+////    [gaussianBlurFilter setValue:[NSNumber numberWithFloat:5] forKey:@"inputRadius"];
+////    CIImage *blurryResult = [gaussianBlurFilter valueForKey:@"outputImage"];
+////    UIImage *endImage = [[UIImage alloc] initWithCIImage:blurryResult];
+//
+////    dismissView = [[UIView alloc] initWithFrame:CGRectMake(288, 2, 30, 30)];
+//    dismissView = [[UIView alloc] initWithFrame:CGRectMake(0, -self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
+//    
+//    // Add the blurred image to an image view.
+////    UIImageView *dismissImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+////    [dismissImageView setImage:endImage];
+////    [dismissView addSubview:dismissImageView];
+////    BlurryView *dismissImageView = [[BlurryView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+//    BlurryView *dismissImageView = [[BlurryView alloc] initWithFrame:CGRectMake(0, 0, dismissView.frame.size.width, dismissView.frame.size.height)];
+//    [dismissImageView setBackgroundColor:[UIColor grayColor]];
+//    [dismissImageView setAlpha:0.8];
 //    [dismissView addSubview:dismissImageView];
-//    BlurryView *dismissImageView = [[BlurryView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    BlurryView *dismissImageView = [[BlurryView alloc] initWithFrame:CGRectMake(0, 0, dismissView.frame.size.width, dismissView.frame.size.height)];
-    [dismissImageView setBackgroundColor:[UIColor grayColor]];
-    [dismissImageView setAlpha:0.8];
-    [dismissView addSubview:dismissImageView];
-    
-    // The translucent white view on top of the blurred image.
-    BlurryView *windowView = [[BlurryView alloc] initWithFrame:dismissImageView.frame];
-    [windowView setBackgroundColor:[UIColor grayColor]];
-    [windowView setAlpha:0.6];
-    [dismissView addSubview:windowView];
-    
-    // The smaller and less-transparent white view for the message and buttons.
-//    UIView *messageView = [[UIView alloc] initWithFrame:dismissImageView.frame];
-    UIView *messageView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 300, openButton.frame.origin.y + openButton.frame.size.height)];
-    [messageView setBackgroundColor:[UIColor whiteColor]];
-    [messageView setAlpha:0.7];
-    [messageView.layer setCornerRadius:8.0];
-    [dismissView addSubview:messageView];
-    
-//    UILabel *areYouSure = [[UILabel alloc] initWithFrame:dismissView.frame];
-    UILabel *areYouSure = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 280, 36)];
-    [areYouSure setBackgroundColor:[UIColor clearColor]];
-    [areYouSure setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-    [areYouSure setText:@"Dismiss Form?"];
-    [areYouSure setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0]];
-    [areYouSure setTextAlignment:NSTextAlignmentCenter];
-    [messageView addSubview:areYouSure];
-    
-//    UIButton *yesButton = [[UIButton alloc] initWithFrame:dismissImageView.frame];
-    UIButton *yesButton = [[UIButton alloc] initWithFrame:openButton.frame];
-    [yesButton setImage:[UIImage imageNamed:@"YesButton.png"] forState:UIControlStateNormal];
-    [yesButton setTitle:@"Yes" forState:UIControlStateNormal];
-    [yesButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
-    [yesButton.layer setMasksToBounds:YES];
-    [yesButton.layer setCornerRadius:4.0];
-    [yesButton addTarget:self action:@selector(dismissForm) forControlEvents:UIControlEventTouchUpInside];
-    [dismissView addSubview:yesButton];
-    
-//    UIButton *noButton = [[UIButton alloc] initWithFrame:dismissImageView.frame];
-    UIButton *noButton = [[UIButton alloc] initWithFrame:CGRectMake(300 - openButton.frame.size.width, openButton.frame.origin.y, openButton.frame.size.width, openButton.frame.size.height)];
-    [noButton setImage:[UIImage imageNamed:@"NoButton.png"] forState:UIControlStateNormal];
-    [noButton setTitle:@"No" forState:UIControlStateNormal];
-    [noButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
-    [noButton.layer setMasksToBounds:YES];
-    [noButton.layer setCornerRadius:4.0];
-    [noButton addTarget:self action:@selector(doNotDismiss) forControlEvents:UIControlEventTouchUpInside];
-    [dismissView addSubview:noButton];
-    
-    [self.view addSubview:dismissView];
-    [self.view bringSubviewToFront:dismissView];
-
-    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [dismissView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-//        [dismissImageView setFrame:CGRectMake(-20, -20, self.view.frame.size.width + 36, self.view.frame.size.height +36)];
-//        [windowView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-//        [messageView setFrame:CGRectMake(10, 10, 300, openButton.frame.origin.y + openButton.frame.size.height)];
-//        [areYouSure setFrame:CGRectMake(10, 10, 280, 36)];
-//        [yesButton setFrame:openButton.frame];
-//        [noButton setFrame:CGRectMake(300 - openButton.frame.size.width, openButton.frame.origin.y, openButton.frame.size.width, openButton.frame.size.height)];
-    } completion:^(BOOL finished){
-    }];
+//    
+//    // The translucent white view on top of the blurred image.
+//    BlurryView *windowView = [[BlurryView alloc] initWithFrame:dismissImageView.frame];
+//    [windowView setBackgroundColor:[UIColor grayColor]];
+//    [windowView setAlpha:0.6];
+//    [dismissView addSubview:windowView];
+//    
+//    // The smaller and less-transparent white view for the message and buttons.
+////    UIView *messageView = [[UIView alloc] initWithFrame:dismissImageView.frame];
+//    UIView *messageView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 300, openButton.frame.origin.y + openButton.frame.size.height)];
+//    [messageView setBackgroundColor:[UIColor whiteColor]];
+//    [messageView setAlpha:0.7];
+//    [messageView.layer setCornerRadius:8.0];
+//    [dismissView addSubview:messageView];
+//    
+////    UILabel *areYouSure = [[UILabel alloc] initWithFrame:dismissView.frame];
+//    UILabel *areYouSure = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 280, 36)];
+//    [areYouSure setBackgroundColor:[UIColor clearColor]];
+//    [areYouSure setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+//    [areYouSure setText:@"Dismiss Form?"];
+//    [areYouSure setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0]];
+//    [areYouSure setTextAlignment:NSTextAlignmentCenter];
+//    [messageView addSubview:areYouSure];
+//    
+////    UIButton *yesButton = [[UIButton alloc] initWithFrame:dismissImageView.frame];
+//    UIButton *yesButton = [[UIButton alloc] initWithFrame:openButton.frame];
+//    [yesButton setImage:[UIImage imageNamed:@"YesButton.png"] forState:UIControlStateNormal];
+//    [yesButton setTitle:@"Yes" forState:UIControlStateNormal];
+//    [yesButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+//    [yesButton.layer setMasksToBounds:YES];
+//    [yesButton.layer setCornerRadius:4.0];
+//    [yesButton addTarget:self action:@selector(dismissForm) forControlEvents:UIControlEventTouchUpInside];
+//    [dismissView addSubview:yesButton];
+//    
+////    UIButton *noButton = [[UIButton alloc] initWithFrame:dismissImageView.frame];
+//    UIButton *noButton = [[UIButton alloc] initWithFrame:CGRectMake(300 - openButton.frame.size.width, openButton.frame.origin.y, openButton.frame.size.width, openButton.frame.size.height)];
+//    [noButton setImage:[UIImage imageNamed:@"NoButton.png"] forState:UIControlStateNormal];
+//    [noButton setTitle:@"No" forState:UIControlStateNormal];
+//    [noButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+//    [noButton.layer setMasksToBounds:YES];
+//    [noButton.layer setCornerRadius:4.0];
+//    [noButton addTarget:self action:@selector(doNotDismiss) forControlEvents:UIControlEventTouchUpInside];
+//    [dismissView addSubview:noButton];
+//    
+//    [self.view addSubview:dismissView];
+//    [self.view bringSubviewToFront:dismissView];
+//
+//    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+//        [dismissView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+////        [dismissImageView setFrame:CGRectMake(-20, -20, self.view.frame.size.width + 36, self.view.frame.size.height +36)];
+////        [windowView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+////        [messageView setFrame:CGRectMake(10, 10, 300, openButton.frame.origin.y + openButton.frame.size.height)];
+////        [areYouSure setFrame:CGRectMake(10, 10, 280, 36)];
+////        [yesButton setFrame:openButton.frame];
+////        [noButton setFrame:CGRectMake(300 - openButton.frame.size.width, openButton.frame.origin.y, openButton.frame.size.width, openButton.frame.size.height)];
+//    } completion:^(BOOL finished){
+//    }];
 }
 
 - (void)doNotDismiss
@@ -2256,6 +2258,18 @@
 - (UIImageView *)backgroundImage
 {
     return fadingColorView;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+            break;
+            
+        case 1:
+            [self dismissForm];
+            break;
+    }
 }
 
 @end

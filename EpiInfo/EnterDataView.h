@@ -28,7 +28,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "sqlite3.h"
 
-@interface EnterDataView : UIScrollView <NSXMLParserDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UITextViewDelegate>
+@interface EnterDataView : UIScrollView <NSXMLParserDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UITextViewDelegate, UIAlertViewDelegate>
 {
     BOOL firstParse;
     BOOL firstElement;

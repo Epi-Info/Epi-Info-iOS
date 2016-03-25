@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "480610753.532597"
+            timestampString = "480622646.266834"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1713"
-            endingLineNumber = "1713"
+            startingLineNumber = "1742"
+            endingLineNumber = "1742"
             landmarkName = "-dismissForm"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "480610753.532597"
+            timestampString = "480622646.266834"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1707"
-            endingLineNumber = "1707"
+            startingLineNumber = "1736"
+            endingLineNumber = "1736"
             landmarkName = "-dismissForm"
             landmarkType = "5">
             <Locations>
@@ -42,11 +42,11 @@
                   moduleName = "EpiInfo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/EnterDataView.m"
-                  timestampString = "480610845.558295"
+                  timestampString = "480622647.314647"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1707"
-                  endingLineNumber = "1707"
+                  startingLineNumber = "1736"
+                  endingLineNumber = "1736"
                   offsetFromSymbolStart = "64">
                </Location>
                <Location
@@ -57,11 +57,11 @@
                   moduleName = "EpiInfo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/EnterDataView.m"
-                  timestampString = "480610845.558473"
+                  timestampString = "480622647.314825"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1707"
-                  endingLineNumber = "1707"
+                  startingLineNumber = "1736"
+                  endingLineNumber = "1736"
                   offsetFromSymbolStart = "48">
                </Location>
             </Locations>

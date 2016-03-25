@@ -18,7 +18,7 @@
 #import <CommonCrypto/CommonCrypto.h>
 #import <CommonCrypto/CommonKeyDerivation.h>
 
-@interface DataEntryViewController : UIViewController <MFMailComposeViewControllerDelegate, UITextFieldDelegate>
+@interface DataEntryViewController : UIViewController <MFMailComposeViewControllerDelegate, UITextFieldDelegate, UIAlertViewDelegate>
 {
     UIButton *customBackButton;
     

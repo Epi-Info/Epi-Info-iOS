@@ -954,6 +954,9 @@
         else
         {
           //                    NSLog(@"Row inserted");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Submit" message:@"Row inserted into local database." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert setTag:42];
+            [alert show];
           [areYouSure setText:@"Row inserted into local database."];
           [uiaiv setHidden:NO];
           [uiaiv startAnimating];
@@ -1331,6 +1334,9 @@
         {
           //                    NSLog(@"Row inserted");
           [areYouSure setText:@"Local database row updated."];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update" message:@"Local database row updated." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert setTag:42];
+            [alert show];
           [uiaiv setHidden:NO];
           [uiaiv startAnimating];
           [okButton setEnabled:NO];
@@ -1369,7 +1375,7 @@
   }
     updatevisibleScreenOnly = NO;
   
-  [self.superview addSubview:bv];
+//  [self.superview addSubview:bv];
     NSLog(@"Superview == %@", self.superview);
     [self clearButtonPressed];
   [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -1464,6 +1470,9 @@
         }
         else
         {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:@"Local database row deleted." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert setTag:42];
+            [alert show];
           [areYouSure setText:@"Local database row deleted."];
           [uiaiv setHidden:NO];
           [uiaiv startAnimating];
@@ -1504,7 +1513,7 @@
     updatevisibleScreenOnly = NO;
     [self clearButtonPressed];
   
-  [((EnterDataView *)[dictionaryOfPages objectForKey:@"Page1"]).superview addSubview:bv];
+//  [((EnterDataView *)[dictionaryOfPages objectForKey:@"Page1"]).superview addSubview:bv];
     NSLog(@"Superview == %@", ((EnterDataView *)[dictionaryOfPages objectForKey:@"Page1"]).superview);
   [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
     [bv setFrame:CGRectMake(0, 0, self.superview.frame.size.width, self.superview.frame.size.width)];
@@ -1522,6 +1531,28 @@
   for (id v in [formCanvas subviews])
     if (![v isKindOfClass:[UILabel class]])
       [v setEnabled:NO];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Submit" message:@"Submit this record?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    [alert setTag:0];
+    if ([sender tag] == 9)
+    {
+        [alert setTitle:@"Clear"];
+        [alert setMessage:@"Clear all fields without submitting?"];
+        [alert setTag:3];
+    }
+    else if ([sender tag] == 8)
+    {
+        [alert setTitle:@"Update"];
+        [alert setMessage:@"Update this record?"];
+        [alert setTag:1];
+    }
+    else if ([sender tag] == 7)
+    {
+        [alert setTitle:@"Delete"];
+        [alert setMessage:@"Delete this record?"];
+        [alert setTag:2];
+    }
+    [alert show];
   
   BlurryView *bv = [[BlurryView alloc] initWithFrame:CGRectMake(sender.frame.origin.x, self.superview.frame.size.height - (formCanvas.frame.size.height - sender.frame.origin.y), sender.frame.size.width, sender.frame.size.height)];
   
@@ -1569,7 +1600,7 @@
   [noButton addTarget:self action:@selector(doNotSubmitOrClear) forControlEvents:UIControlEventTouchUpInside];
   [bv addSubview:noButton];
   
-  [self.superview addSubview:bv];
+//  [self.superview addSubview:bv];
   [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
     [bv setFrame:CGRectMake(0, self.frame.size.height - self.frame.size.width, self.frame.size.width, self.frame.size.width)];
     [areYouSure setFrame:CGRectMake(10, 10, bv.frame.size.width - 20, 72)];
@@ -2663,6 +2694,58 @@
         substringStartPosition += actualPageStringLength;
     }
     return [NSString stringWithString:xmlText];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch ([alertView tag]) {
+        case 0:
+            switch (buttonIndex) {
+                case 0:
+                    break;
+                    
+                case 1:
+                    [self submitButtonPressed];
+                    break;
+            }
+            break;
+            
+        case 1:
+            switch (buttonIndex) {
+                case 0:
+                    break;
+                    
+                case 1:
+                    [self updateButtonPressed];
+                    break;
+            }
+            break;
+            
+        case 2:
+            switch (buttonIndex) {
+                case 0:
+                    break;
+                    
+                case 1:
+                    [self deleteButtonPressed];
+                    break;
+            }
+            break;
+            
+        case 3:
+            switch (buttonIndex) {
+                case 0:
+                    break;
+                    
+                case 1:
+                    [self clearButtonPressed];
+                    break;
+            }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 /*
