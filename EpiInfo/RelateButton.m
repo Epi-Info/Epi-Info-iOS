@@ -251,6 +251,10 @@
         dismissView = nil;
         if ([((EnterDataView *)edv).updateLocationThread isExecuting])
             [((EnterDataView *)edv).updateLocationThread cancel];
+        for (id key in [(EnterDataView *)edv dictionaryOfPages])
+        {
+            [(EnterDataView *)[(NSDictionary *)[(EnterDataView *)edv dictionaryOfPages] objectForKey:key] removeFromSuperview];
+        }
         [edv removeFromSuperview];
         edv = nil;
         [orangeBannerBackground removeFromSuperview];
