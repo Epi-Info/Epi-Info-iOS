@@ -1689,7 +1689,8 @@
                 if ([(UIButton *)v tag] == 8 && v.frame.size.width > 40)
                 {
                     [(UIButton *)v setTag:1];
-                    [(UIButton *)v setImage:[UIImage imageNamed:@"SubmitButton.png"] forState:UIControlStateNormal];
+                    if ([(UIButton *)v isEnabled])
+                        [(UIButton *)v setImage:[UIImage imageNamed:@"SubmitButton.png"] forState:UIControlStateNormal];
                 }
                 if ([(UIButton *)v tag] == 7 && v.frame.size.width > 40)
                 {
@@ -2648,7 +2649,8 @@
               if ([(UIButton *)v tag] == 1 && v.frame.size.width > 40)
               {
                   [(UIButton *)v setTag:8];
-                  [(UIButton *)v setImage:[UIImage imageNamed:@"UpdateButton.png"] forState:UIControlStateNormal];
+                  if ([(UIButton *)v isEnabled])
+                      [(UIButton *)v setImage:[UIImage imageNamed:@"UpdateButton.png"] forState:UIControlStateNormal];
               }
               if ([(UIButton *)v tag] == 7 && v.frame.size.width > 40)
               {
