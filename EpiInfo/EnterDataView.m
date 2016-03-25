@@ -447,7 +447,10 @@
             {
                 if ([l isKindOfClass:[UILabel class]])
                 {
-                    [(UILabel *)l setText:[NSString stringWithFormat:@"%@, page %d of %lu", formName, (int)[sender tag], (unsigned long)[self pagesArray].count]];
+                    if ([[(UILabel *)l text] containsString:formName])
+                    {
+                        [(UILabel *)l setText:[NSString stringWithFormat:@"%@, page %d of %lu", formName, (int)[sender tag], (unsigned long)[self pagesArray].count]];
+                    }
                 }
             }
         }
