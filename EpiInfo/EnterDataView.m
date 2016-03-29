@@ -1914,6 +1914,8 @@
         else
         {
             isCurrentPage = NO;
+            if (pageNumber > pageToDisplay)
+                isLastPage = NO;
             NSLog(@"PageId attribute (%d) is neither the next or the previous page", pageNumber);
         }
     }
