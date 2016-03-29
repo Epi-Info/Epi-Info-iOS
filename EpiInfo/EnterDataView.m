@@ -288,7 +288,7 @@
     }
     [self registerForKeyboardNotifications];
     [self gotoField:@"before" element:[pageName lowercaseString]];
-    
+
     return self;
 }
 -(void)viewDidLoad
@@ -2962,7 +2962,7 @@
     if (hasAFirstResponder)
         return YES;
 
-    //activeField = textView;
+    activeField = textView;
     hasAFirstResponder = YES;
     
     return YES;
@@ -3019,6 +3019,7 @@
 
 - (void)fieldBecameFirstResponder:(id)field
 {
+    NSLog(@"BEFORE");
     if (elementsArray.count<1) {
         elementsArray = [ccp sendArray];
         // NSLog(@"FIELD satya %lu",(unsigned long)elementsArray.count);
@@ -3028,7 +3029,11 @@
         [self resignAll];
         DateField *dateField = (DateField *)field;
         // NSLog(@"%@ became first responder", [dateField columnName]);
-        [self checkDialogs:[dateField columnName] Tag:1 type:1 from:@"before" from:@"field"];
+        [self checkHighlight:[dateField columnName] Tag:[dateField tag] type:7 from:@"before" from:@"field"];
+
+        [self checkDialogs:[dateField columnName] Tag:1 type:7 from:@"before" from:@"field"];
+        [self checkElements:[dateField columnName] Tag:[dateField tag] type:7 from:@"before" from:@"field"];
+
         
     }
     if ([field isKindOfClass:[EpiInfoTextField class]])
@@ -3038,6 +3043,8 @@
         //  NSLog(@"%@",[etf columnName]);
         [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
+        [self checkElements:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
+
         
         
         
@@ -3047,9 +3054,10 @@
         [self resignAll];
         EpiInfoTextView *etf = (EpiInfoTextView *)field;
         // NSLog(@"%@",[etf columnName]);
-        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
-        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
-        
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:4 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:4 from:@"before" from:@"field"];
+        [self checkElements:[etf columnName] Tag:[etf tag] type:4 from:@"before" from:@"field"];
+
         
         
     }
@@ -3058,9 +3066,10 @@
         [self resignAll];
         UppercaseTextField *etf = (UppercaseTextField *)field;
         //NSLog(@"%@",[etf columnName]);
-        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
-        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
-        
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:3 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:3 from:@"before" from:@"field"];
+        [self checkElements:[etf columnName] Tag:[etf tag] type:3 from:@"before" from:@"field"];
+
         
         
     }
@@ -3069,9 +3078,10 @@
         [self resignAll];
         NumberField *etf = (NumberField *)field;
         // NSLog(@"%@",[etf columnName]);
-        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
-        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
-        
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:5 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:5 from:@"before" from:@"field"];
+        [self checkElements:[etf columnName] Tag:[etf tag] type:5 from:@"before" from:@"field"];
+
         
         
     }
@@ -3080,9 +3090,10 @@
         [self resignAll];
         PhoneNumberField *etf = (PhoneNumberField *)field;
         // NSLog(@"%@",[etf columnName]);
-        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
-        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
-        
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:6 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:6 from:@"before" from:@"field"];
+        [self checkElements:[etf columnName] Tag:[etf tag] type:6 from:@"before" from:@"field"];
+
         
         
     }
@@ -3091,9 +3102,10 @@
         [self resignAll];
         TimeField *etf = (TimeField *)field;
         NSLog(@"%@",[etf columnName]);
-        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
-        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
-        
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:8 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:8 from:@"before" from:@"field"];
+        [self checkElements:[etf columnName] Tag:[etf tag] type:8 from:@"before" from:@"field"];
+
         
         
     }
@@ -3102,9 +3114,10 @@
         [self resignAll];
         DateTimeField *etf = (DateTimeField *)field;
         // NSLog(@"%@",[etf columnName]);
-        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
-        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
-        
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:9 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:9 from:@"before" from:@"field"];
+        [self checkElements:[etf columnName] Tag:[etf tag] type:9 from:@"before" from:@"field"];
+
         
         
     }
@@ -3113,9 +3126,10 @@
         [self resignAll];
         EpiInfoOptionField *etf = (EpiInfoOptionField *)field;
         //  NSLog(@"%@",[etf columnName]);
-        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
-        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
-        
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:12 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:12 from:@"before" from:@"field"];
+        [self checkElements:[etf columnName] Tag:[etf tag] type:12 from:@"before" from:@"field"];
+
         
         
     }
@@ -3124,9 +3138,10 @@
         [self resignAll];
         LegalValuesEnter *etf = (LegalValuesEnter *)field;
         // NSLog(@"%@",[etf columnName]);
-        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
-        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
-        
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:17 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:17 from:@"before" from:@"field"];
+        [self checkElements:[etf columnName] Tag:[etf tag] type:17 from:@"before" from:@"field"];
+
         
         
     }
@@ -3135,9 +3150,10 @@
         [self resignAll];
         EpiInfoUniqueIDField *etf = (EpiInfoUniqueIDField *)field;
         // NSLog(@"%@",[etf columnName]);
-        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
-        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
-        
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:25 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:25 from:@"before" from:@"field"];
+        [self checkElements:[etf columnName] Tag:[etf tag] type:25 from:@"before" from:@"field"];
+
         
         
     }
@@ -3146,9 +3162,10 @@
         [self resignAll];
         Checkbox *etf = (Checkbox *)field;
         //  NSLog(@"%@",[etf columnName]);
-        [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
-        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
-        
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:10 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:10 from:@"before" from:@"field"];
+        [self checkElements:[etf columnName] Tag:[etf tag] type:10 from:@"before" from:@"field"];
+
         
         
     }
@@ -3157,7 +3174,10 @@
         [self resignAll];
         YesNo *etf = (YesNo *)field;
         //  NSLog(@"%@",[etf columnName]);
-        [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
+        [self checkDialogs:[etf columnName] Tag:1 type:11 from:@"before" from:@"field"];
+        [self checkHighlight:[etf columnName] Tag:[etf tag] type:10 from:@"before" from:@"field"];
+        [self checkElements:[etf columnName] Tag:[etf tag] type:10 from:@"before" from:@"field"];
+
         
         
     }
@@ -3167,7 +3187,7 @@
 
 - (void)fieldResignedFirstResponder:(id)field
 {
-    
+    NSLog(@"AFTER");
     if ([field isKindOfClass:[EpiInfoTextField class]])
     {
         EpiInfoTextField *etf = (EpiInfoTextField *)field;
@@ -3829,7 +3849,12 @@
                         lastElmt = @"goto";
                         j++;
                     }
-                    
+                    else if ([elmt isEqualToString:@"clear"]) {
+                        ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] beforeAfter:epc.condition condition:@"clear"];
+                        [conditionsArray addObject:cModel];
+                        lastElmt = @"clear";
+                        j++;
+                    }
                     
                 }
                 
@@ -3895,8 +3920,8 @@
     ConditionsModel *cpm = [[ConditionsModel alloc]init];
     if (conditionsArray.count<1)
     {
-        [self getDisEnb];
         [self getDialogs];
+        [self getDisEnb];
     }
     
     for (cpm in conditionsArray)
@@ -3920,6 +3945,42 @@
             }
             
         }
+        if ([befAft isEqualToString:@"before"])
+            {
+                if([cpm.beforeAfter isEqualToString:@"before"])
+                {
+                   if (([cpm.element caseInsensitiveCompare:name] == NSOrderedSame) && [cpm.condition isEqualToString:@"clear"])
+                    {
+                        for (ElementsModel *emc in elementListArray)
+                        {
+                            if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
+                            {
+                                [self clear:emc.tag type:emc.type];
+                                
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        else if ([befAft isEqualToString:@"after"])
+        {
+            if (([cpm.name caseInsensitiveCompare:name] == NSOrderedSame) &&  [befAft isEqualToString:cpm.beforeAfter] && [cpm.condition isEqualToString:@"clear"])
+            {
+                for (ElementsModel *emc in elementListArray)
+                {
+                    if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
+                    {
+                        [self clear:emc.tag type:emc.type];
+                        break;
+                    }
+                }
+                
+            }
+        }
+            
+       
+        
         
         /*AFTER*/
         else if ([befAft caseInsensitiveCompare:@"after"]==NSOrderedSame)
@@ -3991,6 +4052,8 @@
                 
             }
             
+            
+            
             //Highlight
             if (([cpm.name caseInsensitiveCompare:name] == NSOrderedSame) &&  [befAft isEqualToString:cpm.beforeAfter] && [cpm.condition isEqualToString:@"highlight"])
             {
@@ -4016,20 +4079,7 @@
                 }
                 
             }
-//            if (([cpm.name caseInsensitiveCompare:name] == NSOrderedSame) &&  [befAft isEqualToString:cpm.beforeAfter] && [cpm.condition isEqualToString:@"goto"])
-//            {
-//                for (ElementsModel *emc in elementListArray)
-//                {
-//                    if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
-//                    {
-//                        [self gotoFormField:emc.tag type:emc.type];
-//                        
-//                    }
-//                }
-//                
-//            }
 
-            
         }
     }
     return value;
@@ -4038,7 +4088,7 @@
 
 -(void)checkDialogs:(NSString *)name Tag:(NSInteger *)newTag type:(int)newType from:(NSString *)befAft from:(NSString *)newFrom
 {
-    dialogTitleArray = [[NSMutableArray alloc]init];
+    //dialogTitleArray = [[NSMutableArray alloc]init];
     NSString *fromVal;
     for (int i = 0; i<dialogArray.count; i++)
     {
@@ -5036,6 +5086,128 @@ newStr{
     }
 }
 
+/*CLEAR*/
+
+-(void)clear:(int)eleTag type:(int)newType
+{
+    switch (newType)
+    {
+        case 1:
+        {
+            NSLog(@"text");
+            EpiInfoTextField *utf = (EpiInfoTextField *)[formCanvas viewWithTag:eleTag];
+            [utf setText:@""];
+            
+            break;
+        }
+        case 3:
+        {
+            NSLog(@"text");
+            UppercaseTextField *utf = (UppercaseTextField *)[formCanvas viewWithTag:eleTag];
+            [utf setText:@""];
+            
+            break;
+        }
+        case 4:
+        {
+            NSLog(@"textview");
+            EpiInfoTextView *utf = (EpiInfoTextView *)[formCanvas viewWithTag:eleTag];
+            [utf setText:@""];
+            
+            break;
+        }
+        case 5:
+        {
+            NSLog(@"text");
+            NumberField *utf = (NumberField *)[formCanvas viewWithTag:eleTag];
+            [utf setText:@""];
+            
+            break;
+        }
+        case 6:
+        {
+            NSLog(@"textph");
+            PhoneNumberField *utf = (PhoneNumberField *)[formCanvas viewWithTag:eleTag];
+            [utf setText:@""];
+            
+            break;
+        }
+        case 7:
+        {
+            DateField *utf = (DateField *)[formCanvas viewWithTag:eleTag];
+            [utf setFormFieldValue:NULL];
+
+            break;
+        }
+        case 8:
+        {
+            NSLog(@"time");
+            TimeField *utf = (TimeField *)[formCanvas viewWithTag:eleTag];
+            [utf setText:@""];
+            
+            break;
+        }
+        case 9:
+        {
+            NSLog(@"datetime");
+            DateTimeField *utf = (DateTimeField *)[formCanvas viewWithTag:eleTag];
+            [utf setText:@""];
+            
+            break;
+        }
+        case 10:
+        {
+            NSLog(@"checkbox");
+            Checkbox *utf = (Checkbox *)[formCanvas viewWithTag:eleTag];
+            [utf setTrueFalse:0];
+            [utf setBackgroundColor:[UIColor whiteColor]];
+            break;
+        }
+        case 11:
+        {
+            NSLog(@"y/n");
+            YesNo *utf = (YesNo *)[formCanvas viewWithTag:eleTag];
+            [utf reset];
+            
+            break;
+        }
+        case 12:
+        {
+            NSLog(@"options");
+            EpiInfoOptionField *utf = (EpiInfoOptionField *)[formCanvas viewWithTag:eleTag];
+            [utf reset];
+
+            break;
+        }
+        case 15:
+            NSLog(@"mirror");
+            break;
+        case 17:
+        {
+            NSLog(@"legal");
+            LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
+            [utf reset];
+
+            break;
+        }
+        case 18:
+            NSLog(@"codes");
+            break;
+        case 19:
+            NSLog(@"legalcomment");
+            break;
+        case 14:
+            NSLog(@"image");
+            break;
+        case 25:
+            NSLog(@"unique");
+            break;
+        default:
+            break;
+    }
+    
+}
+
 
 -(NSUInteger)getIndexEle:(NSString *)newElet
 {
@@ -5048,6 +5220,7 @@ newStr{
     UIWindow *keyWin = [[UIApplication sharedApplication]keyWindow];
     UIViewController *mainVC = [keyWin rootViewController];
     [mainVC presentViewController:alrt animated:YES completion:nil];
+
 }
 
 -(void)showAlertsQueuedTag:(int)newTag
@@ -5079,6 +5252,7 @@ newStr{
 
                 [self showAlertsQueuedTag:newTag];
 
+
                 
             });
         }];
@@ -5089,6 +5263,8 @@ newStr{
             UITextField *utf = (UITextField *)[formCanvas viewWithTag:newTag];
             [utf resignFirstResponder];
 
+           // [self gotoField:@"before" element:[pageName lowercaseString]];
+
 
         }];
         
@@ -5097,43 +5273,15 @@ newStr{
 
         [self showAlrt:alert];
     }
+//    else
+//    {
+//        [self gotoField:@"before" element:[pageName lowercaseString]];
+//
+//    }
+
     
 }
-/*-(void)dialogTitle:(NSString *)newTitle subject:(NSString *)newSubject tag:(int)newTag from:(NSString *)newFrom array:(NSArray *)dialogTitles{
-    NSString *title;
-    NSString *sub;
-    sub = [newSubject stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[newSubject substringToIndex:1] uppercaseString]];
-    title = [newTitle capitalizedString];
-    UIAlertAction *defaultAction ;
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:sub preferredStyle:UIAlertControllerStyleAlert];
-    if ([newFrom isEqualToString:@"after"]) {
-        defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                [self resignAll];
-//                UITextField *utf = (UITextField *)[formCanvas viewWithTag:newTag];
-//                [utf resignFirstResponder];
-            });
-        }];
-    }
-    else
-    {
-        defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            
-        }];
-        
-    }
-    
-    
-    [alert addAction:defaultAction];
-    
-    // UIViewController *uvc = [[[[UIApplication sharedApplication] delegate] window] rootViewController] ;
-    //[self presentViewController:alert animated:YES completion:nil];
-    
-    UIWindow *keyWin = [[UIApplication sharedApplication]keyWindow];
-    UIViewController *mainVC = [keyWin rootViewController];
-    [mainVC presentViewController:alert animated:YES completion:nil];
-    
-}*/
+
 #pragma mark checkSubmitValidation
 
 -(BOOL)onSubmitRequiredFrom:(NSString *)from
