@@ -248,6 +248,7 @@
     {
         [submitButton setEnabled:NO];
         [submitButton setImage:[UIImage imageNamed:@"SwipeButtonPurple.png"] forState:UIControlStateNormal];
+        [submitButton setAccessibilityLabel:@"Swipe left or right to change page."];
     }
     [self addSubview:submitButton];
     UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0 - 158.0, contentSizeHeight, 120, 40)];

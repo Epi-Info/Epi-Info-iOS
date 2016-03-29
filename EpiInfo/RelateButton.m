@@ -64,6 +64,7 @@
     [titleButton setTitle:title forState:state];
     [titleButton addTarget:self action:@selector(titleButtonPressed:) forControlEvents:UIControlEventTouchDown];
     [titleButton addTarget:self action:@selector(titleButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
+    [self setAccessibilityLabel:title];
     [self addSubview:titleButton];
 }
 
