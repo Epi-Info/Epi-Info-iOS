@@ -89,12 +89,15 @@
     if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
     {
         NSString *path = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/"] stringByAppendingString:relatedViewName] stringByAppendingString:@".xml"];
-        if (![[NSFileManager defaultManager] fileExistsAtPath:path])
+        NSString *_path = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/_"] stringByAppendingString:relatedViewName] stringByAppendingString:@".xml"];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:path] && ![[NSFileManager defaultManager] fileExistsAtPath:_path])
         {
             return;
         }
         
-        NSURL *url = [NSURL fileURLWithPath:path];
+        NSURL *url = [NSURL fileURLWithPath:_path];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:_path])
+            url = [NSURL fileURLWithPath:path];
         edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, parentEDV.frame.size.height, parentEDV.frame.size.width, parentEDV.frame.size.height) AndURL:url AndRootViewController:[(EnterDataView *)parentEDV rootViewController] AndNameOfTheForm:relatedViewName AndPageToDisplay:1];
         rootViewController = [(EnterDataView *)edv rootViewController];
         
