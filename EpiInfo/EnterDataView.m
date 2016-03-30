@@ -1873,10 +1873,11 @@
           checkCodeString = [checkCodeString stringByReplacingCharactersInRange:range withString:@""];
         }
         self.dictionaryOfWordsArrays = [[NSMutableDictionary alloc] init];
-        while ((int)[checkCodeString rangeOfString:@"Field "].location >= 0 && (int)[checkCodeString rangeOfString:@"Field "].location < checkCodeString.length)
+//        while ([[checkCodeString uppercaseString] containsString:@"FIELD "] && (int)[[checkCodeString uppercaseString] rangeOfString:@"Field "].location < checkCodeString.length)
+        while (NO)
         {
-          NSRange fieldrange = [checkCodeString rangeOfString:@"Field "];
-          NSRange endfieldrange = [checkCodeString rangeOfString:@"End-Field"];
+          NSRange fieldrange = [[checkCodeString uppercaseString] rangeOfString:@"FIELD "];
+          NSRange endfieldrange = [[checkCodeString uppercaseString] rangeOfString:@"END-FIELD"];
             if (endfieldrange.location > checkCodeString.length)
                 break;
 //          NSLog(@"\n%@", [[checkCodeString substringToIndex:endfieldrange.location] substringFromIndex:fieldrange.location + fieldrange.length]);
