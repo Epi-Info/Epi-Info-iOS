@@ -2269,12 +2269,12 @@
       else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"10"])
       {
         float fieldWidth = 768 - 100;
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && fieldWidth > 280.0)
-          fieldWidth = 280.0;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && fieldWidth > 260.0)
+          fieldWidth = 260.0;
         else
           fontsize = 24.0;
         [elementLabel setFrame:CGRectMake(60, contentSizeHeight, fieldWidth, 40)];
-        while ([elementLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]}].width > fieldWidth)
+        while ([elementLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]}].width > 2.0 * fieldWidth)
           fontsize -= 0.1;
         [elementLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]];
         Checkbox *cb = [[Checkbox alloc] initWithFrame:CGRectMake(20, contentSizeHeight + 5, 30, 30)];
