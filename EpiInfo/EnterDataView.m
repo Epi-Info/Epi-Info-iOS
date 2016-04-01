@@ -1016,7 +1016,7 @@
   
   [self clearButtonPressed];
   
-  [self.superview addSubview:bv];
+//  [self.superview addSubview:bv];
   [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
     [bv setFrame:CGRectMake(0, 0, self.superview.frame.size.width, self.superview.frame.size.width)];
     [areYouSure setFrame:CGRectMake(10, 10, bv.frame.size.width - 20, 72)];
