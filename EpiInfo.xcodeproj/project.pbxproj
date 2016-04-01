@@ -195,6 +195,7 @@
 		92605C5119C36E1300827CB0 /* EpiInfoNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 92605C5019C36E1300827CB0 /* EpiInfoNumberFormatter.m */; };
 		9262713B18213D5D002C1C73 /* EpiInfoIconSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 9262713A18213D5D002C1C73 /* EpiInfoIconSegue.m */; };
 		92631B3E1CA2D5FD00934929 /* SwipeButtonPurple.png in Resources */ = {isa = PBXBuildFile; fileRef = 92631B3D1CA2D5FD00934929 /* SwipeButtonPurple.png */; };
+		9265FF8D1CAEA7BF003AD6E0 /* CommentLegal.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265FF8C1CAEA7BF003AD6E0 /* CommentLegal.m */; };
 		9266C528184657E900739AF2 /* DataEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9266C527184657E900739AF2 /* DataEntryViewController.m */; };
 		9266C52B1846613000739AF2 /* FormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9266C52A1846613000739AF2 /* FormView.m */; };
 		9266C53118466ED600739AF2 /* Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9266C53018466ED600739AF2 /* Checkbox.m */; };
@@ -610,6 +611,8 @@
 		9262713918213D5D002C1C73 /* EpiInfoIconSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpiInfoIconSegue.h; sourceTree = "<group>"; };
 		9262713A18213D5D002C1C73 /* EpiInfoIconSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpiInfoIconSegue.m; sourceTree = "<group>"; };
 		92631B3D1CA2D5FD00934929 /* SwipeButtonPurple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SwipeButtonPurple.png; sourceTree = "<group>"; };
+		9265FF8B1CAEA7BF003AD6E0 /* CommentLegal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentLegal.h; sourceTree = "<group>"; };
+		9265FF8C1CAEA7BF003AD6E0 /* CommentLegal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentLegal.m; sourceTree = "<group>"; };
 		9266C526184657E900739AF2 /* DataEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataEntryViewController.h; sourceTree = "<group>"; };
 		9266C527184657E900739AF2 /* DataEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataEntryViewController.m; sourceTree = "<group>"; };
 		9266C5291846613000739AF2 /* FormView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormView.h; sourceTree = "<group>"; };
@@ -1427,6 +1430,8 @@
 				9266C53F184684FD00739AF2 /* UppercaseTextField.m */,
 				9266C54118468CCF00739AF2 /* LegalValues.h */,
 				9266C54218468CCF00739AF2 /* LegalValues.m */,
+				9265FF8B1CAEA7BF003AD6E0 /* CommentLegal.h */,
+				9265FF8C1CAEA7BF003AD6E0 /* CommentLegal.m */,
 				92DBD601193CC57100A40691 /* EpiInfoOptionField.h */,
 				92DBD602193CC57100A40691 /* EpiInfoOptionField.m */,
 				92A25C0519391A97003225E1 /* EpiInfoCodesField.h */,
@@ -1929,6 +1934,7 @@
 				9266C5371846848800739AF2 /* NumberField.m in Sources */,
 				923A49F617B56636000FFC0C /* NewVariablesButton.m in Sources */,
 				923A49F917B57624000FFC0C /* NewVariablesView.m in Sources */,
+				9265FF8D1CAEA7BF003AD6E0 /* CommentLegal.m in Sources */,
 				92955547192B963F008DEC5C /* ConverterMethods.m in Sources */,
 				92A25C0719391A97003225E1 /* EpiInfoCodesField.m in Sources */,
 				92A25BFB1938D8F9003225E1 /* DateTimeField.m in Sources */,

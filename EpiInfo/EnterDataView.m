@@ -2397,7 +2397,7 @@
       }
       else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"19"])
       {
-        LegalValues *lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 300, 180) AndListOfValues:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]]];
+        CommentLegal *lv = [[CommentLegal alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 300, 180) AndListOfValues:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]]];
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
           [lv setFrame:CGRectMake(20, lv.frame.origin.y, lv.frame.size.width, lv.frame.size.height)];
         [formCanvas addSubview:lv];
