@@ -3542,7 +3542,7 @@
             }
         }
         
-        else if ([etf picked].length == 1)
+        else if (([etf picked].length == 1)||([etf picked].length>1))
         {
             BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:17 from:@"after" str:@"value"];
             if (required) {
@@ -3561,7 +3561,7 @@
                 [etf setAlpha:1.0f];
             }
         }
-        
+//        NSLog(@"%lu",(unsigned long)etf.picked.length);
         [self gotoField:@"after" element:[etf columnName]];
 
     }
@@ -3909,7 +3909,44 @@
     
     for (cpm in conditionsArray)
     {
+        if ([befAft isEqualToString:@"before"])
+        {
+            if([cpm.beforeAfter isEqualToString:@"before"])
+            {
+                if (([cpm.element caseInsensitiveCompare:name] == NSOrderedSame) && [cpm.condition isEqualToString:@"clear"])
+                {
+                    for (ElementsModel *emc in elementListArray)
+                    {
+                        if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
+                        {
+                            [self clear:emc.tag type:emc.type];
+                            
+                        }
+                    }
+                    
+                }
+            }
+        }
+        else if ([befAft isEqualToString:@"after"])
+        {
+            if (([cpm.name caseInsensitiveCompare:name] == NSOrderedSame) &&  [befAft isEqualToString:cpm.beforeAfter] && [cpm.condition isEqualToString:@"clear"])
+            {
+                for (ElementsModel *emc in elementListArray)
+                {
+                    if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
+                    {
+                        [self clear:emc.tag type:emc.type];
+                        break;
+                    }
+                }
+                
+            }
+        }
+
         /*BEFORE*/
+        if ([befAft isEqualToString:@"before"])
+        {
+            
         
         if ([cpm.beforeAfter caseInsensitiveCompare:@"before"] == NSOrderedSame)
         {
@@ -3928,42 +3965,9 @@
             }
             
         }
-        if ([befAft isEqualToString:@"before"])
-            {
-                if([cpm.beforeAfter isEqualToString:@"before"])
-                {
-                   if (([cpm.element caseInsensitiveCompare:name] == NSOrderedSame) && [cpm.condition isEqualToString:@"clear"])
-                    {
-                        for (ElementsModel *emc in elementListArray)
-                        {
-                            if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
-                            {
-                                [self clear:emc.tag type:emc.type];
-                                
-                            }
-                        }
-                        
-                    }
-                }
-            }
-        else if ([befAft isEqualToString:@"after"])
-        {
-            if (([cpm.name caseInsensitiveCompare:name] == NSOrderedSame) &&  [befAft isEqualToString:cpm.beforeAfter] && [cpm.condition isEqualToString:@"clear"])
-            {
-                for (ElementsModel *emc in elementListArray)
-                {
-                    if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
-                    {
-                        [self clear:emc.tag type:emc.type];
-                        break;
-                    }
-                }
-                
-            }
-        }
             
-       
-        
+                   
+        }
         
         /*AFTER*/
         else if ([befAft caseInsensitiveCompare:@"after"]==NSOrderedSame)
