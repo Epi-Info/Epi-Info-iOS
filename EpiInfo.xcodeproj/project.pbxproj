@@ -196,6 +196,7 @@
 		9262713B18213D5D002C1C73 /* EpiInfoIconSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 9262713A18213D5D002C1C73 /* EpiInfoIconSegue.m */; };
 		92631B3E1CA2D5FD00934929 /* SwipeButtonPurple.png in Resources */ = {isa = PBXBuildFile; fileRef = 92631B3D1CA2D5FD00934929 /* SwipeButtonPurple.png */; };
 		9265FF8D1CAEA7BF003AD6E0 /* CommentLegal.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265FF8C1CAEA7BF003AD6E0 /* CommentLegal.m */; };
+		9265FF901CB29B9F003AD6E0 /* SQLTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265FF8F1CB29B9F003AD6E0 /* SQLTool.m */; };
 		9266C528184657E900739AF2 /* DataEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9266C527184657E900739AF2 /* DataEntryViewController.m */; };
 		9266C52B1846613000739AF2 /* FormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9266C52A1846613000739AF2 /* FormView.m */; };
 		9266C53118466ED600739AF2 /* Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9266C53018466ED600739AF2 /* Checkbox.m */; };
@@ -613,6 +614,8 @@
 		92631B3D1CA2D5FD00934929 /* SwipeButtonPurple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SwipeButtonPurple.png; sourceTree = "<group>"; };
 		9265FF8B1CAEA7BF003AD6E0 /* CommentLegal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentLegal.h; sourceTree = "<group>"; };
 		9265FF8C1CAEA7BF003AD6E0 /* CommentLegal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentLegal.m; sourceTree = "<group>"; };
+		9265FF8E1CB29B9F003AD6E0 /* SQLTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLTool.h; sourceTree = "<group>"; };
+		9265FF8F1CB29B9F003AD6E0 /* SQLTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLTool.m; sourceTree = "<group>"; };
 		9266C526184657E900739AF2 /* DataEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataEntryViewController.h; sourceTree = "<group>"; };
 		9266C527184657E900739AF2 /* DataEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataEntryViewController.m; sourceTree = "<group>"; };
 		9266C5291846613000739AF2 /* FormView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormView.h; sourceTree = "<group>"; };
@@ -1365,6 +1368,8 @@
 				923A49F817B57624000FFC0C /* NewVariablesView.m */,
 				923F2BBB198C045B008A4856 /* ImportCSV.h */,
 				923F2BBC198C045B008A4856 /* ImportCSV.m */,
+				9265FF8E1CB29B9F003AD6E0 /* SQLTool.h */,
+				9265FF8F1CB29B9F003AD6E0 /* SQLTool.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1929,6 +1934,7 @@
 				92A25BFE1938DAD2003225E1 /* TimePicker.m in Sources */,
 				923A263B17B4265D00DCBCD5 /* FilterButton.m in Sources */,
 				926F55061AC5D09900790628 /* CaseControlSimulationView.swift in Sources */,
+				9265FF901CB29B9F003AD6E0 /* SQLTool.m in Sources */,
 				92524A8C184E50BE003C820B /* SaveFormView.m in Sources */,
 				9266C540184684FD00739AF2 /* UppercaseTextField.m in Sources */,
 				9266C5371846848800739AF2 /* NumberField.m in Sources */,

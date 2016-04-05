@@ -582,7 +582,7 @@
         [tv xButtonPressed];
     
     //One data type plus a cancel button
-    numberOfDataTypes = 2.0;
+    numberOfDataTypes = 3.0;
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, zoomingView.frame.size.width, 50)];
     [button setTitle:@"  Table from Device" forState:UIControlStateNormal];
@@ -596,6 +596,17 @@
     [dataTypeList addSubview:button];
     
     button = [[UIButton alloc] initWithFrame:CGRectMake(0, 50, zoomingView.frame.size.width, 50)];
+    [button setTitle:@"  Use SQL Tool" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [button addTarget:self action:@selector(loadSqlTool:) forControlEvents:UIControlEventTouchUpInside];
+    bottomLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 49, button.frame.size.width, 1)];
+    [bottomLineView setBackgroundColor:[UIColor blackColor]];
+    [button addSubview:bottomLineView];
+    [dataTypeList addSubview:button];
+    
+    button = [[UIButton alloc] initWithFrame:CGRectMake(0, 50, zoomingView.frame.size.width, 50)];
     [button setTitle:@"  AWS SimpleDB Table" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
@@ -604,9 +615,9 @@
     bottomLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 49, button.frame.size.width, 1)];
     [bottomLineView setBackgroundColor:[UIColor blackColor]];
     [button addSubview:bottomLineView];
-//    [dataTypeList addSubview:button];
+    //    [dataTypeList addSubview:button];
     
-    button = [[UIButton alloc] initWithFrame:CGRectMake(0, 50, zoomingView.frame.size.width, 50)];
+    button = [[UIButton alloc] initWithFrame:CGRectMake(0, 100, zoomingView.frame.size.width, 50)];
     [button setTitle:@"  Cancel" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
@@ -732,6 +743,20 @@
     //Move the dataSourceList into view
     [UIView animateWithDuration:0.3 delay:0.3 options:nil animations:^{
         [dataSourceList setFrame:CGRectMake(0, 0, zoomingView.frame.size.width, 50.0 * (numberOfFiles + 1))];
+    }completion:nil];
+}
+
+- (void)loadSqlTool:(UIButton *)sender
+{
+    
+    //Move dataTypeList off of the screen
+    [self cancelDataTypeSelection];
+    
+    SQLTool *sqlTool = [[SQLTool alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height + 50)];
+    [self.view addSubview:sqlTool];
+    
+    [UIView animateWithDuration:0.3 delay:0.3 options:nil animations:^{
+        [sqlTool setFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y - 60, self.view.frame.size.width, self.view.frame.size.height + 60)];
     }completion:nil];
 }
 

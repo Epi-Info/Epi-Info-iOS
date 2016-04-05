@@ -28,6 +28,7 @@
 #import "SQLiteData.h"
 #import "BlurryView.h"
 #import "ConfirmDeleteButton.h"
+#import "SQLTool.h"
 
 #define ACCESS_KEY_ID                @"AKIAIBI5F4JI26UWTAXQ"
 #define SECRET_KEY                   @"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"
