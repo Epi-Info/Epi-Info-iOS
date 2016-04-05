@@ -306,6 +306,7 @@
         NSMutableArray *arrayOfColumns = [[NSMutableArray alloc] init];
         NSMutableArray *arrayOfWidths = [[NSMutableArray alloc] init];
         NSMutableArray *arrayOfRows = [[NSMutableArray alloc] init];
+        BOOL querySucceeded = YES;
         float totalWidthOfResults = 0.0;
         {
             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -347,13 +348,23 @@
                     }
                     else
                     {
-                        
+                        querySucceeded = NO;
+                        results = [[UIView alloc] initWithFrame:CGRectMake(2, sqlStatementFieldBackground.frame.origin.y + sqlStatementFieldBackground.frame.size.height + 34, self.frame.size.width, 60)];
+                        [self addSubview:results];
+                        UITextView *sqlMessage = [[UITextView alloc] initWithFrame:CGRectMake(2, 0, results.frame.size.width - 4.0, 60)];
+                        [sqlMessage setEditable:NO];
+                        [sqlMessage setText:[NSString stringWithFormat:@"SQL Error: %s", sqlite3_errmsg(epiinfoDB)]];
+                        [sqlMessage setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+                        [results addSubview:sqlMessage];
                     }
                     sqlite3_finalize(statement);
                 }
                 sqlite3_close(epiinfoDB);
             }
         }
+        
+        if (!querySucceeded)
+            return;
         
         float resultsHeight = (float)[arrayOfRows count] * 40.0 + 40.0;
         results = [[UIView alloc] initWithFrame:CGRectMake(2, sqlStatementFieldBackground.frame.origin.y + sqlStatementFieldBackground.frame.size.height + 34, totalWidthOfResults, resultsHeight)];
