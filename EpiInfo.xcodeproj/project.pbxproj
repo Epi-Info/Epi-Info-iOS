@@ -197,6 +197,8 @@
 		92631B3E1CA2D5FD00934929 /* SwipeButtonPurple.png in Resources */ = {isa = PBXBuildFile; fileRef = 92631B3D1CA2D5FD00934929 /* SwipeButtonPurple.png */; };
 		9265FF8D1CAEA7BF003AD6E0 /* CommentLegal.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265FF8C1CAEA7BF003AD6E0 /* CommentLegal.m */; };
 		9265FF901CB29B9F003AD6E0 /* SQLTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265FF8F1CB29B9F003AD6E0 /* SQLTool.m */; };
+		9265FF931CB5939E003AD6E0 /* ClearButtonBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 9265FF911CB5939E003AD6E0 /* ClearButtonBlue.png */; };
+		9265FF941CB5939E003AD6E0 /* SubmitButtonBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 9265FF921CB5939E003AD6E0 /* SubmitButtonBlue.png */; };
 		9266C528184657E900739AF2 /* DataEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9266C527184657E900739AF2 /* DataEntryViewController.m */; };
 		9266C52B1846613000739AF2 /* FormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9266C52A1846613000739AF2 /* FormView.m */; };
 		9266C53118466ED600739AF2 /* Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9266C53018466ED600739AF2 /* Checkbox.m */; };
@@ -616,6 +618,8 @@
 		9265FF8C1CAEA7BF003AD6E0 /* CommentLegal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentLegal.m; sourceTree = "<group>"; };
 		9265FF8E1CB29B9F003AD6E0 /* SQLTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLTool.h; sourceTree = "<group>"; };
 		9265FF8F1CB29B9F003AD6E0 /* SQLTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLTool.m; sourceTree = "<group>"; };
+		9265FF911CB5939E003AD6E0 /* ClearButtonBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ClearButtonBlue.png; sourceTree = "<group>"; };
+		9265FF921CB5939E003AD6E0 /* SubmitButtonBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SubmitButtonBlue.png; sourceTree = "<group>"; };
 		9266C526184657E900739AF2 /* DataEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataEntryViewController.h; sourceTree = "<group>"; };
 		9266C527184657E900739AF2 /* DataEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataEntryViewController.m; sourceTree = "<group>"; };
 		9266C5291846613000739AF2 /* FormView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormView.h; sourceTree = "<group>"; };
@@ -1492,6 +1496,7 @@
 				92E42B291959ED0C0077EF41 /* PoundsButton.png */,
 				92282505186387DA00DF9493 /* ClearButton.png */,
 				92282506186387DA00DF9493 /* ClearButtonOrange.png */,
+				9265FF911CB5939E003AD6E0 /* ClearButtonBlue.png */,
 				92C419D81921595000FA46EA /* DeleteButton.png */,
 				924770811C4015EF008F8C90 /* ManageButtonOrange.png */,
 				921ED31F1C7F7462004C6091 /* PlainPurpleButton.png */,
@@ -1506,6 +1511,7 @@
 				92D4BB62184F77CC00B2D70C /* SaveButton.png */,
 				92282507186387DA00DF9493 /* SubmitButton.png */,
 				92282508186387DA00DF9493 /* SubmitButtonOrange.png */,
+				9265FF921CB5939E003AD6E0 /* SubmitButtonBlue.png */,
 				92631B3D1CA2D5FD00934929 /* SwipeButtonPurple.png */,
 				92AED73C186E09D5004A4DB9 /* StAndrewXButton.png */,
 				92AED740186E0CF9004A4DB9 /* StAndrewXButtonWhite.png */,
@@ -1635,6 +1641,7 @@
 				925354A51823F49500065B69 /* PadPopulationSSScreenshot.png in Resources */,
 				68D769F116A9DDF900D831EB /* 2x2BK.png in Resources */,
 				92BF845A1856658D00F31D52 /* 2x2B1N.png in Resources */,
+				9265FF931CB5939E003AD6E0 /* ClearButtonBlue.png in Resources */,
 				92BA2E1718AA6B0200E2CC33 /* MSAzureBluePhone.png in Resources */,
 				92E42B271959DD9C0077EF41 /* hgtagewho.csv in Resources */,
 				922227B419BA1DCF002CD855 /* iPhone4Launch.png in Resources */,
@@ -1706,6 +1713,7 @@
 				921ED3201C7F7462004C6091 /* PlainPurpleButton.png in Resources */,
 				92D03BD818848B4E0062D75A /* PMCCScreen5.png in Resources */,
 				92EEE3551C28815900912007 /* icon-87.png in Resources */,
+				9265FF941CB5939E003AD6E0 /* SubmitButtonBlue.png in Resources */,
 				92A192511C690DD40095E69F /* PreviousPage.png in Resources */,
 				925ACD38191D60480067CE7A /* UpdateButton.png in Resources */,
 				68D769FF16A9DDF900D831EB /* MPB.png in Resources */,

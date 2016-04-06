@@ -40,13 +40,13 @@
         [self addSubview:sqlStatementFieldBackground];
         
         UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(2, sqlStatementFieldBackground.frame.origin.y + sqlStatementFieldBackground.frame.size.height + 2, 90, 30)];
-        [clearButton setImage:[UIImage imageNamed:@"ClearButton.png"] forState:UIControlStateNormal];
+        [clearButton setImage:[UIImage imageNamed:@"ClearButtonBlue.png"] forState:UIControlStateNormal];
         [clearButton addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [clearButton setAccessibilityLabel:@"Clear without submitting."];
         [self addSubview:clearButton];
         
         UIButton *submitButton = [[UIButton alloc] initWithFrame:CGRectMake(sqlStatementFieldBackground.frame.origin.x + sqlStatementFieldBackground.frame.size.width - 90, sqlStatementFieldBackground.frame.origin.y + sqlStatementFieldBackground.frame.size.height + 2, 90, 30)];
-        [submitButton setImage:[UIImage imageNamed:@"SubmitButton.png"] forState:UIControlStateNormal];
+        [submitButton setImage:[UIImage imageNamed:@"SubmitButtonBlue.png"] forState:UIControlStateNormal];
         [submitButton addTarget:self action:@selector(submitButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [submitButton setAccessibilityLabel:@"Submit sequel statement"];
         [self addSubview:submitButton];
@@ -610,6 +610,12 @@
         [results addSubview:sqlMessage];
     }
 }
+
+- (void)questionMarkPressed:(UIButton *)sender
+{
+    
+}
+
 -(void)clearButtonPressed:(UIButton *)sender
 {
     [sqlStatementField setText:@""];
