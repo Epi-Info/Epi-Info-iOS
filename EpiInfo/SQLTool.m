@@ -252,6 +252,40 @@
         [results addSubview:header];
         
         float yValue = 0.0;
+        {
+            yValue += 40.0;
+            UILabel *rowLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, yValue, (results.frame.size.width - 4) * 0.667, 40)];
+            [rowLabel setBackgroundColor:[UIColor clearColor]];
+            [rowLabel setTextColor:[UIColor blackColor]];
+            [rowLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+            [rowLabel setTextAlignment:NSTextAlignmentLeft];
+            [rowLabel setText:@"Number of Rows"];
+            [rowLabel setNumberOfLines:0];
+            [rowLabel setLineBreakMode:NSLineBreakByCharWrapping];
+            [rowLabel setUserInteractionEnabled:YES];
+            UITapGestureRecognizer *rowLabelTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sqlStatementFieldResign:)];
+            [rowLabelTap setNumberOfTapsRequired:1];
+            UILongPressGestureRecognizer *rowLabelLongPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+            [rowLabelLongPress setMinimumPressDuration:1.0];
+            [rowLabel addGestureRecognizer:rowLabelTap];
+            [rowLabel addGestureRecognizer:rowLabelLongPress];
+            [results addSubview:rowLabel];
+            
+            UILabel *rowLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(rowLabel.frame.origin.x + rowLabel.frame.size.width, yValue, (results.frame.size.width - 4) * .333, 40)];
+            [rowLabel2 setBackgroundColor:[UIColor clearColor]];
+            [rowLabel2 setTextColor:[UIColor blackColor]];
+            [rowLabel2 setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+            [rowLabel2 setTextAlignment:NSTextAlignmentLeft];
+            [rowLabel2 setText:[NSString stringWithFormat:@"%lu", (unsigned long)[[ado dataSet] count]]];
+            [rowLabel2 setUserInteractionEnabled:YES];
+            UITapGestureRecognizer *rowLabelTap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sqlStatementFieldResign:)];
+            [rowLabelTap2 setNumberOfTapsRequired:1];
+            UILongPressGestureRecognizer *rowLabelLongPress2 = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+            [rowLabelLongPress2 setMinimumPressDuration:1.0];
+            [rowLabel2 addGestureRecognizer:rowLabelTap2];
+            [rowLabel2 addGestureRecognizer:rowLabelLongPress2];
+            [results addSubview:rowLabel2];
+        }
         for (id key in arrayOfColumns)
         {
             yValue += 40.0;
@@ -426,12 +460,15 @@
             }
             if (cells > 2000)
             {
-                [results setFrame:CGRectMake(results.frame.origin.x, results.frame.origin.y, results.frame.size.width, yValue + 40.0 + 40.0)];
-                UILabel *footer = [[UILabel alloc] initWithFrame:CGRectMake(0, yValue + 40.0, self.frame.size.width - 4.0, 40.0)];
+                [results setFrame:CGRectMake(results.frame.origin.x, results.frame.origin.y, results.frame.size.width, yValue + 40.0 + 60.0)];
+                UILabel *footer = [[UILabel alloc] initWithFrame:CGRectMake(0, yValue + 40.0, self.frame.size.width - 4.0, 60.0)];
                 [footer setBackgroundColor:[UIColor clearColor]];
-                [footer setFont:[UIFont fontWithName:@"HelveticaHeue" size:18.0]];
+                [footer setFont:[UIFont fontWithName:@"HelveticaHeue" size:16.0]];
                 [footer setTextColor:[UIColor blackColor]];
-                [footer setText:@"Notice: Data display limit exceeded."];
+                [footer setText:[NSString stringWithFormat:@"Data display limit reached after %d rows.", (int)(yValue / 40.0)]];
+                [footer setNumberOfLines:0];
+                [footer setLineBreakMode:NSLineBreakByWordWrapping];
+                [footer setUserInteractionEnabled:YES];
                 UITapGestureRecognizer *footerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sqlStatementFieldResign:)];
                 [footerTap setNumberOfTapsRequired:1];
                 [footer addGestureRecognizer:footerTap];
