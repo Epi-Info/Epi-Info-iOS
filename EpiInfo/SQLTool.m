@@ -489,7 +489,40 @@
     
     else if ([sqlStatement length] > 6 && [[[sqlStatement substringWithRange:NSMakeRange(0, 7)] lowercaseString] isEqualToString:@"delete "])
     {
-        NSLog(@"Delete");
+        {
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
+            {
+                NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+                
+                if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+                {
+                    char *errMsg;
+                    NSString *sqlStmt = sqlStatement;
+                    const char *sql_stmt = [sqlStmt UTF8String];
+                    if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) == SQLITE_OK)
+                    {
+                        results = [[UIView alloc] initWithFrame:CGRectMake(2, sqlStatementFieldBackground.frame.origin.y + sqlStatementFieldBackground.frame.size.height + 34, self.frame.size.width, 60)];
+                        [self addSubview:results];
+                        UILabel *sqlMessage = [[UILabel alloc] initWithFrame:CGRectMake(2, 0, results.frame.size.width - 4.0, 60)];
+                        [sqlMessage setText:[NSString stringWithFormat:@"%d row(s) deleted.", sqlite3_changes(epiinfoDB)]];
+                        [sqlMessage setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+                        [results addSubview:sqlMessage];
+                    }
+                    else
+                    {
+                        results = [[UIView alloc] initWithFrame:CGRectMake(2, sqlStatementFieldBackground.frame.origin.y + sqlStatementFieldBackground.frame.size.height + 34, self.frame.size.width, 60)];
+                        [self addSubview:results];
+                        UITextView *sqlMessage = [[UITextView alloc] initWithFrame:CGRectMake(2, 0, results.frame.size.width - 4.0, 60)];
+                        [sqlMessage setEditable:NO];
+                        [sqlMessage setText:[NSString stringWithFormat:@"SQL Error: %s", sqlite3_errmsg(epiinfoDB)]];
+                        [sqlMessage setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+                        [results addSubview:sqlMessage];
+                    }
+                }
+                sqlite3_close(epiinfoDB);
+            }
+        }
     }
     
     else if ([sqlStatement length] > 4 && [[[sqlStatement substringWithRange:NSMakeRange(0, 5)] lowercaseString] isEqualToString:@"drop "])
