@@ -20,5 +20,7 @@
     sqlite3 *epiinfoDB;
     
     UISwipeGestureRecognizer *downRecognizer;
+    
+    UIView *instructionsView;
 }
 @end
