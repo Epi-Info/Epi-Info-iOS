@@ -282,6 +282,14 @@
                 [rowLabel2 setText:@"Float"];
             else if ([(NSNumber *)[[ado dataTypes] objectForKey:[[ado columnNames] objectForKey:key]] intValue] > 1)
                 [rowLabel2 setText:@"Char"];
+            if ([(NSNumber *)[[ado isOneZero] objectForKey:[[ado columnNames] objectForKey:key]] intValue] == 1)
+                [rowLabel2 setText:@"1/0"];
+            else if ([(NSNumber *)[[ado isYesNo] objectForKey:[[ado columnNames] objectForKey:key]] intValue] == 1)
+                [rowLabel2 setText:@"Yes/No"];
+            else if ([(NSNumber *)[[ado isTrueFalse] objectForKey:[[ado columnNames] objectForKey:key]] intValue] == 1)
+                [rowLabel2 setText:@"True/False"];
+            else if ([(NSNumber *)[[ado isBinary] objectForKey:[[ado columnNames] objectForKey:key]] intValue] == 1)
+                [rowLabel2 setText:[[rowLabel2 text] stringByAppendingString:@" (Binary)"]];
             [rowLabel2 setUserInteractionEnabled:YES];
             UITapGestureRecognizer *rowLabelTap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sqlStatementFieldResign:)];
             [rowLabelTap2 setNumberOfTapsRequired:1];
@@ -290,13 +298,6 @@
             [rowLabel2 addGestureRecognizer:rowLabelTap2];
             [rowLabel2 addGestureRecognizer:rowLabelLongPress2];
             [results addSubview:rowLabel2];
-            
-            NSLog(@"%@, %@, %@, %@, %@, %@", (NSString *)key,
-                  [[ado dataTypes] objectForKey:[[ado columnNames] objectForKey:key]],
-                  [[ado isBinary] objectForKey:[[ado columnNames] objectForKey:key]],
-                  [[ado isYesNo] objectForKey:[[ado columnNames] objectForKey:key]],
-                  [[ado isOneZero] objectForKey:[[ado columnNames] objectForKey:key]],
-                  [[ado isTrueFalse] objectForKey:[[ado columnNames] objectForKey:key]]);
         }
         [self setContentSize:CGSizeMake(self.frame.size.width, results.frame.origin.y + results.frame.size.height + 80)];
     }
@@ -425,9 +426,16 @@
             }
             if (cells > 2000)
             {
-                UIAlertView *cellsAlert = [[UIAlertView alloc] initWithTitle:@"Alert!" message:@"Data display limit exceeded." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                [cellsAlert show];
-                [results setFrame:CGRectMake(results.frame.origin.x, results.frame.origin.y, results.frame.size.width, yValue + 40.0)];
+                [results setFrame:CGRectMake(results.frame.origin.x, results.frame.origin.y, results.frame.size.width, yValue + 40.0 + 40.0)];
+                UILabel *footer = [[UILabel alloc] initWithFrame:CGRectMake(0, yValue + 40.0, self.frame.size.width - 4.0, 40.0)];
+                [footer setBackgroundColor:[UIColor clearColor]];
+                [footer setFont:[UIFont fontWithName:@"HelveticaHeue" size:18.0]];
+                [footer setTextColor:[UIColor blackColor]];
+                [footer setText:@"Notice: Data display limit exceeded."];
+                UITapGestureRecognizer *footerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sqlStatementFieldResign:)];
+                [footerTap setNumberOfTapsRequired:1];
+                [footer addGestureRecognizer:footerTap];
+                [results addSubview:footer];
                 break;
             }
         }
@@ -441,7 +449,42 @@
     
     else if ([sqlStatement length] > 6 && [[[sqlStatement substringWithRange:NSMakeRange(0, 7)] lowercaseString] isEqualToString:@"insert "])
     {
-        NSLog(@"Insert");
+        if ([[sqlStatement lowercaseString] containsString:@"guid()"])
+            sqlStatement = [NSMutableString stringWithString:[[sqlStatement lowercaseString] stringByReplacingOccurrencesOfString:@"guid()" withString:[NSString stringWithFormat:@"'%@'", CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL)))]]];
+        {
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
+            {
+                NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+                
+                if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+                {
+                    char *errMsg;
+                    NSString *sqlStmt = sqlStatement;
+                    const char *sql_stmt = [sqlStmt UTF8String];
+                    if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) == SQLITE_OK)
+                    {
+                        results = [[UIView alloc] initWithFrame:CGRectMake(2, sqlStatementFieldBackground.frame.origin.y + sqlStatementFieldBackground.frame.size.height + 34, self.frame.size.width, 60)];
+                        [self addSubview:results];
+                        UILabel *sqlMessage = [[UILabel alloc] initWithFrame:CGRectMake(2, 0, results.frame.size.width - 4.0, 60)];
+                        [sqlMessage setText:[NSString stringWithFormat:@"%d row(s) inserted.", sqlite3_changes(epiinfoDB)]];
+                        [sqlMessage setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+                        [results addSubview:sqlMessage];
+                    }
+                    else
+                    {
+                        results = [[UIView alloc] initWithFrame:CGRectMake(2, sqlStatementFieldBackground.frame.origin.y + sqlStatementFieldBackground.frame.size.height + 34, self.frame.size.width, 60)];
+                        [self addSubview:results];
+                        UITextView *sqlMessage = [[UITextView alloc] initWithFrame:CGRectMake(2, 0, results.frame.size.width - 4.0, 60)];
+                        [sqlMessage setEditable:NO];
+                        [sqlMessage setText:[NSString stringWithFormat:@"SQL Error: %s", sqlite3_errmsg(epiinfoDB)]];
+                        [sqlMessage setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+                        [results addSubview:sqlMessage];
+                    }
+               }
+                sqlite3_close(epiinfoDB);
+            }
+        }
     }
     
     else if ([sqlStatement length] > 6 && [[[sqlStatement substringWithRange:NSMakeRange(0, 7)] lowercaseString] isEqualToString:@"delete "])
@@ -451,7 +494,15 @@
     
     else if ([sqlStatement length] > 4 && [[[sqlStatement substringWithRange:NSMakeRange(0, 5)] lowercaseString] isEqualToString:@"drop "])
     {
-        NSLog(@"Drop");
+        results = [[UIView alloc] initWithFrame:CGRectMake(2, sqlStatementFieldBackground.frame.origin.y + sqlStatementFieldBackground.frame.size.height + 34, self.frame.size.width, 60)];
+        [self addSubview:results];
+        UILabel *sqlMessage = [[UILabel alloc] initWithFrame:CGRectMake(2, 0, results.frame.size.width - 4.0, 60)];
+        [sqlMessage setText:[NSString stringWithFormat:@"DROP not supported. Use \"Table from Device\" to delete tables."]];
+        [sqlMessage setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        UITapGestureRecognizer *sqlMessageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sqlStatementFieldResign:)];
+        [sqlMessageTap setNumberOfTapsRequired:1];
+        [sqlMessage addGestureRecognizer:sqlMessageTap];
+        [results addSubview:sqlMessage];
     }
 }
 -(void)clearButtonPressed:(UIButton *)sender
