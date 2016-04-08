@@ -610,6 +610,23 @@
         UILabel *sqlMessage = [[UILabel alloc] initWithFrame:CGRectMake(2, 0, results.frame.size.width - 4.0, 60)];
         [sqlMessage setText:[NSString stringWithFormat:@"DROP not supported. Use \"Table from Device\" to delete tables."]];
         [sqlMessage setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [sqlMessage setUserInteractionEnabled:YES];
+        UITapGestureRecognizer *sqlMessageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sqlStatementFieldResign:)];
+        [sqlMessageTap setNumberOfTapsRequired:1];
+        [sqlMessage addGestureRecognizer:sqlMessageTap];
+        [results addSubview:sqlMessage];
+    }
+    
+    else if ([sqlStatement length] > 6 && [[[sqlStatement substringWithRange:NSMakeRange(0, 7)] lowercaseString] isEqualToString:@"create "])
+    {
+        results = [[UIView alloc] initWithFrame:CGRectMake(2, sqlStatementFieldBackground.frame.origin.y + sqlStatementFieldBackground.frame.size.height + 34, self.frame.size.width, 80)];
+        [self addSubview:results];
+        UILabel *sqlMessage = [[UILabel alloc] initWithFrame:CGRectMake(2, 0, results.frame.size.width - 4.0, 80)];
+        [sqlMessage setNumberOfLines:0];
+        [sqlMessage setLineBreakMode:NSLineBreakByWordWrapping];
+        [sqlMessage setText:[NSString stringWithFormat:@"CREATE not supported. Tables are created in Enter Data or uploaded via .csv files."]];
+        [sqlMessage setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [sqlMessage setUserInteractionEnabled:YES];
         UITapGestureRecognizer *sqlMessageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sqlStatementFieldResign:)];
         [sqlMessageTap setNumberOfTapsRequired:1];
         [sqlMessage addGestureRecognizer:sqlMessageTap];
