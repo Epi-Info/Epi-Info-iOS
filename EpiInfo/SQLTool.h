@@ -22,5 +22,8 @@
     UISwipeGestureRecognizer *downRecognizer;
     
     UIView *instructionsView;
+    
+    NSMutableArray *recentSubmissions;
+    int recentSubmissionsIndex;
 }
 @end

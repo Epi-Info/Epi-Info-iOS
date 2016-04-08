@@ -45,17 +45,26 @@
         [clearButton setAccessibilityLabel:@"Clear without submitting."];
         [self addSubview:clearButton];
         
-        UIButton *questionMarkButton = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width / 2.0 - clearButton.frame.size.height / 2.0, clearButton.frame.origin.y, clearButton.frame.size.height, clearButton.frame.size.height)];
+        UIButton *recallButton = [[UIButton alloc] initWithFrame:CGRectMake(clearButton.frame.origin.x + clearButton.frame.size.width + 2, clearButton.frame.origin.y, 90, 30)];
+        [recallButton setImage:[UIImage imageNamed:@"RecallButtonBlue.png"] forState:UIControlStateNormal];
+        [recallButton addTarget:self action:@selector(recallButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [recallButton setAccessibilityLabel:@"Recall last statement."];
+        [self addSubview:recallButton];
+        
+        UIButton *submitButton = [[UIButton alloc] initWithFrame:CGRectMake(recallButton.frame.origin.x + recallButton.frame.size.width + 2, clearButton.frame.origin.y, 90, 30)];
+        [submitButton setImage:[UIImage imageNamed:@"SubmitButtonBlue.png"] forState:UIControlStateNormal];
+        [submitButton addTarget:self action:@selector(submitButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [submitButton setAccessibilityLabel:@"Submit sequel statement"];
+        [self addSubview:submitButton];
+        
+        UIButton *questionMarkButton = [[UIButton alloc] initWithFrame:CGRectMake(submitButton.frame.origin.x + submitButton.frame.size.width + 2, clearButton.frame.origin.y, clearButton.frame.size.height, clearButton.frame.size.height)];
         [questionMarkButton setImage:[UIImage imageNamed:@"QuestionMarkButton.png"] forState:UIControlStateNormal];
         [questionMarkButton addTarget:self action:@selector(questionMarkPressed:) forControlEvents:UIControlEventTouchUpInside];
         [questionMarkButton setAccessibilityLabel:@"SQL tool help."];
         [self addSubview:questionMarkButton];
         
-        UIButton *submitButton = [[UIButton alloc] initWithFrame:CGRectMake(sqlStatementFieldBackground.frame.origin.x + sqlStatementFieldBackground.frame.size.width - 90, sqlStatementFieldBackground.frame.origin.y + sqlStatementFieldBackground.frame.size.height + 2, 90, 30)];
-        [submitButton setImage:[UIImage imageNamed:@"SubmitButtonBlue.png"] forState:UIControlStateNormal];
-        [submitButton addTarget:self action:@selector(submitButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [submitButton setAccessibilityLabel:@"Submit sequel statement"];
-        [self addSubview:submitButton];
+        recentSubmissionsIndex = 0;
+        recentSubmissions = [[NSMutableArray alloc] init];
     }
     
     return self;
@@ -73,6 +82,17 @@
     NSMutableString *sqlStatement = [NSMutableString stringWithString:[sqlStatementField text]];
     while ([sqlStatement characterAtIndex:0] == ' ')
         [sqlStatement deleteCharactersInRange:NSMakeRange(0, 1)];
+    
+    if (![sqlStatement isEqualToString:(NSString *)[recentSubmissions lastObject]])
+    {
+        [recentSubmissions addObject:sqlStatement];
+        
+        if ([recentSubmissions count] > 100)
+        {
+            [recentSubmissions removeObjectAtIndex:0];
+        }
+    }
+    recentSubmissionsIndex = (int)[recentSubmissions count] - 1;
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
@@ -694,6 +714,12 @@
 -(void)clearButtonPressed:(UIButton *)sender
 {
     [sqlStatementField setText:@""];
+}
+
+- (void)recallButtonPressed:(UIButton *)sender
+{
+    if ([recentSubmissions count] > recentSubmissionsIndex && recentSubmissionsIndex > -1)
+        [sqlStatementField setText:(NSString *)[recentSubmissions objectAtIndex:recentSubmissionsIndex--]];
 }
 
 - (void)downSwipe:(UIButton *)sender

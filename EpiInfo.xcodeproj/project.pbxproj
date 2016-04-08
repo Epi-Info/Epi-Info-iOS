@@ -200,6 +200,7 @@
 		9265FF931CB5939E003AD6E0 /* ClearButtonBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 9265FF911CB5939E003AD6E0 /* ClearButtonBlue.png */; };
 		9265FF941CB5939E003AD6E0 /* SubmitButtonBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 9265FF921CB5939E003AD6E0 /* SubmitButtonBlue.png */; };
 		9265FF961CB59A09003AD6E0 /* QuestionMarkButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 9265FF951CB59A09003AD6E0 /* QuestionMarkButton.png */; };
+		9265FF981CB8314E003AD6E0 /* RecallButtonBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 9265FF971CB8314E003AD6E0 /* RecallButtonBlue.png */; };
 		9266C528184657E900739AF2 /* DataEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9266C527184657E900739AF2 /* DataEntryViewController.m */; };
 		9266C52B1846613000739AF2 /* FormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9266C52A1846613000739AF2 /* FormView.m */; };
 		9266C53118466ED600739AF2 /* Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9266C53018466ED600739AF2 /* Checkbox.m */; };
@@ -622,6 +623,7 @@
 		9265FF911CB5939E003AD6E0 /* ClearButtonBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ClearButtonBlue.png; sourceTree = "<group>"; };
 		9265FF921CB5939E003AD6E0 /* SubmitButtonBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SubmitButtonBlue.png; sourceTree = "<group>"; };
 		9265FF951CB59A09003AD6E0 /* QuestionMarkButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMarkButton.png; sourceTree = "<group>"; };
+		9265FF971CB8314E003AD6E0 /* RecallButtonBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RecallButtonBlue.png; sourceTree = "<group>"; };
 		9266C526184657E900739AF2 /* DataEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataEntryViewController.h; sourceTree = "<group>"; };
 		9266C527184657E900739AF2 /* DataEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataEntryViewController.m; sourceTree = "<group>"; };
 		9266C5291846613000739AF2 /* FormView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormView.h; sourceTree = "<group>"; };
@@ -1499,6 +1501,7 @@
 				92282505186387DA00DF9493 /* ClearButton.png */,
 				92282506186387DA00DF9493 /* ClearButtonOrange.png */,
 				9265FF911CB5939E003AD6E0 /* ClearButtonBlue.png */,
+				9265FF971CB8314E003AD6E0 /* RecallButtonBlue.png */,
 				92C419D81921595000FA46EA /* DeleteButton.png */,
 				924770811C4015EF008F8C90 /* ManageButtonOrange.png */,
 				921ED31F1C7F7462004C6091 /* PlainPurpleButton.png */,
@@ -1749,6 +1752,7 @@
 				68D76A0516A9DDF900D831EB /* splash-page.png in Resources */,
 				68D76A0616A9DDF900D831EB /* background-1.png in Resources */,
 				68D76A0716A9DDF900D831EB /* BinomialB.png in Resources */,
+				9265FF981CB8314E003AD6E0 /* RecallButtonBlue.png in Resources */,
 				92095BDB1835645E00B7A0ED /* SpotlightR.png in Resources */,
 				92A192481C56B33D0095E69F /* Comma.png in Resources */,
 				92867AC5183EAE6000CCC2B5 /* PoissonNR.png in Resources */,
