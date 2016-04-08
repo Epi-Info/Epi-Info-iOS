@@ -58,6 +58,7 @@
         }
         i++;
     }
+    [super setSelectedLegalValue:selectedLegalValue];
 }
 
 - (NSString *)trimLeadingAndTrailingSpaces:(NSString *)stringToTrim
