@@ -185,7 +185,7 @@
   if (self)
   {
       NSString *xmlString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-      if ((int)[xmlString rangeOfString:@"ActualPageNumber"].location < 0)
+      if (![xmlString containsString:@"ActualPageNumber"])
       {
           xmlString = [self fixPageIdValues:[NSMutableString stringWithString:xmlString]];
           [xmlString writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:nil];
