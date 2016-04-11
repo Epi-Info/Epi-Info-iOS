@@ -8,8 +8,9 @@
 #import "EpiInfo-Swift.h"
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import "EpiInfoControlProtocol.h"
 
-@interface Checkbox : UIView
+@interface Checkbox : UIView <EpiInfoControlProtocol>
 {
     UIButton *button;
     BOOL value;

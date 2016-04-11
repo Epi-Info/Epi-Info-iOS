@@ -6,6 +6,7 @@
 //
 
 #import "ChildFormFieldAssignments.h"
+#import "EpiInfoControlProtocol.h"
 
 @implementation ChildFormFieldAssignments
 
@@ -270,7 +271,11 @@
                         startIndex = [num intValue] + 1;
                         if ([[parentForm dictionaryOfFields] objectForKey:section])
                         {
-                            [valueString appendString:[(UITextField *)[[parentForm dictionaryOfFields] objectForKey:section] text]];
+                            if ([[[parentForm dictionaryOfFields] objectForKey:section] conformsToProtocol:@protocol(EpiInfoControlProtocol)])
+                            {
+                                id <EpiInfoControlProtocol> epiInfoControl = [[parentForm dictionaryOfFields] objectForKey:section];
+                                [valueString appendString:[epiInfoControl epiInfoControlValue]];
+                            }
                         }
                         else
                         {
@@ -279,7 +284,11 @@
                             {
                                 if ([[(EnterDataView *)[[parentForm dictionaryOfPages] objectForKey:keyy] dictionaryOfFields] objectForKey:section])
                                 {
-                                    [valueString appendString:[(EpiInfoTextField *)[[(EnterDataView *)[[parentForm dictionaryOfPages] objectForKey:keyy] dictionaryOfFields] objectForKey:section] text]];
+                                    if ([[[(EnterDataView *)[[parentForm dictionaryOfPages] objectForKey:keyy] dictionaryOfFields] objectForKey:section] conformsToProtocol:@protocol(EpiInfoControlProtocol)])
+                                    {
+                                        id <EpiInfoControlProtocol> epiInfoControl = [[(EnterDataView *)[[parentForm dictionaryOfPages] objectForKey:keyy] dictionaryOfFields] objectForKey:section];
+                                        [valueString appendString:[epiInfoControl epiInfoControlValue]];
+                                    }
                                     notFound = NO;
                                     break;
                                 }
@@ -299,7 +308,11 @@
                     }
                     if ([[parentForm dictionaryOfFields] objectForKey:[section stringByReplacingOccurrencesOfString:@" " withString:@""]])
                     {
-                        [valueString appendString:[(UITextField *)[[parentForm dictionaryOfFields] objectForKey:[section stringByReplacingOccurrencesOfString:@" " withString:@""]] text]];
+                        if ([[[parentForm dictionaryOfFields] objectForKey:[section stringByReplacingOccurrencesOfString:@" " withString:@""]] conformsToProtocol:@protocol(EpiInfoControlProtocol)])
+                        {
+                            id <EpiInfoControlProtocol> epiInfoControl = [[parentForm dictionaryOfFields] objectForKey:[section stringByReplacingOccurrencesOfString:@" " withString:@""]];
+                            [valueString appendString:[epiInfoControl epiInfoControlValue]];
+                        }
                     }
                     else
                     {
@@ -308,7 +321,11 @@
                         {
                             if ([[(EnterDataView *)[[parentForm dictionaryOfPages] objectForKey:keyy] dictionaryOfFields] objectForKey:[section stringByReplacingOccurrencesOfString:@" " withString:@""]])
                             {
-                                [valueString appendString:[(EpiInfoTextField *)[[(EnterDataView *)[[parentForm dictionaryOfPages] objectForKey:keyy] dictionaryOfFields] objectForKey:[section stringByReplacingOccurrencesOfString:@" " withString:@""]] text]];
+                                if ([[[(EnterDataView *)[[parentForm dictionaryOfPages] objectForKey:keyy] dictionaryOfFields] objectForKey:section] conformsToProtocol:@protocol(EpiInfoControlProtocol)])
+                                {
+                                    id <EpiInfoControlProtocol> epiInfoControl = [[(EnterDataView *)[[parentForm dictionaryOfPages] objectForKey:keyy] dictionaryOfFields] objectForKey:[section stringByReplacingOccurrencesOfString:@" " withString:@""]];
+                                    [valueString appendString:[epiInfoControl epiInfoControlValue]];
+                                }
                                 notFound = NO;
                                 break;
                             }

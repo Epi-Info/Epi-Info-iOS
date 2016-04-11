@@ -7,9 +7,10 @@
 //
 
 #import "EpiInfo-Swift.h"
+#import "EpiInfoControlProtocol.h"
 #import <UIKit/UIKit.h>
 
-@interface EpiInfoTextField : UITextField
+@interface EpiInfoTextField : UITextField <EpiInfoControlProtocol>
 @property CheckCode *checkcode;
 @property NSString *columnName;
 @property UITextField *mirroringMe;

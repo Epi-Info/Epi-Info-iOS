@@ -83,6 +83,14 @@
     return button;
 }
 
+- (NSString *)epiInfoControlValue
+{
+    NSString *retVal = @"FALSE";
+    if (value)
+        retVal = @"TRUE";
+    return retVal;
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

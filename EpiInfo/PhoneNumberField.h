@@ -6,9 +6,10 @@
 //
 
 #import "EpiInfo-Swift.h"
+#import "EpiInfoControlProtocol.h"
 #import <UIKit/UIKit.h>
 
-@interface PhoneNumberField : UITextField
+@interface PhoneNumberField : UITextField <EpiInfoControlProtocol>
 -(NSString *)value;
 -(void)setFormFieldValue:(NSString *)formFieldValue;
 

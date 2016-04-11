@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EpiInfoControlProtocol.h"
 
-@interface EpiInfoTextView : UITextView
+@interface EpiInfoTextView : UITextView <EpiInfoControlProtocol>
 @property NSString *columnName;
 -(void)setFormFieldValue:(NSString *)formFieldValue;
 @end

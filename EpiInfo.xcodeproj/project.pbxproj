@@ -624,6 +624,7 @@
 		9265FF921CB5939E003AD6E0 /* SubmitButtonBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SubmitButtonBlue.png; sourceTree = "<group>"; };
 		9265FF951CB59A09003AD6E0 /* QuestionMarkButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMarkButton.png; sourceTree = "<group>"; };
 		9265FF971CB8314E003AD6E0 /* RecallButtonBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RecallButtonBlue.png; sourceTree = "<group>"; };
+		9265FF991CBC0FB3003AD6E0 /* EpiInfoControlProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EpiInfoControlProtocol.h; sourceTree = "<group>"; };
 		9266C526184657E900739AF2 /* DataEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataEntryViewController.h; sourceTree = "<group>"; };
 		9266C527184657E900739AF2 /* DataEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataEntryViewController.m; sourceTree = "<group>"; };
 		9266C5291846613000739AF2 /* FormView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormView.h; sourceTree = "<group>"; };
@@ -1462,6 +1463,7 @@
 				921ED31D1C7F7043004C6091 /* RelateButton.m */,
 				9259D2E41C9327D200AE9181 /* ChildFormFieldAssignments.h */,
 				9259D2E51C9327D200AE9181 /* ChildFormFieldAssignments.m */,
+				9265FF991CBC0FB3003AD6E0 /* EpiInfoControlProtocol.h */,
 			);
 			name = Entry;
 			sourceTree = "<group>";

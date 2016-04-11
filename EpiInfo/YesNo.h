@@ -7,8 +7,9 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import "EpiInfoControlProtocol.h"
 
-@interface YesNo : UIView <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface YesNo : UIView <UIPickerViewDelegate, UIPickerViewDataSource, EpiInfoControlProtocol>
 {
     UILabel *picked;
     UIPickerView *picker;

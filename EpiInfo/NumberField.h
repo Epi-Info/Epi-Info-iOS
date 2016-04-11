@@ -6,8 +6,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EpiInfoControlProtocol.h"
 
-@interface NumberField : UITextField <UITextFieldDelegate>
+@interface NumberField : UITextField <UITextFieldDelegate, EpiInfoControlProtocol>
 {
   NSObject *checkcode;
 }

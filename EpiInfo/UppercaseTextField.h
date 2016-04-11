@@ -6,9 +6,10 @@
 //
 
 #import "EpiInfo-Swift.h"
+#import "EpiInfoControlProtocol.h"
 #import <UIKit/UIKit.h>
 
-@interface UppercaseTextField : UITextField
+@interface UppercaseTextField : UITextField <EpiInfoControlProtocol>
 @property CheckCode *checkcode;
 @property NSString *columnName;
 -(void)setFormFieldValue:(NSString *)formFieldValue;

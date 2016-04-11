@@ -6,8 +6,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EpiInfoControlProtocol.h"
 
-@interface DateField : UITextField
+@interface DateField : UITextField <EpiInfoControlProtocol>
 @property NSString *columnName;
 @property UITextField *mirroringMe;
 @property NSNumber *templateFieldID;

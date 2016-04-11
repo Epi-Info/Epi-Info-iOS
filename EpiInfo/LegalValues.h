@@ -6,8 +6,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EpiInfoControlProtocol.h"
 
-@interface LegalValues : UIView <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface LegalValues : UIView <UIPickerViewDelegate, UIPickerViewDataSource, EpiInfoControlProtocol>
 {
     UILabel *picked;
 //    UIPickerView *picker;

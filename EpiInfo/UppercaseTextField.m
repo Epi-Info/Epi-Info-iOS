@@ -40,6 +40,16 @@
   return [super resignFirstResponder];
 }
 
+- (NSString *)text
+{
+    return [[super text] uppercaseString];
+}
+
+- (NSString *)epiInfoControlValue
+{
+    return [self text];
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
