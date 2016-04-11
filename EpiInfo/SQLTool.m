@@ -656,11 +656,11 @@
 
 - (void)questionMarkPressed:(UIButton *)sender
 {
-    instructionsView = [[UIView alloc] initWithFrame:CGRectMake(0, initialHeight - 54, self.frame.size.width, initialHeight - 54)];
+    instructionsView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, initialHeight - 54, self.frame.size.width, initialHeight - 54)];
     [instructionsView setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
     [self addSubview:instructionsView];
     
-    UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, instructionsView.frame.size.width - 4, instructionsView.frame.size.height - 4)];
+    UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, instructionsView.frame.size.width - 4, instructionsView.frame.size.height - 4 + 200)];
     [whiteView setBackgroundColor:[UIColor whiteColor]];
     [instructionsView addSubview:whiteView];
     
@@ -673,28 +673,34 @@
     [whiteView addSubview:header];
     
     UILabel *instructions = [[UILabel alloc] initWithFrame:CGRectMake(2, 30, whiteView.frame.size.width - 4, whiteView.frame.size.height - 30)];
+    NSLog(@"%f", instructions.frame.size.height);
     [instructions setBackgroundColor:[UIColor clearColor]];
     [instructions setFont:[UIFont fontWithName:@"HelveticaNeue" size:17.0]];
     [instructions setTextColor:[UIColor blackColor]];
     [instructions setTextAlignment:NSTextAlignmentLeft];
     [instructions setNumberOfLines:0];
     [instructions setLineBreakMode:NSLineBreakByWordWrapping];
-    NSMutableString *instructionsText = [NSMutableString stringWithString:@"Swipe down on this screen to return to previous screen."];
-    [instructionsText appendString:@"\n\nSwipe down on the SQL Tool to return to Analyze Data."];
+    NSMutableString *instructionsText = [NSMutableString stringWithString:@"Swipe down on the SQL Tool to return to Analyze Data."];
     [instructionsText appendString:@"\n\nSubmit TABLES to get a list of Epi Info tables on this device."];
     [instructionsText appendString:@"\n\nSubmit METADATA <table name> (or META <table name>) to see a table's columns, data types, and number of rows."];
     [instructionsText appendString:@"\n\nTouch and hold an output field's or column header's text for one second to copy its value to the clipboard."];
     [instructionsText appendString:@"\n\nUse the guid() function to generate a unique GlobalRecordID. (Note: this function generates a single value per submit so do not use when updating more than one record.)"];
+    [instructionsText appendString:@"\n\nSubmit an empty statement to clear the results output."];
     [instructions setText:instructionsText];
     [whiteView addSubview:instructions];
+    [instructions sizeToFit];
     
-    UIView *swipeDownView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, instructionsView.frame.size.width, instructionsView.frame.size.height)];
-    [swipeDownView setBackgroundColor:[UIColor clearColor]];
-    UISwipeGestureRecognizer *instructionsDownSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissInstructionsView:)];
-    [instructionsDownSwipe setDirection:UISwipeGestureRecognizerDirectionDown];
-    [instructionsDownSwipe setNumberOfTouchesRequired:1];
-    [swipeDownView addGestureRecognizer:instructionsDownSwipe];
-    [instructionsView addSubview:swipeDownView];
+    UIButton *xButton = [[UIButton alloc] initWithFrame:CGRectMake(instructionsView.frame.size.width - 32.0, 2, 30, 30)];
+    [xButton setBackgroundColor:[UIColor clearColor]];
+    [xButton setImage:[UIImage imageNamed:@"StAndrewXButton.png"] forState:UIControlStateNormal];
+    [xButton setTitle:@"Close the help screen" forState:UIControlStateNormal];
+    [xButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+    [xButton.layer setMasksToBounds:YES];
+    [xButton.layer setCornerRadius:8.0];
+    [xButton addTarget:self action:@selector(dismissInstructionsView:) forControlEvents:UIControlEventTouchUpInside];
+    [instructionsView addSubview:xButton];
+    
+    [instructionsView setContentSize:CGSizeMake(instructionsView.frame.size.width, instructions.frame.size.height)];
 
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [instructionsView setFrame:CGRectMake(0, 0, instructionsView.frame.size.width, instructionsView.frame.size.height)];
