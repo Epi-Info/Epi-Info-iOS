@@ -1529,9 +1529,9 @@
 {
   [self resignAll];
   
-  for (id v in [formCanvas subviews])
-    if (![v isKindOfClass:[UILabel class]])
-      [v setEnabled:NO];
+//  for (id v in [formCanvas subviews])
+//    if (![v isKindOfClass:[UILabel class]])
+//      [v setEnabled:NO];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Submit" message:@"Submit this record?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
     [alert setTag:0];
