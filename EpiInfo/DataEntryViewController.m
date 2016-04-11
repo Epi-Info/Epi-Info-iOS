@@ -1801,6 +1801,42 @@
                                     }
                                 }
                             }
+                            else if ([[edv.dictionaryOfFields objectForKey:columnName] isKindOfClass:[CommentLegal class]])
+                            {
+                                NSString *dataValue = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)];
+                                if ([dataValue isEqualToString:@"(null)"])
+                                {
+                                    [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
+                                    [xmlFileText appendString:columnName];
+                                    [xmlFileText appendString:@"\">"];
+                                    [xmlFileText appendString:@""];
+                                    [xmlFileText appendString:@"</"];
+                                    [xmlFileText appendString:@"ResponseDetail"];
+                                    [xmlFileText appendString:@">"];
+                                }
+                                else if ([dataValue containsString:@"-"])
+                                {
+                                    int dashPos = (int)[dataValue rangeOfString:@"-"].location;
+                                    NSString *clValue = [dataValue substringToIndex:dashPos];
+                                    [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
+                                    [xmlFileText appendString:columnName];
+                                    [xmlFileText appendString:@"\">"];
+                                    [xmlFileText appendString:clValue];
+                                    [xmlFileText appendString:@"</"];
+                                    [xmlFileText appendString:@"ResponseDetail"];
+                                    [xmlFileText appendString:@">"];
+                                }
+                                else
+                                {
+                                    [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
+                                    [xmlFileText appendString:columnName];
+                                    [xmlFileText appendString:@"\">"];
+                                    [xmlFileText appendString:dataValue];
+                                    [xmlFileText appendString:@"</"];
+                                    [xmlFileText appendString:@"ResponseDetail"];
+                                    [xmlFileText appendString:@">"];
+                                }
+                            }
                             else if (sqlite3_column_type(statement, i) == 1)
                             {
 //                                xmlFileText = [[[[[[[xmlFileText stringByAppendingString:@"\n\t\t<ResponseDetail QuestionName=\""]

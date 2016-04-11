@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LegalValues.h"
+#import "CommentLegal.h"
 #import "EnterDataView.h"
 #import "EpiInfoLineListView.h"
 #import "BlurryView.h"

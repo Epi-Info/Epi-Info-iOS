@@ -673,7 +673,6 @@
     [whiteView addSubview:header];
     
     UILabel *instructions = [[UILabel alloc] initWithFrame:CGRectMake(2, 30, whiteView.frame.size.width - 4, whiteView.frame.size.height - 30)];
-    NSLog(@"%f", instructions.frame.size.height);
     [instructions setBackgroundColor:[UIColor clearColor]];
     [instructions setFont:[UIFont fontWithName:@"HelveticaNeue" size:17.0]];
     [instructions setTextColor:[UIColor blackColor]];
