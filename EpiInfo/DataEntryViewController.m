@@ -59,8 +59,13 @@
         [customBackButton.layer setMasksToBounds:YES];
         [customBackButton.layer setCornerRadius:8.0];
         [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+//        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
+        
+        backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setTintColor:[UIColor whiteColor]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
         fadingColorView = [[UIImageView alloc] initWithFrame:self.view.frame];
         [fadingColorView setImage:[UIImage imageNamed:@"iPadBackground.png"]];
@@ -238,8 +243,13 @@
         [customBackButton.layer setMasksToBounds:YES];
         [customBackButton.layer setCornerRadius:8.0];
         [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+//        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
+        
+        backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setTintColor:[UIColor whiteColor]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setRightBarButtonItem:backToMainMenu];
 
         fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 416)];
         [self.view addSubview:fadingColorView];
@@ -746,6 +756,7 @@
         }
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
             [customBackButton setAlpha:0.0];
+            [backToMainMenu setEnabled:NO];
             CATransform3D rotate = CATransform3DIdentity;
             rotate.m34 = 1.0 / -2000;
             rotate = CATransform3DRotate(rotate, M_PI * 0.0, 0.0, 1.0, 0.0);
@@ -2251,6 +2262,7 @@
         [self.view.layer setTransform:rotate];
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
             [customBackButton setAlpha:1.0];
+            [backToMainMenu setEnabled:YES];
             CATransform3D rotate = CATransform3DIdentity;
             rotate.m34 = 1.0 / -2000;
             rotate = CATransform3DRotate(rotate, M_PI * 0.0, 0.0, 1.0, 0.0);

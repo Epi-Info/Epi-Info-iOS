@@ -83,6 +83,11 @@
         [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
+        UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setTintColor:[UIColor whiteColor]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setLeftBarButtonItem:backToMainMenu];
+        
         fadingColorView = [[UIImageView alloc] initWithFrame:self.view.frame];
         [fadingColorView setImage:[UIImage imageNamed:@"iPadBackground.png"]];
         [self.view addSubview:fadingColorView];
@@ -310,6 +315,11 @@
         [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
         [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
+        
+        UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setTintColor:[UIColor whiteColor]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setLeftBarButtonItem:backToMainMenu];
         
         // Set the background image
         fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height - self.navigationController.navigationBar.frame.size.height - [[UIApplication sharedApplication] statusBarFrame].size.height)];

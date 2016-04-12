@@ -112,6 +112,11 @@
         [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
+        UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setTintColor:[UIColor whiteColor]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setLeftBarButtonItem:backToMainMenu];
+        
         fadingColorView = [[UIImageView alloc] initWithFrame:self.view.frame];
         [fadingColorView setImage:[UIImage imageNamed:@"iPadBackground.png"]];
         [self.view addSubview:fadingColorView];
@@ -156,6 +161,11 @@
         [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
         [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
+        
+        UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setTintColor:[UIColor whiteColor]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setLeftBarButtonItem:backToMainMenu];
         
         //Set the size of the scrolling area
         self.populationSurveyView.contentSize = CGSizeMake(320, 500);

@@ -22,6 +22,7 @@
 @interface DataEntryViewController : UIViewController <MFMailComposeViewControllerDelegate, UITextFieldDelegate, UIAlertViewDelegate>
 {
     UIButton *customBackButton;
+    UIBarButtonItem *backToMainMenu;
     
     UIImageView *fadingColorView;
     UILabel *pickerLabel;

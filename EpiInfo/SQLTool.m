@@ -689,6 +689,18 @@
     [whiteView addSubview:instructions];
     [instructions sizeToFit];
     
+    UIBarButtonItem *quitHelp = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissInstructionsView:)];
+    [quitHelp setTintColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
+    
+    UINavigationBar *quitHelpBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(2, 8, header.frame.size.width, 30.0)];
+    [quitHelpBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [quitHelpBar setShadowImage:[UIImage new]];
+    [quitHelpBar setTranslucent:YES];
+    UINavigationItem *quitHelpItem = [[UINavigationItem alloc] initWithTitle:@""];
+    [quitHelpItem setRightBarButtonItem:quitHelp];
+    [quitHelpBar setItems:[NSArray arrayWithObject:quitHelpItem]];
+    [instructionsView addSubview:quitHelpBar];
+    
     UIButton *xButton = [[UIButton alloc] initWithFrame:CGRectMake(instructionsView.frame.size.width - 32.0, 2, 30, 30)];
     [xButton setBackgroundColor:[UIColor clearColor]];
     [xButton setImage:[UIImage imageNamed:@"StAndrewXButton.png"] forState:UIControlStateNormal];
@@ -697,7 +709,7 @@
     [xButton.layer setMasksToBounds:YES];
     [xButton.layer setCornerRadius:8.0];
     [xButton addTarget:self action:@selector(dismissInstructionsView:) forControlEvents:UIControlEventTouchUpInside];
-    [instructionsView addSubview:xButton];
+//    [instructionsView addSubview:xButton];
     
     [instructionsView setContentSize:CGSizeMake(instructionsView.frame.size.width, instructions.frame.size.height)];
 

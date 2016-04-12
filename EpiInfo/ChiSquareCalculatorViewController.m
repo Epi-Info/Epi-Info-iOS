@@ -53,6 +53,11 @@
         [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
+        UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setTintColor:[UIColor whiteColor]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setLeftBarButtonItem:backToMainMenu];
+        
         fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height - self.navigationController.navigationBar.frame.size.height - [[UIApplication sharedApplication] statusBarFrame].size.height)];
         if (self.view.frame.size.height > 500)
             [fadingColorView setImage:[UIImage imageNamed:@"iPhone5Background.png"]];
@@ -403,6 +408,11 @@
         [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
         [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
+        
+        UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setTintColor:[UIColor whiteColor]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setLeftBarButtonItem:backToMainMenu];
         
         fadingColorView0 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, 400.0)];
         [fadingColorView0 setImage:[UIImage imageNamed:@"FadeUpAndDown.png"]];

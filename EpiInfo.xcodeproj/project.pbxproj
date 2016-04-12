@@ -346,8 +346,6 @@
 		92E42B331959FD100077EF41 /* GrowthPercentileScreen5.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E42B311959FD100077EF41 /* GrowthPercentileScreen5.png */; };
 		92E81AD81861EED200C7CAED /* AnalysisButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E81AD61861EED200C7CAED /* AnalysisButton.png */; };
 		92E81AD91861EED200C7CAED /* AnalysisButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E81AD71861EED200C7CAED /* AnalysisButtonNR.png */; };
-		92E81ADC1861F3E900C7CAED /* FormsButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E81ADA1861F3E900C7CAED /* FormsButton.png */; };
-		92E81ADD1861F3E900C7CAED /* FormsButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E81ADB1861F3E900C7CAED /* FormsButtonNR.png */; };
 		92E9801618A538C30011CC8B /* MSAzure.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E9801318A538C30011CC8B /* MSAzure.png */; };
 		92E9801718A538C30011CC8B /* MSAzureNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E9801418A538C30011CC8B /* MSAzureNR.png */; };
 		92E9801818A538C30011CC8B /* MSAzurePhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E9801518A538C30011CC8B /* MSAzurePhone.png */; };
@@ -355,6 +353,8 @@
 		92EEE3551C28815900912007 /* icon-87.png in Resources */ = {isa = PBXBuildFile; fileRef = 92EEE3541C28815900912007 /* icon-87.png */; };
 		92F520D51CBD3FC60058F352 /* icon-180.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F520D41CBD3FC60058F352 /* icon-180.png */; };
 		92F520D71CBD41280058F352 /* icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F520D61CBD41280058F352 /* icon-120.png */; };
+		92F520DA1CBD4F4F0058F352 /* FormsButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F520D81CBD4F4F0058F352 /* FormsButtonNR.png */; };
+		92F520DB1CBD4F4F0058F352 /* FormsButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F520D91CBD4F4F0058F352 /* FormsButton.png */; };
 		92FD405B182D216C004B4729 /* PadRH.png in Resources */ = {isa = PBXBuildFile; fileRef = 92FD405A182D216C004B4729 /* PadRH.png */; };
 		92FD405D182D2208004B4729 /* PadNRH.png in Resources */ = {isa = PBXBuildFile; fileRef = 92FD405C182D2208004B4729 /* PadNRH.png */; };
 		92FD4076182D33AD004B4729 /* 2x2.png in Resources */ = {isa = PBXBuildFile; fileRef = 92FD406C182D33AD004B4729 /* 2x2.png */; };
@@ -807,8 +807,6 @@
 		92E42B311959FD100077EF41 /* GrowthPercentileScreen5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GrowthPercentileScreen5.png; sourceTree = "<group>"; };
 		92E81AD61861EED200C7CAED /* AnalysisButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AnalysisButton.png; sourceTree = "<group>"; };
 		92E81AD71861EED200C7CAED /* AnalysisButtonNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AnalysisButtonNR.png; sourceTree = "<group>"; };
-		92E81ADA1861F3E900C7CAED /* FormsButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FormsButton.png; sourceTree = "<group>"; };
-		92E81ADB1861F3E900C7CAED /* FormsButtonNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FormsButtonNR.png; sourceTree = "<group>"; };
 		92E9801318A538C30011CC8B /* MSAzure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MSAzure.png; sourceTree = "<group>"; };
 		92E9801418A538C30011CC8B /* MSAzureNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MSAzureNR.png; sourceTree = "<group>"; };
 		92E9801518A538C30011CC8B /* MSAzurePhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MSAzurePhone.png; sourceTree = "<group>"; };
@@ -817,6 +815,8 @@
 		92EEE3541C28815900912007 /* icon-87.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-87.png"; sourceTree = "<group>"; };
 		92F520D41CBD3FC60058F352 /* icon-180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-180.png"; sourceTree = "<group>"; };
 		92F520D61CBD41280058F352 /* icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-120.png"; sourceTree = "<group>"; };
+		92F520D81CBD4F4F0058F352 /* FormsButtonNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FormsButtonNR.png; sourceTree = "<group>"; };
+		92F520D91CBD4F4F0058F352 /* FormsButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FormsButton.png; sourceTree = "<group>"; };
 		92FD405A182D216C004B4729 /* PadRH.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PadRH.png; sourceTree = "<group>"; };
 		92FD405C182D2208004B4729 /* PadNRH.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PadNRH.png; sourceTree = "<group>"; };
 		92FD406C182D33AD004B4729 /* 2x2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2x2.png; sourceTree = "<group>"; };
@@ -1047,8 +1047,8 @@
 				92A192451C56B33D0095E69F /* Dot.png */,
 				92A192461C56B33D0095E69F /* Comma.png */,
 				926DFB3B1832772800FACCD2 /* CohortNR.png */,
-				92E81ADA1861F3E900C7CAED /* FormsButton.png */,
-				92E81ADB1861F3E900C7CAED /* FormsButtonNR.png */,
+				92F520D81CBD4F4F0058F352 /* FormsButtonNR.png */,
+				92F520D91CBD4F4F0058F352 /* FormsButton.png */,
 				926C9D571A7AB3EC004A6ADD /* SimulationButton.png */,
 				926C9D581A7AB3EC004A6ADD /* SimulationButtonNR.png */,
 				926F55081AC5D13200790628 /* SimulateCaseControl.png */,
@@ -1688,7 +1688,6 @@
 				68D769F716A9DDF900D831EB /* SC.png in Resources */,
 				92987CAB1857AB3C00D250D4 /* BinomialBN.png in Resources */,
 				92AED741186E0CF9004A4DB9 /* StAndrewXButtonWhite.png in Resources */,
-				92E81ADD1861F3E900C7CAED /* FormsButtonNR.png in Resources */,
 				9299CE9C18575D0800B12461 /* 2x2TSmall.png in Resources */,
 				9296747C19E5CC3B0040CB9D /* VHF.png in Resources */,
 				68D769F816A9DDF900D831EB /* button2.png in Resources */,
@@ -1701,7 +1700,6 @@
 				92E9801618A538C30011CC8B /* MSAzure.png in Resources */,
 				9248261D19CB40E300A0C1DD /* Images.xcassets in Resources */,
 				92D03BDC18848B6D0062D75A /* ChiSquareScreen5.png in Resources */,
-				92E81ADC1861F3E900C7CAED /* FormsButton.png in Resources */,
 				68D769FB16A9DDF900D831EB /* back.png in Resources */,
 				922227A919BA150A002CD855 /* icon-58.png in Resources */,
 				92DA723E1833BD3C0071E659 /* ArrowFull.png in Resources */,
@@ -1712,6 +1710,7 @@
 				921D534C1892E12900FA8E0A /* CohortSSScreenPad.png in Resources */,
 				925C894919534F8000F3DCE7 /* GrowthButton.png in Resources */,
 				922227AB19BA150A002CD855 /* icon-80.png in Resources */,
+				92F520DA1CBD4F4F0058F352 /* FormsButtonNR.png in Resources */,
 				928FCEF619E570B300641A95 /* VHFButtonNR.png in Resources */,
 				68D769FE16A9DDF900D831EB /* PopB.png in Resources */,
 				92E9801718A538C30011CC8B /* MSAzureNR.png in Resources */,
@@ -1802,6 +1801,7 @@
 				922227B819BA1E18002CD855 /* iPad-Portrait.png in Resources */,
 				92FD4076182D33AD004B4729 /* 2x2.png in Resources */,
 				925354A31823F49500065B69 /* PadPMCCScreenshot.png in Resources */,
+				92F520DB1CBD4F4F0058F352 /* FormsButton.png in Resources */,
 				92867AC0183EAE5100CCC2B5 /* ChiSquare.png in Resources */,
 				92E42B211959CBBD0077EF41 /* wgtagewho.csv in Resources */,
 				92FD405B182D216C004B4729 /* PadRH.png in Resources */,
