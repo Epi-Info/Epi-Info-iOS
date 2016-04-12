@@ -359,7 +359,7 @@
             [rowLabel2 addGestureRecognizer:rowLabelLongPress2];
             [results addSubview:rowLabel2];
         }
-        [self setContentSize:CGSizeMake(self.frame.size.width, results.frame.origin.y + results.frame.size.height + 80)];
+        [self setContentSize:CGSizeMake(self.frame.size.width, results.frame.origin.y + results.frame.size.height + 120)];
     }
     
     else if ([sqlStatement length] > 6 && [[[sqlStatement substringWithRange:NSMakeRange(0, 7)] lowercaseString] isEqualToString:@"select "])
