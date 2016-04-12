@@ -1313,9 +1313,9 @@
         //Execute the UPDATE statement
         if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
         {
-          if ([[NSString stringWithUTF8String:errMsg] rangeOfString:@"has no column named"].location != NSNotFound)
+          if ([[NSString stringWithUTF8String:errMsg] rangeOfString:@"no such column:"].location != NSNotFound)
           {
-            NSString *newColumn = [[NSString stringWithUTF8String:errMsg] substringFromIndex:[[NSString stringWithUTF8String:errMsg] rangeOfString:@"has no column named"].location + 20];
+            NSString *newColumn = [[NSString stringWithUTF8String:errMsg] substringFromIndex:[[NSString stringWithUTF8String:errMsg] rangeOfString:@"no such column:"].location + 16];
             NSString *alterTableStatement = [NSString stringWithFormat:@"alter table %@\nadd %@ %@", formName, newColumn, [alterTableElements objectForKey:newColumn]];
             sql_stmt = [alterTableStatement UTF8String];
             char *secondErrMsg;
