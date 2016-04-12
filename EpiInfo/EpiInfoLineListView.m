@@ -33,7 +33,18 @@
         [xButton.layer setMasksToBounds:YES];
         [xButton.layer setCornerRadius:8.0];
         [xButton addTarget:self action:@selector(removeSelfFromSuperview) forControlEvents:UIControlEventTouchUpInside];
-        [banner addSubview:xButton];
+//        [banner addSubview:xButton];
+        
+        UINavigationBar *lineListNavigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 8, banner.frame.size.width, banner.frame.size.height - 4)];
+        [lineListNavigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+        [lineListNavigationBar setShadowImage:[UIImage new]];
+        [lineListNavigationBar setTranslucent:YES];
+        UINavigationItem *lineListNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
+        UIBarButtonItem *closeLineListBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(removeSelfFromSuperview)];
+        [closeLineListBarButtonItem setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [lineListNavigationItem setRightBarButtonItem:closeLineListBarButtonItem];
+        [lineListNavigationBar setItems:[NSArray arrayWithObject:lineListNavigationItem]];
+        [banner addSubview:lineListNavigationBar];
         
         // Add search field
         searchField = [[UITextField alloc] initWithFrame:CGRectMake(2, 2, 252, 32)];

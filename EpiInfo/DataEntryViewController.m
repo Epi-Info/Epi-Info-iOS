@@ -720,7 +720,25 @@
 //            [xButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
 //            [xButton.layer setBorderWidth:1.0];
             [xButton addTarget:self action:@selector(confirmDismissal) forControlEvents:UIControlEventTouchUpInside];
-            [orangeBanner addSubview:xButton];
+//            [orangeBanner addSubview:xButton];
+            
+            UINavigationBar *formNavigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 8, orangeBanner.frame.size.width, orangeBanner.frame.size.height - 4)];
+            [formNavigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+            [formNavigationBar setShadowImage:[UIImage new]];
+            [formNavigationBar setTranslucent:YES];
+            UINavigationItem *formNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
+            UIBarButtonItem *closeFormBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(confirmDismissal)];
+            [closeFormBarButtonItem setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [formNavigationItem setRightBarButtonItem:closeFormBarButtonItem];
+            UIBarButtonItem *packageDataBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(confirmUploadAllRecords)];
+            [packageDataBarButtonItem setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [packageDataBarButtonItem setImageInsets:UIEdgeInsetsMake(0, -8, 0, 0)];
+            UIBarButtonItem *recordLookupBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(lineListButtonPressed)];
+            [recordLookupBarButtonItem setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [recordLookupBarButtonItem setImageInsets:UIEdgeInsetsMake(0, -40, 0, 0)];
+            [formNavigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:packageDataBarButtonItem, recordLookupBarButtonItem, nil]];
+            [formNavigationBar setItems:[NSArray arrayWithObject:formNavigationItem]];
+            [orangeBanner addSubview:formNavigationBar];
             
             UIButton *uploadButton = [[UIButton alloc] initWithFrame:CGRectMake(2, 2, 30, 30)];
             [uploadButton setBackgroundColor:[UIColor clearColor]];
@@ -733,7 +751,7 @@
 //            [uploadButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
 //            [uploadButton.layer setBorderWidth:1.0];
             [uploadButton addTarget:self action:@selector(confirmUploadAllRecords) forControlEvents:UIControlEventTouchUpInside];
-            [orangeBanner addSubview:uploadButton];
+//            [orangeBanner addSubview:uploadButton];
             
             UIButton *lineListButton = [[UIButton alloc] initWithFrame:CGRectMake(34, 2, 30, 30)];
             [lineListButton setBackgroundColor:[UIColor clearColor]];
@@ -744,7 +762,7 @@
             [lineListButton.layer setMasksToBounds:YES];
             [lineListButton.layer setCornerRadius:8.0];
             [lineListButton addTarget:self action:@selector(lineListButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [orangeBanner addSubview:lineListButton];
+//            [orangeBanner addSubview:lineListButton];
             
             [edv setPageBeingDisplayed:[NSNumber numberWithInt:1]];
             [header setText:[NSString stringWithFormat:@"%@, page %d of %lu", [edv formName], [edv pageBeingDisplayed].intValue, (unsigned long)[edv pagesArray].count]];
