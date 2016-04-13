@@ -89,19 +89,23 @@
             UIGraphicsEndImageContext();
         }
         
-        UIView *lastView = [[self.viewControllers objectAtIndex:self.viewControllers.count - 1] view];
-        UIWindow *mainWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
-        [mainWindow addSubview:lastView];
-        
         StatCalcViewController *srcViewController = (StatCalcViewController *)[self.viewControllers objectAtIndex:self.viewControllers.count - 2];
+        
+        UIView *lastView = [[self.viewControllers objectAtIndex:self.viewControllers.count - 1] view];
+        UIView *lastViewsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, lastView.frame.size.width, lastView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height)];
+        [lastViewsView setBackgroundColor:[UIColor clearColor]];
+        [lastView setFrame:CGRectMake(0, srcViewController.navigationController.navigationBar.frame.size.height, lastView.frame.size.width, lastView.frame.size.height)];
+        [lastViewsView addSubview:lastView];
+        UIWindow *mainWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
+        [mainWindow addSubview:lastViewsView];
         
         [UIView animateWithDuration:0.3
                          animations:^{
-                             [lastView setTransform:CGAffineTransformMakeScale(0.2, 0.1)];
-                             [lastView setFrame:CGRectMake([srcViewController buttonPressed].superview.frame.origin.x, [srcViewController buttonPressed].superview.frame.origin.y + 2.5 * srcViewController.navigationController.navigationBar.frame.size.height, 20, 20)];
+                             [lastViewsView setTransform:CGAffineTransformMakeScale(0.2, 0.1)];
+                             [lastViewsView setFrame:CGRectMake([srcViewController buttonPressed].superview.frame.origin.x, [srcViewController buttonPressed].superview.frame.origin.y + 2.5 * srcViewController.navigationController.navigationBar.frame.size.height, 20, 20)];
                          }
                          completion:^(BOOL finished){
-                             [lastView removeFromSuperview];
+                             [lastViewsView removeFromSuperview];
                          }];
         
         uivc = [super popViewControllerAnimated:NO];
