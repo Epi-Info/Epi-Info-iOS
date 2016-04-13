@@ -89,60 +89,75 @@
             UIGraphicsEndImageContext();
         }
         
-        uivc = [super popViewControllerAnimated:NO];
-        StatCalcViewController *srcViewController = (StatCalcViewController *)[self.viewControllers objectAtIndex:self.viewControllers.count - 1];
-        UIView *srcView = [srcViewController view];
+        UIView *lastView = [[self.viewControllers objectAtIndex:self.viewControllers.count - 1] view];
         UIWindow *mainWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
+        [mainWindow addSubview:lastView];
         
-        UIImageView *imageView;
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-            imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, srcView.frame.origin.y - srcViewController.navigationController.navigationBar.frame.size.height, srcView.frame.size.width, srcView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height)];
-        else
-        {
-            if (UIInterfaceOrientationIsPortrait([uivc interfaceOrientation]))
-            {
-                imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, srcView.frame.origin.y - srcViewController.navigationController.navigationBar.frame.size.height, srcView.frame.size.width, srcView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height)];
-            }
-            else
-            {
-                imageView = [[UIImageView alloc] initWithFrame:CGRectMake(-74, 136, 1024, 704 + srcViewController.navigationController.navigationBar.frame.size.height)];
-                [imageView setTransform:CGAffineTransformMakeRotation(-M_PI / 2.0)];
-            }
-        }
+        StatCalcViewController *srcViewController = (StatCalcViewController *)[self.viewControllers objectAtIndex:self.viewControllers.count - 2];
         
-        [imageView setClipsToBounds:YES];
-
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && UIInterfaceOrientationIsLandscape([uivc interfaceOrientation]))
-            [imageView setImage:screenshot];
-        else
-            [imageView setImage:[UIImage imageNamed:[srcViewController imageFileToUseInSegue]]];
-        
-        [mainWindow addSubview:imageView];
         [UIView animateWithDuration:0.3
                          animations:^{
-                             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-                                 [imageView setFrame:CGRectMake(srcViewController.buttonPressed.superview.superview.frame.origin.x + srcViewController.frameOfButtonPressed.origin.x,
-                                                                srcViewController.buttonPressed.superview.superview.frame.origin.y + srcViewController.frameOfButtonPressed.origin.y + 1.5 * srcViewController.navigationController.navigationBar.frame.size.height,
-                                                                60, 60)];
-                             else
-                             {
-                                 if (UIInterfaceOrientationIsPortrait([uivc interfaceOrientation]))
-                                 {
-                                     [imageView setFrame:CGRectMake(srcViewController.buttonPressed.superview.superview.frame.origin.x + srcViewController.frameOfButtonPressed.origin.x,
-                                                                    srcViewController.buttonPressed.superview.superview.frame.origin.y + srcViewController.frameOfButtonPressed.origin.y + srcViewController.navigationController.navigationBar.frame.size.height,
-                                                                    76, 76)];
-                                 }
-                                 else
-                                 {
-                                     [imageView setFrame:CGRectMake(srcViewController.buttonPressed.superview.superview.frame.origin.y + srcViewController.frameOfButtonPressed.origin.y + srcViewController.navigationController.navigationBar.frame.size.height + 20,
-                                                                    srcView.frame.size.width - (srcViewController.buttonPressed.superview.superview.frame.origin.x + srcViewController.frameOfButtonPressed.origin.x) - 80,
-                                                                    76, 76)];
-                                 }
-                             }
+                             [lastView setTransform:CGAffineTransformMakeScale(0.2, 0.1)];
+                             [lastView setFrame:CGRectMake([srcViewController buttonPressed].superview.frame.origin.x, [srcViewController buttonPressed].superview.frame.origin.y + 2.5 * srcViewController.navigationController.navigationBar.frame.size.height, 20, 20)];
                          }
                          completion:^(BOOL finished){
-                             [imageView removeFromSuperview];
+                             [lastView removeFromSuperview];
                          }];
+        
+        uivc = [super popViewControllerAnimated:NO];
+//        StatCalcViewController *srcViewController = (StatCalcViewController *)[self.viewControllers objectAtIndex:self.viewControllers.count - 1];
+//        UIView *srcView = [srcViewController view];
+//        UIWindow *mainWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
+//        
+//        UIImageView *imageView;
+//        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+//            imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, srcView.frame.origin.y - srcViewController.navigationController.navigationBar.frame.size.height, srcView.frame.size.width, srcView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height)];
+//        else
+//        {
+//            if (UIInterfaceOrientationIsPortrait([uivc interfaceOrientation]))
+//            {
+//                imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, srcView.frame.origin.y - srcViewController.navigationController.navigationBar.frame.size.height, srcView.frame.size.width, srcView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height)];
+//            }
+//            else
+//            {
+//                imageView = [[UIImageView alloc] initWithFrame:CGRectMake(-74, 136, 1024, 704 + srcViewController.navigationController.navigationBar.frame.size.height)];
+//                [imageView setTransform:CGAffineTransformMakeRotation(-M_PI / 2.0)];
+//            }
+//        }
+//        
+//        [imageView setClipsToBounds:YES];
+//
+//        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && UIInterfaceOrientationIsLandscape([uivc interfaceOrientation]))
+//            [imageView setImage:screenshot];
+//        else
+//            [imageView setImage:[UIImage imageNamed:[srcViewController imageFileToUseInSegue]]];
+//        
+//        [mainWindow addSubview:imageView];
+//        [UIView animateWithDuration:0.3
+//                         animations:^{
+//                             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+//                                 [imageView setFrame:CGRectMake(srcViewController.buttonPressed.superview.superview.frame.origin.x + srcViewController.frameOfButtonPressed.origin.x,
+//                                                                srcViewController.buttonPressed.superview.superview.frame.origin.y + srcViewController.frameOfButtonPressed.origin.y + 1.5 * srcViewController.navigationController.navigationBar.frame.size.height,
+//                                                                60, 60)];
+//                             else
+//                             {
+//                                 if (UIInterfaceOrientationIsPortrait([uivc interfaceOrientation]))
+//                                 {
+//                                     [imageView setFrame:CGRectMake(srcViewController.buttonPressed.superview.superview.frame.origin.x + srcViewController.frameOfButtonPressed.origin.x,
+//                                                                    srcViewController.buttonPressed.superview.superview.frame.origin.y + srcViewController.frameOfButtonPressed.origin.y + srcViewController.navigationController.navigationBar.frame.size.height,
+//                                                                    76, 76)];
+//                                 }
+//                                 else
+//                                 {
+//                                     [imageView setFrame:CGRectMake(srcViewController.buttonPressed.superview.superview.frame.origin.y + srcViewController.frameOfButtonPressed.origin.y + srcViewController.navigationController.navigationBar.frame.size.height + 20,
+//                                                                    srcView.frame.size.width - (srcViewController.buttonPressed.superview.superview.frame.origin.x + srcViewController.frameOfButtonPressed.origin.x) - 80,
+//                                                                    76, 76)];
+//                                 }
+//                             }
+//                         }
+//                         completion:^(BOOL finished){
+//                             [imageView removeFromSuperview];
+//                         }];
     }
     else
     {
