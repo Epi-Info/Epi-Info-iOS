@@ -55,32 +55,35 @@
 //    [mainWindow addSubview:imageView];
     
     UIView *destinationView = [desViewController view];
-    UIView *desView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, destinationView.frame.size.width, destinationView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height)];
+    UIView *desView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, destinationView.frame.size.width, destinationView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height)];
     [desView setBackgroundColor:[UIColor clearColor]];
-    [destinationView setFrame:CGRectMake(0, srcViewController.navigationController.navigationBar.frame.size.height, destinationView.frame.size.width, destinationView.frame.size.height)];
+    [destinationView setFrame:CGRectMake(0, srcViewController.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height, destinationView.frame.size.width, destinationView.frame.size.height)];
     [desView addSubview:destinationView];
-    [desView setFrame:[imageView frame]];
+//    [desView setFrame:[imageView frame]];
     [desView  setTransform:CGAffineTransformMakeScale(0.2, 0.1)];
+    CGPoint centerPoint = [desView center];
+    [desView setCenter:imageView.center];
     [mainWindow addSubview:desView];
     
     [UIView animateWithDuration:0.3
                      animations:^{
                          [desView  setTransform:CGAffineTransformIdentity];
-                         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-                         {
-                             [desView setFrame:CGRectMake(0, srcView.frame.origin.y - srcViewController.navigationController.navigationBar.frame.size.height, srcView.frame.size.width, srcView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height)];
-                         }
-                         else
-                         {
-                             if (UIInterfaceOrientationIsPortrait([srcViewController interfaceOrientation]))
-                             {
-                                 [desView setFrame:CGRectMake(0, srcView.frame.origin.y - srcViewController.navigationController.navigationBar.frame.size.height, srcView.frame.size.width, srcView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height)];
-                             }
-                             else
-                             {
-                                 [desView setFrame:CGRectMake(20, srcView.frame.size.width - srcView.frame.size.height - 44, srcView.frame.size.width, srcView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height)];
-                             }
-                         }
+                         [desView setCenter:centerPoint];
+//                         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+//                         {
+//                             [desView setFrame:CGRectMake(0, srcView.frame.origin.y - srcViewController.navigationController.navigationBar.frame.size.height, srcView.frame.size.width, srcView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height)];
+//                         }
+//                         else
+//                         {
+//                             if (UIInterfaceOrientationIsPortrait([srcViewController interfaceOrientation]))
+//                             {
+//                                 [desView setFrame:CGRectMake(0, srcView.frame.origin.y - srcViewController.navigationController.navigationBar.frame.size.height, srcView.frame.size.width, srcView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height)];
+//                             }
+//                             else
+//                             {
+//                                 [desView setFrame:CGRectMake(20, srcView.frame.size.width - srcView.frame.size.height - 44, srcView.frame.size.width, srcView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height)];
+//                             }
+//                         }
                      }
                      completion:^(BOOL finished){
                          [srcViewController.navigationController pushViewController:desViewController animated:NO];
