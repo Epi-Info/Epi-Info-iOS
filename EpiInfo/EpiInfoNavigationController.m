@@ -7,6 +7,7 @@
 
 #import "EpiInfoNavigationController.h"
 #import "StatCalcViewController.h"
+#import "AnalysisViewController.h"
 
 
 @interface EpiInfoNavigationController ()
@@ -92,6 +93,9 @@
         StatCalcViewController *srcViewController = (StatCalcViewController *)[self.viewControllers objectAtIndex:self.viewControllers.count - 2];
         
         UIView *lastView = [[self.viewControllers objectAtIndex:self.viewControllers.count - 1] view];
+        for (UIView *v in [lastView subviews])
+            if (v.frame.origin.y < 0.0 && [[self.viewControllers objectAtIndex:self.viewControllers.count - 1] isKindOfClass:[AnalysisViewController class]])
+                [v removeFromSuperview];
         UIView *lastViewsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, lastView.frame.size.width, lastView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height)];
         [lastViewsView setBackgroundColor:[UIColor clearColor]];
         [lastView setFrame:CGRectMake(0, srcViewController.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height, lastView.frame.size.width, lastView.frame.size.height)];

@@ -54,7 +54,14 @@
     [imageView setImage:[UIImage imageNamed:[srcViewController imageFileToUseInSegue]]];
 //    [mainWindow addSubview:imageView];
     
+    UIView *analysisSubViewToSave;
     UIView *destinationView = [desViewController view];
+    for (UIView *v in [destinationView subviews])
+        if (v.frame.origin.y < 0.0 && [desViewController isKindOfClass:[AnalysisViewController class]])
+        {
+            analysisSubViewToSave = v;
+            [v removeFromSuperview];
+        }
     UIView *desView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, destinationView.frame.size.width, destinationView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height)];
     [desView setBackgroundColor:[UIColor clearColor]];
     [destinationView setFrame:CGRectMake(0, srcViewController.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height, destinationView.frame.size.width, destinationView.frame.size.height)];
@@ -87,6 +94,8 @@
                      }
                      completion:^(BOOL finished){
                          [srcViewController.navigationController pushViewController:desViewController animated:NO];
+                         if (analysisSubViewToSave)
+                             [[desViewController view] addSubview:analysisSubViewToSave];
                          [desView removeFromSuperview];
                      }];
 }
