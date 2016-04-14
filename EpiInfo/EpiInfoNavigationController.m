@@ -102,8 +102,14 @@
         [UIView animateWithDuration:0.3
                          animations:^{
                              [lastViewsView setTransform:CGAffineTransformMakeScale(0.2, 0.1)];
-                             [lastViewsView setCenter:CGPointMake([srcViewController buttonPressed].superview.center.x, [srcViewController buttonPressed].superview.center.y + 2.0 * srcViewController.navigationController.navigationBar.frame.size.height)];
-//                             [lastViewsView setFrame:CGRectMake([srcViewController buttonPressed].superview.frame.origin.x, [srcViewController buttonPressed].superview.frame.origin.y + 2.5 * srcViewController.navigationController.navigationBar.frame.size.height, 20, 20)];
+                             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+                             {
+                                 [lastViewsView setCenter:CGPointMake([srcViewController buttonPressed].superview.center.x, [srcViewController buttonPressed].superview.center.y + 2.0 * srcViewController.navigationController.navigationBar.frame.size.height)];
+                             }
+                             else
+                             {
+                                 [lastViewsView setCenter:[[UIView alloc] initWithFrame:CGRectMake(srcViewController.buttonPressed.superview.superview.frame.origin.x + srcViewController.frameOfButtonPressed.origin.x, srcViewController.buttonPressed.superview.superview.frame.origin.y + srcViewController.frameOfButtonPressed.origin.y + srcViewController.navigationController.navigationBar.frame.size.height, 76, 76)].center];
+                             }
                          }
                          completion:^(BOOL finished){
                              [lastViewsView removeFromSuperview];
