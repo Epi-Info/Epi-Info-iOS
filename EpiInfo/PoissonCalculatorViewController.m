@@ -124,13 +124,13 @@
         [customBackButton.layer setMasksToBounds:YES];
         [customBackButton.layer setCornerRadius:8.0];
         [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+//        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
         [backToMainMenu setTintColor:[UIColor whiteColor]];
         [backToMainMenu setTitle:@"Back to previous screen"];
-        [self.navigationItem setLeftBarButtonItem:backToMainMenu];
+        [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
         [self.phoneSectionHeaderLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [self.phoneSectionHeaderLabel setFrame:CGRectMake(2, 2, self.phoneSectionHeaderLabel.frame.size.width, self.phoneSectionHeaderLabel.frame.size.height)];

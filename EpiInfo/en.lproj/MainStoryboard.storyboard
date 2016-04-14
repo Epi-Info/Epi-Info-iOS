@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="j5g-Zs-OlC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="j5g-Zs-OlC">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--Data Entry View Controller-->
@@ -538,7 +538,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="2x2 Calculator" id="SRe-OA-dBR">
-                        <barButtonItem key="rightBarButtonItem" title="Clear" id="cUW-VF-Gho">
+                        <barButtonItem key="leftBarButtonItem" title="Clear" id="cUW-VF-Gho">
                             <connections>
                                 <action selector="resetBarButtonPressed:" destination="fbL-6v-n1L" id="q03-wD-TEt"/>
                             </connections>
@@ -919,7 +919,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Population Survey" id="qb1-qU-m5q">
                         <barButtonItem key="backBarButtonItem" title="SampleSize" id="O83-y2-MKh"/>
-                        <barButtonItem key="rightBarButtonItem" title="Reset" id="JVm-fN-MFN">
+                        <barButtonItem key="leftBarButtonItem" title="Reset" id="JVm-fN-MFN">
                             <connections>
                                 <action selector="resetBarButtonPressed:" destination="rUc-6C-kIc" id="7TR-ro-Nng"/>
                             </connections>
@@ -1426,7 +1426,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Cohort/Cross-Sectional" id="pSX-vx-NuJ">
                         <barButtonItem key="backBarButtonItem" title="SampleSize" id="3Gh-OD-fHU"/>
-                        <barButtonItem key="rightBarButtonItem" title="Clear" id="XsI-oG-1vT">
+                        <barButtonItem key="leftBarButtonItem" title="Clear" id="XsI-oG-1vT">
                             <connections>
                                 <action selector="resetBarButtonPressed:" destination="HMk-iG-wUs" id="1XF-hT-yd7"/>
                             </connections>
@@ -1678,7 +1678,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="35L-hE-kbr">
-                        <barButtonItem key="rightBarButtonItem" title="Clear" id="Atm-o3-lhs">
+                        <barButtonItem key="leftBarButtonItem" title="Clear" id="Atm-o3-lhs">
                             <connections>
                                 <action selector="resetBarButtonPressed:" destination="sJz-Wd-sTY" id="bBH-UB-0Tg"/>
                             </connections>
@@ -1859,7 +1859,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="gkN-oT-Jz9">
-                        <barButtonItem key="rightBarButtonItem" title="Clear" id="p0b-vA-wqL">
+                        <barButtonItem key="leftBarButtonItem" title="Clear" id="p0b-vA-wqL">
                             <connections>
                                 <action selector="resetBarButtonPressed:" destination="LXK-tJ-JYo" id="ac7-wm-1Nf"/>
                             </connections>
@@ -2325,7 +2325,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="V2y-7F-dvB">
-                        <barButtonItem key="rightBarButtonItem" title="Clear" id="gWv-EE-DdX">
+                        <barButtonItem key="leftBarButtonItem" title="Clear" id="gWv-EE-DdX">
                             <connections>
                                 <action selector="resetBarButtonPressed:" destination="n1t-ye-Yfa" id="1uO-jB-5rb"/>
                             </connections>
@@ -2658,7 +2658,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Case-Control" id="0pI-89-tsM">
                         <barButtonItem key="backBarButtonItem" title="SampleSize" id="Ujj-0h-8ng"/>
-                        <barButtonItem key="rightBarButtonItem" title="Clear" id="Ruf-fO-UbP">
+                        <barButtonItem key="leftBarButtonItem" title="Clear" id="Ruf-fO-UbP">
                             <connections>
                                 <action selector="resetBarButtonPressed:" destination="XQT-vd-MMf" id="IYB-sG-z3j"/>
                             </connections>
@@ -2978,7 +2978,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Matched Pair Case Control" id="sjt-Vc-mkB">
-                        <barButtonItem key="rightBarButtonItem" title="Clear" id="yx7-M4-195">
+                        <barButtonItem key="leftBarButtonItem" title="Clear" id="yx7-M4-195">
                             <connections>
                                 <action selector="resetBarButtonPressed:" destination="B9c-RP-rpB" id="ZYl-RW-Sun"/>
                             </connections>
