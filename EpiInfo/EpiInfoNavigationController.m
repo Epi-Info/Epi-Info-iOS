@@ -104,7 +104,7 @@
                              [lastViewsView setTransform:CGAffineTransformMakeScale(0.2, 0.1)];
                              if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
                              {
-                                 [lastViewsView setCenter:CGPointMake([srcViewController buttonPressed].superview.center.x, [srcViewController buttonPressed].superview.center.y + 2.0 * srcViewController.navigationController.navigationBar.frame.size.height)];
+                                 [lastViewsView setCenter:[[UIView alloc] initWithFrame:CGRectMake(srcViewController.buttonPressed.superview.superview.frame.origin.x + srcViewController.frameOfButtonPressed.origin.x, srcViewController.buttonPressed.superview.superview.frame.origin.y + srcViewController.frameOfButtonPressed.origin.y + 1.5 * srcViewController.navigationController.navigationBar.frame.size.height, 60, 60)].center];
                              }
                              else
                              {
