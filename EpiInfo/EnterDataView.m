@@ -35,9 +35,15 @@
 @synthesize nameOfTheForm = _nameOfTheForm;
 @synthesize dictionaryOfFields = _dictionaryOfFields;
 
+- (NSString *)createTableStatement
+{
+    return createTableStatement;
+}
+
 - (void)setRecordUIDForUpdate:(NSString *)uid
 {
     recordUIDForUpdate = uid;
+    guidBeingUpdated = uid;
 }
 
 - (NSDictionary *)dictionaryOfPages
@@ -232,7 +238,8 @@
     beginColumList = NO;
     success = [xmlParser1 parse];
     
-    createTableStatement = [createTableStatement stringByAppendingString:@")"];
+      if (isLastPage)
+          createTableStatement = [createTableStatement stringByAppendingString:@")"];
     
     UIButton *submitButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0 + 38.0, contentSizeHeight, 120, 40)];
     [submitButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
@@ -507,7 +514,7 @@
         tableAlreadyExists = 0;
         if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
         {
-          NSString *selStmt = [NSString stringWithFormat:@"select count(*) as n from Clouds where FormName = '%@'", self.formName];
+          NSString *selStmt = [NSString stringWithFormat:@"select count(*) as n from Clouds where FormName like '%%%@'", self.formName];
           const char *query_stmt = [selStmt UTF8String];
           sqlite3_stmt *statement;
           if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
@@ -880,6 +887,18 @@
         char *errMsg;
         //Build the CREATE TABLE statement
         //Convert the sqlStmt to char array
+          if ([dictionaryOfPages count] > 1)
+          {
+              int pagesindictionary = (int)[dictionaryOfPages count];
+              NSMutableString *tempCreateTableStatement = [NSMutableString stringWithString:@""];
+              for (int i = 0; i < pagesindictionary; i++)
+              {
+                  EnterDataView *edv0 = (EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", i + 1]];
+                  NSString *cts = [edv0 createTableStatement];
+                  [tempCreateTableStatement appendString:cts];
+              }
+              createTableStatement = [NSString stringWithString:tempCreateTableStatement];
+          }
         const char *sql_stmt = [createTableStatement UTF8String];
         //                const char *sql_stmt = [@"drop table FoodHistory" UTF8String];
         
@@ -1845,7 +1864,7 @@
       // Tell the Azure service the table name.
 //      [self.epiinfoService setTableName:formName];
       
-      createTableStatement = [NSString stringWithFormat:@"create table %@(GlobalRecordID text", formName];
+//      createTableStatement = [NSString stringWithFormat:@"create table %@(GlobalRecordID text", formName];
       alterTableElements = [[NSMutableDictionary alloc] init];
       beginColumList = NO;
       
@@ -1919,6 +1938,10 @@
                 isLastPage = NO;
             NSLog(@"PageId attribute (%d) is neither the next or the previous page", pageNumber);
         }
+        if (isFirstPage && isCurrentPage)
+            createTableStatement = [NSString stringWithFormat:@"create table %@(GlobalRecordID text", formName];
+        else if (isCurrentPage)
+            createTableStatement = @"";
     }
       // New code for separating pages
     if ([elementName isEqualToString:@"Field"] && isCurrentPage)
@@ -2577,6 +2600,7 @@
     newRecordGUID = nil;
   tableBeingUpdated = tableName;
   recordUIDForUpdate = guid;
+    guidBeingUpdated = guid;
     for (id key in dictionaryOfPages)
     {
         [(EnterDataView *)[dictionaryOfPages objectForKey:key] setRecordUIDForUpdate:guid];

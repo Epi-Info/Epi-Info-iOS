@@ -141,4 +141,6 @@
 
 -(void)setPageBeingDisplayed:(NSNumber *)page;
 -(NSNumber *)pageBeingDisplayed;
+
+- (NSString *)createTableStatement;
 @end
