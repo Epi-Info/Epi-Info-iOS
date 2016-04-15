@@ -150,7 +150,7 @@
                 while (sqlite3_column_name(statement, i))
                 {
                     NSString *columnName = [[NSString alloc] initWithUTF8String:sqlite3_column_name(statement, i)];
-                    if ([[columnName lowercaseString] isEqualToString:@"globalrecordid"])
+                    if ([[columnName lowercaseString] isEqualToString:@"globalrecordid"] || [[columnName lowercaseString] isEqualToString:@"fkey"])
                     {
                         [guids addObject:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)]];
                         i++;
