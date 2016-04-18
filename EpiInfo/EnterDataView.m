@@ -34,6 +34,7 @@
 @synthesize longitudeField = _longitudeField;
 @synthesize nameOfTheForm = _nameOfTheForm;
 @synthesize dictionaryOfFields = _dictionaryOfFields;
+@synthesize dictionaryOfCommentLegals = _dictionaryOfCommentLegals;
 
 - (NSString *)createTableStatement
 {
@@ -164,6 +165,7 @@
     seenFirstGeocodeField = NO;
     legalValuesDictionaryForRVC = [[NSMutableDictionary alloc] init];
     self.dictionaryOfFields = [[NSMutableDictionary alloc] init];
+    self.dictionaryOfCommentLegals = [[NSMutableDictionary alloc] init];
       newRecordGUID = CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL)));
       
 //      NSThread *guidThread = [[NSThread alloc] initWithTarget:self selector:@selector(logTheGUIDS) object:nil];
@@ -2434,6 +2436,7 @@
           }
         beginColumList = YES;
         [self.dictionaryOfFields setObject:lv forKey:[attributeDict objectForKey:@"Name"]];
+        [self.dictionaryOfCommentLegals setObject:lv forKey:[attributeDict objectForKey:@"Name"]];
       }
       else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"14"])
       {
@@ -2518,6 +2521,11 @@
           [elementLabel setHidden:YES];
       }
       contentSizeHeight += 60.0;
+    }
+    else if ([elementName isEqualToString:@"Field"] && [[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"19"])
+    {
+        CommentLegal *lv = [[CommentLegal alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 300, 180) AndListOfValues:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]]];
+        [self.dictionaryOfCommentLegals setObject:lv forKey:[attributeDict objectForKey:@"Name"]];
     }
   }
   

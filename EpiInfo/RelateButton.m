@@ -687,7 +687,7 @@
             NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
             if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
             {
-                NSString *selStmt = @"select GlobalRecordID";
+                NSString *selStmt = @"select GlobalRecordID, FKEY";
                 for (int k = 0; k < ((EnterDataView *)edv).pagesArray.count; k++)
                     for (int l = 0; l < [(NSMutableArray *)[((EnterDataView *)edv).pagesArray objectAtIndex:k] count]; l++)
                         selStmt = [[selStmt stringByAppendingString:@", "] stringByAppendingString:[(NSMutableArray *)[((EnterDataView *)edv).pagesArray objectAtIndex:k] objectAtIndex:l]];
@@ -710,6 +710,7 @@
                         
                         int i = 0;
                         BOOL idAlreadyAdded = NO;
+                        BOOL fkeyAlreadyAdded = NO;
                         
                         while (sqlite3_column_name(statement, i))
                         {
@@ -720,9 +721,19 @@
                                 {
                                     [xmlFileText appendString:@""];
                                     [xmlFileText appendString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)]];
-                                    [xmlFileText appendString:@"\">"];
+                                    [xmlFileText appendString:@"\""];
                                 }
                                 idAlreadyAdded = YES;
+                            }
+                            if ([[columnName lowercaseString] isEqualToString:@"fkey"])
+                            {
+                                if (!fkeyAlreadyAdded)
+                                {
+                                    [xmlFileText appendString:@" fkey=\""];
+                                    [xmlFileText appendString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)]];
+                                    [xmlFileText appendString:@"\">"];
+                                }
+                                fkeyAlreadyAdded = YES;
                             }
                             i++;
                         }
@@ -732,7 +743,7 @@
                         while (sqlite3_column_name(statement, i))
                         {
                             NSString *columnName = [[NSString alloc] initWithUTF8String:sqlite3_column_name(statement, i)];
-                            if ([[columnName lowercaseString] isEqualToString:@"globalrecordid"])
+                            if ([[columnName lowercaseString] isEqualToString:@"globalrecordid"] || [[columnName lowercaseString] isEqualToString:@"fkey"])
                             {
                                 i++;
                                 continue;

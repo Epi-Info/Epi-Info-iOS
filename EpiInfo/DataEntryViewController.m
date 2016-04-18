@@ -1780,6 +1780,10 @@
                             }
                             for (int j = 1; j < edv.pagesArray.count; j++)
                             {
+                                // A page can have zero data-containing controls. Don't let that throw an un-caught exception.
+                                NSMutableArray *iterationNSMA = (NSMutableArray *)[edv.pagesArray objectAtIndex:j];
+                                if ([iterationNSMA count] < 1)
+                                    continue;
                                 if ([[columnName lowercaseString] isEqualToString:[[(NSMutableArray *)[edv.pagesArray objectAtIndex:j] objectAtIndex:0] lowercaseString]])
                                 {
 //                                    xmlFileText = [[[xmlFileText stringByAppendingString:@"\n\t</Page>\n\t<Page PageId=\""] stringByAppendingString:[edv.pageIDs objectAtIndex:j]] stringByAppendingString:@"\">"];
@@ -1830,7 +1834,7 @@
                                     }
                                 }
                             }
-                            else if ([[edv.dictionaryOfFields objectForKey:columnName] isKindOfClass:[CommentLegal class]])
+                            else if ([[edv.dictionaryOfCommentLegals objectForKey:columnName] isKindOfClass:[CommentLegal class]])
                             {
                                 NSString *dataValue = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)];
                                 if ([dataValue isEqualToString:@"(null)"])
