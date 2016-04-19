@@ -1322,6 +1322,10 @@
                         }
                         for (int j = 1; j < edv.pagesArray.count; j++)
                         {
+                            // A page can have zero data-containing controls. Don't let that throw an un-caught exception.
+                            NSMutableArray *iterationNSMA = (NSMutableArray *)[edv.pagesArray objectAtIndex:j];
+                            if ([iterationNSMA count] < 1)
+                                continue;
                             if ([[columnName lowercaseString] isEqualToString:[[(NSMutableArray *)[edv.pagesArray objectAtIndex:j] objectAtIndex:0] lowercaseString]])
                             {
                                 //                                    xmlFileText = [[[xmlFileText stringByAppendingString:@"\n\t</Page>\n\t<Page PageId=\""] stringByAppendingString:[edv.pageIDs objectAtIndex:j]] stringByAppendingString:@"\">"];
@@ -1372,6 +1376,42 @@
                                     [xmlFileText appendString:@">"];
                                     break;
                                 }
+                            }
+                        }
+                        else if ([edv.dictionaryOfCommentLegals objectForKey:columnName])
+                        {
+                            NSString *dataValue = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)];
+                            if ([dataValue isEqualToString:@"(null)"])
+                            {
+                                [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
+                                [xmlFileText appendString:columnName];
+                                [xmlFileText appendString:@"\">"];
+                                [xmlFileText appendString:@""];
+                                [xmlFileText appendString:@"</"];
+                                [xmlFileText appendString:@"ResponseDetail"];
+                                [xmlFileText appendString:@">"];
+                            }
+                            else if ([dataValue containsString:@"-"])
+                            {
+                                int dashPos = (int)[dataValue rangeOfString:@"-"].location;
+                                NSString *clValue = [dataValue substringToIndex:dashPos];
+                                [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
+                                [xmlFileText appendString:columnName];
+                                [xmlFileText appendString:@"\">"];
+                                [xmlFileText appendString:clValue];
+                                [xmlFileText appendString:@"</"];
+                                [xmlFileText appendString:@"ResponseDetail"];
+                                [xmlFileText appendString:@">"];
+                            }
+                            else
+                            {
+                                [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
+                                [xmlFileText appendString:columnName];
+                                [xmlFileText appendString:@"\">"];
+                                [xmlFileText appendString:dataValue];
+                                [xmlFileText appendString:@"</"];
+                                [xmlFileText appendString:@"ResponseDetail"];
+                                [xmlFileText appendString:@">"];
                             }
                         }
                         else if (sqlite3_column_type(statement, i) == 1)
@@ -1734,6 +1774,10 @@
                             }
                             for (int j = 1; j < edv.pagesArray.count; j++)
                             {
+                                // A page can have zero data-containing controls. Don't let that throw an un-caught exception.
+                                NSMutableArray *iterationNSMA = (NSMutableArray *)[edv.pagesArray objectAtIndex:j];
+                                if ([iterationNSMA count] < 1)
+                                    continue;
                                 if ([[columnName lowercaseString] isEqualToString:[[(NSMutableArray *)[edv.pagesArray objectAtIndex:j] objectAtIndex:0] lowercaseString]])
                                 {
 //                                    xmlFileText = [[[xmlFileText stringByAppendingString:@"\n\t</Page>\n\t<Page PageId=\""] stringByAppendingString:[edv.pageIDs objectAtIndex:j]] stringByAppendingString:@"\">"];
@@ -1783,6 +1827,42 @@
                                         [xmlFileText appendString:@">"];
                                         break;
                                     }
+                                }
+                            }
+                            else if ([edv.dictionaryOfCommentLegals objectForKey:columnName])
+                            {
+                                NSString *dataValue = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)];
+                                if ([dataValue isEqualToString:@"(null)"])
+                                {
+                                    [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
+                                    [xmlFileText appendString:columnName];
+                                    [xmlFileText appendString:@"\">"];
+                                    [xmlFileText appendString:@""];
+                                    [xmlFileText appendString:@"</"];
+                                    [xmlFileText appendString:@"ResponseDetail"];
+                                    [xmlFileText appendString:@">"];
+                                }
+                                else if ([dataValue containsString:@"-"])
+                                {
+                                    int dashPos = (int)[dataValue rangeOfString:@"-"].location;
+                                    NSString *clValue = [dataValue substringToIndex:dashPos];
+                                    [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
+                                    [xmlFileText appendString:columnName];
+                                    [xmlFileText appendString:@"\">"];
+                                    [xmlFileText appendString:clValue];
+                                    [xmlFileText appendString:@"</"];
+                                    [xmlFileText appendString:@"ResponseDetail"];
+                                    [xmlFileText appendString:@">"];
+                                }
+                                else
+                                {
+                                    [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
+                                    [xmlFileText appendString:columnName];
+                                    [xmlFileText appendString:@"\">"];
+                                    [xmlFileText appendString:dataValue];
+                                    [xmlFileText appendString:@"</"];
+                                    [xmlFileText appendString:@"ResponseDetail"];
+                                    [xmlFileText appendString:@">"];
                                 }
                             }
                             else if (sqlite3_column_type(statement, i) == 1)

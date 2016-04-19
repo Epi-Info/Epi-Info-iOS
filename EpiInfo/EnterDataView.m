@@ -45,6 +45,7 @@
     seenFirstGeocodeField = NO;
     legalValuesDictionaryForRVC = [[NSMutableDictionary alloc] init];
     self.dictionaryOfFields = [[NSMutableDictionary alloc] init];
+    self.dictionaryOfCommentLegals = [[NSMutableDictionary alloc] init];
   }
   return self;
 }
@@ -1941,6 +1942,7 @@
           }
         beginColumList = YES;
         [self.dictionaryOfFields setObject:lv forKey:[attributeDict objectForKey:@"Name"]];
+        [self.dictionaryOfCommentLegals setObject:lv forKey:[attributeDict objectForKey:@"Name"]];
       }
       else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"14"])
       {
