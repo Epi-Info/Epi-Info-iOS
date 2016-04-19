@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "476825011.492749"
+            timestampString = "482769954.389664"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1289"
-            endingLineNumber = "1289"
+            startingLineNumber = "1290"
+            endingLineNumber = "1290"
             landmarkName = "-resignAll"
             landmarkType = "5">
             <Locations>
@@ -26,11 +26,11 @@
                   moduleName = "EpiInfo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/EnterDataView.m"
-                  timestampString = "479050279.760687"
+                  timestampString = "482769967.610697"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1289"
-                  endingLineNumber = "1289"
+                  startingLineNumber = "1290"
+                  endingLineNumber = "1290"
                   offsetFromSymbolStart = "72">
                </Location>
                <Location
@@ -41,11 +41,11 @@
                   moduleName = "EpiInfo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/EnterDataView.m"
-                  timestampString = "479050279.760961"
+                  timestampString = "482769967.610924"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1289"
-                  endingLineNumber = "1289"
+                  startingLineNumber = "1290"
+                  endingLineNumber = "1290"
                   offsetFromSymbolStart = "100">
                </Location>
             </Locations>

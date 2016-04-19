@@ -33,6 +33,7 @@
 @synthesize longitudeField = _longitudeField;
 @synthesize nameOfTheForm = _nameOfTheForm;
 @synthesize dictionaryOfFields = _dictionaryOfFields;
+@synthesize dictionaryOfCommentLegals = _dictionaryOfCommentLegals;
 
 - (id)initWithFrame:(CGRect)frame
 {

@@ -74,6 +74,8 @@
 @property NSMutableArray *pageIDs;
 @property NSMutableDictionary *checkboxes;
 
+@property NSMutableDictionary *dictionaryOfCommentLegals;
+
 @property NSMutableDictionary *dictionaryOfFields;
 @property NSMutableDictionary *dictionaryOfWordsArrays;
 
