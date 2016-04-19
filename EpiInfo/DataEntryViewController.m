@@ -1359,12 +1359,19 @@
                             i++;
                             continue;
                         }
-                        if ([[columnName lowercaseString] isEqualToString:[[(NSMutableArray *)[edv.pagesArray objectAtIndex:0] objectAtIndex:0] lowercaseString]])
+                        // Find the first page with data-containing controls
+                        int firstPage = 0;
+                        while ((int)[(NSMutableArray *)[edv.pagesArray objectAtIndex:firstPage] count] < 1)
+                            firstPage++;
+                        if ([[columnName lowercaseString] isEqualToString:[[(NSMutableArray *)[edv.pagesArray objectAtIndex:firstPage] objectAtIndex:0] lowercaseString]])
                         {
                             //                                xmlFileText = [[[xmlFileText stringByAppendingString:@"\n\t<Page PageId=\""] stringByAppendingString:[edv.pageIDs objectAtIndex:0]] stringByAppendingString:@"\">"];
-                            [xmlFileText appendString:@"\n\t<Page PageId=\""];
-                            [xmlFileText appendString:[edv.pageIDs objectAtIndex:0]];
-                            [xmlFileText appendString:@"\">"];
+                            if (firstPage == 0)
+                            {
+                                [xmlFileText appendString:@"\n\t<Page PageId=\""];
+                                [xmlFileText appendString:[edv.pageIDs objectAtIndex:firstPage]];
+                                [xmlFileText appendString:@"\">"];
+                            }
                         }
                         for (int j = 1; j < edv.pagesArray.count; j++)
                         {
@@ -1376,7 +1383,10 @@
                             {
                                 //                                    xmlFileText = [[[xmlFileText stringByAppendingString:@"\n\t</Page>\n\t<Page PageId=\""] stringByAppendingString:[edv.pageIDs objectAtIndex:j]] stringByAppendingString:@"\">"];
                                 //new test comment
-                                [xmlFileText appendString:@"\n\t</Page>\n\t<Page PageId=\""];
+                                if (firstPage == 0 || firstPage < j)
+                                    [xmlFileText appendString:@"\n\t</Page>\n\t<Page PageId=\""];
+                                else
+                                    [xmlFileText appendString:@"\n\t<Page PageId=\""];
                                 [xmlFileText appendString:[edv.pageIDs objectAtIndex:j]];
                                 [xmlFileText appendString:@"\">"];
                             }
@@ -1811,12 +1821,19 @@
                                 i++;
                                 continue;
                             }
-                            if ([[columnName lowercaseString] isEqualToString:[[(NSMutableArray *)[edv.pagesArray objectAtIndex:0] objectAtIndex:0] lowercaseString]])
+                            // Find the first page with data-containing controls
+                            int firstPage = 0;
+                            while ((int)[(NSMutableArray *)[edv.pagesArray objectAtIndex:firstPage] count] < 1)
+                                firstPage++;
+                            if ([[columnName lowercaseString] isEqualToString:[[(NSMutableArray *)[edv.pagesArray objectAtIndex:firstPage] objectAtIndex:0] lowercaseString]])
                             {
 //                                xmlFileText = [[[xmlFileText stringByAppendingString:@"\n\t<Page PageId=\""] stringByAppendingString:[edv.pageIDs objectAtIndex:0]] stringByAppendingString:@"\">"];
-                                [xmlFileText appendString:@"\n\t<Page PageId=\""];
-                                [xmlFileText appendString:[edv.pageIDs objectAtIndex:0]];
-                                [xmlFileText appendString:@"\">"];
+                                if (firstPage == 0)
+                                {
+                                    [xmlFileText appendString:@"\n\t<Page PageId=\""];
+                                    [xmlFileText appendString:[edv.pageIDs objectAtIndex:firstPage]];
+                                    [xmlFileText appendString:@"\">"];
+                                }
                             }
                             for (int j = 1; j < edv.pagesArray.count; j++)
                             {
@@ -1827,7 +1844,10 @@
                                 if ([[columnName lowercaseString] isEqualToString:[[(NSMutableArray *)[edv.pagesArray objectAtIndex:j] objectAtIndex:0] lowercaseString]])
                                 {
 //                                    xmlFileText = [[[xmlFileText stringByAppendingString:@"\n\t</Page>\n\t<Page PageId=\""] stringByAppendingString:[edv.pageIDs objectAtIndex:j]] stringByAppendingString:@"\">"];
-                                    [xmlFileText appendString:@"\n\t</Page>\n\t<Page PageId=\""];
+                                    if (firstPage == 0 || firstPage < j)
+                                        [xmlFileText appendString:@"\n\t</Page>\n\t<Page PageId=\""];
+                                    else
+                                        [xmlFileText appendString:@"\n\t<Page PageId=\""];
                                     [xmlFileText appendString:[edv.pageIDs objectAtIndex:j]];
                                     [xmlFileText appendString:@"\">"];
                                 }
