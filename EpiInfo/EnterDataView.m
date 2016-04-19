@@ -36,6 +36,11 @@
 @synthesize dictionaryOfFields = _dictionaryOfFields;
 @synthesize dictionaryOfCommentLegals = _dictionaryOfCommentLegals;
 
+- (void)setTableBeingUpdated:(NSString *)tbu
+{
+    tableBeingUpdated = tbu;
+}
+
 - (NSString *)createTableStatement
 {
     return createTableStatement;
@@ -2612,6 +2617,7 @@
     for (id key in dictionaryOfPages)
     {
         [(EnterDataView *)[dictionaryOfPages objectForKey:key] setRecordUIDForUpdate:guid];
+        [(EnterDataView *)[dictionaryOfPages objectForKey:key] setTableBeingUpdated:tableName];
     }
   
   NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
