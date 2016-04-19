@@ -105,6 +105,8 @@
 @property NSMutableDictionary *dictionaryOfFields;
 @property NSMutableDictionary *dictionaryOfWordsArrays;
 
+-(void)setNewRecordGUID:(NSString *)guid;
+
 -(void)setTableBeingUpdated:(NSString *)tbu;
 
 -(void)setRecordUIDForUpdate:(NSString *)uid;

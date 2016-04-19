@@ -36,6 +36,11 @@
 @synthesize dictionaryOfFields = _dictionaryOfFields;
 @synthesize dictionaryOfCommentLegals = _dictionaryOfCommentLegals;
 
+- (void)setNewRecordGUID:(NSString *)guid
+{
+    newRecordGUID = guid;
+}
+
 - (void)setTableBeingUpdated:(NSString *)tbu
 {
     tableBeingUpdated = tbu;
@@ -160,10 +165,23 @@
     }
 }
 
+- (void)johnthreadmethod
+{
+    while (YES)
+    {
+        NSLog(@"\n%@\n\tguidBeingUpdated = %@\n\tnewRecordGUID = %@\n\tparentRecordGUID = %@\n", pageBeingDisplayed, guidBeingUpdated, newRecordGUID, parentRecordGUID);
+        sleep(5);
+        if (!self)
+            break;
+    }
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
   self = [super initWithFrame:frame];
   if (self) {
+      NSThread *johnthread = [[NSThread alloc] initWithTarget:self selector:@selector(johnthreadmethod) object:nil];
+      [johnthread start];
     // Initialization code
     // Create the todoService - this creates the Mobile Service client inside the wrapped service
 //    [self setEpiinfoService:[QSEpiInfoService defaultService]];
@@ -439,6 +457,7 @@
         EnterDataView *edv = [[EnterDataView alloc] initWithFrame:self.frame AndURL:self.url AndRootViewController:self.rootViewController AndNameOfTheForm:self.nameOfTheForm AndPageToDisplay:(int)[sender tag]];
         [edv setDictionaryOfPages:dictionaryOfPages];
         [edv setGuidBeingUpdated:guidBeingUpdated];
+        [edv setNewRecordGUID:newRecordGUID];
         [edv setMyOrangeBanner:myOrangeBanner];
         if (guidBeingUpdated)
         {
@@ -1661,6 +1680,7 @@
     newRecordGUID = CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL)));
     for (id key in dictionaryOfPages)
     {
+        [(EnterDataView *)[dictionaryOfPages objectForKey:key] setNewRecordGUID:newRecordGUID];
         if (updatevisibleScreenOnly && ![(NSString *)key isEqualToString:[NSString stringWithFormat:@"Page%d", pageToDisplay]])
         {
             continue;
@@ -2618,6 +2638,7 @@
     {
         [(EnterDataView *)[dictionaryOfPages objectForKey:key] setRecordUIDForUpdate:guid];
         [(EnterDataView *)[dictionaryOfPages objectForKey:key] setTableBeingUpdated:tableName];
+        [(EnterDataView *)[dictionaryOfPages objectForKey:key] setNewRecordGUID:newRecordGUID];
     }
   
   NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
