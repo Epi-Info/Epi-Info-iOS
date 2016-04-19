@@ -165,23 +165,10 @@
     }
 }
 
-- (void)johnthreadmethod
-{
-    while (YES)
-    {
-        NSLog(@"\n%@\n\tguidBeingUpdated = %@\n\tnewRecordGUID = %@\n\tparentRecordGUID = %@\n", pageBeingDisplayed, guidBeingUpdated, newRecordGUID, parentRecordGUID);
-        sleep(5);
-        if (!self)
-            break;
-    }
-}
-
 - (id)initWithFrame:(CGRect)frame
 {
   self = [super initWithFrame:frame];
   if (self) {
-      NSThread *johnthread = [[NSThread alloc] initWithTarget:self selector:@selector(johnthreadmethod) object:nil];
-      [johnthread start];
     // Initialization code
     // Create the todoService - this creates the Mobile Service client inside the wrapped service
 //    [self setEpiinfoService:[QSEpiInfoService defaultService]];
