@@ -20,10 +20,13 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    [picked setText:[NSString stringWithFormat:@"%d", row]];
+    NSString *rowText = [NSString stringWithFormat:@"%ld", (long)row - 1];
+    if (row == 0)
+        rowText = nil;
+    [picked setText:rowText];
     if (self.textFieldToUpdate)
     {
-        [self.textFieldToUpdate setText:[NSString stringWithString:[NSString stringWithFormat:@"%d", row]]];
+        [self.textFieldToUpdate setText:[NSString stringWithString:rowText]];
     }
     if (self.viewToAlertOfChanges)
     {
@@ -33,8 +36,8 @@
 
 - (void)setSelectedLegalValue:(NSString *)selectedLegalValue
 {
-    [self.picker selectRow:[selectedLegalValue intValue] inComponent:0 animated:NO];
-    [self.textFieldToUpdate setText:[NSString stringWithFormat:@"%d", [selectedLegalValue intValue]]];
+    [self.picker selectRow:[selectedLegalValue intValue] + 1 inComponent:0 animated:NO];
+    [self.textFieldToUpdate setText:[NSString stringWithFormat:@"%d", [selectedLegalValue intValue] + 1]];
 }
 
 /*

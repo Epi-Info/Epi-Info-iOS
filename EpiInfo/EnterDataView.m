@@ -2462,7 +2462,12 @@
         NSString *list = [attributeDict objectForKey:@"List"];
         int pipes = (int)[list rangeOfString:@"||"].location;
         NSString *valuesList = [list substringToIndex:pipes];
-        EpiInfoOptionField *lv = [[EpiInfoOptionField alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 300, 180) AndListOfValues:[NSMutableArray arrayWithArray:[valuesList componentsSeparatedByString:@","]]];
+        NSArray *nsaFromValuesList = [NSArray arrayWithArray:[valuesList componentsSeparatedByString:@","]];
+        NSMutableArray *nsmaFromValuesList = [[NSMutableArray alloc] init];
+        [nsmaFromValuesList addObject:@""];
+        for (int q = 0; q < nsaFromValuesList.count; q++)
+            [nsmaFromValuesList addObject:(NSString *)[nsaFromValuesList objectAtIndex:q]];
+        EpiInfoOptionField *lv = [[EpiInfoOptionField alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 300, 180) AndListOfValues:nsmaFromValuesList];
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
           [lv setFrame:CGRectMake(20, lv.frame.origin.y, lv.frame.size.width, lv.frame.size.height)];
         [formCanvas addSubview:lv];
