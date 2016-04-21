@@ -1735,6 +1735,15 @@
                         
                         
                     }
+                    
+                    if([self checkHidden:[attributeDict objectForKey:@"Name"] Tag:tagNum type:1 from:@"before" from:@"page"])
+                    {
+                        [tf setHidden:YES];
+                        [elementLabel setHidden:YES];
+                        contentSizeHeight -= 40.0;
+                        contentSizeHeight -= elementLabelHeight;
+                    }
+
                    // [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:1];
                     
                     tagNum++;
@@ -1825,6 +1834,13 @@
                         [tf setBackgroundColor:selectedColor];
                     }
                     
+                    if([self checkHidden:[attributeDict objectForKey:@"Name"] Tag:tagNum type:3 from:@"before" from:@"page"])
+                    {
+                        [tf setHidden:YES];
+                        [elementLabel setHidden:YES];
+                        contentSizeHeight -= 40.0;
+                        contentSizeHeight -= elementLabelHeight;
+                    }
                     //[self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:3];
                     
                     tagNum++;
@@ -1895,7 +1911,14 @@
                         UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
                         [tf setBackgroundColor:selectedColor];
                     }
-                    
+                    if([self checkHidden:[attributeDict objectForKey:@"Name"] Tag:tagNum type:4 from:@"before" from:@"page"])
+                    {
+                        [tf setHidden:YES];
+                        [elementLabel setHidden:YES];
+                        contentSizeHeight -= 40.0;
+                        contentSizeHeight -= elementLabelHeight;
+                        
+                    }
 //                    [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:4];
                     
                     tagNum++;
@@ -1958,7 +1981,14 @@
                         UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
                         [tf setBackgroundColor:selectedColor];
                     }
-                    
+                    if([self checkHidden:[attributeDict objectForKey:@"Name"] Tag:tagNum type:5 from:@"before" from:@"page"])
+                    {
+                        [tf setHidden:YES];
+                        [elementLabel setHidden:YES];
+                        contentSizeHeight -= 40.0;
+                        contentSizeHeight -= elementLabelHeight;
+                        
+                    }
                     //[self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:5];
                     
                     tagNum++;
@@ -2046,7 +2076,13 @@
                         UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
                         [tf setBackgroundColor:selectedColor];
                     }
-                    
+                    if([self checkHidden:[attributeDict objectForKey:@"Name"] Tag:tagNum type:6 from:@"before" from:@"page"])
+                    {
+                        [tf setHidden:YES];
+                        [elementLabel setHidden:YES];
+                        contentSizeHeight -= 40.0;
+                        contentSizeHeight -= elementLabelHeight;
+                    }
 //                    [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:6];
                     
                     tagNum++;
@@ -2111,7 +2147,13 @@
                         //              [elementLabel setBackgroundColor:selectedColor];
                         [tf setBackgroundColor:selectedColor];
                     }
-                    
+                    if([self checkHidden:[attributeDict objectForKey:@"Name"] Tag:tagNum type:7 from:@"before" from:@"page"])
+                    {
+                        [tf setHidden:YES];
+                        [elementLabel setHidden:YES];
+                        contentSizeHeight -= 40.0;
+                        contentSizeHeight -= elementLabelHeight;
+                    }
 //                    [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:7];
                     
                     tagNum++;
@@ -2177,7 +2219,14 @@
                         //              [elementLabel setBackgroundColor:selectedColor];
                         [tf setBackgroundColor:selectedColor];
                     }
-                    
+                    if([self checkHidden:[attributeDict objectForKey:@"Name"] Tag:tagNum type:8 from:@"before" from:@"page"])
+                    {
+                        [tf setHidden:YES];
+                        [elementLabel setHidden:YES];
+                        contentSizeHeight -= 40.0;
+                        contentSizeHeight -= elementLabelHeight;
+                        
+                    }
 //                    [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:8];
                     
                     tagNum++;
@@ -2243,7 +2292,14 @@
                         [tf setBackgroundColor:selectedColor];
                         
                     }
-                    
+                    if([self checkHidden:[attributeDict objectForKey:@"Name"] Tag:tagNum type:9 from:@"before" from:@"page"])
+                    {
+                        [tf setHidden:YES];
+                        [elementLabel setHidden:YES];
+                        contentSizeHeight -= 40.0;
+                        contentSizeHeight -= elementLabelHeight;
+                        
+                    }
 //                    [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:9];
                     
                     tagNum++;
@@ -2308,7 +2364,14 @@
                         UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
                         [cb setBackgroundColor:selectedColor];
                     }
-                    
+                    if([self checkHidden:[attributeDict objectForKey:@"Name"] Tag:tagNum type:10 from:@"before" from:@"page"])
+                    {
+                        [cb setHidden:YES];
+                        [elementLabel setHidden:YES];
+                        contentSizeHeight -= 40.0;
+                        contentSizeHeight -= elementLabelHeight;
+                        
+                    }
 //                    [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:10];
                     
                     tagNum++;
@@ -2365,7 +2428,13 @@
                         [yn setBackgroundColor:selectedColor];
                         
                     }
-                    
+                    if([self checkHidden:[attributeDict objectForKey:@"Name"] Tag:tagNum type:11 from:@"before" from:@"page"])
+                    {
+                        [yn setHidden:YES];
+                        [elementLabel setHidden:YES];
+                        contentSizeHeight -= 40.0;
+                        contentSizeHeight -= elementLabelHeight;
+                    }
 //                    [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:11];
                     
                     tagNum++;
@@ -2424,7 +2493,13 @@
                         UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
                         [tf setBackgroundColor:selectedColor];
                     }
-                    
+                    if([self checkHidden:[attributeDict objectForKey:@"Name"] Tag:tagNum type:15 from:@"before" from:@"page"])
+                    {
+                        [tf setHidden:YES];
+                        [elementLabel setHidden:YES];
+                        contentSizeHeight -= 40.0;
+                        contentSizeHeight -= elementLabelHeight;
+                    }
 //                    [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:15];
                     
                     tagNum++;
@@ -2481,7 +2556,14 @@
                         [lv setBackgroundColor:selectedColor];
                         
                     }
-                    
+                    if([self checkHidden:[attributeDict objectForKey:@"Name"] Tag:tagNum type:17 from:@"before" from:@"page"])
+                    {
+                        [lv setHidden:YES];
+                        [elementLabel setHidden:YES];
+                        contentSizeHeight -= 40.0;
+                        contentSizeHeight -= elementLabelHeight;
+                        
+                    }
 //                    [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:17];
                     
                     tagNum++;
@@ -2548,7 +2630,13 @@
                         UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
                         [lv setBackgroundColor:selectedColor];
                     }
-                    
+                    if([self checkHidden:[attributeDict objectForKey:@"Name"] Tag:tagNum type:18 from:@"before" from:@"page"])
+                    {
+                        [lv setHidden:YES];
+                        [elementLabel setHidden:YES];
+                        contentSizeHeight -= 40.0;
+                        contentSizeHeight -= elementLabelHeight;
+                    }
 //                    [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:18];
                     
                     tagNum++;
@@ -2594,7 +2682,13 @@
                         UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
                         [lv setBackgroundColor:selectedColor];
                     }
-                    
+                    if([self checkHidden:[attributeDict objectForKey:@"Name"] Tag:tagNum type:19 from:@"before" from:@"page"])
+                    {
+                        [lv setHidden:YES];
+                        [elementLabel setHidden:YES];
+                        contentSizeHeight -= 40.0;
+                        contentSizeHeight -= elementLabelHeight;
+                    }
 //                    [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:19];
                     
                     [formCanvas addSubview:lv];
@@ -2638,7 +2732,13 @@
                         UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
                         [iv setBackgroundColor:selectedColor];
                     }
-                    
+                    if([self checkHidden:[attributeDict objectForKey:@"Name"] Tag:tagNum type:14 from:@"before" from:@"page"])
+                    {
+                        [iv setHidden:YES];
+                        [elementLabel setHidden:YES];
+                        contentSizeHeight -= 40.0;
+                        contentSizeHeight -= elementLabelHeight;
+                    }
 //                    [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:14];
                     
                     tagNum++;
@@ -2683,7 +2783,13 @@
                         [lv setBackgroundColor:selectedColor];
                         
                     }
-                    
+                    if([self checkHidden:[attributeDict objectForKey:@"Name"] Tag:tagNum type:12 from:@"before" from:@"page"])
+                    {
+                        [lv setHidden:YES];
+                        [elementLabel setHidden:YES];
+                        contentSizeHeight -= 40.0;
+                        contentSizeHeight -= elementLabelHeight;
+                    }
 //                    [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:12];
                     
                     tagNum++;
@@ -2741,7 +2847,13 @@
                         UIColor *selectedColor = [UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1];
                         [tf setBackgroundColor:selectedColor];
                     }
-                    
+                    if([self checkHidden:[attributeDict objectForKey:@"Name"] Tag:tagNum type:25 from:@"before" from:@"page"])
+                    {
+                        [tf setHidden:YES];
+                        [elementLabel setHidden:YES];
+                        contentSizeHeight -= 40.0;
+                        contentSizeHeight -= elementLabelHeight;
+                    }
 //                    [self setLabelReq:epc.elementName tag:epc.tag text:epc.promptText type:25];
                     
                     tagNum++;
@@ -3017,7 +3129,7 @@
         DateField *dateField = (DateField *)field;
         // NSLog(@"%@ became first responder", [dateField columnName]);
         [self checkHighlight:[dateField columnName] Tag:[dateField tag] type:7 from:@"before" from:@"field"];
-
+        [self checkHidden:[dateField columnName] Tag:[dateField tag] type:7 from:@"before" from:@"field"];
         [self checkDialogs:[dateField columnName] Tag:1 type:7 from:@"before" from:@"field"];
         [self checkElements:[dateField columnName] Tag:[dateField tag] type:7 from:@"before" from:@"field"];
 
@@ -3029,6 +3141,7 @@
         EpiInfoTextField *etf = (EpiInfoTextField *)field;
         //  NSLog(@"%@",[etf columnName]);
         [self checkHighlight:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
+        [self checkHidden:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"before" from:@"field"];
         [self checkElements:[etf columnName] Tag:[etf tag] type:1 from:@"before" from:@"field"];
 
@@ -3042,6 +3155,7 @@
         EpiInfoTextView *etf = (EpiInfoTextView *)field;
         // NSLog(@"%@",[etf columnName]);
         [self checkHighlight:[etf columnName] Tag:[etf tag] type:4 from:@"before" from:@"field"];
+        [self checkHidden:[etf columnName] Tag:[etf tag] type:4 from:@"before" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:1 type:4 from:@"before" from:@"field"];
         [self checkElements:[etf columnName] Tag:[etf tag] type:4 from:@"before" from:@"field"];
 
@@ -3054,6 +3168,7 @@
         UppercaseTextField *etf = (UppercaseTextField *)field;
         //NSLog(@"%@",[etf columnName]);
         [self checkHighlight:[etf columnName] Tag:[etf tag] type:3 from:@"before" from:@"field"];
+        [self checkHidden:[etf columnName] Tag:[etf tag] type:3 from:@"before" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:1 type:3 from:@"before" from:@"field"];
         [self checkElements:[etf columnName] Tag:[etf tag] type:3 from:@"before" from:@"field"];
 
@@ -3066,6 +3181,7 @@
         NumberField *etf = (NumberField *)field;
         // NSLog(@"%@",[etf columnName]);
         [self checkHighlight:[etf columnName] Tag:[etf tag] type:5 from:@"before" from:@"field"];
+        [self checkHidden:[etf columnName] Tag:[etf tag] type:5 from:@"before" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:1 type:5 from:@"before" from:@"field"];
         [self checkElements:[etf columnName] Tag:[etf tag] type:5 from:@"before" from:@"field"];
 
@@ -3078,6 +3194,7 @@
         PhoneNumberField *etf = (PhoneNumberField *)field;
         // NSLog(@"%@",[etf columnName]);
         [self checkHighlight:[etf columnName] Tag:[etf tag] type:6 from:@"before" from:@"field"];
+        [self checkHidden:[etf columnName] Tag:[etf tag] type:6 from:@"before" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:1 type:6 from:@"before" from:@"field"];
         [self checkElements:[etf columnName] Tag:[etf tag] type:6 from:@"before" from:@"field"];
 
@@ -3090,6 +3207,7 @@
         TimeField *etf = (TimeField *)field;
         NSLog(@"%@",[etf columnName]);
         [self checkHighlight:[etf columnName] Tag:[etf tag] type:8 from:@"before" from:@"field"];
+        [self checkHidden:[etf columnName] Tag:[etf tag] type:8 from:@"before" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:1 type:8 from:@"before" from:@"field"];
         [self checkElements:[etf columnName] Tag:[etf tag] type:8 from:@"before" from:@"field"];
 
@@ -3102,6 +3220,7 @@
         DateTimeField *etf = (DateTimeField *)field;
         // NSLog(@"%@",[etf columnName]);
         [self checkHighlight:[etf columnName] Tag:[etf tag] type:9 from:@"before" from:@"field"];
+        [self checkHidden:[etf columnName] Tag:[etf tag] type:9 from:@"before" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:1 type:9 from:@"before" from:@"field"];
         [self checkElements:[etf columnName] Tag:[etf tag] type:9 from:@"before" from:@"field"];
 
@@ -3114,6 +3233,7 @@
         EpiInfoOptionField *etf = (EpiInfoOptionField *)field;
         //  NSLog(@"%@",[etf columnName]);
         [self checkHighlight:[etf columnName] Tag:[etf tag] type:12 from:@"before" from:@"field"];
+        [self checkHidden:[etf columnName] Tag:[etf tag] type:12 from:@"before" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:1 type:12 from:@"before" from:@"field"];
         [self checkElements:[etf columnName] Tag:[etf tag] type:12 from:@"before" from:@"field"];
 
@@ -3126,6 +3246,7 @@
         LegalValuesEnter *etf = (LegalValuesEnter *)field;
         // NSLog(@"%@",[etf columnName]);
         [self checkHighlight:[etf columnName] Tag:[etf tag] type:17 from:@"before" from:@"field"];
+        [self checkHidden:[etf columnName] Tag:[etf tag] type:17 from:@"before" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:1 type:17 from:@"before" from:@"field"];
         [self checkElements:[etf columnName] Tag:[etf tag] type:17 from:@"before" from:@"field"];
 
@@ -3138,6 +3259,7 @@
         EpiInfoUniqueIDField *etf = (EpiInfoUniqueIDField *)field;
         // NSLog(@"%@",[etf columnName]);
         [self checkHighlight:[etf columnName] Tag:[etf tag] type:25 from:@"before" from:@"field"];
+        [self checkHidden:[etf columnName] Tag:[etf tag] type:25 from:@"before" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:1 type:25 from:@"before" from:@"field"];
         [self checkElements:[etf columnName] Tag:[etf tag] type:25 from:@"before" from:@"field"];
 
@@ -3150,6 +3272,7 @@
         Checkbox *etf = (Checkbox *)field;
         //  NSLog(@"%@",[etf columnName]);
         [self checkHighlight:[etf columnName] Tag:[etf tag] type:10 from:@"before" from:@"field"];
+        [self checkHidden:[etf columnName] Tag:[etf tag] type:10 from:@"before" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:1 type:10 from:@"before" from:@"field"];
         [self checkElements:[etf columnName] Tag:[etf tag] type:10 from:@"before" from:@"field"];
 
@@ -3162,6 +3285,7 @@
         YesNo *etf = (YesNo *)field;
         //  NSLog(@"%@",[etf columnName]);
         [self checkDialogs:[etf columnName] Tag:1 type:11 from:@"before" from:@"field"];
+        [self checkHidden:[etf columnName] Tag:[etf tag] type:11 from:@"before" from:@"field"];
         [self checkHighlight:[etf columnName] Tag:[etf tag] type:10 from:@"before" from:@"field"];
         [self checkElements:[etf columnName] Tag:[etf tag] type:10 from:@"before" from:@"field"];
 
@@ -3180,6 +3304,7 @@
         //  NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:1 from:@"after" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:[etf tag] type:1 from:@"after" from:@"field"];
+        [self checkHidden:[etf columnName] Tag:[etf tag] type:1 from:@"after" from:@"field"];
 
         BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:1 from:@"after" str:etf.text];
         if (required) {
@@ -3207,6 +3332,7 @@
         //  NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:3 from:@"after" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:[etf tag] type:1 from:@"after" from:@"field"];
+        [self checkHidden:[etf columnName] Tag:[etf tag] type:3 from:@"after" from:@"field"];
 
         BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:3 from:@"after" str:etf.text];
         if (required) {
@@ -3236,6 +3362,7 @@
         //   NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:4 from:@"after" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:[etf tag] type:1 from:@"after" from:@"field"];
+        [self checkHidden:[etf columnName] Tag:[etf tag] type:4 from:@"after" from:@"field"];
 
         BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:4 from:@"after" str:etf.text];
         if (required) {
@@ -3264,6 +3391,7 @@
         //   NSLog(@"%@ resigned first responder", [numField columnName]);
         [self checkElements:[numField columnName] Tag:[numField tag] type:5 from:@"after" from:@"field"];
         [self checkDialogs:[numField columnName] Tag:[numField tag] type:1 from:@"after" from:@"field"];
+        [self checkHidden:[numField columnName] Tag:[numField tag] type:5 from:@"after" from:@"field"];
 
         BOOL required = [self checkRequiredstr:[numField columnName] Tag:[numField tag] type:5 from:@"after" str:numField.text];
         if (required) {
@@ -3293,6 +3421,7 @@
         //     NSLog(@"%@ resigned first responder", [numField columnName]);
         [self checkElements:[numField columnName] Tag:[numField tag] type:6 from:@"after" from:@"field"];
         [self checkDialogs:[numField columnName] Tag:[numField tag] type:1 from:@"after" from:@"field"];
+        [self checkHidden:[numField columnName] Tag:[numField tag] type:6 from:@"after" from:@"field"];
 
         BOOL required = [self checkRequiredstr:[numField columnName] Tag:[numField tag] type:6 from:@"after" str:numField.text];
         if (required) {
@@ -3322,6 +3451,7 @@
         // NSLog(@"%@ resigned first responder", [dateField columnName]);
         [self checkElements:[dateField columnName] Tag:[dateField tag] type:7 from:@"after" from:@"field"];
         [self checkDialogs:[dateField columnName] Tag:[dateField tag] type:1 from:@"after" from:@"field"];
+        [self checkHidden:[dateField columnName] Tag:[dateField tag] type:7 from:@"after" from:@"field"];
 
         BOOL required = [self checkRequiredstr:[dateField columnName] Tag:[dateField tag] type:7 from:@"after" str:dateField.text];
         if (required) {
@@ -3349,6 +3479,7 @@
         //    NSLog(@"%@ resigned first responder", [timeField columnName]);
         [self checkElements:[timeField columnName] Tag:[timeField tag] type:8 from:@"after" from:@"field"];
         [self checkDialogs:[timeField columnName] Tag:[timeField tag] type:1 from:@"after" from:@"field"];
+        [self checkHidden:[timeField columnName] Tag:[timeField tag] type:8 from:@"after" from:@"field"];
 
         BOOL required = [self checkRequiredstr:[timeField columnName] Tag:[timeField tag] type:8 from:@"after" str:timeField.text];
         if (required) {
@@ -3376,6 +3507,7 @@
         //   NSLog(@"%@ resigned first responder", [dateTimeField columnName]);
         [self checkElements:[dateTimeField columnName] Tag:[dateTimeField tag] type:9 from:@"after" from:@"field"];
         [self checkDialogs:[dateTimeField columnName] Tag:[dateTimeField tag] type:1 from:@"after" from:@"field"];
+        [self checkHidden:[dateTimeField columnName] Tag:[dateTimeField tag] type:9 from:@"after" from:@"field"];
 
         BOOL required = [self checkRequiredstr:[dateTimeField columnName] Tag:[dateTimeField tag] type:9 from:@"after" str:dateTimeField.text];
         if (required) {
@@ -3404,6 +3536,7 @@
         //  NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:11 from:@"after" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:[etf tag] type:1 from:@"after" from:@"field"];
+        [self checkHidden:[etf columnName] Tag:[etf tag] type:11 from:@"after" from:@"field"];
 
         //  NSLog(@"%@",etf.picked);
         //        if ([[etf picked]intValue] == 0)
@@ -3462,6 +3595,7 @@
         //   NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:12 from:@"after" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:[etf tag] type:1 from:@"after" from:@"field"];
+        [self checkHidden:[etf columnName] Tag:[etf tag] type:12 from:@"after" from:@"field"];
 
         // NSLog(@"%@",etf.picked);
         if ([[etf picked]isEqualToString:@"NULL"])
@@ -3515,6 +3649,7 @@
         //     NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:17 from:@"after" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:[etf tag] type:1 from:@"after" from:@"field"];
+        [self checkHidden:[etf columnName] Tag:[etf tag] type:17 from:@"after" from:@"field"];
 
         //    NSLog(@"%@",etf.picked);
         //        if ([[etf picked]intValue] == 0)
@@ -3572,6 +3707,7 @@
         //    NSLog(@"%@",[etf columnName]);
         [self checkElements:[etf columnName] Tag:[etf tag] type:25 from:@"after" from:@"field"];
         [self checkDialogs:[etf columnName] Tag:[etf tag] type:1 from:@"after" from:@"field"];
+        [self checkHidden:[etf columnName] Tag:[etf tag] type:25 from:@"after" from:@"field"];
 
         
         BOOL required = [self checkRequiredstr:[etf columnName] Tag:[etf tag] type:25 from:@"after" str:etf.text];
@@ -3603,6 +3739,8 @@
     // NSLog(@"%@ changed", [checkbox columnName]);
     [self checkElements:[checkbox columnName] Tag:[checkbox tag] type:10 from:@"after" from:@"field"];
     [self checkDialogs:[checkbox columnName] Tag:[checkbox tag] type:1 from:@"after" from:@"field"];
+    [self checkHidden:[checkbox columnName] Tag:[checkbox tag] type:10 from:@"after" from:@"field"];
+
     [self gotoField:@"after" element:[checkbox columnName]];
 
     
@@ -3836,6 +3974,18 @@
                         ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] beforeAfter:epc.condition condition:@"clear"];
                         [conditionsArray addObject:cModel];
                         lastElmt = @"clear";
+                        j++;
+                    }
+                    else if ([elmt isEqualToString:@"hide"]) {
+                        ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] beforeAfter:epc.condition condition:@"hidden"];
+                        [conditionsArray addObject:cModel];
+                        lastElmt = @"hidden";
+                        j++;
+                    }
+                    else if ([elmt isEqualToString:@"unhide"]) {
+                        ConditionsModel *cModel = [[ConditionsModel alloc]initWithFrom:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] beforeAfter:epc.condition condition:@"unhidden"];
+                        [conditionsArray addObject:cModel];
+                        lastElmt = @"unhidden";
                         j++;
                     }
                     
@@ -4225,6 +4375,68 @@ newStr{
                         if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
                         {
                             [self unhighlight:emc.tag type:emc.type];
+                            
+                        }
+                    }
+                    
+                }
+                
+            }
+        }
+    }
+    return value;
+}
+
+-(BOOL)checkHidden:(NSString *)name Tag:(NSInteger *)newTag type:(int)newType from:(NSString *)befAft from:(NSString *)newFrom
+{
+    BOOL value = NO;
+    ConditionsModel *cpm = [[ConditionsModel alloc]init];
+    if (conditionsArray.count<1)
+    {
+        [self getDisEnb];
+    }
+    
+    for (cpm in conditionsArray)
+    {
+        if ([cpm.beforeAfter isEqualToString:@"before"]) {
+            
+            if ([newFrom isEqualToString:@"page"])
+            {
+                if (([cpm.element caseInsensitiveCompare:name] == NSOrderedSame) &&  [befAft isEqualToString:cpm.beforeAfter] && [cpm.condition isEqualToString:@"hidden"])
+                {
+                    //[self highlight:newTag type:newType];
+                    value = YES;
+                }
+                
+                if (([cpm.element caseInsensitiveCompare:name] == NSOrderedSame) &&  [befAft isEqualToString:cpm.beforeAfter] && [cpm.condition isEqualToString:@"unhidded"])
+                {
+                    //[self unhighlight:newTag type:newType];
+                    value = NO;
+                }
+            }
+            
+            else if([newFrom isEqualToString:@"field"])
+            {
+                
+                if (([cpm.name caseInsensitiveCompare:name] == NSOrderedSame) &&  [befAft isEqualToString:cpm.beforeAfter] && [cpm.condition isEqualToString:@"hidden"])
+                {
+                    for (ElementsModel *emc in elementListArray)
+                    {
+                        if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
+                        {
+                            [self hide:emc.tag type:emc.type];
+                            
+                        }
+                    }
+                    
+                }
+                if (([cpm.name caseInsensitiveCompare:name] == NSOrderedSame) &&  [befAft isEqualToString:cpm.beforeAfter] && [cpm.condition isEqualToString:@"unhidden"])
+                {
+                    for (ElementsModel *emc in elementListArray)
+                    {
+                        if ([emc.elementName caseInsensitiveCompare:cpm.element]==NSOrderedSame)
+                        {
+                            [self hide:emc.tag type:emc.type];
                             
                         }
                     }
@@ -5107,6 +5319,226 @@ newStr{
     
 }
 
+/*hide*/
+
+-(void)hide:(int)eleTag type:(int)newType
+{
+    switch (newType)
+    {
+        case 1:
+        {
+            EpiInfoTextField *utf = (EpiInfoTextField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:YES];
+            
+            break;
+        }
+        case 3:
+        {
+            UppercaseTextField *utf = (UppercaseTextField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:YES];
+            
+            break;
+        }
+        case 4:
+        {
+            EpiInfoTextView *utf = (EpiInfoTextView *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:YES];
+            
+            break;
+        }
+        case 5:
+        {
+            NumberField *utf = (NumberField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:YES];
+            
+            break;
+        }
+        case 6:
+        {
+            PhoneNumberField *utf = (PhoneNumberField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:YES];
+            
+            break;
+        }
+        case 7:
+        {
+            DateField *utf = (DateField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:YES];
+            
+            break;
+        }
+        case 8:
+        {
+            TimeField *utf = (TimeField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:YES];
+            
+            break;
+        }
+        case 9:
+        {
+            DateTimeField *utf = (DateTimeField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:YES];
+            
+            break;
+        }
+        case 10:
+        {
+            Checkbox *utf = (Checkbox *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:YES];
+            [utf setBackgroundColor:[UIColor whiteColor]];
+            break;
+        }
+        case 11:
+        {
+            YesNo *utf = (YesNo *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:YES];
+            
+            break;
+        }
+        case 12:
+        {
+            EpiInfoOptionField *utf = (EpiInfoOptionField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:YES];
+            
+            break;
+        }
+        case 15:
+            NSLog(@"mirror");
+            break;
+        case 17:
+        {
+            LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:YES];
+            
+            break;
+        }
+        case 18:
+            NSLog(@"codes");
+            break;
+        case 19:
+            NSLog(@"legalcomment");
+            break;
+        case 14:
+            NSLog(@"image");
+            break;
+        case 25:
+            NSLog(@"unique");
+            break;
+        default:
+            break;
+    }
+    
+}
+
+/*unhide*/
+
+-(void)unhide:(int)eleTag type:(int)newType
+{
+    switch (newType)
+    {
+        case 1:
+        {
+            EpiInfoTextField *utf = (EpiInfoTextField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:NO];
+            
+            break;
+        }
+        case 3:
+        {
+            UppercaseTextField *utf = (UppercaseTextField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:NO];
+            
+            break;
+        }
+        case 4:
+        {
+            EpiInfoTextView *utf = (EpiInfoTextView *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:NO];
+            
+            break;
+        }
+        case 5:
+        {
+            NumberField *utf = (NumberField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:NO];
+            
+            break;
+        }
+        case 6:
+        {
+            PhoneNumberField *utf = (PhoneNumberField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:NO];
+            
+            break;
+        }
+        case 7:
+        {
+            DateField *utf = (DateField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:NO];
+            
+            break;
+        }
+        case 8:
+        {
+            TimeField *utf = (TimeField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:NO];
+            
+            break;
+        }
+        case 9:
+        {
+            DateTimeField *utf = (DateTimeField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:NO];
+            
+            break;
+        }
+        case 10:
+        {
+            Checkbox *utf = (Checkbox *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:NO];
+            break;
+        }
+        case 11:
+        {
+            YesNo *utf = (YesNo *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:NO];
+            
+            break;
+        }
+        case 12:
+        {
+            EpiInfoOptionField *utf = (EpiInfoOptionField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:NO];
+            
+            break;
+        }
+        case 15:
+            NSLog(@"mirror");
+            break;
+        case 17:
+        {
+            LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:NO];
+            
+            break;
+        }
+        case 18:
+            NSLog(@"codes");
+            break;
+        case 19:
+            NSLog(@"legalcomment");
+            break;
+        case 14:
+            NSLog(@"image");
+            break;
+        case 25:
+            NSLog(@"unique");
+            break;
+        default:
+            break;
+    }
+    
+}
 
 -(NSUInteger)getIndexEle:(NSString *)newElet
 {
