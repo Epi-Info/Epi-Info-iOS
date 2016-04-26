@@ -288,7 +288,7 @@
     }
     [self registerForKeyboardNotifications];
     [self gotoField:@"before" element:[pageName lowercaseString]];
-
+    
     return self;
 }
 -(void)viewDidLoad
@@ -4593,7 +4593,13 @@ newStr{
             break;
         }
         case 15:
+        {
+            NSLog(@"Mirror");
+            MirrorField *utf = (MirrorField *)[formCanvas viewWithTag:eleTag];
+            [utf setUserInteractionEnabled:NO];
+            [utf setAlpha:0.5f];
             break;
+        }
         case 17:
         {
             LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
@@ -4602,17 +4608,37 @@ newStr{
             break;
         }
         case 18:
+        {
             NSLog(@"codes");
+            EpiInfoCodesField *utf = (EpiInfoCodesField *)[formCanvas viewWithTag:eleTag];
+            [utf setUserInteractionEnabled:NO];
+            [utf setAlpha:0.5f];
             break;
+        }
         case 19:
+        {
             NSLog(@"legalcomment");
+            LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
+            [utf setUserInteractionEnabled:NO];
+            [utf setAlpha:0.5f];
             break;
+        }
         case 14:
+        {
             NSLog(@"image");
+            UIImageView *utf = (UIImageView *)[formCanvas viewWithTag:eleTag];
+            [utf setUserInteractionEnabled:NO];
+            [utf setAlpha:0.5f];
             break;
+        }
         case 25:
+        {
             NSLog(@"unique");
+            EpiInfoUniqueIDField *utf = (EpiInfoUniqueIDField *)[formCanvas viewWithTag:eleTag];
+            [utf setUserInteractionEnabled:NO];
+            [utf setAlpha:0.5f];
             break;
+        }
         default:
             break;
     }
@@ -4711,27 +4737,52 @@ newStr{
             break;
         }
         case 15:
-            NSLog(@"mirror");
+        {
+            NSLog(@"Mirror");
+            MirrorField *utf = (MirrorField *)[formCanvas viewWithTag:eleTag];
+            [utf setUserInteractionEnabled:YES];
+            [utf setAlpha:0.5f];
             break;
+        }
         case 17:
         {
             LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:YES];
-            [utf setAlpha:1.0f];
+            [utf setAlpha:0.5f];
             break;
         }
         case 18:
+        {
             NSLog(@"codes");
+            EpiInfoCodesField *utf = (EpiInfoCodesField *)[formCanvas viewWithTag:eleTag];
+            [utf setUserInteractionEnabled:YES];
+            [utf setAlpha:0.5f];
             break;
+        }
         case 19:
+        {
             NSLog(@"legalcomment");
+            LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
+            [utf setUserInteractionEnabled:YES];
+            [utf setAlpha:0.5f];
             break;
+        }
         case 14:
+        {
             NSLog(@"image");
+            UIImageView *utf = (UIImageView *)[formCanvas viewWithTag:eleTag];
+            [utf setUserInteractionEnabled:YES];
+            [utf setAlpha:0.5f];
             break;
+        }
         case 25:
+        {
             NSLog(@"unique");
+            EpiInfoUniqueIDField *utf = (EpiInfoUniqueIDField *)[formCanvas viewWithTag:eleTag];
+            [utf setUserInteractionEnabled:YES];
+            [utf setAlpha:0.5f];
             break;
+        }
         default:
             break;
     }
@@ -4823,8 +4874,12 @@ newStr{
             break;
         }
         case 15:
-            NSLog(@"mirror");
+        {
+            NSLog(@"Mirror");
+            MirrorField *utf = (MirrorField *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:selectedColor];
             break;
+        }
         case 17:
         {
             LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
@@ -4832,17 +4887,33 @@ newStr{
             break;
         }
         case 18:
+        {
             NSLog(@"codes");
+            EpiInfoCodesField *utf = (EpiInfoCodesField *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:selectedColor];
             break;
+        }
         case 19:
+        {
             NSLog(@"legalcomment");
+            LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:selectedColor];
             break;
+        }
         case 14:
+        {
             NSLog(@"image");
+            UIImageView *utf = (UIImageView *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:selectedColor];
             break;
+        }
         case 25:
+        {
             NSLog(@"unique");
+            EpiInfoUniqueIDField *utf = (EpiInfoUniqueIDField *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:selectedColor];
             break;
+        }
         default:
             break;
     }
@@ -4930,8 +5001,12 @@ newStr{
             break;
         }
         case 15:
-            NSLog(@"mirror");
+        {
+            NSLog(@"Mirror");
+            MirrorField *utf = (MirrorField *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor clearColor]];
             break;
+        }
         case 17:
         {
             LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
@@ -4939,17 +5014,33 @@ newStr{
             break;
         }
         case 18:
+        {
             NSLog(@"codes");
+            EpiInfoCodesField *utf = (EpiInfoCodesField *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor clearColor]];
             break;
+        }
         case 19:
+        {
             NSLog(@"legalcomment");
+            LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor clearColor]];
             break;
+        }
         case 14:
+        {
             NSLog(@"image");
+            UIImageView *utf = (UIImageView *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor clearColor]];
             break;
+        }
         case 25:
+        {
             NSLog(@"unique");
+            EpiInfoUniqueIDField *utf = (EpiInfoUniqueIDField *)[formCanvas viewWithTag:eleTag];
+            [utf setBackgroundColor:[UIColor clearColor]];
             break;
+        }
         default:
             break;
     }
@@ -5078,8 +5169,16 @@ newStr{
             break;
         }
         case 15:
-            NSLog(@"mirror");
+        {
+            NSLog(@"Mirror");
+            MirrorField *utf = (MirrorField *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
             break;
+        }
         case 17:
         {
             LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:newTag];
@@ -5091,19 +5190,49 @@ newStr{
             break;
         }
         case 18:
+        {
             NSLog(@"codes");
+            EpiInfoCodesField *utf = (EpiInfoCodesField *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
             break;
+        }
         case 19:
+        {
             NSLog(@"legalcomment");
+            LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
             break;
+        }
         case 14:
+        {
             NSLog(@"image");
+            UIImageView *utf = (UIImageView *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
             break;
+        }
         case 25:
+        {
             NSLog(@"unique");
+            EpiInfoUniqueIDField *utf = (EpiInfoUniqueIDField *)[formCanvas viewWithTag:newTag];
+            utf.layer.borderWidth = 1.0f;
+            utf.layer.borderColor = [[UIColor redColor] CGColor];
+            utf.layer.cornerRadius = 5;
+            utf.clipsToBounds      = YES;
+            [utf becomeFirstResponder];
             break;
-            
-            
+        }
         default:
             break;
     }
@@ -5181,8 +5310,12 @@ newStr{
             break;
         }
         case 15:
-            NSLog(@"mirror");
+        {
+            NSLog(@"Mirror");
+            MirrorField *utf = (MirrorField *)[formCanvas viewWithTag:newTag];
+            [utf becomeFirstResponder];
             break;
+        }
         case 17:
         {
             LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:newTag];
@@ -5190,18 +5323,33 @@ newStr{
             break;
         }
         case 18:
+        {
             NSLog(@"codes");
+            EpiInfoCodesField *utf = (EpiInfoCodesField *)[formCanvas viewWithTag:newTag];
+            [utf becomeFirstResponder];
             break;
+        }
         case 19:
+        {
             NSLog(@"legalcomment");
+            LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:newTag];
+            [utf becomeFirstResponder];
             break;
+        }
         case 14:
+        {
             NSLog(@"image");
+            UIImageView *utf = (UIImageView *)[formCanvas viewWithTag:newTag];
+            [utf becomeFirstResponder];
             break;
+        }
         case 25:
+        {
             NSLog(@"unique");
+            EpiInfoUniqueIDField *utf = (EpiInfoUniqueIDField *)[formCanvas viewWithTag:newTag];
+            [utf becomeFirstResponder];
             break;
-            
+        }
             
         default:
             break;
@@ -5292,28 +5440,47 @@ newStr{
             break;
         }
         case 15:
-            NSLog(@"mirror");
+        {
+            NSLog(@"Mirror");
+            MirrorField *utf = (MirrorField *)[formCanvas viewWithTag:eleTag];
+            [utf setText:@""];
             break;
+        }
         case 17:
         {
             LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
             [utf reset];
-
             break;
         }
         case 18:
+        {
             NSLog(@"codes");
+            EpiInfoCodesField *utf = (EpiInfoCodesField *)[formCanvas viewWithTag:eleTag];
+            [utf reset];
             break;
+        }
         case 19:
+        {
             NSLog(@"legalcomment");
+            LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
+            [utf reset];
             break;
+        }
         case 14:
+        {
             NSLog(@"image");
+            UIImageView *utf = (UIImageView *)[formCanvas viewWithTag:eleTag];
+            [utf setImage:@""];
             break;
+        }
         case 25:
+        {
             NSLog(@"unique");
+            EpiInfoUniqueIDField *utf = (EpiInfoUniqueIDField *)[formCanvas viewWithTag:eleTag];
+            [utf setText:@""];
             break;
-        default:
+        }
+            default:
             break;
     }
     
@@ -5403,27 +5570,46 @@ newStr{
             break;
         }
         case 15:
-            NSLog(@"mirror");
+        {
+            NSLog(@"Mirror");
+            MirrorField *utf = (MirrorField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:YES];
             break;
+        }
         case 17:
         {
             LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
             [utf setHidden:YES];
-            
             break;
         }
         case 18:
+        {
             NSLog(@"codes");
+            EpiInfoCodesField *utf = (EpiInfoCodesField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:YES];
             break;
+        }
         case 19:
+        {
             NSLog(@"legalcomment");
+            LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:YES];
             break;
+        }
         case 14:
+        {
             NSLog(@"image");
+            UIImageView *utf = (UIImageView *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:YES];
             break;
+        }
         case 25:
+        {
             NSLog(@"unique");
+            EpiInfoUniqueIDField *utf = (EpiInfoUniqueIDField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:YES];
             break;
+        }
         default:
             break;
     }
@@ -5513,27 +5699,46 @@ newStr{
             break;
         }
         case 15:
-            NSLog(@"mirror");
+        {
+            NSLog(@"Mirror");
+            MirrorField *utf = (MirrorField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:NO];
             break;
+        }
         case 17:
         {
             LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
             [utf setHidden:NO];
-            
             break;
         }
         case 18:
+        {
             NSLog(@"codes");
+            EpiInfoCodesField *utf = (EpiInfoCodesField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:NO];
             break;
+        }
         case 19:
+        {
             NSLog(@"legalcomment");
+            LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:NO];
             break;
+        }
         case 14:
+        {
             NSLog(@"image");
+            UIImageView *utf = (UIImageView *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:NO];
             break;
+        }
         case 25:
+        {
             NSLog(@"unique");
+            EpiInfoUniqueIDField *utf = (EpiInfoUniqueIDField *)[formCanvas viewWithTag:eleTag];
+            [utf setHidden:NO];
             break;
+        }
         default:
             break;
     }
