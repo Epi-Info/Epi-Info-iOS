@@ -1662,6 +1662,7 @@
 - (void)clearButtonPressed
 {
     // New code for separating pages
+    UIView *selfsuperview = [self superview];
     guidBeingUpdated = nil;
     recordUIDForUpdate = nil;
     newRecordGUID = CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL)));
@@ -1676,7 +1677,7 @@
         [tempedv setRecordUIDForUpdate:nil];
         if ([(NSString *)key isEqualToString:@"Page1"])
         {
-            [[self superview] addSubview:tempedv];
+            [selfsuperview addSubview:tempedv];
         }
         else if (!populateInstructionCameFromLineList)
         {
