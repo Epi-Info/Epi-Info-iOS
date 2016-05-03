@@ -291,19 +291,6 @@
     
     return self;
 }
--(void)viewDidLoad
-{
-    elementsArray = [[NSMutableArray alloc]init];
-    conditionsArray = [[NSMutableArray alloc]init];
-    dialogArray = [[NSMutableArray alloc]init];
-    
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    NSLog(@"appear");
-    
-}
 
 - (void)getMyLocation
 {
@@ -3749,10 +3736,6 @@
 
 #pragma mark Checkcode
 
--(void)getCheckCodeValues:(NSString *)eleName from:(NSString *)fromVal befAf:(NSString *)befAfVal ty:(int)type
-{
-    
-}
 -(void)copyToArray:(NSMutableArray *)eleArray
 {
     if (elementsArray.count<1) {
@@ -3789,14 +3772,18 @@
         }
 
         NSString *eleSp= [self removeSp:epc.stringValue];
-        eleSp=[[eleSp stringByReplacingOccurrencesOfString:@"DIALOG" withString:@"dialog"]stringByReplacingOccurrencesOfString:@"Dialog" withString:@"dialog"];
+        NSString *first = [[eleSp componentsSeparatedByString:@" "]objectAtIndex:0];
+        
+        if([first caseInsensitiveCompare:@"dialog"]==NSOrderedSame)
+        {
+        eleSp=[[[eleSp stringByReplacingOccurrencesOfString:@"DIALOG" withString:@"dialogTe"]stringByReplacingOccurrencesOfString:@"Dialog" withString:@"dialogTe"]stringByReplacingOccurrencesOfString:@"Dialog" withString:@"dialogTe"];
         eleSp=[[[eleSp stringByReplacingOccurrencesOfString:@"TITLETEXT" withString:@"titletext"]stringByReplacingOccurrencesOfString:@"Titletext" withString:@"titletext"]stringByReplacingOccurrencesOfString:@"TitleText" withString:@"titletext"];
         
-
-        if([eleSp containsString:@"dialog"])
+        }
+        if([eleSp containsString:@"dialogTe"])
 
         {
-            NSArray* dialogArraySingle = [eleSp componentsSeparatedByString: @"dialog"];
+            NSArray* dialogArraySingle = [eleSp componentsSeparatedByString: @"dialogTe"];
             for (int i=0; i<dialogArraySingle.count; i++) {
                 
                 NSString *item = [dialogArraySingle objectAtIndex:i];

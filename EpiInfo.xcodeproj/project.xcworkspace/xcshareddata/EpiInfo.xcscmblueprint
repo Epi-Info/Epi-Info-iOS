@@ -1,16 +1,31 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++75F18F5",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
-    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234" : {
+    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++CF0E219" : {
+
+    },
+    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++1CE89C3" : {
+
+    },
+    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++6D8ED15" : {
+
+    },
+    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++75F18F5" : {
 
     }
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234" : 0
+    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++CF0E219" : 0,
+    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++1CE89C3" : 0,
+    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++6D8ED15" : 0,
+    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++75F18F5" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "5C2D3E35-0AA4-4220-8998-45DD6DA8850A",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234" : "EpiInfo"
+    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++CF0E219" : "EpiInfo",
+    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++1CE89C3" : "Epi-Info-iOS\/",
+    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++6D8ED15" : "EpiInfo",
+    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++75F18F5" : "Epi-Info-iOS\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "EpiInfo",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -19,7 +34,22 @@
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/epiinfoios.svn.codeplex.com\/svn",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++1CE89C3"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/epiinfoios.svn.codeplex.com\/svn",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++6D8ED15"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Epi-Info\/Epi-Info-iOS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++75F18F5"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Epi-Info\/Epi-Info-iOS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++CF0E219"
     }
   ]
 }
