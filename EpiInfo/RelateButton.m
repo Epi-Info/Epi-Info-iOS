@@ -148,10 +148,13 @@
         [formNavigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         [formNavigationBar setShadowImage:[UIImage new]];
         [formNavigationBar setTranslucent:YES];
-        UINavigationItem *formNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
-        UIBarButtonItem *closeFormBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(confirmDismissal)];
+        formNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
+        closeFormBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(confirmDismissal)];
         [closeFormBarButtonItem setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [formNavigationItem setRightBarButtonItem:closeFormBarButtonItem];
+        deleteRecordBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(footerBarDelete)];
+        [deleteRecordBarButtonItem setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [deleteRecordBarButtonItem setImageInsets:UIEdgeInsetsMake(0, 20, 0, -20)];
         UIBarButtonItem *packageDataBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(confirmUploadAllRecords)];
         [packageDataBarButtonItem setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [packageDataBarButtonItem setImageInsets:UIEdgeInsetsMake(0, -8, 0, 0)];
@@ -161,6 +164,9 @@
         [formNavigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:packageDataBarButtonItem, recordLookupBarButtonItem, nil]];
         [formNavigationBar setItems:[NSArray arrayWithObject:formNavigationItem]];
         [orangeBanner addSubview:formNavigationBar];
+        [[(DataEntryViewController *)self.rootViewController formNavigationItems] addObject:formNavigationItem];
+        [[(DataEntryViewController *)self.rootViewController closeFormBarButtonItems] addObject:closeFormBarButtonItem];
+        [[(DataEntryViewController *)self.rootViewController deleteRecordBarButtonItems] addObject:deleteRecordBarButtonItem];
         
         UIButton *uploadButton = [[UIButton alloc] initWithFrame:CGRectMake(2, 2, 30, 30)];
         [uploadButton setBackgroundColor:[UIColor clearColor]];
@@ -189,6 +195,15 @@
             [edv setFrame:CGRectMake(0, 0, parentEDV.frame.size.width, parentEDV.frame.size.height)];
             [orangeBanner setFrame:[orangeBannerBackground frame]];
         } completion:^(BOOL finished){
+            for (id v in [rootViewController.view subviews])
+            {
+                if ([v isKindOfClass:[UINavigationBar class]])
+                {
+                    [self.rootViewController.view bringSubviewToFront:v];
+                    [(DataEntryViewController *)rootViewController resetHeaderAndFooterBars];
+                    break;
+                }
+            }
         }];
     }
 }
@@ -285,6 +300,11 @@
         [orangeBanner removeFromSuperview];
         orangeBanner = nil;
         
+        [(DataEntryViewController *)rootViewController childFormDismissed];
+        [[(DataEntryViewController *)rootViewController formNavigationItems] removeLastObject];
+        [[(DataEntryViewController *)rootViewController closeFormBarButtonItems] removeLastObject];
+        [[(DataEntryViewController *)rootViewController deleteRecordBarButtonItems] removeLastObject];
+
         CATransform3D rotate = CATransform3DIdentity;
         rotate.m34 = 1.0 / -2000;
         rotate = CATransform3DRotate(rotate, M_PI * 1.5, 0.0, 1.0, 0.0);
@@ -1057,6 +1077,21 @@
         case 1:
             [self dismissForm];
             break;
+    }
+}
+
+- (void)footerBarDelete
+{
+    for (int i = (int)[self.rootViewController.view subviews].count - 1; i >= 0; i--)
+    {
+        id v = [[self.rootViewController.view subviews] objectAtIndex:i];
+        if ([v isKindOfClass:[EnterDataView class]])
+        {
+            UIButton *button = [[UIButton alloc] init];
+            [button setTag:7];
+            [(EnterDataView *)v confirmSubmitOrClear:button];
+            break;
+        }
     }
 }
 

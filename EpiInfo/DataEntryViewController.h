@@ -34,6 +34,7 @@
     EnterDataView *edv;
     UIView *orangeBanner;
     UIView *orangeBannerBackground;
+    UINavigationBar *footerBar;
     
     UIView *dismissView;
     
@@ -46,10 +47,32 @@
     UIView *dotDecimalSeparatorView;
     UIView *commaDecimalSeparatorView;
     BOOL useDotForDecimal;
+
+    UINavigationItem *formNavigationItem;
+    UINavigationItem *footerBarNavigationItem;
+    UIBarButtonItem *closeFormBarButtonItem;
+    UIBarButtonItem *deleteRecordBarButtonItem;
+    UIBarButtonItem *submitFooterBarButtonItem;
+    UIBarButtonItem *updateFooterBarButtonItem;
+    UIBarButtonItem *deleteHeaderBarButtonItem;
+    
+    NSMutableArray *formNavigationItems;
+    NSMutableArray *closeFormBarButtonItems;
+    NSMutableArray *deleteRecordBarButtonItems;
+    
+    BOOL updatingExistingRecord;
 }
 @property NSMutableDictionary *legalValuesDictionary;
 -(UIButton *)openButton;
 -(void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID;
 -(void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID OnEnterDataView:(UIView *)onEdv;
 -(UIImageView *)backgroundImage;
+-(void)resetHeaderAndFooterBars;
+-(void)setFooterBarToUpdate;
+-(BOOL)alreadyHasFooter;
+-(void)childFormDismissed;
+-(void)setUpdateExistingRecord:(BOOL)uer;
+-(NSMutableArray *)formNavigationItems;
+-(NSMutableArray *)closeFormBarButtonItems;
+-(NSMutableArray *)deleteRecordBarButtonItems;
 @end

@@ -33,6 +33,10 @@
     BOOL useDotForDecimal;
     
     BOOL mailComposerShown;
+    
+    UINavigationItem *formNavigationItem;
+    UIBarButtonItem *closeFormBarButtonItem;
+    UIBarButtonItem *deleteRecordBarButtonItem;
 }
 -(void)setRelatedViewName:(NSString *)rvn;
 -(NSString *)relatedViewName;

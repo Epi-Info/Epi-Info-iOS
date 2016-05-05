@@ -269,7 +269,7 @@
         [submitButton setImage:[UIImage imageNamed:@"SwipeButtonPurple.png"] forState:UIControlStateNormal];
         [submitButton setAccessibilityLabel:@"Swipe left or right to change page."];
     }
-    [self addSubview:submitButton];
+//    [self addSubview:submitButton];
     UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0 - 158.0, contentSizeHeight, 120, 40)];
     [clearButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
     [clearButton.layer setCornerRadius:4.0];
@@ -279,7 +279,7 @@
     [clearButton.layer setCornerRadius:4.0];
     [clearButton addTarget:self action:@selector(confirmSubmitOrClear:) forControlEvents:UIControlEventTouchUpInside];
     [clearButton setTag:9];
-    [self addSubview:clearButton];
+//    [self addSubview:clearButton];
     UIButton *deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0 - 36.0, contentSizeHeight, 72, 40)];
     [deleteButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
     [deleteButton.layer setCornerRadius:4.0];
@@ -290,7 +290,7 @@
     [deleteButton addTarget:self action:@selector(confirmSubmitOrClear:) forControlEvents:UIControlEventTouchUpInside];
     [deleteButton setTag:7];
     [deleteButton setHidden:YES];
-    [self addSubview:deleteButton];
+//    [self addSubview:deleteButton];
     contentSizeHeight += 60.0;
     
     // New code for separating pages
@@ -474,6 +474,10 @@
                     }
                 }
             }
+        }
+        else if ([v isKindOfClass:[UINavigationBar class]])
+        {
+            [self.rootViewController.view bringSubviewToFront:v];
         }
     }
     if (parentEnterDataView)
@@ -1696,8 +1700,11 @@
                     }
                 }
             }
+            else if ([v isKindOfClass:[UINavigationBar class]])
+            {
+                [self.rootViewController.view bringSubviewToFront:v];
+            }
         }
-        
         for (id v in [[tempedv formCanvas] subviews])
         {
             if ([v isKindOfClass:[UITextField class]])
@@ -1734,8 +1741,11 @@
             }
         }
     }
+    [(DataEntryViewController *)self.rootViewController resetHeaderAndFooterBars];
     if (parentEnterDataView)
         [ChildFormFieldAssignments parseForAssignStatements:[self formCheckCodeString] parentForm:(EnterDataView *)parentEnterDataView childForm:self relateButtonName:relateButtonName];
+    else
+        [(DataEntryViewController *)self.rootViewController setUpdateExistingRecord:NO];
 }
 - (void)okButtonPressed
 {
@@ -2615,6 +2625,7 @@
   if (guidBeingUpdated)
     updatevisibleScreenOnly = YES;
   [self clearButtonPressed];
+    [(DataEntryViewController *)self.rootViewController setUpdateExistingRecord:YES];
   if (geocodingCheckbox)
     [geocodingCheckbox reset];
   
@@ -2714,6 +2725,7 @@
               }
           }
       }
+      [(DataEntryViewController *)self.rootViewController setFooterBarToUpdate];
   }
 }
 
