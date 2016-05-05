@@ -75,4 +75,5 @@
 -(NSMutableArray *)formNavigationItems;
 -(NSMutableArray *)closeFormBarButtonItems;
 -(NSMutableArray *)deleteRecordBarButtonItems;
+-(void)setFooterBarNavigationItemTitle:(NSString *)footerBarNavigationItemTitle;
 @end

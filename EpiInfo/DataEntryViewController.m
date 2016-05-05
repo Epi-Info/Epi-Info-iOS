@@ -784,6 +784,8 @@
             [footerBar setItems:[NSArray arrayWithObject:footerBarNavigationItem]];
             [self.view addSubview:footerBar];
             
+            [footerBarNavigationItem setTitle:@"Swipe to turn page."];
+            
             UIButton *uploadButton = [[UIButton alloc] initWithFrame:CGRectMake(2, 2, 30, 30)];
             [uploadButton setBackgroundColor:[UIColor clearColor]];
             [uploadButton setImage:[UIImage imageNamed:@"UploadButton.png"] forState:UIControlStateNormal];
@@ -2507,6 +2509,10 @@
         return YES;
     else
         return NO;
+}
+- (void)setFooterBarNavigationItemTitle:(NSString *)footerBarNavigationItemTitle
+{
+    footerBarNavigationItem.title = footerBarNavigationItemTitle;
 }
 
 - (void)didReceiveMemoryWarning
