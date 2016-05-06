@@ -180,6 +180,7 @@
       
 //      NSThread *guidThread = [[NSThread alloc] initWithTarget:self selector:@selector(logTheGUIDS) object:nil];
 //      [guidThread start];
+      [self setBounces:NO];
   }
   return self;
 }
