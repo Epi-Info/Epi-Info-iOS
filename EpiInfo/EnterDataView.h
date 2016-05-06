@@ -149,4 +149,6 @@
 -(NSNumber *)pageBeingDisplayed;
 
 - (NSString *)createTableStatement;
+
+-(void)confirmSubmitOrClear:(UIButton *)sender;
 @end

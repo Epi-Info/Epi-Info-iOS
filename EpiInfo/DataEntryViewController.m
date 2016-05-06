@@ -29,6 +29,24 @@
 //@synthesize epiinfoService = _epiinfoService;
 @synthesize legalValuesDictionary = _legalValuesDictionary;
 
+- (NSMutableArray *)formNavigationItems
+{
+    return formNavigationItems;
+}
+- (NSMutableArray *)closeFormBarButtonItems
+{
+    return closeFormBarButtonItems;
+}
+- (NSMutableArray *)deleteRecordBarButtonItems
+{
+    return deleteRecordBarButtonItems;
+}
+
+- (void)setUpdateExistingRecord:(BOOL)uer
+{
+    updatingExistingRecord = uer;
+}
+
 - (UIButton *)openButton
 {
     return openButton;
@@ -47,7 +65,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
+    updatingExistingRecord = NO;
     [self setTitle:@"Epi Info Data Entry"];
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -661,6 +679,7 @@
     if (lv.selectedIndex.intValue == 0)
         return;
     float viewWidth = self.view.frame.size.width;
+    float viewHeight = self.view.frame.size.height;
     [[UIDevice currentDevice] playInputClick];
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         CATransform3D rotate = CATransform3DIdentity;
@@ -726,10 +745,13 @@
             [formNavigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
             [formNavigationBar setShadowImage:[UIImage new]];
             [formNavigationBar setTranslucent:YES];
-            UINavigationItem *formNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
-            UIBarButtonItem *closeFormBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(confirmDismissal)];
+            formNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
+            closeFormBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(confirmDismissal)];
             [closeFormBarButtonItem setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
             [formNavigationItem setRightBarButtonItem:closeFormBarButtonItem];
+            deleteRecordBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(footerBarDelete)];
+            [deleteRecordBarButtonItem setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [deleteRecordBarButtonItem setImageInsets:UIEdgeInsetsMake(0, 20, 0, -20)];
             UIBarButtonItem *packageDataBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(confirmUploadAllRecords)];
             [packageDataBarButtonItem setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
             [packageDataBarButtonItem setImageInsets:UIEdgeInsetsMake(0, -8, 0, 0)];
@@ -739,6 +761,30 @@
             [formNavigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:packageDataBarButtonItem, recordLookupBarButtonItem, nil]];
             [formNavigationBar setItems:[NSArray arrayWithObject:formNavigationItem]];
             [orangeBanner addSubview:formNavigationBar];
+            formNavigationItems = [[NSMutableArray alloc] init];
+            closeFormBarButtonItems = [[NSMutableArray alloc] init];
+            deleteRecordBarButtonItems = [[NSMutableArray alloc] init];
+            [formNavigationItems addObject:formNavigationItem];
+            [closeFormBarButtonItems addObject:closeFormBarButtonItem];
+            [deleteRecordBarButtonItems addObject:deleteRecordBarButtonItem];
+            
+            footerBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, viewHeight - 32.0, viewWidth, 32)];
+//            [footerBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+//            [footerBar setShadowImage:[UIImage new]];
+//            [footerBar setTranslucent:YES];
+            footerBarNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
+            submitFooterBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Submit" style:UIBarButtonItemStylePlain target:self action:@selector(footerBarSubmit)];
+            [submitFooterBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0] forKey:NSForegroundColorAttributeName] forState:UIControlStateNormal];
+            updateFooterBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Update" style:UIBarButtonItemStylePlain target:self action:@selector(footerBarUpdate)];
+            [updateFooterBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0] forKey:NSForegroundColorAttributeName] forState:UIControlStateNormal];
+            UIBarButtonItem *clearFooterBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(footerBarClear)];
+            [clearFooterBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0] forKey:NSForegroundColorAttributeName] forState:UIControlStateNormal];
+            [footerBarNavigationItem setRightBarButtonItem:submitFooterBarButtonItem];
+            [footerBarNavigationItem setLeftBarButtonItem:clearFooterBarButtonItem];
+            [footerBar setItems:[NSArray arrayWithObject:footerBarNavigationItem]];
+            [self.view addSubview:footerBar];
+            
+            [footerBarNavigationItem setTitle:@"Swipe to turn page."];
             
             UIButton *uploadButton = [[UIButton alloc] initWithFrame:CGRectMake(2, 2, 30, 30)];
             [uploadButton setBackgroundColor:[UIColor clearColor]];
@@ -2330,6 +2376,8 @@
         edv = nil;
         [orangeBannerBackground removeFromSuperview];
         [orangeBanner removeFromSuperview];
+        [footerBar removeFromSuperview];
+        footerBar = nil;
         orangeBanner = nil;
         
         for (UIView *v in [self.view subviews])
@@ -2371,6 +2419,8 @@
     [edv setPopulateInstructionCameFromLineList:YES];
     [edv populateFieldsWithRecord:tableNameAndGUID];
     [edv setPopulateInstructionCameFromLineList:NO];
+    [footerBarNavigationItem setRightBarButtonItem:updateFooterBarButtonItem];
+    updatingExistingRecord = YES;
 }
 
 - (void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID OnEnterDataView:(UIView *)onEdv
@@ -2379,6 +2429,90 @@
     [(EnterDataView *)onEdv setPopulateInstructionCameFromLineList:YES];
     [(EnterDataView *)onEdv populateFieldsWithRecord:tableNameAndGUID];
     [(EnterDataView *)onEdv setPopulateInstructionCameFromLineList:NO];
+}
+
+- (void)footerBarClear
+{
+    for (int i = (int)[self.view subviews].count - 1; i >= 0; i--)
+    {
+        id v = [[self.view subviews] objectAtIndex:i];
+        if ([v isKindOfClass:[EnterDataView class]])
+        {
+            UIButton *button = [[UIButton alloc] init];
+            [button setTag:9];
+            [(EnterDataView *)v confirmSubmitOrClear:button];
+            break;
+        }
+    }
+}
+- (void)footerBarSubmit
+{
+    for (int i = (int)[self.view subviews].count - 1; i >= 0; i--)
+    {
+        id v = [[self.view subviews] objectAtIndex:i];
+        if ([v isKindOfClass:[EnterDataView class]])
+        {
+            UIButton *button = [[UIButton alloc] init];
+            [(EnterDataView *)v confirmSubmitOrClear:button];
+            break;
+        }
+    }
+}
+- (void)footerBarUpdate
+{
+    for (int i = (int)[self.view subviews].count - 1; i >= 0; i--)
+    {
+        id v = [[self.view subviews] objectAtIndex:i];
+        if ([v isKindOfClass:[EnterDataView class]])
+        {
+            UIButton *button = [[UIButton alloc] init];
+            [button setTag:8];
+            [(EnterDataView *)v confirmSubmitOrClear:button];
+            break;
+        }
+    }
+}
+- (void)footerBarDelete
+{
+    for (int i = (int)[self.view subviews].count - 1; i >= 0; i--)
+    {
+        id v = [[self.view subviews] objectAtIndex:i];
+        if ([v isKindOfClass:[EnterDataView class]])
+        {
+            UIButton *button = [[UIButton alloc] init];
+            [button setTag:7];
+            [(EnterDataView *)v confirmSubmitOrClear:button];
+            break;
+        }
+    }
+}
+- (void)resetHeaderAndFooterBars
+{
+    [(UINavigationItem *)[formNavigationItems lastObject] setRightBarButtonItems:@[[closeFormBarButtonItems lastObject]]];
+    [footerBarNavigationItem setRightBarButtonItem:submitFooterBarButtonItem];
+}
+- (void)setFooterBarToUpdate
+{
+    [(UINavigationItem *)[formNavigationItems lastObject] setRightBarButtonItems:@[[closeFormBarButtonItems lastObject], [deleteRecordBarButtonItems lastObject]]];
+    [footerBarNavigationItem setRightBarButtonItem:updateFooterBarButtonItem];
+}
+- (void)childFormDismissed
+{
+    if (updatingExistingRecord)
+        [self setFooterBarToUpdate];
+    else
+        [self resetHeaderAndFooterBars];
+}
+-(BOOL)alreadyHasFooter
+{
+    if (footerBar)
+        return YES;
+    else
+        return NO;
+}
+- (void)setFooterBarNavigationItemTitle:(NSString *)footerBarNavigationItemTitle
+{
+    footerBarNavigationItem.title = footerBarNavigationItemTitle;
 }
 
 - (void)didReceiveMemoryWarning
