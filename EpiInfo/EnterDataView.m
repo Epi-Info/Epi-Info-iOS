@@ -345,7 +345,7 @@
       [formCanvas setFrame:CGRectMake(0, 0, frame.size.width, contentSizeHeight)];
       
       if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        contentSizeHeight += 280.0;
+        contentSizeHeight += 240.0;
       
       [self setContentSize:CGSizeMake(frame.size.width, contentSizeHeight)];
     }
