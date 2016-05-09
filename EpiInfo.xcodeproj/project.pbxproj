@@ -116,6 +116,11 @@
 		92130CF51CE0F69B001040D6 /* AnalysisButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130CF31CE0F69B001040D6 /* AnalysisButton.png */; };
 		92130CF81CE0F6E7001040D6 /* CalculatorButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130CF61CE0F6E7001040D6 /* CalculatorButtonNR.png */; };
 		92130CF91CE0F6E7001040D6 /* CalculatorButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130CF71CE0F6E7001040D6 /* CalculatorButton.png */; };
+		92130CFC1CE0FB62001040D6 /* epi_info_logo_full.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130CFA1CE0FB62001040D6 /* epi_info_logo_full.png */; };
+		92130CFD1CE0FB62001040D6 /* epi_info_logo_full_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130CFB1CE0FB62001040D6 /* epi_info_logo_full_6+.png */; };
+		92130D011CE11687001040D6 /* iPhone5BackgroundWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D001CE11687001040D6 /* iPhone5BackgroundWhite.png */; };
+		92130D081CE12496001040D6 /* ManageButtonWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D061CE12496001040D6 /* ManageButtonWhite.png */; };
+		92130D091CE12496001040D6 /* OpenButtonWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D071CE12496001040D6 /* OpenButtonWhite.png */; };
 		9218EA5B1869D37500A4E2D9 /* ClickingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9218EA5A1869D37500A4E2D9 /* ClickingView.m */; };
 		9218EA611869E83800A4E2D9 /* iPhoneDataEntryBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 9218EA601869E83800A4E2D9 /* iPhoneDataEntryBackground.png */; };
 		921ED31E1C7F7043004C6091 /* RelateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 921ED31D1C7F7043004C6091 /* RelateButton.m */; };
@@ -472,6 +477,11 @@
 		92130CF31CE0F69B001040D6 /* AnalysisButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AnalysisButton.png; sourceTree = "<group>"; };
 		92130CF61CE0F6E7001040D6 /* CalculatorButtonNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CalculatorButtonNR.png; sourceTree = "<group>"; };
 		92130CF71CE0F6E7001040D6 /* CalculatorButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CalculatorButton.png; sourceTree = "<group>"; };
+		92130CFA1CE0FB62001040D6 /* epi_info_logo_full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = epi_info_logo_full.png; sourceTree = "<group>"; };
+		92130CFB1CE0FB62001040D6 /* epi_info_logo_full_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "epi_info_logo_full_6+.png"; sourceTree = "<group>"; };
+		92130D001CE11687001040D6 /* iPhone5BackgroundWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone5BackgroundWhite.png; sourceTree = "<group>"; };
+		92130D061CE12496001040D6 /* ManageButtonWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ManageButtonWhite.png; sourceTree = "<group>"; };
+		92130D071CE12496001040D6 /* OpenButtonWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OpenButtonWhite.png; sourceTree = "<group>"; };
 		9218EA591869D37500A4E2D9 /* ClickingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClickingView.h; sourceTree = "<group>"; };
 		9218EA5A1869D37500A4E2D9 /* ClickingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClickingView.m; sourceTree = "<group>"; };
 		9218EA601869E83800A4E2D9 /* iPhoneDataEntryBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneDataEntryBackground.png; sourceTree = "<group>"; };
@@ -882,6 +892,8 @@
 				9222279F19BA14E0002CD855 /* Icon Images */,
 				925C894B19535A8900F3DCE7 /* Growth Data */,
 				92D4BB60184F77BD00B2D70C /* Button Images */,
+				92130CFA1CE0FB62001040D6 /* epi_info_logo_full.png */,
+				92130CFB1CE0FB62001040D6 /* epi_info_logo_full_6+.png */,
 				92130CEE1CE0F5EE001040D6 /* FormsButtonNR.png */,
 				92130CEF1CE0F5EE001040D6 /* FormsButton.png */,
 				92130CF21CE0F69B001040D6 /* AnalysisButtonNR.png */,
@@ -934,6 +946,7 @@
 				926DFB4618328A1B00FACCD2 /* iPhone4Background.png */,
 				926DFB4718328A1B00FACCD2 /* iPhone5Background.png */,
 				9218EA601869E83800A4E2D9 /* iPhoneDataEntryBackground.png */,
+				92130D001CE11687001040D6 /* iPhone5BackgroundWhite.png */,
 				92DA723B1833BD3C0071E659 /* ArrowFull.png */,
 				92DA723C1833BD3C0071E659 /* ArrowLeft.png */,
 				92DA723D1833BD3C0071E659 /* ArrowRight.png */,
@@ -1374,6 +1387,8 @@
 				926CDF3518AEB7480002B544 /* OKButton.png */,
 				9208F82218624D170022C6FB /* OpenButton.png */,
 				9208F824186250070022C6FB /* OpenButtonOrange.png */,
+				92130D061CE12496001040D6 /* ManageButtonWhite.png */,
+				92130D071CE12496001040D6 /* OpenButtonWhite.png */,
 				92BA7F9518C773E400841104 /* PackageAndEmailDataButton.png */,
 				9273F95818C8E08E00815573 /* PackageForiTunesButton.png */,
 				92D43A481992C61700B24712 /* RoundDeleteButton60.png */,
@@ -1483,6 +1498,7 @@
 				922227BA19BA1E20002CD855 /* iPad-Portrait@2x.png in Resources */,
 				92D43A491992C61700B24712 /* RoundDeleteButton60.png in Resources */,
 				9240E958195479D3006345FE /* CentimetersButton.png in Resources */,
+				92130CFD1CE0FB62001040D6 /* epi_info_logo_full_6+.png in Resources */,
 				92AED73F186E09D5004A4DB9 /* XButton.png in Resources */,
 				925A5DAF1858C0E2000C2E9E /* PlainOrangeButton.png in Resources */,
 				92987CB41857B6FB00D250D4 /* CohortBN.png in Resources */,
@@ -1554,6 +1570,7 @@
 				926DFB4918328A1B00FACCD2 /* iPhone5Background.png in Resources */,
 				68D769FC16A9DDF900D831EB /* Unmatch.png in Resources */,
 				68D769FD16A9DDF900D831EB /* CohortB.png in Resources */,
+				92130D011CE11687001040D6 /* iPhone5BackgroundWhite.png in Resources */,
 				925C894919534F8000F3DCE7 /* GrowthButton.png in Resources */,
 				92F520EE1CD3BFAC0058F352 /* icon-87.png in Resources */,
 				92F520EF1CD3BFAC0058F352 /* icon-120.png in Resources */,
@@ -1596,6 +1613,7 @@
 				92A192481C56B33D0095E69F /* Comma.png in Resources */,
 				92867AC5183EAE6000CCC2B5 /* PoissonNR.png in Resources */,
 				92E42B261959DD9C0077EF41 /* hcagewho.csv in Resources */,
+				92130D081CE12496001040D6 /* ManageButtonWhite.png in Resources */,
 				92130CF11CE0F5EE001040D6 /* FormsButton.png in Resources */,
 				68D76A0816A9DDF900D831EB /* BinomialT.png in Resources */,
 				92BA7F9818C773E400841104 /* UploadDataToCloudButton.png in Resources */,
@@ -1645,6 +1663,7 @@
 				68F0E84716E53C5C00ADD7A3 /* MPBOT.png in Resources */,
 				92B258271820376A008D88FC /* CohortCrossSectional.png in Resources */,
 				926F550A1AC5D13200790628 /* SimulateCaseControl.png in Resources */,
+				92130CFC1CE0FB62001040D6 /* epi_info_logo_full.png in Resources */,
 				92130CF81CE0F6E7001040D6 /* CalculatorButtonNR.png in Resources */,
 				6842AA8C16E78F7D00CAF563 /* CDCLogo.jpeg in Resources */,
 				6842AA8E16E7963C00CAF563 /* HHSLogo.jpeg in Resources */,
@@ -1668,6 +1687,7 @@
 				924368EB1919736200E680BF /* LineList6060.png in Resources */,
 				92F520F31CD3C0420058F352 /* icon-167.png in Resources */,
 				4A19B2DD178C473D00F1E4AD /* close.png in Resources */,
+				92130D091CE12496001040D6 /* OpenButtonWhite.png in Resources */,
 				92987CB21857B55D00D250D4 /* UnmatchN.png in Resources */,
 				92E42B2F1959F06B0077EF41 /* hgtagecdc.csv in Resources */,
 				4A19B2DF178C474B00F1E4AD /* gear-button.png in Resources */,
