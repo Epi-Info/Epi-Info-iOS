@@ -725,7 +725,7 @@
             [manageButton setHidden:YES];
 
             orangeBannerBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 36)];
-            [orangeBannerBackground setBackgroundColor:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:1.0]];
+            [orangeBannerBackground setBackgroundColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
             [self.view addSubview:orangeBannerBackground];
             
             NSString *path = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/"] stringByAppendingString:lvSelected.text] stringByAppendingString:@".xml"];
@@ -744,7 +744,7 @@
             [self.view addSubview:edv];
             [self.view bringSubviewToFront:edv];
             
-            [orangeBanner setBackgroundColor:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:0.95]];
+            [orangeBanner setBackgroundColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:0.95]];
             [self.view addSubview:orangeBanner];
             
             UILabel *header = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, viewWidth - 120.0, 34)];
