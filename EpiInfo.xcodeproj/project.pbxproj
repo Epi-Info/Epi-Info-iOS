@@ -118,9 +118,9 @@
 		92130CF91CE0F6E7001040D6 /* CalculatorButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130CF71CE0F6E7001040D6 /* CalculatorButton.png */; };
 		92130CFC1CE0FB62001040D6 /* epi_info_logo_full.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130CFA1CE0FB62001040D6 /* epi_info_logo_full.png */; };
 		92130CFD1CE0FB62001040D6 /* epi_info_logo_full_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130CFB1CE0FB62001040D6 /* epi_info_logo_full_6+.png */; };
-		92130D011CE11687001040D6 /* iPhone5BackgroundWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D001CE11687001040D6 /* iPhone5BackgroundWhite.png */; };
 		92130D081CE12496001040D6 /* ManageButtonWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D061CE12496001040D6 /* ManageButtonWhite.png */; };
 		92130D091CE12496001040D6 /* OpenButtonWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D071CE12496001040D6 /* OpenButtonWhite.png */; };
+		92130D0B1CE24627001040D6 /* iPhone5BackgroundWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D0A1CE24627001040D6 /* iPhone5BackgroundWhite.png */; };
 		9218EA5B1869D37500A4E2D9 /* ClickingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9218EA5A1869D37500A4E2D9 /* ClickingView.m */; };
 		9218EA611869E83800A4E2D9 /* iPhoneDataEntryBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 9218EA601869E83800A4E2D9 /* iPhoneDataEntryBackground.png */; };
 		921ED31E1C7F7043004C6091 /* RelateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 921ED31D1C7F7043004C6091 /* RelateButton.m */; };
@@ -479,9 +479,9 @@
 		92130CF71CE0F6E7001040D6 /* CalculatorButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CalculatorButton.png; sourceTree = "<group>"; };
 		92130CFA1CE0FB62001040D6 /* epi_info_logo_full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = epi_info_logo_full.png; sourceTree = "<group>"; };
 		92130CFB1CE0FB62001040D6 /* epi_info_logo_full_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "epi_info_logo_full_6+.png"; sourceTree = "<group>"; };
-		92130D001CE11687001040D6 /* iPhone5BackgroundWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone5BackgroundWhite.png; sourceTree = "<group>"; };
 		92130D061CE12496001040D6 /* ManageButtonWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ManageButtonWhite.png; sourceTree = "<group>"; };
 		92130D071CE12496001040D6 /* OpenButtonWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OpenButtonWhite.png; sourceTree = "<group>"; };
+		92130D0A1CE24627001040D6 /* iPhone5BackgroundWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone5BackgroundWhite.png; sourceTree = "<group>"; };
 		9218EA591869D37500A4E2D9 /* ClickingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClickingView.h; sourceTree = "<group>"; };
 		9218EA5A1869D37500A4E2D9 /* ClickingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClickingView.m; sourceTree = "<group>"; };
 		9218EA601869E83800A4E2D9 /* iPhoneDataEntryBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneDataEntryBackground.png; sourceTree = "<group>"; };
@@ -946,7 +946,7 @@
 				926DFB4618328A1B00FACCD2 /* iPhone4Background.png */,
 				926DFB4718328A1B00FACCD2 /* iPhone5Background.png */,
 				9218EA601869E83800A4E2D9 /* iPhoneDataEntryBackground.png */,
-				92130D001CE11687001040D6 /* iPhone5BackgroundWhite.png */,
+				92130D0A1CE24627001040D6 /* iPhone5BackgroundWhite.png */,
 				92DA723B1833BD3C0071E659 /* ArrowFull.png */,
 				92DA723C1833BD3C0071E659 /* ArrowLeft.png */,
 				92DA723D1833BD3C0071E659 /* ArrowRight.png */,
@@ -1549,6 +1549,7 @@
 				92130CF41CE0F69B001040D6 /* AnalysisButtonNR.png in Resources */,
 				92DA72401833BD3C0071E659 /* ArrowRight.png in Resources */,
 				92987CA81857A75800D250D4 /* PoissonTopN.png in Resources */,
+				92130D0B1CE24627001040D6 /* iPhone5BackgroundWhite.png in Resources */,
 				92B2582A1820376A008D88FC /* UnmatchedCaseControl.png in Resources */,
 				926DFB3F1832772800FACCD2 /* CohortNR.png in Resources */,
 				68D769F716A9DDF900D831EB /* SC.png in Resources */,
@@ -1570,7 +1571,6 @@
 				926DFB4918328A1B00FACCD2 /* iPhone5Background.png in Resources */,
 				68D769FC16A9DDF900D831EB /* Unmatch.png in Resources */,
 				68D769FD16A9DDF900D831EB /* CohortB.png in Resources */,
-				92130D011CE11687001040D6 /* iPhone5BackgroundWhite.png in Resources */,
 				925C894919534F8000F3DCE7 /* GrowthButton.png in Resources */,
 				92F520EE1CD3BFAC0058F352 /* icon-87.png in Resources */,
 				92F520EF1CD3BFAC0058F352 /* icon-120.png in Resources */,
