@@ -381,7 +381,8 @@
     //        [self addSubview:dismissFormButton];
     
     //        [formCanvas setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"iPhoneDataEntryBackground.png"]]];
-    [formCanvas setBackgroundColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:240/255.0 alpha:1.0]];
+//    [formCanvas setBackgroundColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:240/255.0 alpha:1.0]];
+      [formCanvas setBackgroundColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0]];
   }
   
   return self;
@@ -462,7 +463,7 @@
     }
     for (UIView *v in [self.rootViewController.view subviews])
     {
-        if ([[v backgroundColor] isEqual:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:0.95]])
+        if ([[v backgroundColor] isEqual:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:0.95]])
         {
             [self.rootViewController.view bringSubviewToFront:v];
             for (UIView *l in [v subviews])
@@ -1690,7 +1691,7 @@
         }
         for (UIView *v in [self.rootViewController.view subviews])
         {
-            if ([[v backgroundColor] isEqual:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:0.95]] && v == myOrangeBanner)
+            if ([[v backgroundColor] isEqual:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:0.95]] && v == myOrangeBanner)
             {
                 [self.rootViewController.view bringSubviewToFront:v];
                 for (UIView *l in [v subviews])

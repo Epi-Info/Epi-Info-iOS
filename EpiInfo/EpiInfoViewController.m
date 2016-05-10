@@ -53,7 +53,7 @@
     [self.navigationItem setBackBarButtonItem: backButton];
     
     
-    self.title = @"Epi Info";
+    self.title = @"";
 //    CGRect frame = CGRectMake(0, 0, [self.title sizeWithFont:[UIFont boldSystemFontOfSize:20.0]].width, 44);
     // Deprecation replacement
     CGRect frame = CGRectMake(0, 0, [self.title sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:20.0]}].width, 44);
@@ -63,11 +63,17 @@
     {
 //        [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:50/255.0 green:71/255.0 blue:92/255.0 alpha:1.0]];
 //        [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:45/255.0 green:111/255.0 blue:14/255.0 alpha:1.0]];
-        [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+//        [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
         [self.navigationController.navigationBar setTranslucent:NO];
+        UIImageView *barImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0 - (277.0 / 4.0), 8, 277 / 2.0, 64 / 2.0)];
+        [barImageView setImage:[UIImage imageNamed:@"epi_info_logo_full.png"]];
+        [self.navigationController.navigationBar addSubview:barImageView];
 
         [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-        [self.navigationController.navigationBar setBarStyle:UIStatusBarStyleLightContent];
+        [self.navigationController.navigationBar setBarStyle:UIStatusBarStyleDefault];
+        [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+        [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
 
         if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
             [self setEdgesForExtendedLayout:UIRectEdgeNone];
@@ -256,7 +262,7 @@
         if (self.view.frame.size.height > 500)
         {
             [fadingColorView setFrame:CGRectMake(0, 0, 320, 504)];
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5BackgroundWhite.png"]];
         }
         else
             [fadingColorView setImage:[UIImage imageNamed:@"iPhone4Background.png"]];
@@ -357,9 +363,9 @@
         [label5 setText:@"Simulations"];
         [label5b setText:@"Study"];
         
-        [label1 setTextColor:[UIColor whiteColor]];
-        [label2 setTextColor:[UIColor whiteColor]];
-        [label3 setTextColor:[UIColor whiteColor]];
+        [label1 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [label2 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [label3 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [label4 setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [label4b setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [label5 setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];

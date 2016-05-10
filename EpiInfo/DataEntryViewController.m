@@ -66,7 +66,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     updatingExistingRecord = NO;
-    [self setTitle:@"Epi Info Data Entry"];
+    [self setTitle:@""];
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
@@ -81,7 +81,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
-        [backToMainMenu setTintColor:[UIColor whiteColor]];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [backToMainMenu setTitle:@"Back to previous screen"];
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
@@ -265,7 +265,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
-        [backToMainMenu setTintColor:[UIColor whiteColor]];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [backToMainMenu setTitle:@"Back to previous screen"];
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
 
@@ -276,7 +276,7 @@
         if (self.view.frame.size.height > 500)
         {
             [fadingColorView setFrame:CGRectMake(0, 0, 320, 504)];
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5BackgroundWhite.png"]];
             [fadingColorView setTag:5];
         }
         else
@@ -289,15 +289,23 @@
         if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
         {
             NSLog(@"%@", [paths objectAtIndex:0]);
-            pickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 28)];
-            [pickerLabel setTextColor:[UIColor whiteColor]];
-            [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0]];
+            UILabel *enterDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 12, 280, 28)];
+            [enterDataLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [enterDataLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+            [enterDataLabel setText:@"Epi Info Enter Data"];
+            [enterDataLabel setBackgroundColor:[UIColor clearColor]];
+            [enterDataLabel setTextAlignment:NSTextAlignmentCenter];
+            [self.view addSubview:enterDataLabel];
+            
+            pickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20 + 20, 280, 28)];
+            [pickerLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:20.0]];
             [pickerLabel setText:@"No forms found on this device."];
             [pickerLabel setBackgroundColor:[UIColor clearColor]];
             [self.view addSubview:pickerLabel];
-            UILabel *altPickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 28)];
-            [altPickerLabel setTextColor:[UIColor whiteColor]];
-            [altPickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+            UILabel *altPickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20 + 20, 280, 28)];
+            [altPickerLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [altPickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
             [altPickerLabel setText:@"No forms found on this device."];
             [altPickerLabel setBackgroundColor:[UIColor clearColor]];
             [self.view addSubview:altPickerLabel];
@@ -305,13 +313,13 @@
             
             lvSelected = [[UITextField alloc] init];
             
-            lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, 15, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
+            lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, 15 + 20, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
             
-            openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 182, 120, 40)];
+            openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 182 + 20, 120, 40)];
             [openButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
             [openButton.layer setCornerRadius:4.0];
             [openButton setTitle:@"Open" forState:UIControlStateNormal];
-            [openButton setImage:[UIImage imageNamed:@"OpenButtonOrange.png"] forState:UIControlStateNormal];
+            [openButton setImage:[UIImage imageNamed:@"OpenButtonWhite.png"] forState:UIControlStateNormal];
             [openButton.layer setMasksToBounds:YES];
             [openButton.layer setCornerRadius:4.0];
             [openButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
@@ -320,11 +328,11 @@
             [openButton addTarget:self action:@selector(openButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
             
-            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182, 120, 40)];
+            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182 + 20, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
             [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
-            [manageButton setImage:[UIImage imageNamed:@"ManageButtonOrange.png"] forState:UIControlStateNormal];
+            [manageButton setImage:[UIImage imageNamed:@"ManageButtonWhite.png"] forState:UIControlStateNormal];
             [manageButton.layer setMasksToBounds:YES];
             [manageButton.layer setCornerRadius:4.0];
             [manageButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
@@ -342,15 +350,23 @@
         else if ([[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] error:nil].count == 0)
         {
             NSLog(@"%@", [paths objectAtIndex:0]);
-            pickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 28)];
-            [pickerLabel setTextColor:[UIColor whiteColor]];
-            [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0]];
+            UILabel *enterDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 12, 280, 28)];
+            [enterDataLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [enterDataLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+            [enterDataLabel setText:@"Epi Info Enter Data"];
+            [enterDataLabel setBackgroundColor:[UIColor clearColor]];
+            [enterDataLabel setTextAlignment:NSTextAlignmentCenter];
+            [self.view addSubview:enterDataLabel];
+            
+            pickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20 + 20, 280, 28)];
+            [pickerLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:20.0]];
             [pickerLabel setText:@"No forms found on this device."];
             [pickerLabel setBackgroundColor:[UIColor clearColor]];
             [self.view addSubview:pickerLabel];
-            UILabel *altPickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 28)];
-            [altPickerLabel setTextColor:[UIColor whiteColor]];
-            [altPickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+            UILabel *altPickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20 + 20, 280, 28)];
+            [altPickerLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [altPickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
             [altPickerLabel setText:@"No forms found on this device."];
             [altPickerLabel setBackgroundColor:[UIColor clearColor]];
             [self.view addSubview:altPickerLabel];
@@ -358,13 +374,13 @@
             
             lvSelected = [[UITextField alloc] init];
             
-            lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, 15, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
+            lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, 15 + 20, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
             
-            openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 182, 120, 40)];
+            openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 182 + 20, 120, 40)];
             [openButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
             [openButton.layer setCornerRadius:4.0];
             [openButton setTitle:@"Open" forState:UIControlStateNormal];
-            [openButton setImage:[UIImage imageNamed:@"OpenButtonOrange.png"] forState:UIControlStateNormal];
+            [openButton setImage:[UIImage imageNamed:@"OpenButtonWhite.png"] forState:UIControlStateNormal];
             [openButton.layer setMasksToBounds:YES];
             [openButton.layer setCornerRadius:4.0];
             [openButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
@@ -373,11 +389,11 @@
             [openButton addTarget:self action:@selector(openButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
             
-            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182, 120, 40)];
+            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182 + 20, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
             [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
-            [manageButton setImage:[UIImage imageNamed:@"ManageButtonOrange.png"] forState:UIControlStateNormal];
+            [manageButton setImage:[UIImage imageNamed:@"ManageButtonWhite.png"] forState:UIControlStateNormal];
             [manageButton.layer setMasksToBounds:YES];
             [manageButton.layer setCornerRadius:4.0];
             [manageButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
@@ -406,24 +422,33 @@
                 count++;
                 [pickerFiles addObject:[(NSString *)i substringToIndex:[(NSString *)i length] - 4]];
             }
-            pickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 28)];
-            [pickerLabel setTextColor:[UIColor whiteColor]];
-            [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0]];
-            [pickerLabel setText:@"Choose form:"];
+            UILabel *enterDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 12, 280, 28)];
+            [enterDataLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [enterDataLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+            [enterDataLabel setText:@"Epi Info Enter Data"];
+            [enterDataLabel setBackgroundColor:[UIColor clearColor]];
+            [enterDataLabel setTextAlignment:NSTextAlignmentCenter];
+            [self.view addSubview:enterDataLabel];
+            
+            pickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20 + 20, 280, 28)];
+            [pickerLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:20.0]];
+            [pickerLabel setText:@"Select a form:"];
             [pickerLabel setBackgroundColor:[UIColor clearColor]];
+            [pickerLabel setTextAlignment:NSTextAlignmentCenter];
             [self.view addSubview:pickerLabel];
             
             lvSelected = [[UITextField alloc] init];
             
-            lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, 15, 300, 180) AndListOfValues:pickerFiles AndTextFieldToUpdate:lvSelected];
+            lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, 15 + 20, 300, 180) AndListOfValues:pickerFiles AndTextFieldToUpdate:lvSelected];
             [lv.picker selectRow:selectedindex inComponent:0 animated:YES];
             [self.view addSubview:lv];
             
-            openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 182, 120, 40)];
+            openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 182 + 20, 120, 40)];
             [openButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
             [openButton.layer setCornerRadius:4.0];
             [openButton setTitle:@"Open" forState:UIControlStateNormal];
-            [openButton setImage:[UIImage imageNamed:@"OpenButtonOrange.png"] forState:UIControlStateNormal];
+            [openButton setImage:[UIImage imageNamed:@"OpenButtonWhite.png"] forState:UIControlStateNormal];
             [openButton.layer setMasksToBounds:YES];
             [openButton.layer setCornerRadius:4.0];
             [openButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
@@ -432,11 +457,11 @@
             [openButton addTarget:self action:@selector(openButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
             
-            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182, 120, 40)];
+            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182 + 20, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
             [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
-            [manageButton setImage:[UIImage imageNamed:@"ManageButtonOrange.png"] forState:UIControlStateNormal];
+            [manageButton setImage:[UIImage imageNamed:@"ManageButtonWhite.png"] forState:UIControlStateNormal];
             [manageButton.layer setMasksToBounds:YES];
             [manageButton.layer setCornerRadius:4.0];
             [manageButton.layer setBorderColor:[[UIColor blackColor] CGColor]];
@@ -700,7 +725,7 @@
             [manageButton setHidden:YES];
 
             orangeBannerBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 36)];
-            [orangeBannerBackground setBackgroundColor:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:1.0]];
+            [orangeBannerBackground setBackgroundColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
             [self.view addSubview:orangeBannerBackground];
             
             NSString *path = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/"] stringByAppendingString:lvSelected.text] stringByAppendingString:@".xml"];
@@ -719,7 +744,7 @@
             [self.view addSubview:edv];
             [self.view bringSubviewToFront:edv];
             
-            [orangeBanner setBackgroundColor:[UIColor colorWithRed:221/255.0 green:85/225.0 blue:12/225.0 alpha:0.95]];
+            [orangeBanner setBackgroundColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:0.95]];
             [self.view addSubview:orangeBanner];
             
             UILabel *header = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, viewWidth - 120.0, 34)];

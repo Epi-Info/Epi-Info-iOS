@@ -46,6 +46,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [self setTitle:@""];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         [self.epiInfoScrollView setFrame:CGRectMake(0, 0, 768, 1024)];
@@ -61,7 +62,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
-        [backToMainMenu setTintColor:[UIColor whiteColor]];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [backToMainMenu setTitle:@"Back to previous screen"];
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
@@ -252,7 +253,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
-        [backToMainMenu setTintColor:[UIColor whiteColor]];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [backToMainMenu setTitle:@"Back to previous screen"];
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
@@ -507,7 +508,7 @@
                 [setDataSource setFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
                 [dataSourceLabel setFrame:CGRectMake(setDataSource.frame.size.width / 2.0, 0, setDataSource.frame.size.width / 2.0, 50)];
                 [dataSourceBorder setFrame:CGRectMake(0, 49, setDataSource.frame.size.width, 1)];
-                [analyzeDataLabel setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 100)];
+//                [analyzeDataLabel setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 100)];
                 [filterButton setFrame:CGRectMake(self.view.frame.size.width, 100, 50, self.view.frame.size.height - 200)];
                 [newVariablesButton setFrame:CGRectMake(-50, 100, 50, self.view.frame.size.height - 200)];
                 //newVariableButton starts out invisible until view is in place

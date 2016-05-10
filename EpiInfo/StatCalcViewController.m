@@ -57,7 +57,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
-        [backToMainMenu setTintColor:[UIColor whiteColor]];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [backToMainMenu setTitle:@"Back to previous screen"];
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
@@ -84,7 +84,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
-        [backToMainMenu setTintColor:[UIColor whiteColor]];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [backToMainMenu setTitle:@"Back to previous screen"];
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
@@ -536,7 +536,7 @@
     {
         fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height - self.navigationController.navigationBar.frame.size.height - [[UIApplication sharedApplication] statusBarFrame].size.height)];
         if (self.view.frame.size.height > 500)
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5BackgroundWhite.png"]];
         else
             [fadingColorView setImage:[UIImage imageNamed:@"iPhone4Background.png"]];
         [self.view addSubview:fadingColorView];
@@ -795,23 +795,23 @@
             [label10 setText:@"Growth"];
             [label10b setText:@"Percentiles"];
             
-            [label1 setTextColor:[UIColor whiteColor]];
-            [label2 setTextColor:[UIColor whiteColor]];
-            [label2b setTextColor:[UIColor whiteColor]];
-            [label3 setTextColor:[UIColor whiteColor]];
-            [label3b setTextColor:[UIColor whiteColor]];
-            [label4 setTextColor:[UIColor whiteColor]];
-            [label4b setTextColor:[UIColor whiteColor]];
-            [label5 setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [label6 setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [label7 setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [label7b setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [label8 setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [label8b setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [label9 setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [label9b setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [label10 setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [label10b setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [label1 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label2 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label2b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label3 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label3b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label4 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label4b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label5 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label6 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label7 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label7b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label8 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label8b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label9 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label9b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label10 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label10b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
             
             [label1 setTextAlignment:NSTextAlignmentCenter];
             [label2 setTextAlignment:NSTextAlignmentCenter];
@@ -868,7 +868,7 @@
             [v10 addSubview:label10b];
             
             [blurryView setFrame:CGRectMake(0, v6.frame.origin.y + v6.frame.size.height, unblurryView.frame.size.width, 2)];
-            [blurryView setBlurTintColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:0.6]];
+            [blurryView setBlurTintColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:0.6]];
             [blurryView.layer setCornerRadius:0.9];
             [unblurryView addSubview:blurryView];
             [unblurryView bringSubviewToFront:blurryView];
@@ -876,19 +876,22 @@
             UILabel *sampSizePow = [[UILabel alloc] initWithFrame:CGRectMake(0, blurryView.frame.origin.y + 8, blurryView.frame.size.width, 24)];
             [sampSizePow setTextAlignment:NSTextAlignmentCenter];
             [sampSizePow setFont:[UIFont boldSystemFontOfSize:16]];
-            [sampSizePow setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [sampSizePow setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
             [sampSizePow setText:@"Sample Size and Power"];
             [unblurryView addSubview:sampSizePow];
             
 //            [blurryView setFrame:CGRectMake(button1Frame.origin.x - 20, button1Frame.origin.y, button1Frame.size.width + 40, v8.frame.origin.y + v8.frame.size.height + sqrtf(800))];
             [unblurryView setFrame:CGRectMake(button1Frame.origin.x - 20, button1Frame.origin.y - 30, button1Frame.size.width + 40, v8.frame.origin.y + v8.frame.size.height + sqrtf(800))];
         }
+        [fadingColorView setFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height)];
+        [self.phoneHeaderLabel setCenter:CGPointMake([self.view frame].size.width / 2.0, 30.0)];
+        [self.phoneHeaderLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
     }
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStyleBordered target: nil action: nil];
     [self.navigationItem setBackBarButtonItem: backButton];
     
-    self.title = @"Epi Info";
+    self.title = @"";
 //    CGRect frame = CGRectMake(0, 0, [self.title sizeWithFont:[UIFont boldSystemFontOfSize:20.0]].width, 44);
     // Deprecation replacement
     CGRect frame = CGRectMake(0, 0, [self.title sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:20.0]}].width, 44);
@@ -997,8 +1000,9 @@
     
     else
     {
+        [self.phoneHeaderLabel setCenter:CGPointMake([self.view frame].size.width / 2.0, 30.0)];
         [UIView animateWithDuration:0.3 animations:^{
-            [self.phoneHeaderLabel setCenter:CGPointMake([self.view frame].size.width / 2.0, 30.0)];
+//            [self.phoneHeaderLabel setCenter:CGPointMake([self.view frame].size.width / 2.0, 30.0)];
         }];
         if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
         {
@@ -1022,7 +1026,7 @@
                 
                 [cdcImageView setFrame:CGRectMake(2, [self.view frame].size.height - 50, (450.0 / 272.0) * 50.0, 50.0)];
                 [hhsImageView setFrame:CGRectMake(-2.0 - (300.0 / 293.0) * 50.0 + [self.view frame].size.width, [self.view frame].size.height - 50, (300.0 / 293.0) * 50.0, 50.0)];
-                [fadingColorView setFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height)];
+//                [fadingColorView setFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height)];
             }];
         }
         else
