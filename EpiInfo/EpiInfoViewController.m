@@ -460,6 +460,29 @@
         [v2 addSubview:l2b];
         [v3 addSubview:l3a];
         [v3 addSubview:l3b];
+        
+        // Clear buttons to go over labels
+        UIButton *clearButton1 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
+        [clearButton1 setBackgroundColor:[UIColor clearColor]];
+        [clearButton1 setTag:1];
+        [clearButton1 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
+        [clearButton1 addTarget:self action:@selector(clearButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
+        [clearButton1 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
+        [v1 addSubview:clearButton1];
+        UIButton *clearButton2 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
+        [clearButton2 setBackgroundColor:[UIColor clearColor]];
+        [clearButton2 setTag:2];
+        [clearButton2 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
+        [clearButton2 addTarget:self action:@selector(clearButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
+        [clearButton2 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
+        [v2 addSubview:clearButton2];
+        UIButton *clearButton3 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
+        [clearButton3 setBackgroundColor:[UIColor clearColor]];
+        [clearButton3 setTag:3];
+        [clearButton3 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
+        [clearButton3 addTarget:self action:@selector(clearButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
+        [clearButton3 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
+        [v3 addSubview:clearButton3];
     }
     // Remove this section when ready to add analysis
 //    [v2 setHidden:YES];
@@ -608,6 +631,67 @@
         {
             [self setImageFileToUseInSegue:@"VHFPad.png"];
         }
+    }
+}
+
+- (void)clearButtonPressed:(UIButton *)sender
+{
+    switch ([sender tag]) {
+        case 1:
+            [self.dataEntryButton setHighlighted:YES];
+            break;
+            
+        case 2:
+            [self.analyzeDataButton setHighlighted:YES];
+            break;
+            
+        case 3:
+            [self.statCalcButton setHighlighted:YES];
+            break;
+            
+        default:
+            break;
+    }
+}
+- (void)clearButtonReleased:(UIButton *)sender
+{
+    switch ([sender tag]) {
+        case 1:
+            [self.dataEntryButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+            [self.dataEntryButton setHighlighted:NO];
+            break;
+            
+        case 2:
+            [self.analyzeDataButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+            [self.analyzeDataButton setHighlighted:NO];
+            break;
+            
+        case 3:
+            [self.statCalcButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+            [self.statCalcButton setHighlighted:NO];
+            break;
+            
+        default:
+            break;
+    }
+}
+- (void)clearButtonDragged:(UIButton *)sender
+{
+    switch ([sender tag]) {
+        case 1:
+            [self.dataEntryButton setHighlighted:NO];
+            break;
+            
+        case 2:
+            [self.analyzeDataButton setHighlighted:NO];
+            break;
+            
+        case 3:
+            [self.statCalcButton setHighlighted:NO];
+            break;
+            
+        default:
+            break;
     }
 }
 
