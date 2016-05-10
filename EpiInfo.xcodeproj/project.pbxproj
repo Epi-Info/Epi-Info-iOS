@@ -94,6 +94,11 @@
 		68F0E84316E5393600ADD7A3 /* PopT.png in Resources */ = {isa = PBXBuildFile; fileRef = 68F0E84216E5393600ADD7A3 /* PopT.png */; };
 		68F0E84516E53BA700ADD7A3 /* PoissonTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 68F0E84416E53BA700ADD7A3 /* PoissonTop.png */; };
 		68F0E84716E53C5C00ADD7A3 /* MPBOT.png in Resources */ = {isa = PBXBuildFile; fileRef = 68F0E84616E53C5C00ADD7A3 /* MPBOT.png */; };
+		84C816841CE22D8D00F408D2 /* CheckCodeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C8167B1CE22D8D00F408D2 /* CheckCodeParser.m */; };
+		84C816851CE22D8D00F408D2 /* ConditionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C8167D1CE22D8D00F408D2 /* ConditionsModel.m */; };
+		84C816861CE22D8D00F408D2 /* DialogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C8167F1CE22D8D00F408D2 /* DialogModel.m */; };
+		84C816871CE22D8D00F408D2 /* ElementPairsCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C816811CE22D8D00F408D2 /* ElementPairsCheck.m */; };
+		84C816881CE22D8D00F408D2 /* ElementsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C816831CE22D8D00F408D2 /* ElementsModel.m */; };
 		92001B97186C8C2E00B87D21 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92001B96186C8C2E00B87D21 /* CoreImage.framework */; };
 		92001B9C186C979E00B87D21 /* NoButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92001B98186C979E00B87D21 /* NoButton.png */; };
 		92001B9D186C979E00B87D21 /* NoButtonOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 92001B99186C979E00B87D21 /* NoButtonOrange.png */; };
@@ -454,6 +459,16 @@
 		68F0E84216E5393600ADD7A3 /* PopT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopT.png; sourceTree = "<group>"; };
 		68F0E84416E53BA700ADD7A3 /* PoissonTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoissonTop.png; sourceTree = "<group>"; };
 		68F0E84616E53C5C00ADD7A3 /* MPBOT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPBOT.png; sourceTree = "<group>"; };
+		84C8167A1CE22D8D00F408D2 /* CheckCodeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckCodeParser.h; sourceTree = "<group>"; };
+		84C8167B1CE22D8D00F408D2 /* CheckCodeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckCodeParser.m; sourceTree = "<group>"; };
+		84C8167C1CE22D8D00F408D2 /* ConditionsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionsModel.h; sourceTree = "<group>"; };
+		84C8167D1CE22D8D00F408D2 /* ConditionsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionsModel.m; sourceTree = "<group>"; };
+		84C8167E1CE22D8D00F408D2 /* DialogModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogModel.h; sourceTree = "<group>"; };
+		84C8167F1CE22D8D00F408D2 /* DialogModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogModel.m; sourceTree = "<group>"; };
+		84C816801CE22D8D00F408D2 /* ElementPairsCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElementPairsCheck.h; sourceTree = "<group>"; };
+		84C816811CE22D8D00F408D2 /* ElementPairsCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElementPairsCheck.m; sourceTree = "<group>"; };
+		84C816821CE22D8D00F408D2 /* ElementsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElementsModel.h; sourceTree = "<group>"; };
+		84C816831CE22D8D00F408D2 /* ElementsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElementsModel.m; sourceTree = "<group>"; };
 		92001B96186C8C2E00B87D21 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		92001B98186C979E00B87D21 /* NoButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoButton.png; sourceTree = "<group>"; };
 		92001B99186C979E00B87D21 /* NoButtonOrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoButtonOrange.png; sourceTree = "<group>"; };
@@ -1179,6 +1194,23 @@
 			name = Analysis;
 			sourceTree = "<group>";
 		};
+		84C816791CE22D7800F408D2 /* CheckCode */ = {
+			isa = PBXGroup;
+			children = (
+				84C8167A1CE22D8D00F408D2 /* CheckCodeParser.h */,
+				84C8167B1CE22D8D00F408D2 /* CheckCodeParser.m */,
+				84C8167C1CE22D8D00F408D2 /* ConditionsModel.h */,
+				84C8167D1CE22D8D00F408D2 /* ConditionsModel.m */,
+				84C8167E1CE22D8D00F408D2 /* DialogModel.h */,
+				84C8167F1CE22D8D00F408D2 /* DialogModel.m */,
+				84C816801CE22D8D00F408D2 /* ElementPairsCheck.h */,
+				84C816811CE22D8D00F408D2 /* ElementPairsCheck.m */,
+				84C816821CE22D8D00F408D2 /* ElementsModel.h */,
+				84C816831CE22D8D00F408D2 /* ElementsModel.m */,
+			);
+			name = CheckCode;
+			sourceTree = "<group>";
+		};
 		921974981880589F007F6DFA /* MSAzure */ = {
 			isa = PBXGroup;
 			children = (
@@ -1286,6 +1318,7 @@
 		9266C5251846571B00739AF2 /* Entry */ = {
 			isa = PBXGroup;
 			children = (
+				84C816791CE22D7800F408D2 /* CheckCode */,
 				92E9801218A538B40011CC8B /* ButtonImages */,
 				9266C526184657E900739AF2 /* DataEntryViewController.h */,
 				9266C527184657E900739AF2 /* DataEntryViewController.m */,
@@ -1456,7 +1489,7 @@
 				ORGANIZATIONNAME = "John Copeland";
 				TargetAttributes = {
 					4AFD8524161F137B00FFBA65 = {
-						DevelopmentTeam = Z827RBGAJC;
+						DevelopmentTeam = PATB5TL5AY;
 						SystemCapabilities = {
 							com.apple.DataProtection = {
 								enabled = 1;
@@ -1715,6 +1748,7 @@
 				9295554A192BC8C5008DEC5C /* DatePicker.m in Sources */,
 				4AFD855E161F17B000FFBA65 /* MatchedPairCalculatorViewController.m in Sources */,
 				9240E96219548243006345FE /* GrowthPercentilesCompute.m in Sources */,
+				84C816871CE22D8D00F408D2 /* ElementPairsCheck.m in Sources */,
 				92921B9619A63E0000AA9477 /* MeansObject.m in Sources */,
 				4AFD8563161F17D900FFBA65 /* MatchedPairCompute.m in Sources */,
 				9291F43E1AA779C60041DE6E /* SimulationsViewControllerSwift.swift in Sources */,
@@ -1723,6 +1757,7 @@
 				4AFD8564161F17D900FFBA65 /* Twox2Compute.m in Sources */,
 				4AFD8567161F413B00FFBA65 /* SharedResources.m in Sources */,
 				92E1A83C18730974003E58A5 /* EpiInfoTextView.m in Sources */,
+				84C816841CE22D8D00F408D2 /* CheckCodeParser.m in Sources */,
 				922920851AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift in Sources */,
 				926F55041AC5CDF200790628 /* CaseControlSimulationModel.swift in Sources */,
 				928FCEF219E5692000641A95 /* VHFViewController.m in Sources */,
@@ -1762,6 +1797,7 @@
 				92A25C041939005A003225E1 /* MirrorField.m in Sources */,
 				4A916FD11757B74900FFA5A5 /* ButtonRight.m in Sources */,
 				4A916FD41757C0C800FFA5A5 /* ButtonLeft.m in Sources */,
+				84C816851CE22D8D00F408D2 /* ConditionsModel.m in Sources */,
 				4A958652176F6A000017625C /* EpiInfoNavigationController.m in Sources */,
 				68A18C781778945B00E1621F /* AnalysisDataObject.m in Sources */,
 				4A1E42CC177CBCDE00946472 /* FrequencyObject.m in Sources */,
@@ -1775,6 +1811,7 @@
 				92D43A471992A5BD00B24712 /* ConfirmDeleteButton.m in Sources */,
 				926C9D561A7AA8FE004A6ADD /* SimulationsViewController.m in Sources */,
 				9266C54318468CCF00739AF2 /* LegalValues.m in Sources */,
+				84C816881CE22D8D00F408D2 /* ElementsModel.m in Sources */,
 				9266C53A184684B200739AF2 /* PhoneNumberField.m in Sources */,
 				925C895519535B9700F3DCE7 /* GrowthPercentilesViewController.m in Sources */,
 				92AAC01C1C208917005D77F3 /* FeedbackView.m in Sources */,
@@ -1789,6 +1826,7 @@
 				923A263B17B4265D00DCBCD5 /* FilterButton.m in Sources */,
 				926F55061AC5D09900790628 /* CaseControlSimulationView.swift in Sources */,
 				9265FF901CB29B9F003AD6E0 /* SQLTool.m in Sources */,
+				84C816861CE22D8D00F408D2 /* DialogModel.m in Sources */,
 				92524A8C184E50BE003C820B /* SaveFormView.m in Sources */,
 				9266C540184684FD00739AF2 /* UppercaseTextField.m in Sources */,
 				9266C5371846848800739AF2 /* NumberField.m in Sources */,
@@ -1899,7 +1937,7 @@
 					"$(SRCROOT)",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = EpiInfo;
+				PRODUCT_BUNDLE_IDENTIFIER = EpiInfoS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "EpiInfo/EpiInfo-Bridging-Header.h";
@@ -1931,7 +1969,7 @@
 					"$(SRCROOT)",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = EpiInfo;
+				PRODUCT_BUNDLE_IDENTIFIER = EpiInfoS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "EpiInfo/EpiInfo-Bridging-Header.h";
