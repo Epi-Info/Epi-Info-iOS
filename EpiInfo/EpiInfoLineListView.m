@@ -20,7 +20,7 @@
         
         // Add label and tool banner
         UIView *banner = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 36)];
-        [banner setBackgroundColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:0.95]];
+        [banner setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:0.95]];
         [self addSubview:banner];
         
         // Add X-button to banner

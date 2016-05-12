@@ -109,14 +109,14 @@
         [ChildFormFieldAssignments parseForAssignStatements:[(EnterDataView *)edv formCheckCodeString] parentForm:(EnterDataView *)parentEDV childForm:(EnterDataView *)edv relateButtonName:relateButtonName];
 
         orangeBannerBackground = [[UIView alloc] initWithFrame:CGRectMake(0, parentEDV.frame.size.height, parentEDV.frame.size.width, 36)];
-        [orangeBannerBackground setBackgroundColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [orangeBannerBackground setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
         [parentEDV.superview addSubview:orangeBannerBackground];
         
         [parentEDV.superview addSubview:edv];
         [parentEDV.superview bringSubviewToFront:edv];
         
         orangeBanner = [[UIView alloc] initWithFrame:[orangeBannerBackground frame]];
-        [orangeBanner setBackgroundColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:0.95]];
+        [orangeBanner setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:0.95]];
         [parentEDV.superview addSubview:orangeBanner];
         [(EnterDataView *)edv setMyOrangeBanner:orangeBanner];
         
