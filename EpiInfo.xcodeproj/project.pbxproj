@@ -121,6 +121,8 @@
 		92130D081CE12496001040D6 /* ManageButtonWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D061CE12496001040D6 /* ManageButtonWhite.png */; };
 		92130D091CE12496001040D6 /* OpenButtonWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D071CE12496001040D6 /* OpenButtonWhite.png */; };
 		92130D0B1CE24627001040D6 /* iPhone5BackgroundWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D0A1CE24627001040D6 /* iPhone5BackgroundWhite.png */; };
+		92130D0E1CE5112E001040D6 /* iPadBackgroundWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D0C1CE5112E001040D6 /* iPadBackgroundWhite.png */; };
+		92130D0F1CE5112E001040D6 /* iPhone4BackgroundWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D0D1CE5112E001040D6 /* iPhone4BackgroundWhite.png */; };
 		9218EA5B1869D37500A4E2D9 /* ClickingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9218EA5A1869D37500A4E2D9 /* ClickingView.m */; };
 		9218EA611869E83800A4E2D9 /* iPhoneDataEntryBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 9218EA601869E83800A4E2D9 /* iPhoneDataEntryBackground.png */; };
 		921ED31E1C7F7043004C6091 /* RelateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 921ED31D1C7F7043004C6091 /* RelateButton.m */; };
@@ -482,6 +484,8 @@
 		92130D061CE12496001040D6 /* ManageButtonWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ManageButtonWhite.png; sourceTree = "<group>"; };
 		92130D071CE12496001040D6 /* OpenButtonWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OpenButtonWhite.png; sourceTree = "<group>"; };
 		92130D0A1CE24627001040D6 /* iPhone5BackgroundWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone5BackgroundWhite.png; sourceTree = "<group>"; };
+		92130D0C1CE5112E001040D6 /* iPadBackgroundWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPadBackgroundWhite.png; sourceTree = "<group>"; };
+		92130D0D1CE5112E001040D6 /* iPhone4BackgroundWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone4BackgroundWhite.png; sourceTree = "<group>"; };
 		9218EA591869D37500A4E2D9 /* ClickingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClickingView.h; sourceTree = "<group>"; };
 		9218EA5A1869D37500A4E2D9 /* ClickingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClickingView.m; sourceTree = "<group>"; };
 		9218EA601869E83800A4E2D9 /* iPhoneDataEntryBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneDataEntryBackground.png; sourceTree = "<group>"; };
@@ -947,6 +951,8 @@
 				926DFB4718328A1B00FACCD2 /* iPhone5Background.png */,
 				9218EA601869E83800A4E2D9 /* iPhoneDataEntryBackground.png */,
 				92130D0A1CE24627001040D6 /* iPhone5BackgroundWhite.png */,
+				92130D0C1CE5112E001040D6 /* iPadBackgroundWhite.png */,
+				92130D0D1CE5112E001040D6 /* iPhone4BackgroundWhite.png */,
 				92DA723B1833BD3C0071E659 /* ArrowFull.png */,
 				92DA723C1833BD3C0071E659 /* ArrowLeft.png */,
 				92DA723D1833BD3C0071E659 /* ArrowRight.png */,
@@ -1554,6 +1560,7 @@
 				926DFB3F1832772800FACCD2 /* CohortNR.png in Resources */,
 				68D769F716A9DDF900D831EB /* SC.png in Resources */,
 				92987CAB1857AB3C00D250D4 /* BinomialBN.png in Resources */,
+				92130D0E1CE5112E001040D6 /* iPadBackgroundWhite.png in Resources */,
 				92AED741186E0CF9004A4DB9 /* StAndrewXButtonWhite.png in Resources */,
 				9299CE9C18575D0800B12461 /* 2x2TSmall.png in Resources */,
 				9296747C19E5CC3B0040CB9D /* VHF.png in Resources */,
@@ -1599,6 +1606,7 @@
 				92F520F01CD3BFAC0058F352 /* icon-152.png in Resources */,
 				926DFB4818328A1B00FACCD2 /* iPhone4Background.png in Resources */,
 				92130CF51CE0F69B001040D6 /* AnalysisButton.png in Resources */,
+				92130D0F1CE5112E001040D6 /* iPhone4BackgroundWhite.png in Resources */,
 				68D76A0216A9DDF900D831EB /* ChiT.png in Resources */,
 				68D76A0316A9DDF900D831EB /* MatchedPB.png in Resources */,
 				68D76A0416A9DDF900D831EB /* MatchedPT.png in Resources */,
