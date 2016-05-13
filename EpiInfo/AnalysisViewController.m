@@ -476,7 +476,7 @@
                 [setDataSource setFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
                 [dataSourceLabel setFrame:CGRectMake(setDataSource.frame.size.width / 2.0, 0, setDataSource.frame.size.width / 2.0, 50)];
                 [dataSourceBorder setFrame:CGRectMake(0, 49, setDataSource.frame.size.width, 1)];
-                [analyzeDataLabel setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 100)];
+//                [analyzeDataLabel setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 100)];
                 [filterButton setFrame:CGRectMake(self.view.frame.size.width, 100, 50, self.view.frame.size.height - 200)];
                 [newVariablesButton setFrame:CGRectMake(-50, 100, 50, self.view.frame.size.height - 200)];
                 //newVariableButton starts out invisible until view is in place

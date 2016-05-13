@@ -116,14 +116,14 @@
     }
     headerLabel = [[UILabel alloc] initWithFrame:headerFrame];
     headerLabel.backgroundColor = [[UIColor alloc] initWithRed:99/255.0 green:166/255.0 blue:223/255.0 alpha:0.0];
-    [headerLabel setTextColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0]];
+    [headerLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
     [headerLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:56.0]];
     [headerLabel setTextAlignment:NSTextAlignmentCenter];
     [headerLabel setText:@"StatCalc"];
     
     subHeaderLabel = [[UILabel alloc] initWithFrame:subHeaderFrame];
     subHeaderLabel.backgroundColor = [UIColor colorWithRed:99/255.0 green:166/255.0 blue:223/255.0 alpha:0.0];
-    [subHeaderLabel setTextColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0]];
+    [subHeaderLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
     [subHeaderLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:28]];
     [subHeaderLabel setTextAlignment:NSTextAlignmentCenter];
     [subHeaderLabel setText:@"Statistical Calculators from Epi Info"];
@@ -217,7 +217,7 @@
                 fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height)];
             else
                 fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.height, [self.view frame].size.width)];
-            [fadingColorView setImage:[UIImage imageNamed:@"iPadBackground.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPadBackgroundWhite.png"]];
         }
         
         [self.view addSubview:fadingColorView];
@@ -538,7 +538,7 @@
         if (self.view.frame.size.height > 500)
             [fadingColorView setImage:[UIImage imageNamed:@"iPhone5BackgroundWhite.png"]];
         else
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4BackgroundWhite.png"]];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
         [self.view addSubview:cdcImageView];
