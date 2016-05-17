@@ -123,6 +123,10 @@
 		92130D0B1CE24627001040D6 /* iPhone5BackgroundWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D0A1CE24627001040D6 /* iPhone5BackgroundWhite.png */; };
 		92130D0E1CE5112E001040D6 /* iPadBackgroundWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D0C1CE5112E001040D6 /* iPadBackgroundWhite.png */; };
 		92130D0F1CE5112E001040D6 /* iPhone4BackgroundWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D0D1CE5112E001040D6 /* iPhone4BackgroundWhite.png */; };
+		92130D141CEA456F001040D6 /* InchesButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D101CEA456F001040D6 /* InchesButton.png */; };
+		92130D151CEA456F001040D6 /* CentimetersButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D111CEA456F001040D6 /* CentimetersButton.png */; };
+		92130D161CEA456F001040D6 /* PoundsButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D121CEA456F001040D6 /* PoundsButton.png */; };
+		92130D171CEA456F001040D6 /* KilogramsButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D131CEA456F001040D6 /* KilogramsButton.png */; };
 		9218EA5B1869D37500A4E2D9 /* ClickingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9218EA5A1869D37500A4E2D9 /* ClickingView.m */; };
 		9218EA611869E83800A4E2D9 /* iPhoneDataEntryBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 9218EA601869E83800A4E2D9 /* iPhoneDataEntryBackground.png */; };
 		921ED31E1C7F7043004C6091 /* RelateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 921ED31D1C7F7043004C6091 /* RelateButton.m */; };
@@ -147,8 +151,6 @@
 		923A49F917B57624000FFC0C /* NewVariablesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A49F817B57624000FFC0C /* NewVariablesView.m */; };
 		923F2BBD198C045B008A4856 /* ImportCSV.m in Sources */ = {isa = PBXBuildFile; fileRef = 923F2BBC198C045B008A4856 /* ImportCSV.m */; };
 		924004E0182A942600ED0CE8 /* FadeDownS.png in Resources */ = {isa = PBXBuildFile; fileRef = 924004DF182A942600ED0CE8 /* FadeDownS.png */; };
-		9240E958195479D3006345FE /* CentimetersButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 9240E956195479D3006345FE /* CentimetersButton.png */; };
-		9240E959195479D3006345FE /* InchesButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 9240E957195479D3006345FE /* InchesButton.png */; };
 		9240E95B195481A9006345FE /* lenageinf.csv in Resources */ = {isa = PBXBuildFile; fileRef = 9240E95A195481A9006345FE /* lenageinf.csv */; };
 		9240E95E195481DA006345FE /* hcageinf.csv in Resources */ = {isa = PBXBuildFile; fileRef = 9240E95C195481DA006345FE /* hcageinf.csv */; };
 		9240E95F195481DA006345FE /* wtageinf.csv in Resources */ = {isa = PBXBuildFile; fileRef = 9240E95D195481DA006345FE /* wtageinf.csv */; };
@@ -298,8 +300,6 @@
 		92E42B251959DD9C0077EF41 /* wgtagewho07.csv in Resources */ = {isa = PBXBuildFile; fileRef = 92E42B221959DD9C0077EF41 /* wgtagewho07.csv */; };
 		92E42B261959DD9C0077EF41 /* hcagewho.csv in Resources */ = {isa = PBXBuildFile; fileRef = 92E42B231959DD9C0077EF41 /* hcagewho.csv */; };
 		92E42B271959DD9C0077EF41 /* hgtagewho.csv in Resources */ = {isa = PBXBuildFile; fileRef = 92E42B241959DD9C0077EF41 /* hgtagewho.csv */; };
-		92E42B2A1959ED0C0077EF41 /* KilogramsButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E42B281959ED0C0077EF41 /* KilogramsButton.png */; };
-		92E42B2B1959ED0C0077EF41 /* PoundsButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E42B291959ED0C0077EF41 /* PoundsButton.png */; };
 		92E42B2E1959F06B0077EF41 /* wgtagecdc.csv in Resources */ = {isa = PBXBuildFile; fileRef = 92E42B2C1959F06B0077EF41 /* wgtagecdc.csv */; };
 		92E42B2F1959F06B0077EF41 /* hgtagecdc.csv in Resources */ = {isa = PBXBuildFile; fileRef = 92E42B2D1959F06B0077EF41 /* hgtagecdc.csv */; };
 		92E9801618A538C30011CC8B /* MSAzure.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E9801318A538C30011CC8B /* MSAzure.png */; };
@@ -486,6 +486,10 @@
 		92130D0A1CE24627001040D6 /* iPhone5BackgroundWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone5BackgroundWhite.png; sourceTree = "<group>"; };
 		92130D0C1CE5112E001040D6 /* iPadBackgroundWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPadBackgroundWhite.png; sourceTree = "<group>"; };
 		92130D0D1CE5112E001040D6 /* iPhone4BackgroundWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone4BackgroundWhite.png; sourceTree = "<group>"; };
+		92130D101CEA456F001040D6 /* InchesButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InchesButton.png; sourceTree = "<group>"; };
+		92130D111CEA456F001040D6 /* CentimetersButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CentimetersButton.png; sourceTree = "<group>"; };
+		92130D121CEA456F001040D6 /* PoundsButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoundsButton.png; sourceTree = "<group>"; };
+		92130D131CEA456F001040D6 /* KilogramsButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KilogramsButton.png; sourceTree = "<group>"; };
 		9218EA591869D37500A4E2D9 /* ClickingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClickingView.h; sourceTree = "<group>"; };
 		9218EA5A1869D37500A4E2D9 /* ClickingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClickingView.m; sourceTree = "<group>"; };
 		9218EA601869E83800A4E2D9 /* iPhoneDataEntryBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneDataEntryBackground.png; sourceTree = "<group>"; };
@@ -520,8 +524,6 @@
 		923F2BBB198C045B008A4856 /* ImportCSV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportCSV.h; sourceTree = "<group>"; };
 		923F2BBC198C045B008A4856 /* ImportCSV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportCSV.m; sourceTree = "<group>"; };
 		924004DF182A942600ED0CE8 /* FadeDownS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FadeDownS.png; sourceTree = "<group>"; };
-		9240E956195479D3006345FE /* CentimetersButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CentimetersButton.png; sourceTree = "<group>"; };
-		9240E957195479D3006345FE /* InchesButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InchesButton.png; sourceTree = "<group>"; };
 		9240E95A195481A9006345FE /* lenageinf.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lenageinf.csv; sourceTree = "<group>"; };
 		9240E95C195481DA006345FE /* hcageinf.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = hcageinf.csv; sourceTree = "<group>"; };
 		9240E95D195481DA006345FE /* wtageinf.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wtageinf.csv; sourceTree = "<group>"; };
@@ -720,8 +722,6 @@
 		92E42B221959DD9C0077EF41 /* wgtagewho07.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wgtagewho07.csv; sourceTree = "<group>"; };
 		92E42B231959DD9C0077EF41 /* hcagewho.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = hcagewho.csv; sourceTree = "<group>"; };
 		92E42B241959DD9C0077EF41 /* hgtagewho.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = hgtagewho.csv; sourceTree = "<group>"; };
-		92E42B281959ED0C0077EF41 /* KilogramsButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KilogramsButton.png; sourceTree = "<group>"; };
-		92E42B291959ED0C0077EF41 /* PoundsButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoundsButton.png; sourceTree = "<group>"; };
 		92E42B2C1959F06B0077EF41 /* wgtagecdc.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wgtagecdc.csv; sourceTree = "<group>"; };
 		92E42B2D1959F06B0077EF41 /* hgtagecdc.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = hgtagecdc.csv; sourceTree = "<group>"; };
 		92E9801318A538C30011CC8B /* MSAzure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MSAzure.png; sourceTree = "<group>"; };
@@ -1377,10 +1377,10 @@
 			isa = PBXGroup;
 			children = (
 				92D4BB61184F77CC00B2D70C /* CancelButton.png */,
-				9240E956195479D3006345FE /* CentimetersButton.png */,
-				9240E957195479D3006345FE /* InchesButton.png */,
-				92E42B281959ED0C0077EF41 /* KilogramsButton.png */,
-				92E42B291959ED0C0077EF41 /* PoundsButton.png */,
+				92130D101CEA456F001040D6 /* InchesButton.png */,
+				92130D111CEA456F001040D6 /* CentimetersButton.png */,
+				92130D121CEA456F001040D6 /* PoundsButton.png */,
+				92130D131CEA456F001040D6 /* KilogramsButton.png */,
 				92282505186387DA00DF9493 /* ClearButton.png */,
 				92282506186387DA00DF9493 /* ClearButtonOrange.png */,
 				9265FF911CB5939E003AD6E0 /* ClearButtonBlue.png */,
@@ -1503,9 +1503,9 @@
 				4AFD8534161F137B00FFBA65 /* InfoPlist.strings in Resources */,
 				922227BA19BA1E20002CD855 /* iPad-Portrait@2x.png in Resources */,
 				92D43A491992C61700B24712 /* RoundDeleteButton60.png in Resources */,
-				9240E958195479D3006345FE /* CentimetersButton.png in Resources */,
 				92130CFD1CE0FB62001040D6 /* epi_info_logo_full_6+.png in Resources */,
 				92AED73F186E09D5004A4DB9 /* XButton.png in Resources */,
+				92130D161CEA456F001040D6 /* PoundsButton.png in Resources */,
 				925A5DAF1858C0E2000C2E9E /* PlainOrangeButton.png in Resources */,
 				92987CB41857B6FB00D250D4 /* CohortBN.png in Resources */,
 				92243A6E182BF91100E6156B /* Power.png in Resources */,
@@ -1528,6 +1528,7 @@
 				92BF845A1856658D00F31D52 /* 2x2B1N.png in Resources */,
 				9265FF931CB5939E003AD6E0 /* ClearButtonBlue.png in Resources */,
 				92BA2E1718AA6B0200E2CC33 /* MSAzureBluePhone.png in Resources */,
+				92130D151CEA456F001040D6 /* CentimetersButton.png in Resources */,
 				92E42B271959DD9C0077EF41 /* hgtagewho.csv in Resources */,
 				922227B419BA1DCF002CD855 /* iPhone4Launch.png in Resources */,
 				9299CE9B18575D0800B12461 /* 2x2T.png in Resources */,
@@ -1549,7 +1550,6 @@
 				92001B9F186C979E00B87D21 /* YesButtonOrange.png in Resources */,
 				68D769F616A9DDF900D831EB /* CD.png in Resources */,
 				926F55091AC5D13200790628 /* SimulateCaseControlNR.png in Resources */,
-				92E42B2B1959ED0C0077EF41 /* PoundsButton.png in Resources */,
 				92E42B251959DD9C0077EF41 /* wgtagewho07.csv in Resources */,
 				92867AC4183EAE6000CCC2B5 /* Poisson.png in Resources */,
 				92130CF41CE0F69B001040D6 /* AnalysisButtonNR.png in Resources */,
@@ -1615,6 +1615,7 @@
 				926CDF3618AEB7480002B544 /* OKButton.png in Resources */,
 				68D76A0516A9DDF900D831EB /* splash-page.png in Resources */,
 				68D76A0616A9DDF900D831EB /* background-1.png in Resources */,
+				92130D171CEA456F001040D6 /* KilogramsButton.png in Resources */,
 				68D76A0716A9DDF900D831EB /* BinomialB.png in Resources */,
 				9265FF981CB8314E003AD6E0 /* RecallButtonBlue.png in Resources */,
 				92095BDB1835645E00B7A0ED /* SpotlightR.png in Resources */,
@@ -1631,7 +1632,6 @@
 				9299CE9E185769B700B12461 /* 2x2Summary-2N.png in Resources */,
 				9228250A186387DA00DF9493 /* ClearButtonOrange.png in Resources */,
 				68D76A0A16A9DDF900D831EB /* Calculate.png in Resources */,
-				92E42B2A1959ED0C0077EF41 /* KilogramsButton.png in Resources */,
 				926DFB551832B0A400FACCD2 /* iPhone4RetinaLaunch.png in Resources */,
 				68D76A0B16A9DDF900D831EB /* PoissonB.png in Resources */,
 				9228250C186387DA00DF9493 /* SubmitButtonOrange.png in Resources */,
@@ -1649,7 +1649,6 @@
 				926817851AA8C54E00935BE9 /* SimulateCohortNR.png in Resources */,
 				92631B3E1CA2D5FD00934929 /* SwipeButtonPurple.png in Resources */,
 				92A192471C56B33D0095E69F /* Dot.png in Resources */,
-				9240E959195479D3006345FE /* InchesButton.png in Resources */,
 				92C419D91921595000FA46EA /* DeleteButton.png in Resources */,
 				922227B819BA1E18002CD855 /* iPad-Portrait.png in Resources */,
 				92FD4076182D33AD004B4729 /* 2x2.png in Resources */,
@@ -1678,6 +1677,7 @@
 				92282509186387DA00DF9493 /* ClearButton.png in Resources */,
 				684CCA4016EFA795007C4E6E /* FadeUpAndDown.png in Resources */,
 				92001B9E186C979E00B87D21 /* YesButton.png in Resources */,
+				92130D141CEA456F001040D6 /* InchesButton.png in Resources */,
 				92F520EA1CD3BFAC0058F352 /* icon-40.png in Resources */,
 				684CCA4216EFAB8B007C4E6E /* FadeDown.png in Resources */,
 				924770821C4015EF008F8C90 /* ManageButtonOrange.png in Resources */,
