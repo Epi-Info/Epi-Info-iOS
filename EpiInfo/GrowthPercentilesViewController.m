@@ -60,7 +60,7 @@
     [self.navigationItem setBackBarButtonItem: backButton];
     
     // Set the title on the NavigationController
-    self.title = @"Epi Info StatCalc";
+    self.title = @"";
     // Deprecation replacement
     CGRect frame = CGRectMake(0, 0, [self.title sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:20.0]}].width, 44);
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
@@ -89,7 +89,7 @@
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
         fadingColorView = [[UIImageView alloc] initWithFrame:self.view.frame];
-        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackground.png"]];
+        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackgroundWhite.png"]];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
         
@@ -317,16 +317,16 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
-        [backToMainMenu setTintColor:[UIColor whiteColor]];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [backToMainMenu setTitle:@"Back to previous screen"];
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
         // Set the background image
         fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height - self.navigationController.navigationBar.frame.size.height - [[UIApplication sharedApplication] statusBarFrame].size.height)];
         if (self.view.frame.size.height > 500)
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5BackgroundWhite.png"]];
         else
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4BackgroundWhite.png"]];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
         

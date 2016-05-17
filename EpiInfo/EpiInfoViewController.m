@@ -123,7 +123,7 @@
             fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height)];
         else
             fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.height, [self.view frame].size.width)];
-        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackground.png"]];
+        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackgroundWhite.png"]];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
         
@@ -131,22 +131,38 @@
         [unblurryView setBackgroundColor:[UIColor clearColor]];
         [self.view addSubview:unblurryView];
         
-        v1 = [[UIView alloc] initWithFrame:CGRectMake(sqrtf(800), sqrtf(800), 76, 106)];
-        v3 = [[UIView alloc] initWithFrame:CGRectMake(unblurryView.frame.size.width - sqrtf(800) - 76, sqrtf(800), 76, 106)];
-        v2 = [[UIView alloc] initWithFrame:CGRectMake(sqrtf(800) + 76 + (v3.frame.origin.x - (sqrtf(800) + 76)) / 2.0 - 76 / 2.0, sqrtf(800), 76, 106)];
+        // Added for new UI/UX
+        UIView *gravView = [[UIView alloc] initWithFrame:CGRectMake(0, 32, self.view.frame.size.width, 256)];
+        [gravView setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+        [self.view addSubview:gravView];
+        
+        // Changed vxs for use with new UI
+//        v1 = [[UIView alloc] initWithFrame:CGRectMake(sqrtf(800), sqrtf(800), 76, 106)];
+        v1 = [[UIView alloc] initWithFrame:CGRectMake(0, 1, gravView.frame.size.width, 84)];
+        [v1 setBackgroundColor:[UIColor whiteColor]];
+//        v3 = [[UIView alloc] initWithFrame:CGRectMake(unblurryView.frame.size.width - sqrtf(800) - 76, sqrtf(800), 76, 106)];
+//        v2 = [[UIView alloc] initWithFrame:CGRectMake(sqrtf(800) + 76 + (v3.frame.origin.x - (sqrtf(800) + 76)) / 2.0 - 76 / 2.0, sqrtf(800), 76, 106)];
+        v2 = [[UIView alloc] initWithFrame:CGRectMake(0, v1.frame.origin.y + v1.frame.size.height + 1, gravView.frame.size.width, 84)];
+        [v2 setBackgroundColor:[UIColor whiteColor]];
+        v3 = [[UIView alloc] initWithFrame:CGRectMake(0, v2.frame.origin.y + v2.frame.size.height + 1, gravView.frame.size.width, 84)];
+        [v3 setBackgroundColor:[UIColor whiteColor]];
         v4 = [[UIView alloc] initWithFrame:CGRectMake(v1.frame.origin.x, v1.frame.origin.y + v1.frame.size.height + 16, v1.frame.size.width, v1.frame.size.height)];
         
-        [unblurryView addSubview:v1];
-        [unblurryView addSubview:v2];
-        [unblurryView addSubview:v3];
-        [unblurryView addSubview:v4];
+//        [unblurryView addSubview:v1];
+//        [unblurryView addSubview:v2];
+//        [unblurryView addSubview:v3];
+//        [unblurryView addSubview:v4];
+        
+        [gravView addSubview:v1];
+        [gravView addSubview:v2];
+        [gravView addSubview:v3];
         
         // Make v4 appear in viewDidAppear, depending on presence of VHF data
         [v4 setHidden:YES];
         
-        [self.analyzeDataButton setFrame:CGRectMake(0, 0, 76, 76)];
-        [self.statCalcButton setFrame:CGRectMake(0, 0, 76, 76)];
-        [self.dataEntryButton setFrame:CGRectMake(0, 0, 76, 76)];
+        [self.analyzeDataButton setFrame:CGRectMake(8, 4, 76, 76)];
+        [self.statCalcButton setFrame:CGRectMake(8, 4, 76, 76)];
+        [self.dataEntryButton setFrame:CGRectMake(8, 4, 76, 76)];
         [self.vhfButton setFrame:CGRectMake(0, 0, 76, 76)];
         
         [self.analyzeDataButton.layer setCornerRadius:10.0];
@@ -225,11 +241,88 @@
         [label4 setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
         [label4b setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
         
-        [v1 addSubview:label1];
-        [v2 addSubview:label2];
-        [v3 addSubview:label3];
+        // Using different labels with new UI
+//        [v1 addSubview:label1];
+//        [v2 addSubview:label2];
+//        [v3 addSubview:label3];
         [v4 addSubview:label4];
         [v4 addSubview:label4b];
+        
+        // New, more verbose labels for new UI
+        float labelX = self.dataEntryButton.frame.origin.x + self.dataEntryButton.frame.size.width + 16;
+        float labelWidth = gravView.frame.size.width - labelX - 8;
+        UILabel *l1a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, 8, labelWidth, v1.frame.size.height * 0.4 - 8)];
+        UILabel *l1b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, 8 + l1a.frame.size.height, labelWidth, v1.frame.size.height - 8 - l1a.frame.size.height)];
+        UILabel *l2a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1a.frame.origin.y, labelWidth, l1a.frame.size.height)];
+        UILabel *l2b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1b.frame.origin.y, labelWidth, l1b.frame.size.height)];
+        UILabel *l3a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1a.frame.origin.y, labelWidth, l1a.frame.size.height)];
+        UILabel *l3b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1b.frame.origin.y, labelWidth, l1b.frame.size.height)];
+        
+        [l1a setText:@"ENTER DATA"];
+        [l1a setTextAlignment:NSTextAlignmentLeft];
+        [l1a setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [l1a setFont:[UIFont fontWithName:@"HelveticaNeue" size:24.0]];
+        [l1b setText:@"Enter data, browse records, and search the database."];
+        [l1b setTextAlignment:NSTextAlignmentLeft];
+        [l1b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [l1b setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [l1b setNumberOfLines:0];
+        [l1b setLineBreakMode:NSLineBreakByWordWrapping];
+        
+        [l2a setText:@"ANALYZE DATA"];
+        [l2a setTextAlignment:NSTextAlignmentLeft];
+        [l2a setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [l2a setFont:[UIFont fontWithName:@"HelveticaNeue" size:24.0]];
+        [l2b setText:@"Visualize analytic results with gadgets, tables, and SQL tools."];
+        [l2b setTextAlignment:NSTextAlignmentLeft];
+        [l2b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [l2b setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [l2b setNumberOfLines:0];
+        [l2b setLineBreakMode:NSLineBreakByWordWrapping];
+        
+        [l3a setText:@"STATCALC"];
+        [l3a setTextAlignment:NSTextAlignmentLeft];
+        [l3a setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [l3a setFont:[UIFont fontWithName:@"HelveticaNeue" size:24.0]];
+        [l3b setText:@"Statistical calculators for sample size, power, and more."];
+        [l3b setTextAlignment:NSTextAlignmentLeft];
+        [l3b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [l3b setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [l3b setNumberOfLines:0];
+        [l3b setLineBreakMode:NSLineBreakByWordWrapping];
+        
+        [v1 addSubview:l1a];
+        [v1 addSubview:l1b];
+        [v2 addSubview:l2a];
+        [v2 addSubview:l2b];
+        [v3 addSubview:l3a];
+        [v3 addSubview:l3b];
+        
+        // Clear buttons to go over labels
+        UIButton *clearButton1 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
+        [clearButton1 setBackgroundColor:[UIColor clearColor]];
+        [clearButton1 setTag:1];
+        [clearButton1 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
+        [clearButton1 addTarget:self action:@selector(clearButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
+        [clearButton1 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
+        [clearButton1 setAccessibilityLabel:@"Enter data. Enter data, browse records, and search the database."];
+        [v1 addSubview:clearButton1];
+        UIButton *clearButton2 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
+        [clearButton2 setBackgroundColor:[UIColor clearColor]];
+        [clearButton2 setTag:2];
+        [clearButton2 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
+        [clearButton2 addTarget:self action:@selector(clearButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
+        [clearButton2 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
+        [clearButton2 setAccessibilityLabel:@"Analyze data. Visualize analytic results with gadgets, tables, and SQL tools."];
+        [v2 addSubview:clearButton2];
+        UIButton *clearButton3 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
+        [clearButton3 setBackgroundColor:[UIColor clearColor]];
+        [clearButton3 setTag:3];
+        [clearButton3 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
+        [clearButton3 addTarget:self action:@selector(clearButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
+        [clearButton3 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
+        [clearButton3 setAccessibilityLabel:@"Stat calc. Statistical calculators for sample size, power, and more."];
+        [v3 addSubview:clearButton3];
        
         // Use a larger label than just the nav bar for the title in the iPad
         [self setTitle:@""];
@@ -237,11 +330,11 @@
         [self.navigationController.navigationBar setShadowImage:[UIImage new]];
         UILabel *padTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 150)];
         [padTitleLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-        [padTitleLabel setText:@"Epi Info"];
+        [padTitleLabel setText:@""];
         [padTitleLabel setTextColor:[UIColor whiteColor]];
         [padTitleLabel setTextAlignment:NSTextAlignmentCenter];
         [padTitleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:36.0]];
-        [self.view addSubview:padTitleLabel];
+//        [self.view addSubview:padTitleLabel];
     }
     else
     {
@@ -265,7 +358,7 @@
             [fadingColorView setImage:[UIImage imageNamed:@"iPhone5BackgroundWhite.png"]];
         }
         else
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4BackgroundWhite.png"]];
 
         UIView *unblurryView = [[UIView alloc] initWithFrame:CGRectMake(button1Frame.origin.x - 20, button1Frame.origin.y, button1Frame.size.width + 40, button3Frame.origin.y - button1Frame.origin.y + button3Frame.size.height + 120 + 40)];
         [unblurryView setBackgroundColor:[UIColor clearColor]];
@@ -468,6 +561,7 @@
         [clearButton1 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
         [clearButton1 addTarget:self action:@selector(clearButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
         [clearButton1 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
+        [clearButton1 setAccessibilityLabel:@"Enter data. Enter data, browse records, and search the database."];
         [v1 addSubview:clearButton1];
         UIButton *clearButton2 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
         [clearButton2 setBackgroundColor:[UIColor clearColor]];
@@ -475,6 +569,7 @@
         [clearButton2 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
         [clearButton2 addTarget:self action:@selector(clearButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
         [clearButton2 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
+        [clearButton2 setAccessibilityLabel:@"Analyze data. Visualize analytic results with gadgets, tables, and SQL tools."];
         [v2 addSubview:clearButton2];
         UIButton *clearButton3 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
         [clearButton3 setBackgroundColor:[UIColor clearColor]];
@@ -482,6 +577,7 @@
         [clearButton3 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
         [clearButton3 addTarget:self action:@selector(clearButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
         [clearButton3 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
+        [clearButton3 setAccessibilityLabel:@"Stat calc. Statistical calculators for sample size, power, and more."];
         [v3 addSubview:clearButton3];
     }
     // Remove this section when ready to add analysis

@@ -141,7 +141,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
-        [backToMainMenu setTintColor:[UIColor whiteColor]];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [backToMainMenu setTitle:@"Back to previous screen"];
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
@@ -149,7 +149,7 @@
         {
             if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
                 [self setEdgesForExtendedLayout:UIRectEdgeNone];
-            [[self navigationController] setTitle:@"StatCalc 2x2xn"];
+            [[self navigationController] setTitle:@""];
         }
         fourInchPhone = (self.view.frame.size.height > 500);
         
@@ -259,7 +259,7 @@
     label.textColor = [UIColor whiteColor];
     label.shadowColor = [UIColor grayColor];
     self.navigationItem.titleView = label;
-    label.text = @"Epi Info StatCalc";
+    label.text = @"";
     self.navigationItem.titleView = label;
     //
     stratum = 0;
@@ -306,7 +306,7 @@
                     [(UIImageView *)v setImage:[UIImage imageNamed:@"2x2TSmall"]];
 
         fadingColorView = [[UIImageView alloc] initWithFrame:self.view.frame];
-        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackground.png"]];
+        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackgroundWhite.png"]];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
         fadingColorView0 = [[UIImageView alloc] initWithFrame:CGRectMake(0, [self.view frame].size.height - 400.0, [self.view frame].size.width, 400.0)];
@@ -429,7 +429,7 @@
         [blurryView setFrame:segmentedControl.frame];
         [self.view addSubview:blurryView];
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-            [blurryView setBlurTintColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:0.6]];
+            [blurryView setBlurTintColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:0.6]];
         else
             [blurryView setBlurTintColor:[UIColor colorWithRed:99/255.0 green:166/255.0 blue:203/255.0 alpha:0.6]];
         [blurryView.layer setCornerRadius:4.0];
@@ -475,9 +475,9 @@
     {
         fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height - self.navigationController.navigationBar.frame.size.height - [[UIApplication sharedApplication] statusBarFrame].size.height)];
         if (self.view.frame.size.height > 500)
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5BackgroundWhite.png"]];
         else
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4BackgroundWhite.png"]];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
 
@@ -487,8 +487,8 @@
         self.phoneExposureLabel.transform = CGAffineTransformMakeRotation(-M_PI / 2.0);
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
         {
-            [self.phoneExposureLabel setTextColor:[UIColor whiteColor]];
-            [self.phoneOutcomeLabel setTextColor:[UIColor whiteColor]];
+            [self.phoneExposureLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [self.phoneOutcomeLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
             [self.phoneExposureLabel setFont:[UIFont boldSystemFontOfSize:14.0]];
             [self.phoneOutcomeLabel setFont:[UIFont boldSystemFontOfSize:14.0]];
         }
@@ -1014,7 +1014,7 @@
         
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
         {
-            label.text = @"StatCalc 2x2xn";
+            label.text = @"";
         }
         [self.yyField setAccessibilityLabel:@"Yes, yes"];
         [self.ynField setAccessibilityLabel:@"Yes, no"];

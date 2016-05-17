@@ -79,7 +79,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
-        [backToMainMenu setTintColor:[UIColor whiteColor]];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [backToMainMenu setTitle:@"Back to previous screen"];
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
        
@@ -142,7 +142,7 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStyleBordered target: nil action: nil];
     [self.navigationItem setBackBarButtonItem: backButton];
     
-    self.title = @"Epi Info StatCalc";
+    self.title = @"";
     //
     
     //self.title = @"Matched Pair Case Control";
@@ -177,7 +177,7 @@
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
         fadingColorView = [[UIImageView alloc] initWithFrame:self.view.frame];
-        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackground.png"]];
+        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackgroundWhite.png"]];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
 
@@ -216,9 +216,9 @@
     {
         fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height - self.navigationController.navigationBar.frame.size.height - [[UIApplication sharedApplication] statusBarFrame].size.height)];
         if (self.view.frame.size.height > 500)
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5BackgroundWhite.png"]];
         else
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4BackgroundWhite.png"]];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
 
@@ -238,12 +238,12 @@
         [phoneInputsView addSubview:self.phoneControlsMinusLabel];
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
         {
-            [self.phoneCasesLabel setTextColor:[UIColor whiteColor]];
-            [self.phoneCasesPlusLabel setTextColor:[UIColor whiteColor]];
-            [self.phoneCasesMinusLabel setTextColor:[UIColor whiteColor]];
-            [self.phoneControlsLabel setTextColor:[UIColor whiteColor]];
-            [self.phoneControlsPlusLabel setTextColor:[UIColor whiteColor]];
-            [self.phoneControlsMinusLabel setTextColor:[UIColor whiteColor]];
+            [self.phoneCasesLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [self.phoneCasesPlusLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [self.phoneCasesMinusLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [self.phoneControlsLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [self.phoneControlsPlusLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [self.phoneControlsMinusLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
             [self.phoneCasesLabel setFont:[UIFont boldSystemFontOfSize:14.0]];
             [self.phoneCasesPlusLabel setFont:[UIFont boldSystemFontOfSize:14.0]];
             [self.phoneCasesMinusLabel setFont:[UIFont boldSystemFontOfSize:14.0]];
@@ -566,7 +566,7 @@
         
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
         {
-            label.text = @"StatCalc Pair Matched CC";
+            label.text = @"";
             [label setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17.0]];
         }
 
