@@ -54,7 +54,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
-        [backToMainMenu setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [backToMainMenu setTitle:@"Back to previous screen"];
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
@@ -128,17 +128,17 @@
         phonePValueResultFrame = CGRectMake(self.view.frame.size.width / 2.0 + 10, 48, self.view.frame.size.width / 2.0 - 20, 21);
         [self.phoneHeaderLabel setFrame:phoneHeaderLabelFrame];
         [self.phoneChiSquareLabel setFrame:phoneChiSquareLabelFrame];
-        [self.phoneChiSquareLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.phoneChiSquareLabel setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.phoneChiSquareLabel.layer setCornerRadius:10.0];
         [self.phoneChiSquareLabel setAccessibilityLabel:@"Ky square"];
         [self.chiSquareResult setFrame:phoneChiSquareResultFrame];
         [self.phonePValueLabel setFrame:phonePValueLabelFrame];
-        [self.phonePValueLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.phonePValueLabel setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.phonePValueLabel.layer setCornerRadius:10.0];
         [self.pValueResult setFrame:phonePValueResultFrame];
-        [self.phoneHeaderLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-        [self.chiSquareResult setTextColor:[UIColor whiteColor]];
-        [self.pValueResult setTextColor:[UIColor whiteColor]];
+        [self.phoneHeaderLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [self.chiSquareResult setTextColor:[UIColor blackColor]];
+        [self.pValueResult setTextColor:[UIColor blackColor]];
         [self.view addSubview:self.phoneHeaderLabel];
         [self.view addSubview:self.phoneChiSquareLabel];
         [self.view addSubview:self.chiSquareResult];
@@ -146,11 +146,11 @@
         [self.view addSubview:self.pValueResult];
         
         // Set the background color for the column header labels
-        [self.phoneExposureScoreLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.phoneExposureScoreLabel setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.phoneExposureScoreLabel.layer setCornerRadius:10.0];
-        [self.phoneCasesLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-        [self.phoneControlsLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-        [self.phoneOddsRatioLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.phoneCasesLabel setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [self.phoneControlsLabel setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [self.phoneOddsRatioLabel setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.phoneOddsRatioLabel.layer setCornerRadius:10.0];
         
         // Postion the inputs, odds ratios, and column headers
@@ -250,7 +250,7 @@
         //Add the blue (?) box to the inputs and odds ratios section
         phoneLargeColorBoxFrame = CGRectMake(20, 0, 4 * columnWidth, 42 + 10 * rowPadding + 10 * rowHeight + 1);
         phoneLargeColorBox = [[UIView alloc] initWithFrame:phoneLargeColorBoxFrame];
-        [phoneLargeColorBox setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phoneLargeColorBox setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [phoneLargeColorBox.layer setCornerRadius:6.0];
         [self.epiInfoScrollView addSubview:phoneLargeColorBox];
         [self.epiInfoScrollView sendSubviewToBack:phoneLargeColorBox];

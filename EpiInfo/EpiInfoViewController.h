@@ -31,6 +31,13 @@
     UIView *v4;
     UIView *v5;
     
+    UILabel *l1a;
+    UILabel *l1b;
+    UILabel *l2a;
+    UILabel *l2b;
+    UILabel *l3a;
+    UILabel *l3b;
+    
     CGRect frameOfButtonPressed;
     UIButton *buttonPressed;
     

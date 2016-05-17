@@ -128,11 +128,11 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
-        [backToMainMenu setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [backToMainMenu setTitle:@"Back to previous screen"];
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
-        [self.phoneSectionHeaderLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.phoneSectionHeaderLabel setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.phoneSectionHeaderLabel setFrame:CGRectMake(2, 2, self.phoneSectionHeaderLabel.frame.size.width, self.phoneSectionHeaderLabel.frame.size.height)];
         [self.phoneSectionHeaderLabel.layer setCornerRadius:10.0];
         
@@ -145,7 +145,7 @@
         float H = self.ltLabel.frame.size.height;
         
         phoneColorBox = [[UIView alloc] initWithFrame:CGRectMake(X, Y, W, 200)];
-        [phoneColorBox setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phoneColorBox setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [phoneColorBox.layer setCornerRadius:10.0];
         
         phoneInputsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 109)];
@@ -158,8 +158,8 @@
         
         [phoneInputsView addSubview:self.expectedEventsField];
         [phoneInputsView addSubview:self.observedEventsField];
-        [self.phoneExpectedEventsLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-        [self.phoneObservedEventsLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.phoneExpectedEventsLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [self.phoneObservedEventsLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.phoneExpectedEventsLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
         [self.phoneObservedEventsLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
         if (self.view.frame.size.height <= 500)

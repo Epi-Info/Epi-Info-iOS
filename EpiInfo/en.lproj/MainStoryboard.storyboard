@@ -539,6 +539,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="2x2 Calculator" id="SRe-OA-dBR">
                         <barButtonItem key="leftBarButtonItem" title="Clear" id="cUW-VF-Gho">
+                            <color key="tintColor" red="0.11372549019607843" green="0.37647058823529411" blue="0.67450980392156867" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="resetBarButtonPressed:" destination="fbL-6v-n1L" id="q03-wD-TEt"/>
                             </connections>
@@ -920,6 +921,7 @@
                     <navigationItem key="navigationItem" title="Population Survey" id="qb1-qU-m5q">
                         <barButtonItem key="backBarButtonItem" title="SampleSize" id="O83-y2-MKh"/>
                         <barButtonItem key="leftBarButtonItem" title="Reset" id="JVm-fN-MFN">
+                            <color key="tintColor" red="0.1137254902" green="0.37647058820000001" blue="0.67450980390000004" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="resetBarButtonPressed:" destination="rUc-6C-kIc" id="7TR-ro-Nng"/>
                             </connections>
@@ -1427,6 +1429,7 @@
                     <navigationItem key="navigationItem" title="Cohort/Cross-Sectional" id="pSX-vx-NuJ">
                         <barButtonItem key="backBarButtonItem" title="SampleSize" id="3Gh-OD-fHU"/>
                         <barButtonItem key="leftBarButtonItem" title="Clear" id="XsI-oG-1vT">
+                            <color key="tintColor" red="0.1137254902" green="0.37647058820000001" blue="0.67450980390000004" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="resetBarButtonPressed:" destination="HMk-iG-wUs" id="1XF-hT-yd7"/>
                             </connections>
@@ -1679,6 +1682,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="35L-hE-kbr">
                         <barButtonItem key="leftBarButtonItem" title="Clear" id="Atm-o3-lhs">
+                            <color key="tintColor" red="0.1137254902" green="0.37647058820000001" blue="0.67450980390000004" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="resetBarButtonPressed:" destination="sJz-Wd-sTY" id="bBH-UB-0Tg"/>
                             </connections>
@@ -1860,6 +1864,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="gkN-oT-Jz9">
                         <barButtonItem key="leftBarButtonItem" title="Clear" id="p0b-vA-wqL">
+                            <color key="tintColor" red="0.1137254902" green="0.37647058820000001" blue="0.67450980390000004" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="resetBarButtonPressed:" destination="LXK-tJ-JYo" id="ac7-wm-1Nf"/>
                             </connections>
@@ -2326,6 +2331,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="V2y-7F-dvB">
                         <barButtonItem key="leftBarButtonItem" title="Clear" id="gWv-EE-DdX">
+                            <color key="tintColor" red="0.1137254902" green="0.37647058820000001" blue="0.67450980390000004" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="resetBarButtonPressed:" destination="n1t-ye-Yfa" id="1uO-jB-5rb"/>
                             </connections>
@@ -2659,6 +2665,7 @@
                     <navigationItem key="navigationItem" title="Case-Control" id="0pI-89-tsM">
                         <barButtonItem key="backBarButtonItem" title="SampleSize" id="Ujj-0h-8ng"/>
                         <barButtonItem key="leftBarButtonItem" title="Clear" id="Ruf-fO-UbP">
+                            <color key="tintColor" red="0.1137254902" green="0.37647058820000001" blue="0.67450980390000004" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="resetBarButtonPressed:" destination="XQT-vd-MMf" id="IYB-sG-z3j"/>
                             </connections>
@@ -2979,6 +2986,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Matched Pair Case Control" id="sjt-Vc-mkB">
                         <barButtonItem key="leftBarButtonItem" title="Clear" id="yx7-M4-195">
+                            <color key="tintColor" red="0.1137254902" green="0.37647058820000001" blue="0.67450980390000004" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="resetBarButtonPressed:" destination="B9c-RP-rpB" id="ZYl-RW-Sun"/>
                             </connections>

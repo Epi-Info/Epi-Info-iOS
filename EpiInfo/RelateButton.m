@@ -150,16 +150,16 @@
         [formNavigationBar setTranslucent:YES];
         formNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
         closeFormBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(confirmDismissal)];
-        [closeFormBarButtonItem setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [closeFormBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [formNavigationItem setRightBarButtonItem:closeFormBarButtonItem];
         deleteRecordBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(footerBarDelete)];
-        [deleteRecordBarButtonItem setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [deleteRecordBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [deleteRecordBarButtonItem setImageInsets:UIEdgeInsetsMake(0, 20, 0, -20)];
         UIBarButtonItem *packageDataBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(confirmUploadAllRecords)];
-        [packageDataBarButtonItem setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [packageDataBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [packageDataBarButtonItem setImageInsets:UIEdgeInsetsMake(0, -8, 0, 0)];
         UIBarButtonItem *recordLookupBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(lineListButtonPressed)];
-        [recordLookupBarButtonItem setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [recordLookupBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [recordLookupBarButtonItem setImageInsets:UIEdgeInsetsMake(0, -40, 0, 0)];
         [formNavigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:packageDataBarButtonItem, recordLookupBarButtonItem, nil]];
         [formNavigationBar setItems:[NSArray arrayWithObject:formNavigationItem]];
@@ -367,7 +367,7 @@
     //    UILabel *areYouSure = [[UILabel alloc] initWithFrame:dismissView.frame];
     UILabel *areYouSure = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 280, 96)];
     [areYouSure setBackgroundColor:[UIColor clearColor]];
-    [areYouSure setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [areYouSure setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [areYouSure setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
     [areYouSure setTextAlignment:NSTextAlignmentLeft];
     [areYouSure setLineBreakMode:NSLineBreakByWordWrapping];
@@ -376,7 +376,7 @@
     
     UILabel *decimalSeparatorLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 104, 142, 40)];
     [decimalSeparatorLabel setBackgroundColor:[UIColor clearColor]];
-    [decimalSeparatorLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [decimalSeparatorLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [decimalSeparatorLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
     [decimalSeparatorLabel setTextAlignment:NSTextAlignmentLeft];
     [decimalSeparatorLabel setText:@"Decimal separator:"];
@@ -413,7 +413,7 @@
     [commaDecimalSeparatorView addSubview:commaDecimalSeparatorButton];
     
     UIActivityIndicatorView *uiaiv = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(130, 80, 40, 40)];
-    [uiaiv setColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [uiaiv setColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [uiaiv setHidden:YES];
     [messageView addSubview:uiaiv];
     
@@ -600,7 +600,7 @@
     
     UILabel *areYouSure = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     [areYouSure setBackgroundColor:[UIColor clearColor]];
-    [areYouSure setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [areYouSure setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [areYouSure setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
     [areYouSure setTextAlignment:NSTextAlignmentLeft];
     [areYouSure setLineBreakMode:NSLineBreakByWordWrapping];
@@ -1020,13 +1020,13 @@
     [dismissView addSubview:feedbackView];
     UIActivityIndicatorView *uiavPackage = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(140, 280, 20, 20)];
     [feedbackView addSubview:uiavPackage];
-    [uiavPackage setColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [uiavPackage setColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [uiavPackage startAnimating];
     [dismissView bringSubviewToFront:feedbackView];
     
     feedbackView.percentLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 280, 40)];
     [feedbackView.percentLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:24]];
-    [feedbackView.percentLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [feedbackView.percentLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [feedbackView addSubview:feedbackView.percentLabel];
 }
 

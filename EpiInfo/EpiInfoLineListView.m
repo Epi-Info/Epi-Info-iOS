@@ -41,7 +41,7 @@
         [lineListNavigationBar setTranslucent:YES];
         UINavigationItem *lineListNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
         UIBarButtonItem *closeLineListBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(removeSelfFromSuperview)];
-        [closeLineListBarButtonItem setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [closeLineListBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [lineListNavigationItem setRightBarButtonItem:closeLineListBarButtonItem];
         [lineListNavigationBar setItems:[NSArray arrayWithObject:lineListNavigationItem]];
         [banner addSubview:lineListNavigationBar];
@@ -77,7 +77,7 @@
         self.tv = [[UITableView alloc] initWithFrame:CGRectMake(0, banner.frame.size.height, self.frame.size.width, self.frame.size.height - banner.frame.size.height) style:UITableViewStylePlain];
         [self.tv setDelegate:self];
         [self.tv setDataSource:self];
-        [self.tv setSeparatorColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.tv setSeparatorColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
         [self addSubview:self.tv];
         
         // Get the data and put it into NSMutableArray
@@ -202,7 +202,7 @@
     }
     
     [cell.textLabel setText:[dataLines objectAtIndex:indexPath.row]];
-    [cell.textLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [cell.textLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
     
     float fontSize = 16.0;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -264,7 +264,7 @@
     self.tv = [[UITableView alloc] initWithFrame:tvFrame style:UITableViewStylePlain];
     [self.tv setDelegate:self];
     [self.tv setDataSource:self];
-    [self.tv setSeparatorColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [self.tv setSeparatorColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
     [self addSubview:self.tv];
     return [textField resignFirstResponder];
 }

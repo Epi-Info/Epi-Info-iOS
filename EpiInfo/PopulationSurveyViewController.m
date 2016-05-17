@@ -151,7 +151,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
-        [backToMainMenu setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [backToMainMenu setTitle:@"Back to previous screen"];
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
@@ -189,7 +189,7 @@
         
         phoneInputsView = [[UIView alloc] initWithFrame:phoneInputsViewFrame];
         phoneInputsBlueBoxView = [[UIView alloc] initWithFrame:phoneInputsBlueBoxFrame];
-        [phoneInputsBlueBoxView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phoneInputsBlueBoxView setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [phoneInputsBlueBoxView.layer setCornerRadius:10.0];
         [phoneInputsView addSubview:phoneInputsBlueBoxView];
         
@@ -302,7 +302,7 @@
         [self.populationSurveyView addSubview:phoneResultsView];
         
         phoneResultsBlueBox = [[UIView alloc] initWithFrame:phoneResultsBlueBoxFrame];
-        [phoneResultsBlueBox setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phoneResultsBlueBox setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [phoneResultsBlueBox.layer setCornerRadius:10.0];
         [phoneResultsView addSubview:phoneResultsBlueBox];
         
@@ -495,9 +495,9 @@
         [self.populationSurveyView setShowsVerticalScrollIndicator:YES];
         [self.populationSurveyView setShowsHorizontalScrollIndicator:YES];
 
-        [self.phoneExpectedFrequencySlider setMinimumTrackTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.phoneExpectedFrequencySlider setMinimumTrackTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.phoneExpectedFrequencySlider setMaximumTrackTintColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
-        [self.phoneConfidenceLimitsSlider setMinimumTrackTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.phoneConfidenceLimitsSlider setMinimumTrackTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.phoneConfidenceLimitsSlider setMaximumTrackTintColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
 
         fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height - self.navigationController.navigationBar.frame.size.height - [[UIApplication sharedApplication] statusBarFrame].size.height)];
