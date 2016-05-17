@@ -507,12 +507,12 @@
         // New, more verbose labels for new UI
         float labelX = self.dataEntryButton.frame.origin.x + self.dataEntryButton.frame.size.width + 16;
         float labelWidth = gravView.frame.size.width - labelX - 8;
-        UILabel *l1a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, 8, labelWidth, v1.frame.size.height * 0.4 - 8)];
-        UILabel *l1b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, 8 + l1a.frame.size.height, labelWidth, v1.frame.size.height - 8 - l1a.frame.size.height)];
-        UILabel *l2a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1a.frame.origin.y, labelWidth, l1a.frame.size.height)];
-        UILabel *l2b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1b.frame.origin.y, labelWidth, l1b.frame.size.height)];
-        UILabel *l3a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1a.frame.origin.y, labelWidth, l1a.frame.size.height)];
-        UILabel *l3b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1b.frame.origin.y, labelWidth, l1b.frame.size.height)];
+        l1a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, 8, labelWidth, v1.frame.size.height * 0.4 - 8)];
+        l1b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, 8 + l1a.frame.size.height, labelWidth, v1.frame.size.height - 8 - l1a.frame.size.height)];
+        l2a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1a.frame.origin.y, labelWidth, l1a.frame.size.height)];
+        l2b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1b.frame.origin.y, labelWidth, l1b.frame.size.height)];
+        l3a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1a.frame.origin.y, labelWidth, l1a.frame.size.height)];
+        l3b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1b.frame.origin.y, labelWidth, l1b.frame.size.height)];
         
         [l1a setText:@"ENTER DATA"];
         [l1a setTextAlignment:NSTextAlignmentLeft];
@@ -524,6 +524,8 @@
         [l1b setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
         [l1b setNumberOfLines:0];
         [l1b setLineBreakMode:NSLineBreakByWordWrapping];
+        [l1a setHighlightedTextColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+        [l1b setHighlightedTextColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
         
         [l2a setText:@"ANALYZE DATA"];
         [l2a setTextAlignment:NSTextAlignmentLeft];
@@ -535,6 +537,8 @@
         [l2b setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
         [l2b setNumberOfLines:0];
         [l2b setLineBreakMode:NSLineBreakByWordWrapping];
+        [l2a setHighlightedTextColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+        [l2b setHighlightedTextColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
         
         [l3a setText:@"STATCALC"];
         [l3a setTextAlignment:NSTextAlignmentLeft];
@@ -546,6 +550,8 @@
         [l3b setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
         [l3b setNumberOfLines:0];
         [l3b setLineBreakMode:NSLineBreakByWordWrapping];
+        [l3a setHighlightedTextColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+        [l3b setHighlightedTextColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
         
         [v1 addSubview:l1a];
         [v1 addSubview:l1b];
@@ -735,14 +741,20 @@
     switch ([sender tag]) {
         case 1:
             [self.dataEntryButton setHighlighted:YES];
+            [l1a setHighlighted:YES];
+            [l1b setHighlighted:YES];
             break;
             
         case 2:
             [self.analyzeDataButton setHighlighted:YES];
+            [l2a setHighlighted:YES];
+            [l2b setHighlighted:YES];
             break;
             
         case 3:
             [self.statCalcButton setHighlighted:YES];
+            [l3a setHighlighted:YES];
+            [l3b setHighlighted:YES];
             break;
             
         default:
@@ -755,16 +767,22 @@
         case 1:
             [self.dataEntryButton sendActionsForControlEvents:UIControlEventTouchUpInside];
             [self.dataEntryButton setHighlighted:NO];
+            [l1a setHighlighted:NO];
+            [l1b setHighlighted:NO];
             break;
             
         case 2:
             [self.analyzeDataButton sendActionsForControlEvents:UIControlEventTouchUpInside];
             [self.analyzeDataButton setHighlighted:NO];
+            [l2a setHighlighted:NO];
+            [l2b setHighlighted:NO];
             break;
             
         case 3:
             [self.statCalcButton sendActionsForControlEvents:UIControlEventTouchUpInside];
             [self.statCalcButton setHighlighted:NO];
+            [l3a setHighlighted:NO];
+            [l3b setHighlighted:NO];
             break;
             
         default:
@@ -776,14 +794,20 @@
     switch ([sender tag]) {
         case 1:
             [self.dataEntryButton setHighlighted:NO];
+            [l1a setHighlighted:NO];
+            [l1b setHighlighted:NO];
             break;
             
         case 2:
             [self.analyzeDataButton setHighlighted:NO];
+            [l2a setHighlighted:NO];
+            [l2b setHighlighted:NO];
             break;
             
         case 3:
             [self.statCalcButton setHighlighted:NO];
+            [l3a setHighlighted:NO];
+            [l3b setHighlighted:NO];
             break;
             
         default:

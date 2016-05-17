@@ -242,6 +242,9 @@
 		92921B9919A6427000AA9477 /* MeansView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92921B9819A6427000AA9477 /* MeansView.m */; };
 		92955547192B963F008DEC5C /* ConverterMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 92955546192B963F008DEC5C /* ConverterMethods.m */; };
 		9295554A192BC8C5008DEC5C /* DatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 92955549192BC8C5008DEC5C /* DatePicker.m */; };
+		9295FFCF1CEB8F4B0022B75C /* ArrowFull.png in Resources */ = {isa = PBXBuildFile; fileRef = 9295FFCC1CEB8F4B0022B75C /* ArrowFull.png */; };
+		9295FFD01CEB8F4B0022B75C /* ArrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 9295FFCD1CEB8F4B0022B75C /* ArrowLeft.png */; };
+		9295FFD11CEB8F4B0022B75C /* ArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 9295FFCE1CEB8F4B0022B75C /* ArrowRight.png */; };
 		9296747C19E5CC3B0040CB9D /* VHF.png in Resources */ = {isa = PBXBuildFile; fileRef = 9296747B19E5CC3B0040CB9D /* VHF.png */; };
 		9296747E19E5CCCB0040CB9D /* VHF4.png in Resources */ = {isa = PBXBuildFile; fileRef = 9296747D19E5CCCB0040CB9D /* VHF4.png */; };
 		92987CA21857936100D250D4 /* ChiB1N.png in Resources */ = {isa = PBXBuildFile; fileRef = 92987CA11857936100D250D4 /* ChiB1N.png */; };
@@ -294,9 +297,6 @@
 		92D43A491992C61700B24712 /* RoundDeleteButton60.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D43A481992C61700B24712 /* RoundDeleteButton60.png */; };
 		92D4BB63184F77CC00B2D70C /* CancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D4BB61184F77CC00B2D70C /* CancelButton.png */; };
 		92D4BB64184F77CC00B2D70C /* SaveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D4BB62184F77CC00B2D70C /* SaveButton.png */; };
-		92DA723E1833BD3C0071E659 /* ArrowFull.png in Resources */ = {isa = PBXBuildFile; fileRef = 92DA723B1833BD3C0071E659 /* ArrowFull.png */; };
-		92DA723F1833BD3C0071E659 /* ArrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 92DA723C1833BD3C0071E659 /* ArrowLeft.png */; };
-		92DA72401833BD3C0071E659 /* ArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 92DA723D1833BD3C0071E659 /* ArrowRight.png */; };
 		92DBD603193CC57100A40691 /* EpiInfoOptionField.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DBD602193CC57100A40691 /* EpiInfoOptionField.m */; };
 		92DBD606193CDAFA00A40691 /* EpiInfoUniqueIDField.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DBD605193CDAFA00A40691 /* EpiInfoUniqueIDField.m */; };
 		92E1A83918730614003E58A5 /* EpiInfoTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E1A83818730614003E58A5 /* EpiInfoTextField.m */; };
@@ -660,6 +660,9 @@
 		92955546192B963F008DEC5C /* ConverterMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConverterMethods.m; sourceTree = "<group>"; };
 		92955548192BC8C5008DEC5C /* DatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePicker.h; sourceTree = "<group>"; };
 		92955549192BC8C5008DEC5C /* DatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePicker.m; sourceTree = "<group>"; };
+		9295FFCC1CEB8F4B0022B75C /* ArrowFull.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowFull.png; sourceTree = "<group>"; };
+		9295FFCD1CEB8F4B0022B75C /* ArrowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowLeft.png; sourceTree = "<group>"; };
+		9295FFCE1CEB8F4B0022B75C /* ArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowRight.png; sourceTree = "<group>"; };
 		9296747B19E5CC3B0040CB9D /* VHF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VHF.png; sourceTree = "<group>"; };
 		9296747D19E5CCCB0040CB9D /* VHF4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VHF4.png; sourceTree = "<group>"; };
 		92987CA11857936100D250D4 /* ChiB1N.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChiB1N.png; sourceTree = "<group>"; };
@@ -720,9 +723,6 @@
 		92D43A481992C61700B24712 /* RoundDeleteButton60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RoundDeleteButton60.png; sourceTree = "<group>"; };
 		92D4BB61184F77CC00B2D70C /* CancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CancelButton.png; sourceTree = "<group>"; };
 		92D4BB62184F77CC00B2D70C /* SaveButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SaveButton.png; sourceTree = "<group>"; };
-		92DA723B1833BD3C0071E659 /* ArrowFull.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowFull.png; sourceTree = "<group>"; };
-		92DA723C1833BD3C0071E659 /* ArrowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowLeft.png; sourceTree = "<group>"; };
-		92DA723D1833BD3C0071E659 /* ArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowRight.png; sourceTree = "<group>"; };
 		92DBD601193CC57100A40691 /* EpiInfoOptionField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpiInfoOptionField.h; sourceTree = "<group>"; };
 		92DBD602193CC57100A40691 /* EpiInfoOptionField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpiInfoOptionField.m; sourceTree = "<group>"; };
 		92DBD604193CDAFA00A40691 /* EpiInfoUniqueIDField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpiInfoUniqueIDField.h; sourceTree = "<group>"; };
@@ -968,9 +968,9 @@
 				92130D0A1CE24627001040D6 /* iPhone5BackgroundWhite.png */,
 				92130D0C1CE5112E001040D6 /* iPadBackgroundWhite.png */,
 				92130D0D1CE5112E001040D6 /* iPhone4BackgroundWhite.png */,
-				92DA723B1833BD3C0071E659 /* ArrowFull.png */,
-				92DA723C1833BD3C0071E659 /* ArrowLeft.png */,
-				92DA723D1833BD3C0071E659 /* ArrowRight.png */,
+				9295FFCC1CEB8F4B0022B75C /* ArrowFull.png */,
+				9295FFCD1CEB8F4B0022B75C /* ArrowLeft.png */,
+				9295FFCE1CEB8F4B0022B75C /* ArrowRight.png */,
 				684CCA4116EFAB8B007C4E6E /* FadeDown.png */,
 				92FD4080182D3876004B4729 /* FadeDown7.png */,
 				924004DF182A942600ED0CE8 /* FadeDownS.png */,
@@ -1535,6 +1535,7 @@
 				92BA7F9718C773E400841104 /* PackageAndEmailDataButton.png in Resources */,
 				4AFD8534161F137B00FFBA65 /* InfoPlist.strings in Resources */,
 				922227BA19BA1E20002CD855 /* iPad-Portrait@2x.png in Resources */,
+				9295FFCF1CEB8F4B0022B75C /* ArrowFull.png in Resources */,
 				92D43A491992C61700B24712 /* RoundDeleteButton60.png in Resources */,
 				92130CFD1CE0FB62001040D6 /* epi_info_logo_full_6+.png in Resources */,
 				92AED73F186E09D5004A4DB9 /* XButton.png in Resources */,
@@ -1568,6 +1569,7 @@
 				92130CF91CE0F6E7001040D6 /* CalculatorButton.png in Resources */,
 				926817841AA8C54E00935BE9 /* SimulateCohort.png in Resources */,
 				92F520EC1CD3BFAC0058F352 /* icon-76.png in Resources */,
+				9295FFD11CEB8F4B0022B75C /* ArrowRight.png in Resources */,
 				68D769F216A9DDF900D831EB /* btn.png in Resources */,
 				92AE52A119ED66A000F7B7B2 /* VHFPad.png in Resources */,
 				68D769F316A9DDF900D831EB /* 2x2B.png in Resources */,
@@ -1586,7 +1588,6 @@
 				92E42B251959DD9C0077EF41 /* wgtagewho07.csv in Resources */,
 				92867AC4183EAE6000CCC2B5 /* Poisson.png in Resources */,
 				92130CF41CE0F69B001040D6 /* AnalysisButtonNR.png in Resources */,
-				92DA72401833BD3C0071E659 /* ArrowRight.png in Resources */,
 				92987CA81857A75800D250D4 /* PoissonTopN.png in Resources */,
 				92130D0B1CE24627001040D6 /* iPhone5BackgroundWhite.png in Resources */,
 				92B2582A1820376A008D88FC /* UnmatchedCaseControl.png in Resources */,
@@ -1606,7 +1607,6 @@
 				92E9801618A538C30011CC8B /* MSAzure.png in Resources */,
 				9248261D19CB40E300A0C1DD /* Images.xcassets in Resources */,
 				68D769FB16A9DDF900D831EB /* back.png in Resources */,
-				92DA723E1833BD3C0071E659 /* ArrowFull.png in Resources */,
 				92BA2E1518AA6B0200E2CC33 /* MSAzureBlue.png in Resources */,
 				926DFB4918328A1B00FACCD2 /* iPhone5Background.png in Resources */,
 				68D769FC16A9DDF900D831EB /* Unmatch.png in Resources */,
@@ -1691,6 +1691,7 @@
 				68BA38F316C585D000236D06 /* 2x2Summary-2.png in Resources */,
 				926A0F0A18340A7400D49165 /* Default-Portrait@2x.png in Resources */,
 				9208F825186250070022C6FB /* OpenButtonOrange.png in Resources */,
+				9295FFD01CEB8F4B0022B75C /* ArrowLeft.png in Resources */,
 				92130CF01CE0F5EE001040D6 /* FormsButtonNR.png in Resources */,
 				68F0E84116E5368A00ADD7A3 /* ChiB1.png in Resources */,
 				926DFB391832753100FACCD2 /* CaseControlNR.png in Resources */,
@@ -1716,7 +1717,6 @@
 				924770821C4015EF008F8C90 /* ManageButtonOrange.png in Resources */,
 				4AF6D4AB1704C7C000ED9A44 /* 2x2B0.png in Resources */,
 				926A0F0918340A7400D49165 /* Default-Portrait.png in Resources */,
-				92DA723F1833BD3C0071E659 /* ArrowLeft.png in Resources */,
 				9299CEA218577D0A00B12461 /* MPBOTN.png in Resources */,
 				926F550D1AC5E01700790628 /* Simulations5.png in Resources */,
 				4AF6D4AD1704C7CE00ED9A44 /* 2x2B1.png in Resources */,

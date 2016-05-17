@@ -134,7 +134,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
-        [backToMainMenu setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [backToMainMenu setTitle:@"Back to previous screen"];
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
@@ -183,7 +183,7 @@
         phoneResultsView = [[UIView alloc] initWithFrame:CGRectMake(18, 147, 277, 300)];
         [self.view addSubview:phoneResultsView];
 
-        [self.phoneSectionHeaderLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.phoneSectionHeaderLabel setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.phoneSectionHeaderLabel setFrame:CGRectMake(2, 2, self.phoneSectionHeaderLabel.frame.size.width, self.phoneSectionHeaderLabel.frame.size.height)];
         [self.phoneSectionHeaderLabel.layer setCornerRadius:10.0];
         [phoneResultsView addSubview:self.phoneSectionHeaderLabel];
@@ -201,7 +201,7 @@
         
         phonePValueView = [[UIView alloc] initWithFrame:CGRectMake(18, 348, 277, 28)];
         [self.view addSubview:phonePValueView];
-        [self.phonePValueLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.phonePValueLabel setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.phonePValueLabel setFrame:CGRectMake(2, 2, self.phonePValueLabel.frame.size.width, self.phonePValueLabel.frame.size.height)];
         [self.phonePValueLabel.layer setCornerRadius:10.0];
         [phonePValueView addSubview:self.phonePValueLabel];
@@ -209,7 +209,7 @@
         
         phoneCIView = [[UIView alloc] initWithFrame:CGRectMake(18, 376, 277, 28)];
         [self.view addSubview:phoneCIView];
-        [self.phoneCILabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.phoneCILabel setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.phoneCILabel setFrame:CGRectMake(2, 2, self.phoneCILabel.frame.size.width, self.phoneCILabel.frame.size.height)];
         [self.phoneCILabel.layer setCornerRadius:10.0];
         [phoneCIView addSubview:self.phoneCILabel];
@@ -221,7 +221,7 @@
         float H = self.ltLabel.frame.size.height;
         
         phoneColorBox = [[UIView alloc] initWithFrame:CGRectMake(X, Y, W, 200)];
-        [phoneColorBox setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phoneColorBox setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [phoneColorBox.layer setCornerRadius:10.0];
         
         [phoneResultsView addSubview:phoneColorBox];
@@ -302,7 +302,7 @@
         H = self.phonePValueLabel.frame.size.height;
         
         phonePValueColorBox = [[UIView alloc] initWithFrame:CGRectMake(X, Y, W, H)];
-        [phonePValueColorBox setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phonePValueColorBox setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [phonePValueColorBox.layer setCornerRadius:10.0];
         [phonePValueView addSubview:phonePValueColorBox];
         phonePValueWhiteBox = [[UIView alloc] initWithFrame:CGRectMake(X + 2.0, Y - 3.0, W - 3.0, H + 6.0)];
@@ -322,7 +322,7 @@
         H = self.phoneCILabel.frame.size.height;
         
         phoneCIColorBox = [[UIView alloc] initWithFrame:CGRectMake(X, Y, W, H)];
-        [phoneCIColorBox setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phoneCIColorBox setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [phoneCIColorBox.layer setCornerRadius:10.0];
         [phoneCIView addSubview:phoneCIColorBox];
         phoneCIWhiteBox = [[UIView alloc] initWithFrame:CGRectMake(X + 2.0, Y - 3.0, W - 3.0, H + 6.0)];
@@ -497,16 +497,16 @@
                 [self.phoneTotalObservationsLabel setFrame:CGRectMake(self.phoneTotalObservationsLabel.frame.origin.x, self.phoneTotalObservationsLabel.frame.origin.y + 10.0, self.phoneTotalObservationsLabel.frame.size.width, self.phoneTotalObservationsLabel.frame.size.height)];
                 [self.denominatorField setFrame:CGRectMake(self.denominatorField.frame.origin.x, self.denominatorField.frame.origin.y + 10.0, self.denominatorField.frame.size.width, self.denominatorField.frame.size.height)];
             }
-            [self.expectedPercentageField setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [self.phonePercentSign setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [self.expectedPercentageField setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+            [self.phonePercentSign setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [self.phonePercentSign setFont:[UIFont boldSystemFontOfSize:12.0]];
-            [self.phoneNumeratorLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [self.phoneNumeratorLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [self.phoneNumeratorLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
-            [self.phoneTotalObservationsLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [self.phoneTotalObservationsLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [self.phoneTotalObservationsLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
-            [self.phoneExpectedPercentageLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [self.phoneExpectedPercentageLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [self.phoneExpectedPercentageLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
-            [self.expectedPercentageSlider setMinimumTrackTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [self.expectedPercentageSlider setMinimumTrackTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [self.expectedPercentageSlider setMaximumTrackTintColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
             
             [self.phoneExpectedPercentageLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];

@@ -81,7 +81,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
-        [backToMainMenu setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [backToMainMenu setTitle:@"Back to previous screen"];
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
@@ -121,7 +121,7 @@
             lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, 40, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
             
             openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 207, 120, 40)];
-            [openButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [openButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [openButton.layer setCornerRadius:4.0];
             [openButton setTitle:@"Open" forState:UIControlStateNormal];
             [openButton setImage:[UIImage imageNamed:@"OpenButtonOrange.png"] forState:UIControlStateNormal];
@@ -135,7 +135,7 @@
             [openButton setEnabled:NO];
             
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 207, 120, 40)];
-            [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [manageButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
             [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
             [manageButton setImage:[UIImage imageNamed:@"ManageButtonOrange.png"] forState:UIControlStateNormal];
@@ -183,7 +183,7 @@
             lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, 40, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
             
             openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 207, 120, 40)];
-            [openButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [openButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [openButton.layer setCornerRadius:4.0];
             [openButton setTitle:@"Open" forState:UIControlStateNormal];
             [openButton setImage:[UIImage imageNamed:@"OpenButtonOrange.png"] forState:UIControlStateNormal];
@@ -197,7 +197,7 @@
             [openButton setEnabled:NO];
             
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 207, 120, 40)];
-            [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [manageButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
             [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
             [manageButton setImage:[UIImage imageNamed:@"ManageButtonOrange.png"] forState:UIControlStateNormal];
@@ -249,7 +249,7 @@
             [self.view addSubview:lv];
             
             openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 207, 120, 40)];
-            [openButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [openButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [openButton.layer setCornerRadius:4.0];
             [openButton setTitle:@"Open" forState:UIControlStateNormal];
             [openButton setImage:[UIImage imageNamed:@"OpenButtonWhite.png"] forState:UIControlStateNormal];
@@ -262,7 +262,7 @@
             [self.view addSubview:openButton];
             
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 207, 120, 40)];
-            [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [manageButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
             [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
             [manageButton setImage:[UIImage imageNamed:@"ManageButtonWhite.png"] forState:UIControlStateNormal];
@@ -289,7 +289,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
-        [backToMainMenu setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [backToMainMenu setTitle:@"Back to previous screen"];
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
 
@@ -340,7 +340,7 @@
             lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, 15 + 20, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
             
             openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 182 + 20, 120, 40)];
-            [openButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [openButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [openButton.layer setCornerRadius:4.0];
             [openButton setTitle:@"Open" forState:UIControlStateNormal];
             [openButton setImage:[UIImage imageNamed:@"OpenButtonWhite.png"] forState:UIControlStateNormal];
@@ -353,7 +353,7 @@
             [self.view addSubview:openButton];
             
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182 + 20, 120, 40)];
-            [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [manageButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
             [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
             [manageButton setImage:[UIImage imageNamed:@"ManageButtonWhite.png"] forState:UIControlStateNormal];
@@ -401,7 +401,7 @@
             lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, 15 + 20, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
             
             openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 182 + 20, 120, 40)];
-            [openButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [openButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [openButton.layer setCornerRadius:4.0];
             [openButton setTitle:@"Open" forState:UIControlStateNormal];
             [openButton setImage:[UIImage imageNamed:@"OpenButtonWhite.png"] forState:UIControlStateNormal];
@@ -414,7 +414,7 @@
             [self.view addSubview:openButton];
             
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182 + 20, 120, 40)];
-            [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [manageButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
             [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
             [manageButton setImage:[UIImage imageNamed:@"ManageButtonWhite.png"] forState:UIControlStateNormal];
@@ -469,7 +469,7 @@
             [self.view addSubview:lv];
             
             openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 182 + 20, 120, 40)];
-            [openButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [openButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [openButton.layer setCornerRadius:4.0];
             [openButton setTitle:@"Open" forState:UIControlStateNormal];
             [openButton setImage:[UIImage imageNamed:@"OpenButtonWhite.png"] forState:UIControlStateNormal];
@@ -482,7 +482,7 @@
             [self.view addSubview:openButton];
             
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182 + 20, 120, 40)];
-            [manageButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [manageButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
             [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
             [manageButton setImage:[UIImage imageNamed:@"ManageButtonWhite.png"] forState:UIControlStateNormal];
@@ -622,7 +622,7 @@
     [manageView addSubview:messageLabel];
     
     UIButton *confirmDeleteForm = [[UIButton alloc] initWithFrame:CGRectMake(20, manageView.frame.size.height / 2.0, 120, 40)];
-    [confirmDeleteForm setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [confirmDeleteForm setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [confirmDeleteForm.layer setCornerRadius:4.0];
     [confirmDeleteForm setTitle:@"Yes. Triple tap to confirm." forState:UIControlStateNormal];
     [confirmDeleteForm setImage:[UIImage imageNamed:@"YesButtonOrange.png"] forState:UIControlStateNormal];
@@ -635,7 +635,7 @@
     [manageView addSubview:confirmDeleteForm];
     
     UIButton *cancleDeleteForm = [[UIButton alloc] initWithFrame:CGRectMake(160, manageView.frame.size.height / 2.0, 120, 40)];
-    [cancleDeleteForm setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [cancleDeleteForm setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [cancleDeleteForm.layer setCornerRadius:4.0];
     [cancleDeleteForm setTitle:@"No" forState:UIControlStateNormal];
     [cancleDeleteForm setImage:[UIImage imageNamed:@"NoButtonOrange.png"] forState:UIControlStateNormal];
@@ -796,16 +796,16 @@
             [formNavigationBar setTranslucent:YES];
             formNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
             closeFormBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(confirmDismissal)];
-            [closeFormBarButtonItem setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [closeFormBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [formNavigationItem setRightBarButtonItem:closeFormBarButtonItem];
             deleteRecordBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(footerBarDelete)];
-            [deleteRecordBarButtonItem setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [deleteRecordBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [deleteRecordBarButtonItem setImageInsets:UIEdgeInsetsMake(0, 20, 0, -20)];
             UIBarButtonItem *packageDataBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(confirmUploadAllRecords)];
-            [packageDataBarButtonItem setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [packageDataBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [packageDataBarButtonItem setImageInsets:UIEdgeInsetsMake(0, -8, 0, 0)];
             UIBarButtonItem *recordLookupBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(lineListButtonPressed)];
-            [recordLookupBarButtonItem setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [recordLookupBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [recordLookupBarButtonItem setImageInsets:UIEdgeInsetsMake(0, -40, 0, 0)];
             [formNavigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:packageDataBarButtonItem, recordLookupBarButtonItem, nil]];
             [formNavigationBar setItems:[NSArray arrayWithObject:formNavigationItem]];
@@ -823,11 +823,11 @@
 //            [footerBar setTranslucent:YES];
             footerBarNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
             submitFooterBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Submit" style:UIBarButtonItemStylePlain target:self action:@selector(footerBarSubmit)];
-            [submitFooterBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0] forKey:NSForegroundColorAttributeName] forState:UIControlStateNormal];
+            [submitFooterBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0] forKey:NSForegroundColorAttributeName] forState:UIControlStateNormal];
             updateFooterBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Update" style:UIBarButtonItemStylePlain target:self action:@selector(footerBarUpdate)];
-            [updateFooterBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0] forKey:NSForegroundColorAttributeName] forState:UIControlStateNormal];
+            [updateFooterBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0] forKey:NSForegroundColorAttributeName] forState:UIControlStateNormal];
             UIBarButtonItem *clearFooterBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(footerBarClear)];
-            [clearFooterBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0] forKey:NSForegroundColorAttributeName] forState:UIControlStateNormal];
+            [clearFooterBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0] forKey:NSForegroundColorAttributeName] forState:UIControlStateNormal];
             [footerBarNavigationItem setRightBarButtonItem:submitFooterBarButtonItem];
             [footerBarNavigationItem setLeftBarButtonItem:clearFooterBarButtonItem];
             [footerBar setItems:[NSArray arrayWithObject:footerBarNavigationItem]];
@@ -918,7 +918,7 @@
     //    UILabel *areYouSure = [[UILabel alloc] initWithFrame:dismissView.frame];
     UILabel *areYouSure = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 280, 96)];
     [areYouSure setBackgroundColor:[UIColor clearColor]];
-    [areYouSure setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [areYouSure setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [areYouSure setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
     [areYouSure setTextAlignment:NSTextAlignmentLeft];
     [areYouSure setLineBreakMode:NSLineBreakByWordWrapping];
@@ -927,7 +927,7 @@
     
     UILabel *decimalSeparatorLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 104, 142, 40)];
     [decimalSeparatorLabel setBackgroundColor:[UIColor clearColor]];
-    [decimalSeparatorLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [decimalSeparatorLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [decimalSeparatorLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
     [decimalSeparatorLabel setTextAlignment:NSTextAlignmentLeft];
     [decimalSeparatorLabel setText:@"Decimal separator:"];
@@ -964,7 +964,7 @@
     [commaDecimalSeparatorView addSubview:commaDecimalSeparatorButton];
     
     UIActivityIndicatorView *uiaiv = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(130, 80, 40, 40)];
-    [uiaiv setColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [uiaiv setColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [uiaiv setHidden:YES];
     [messageView addSubview:uiaiv];
     
@@ -1319,7 +1319,7 @@
     
     UILabel *areYouSure = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     [areYouSure setBackgroundColor:[UIColor clearColor]];
-    [areYouSure setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [areYouSure setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [areYouSure setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
     [areYouSure setTextAlignment:NSTextAlignmentLeft];
     [areYouSure setLineBreakMode:NSLineBreakByWordWrapping];
@@ -1823,13 +1823,13 @@
     [dismissView addSubview:feedbackView];
     UIActivityIndicatorView *uiavPackage = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(140, 280, 20, 20)];
     [feedbackView addSubview:uiavPackage];
-    [uiavPackage setColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [uiavPackage setColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [uiavPackage startAnimating];
     [dismissView bringSubviewToFront:feedbackView];
     
     feedbackView.percentLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 280, 40)];
     [feedbackView.percentLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:24]];
-    [feedbackView.percentLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [feedbackView.percentLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [feedbackView addSubview:feedbackView.percentLabel];
 }
 - (void)packageAndEmailData:(UIButton *)sender

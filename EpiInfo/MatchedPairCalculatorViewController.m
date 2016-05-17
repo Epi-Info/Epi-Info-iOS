@@ -79,7 +79,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
-        [backToMainMenu setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [backToMainMenu setTitle:@"Back to previous screen"];
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
        
@@ -238,12 +238,12 @@
         [phoneInputsView addSubview:self.phoneControlsMinusLabel];
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
         {
-            [self.phoneCasesLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [self.phoneCasesPlusLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [self.phoneCasesMinusLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [self.phoneControlsLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [self.phoneControlsPlusLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [self.phoneControlsMinusLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [self.phoneCasesLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+            [self.phoneCasesPlusLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+            [self.phoneCasesMinusLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+            [self.phoneControlsLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+            [self.phoneControlsPlusLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+            [self.phoneControlsMinusLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [self.phoneCasesLabel setFont:[UIFont boldSystemFontOfSize:14.0]];
             [self.phoneCasesPlusLabel setFont:[UIFont boldSystemFontOfSize:14.0]];
             [self.phoneCasesMinusLabel setFont:[UIFont boldSystemFontOfSize:14.0]];
@@ -255,20 +255,20 @@
         self.phoneCasesLabel.transform = CGAffineTransformMakeRotation(-M_PI / 2.0);
         phoneInputsColorBoxBorder = 2.0;
         phoneInputsColorBox = [[UIView alloc] initWithFrame:CGRectMake(self.yyField.frame.origin.x - phoneInputsColorBoxBorder, self.yyField.frame.origin.y - phoneInputsColorBoxBorder, self.ynField.frame.origin.x + self.ynField.frame.size.width + 2 * phoneInputsColorBoxBorder - self.yyField.frame.origin.x, self.nnField.frame.origin.y + self.nnField.frame.size.height + 2 * phoneInputsColorBoxBorder - self.yyField.frame.origin.y)];
-        [phoneInputsColorBox setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phoneInputsColorBox setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [phoneInputsColorBox.layer setCornerRadius:8.0];
         [phoneInputsView addSubview:phoneInputsColorBox];
         [phoneInputsView sendSubviewToBack:phoneInputsColorBox];
         BlurryView *blurryInputsView = [BlurryView new];
         [blurryInputsView setFrame:CGRectMake(0, 0, phoneInputsColorBox.frame.size.width, phoneInputsColorBox.frame.size.height)];
 //        [phoneInputsColorBox addSubview:blurryInputsView];
-        [blurryInputsView setBlurTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [blurryInputsView setBlurTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [blurryInputsView.layer setCornerRadius:8.0];
 
         phoneOddsBasedParametersView = [[UIView alloc] initWithFrame:CGRectMake(0, 117, 320, 88)];
         [self.view addSubview:phoneOddsBasedParametersView];
         [phoneOddsBasedParametersView addSubview:self.phoneOddsBasedSectionLabel];
-        [self.phoneOddsBasedSectionLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.phoneOddsBasedSectionLabel setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.phoneOddsBasedSectionLabel setTextColor:[UIColor whiteColor]];
         [self.phoneOddsBasedSectionLabel.layer setCornerRadius:10.0];
         [phoneOddsBasedParametersView addSubview:self.phoneEstimateLabel];
@@ -294,7 +294,7 @@
         [self.fisherUpper setFrame:CGRectMake(self.fisherUpper.frame.origin.x, self.fisherUpper.frame.origin.y - 128, self.fisherUpper.frame.size.width, self.fisherUpper.frame.size.height)];
 
         phoneOddsBasedParametersColorBox = [[UIView alloc] initWithFrame:CGRectMake(self.phoneOddsBasedSectionLabel.frame.origin.x, self.phoneOddsBasedSectionLabel.frame.origin.y, self.phoneOddsBasedSectionLabel.frame.size.width, 69)];
-        [phoneOddsBasedParametersColorBox setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phoneOddsBasedParametersColorBox setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [phoneOddsBasedParametersColorBox.layer setCornerRadius:10.0];
         [phoneOddsBasedParametersView addSubview:phoneOddsBasedParametersColorBox];
         
@@ -381,7 +381,7 @@
         phoneStatisticalTestsView = [[UIView alloc] initWithFrame:CGRectMake(0, 195, 320, 118)];
         [self.view addSubview:phoneStatisticalTestsView];
         [phoneStatisticalTestsView addSubview:self.phoneStatisticalTestsSectionLabel];
-        [self.phoneStatisticalTestsSectionLabel  setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.phoneStatisticalTestsSectionLabel  setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.phoneStatisticalTestsSectionLabel setTextColor:[UIColor whiteColor]];
         [self.phoneStatisticalTestsSectionLabel.layer setCornerRadius:10.0];
         [self.phoneX2Label setAccessibilityLabel:@"Ky square"];
@@ -414,7 +414,7 @@
         [self.fisherExact setFrame:CGRectMake(self.fisherExact.frame.origin.x, self.fisherExact.frame.origin.y - 207, self.fisherExact.frame.size.width, self.fisherExact.frame.size.height)];
         [self.fisherExact2 setFrame:CGRectMake(self.fisherExact2.frame.origin.x, self.fisherExact2.frame.origin.y - 207, self.fisherExact2.frame.size.width, self.fisherExact2.frame.size.height)];
         phoneStatisticalTestsColorBox = [[UIView alloc] initWithFrame:CGRectMake(self.phoneStatisticalTestsSectionLabel.frame.origin.x, self.phoneStatisticalTestsSectionLabel.frame.origin.y, self.phoneStatisticalTestsSectionLabel.frame.size.width, phoneStatisticalTestsView.frame.size.height - 7.0)];
-        [phoneStatisticalTestsColorBox setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phoneStatisticalTestsColorBox setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [phoneStatisticalTestsColorBox.layer setCornerRadius:10.0];
         [phoneStatisticalTestsView addSubview:phoneStatisticalTestsColorBox];
         
@@ -522,7 +522,7 @@
         }
         [self.view addSubview:phoneDisclaimersView];
         phoneDisclaimersColorBox = [[UIView alloc] initWithFrame:CGRectMake(2, 2, 258, 95)];
-        [phoneDisclaimersColorBox setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phoneDisclaimersColorBox setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [phoneDisclaimersColorBox.layer setCornerRadius:10.0];
         [phoneDisclaimersView addSubview:phoneDisclaimersColorBox];
         [phoneDisclaimersColorBox setAlpha:0.0];

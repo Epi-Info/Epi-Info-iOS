@@ -102,7 +102,7 @@
         headerView = [[UIView alloc] initWithFrame:CGRectMake(10, 4, self.view.frame.size.width - 20.0, 70)];
         [headerView setClipsToBounds:YES];
         [headerView.layer setCornerRadius:10.0];
-        [headerView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [headerView setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.view addSubview:headerView];
         
         UILabel *headerLabel0 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, headerView.frame.size.width, 40)];
@@ -178,7 +178,7 @@
         lengthForAgeView = [[UIView alloc] initWithFrame:CGRectMake(30, 160, 300, 74)];
         [lengthForAgeView setClipsToBounds:YES];
         [lengthForAgeView.layer setCornerRadius:10.0];
-        [lengthForAgeView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [lengthForAgeView setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.view addSubview:lengthForAgeView];
         
         UILabel *lengthForAgeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 300, 24)];
@@ -221,7 +221,7 @@
         weightForAgeView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 330, 160, 300, 74)];
         [weightForAgeView setClipsToBounds:YES];
         [weightForAgeView.layer setCornerRadius:10.0];
-        [weightForAgeView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [weightForAgeView setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.view addSubview:weightForAgeView];
         
         UILabel *weightForAgeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 300, 24)];
@@ -264,7 +264,7 @@
         circumferenceForAgeView = [[UIView alloc] initWithFrame:CGRectMake(30, 304, 300, 74)];
         [circumferenceForAgeView setClipsToBounds:YES];
         [circumferenceForAgeView.layer setCornerRadius:10.0];
-        [circumferenceForAgeView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [circumferenceForAgeView setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.view addSubview:circumferenceForAgeView];
         
         UILabel *circumferenceForAgeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 300, 24)];
@@ -317,7 +317,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
-        [backToMainMenu setTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [backToMainMenu setTitle:@"Back to previous screen"];
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
@@ -336,7 +336,7 @@
         headerView = [[UIView alloc] initWithFrame:CGRectMake(10, 4, 300, 60)];
         [headerView setClipsToBounds:YES];
         [headerView.layer setCornerRadius:10.0];
-        [headerView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [headerView setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.view addSubview:headerView];
         
         UILabel *headerLabel0 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 40)];
@@ -412,7 +412,7 @@
         lengthForAgeView = [[UIView alloc] initWithFrame:CGRectMake(10, 160, 300, 64)];
         [lengthForAgeView setClipsToBounds:YES];
         [lengthForAgeView.layer setCornerRadius:10.0];
-        [lengthForAgeView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [lengthForAgeView setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.view addSubview:lengthForAgeView];
         
         UILabel *lengthForAgeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 300, 18)];
@@ -455,7 +455,7 @@
         weightForAgeView = [[UIView alloc] initWithFrame:CGRectMake(10, 232, 300, 64)];
         [weightForAgeView setClipsToBounds:YES];
         [weightForAgeView.layer setCornerRadius:10.0];
-        [weightForAgeView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [weightForAgeView setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.view addSubview:weightForAgeView];
         
         UILabel *weightForAgeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 300, 18)];
@@ -498,7 +498,7 @@
         circumferenceForAgeView = [[UIView alloc] initWithFrame:CGRectMake(10, 304, 300, 64)];
         [circumferenceForAgeView setClipsToBounds:YES];
         [circumferenceForAgeView.layer setCornerRadius:10.0];
-        [circumferenceForAgeView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [circumferenceForAgeView setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.view addSubview:circumferenceForAgeView];
         
         UILabel *circumferenceForAgeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 300, 18)];
