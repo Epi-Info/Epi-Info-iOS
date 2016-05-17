@@ -1785,6 +1785,9 @@
       }];
     }
   }
+    
+    NSLog(@"------------------------- %f, %f",self.contentSize.width, self.contentSize.height - 200.0);
+
 }
 
 - (void)dismissForm;
@@ -2598,6 +2601,8 @@
   } completion:^(BOOL finished){
     hasAFirstResponder = NO;
   }];
+    NSLog(@" ------------------------- %f, %f",self.contentSize.width, self.contentSize.height - 200.0);
+
   return YES;
 }
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -2606,6 +2611,7 @@
     return YES;
   
   [self setContentSize:CGSizeMake(self.contentSize.width, self.contentSize.height + 200.0)];
+    NSLog(@"%f, %f -------------------------",self.contentSize.width, self.contentSize.height + 200.0);
   hasAFirstResponder = YES;
   
   return YES;
@@ -2616,6 +2622,8 @@
     return YES;
   
   [self setContentSize:CGSizeMake(self.contentSize.width, self.contentSize.height + 200.0)];
+    NSLog(@"%f, %f -------------------------",self.contentSize.width, self.contentSize.height + 200.0);
+
   hasAFirstResponder = YES;
   
   return YES;
