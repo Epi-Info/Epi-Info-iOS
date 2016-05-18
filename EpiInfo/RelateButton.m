@@ -52,20 +52,28 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    [self setImage:[UIImage imageNamed:@"PlainPurpleButton.png"] forState:UIControlStateNormal];
+//    [self setImage:[UIImage imageNamed:@"PlainPurpleButton.png"] forState:UIControlStateNormal];
     [self setClipsToBounds:YES];
     [self addTarget:self action:@selector(selfPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self setBackgroundColor:[UIColor colorWithRed:230/255.0 green:231/255.0 blue:232/255.0 alpha:1.0]];
     return self;
 }
 
 - (void)setTitle:(NSString *)title forState:(UIControlState)state
 {
-    UIButton *titleButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-    [titleButton setTitle:title forState:state];
-    [titleButton addTarget:self action:@selector(titleButtonPressed:) forControlEvents:UIControlEventTouchDown];
-    [titleButton addTarget:self action:@selector(titleButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
+    [super setTitle:title forState:state];
     [self setAccessibilityLabel:title];
-    [self addSubview:titleButton];
+    [self setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:state];
+    [self setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+    [super setHighlighted:highlighted];
+//    if (highlighted)
+//        [self setBackgroundColor:[UIColor colorWithRed:209/255.0 green:211/255.0 blue:212/255.0 alpha:1.0]];
+//    else
+//        [self setBackgroundColor:[UIColor colorWithRed:230/255.0 green:231/255.0 blue:232/255.0 alpha:1.0]];
 }
 
 - (void)titleButtonPressed:(UIButton *)sender
