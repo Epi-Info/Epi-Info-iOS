@@ -936,15 +936,20 @@
     useDotForDecimal = YES;
     
     dotDecimalSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(150, 106, 34, 34)];
-    [dotDecimalSeparatorView setBackgroundColor:[UIColor redColor]];
+    [dotDecimalSeparatorView setBackgroundColor:[UIColor colorWithRed:243/255.0 green:124/255.0 blue:96/255.0 alpha:1.0]];
     [dotDecimalSeparatorView.layer setCornerRadius:10.0];
     [messageView addSubview:dotDecimalSeparatorView];
     
     UIButton *dotDecimalSeparatorButton = [[UIButton alloc] initWithFrame:CGRectMake(4, 4, 26, 26)];
-    [dotDecimalSeparatorButton setBackgroundColor:[UIColor whiteColor]];
+//    [dotDecimalSeparatorButton setBackgroundColor:[UIColor whiteColor]];
     [dotDecimalSeparatorButton.layer setMasksToBounds:YES];
-    [dotDecimalSeparatorButton setTitle:@"Use dot for decimal separator" forState:UIControlStateNormal];
+    [dotDecimalSeparatorButton setTitle:@"." forState:UIControlStateNormal];
+    [dotDecimalSeparatorButton setAccessibilityLabel:@"Use dot for decimal separator"];
     [dotDecimalSeparatorButton setImage:[UIImage imageNamed:@"Dot.png"] forState:UIControlStateNormal];
+    [dotDecimalSeparatorButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [dotDecimalSeparatorButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [dotDecimalSeparatorButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:32.0]];
+    [dotDecimalSeparatorButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [dotDecimalSeparatorButton.layer setCornerRadius:8.0];
     [dotDecimalSeparatorButton addTarget:self action:@selector(chooseDecimalSeparator:) forControlEvents:UIControlEventTouchUpInside];
     [dotDecimalSeparatorView addSubview:dotDecimalSeparatorButton];
@@ -955,10 +960,15 @@
     [messageView addSubview:commaDecimalSeparatorView];
     
     UIButton *commaDecimalSeparatorButton = [[UIButton alloc] initWithFrame:CGRectMake(4, 4, 26, 26)];
-    [commaDecimalSeparatorButton setBackgroundColor:[UIColor whiteColor]];
+//    [commaDecimalSeparatorButton setBackgroundColor:[UIColor whiteColor]];
     [commaDecimalSeparatorButton.layer setMasksToBounds:YES];
-    [commaDecimalSeparatorButton setTitle:@"Use comma for decimal separator" forState:UIControlStateNormal];
+    [commaDecimalSeparatorButton setTitle:@"," forState:UIControlStateNormal];
+    [commaDecimalSeparatorButton setAccessibilityLabel:@"Use comma for decimal separator"];
     [commaDecimalSeparatorButton setImage:[UIImage imageNamed:@"Comma.png"] forState:UIControlStateNormal];
+    [commaDecimalSeparatorButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [commaDecimalSeparatorButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [commaDecimalSeparatorButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:32.0]];
+    [commaDecimalSeparatorButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [commaDecimalSeparatorButton.layer setCornerRadius:8.0];
     [commaDecimalSeparatorButton addTarget:self action:@selector(chooseDecimalSeparator:) forControlEvents:UIControlEventTouchUpInside];
     [commaDecimalSeparatorView addSubview:commaDecimalSeparatorButton];
@@ -969,9 +979,13 @@
     [messageView addSubview:uiaiv];
     
     UIButton *iTunesButton = [[UIButton alloc] initWithFrame:CGRectMake(1, openButton.frame.origin.y - openButton.frame.size.height, 298, 40)];
-    [iTunesButton setImage:[UIImage imageNamed:@"PackageForiTunesButton.png"] forState:UIControlStateNormal];
-    [iTunesButton setTitle:@"Package for I tunes upload." forState:UIControlStateNormal];
-    [iTunesButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+//    [iTunesButton setImage:[UIImage imageNamed:@"PackageForiTunesButton.png"] forState:UIControlStateNormal];
+    [iTunesButton setTitle:@"Package Data for Upload to iTunes" forState:UIControlStateNormal];
+    [iTunesButton setAccessibilityLabel:@"Package for I tunes upload."];
+    [iTunesButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [iTunesButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [iTunesButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+    [iTunesButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [iTunesButton.layer setMasksToBounds:YES];
     [iTunesButton.layer setCornerRadius:4.0];
 //    [iTunesButton addTarget:self action:@selector(packageDataForiTunes:) forControlEvents:UIControlEventTouchUpInside];
@@ -979,9 +993,13 @@
     [messageView addSubview:iTunesButton];
     
     UIButton *emailButton = [[UIButton alloc] initWithFrame:CGRectMake(1, openButton.frame.origin.y - openButton.frame.size.height + 42.0, 298, 40)];
-    [emailButton setImage:[UIImage imageNamed:@"PackageAndEmailDataButton.png"] forState:UIControlStateNormal];
-    [emailButton setTitle:@"Package and email" forState:UIControlStateNormal];
-    [emailButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+//    [emailButton setImage:[UIImage imageNamed:@"PackageAndEmailDataButton.png"] forState:UIControlStateNormal];
+    [emailButton setTitle:@"Package and Email Data" forState:UIControlStateNormal];
+    [emailButton setAccessibilityLabel:@"Package and email"];
+    [emailButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [emailButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [emailButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+    [emailButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [emailButton.layer setMasksToBounds:YES];
     [emailButton.layer setCornerRadius:4.0];
 //    [emailButton addTarget:self action:@selector(packageAndEmailData:) forControlEvents:UIControlEventTouchUpInside];
@@ -990,9 +1008,13 @@
     
     //    UIButton *yesButton = [[UIButton alloc] initWithFrame:dismissImageView.frame];
     UIButton *yesButton = [[UIButton alloc] initWithFrame:CGRectMake(1, openButton.frame.origin.y - openButton.frame.size.height + 84.0, 298, 40)];
-    [yesButton setImage:[UIImage imageNamed:@"UploadDataToCloudButton.png"] forState:UIControlStateNormal];
-    [yesButton setTitle:@"Upload to cloud" forState:UIControlStateNormal];
-    [yesButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+//    [yesButton setImage:[UIImage imageNamed:@"UploadDataToCloudButton.png"] forState:UIControlStateNormal];
+    [yesButton setTitle:@"Upload Data to Cloud" forState:UIControlStateNormal];
+    [yesButton setAccessibilityLabel:@"Upload to cloud"];
+    [yesButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [yesButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [yesButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+    [yesButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [yesButton.layer setMasksToBounds:YES];
     [yesButton.layer setCornerRadius:4.0];
     [yesButton addTarget:self action:@selector(uploadAllRecords:) forControlEvents:UIControlEventTouchUpInside];
@@ -1000,9 +1022,12 @@
     
     //    UIButton *noButton = [[UIButton alloc] initWithFrame:dismissImageView.frame];
     UIButton *noButton = [[UIButton alloc] initWithFrame:CGRectMake(messageView.frame.size.width / 2.0 -  openButton.frame.size.width / 2.0, openButton.frame.origin.y + 88.0, openButton.frame.size.width, openButton.frame.size.height)];
-    [noButton setImage:[UIImage imageNamed:@"CancelButton.png"] forState:UIControlStateNormal];
+//    [noButton setImage:[UIImage imageNamed:@"CancelButton.png"] forState:UIControlStateNormal];
     [noButton setTitle:@"Cancel" forState:UIControlStateNormal];
-    [noButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+    [noButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [noButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [noButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+    [noButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [noButton.layer setMasksToBounds:YES];
     [noButton.layer setCornerRadius:4.0];
     [noButton addTarget:self action:@selector(doNotDismiss) forControlEvents:UIControlEventTouchUpInside];
@@ -1036,14 +1061,16 @@
             [areYouSure setText:[NSString stringWithFormat:@"Local table contains %d records.", numberOfRecordsToUpload]];
             [emailButton setEnabled:YES];
             [yesButton setEnabled:YES];
-            [noButton setImage:[UIImage imageNamed:@"CancelButton.png"] forState:UIControlStateNormal];
+            [noButton setTitle:@"Cancel" forState:UIControlStateNormal];
+//            [noButton setImage:[UIImage imageNamed:@"CancelButton.png"] forState:UIControlStateNormal];
         }
         else
         {
             [areYouSure setText:[NSString stringWithFormat:@"Local table contains no rows."]];
             [emailButton setEnabled:NO];
             [yesButton setEnabled:NO];
-            [noButton setImage:[UIImage imageNamed:@"OKButton.png"] forState:UIControlStateNormal];
+            [noButton setTitle:@"OK" forState:UIControlStateNormal];
+//            [noButton setImage:[UIImage imageNamed:@"OKButton.png"] forState:UIControlStateNormal];
             return;
         }
     }
@@ -1052,7 +1079,8 @@
         [areYouSure setText:[NSString stringWithFormat:@"Local table does not yet exist for this form."]];
         [emailButton setEnabled:NO];
         [yesButton setEnabled:NO];
-        [noButton setImage:[UIImage imageNamed:@"OKButton.png"] forState:UIControlStateNormal];
+        [noButton setTitle:@"OK" forState:UIControlStateNormal];
+//        [noButton setImage:[UIImage imageNamed:@"OKButton.png"] forState:UIControlStateNormal];
         return;
     }
 
@@ -1118,7 +1146,8 @@
         {
             [areYouSure setText:[areYouSure.text stringByAppendingString:@"\nNo cloud connection credentials found for this table."]];
             [yesButton setEnabled:NO];
-            [noButton setImage:[UIImage imageNamed:@"CancelButton.png"] forState:UIControlStateNormal];
+            [noButton setTitle:@"Cancel" forState:UIControlStateNormal];
+//            [noButton setImage:[UIImage imageNamed:@"CancelButton.png"] forState:UIControlStateNormal];
 //            [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
 //                [dismissView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
 //            } completion:^(BOOL finished){
@@ -1130,7 +1159,8 @@
     {
         [areYouSure setText:[areYouSure.text stringByAppendingString:@"\nNo cloud connection credentials found for this table."]];
         [yesButton setEnabled:NO];
-        [noButton setImage:[UIImage imageNamed:@"CancelButton.png"] forState:UIControlStateNormal];
+        [noButton setTitle:@"Cancel" forState:UIControlStateNormal];
+//        [noButton setImage:[UIImage imageNamed:@"CancelButton.png"] forState:UIControlStateNormal];
 //        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
 //            [dismissView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
 //        } completion:^(BOOL finished){
@@ -1163,7 +1193,8 @@
         [areYouSure setText:[areYouSure.text stringByAppendingString:@"\nNo internet connection. Cannot upload or email records at this time."]];
         [emailButton setEnabled:NO];
         [yesButton setEnabled:NO];
-        [noButton setImage:[UIImage imageNamed:@"OKButton.png"] forState:UIControlStateNormal];
+        [noButton setTitle:@"OK" forState:UIControlStateNormal];
+//        [noButton setImage:[UIImage imageNamed:@"OKButton.png"] forState:UIControlStateNormal];
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
             [dismissView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
         } completion:^(BOOL finished){
@@ -1179,17 +1210,17 @@
 
 - (void)chooseDecimalSeparator:(UIButton *)sender
 {
-    if ([sender.titleLabel.text isEqualToString:@"Use dot for decimal separator"])
+    if ([sender.titleLabel.text isEqualToString:@"."])
     {
         useDotForDecimal = YES;
-        [dotDecimalSeparatorView setBackgroundColor:[UIColor redColor]];
+        [dotDecimalSeparatorView setBackgroundColor:[UIColor colorWithRed:243/255.0 green:124/255.0 blue:96/255.0 alpha:1.0]];
         [commaDecimalSeparatorView setBackgroundColor:[UIColor clearColor]];
     }
     else
     {
         useDotForDecimal = NO;
         [dotDecimalSeparatorView setBackgroundColor:[UIColor clearColor]];
-        [commaDecimalSeparatorView setBackgroundColor:[UIColor redColor]];
+        [commaDecimalSeparatorView setBackgroundColor:[UIColor colorWithRed:243/255.0 green:124/255.0 blue:96/255.0 alpha:1.0]];
     }
 }
 
@@ -1336,27 +1367,35 @@
     [messageView addSubview:eitf];
     
     UIButton *packageDataButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    [packageDataButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+    [packageDataButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [packageDataButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [packageDataButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+    [packageDataButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [packageDataButton.layer setMasksToBounds:YES];
     [packageDataButton.layer setCornerRadius:4.0];
-    if ([sender.titleLabel.text isEqualToString:@"Package for I tunes upload."])
+    if ([sender.titleLabel.text isEqualToString:@"Package Data for Upload to iTunes"])
     {
-        [packageDataButton setImage:[UIImage imageNamed:@"PackageForiTunesButton.png"] forState:UIControlStateNormal];
-        [packageDataButton setTitle:@"Package for I tunes upload." forState:UIControlStateNormal];
+//        [packageDataButton setImage:[UIImage imageNamed:@"PackageForiTunesButton.png"] forState:UIControlStateNormal];
+        [packageDataButton setTitle:@"Package Data for Upload to iTunes" forState:UIControlStateNormal];
+        [packageDataButton setAccessibilityLabel:@"Package for I tunes upload."];
         [packageDataButton addTarget:self action:@selector(packageDataForiTunes:) forControlEvents:UIControlEventTouchUpInside];
     }
     else
     {
-        [packageDataButton setImage:[UIImage imageNamed:@"PackageAndEmailDataButton.png"] forState:UIControlStateNormal];
-        [packageDataButton setTitle:@"Package and email" forState:UIControlStateNormal];
+//        [packageDataButton setImage:[UIImage imageNamed:@"PackageAndEmailDataButton.png"] forState:UIControlStateNormal];
+        [packageDataButton setTitle:@"Package and Email Data" forState:UIControlStateNormal];
+        [packageDataButton setAccessibilityLabel:@"Package and email"];
         [packageDataButton addTarget:self action:@selector(packageAndEmailData:) forControlEvents:UIControlEventTouchUpInside];
     }
     [messageView addSubview:packageDataButton];
     
     UIButton *noButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    [noButton setImage:[UIImage imageNamed:@"CancelButton.png"] forState:UIControlStateNormal];
+//    [noButton setImage:[UIImage imageNamed:@"CancelButton.png"] forState:UIControlStateNormal];
     [noButton setTitle:@"Cancel" forState:UIControlStateNormal];
-    [noButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+    [noButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [noButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [noButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+    [noButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [noButton.layer setMasksToBounds:YES];
     [noButton.layer setCornerRadius:4.0];
     [noButton addTarget:self action:@selector(dismissPrePackageDataView:) forControlEvents:UIControlEventTouchUpInside];
