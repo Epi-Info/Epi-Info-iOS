@@ -186,7 +186,7 @@
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
         {
             [self.lowerNavigationBar setFrame:CGRectMake(0, -4, self.view.frame.size.width, 44)];
-            [self.lowerNavigationBar setBarTintColor:[UIColor colorWithRed:50/255.0 green:71/255.0 blue:92/255.0 alpha:1.0]];
+            [self.lowerNavigationBar setBarTintColor:[UIColor colorWithRed:0/255.0 green:130/255.0 blue:126/255.0 alpha:1.0]];
         }
         
         [self.yyField setAccessibilityLabel:@"Cases and Controls both exposed"];
