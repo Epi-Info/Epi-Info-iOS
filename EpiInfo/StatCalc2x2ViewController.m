@@ -431,7 +431,7 @@
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
             [blurryView setBlurTintColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:0.6]];
         else
-            [blurryView setBlurTintColor:[UIColor colorWithRed:99/255.0 green:166/255.0 blue:203/255.0 alpha:0.6]];
+            [blurryView setBlurTintColor:[UIColor colorWithRed:142/255.0 green:175/255.0 blue:213/255.0 alpha:0.6]];
         [blurryView.layer setCornerRadius:4.0];
         [self.view bringSubviewToFront:segmentedControl];
         [segmentedControl setBackgroundColor:[UIColor clearColor]];
