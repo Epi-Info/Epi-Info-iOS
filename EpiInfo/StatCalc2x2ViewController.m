@@ -325,7 +325,7 @@
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
         {
             [self.lowerNavigationBar setFrame:CGRectMake(0, -4, self.view.frame.size.width, 44)];
-            [self.lowerNavigationBar setBarTintColor:[UIColor colorWithRed:50/255.0 green:71/255.0 blue:92/255.0 alpha:1.0]];
+            [self.lowerNavigationBar setBarTintColor:[UIColor colorWithRed:0/255.0 green:130/255.0 blue:126/255.0 alpha:1.0]];
         }
     }
     [segmentedControl addTarget:self action:@selector(makeSegmentSelection:) forControlEvents:UIControlEventValueChanged];
@@ -431,7 +431,7 @@
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
             [blurryView setBlurTintColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:0.6]];
         else
-            [blurryView setBlurTintColor:[UIColor colorWithRed:99/255.0 green:166/255.0 blue:203/255.0 alpha:0.6]];
+            [blurryView setBlurTintColor:[UIColor colorWithRed:142/255.0 green:175/255.0 blue:213/255.0 alpha:0.6]];
         [blurryView.layer setCornerRadius:4.0];
         [self.view bringSubviewToFront:segmentedControl];
         [segmentedControl setBackgroundColor:[UIColor clearColor]];
