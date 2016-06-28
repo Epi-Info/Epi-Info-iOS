@@ -13,6 +13,7 @@
 #import "BlurryView.h"
 #import "FeedbackView.h"
 #import "Reachability.h"
+#import "PageDots.h"
 #import "sqlite3.h"
 #import <CoreImage/CoreImage.h>
 #import <MessageUI/MFMailComposeViewController.h>
@@ -61,6 +62,8 @@
     NSMutableArray *deleteRecordBarButtonItems;
     
     BOOL updatingExistingRecord;
+    
+    PageDots *pagedots;
 }
 @property NSMutableDictionary *legalValuesDictionary;
 -(UIButton *)openButton;
@@ -76,4 +79,6 @@
 -(NSMutableArray *)closeFormBarButtonItems;
 -(NSMutableArray *)deleteRecordBarButtonItems;
 -(void)setFooterBarNavigationItemTitle:(NSString *)footerBarNavigationItemTitle;
+-(void)advancePagedots;
+-(void)retreatPagedots;
 @end

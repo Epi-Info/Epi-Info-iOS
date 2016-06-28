@@ -394,6 +394,8 @@
     if ([nextPageButton isEnabled])
     {
         [self previousOrNextPageButtonPressed:nextPageButton];
+        DataEntryViewController *devc = (DataEntryViewController *)self.rootViewController;
+        [devc advancePagedots];
     }
 }
 - (void)userSwipedToTheRight
@@ -401,6 +403,8 @@
     if ([previousPageButton isEnabled])
     {
         [self previousOrNextPageButtonPressed:previousPageButton];
+        DataEntryViewController *devc = (DataEntryViewController *)self.rootViewController;
+        [devc retreatPagedots];
     }
 }
 - (void)previousOrNextPageButtonPressed:(UIButton *)sender
@@ -414,7 +418,7 @@
     {
         [UIView transitionWithView:self.window
                           duration:0.4f
-                           options:UIViewAnimationOptionTransitionFlipFromLeft
+                           options:UIViewAnimationOptionTransitionNone
                         animations:^{
                         }
                         completion:^(BOOL finished){
@@ -425,7 +429,7 @@
     {
         [UIView transitionWithView:self.window
                           duration:0.4f
-                           options:UIViewAnimationOptionTransitionFlipFromRight
+                           options:UIViewAnimationOptionTransitionNone
                         animations:^{
                         }
                         completion:^(BOOL finished){
@@ -472,7 +476,7 @@
                 {
                     if ([[(UILabel *)l text] containsString:formName])
                     {
-                        [(UILabel *)l setText:[NSString stringWithFormat:@"%@, page %d of %lu", formName, (int)[sender tag], (unsigned long)[self pagesArray].count]];
+                        [(UILabel *)l setText:[NSString stringWithFormat:@"%@", formName]];
                     }
                 }
             }
