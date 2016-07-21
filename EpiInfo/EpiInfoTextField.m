@@ -7,7 +7,6 @@
 //
 
 #import "EpiInfoTextField.h"
-#import "EnterDataView.h"
 
 @implementation EpiInfoTextField
 @synthesize columnName = _columnName;
@@ -40,32 +39,23 @@
 
 - (BOOL)becomeFirstResponder
 {
-    NSLog(@"%@ becoming first responder", self.columnName);
-    [(EnterDataView *)[[self superview] superview] fieldBecameFirstResponder:self];
-    
-    return [super becomeFirstResponder];
+  NSLog(@"%@ becoming first responder", self.columnName);
+  return [super becomeFirstResponder];
 }
 
 - (BOOL)resignFirstResponder
 {
-    NSLog(@"%@ resigning first responder", self.columnName);
-    [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
-    
-    return [super resignFirstResponder];
-}
-
-- (NSString *)epiInfoControlValue
-{
-    return [self text];
+  NSLog(@"%@ resigning first responder", self.columnName);
+  return [super resignFirstResponder];
 }
 
 /*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect
- {
- // Drawing code
- }
- */
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
+}
+*/
 
 @end

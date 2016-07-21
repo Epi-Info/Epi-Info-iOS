@@ -94,12 +94,6 @@
 		68F0E84316E5393600ADD7A3 /* PopT.png in Resources */ = {isa = PBXBuildFile; fileRef = 68F0E84216E5393600ADD7A3 /* PopT.png */; };
 		68F0E84516E53BA700ADD7A3 /* PoissonTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 68F0E84416E53BA700ADD7A3 /* PoissonTop.png */; };
 		68F0E84716E53C5C00ADD7A3 /* MPBOT.png in Resources */ = {isa = PBXBuildFile; fileRef = 68F0E84616E53C5C00ADD7A3 /* MPBOT.png */; };
-		847C97CC1D415EFD001E47DD /* CheckCodeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 847C97C31D415EFD001E47DD /* CheckCodeParser.m */; };
-		847C97CD1D415EFD001E47DD /* ConditionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 847C97C51D415EFD001E47DD /* ConditionsModel.m */; };
-		847C97CE1D415EFD001E47DD /* DialogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 847C97C71D415EFD001E47DD /* DialogModel.m */; };
-		847C97CF1D415EFD001E47DD /* ElementPairsCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 847C97C91D415EFD001E47DD /* ElementPairsCheck.m */; };
-		847C97D01D415EFD001E47DD /* ElementsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 847C97CB1D415EFD001E47DD /* ElementsModel.m */; };
-		847C97D41D415FB2001E47DD /* LegalValuesEnter.m in Sources */ = {isa = PBXBuildFile; fileRef = 847C97D31D415FB2001E47DD /* LegalValuesEnter.m */; };
 		92001B97186C8C2E00B87D21 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92001B96186C8C2E00B87D21 /* CoreImage.framework */; };
 		92001B9C186C979E00B87D21 /* NoButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92001B98186C979E00B87D21 /* NoButton.png */; };
 		92001B9D186C979E00B87D21 /* NoButtonOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 92001B99186C979E00B87D21 /* NoButtonOrange.png */; };
@@ -489,18 +483,6 @@
 		68F0E84216E5393600ADD7A3 /* PopT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopT.png; sourceTree = "<group>"; };
 		68F0E84416E53BA700ADD7A3 /* PoissonTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoissonTop.png; sourceTree = "<group>"; };
 		68F0E84616E53C5C00ADD7A3 /* MPBOT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPBOT.png; sourceTree = "<group>"; };
-		847C97C21D415EFD001E47DD /* CheckCodeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckCodeParser.h; sourceTree = "<group>"; };
-		847C97C31D415EFD001E47DD /* CheckCodeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckCodeParser.m; sourceTree = "<group>"; };
-		847C97C41D415EFD001E47DD /* ConditionsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionsModel.h; sourceTree = "<group>"; };
-		847C97C51D415EFD001E47DD /* ConditionsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionsModel.m; sourceTree = "<group>"; };
-		847C97C61D415EFD001E47DD /* DialogModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogModel.h; sourceTree = "<group>"; };
-		847C97C71D415EFD001E47DD /* DialogModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogModel.m; sourceTree = "<group>"; };
-		847C97C81D415EFD001E47DD /* ElementPairsCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElementPairsCheck.h; sourceTree = "<group>"; };
-		847C97C91D415EFD001E47DD /* ElementPairsCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElementPairsCheck.m; sourceTree = "<group>"; };
-		847C97CA1D415EFD001E47DD /* ElementsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElementsModel.h; sourceTree = "<group>"; };
-		847C97CB1D415EFD001E47DD /* ElementsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElementsModel.m; sourceTree = "<group>"; };
-		847C97D21D415FB2001E47DD /* LegalValuesEnter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegalValuesEnter.h; sourceTree = "<group>"; };
-		847C97D31D415FB2001E47DD /* LegalValuesEnter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegalValuesEnter.m; sourceTree = "<group>"; };
 		92001B96186C8C2E00B87D21 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		92001B98186C979E00B87D21 /* NoButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoButton.png; sourceTree = "<group>"; };
 		92001B99186C979E00B87D21 /* NoButtonOrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoButtonOrange.png; sourceTree = "<group>"; };
@@ -1292,23 +1274,6 @@
 			name = Analysis;
 			sourceTree = "<group>";
 		};
-		847C97D11D415F1B001E47DD /* Checkcode */ = {
-			isa = PBXGroup;
-			children = (
-				847C97C21D415EFD001E47DD /* CheckCodeParser.h */,
-				847C97C31D415EFD001E47DD /* CheckCodeParser.m */,
-				847C97C41D415EFD001E47DD /* ConditionsModel.h */,
-				847C97C51D415EFD001E47DD /* ConditionsModel.m */,
-				847C97C61D415EFD001E47DD /* DialogModel.h */,
-				847C97C71D415EFD001E47DD /* DialogModel.m */,
-				847C97C81D415EFD001E47DD /* ElementPairsCheck.h */,
-				847C97C91D415EFD001E47DD /* ElementPairsCheck.m */,
-				847C97CA1D415EFD001E47DD /* ElementsModel.h */,
-				847C97CB1D415EFD001E47DD /* ElementsModel.m */,
-			);
-			name = Checkcode;
-			sourceTree = "<group>";
-		};
 		921974981880589F007F6DFA /* MSAzure */ = {
 			isa = PBXGroup;
 			children = (
@@ -1413,7 +1378,6 @@
 		9266C5251846571B00739AF2 /* Entry */ = {
 			isa = PBXGroup;
 			children = (
-				847C97D11D415F1B001E47DD /* Checkcode */,
 				92E9801218A538B40011CC8B /* ButtonImages */,
 				9266C526184657E900739AF2 /* DataEntryViewController.h */,
 				9266C527184657E900739AF2 /* DataEntryViewController.m */,
@@ -1447,8 +1411,6 @@
 				9266C53F184684FD00739AF2 /* UppercaseTextField.m */,
 				9266C54118468CCF00739AF2 /* LegalValues.h */,
 				9266C54218468CCF00739AF2 /* LegalValues.m */,
-				847C97D21D415FB2001E47DD /* LegalValuesEnter.h */,
-				847C97D31D415FB2001E47DD /* LegalValuesEnter.m */,
 				92DBD601193CC57100A40691 /* EpiInfoOptionField.h */,
 				92DBD602193CC57100A40691 /* EpiInfoOptionField.m */,
 				92A25C0519391A97003225E1 /* EpiInfoCodesField.h */,
@@ -1875,11 +1837,8 @@
 				928FCEF219E5692000641A95 /* VHFViewController.m in Sources */,
 				4AFD8571161F524E00FFBA65 /* PopulationSurveyViewController.m in Sources */,
 				4AFD8574161F531400FFBA65 /* PopulationSurveyView.m in Sources */,
-				847C97CF1D415EFD001E47DD /* ElementPairsCheck.m in Sources */,
 				4AFD8577161F563100FFBA65 /* SampleSizeAndPowerViewController.m in Sources */,
 				92119A601923FBD3008155F7 /* EpiInfoViewController.m in Sources */,
-				847C97D01D415EFD001E47DD /* ElementsModel.m in Sources */,
-				847C97CD1D415EFD001E47DD /* ConditionsModel.m in Sources */,
 				4A409A6D161F6CFB0038F572 /* PopulationSurveySampleSizeCompute.m in Sources */,
 				4AC7D6241625BD640056A8AC /* CohortSampleSizeViewController.m in Sources */,
 				9266C53D184684CA00739AF2 /* DateField.m in Sources */,
@@ -1898,9 +1857,7 @@
 				4AB23EDC16288D3600AE47C0 /* PoissonCalculatorViewController.m in Sources */,
 				4AB23EDF16289C8C00AE47C0 /* PoissonCalculatorCompute.m in Sources */,
 				4A071E891639C2E3002C05E9 /* BinomialCalculatorCompute.m in Sources */,
-				847C97D41D415FB2001E47DD /* LegalValuesEnter.m in Sources */,
 				4A943006163F144400138E0A /* ChiSquareCalculatorCompute.m in Sources */,
-				847C97CC1D415EFD001E47DD /* CheckCodeParser.m in Sources */,
 				92EBAD03194A400D000EF983 /* EpiInfoUILabel.m in Sources */,
 				92B8E4CC191A8011007E4ECC /* EpiInfoLineListView.m in Sources */,
 				9268178B1AA8D27900935BE9 /* CohortSimulationView.swift in Sources */,
@@ -1948,7 +1905,6 @@
 				92A25C0719391A97003225E1 /* EpiInfoCodesField.m in Sources */,
 				92A25BFB1938D8F9003225E1 /* DateTimeField.m in Sources */,
 				9284E8F017B94E8C00158139 /* SQLiteData.m in Sources */,
-				847C97CE1D415EFD001E47DD /* DialogModel.m in Sources */,
 				9270CA1917CBB0C100522D4F /* BigDouble.m in Sources */,
 				9266C53118466ED600739AF2 /* Checkbox.m in Sources */,
 				9252017E17D0C89A0071C754 /* ShinyButton.m in Sources */,
