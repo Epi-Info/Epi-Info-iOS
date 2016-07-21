@@ -7,6 +7,7 @@
 
 #import "EpiInfo-Swift.h"
 #import "NumberField.h"
+#import "EnterDataView.h"
 
 @implementation NumberField
 @synthesize columnName = _columnName;
@@ -18,11 +19,11 @@
 
 - (NSObject *)checkcode
 {
-  return checkcode;
+    return checkcode;
 }
 - (void)setCheckcode:(NSObject *)ccode
 {
-  checkcode = (CheckCode *)ccode;
+    checkcode = (CheckCode *)ccode;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -42,15 +43,15 @@
     int cursorPosition = (int)[self offsetFromPosition:[self endOfDocument] toPosition:[[self selectedTextRange] start]];
     if (self.text.length + cursorPosition == 0)
         return;
-
+    
     NSCharacterSet *validSet;
-
+    
     NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
     [nsnf setMaximumFractionDigits:6];
     
     NSNumber *testFloat = [NSNumber numberWithFloat:1.1];
     NSString *testFloatString = [nsnf stringFromNumber:testFloat];
-
+    
     if ([testFloatString characterAtIndex:1] == ',')
     {
         validSet = [NSCharacterSet characterSetWithCharactersInString:@"-,0123456789"];
@@ -102,7 +103,7 @@
 {
     if ([self.text length] == 0)
         return @"NULL";
-
+    
     NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
     [nsnf setMaximumFractionDigits:6];
     
@@ -128,24 +129,28 @@
 
 - (BOOL)becomeFirstResponder
 {
-  NSLog(@"%@ becoming first responder", self.columnName);
-  return [super becomeFirstResponder];
+    NSLog(@"%@ becoming first responder", self.columnName);
+    [(EnterDataView *)[[self superview] superview] fieldBecameFirstResponder:self];
+    
+    return [super becomeFirstResponder];
 }
 
 - (BOOL)resignFirstResponder
 {
-  NSLog(@"%@ resigning first responder", self.columnName);
-  [(CheckCode *)checkcode ownerDidResign];
-  return [super resignFirstResponder];
+    NSLog(@"%@ resigning first responder", self.columnName);
+    [(CheckCode *)checkcode ownerDidResign];
+    [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+    
+    return [super resignFirstResponder];
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 @end

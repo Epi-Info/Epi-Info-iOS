@@ -6,6 +6,7 @@
 //
 
 #import "EpiInfoOptionField.h"
+#import "EnterDataView.h"
 
 @implementation EpiInfoOptionField
 
@@ -29,6 +30,8 @@
     {
         [self.viewToAlertOfChanges didChangeValueForKey:[NSString stringWithString:[listOfValues objectAtIndex:row]]];
     }
+    [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+    
 }
 
 - (void)setSelectedLegalValue:(NSString *)selectedLegalValue
@@ -38,12 +41,12 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 @end
