@@ -18,16 +18,20 @@
 #import "UppercaseTextField.h"
 #import "MirrorField.h"
 #import "LegalValues.h"
+#import "LegalValuesEnter.h"
+#import "CommentLegal.h"
 #import "EpiInfoOptionField.h"
 #import "EpiInfoCodesField.h"
 #import "EpiInfoUniqueIDField.h"
+#import "RelateButton.h"
 #import "SaveFormView.h"
 #import "BlurryView.h"
+#import "CheckCodeParser.h"
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "sqlite3.h"
 
-@interface EnterDataView : UIScrollView <NSXMLParserDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UITextViewDelegate>
+@interface EnterDataView : UIScrollView <NSXMLParserDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UITextViewDelegate, UIAlertViewDelegate>
 {
     BOOL firstParse;
     BOOL firstElement;
@@ -46,7 +50,7 @@
     NSString *createTableStatement;
     BOOL beginColumList;
     NSMutableDictionary *alterTableElements;
-
+    
     sqlite3 *epiinfoDB;
     
     BOOL hasAFirstResponder;
@@ -58,6 +62,54 @@
     Checkbox *geocodingCheckbox;
     
     NSMutableDictionary *legalValuesDictionaryForRVC;
+    
+    int pageToDisplay;
+    BOOL isCurrentPage;
+    BOOL isFirstPage;
+    BOOL isLastPage;
+    NSMutableDictionary *dictionaryOfPages;
+    NSString *guidBeingUpdated;
+    NSString *tableBeingUpdated;
+    BOOL updatevisibleScreenOnly;
+    BOOL populateInstructionCameFromLineList;
+    UIButton *nextPageButton;
+    UIButton *previousPageButton;
+    
+    NSNumber *pageBeingDisplayed;
+    
+    UIView *myOrangeBanner;
+    
+    NSString *newRecordGUID;
+    
+    NSString *parentRecordGUID;
+    UIView *parentEnterDataView;
+    NSString *relateButtonName;
+    
+    NSString *formCheckCodeString;
+    
+    int tagNum;
+    int require;
+    int valid;
+    int counter;
+    BOOL firstEdit;
+    
+    CheckCodeParser *ccp;
+    NSString *pageName;
+    
+    /*CheckCode*/
+    NSMutableArray *keywordsArray;
+    NSMutableArray *conditionsArray;
+    NSMutableArray* dialogArray;
+    NSMutableArray *elementListArray;
+    NSMutableArray *elementsArray;
+    NSMutableArray *elmArray;
+    NSMutableArray *dialogListArray;
+    NSMutableArray *dialogTitleArray;
+    NSMutableArray *requiredArray;
+    
+    BOOL alertBefore;
+    
+    
 }
 
 @property NSURL *url;
@@ -74,16 +126,63 @@
 @property NSMutableArray *pageIDs;
 @property NSMutableDictionary *checkboxes;
 
+@property NSMutableDictionary *dictionaryOfCommentLegals;
+
 @property NSMutableDictionary *dictionaryOfFields;
 @property NSMutableDictionary *dictionaryOfWordsArrays;
 
+@property(strong, nonatomic) NSMutableArray *conditionsArray;
+@property(strong) NSMutableArray* dialogArray;
+@property(strong) NSMutableArray *elementListArray;
+@property(strong, nonatomic) NSMutableArray *elementsArray;
+@property(strong) NSMutableArray *elmArray;
+@property(nonatomic) BOOL firstEdit;
+
+
+-(void)setNewRecordGUID:(NSString *)guid;
+
+-(void)setTableBeingUpdated:(NSString *)tbu;
+
+-(void)setRecordUIDForUpdate:(NSString *)uid;
+
+-(NSDictionary *)dictionaryOfPages;
+
+-(void)setParentRecordGUID:(NSString *)prguid;
+-(NSString *)parentRecordGUID;
+-(NSString *)guidToSendToChild;
+
+-(void)setParentEnterDataView:(EnterDataView *)parentEDV;
+-(EnterDataView *)parentEnterDataView;
+
+-(void)setRelateButtonName:(NSString *)rbn;
+
+-(NSString *)formCheckCodeString;
+
+-(void)setMyOrangeBanner:(UIView *)mob;
+-(UIView *)myOrangeBanner;
+
 -(NSString *)formName;
--(id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndNameOfTheForm:(NSString *)notf;
--(id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndNameOfTheForm:(NSString *)notf;
+-(id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndNameOfTheForm:(NSString *)notf AndPageToDisplay:(int)page;
+-(id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndNameOfTheForm:(NSString *)notf AndPageToDisplay:(int)page;
 -(void)getMyLocation;
 -(void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID;
+-(void)setPageToDisplay:(int)pageNumber;
+
+-(BOOL)getIsFirstPage;
+-(BOOL)getIsLastPage;
+-(void)setDictionaryOfPages:(NSMutableDictionary *)dop;
+-(UIView *)formCanvas;
+-(void)setGuidBeingUpdated:(NSString *)gbu;
+-(void)setPopulateInstructionCameFromLineList:(BOOL)yesNo;
 
 -(void)fieldBecameFirstResponder:(id)field;
 -(void)fieldResignedFirstResponder:(id)field;
 -(void)checkboxChanged:(Checkbox *)checkbox;
+
+-(void)setPageBeingDisplayed:(NSNumber *)page;
+-(NSNumber *)pageBeingDisplayed;
+
+- (NSString *)createTableStatement;
+
+-(void)confirmSubmitOrClear:(UIButton *)sender;
 @end

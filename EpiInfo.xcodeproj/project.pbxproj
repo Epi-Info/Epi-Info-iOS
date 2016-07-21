@@ -99,6 +99,7 @@
 		847C97CE1D415EFD001E47DD /* DialogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 847C97C71D415EFD001E47DD /* DialogModel.m */; };
 		847C97CF1D415EFD001E47DD /* ElementPairsCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 847C97C91D415EFD001E47DD /* ElementPairsCheck.m */; };
 		847C97D01D415EFD001E47DD /* ElementsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 847C97CB1D415EFD001E47DD /* ElementsModel.m */; };
+		847C97D41D415FB2001E47DD /* LegalValuesEnter.m in Sources */ = {isa = PBXBuildFile; fileRef = 847C97D31D415FB2001E47DD /* LegalValuesEnter.m */; };
 		92001B97186C8C2E00B87D21 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92001B96186C8C2E00B87D21 /* CoreImage.framework */; };
 		92001B9C186C979E00B87D21 /* NoButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92001B98186C979E00B87D21 /* NoButton.png */; };
 		92001B9D186C979E00B87D21 /* NoButtonOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 92001B99186C979E00B87D21 /* NoButtonOrange.png */; };
@@ -498,6 +499,8 @@
 		847C97C91D415EFD001E47DD /* ElementPairsCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElementPairsCheck.m; sourceTree = "<group>"; };
 		847C97CA1D415EFD001E47DD /* ElementsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElementsModel.h; sourceTree = "<group>"; };
 		847C97CB1D415EFD001E47DD /* ElementsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElementsModel.m; sourceTree = "<group>"; };
+		847C97D21D415FB2001E47DD /* LegalValuesEnter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegalValuesEnter.h; sourceTree = "<group>"; };
+		847C97D31D415FB2001E47DD /* LegalValuesEnter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegalValuesEnter.m; sourceTree = "<group>"; };
 		92001B96186C8C2E00B87D21 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		92001B98186C979E00B87D21 /* NoButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoButton.png; sourceTree = "<group>"; };
 		92001B99186C979E00B87D21 /* NoButtonOrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoButtonOrange.png; sourceTree = "<group>"; };
@@ -1444,6 +1447,8 @@
 				9266C53F184684FD00739AF2 /* UppercaseTextField.m */,
 				9266C54118468CCF00739AF2 /* LegalValues.h */,
 				9266C54218468CCF00739AF2 /* LegalValues.m */,
+				847C97D21D415FB2001E47DD /* LegalValuesEnter.h */,
+				847C97D31D415FB2001E47DD /* LegalValuesEnter.m */,
 				92DBD601193CC57100A40691 /* EpiInfoOptionField.h */,
 				92DBD602193CC57100A40691 /* EpiInfoOptionField.m */,
 				92A25C0519391A97003225E1 /* EpiInfoCodesField.h */,
@@ -1893,6 +1898,7 @@
 				4AB23EDC16288D3600AE47C0 /* PoissonCalculatorViewController.m in Sources */,
 				4AB23EDF16289C8C00AE47C0 /* PoissonCalculatorCompute.m in Sources */,
 				4A071E891639C2E3002C05E9 /* BinomialCalculatorCompute.m in Sources */,
+				847C97D41D415FB2001E47DD /* LegalValuesEnter.m in Sources */,
 				4A943006163F144400138E0A /* ChiSquareCalculatorCompute.m in Sources */,
 				847C97CC1D415EFD001E47DD /* CheckCodeParser.m in Sources */,
 				92EBAD03194A400D000EF983 /* EpiInfoUILabel.m in Sources */,
