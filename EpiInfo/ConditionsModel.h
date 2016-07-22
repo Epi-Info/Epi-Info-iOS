@@ -10,6 +10,7 @@
 
 @interface ConditionsModel : NSObject
 {
+    NSString *page;
     NSString *from;
     NSString *name;
     NSString *element;
@@ -17,11 +18,12 @@
     NSString *condition;
 }
 
+@property(nonatomic) NSString *page;
 @property(nonatomic) NSString *from;
 @property(nonatomic) NSString *name;
 @property(nonatomic) NSString *element;
 @property(nonatomic) NSString *beforeAfter;
 @property(nonatomic) NSString *condition;
 
--(id)initWithFrom:(NSString *)newFrom name:(NSString *)newName element:(NSString *)newElement beforeAfter:(NSString *)newbeforeAfter condition:(NSString *)newCondition;
+-(id)initWithPage:(NSString *)newPage from:(NSString *)newFrom name:(NSString *)newName element:(NSString *)newElement beforeAfter:(NSString *)newbeforeAfter condition:(NSString *)newCondition;
 @end

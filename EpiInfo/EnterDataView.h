@@ -18,6 +18,7 @@
 #import "UppercaseTextField.h"
 #import "MirrorField.h"
 #import "LegalValues.h"
+#import "LegalValuesEnter.h"
 #import "CommentLegal.h"
 #import "EpiInfoOptionField.h"
 #import "EpiInfoCodesField.h"
@@ -25,6 +26,7 @@
 #import "RelateButton.h"
 #import "SaveFormView.h"
 #import "BlurryView.h"
+#import "CheckCodeParser.h"
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "sqlite3.h"
@@ -48,7 +50,7 @@
     NSString *createTableStatement;
     BOOL beginColumList;
     NSMutableDictionary *alterTableElements;
-
+    
     sqlite3 *epiinfoDB;
     
     BOOL hasAFirstResponder;
@@ -84,6 +86,30 @@
     NSString *relateButtonName;
     
     NSString *formCheckCodeString;
+    
+    int tagNum;
+    int require;
+    int valid;
+    int counter;
+    BOOL firstEdit;
+    
+    CheckCodeParser *ccp;
+    NSString *pageName;
+    
+    /*CheckCode*/
+    NSMutableArray *keywordsArray;
+    NSMutableArray *conditionsArray;
+    NSMutableArray* dialogArray;
+    NSMutableArray *elementListArray;
+    NSMutableArray *elementsArray;
+    NSMutableArray *elmArray;
+    NSMutableArray *dialogListArray;
+    NSMutableArray *dialogTitleArray;
+    NSMutableArray *requiredArray;
+    
+    BOOL alertBefore;
+    
+    
 }
 
 @property NSURL *url;
@@ -104,6 +130,14 @@
 
 @property NSMutableDictionary *dictionaryOfFields;
 @property NSMutableDictionary *dictionaryOfWordsArrays;
+
+@property(strong, nonatomic) NSMutableArray *conditionsArray;
+@property(strong) NSMutableArray* dialogArray;
+@property(strong) NSMutableArray *elementListArray;
+@property(strong, nonatomic) NSMutableArray *elementsArray;
+@property(strong) NSMutableArray *elmArray;
+@property(nonatomic) BOOL firstEdit;
+
 
 -(void)setNewRecordGUID:(NSString *)guid;
 

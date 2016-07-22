@@ -6,6 +6,7 @@
 //
 
 #import "YesNo.h"
+#import "EnterDataView.h"
 
 @implementation YesNo
 @synthesize columnName = _columnName;
@@ -15,11 +16,11 @@
     self = [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, 300, 180)];
     if (self) {
         // Initialization code
-//        [self setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        //        [self setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [self setBackgroundColor:[UIColor clearColor]];
         [self.layer setCornerRadius:4.0];
         picked = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 40, 10)];
-//        [self addSubview:picked];
+        //        [self addSubview:picked];
         picker = [[UIPickerView alloc] initWithFrame:CGRectMake(10, 10, 280, 160)];
         [picker setDelegate:self];
         [picker setDataSource:self];
@@ -62,6 +63,8 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     [picked setText:[NSString stringWithFormat:@"%@", [[NSArray arrayWithObjects:@"", @"1", @"0", nil] objectAtIndex:row]]];
+    [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+    
 }
 
 - (void)reset
@@ -94,12 +97,12 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 @end

@@ -15,13 +15,14 @@
 @synthesize beforeAfter;
 @synthesize title;
 @synthesize subject;
+@synthesize displayed;
 
 -(id)initWithFrom:(NSString *)newFrom name:(NSString *)newName beforeAfter:(NSString *)newbeforeAfter title:(NSString *)newTitle subject:(NSString *)newSubject displayed:(BOOL)newDisplayed{
     self = [super init];
     if (self!=nil) {
         self.from = newFrom;
         self.name = newName;
-       // self.element = newElement;
+        // self.element = newElement;
         self.beforeAfter = newbeforeAfter;
         self.title = newTitle;
         self.subject = newSubject;

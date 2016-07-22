@@ -50,7 +50,7 @@
         [okButton.layer setCornerRadius:4.0];
         [okButton addTarget:self action:@selector(okButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         [bv addSubview:okButton];
-
+        
         [hoursLV.picker setFrame:CGRectMake(0, 0, 140, 162)];
         [hoursLV setFrame:CGRectMake(10, 10, 140, 180)];
         
@@ -59,7 +59,7 @@
         [colon setTextAlignment:NSTextAlignmentCenter];
         [colon setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:24]];
         [bv addSubview:colon];
-
+        
         [minutesLV.picker setFrame:CGRectMake(10, 0, 120, 162)];
         [minutesLV setFrame:CGRectMake(170, 10, 140, 180)];
         
@@ -137,12 +137,12 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 @end

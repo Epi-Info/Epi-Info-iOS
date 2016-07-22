@@ -21,7 +21,7 @@
         self.stringValue = newStringValue;
         self.condition = newCondition;
     }
-   
+    
     return self;
 }
 @end

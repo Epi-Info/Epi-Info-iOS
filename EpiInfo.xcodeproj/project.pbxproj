@@ -94,6 +94,8 @@
 		68F0E84316E5393600ADD7A3 /* PopT.png in Resources */ = {isa = PBXBuildFile; fileRef = 68F0E84216E5393600ADD7A3 /* PopT.png */; };
 		68F0E84516E53BA700ADD7A3 /* PoissonTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 68F0E84416E53BA700ADD7A3 /* PoissonTop.png */; };
 		68F0E84716E53C5C00ADD7A3 /* MPBOT.png in Resources */ = {isa = PBXBuildFile; fileRef = 68F0E84616E53C5C00ADD7A3 /* MPBOT.png */; };
+		847C97D71D427301001E47DD /* LegalValuesEnter.m in Sources */ = {isa = PBXBuildFile; fileRef = 847C97D61D427301001E47DD /* LegalValuesEnter.m */; };
+		847C97DA1D427494001E47DD /* UIView+UpdateAutoLayoutConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = 847C97D91D427494001E47DD /* UIView+UpdateAutoLayoutConstraints.m */; };
 		84C816841CE22D8D00F408D2 /* CheckCodeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C8167B1CE22D8D00F408D2 /* CheckCodeParser.m */; };
 		84C816851CE22D8D00F408D2 /* ConditionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C8167D1CE22D8D00F408D2 /* ConditionsModel.m */; };
 		84C816861CE22D8D00F408D2 /* DialogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C8167F1CE22D8D00F408D2 /* DialogModel.m */; };
@@ -461,6 +463,10 @@
 		68F0E84216E5393600ADD7A3 /* PopT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopT.png; sourceTree = "<group>"; };
 		68F0E84416E53BA700ADD7A3 /* PoissonTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoissonTop.png; sourceTree = "<group>"; };
 		68F0E84616E53C5C00ADD7A3 /* MPBOT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPBOT.png; sourceTree = "<group>"; };
+		847C97D51D427301001E47DD /* LegalValuesEnter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegalValuesEnter.h; sourceTree = "<group>"; };
+		847C97D61D427301001E47DD /* LegalValuesEnter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegalValuesEnter.m; sourceTree = "<group>"; };
+		847C97D81D427494001E47DD /* UIView+UpdateAutoLayoutConstraints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+UpdateAutoLayoutConstraints.h"; sourceTree = "<group>"; };
+		847C97D91D427494001E47DD /* UIView+UpdateAutoLayoutConstraints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+UpdateAutoLayoutConstraints.m"; sourceTree = "<group>"; };
 		84C8167A1CE22D8D00F408D2 /* CheckCodeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckCodeParser.h; sourceTree = "<group>"; };
 		84C8167B1CE22D8D00F408D2 /* CheckCodeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckCodeParser.m; sourceTree = "<group>"; };
 		84C8167C1CE22D8D00F408D2 /* ConditionsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionsModel.h; sourceTree = "<group>"; };
@@ -1330,6 +1336,8 @@
 				9266C527184657E900739AF2 /* DataEntryViewController.m */,
 				922825021863821700DF9493 /* EnterDataView.h */,
 				922825031863821700DF9493 /* EnterDataView.m */,
+				847C97D81D427494001E47DD /* UIView+UpdateAutoLayoutConstraints.h */,
+				847C97D91D427494001E47DD /* UIView+UpdateAutoLayoutConstraints.m */,
 				92B8E4CA191A8011007E4ECC /* EpiInfoLineListView.h */,
 				92B8E4CB191A8011007E4ECC /* EpiInfoLineListView.m */,
 				9266C5291846613000739AF2 /* FormView.h */,
@@ -1358,6 +1366,8 @@
 				9266C53F184684FD00739AF2 /* UppercaseTextField.m */,
 				9266C54118468CCF00739AF2 /* LegalValues.h */,
 				9266C54218468CCF00739AF2 /* LegalValues.m */,
+				847C97D51D427301001E47DD /* LegalValuesEnter.h */,
+				847C97D61D427301001E47DD /* LegalValuesEnter.m */,
 				9265FF8B1CAEA7BF003AD6E0 /* CommentLegal.h */,
 				9265FF8C1CAEA7BF003AD6E0 /* CommentLegal.m */,
 				92DBD601193CC57100A40691 /* EpiInfoOptionField.h */,
@@ -1787,6 +1797,7 @@
 				92E1A83918730614003E58A5 /* EpiInfoTextField.m in Sources */,
 				924D8AAA1AAE2BA1005A6253 /* CohortSimulationModel.swift in Sources */,
 				92921B9919A6427000AA9477 /* MeansView.m in Sources */,
+				847C97D71D427301001E47DD /* LegalValuesEnter.m in Sources */,
 				4AB23ED616288B9900AE47C0 /* ChiSquareCalculatorViewController.m in Sources */,
 				4AB23ED916288CB800AE47C0 /* BinomialCalculatorViewController.m in Sources */,
 				4AB23EDC16288D3600AE47C0 /* PoissonCalculatorViewController.m in Sources */,
@@ -1817,6 +1828,7 @@
 				9266C5341846795000739AF2 /* YesNo.m in Sources */,
 				9266C528184657E900739AF2 /* DataEntryViewController.m in Sources */,
 				92D43A471992A5BD00B24712 /* ConfirmDeleteButton.m in Sources */,
+				847C97DA1D427494001E47DD /* UIView+UpdateAutoLayoutConstraints.m in Sources */,
 				926C9D561A7AA8FE004A6ADD /* SimulationsViewController.m in Sources */,
 				9266C54318468CCF00739AF2 /* LegalValues.m in Sources */,
 				84C816881CE22D8D00F408D2 /* ElementsModel.m in Sources */,

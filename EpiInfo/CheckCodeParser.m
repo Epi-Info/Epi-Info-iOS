@@ -18,13 +18,16 @@
 
 -(id)init
 {
-    pageArray = [[NSMutableArray alloc]init];
-    fieldArray = [[NSMutableArray alloc]init];
-    allArray = [[NSMutableArray alloc]init];
-    ifArray = [[NSMutableArray alloc]init];
-    fieldPageArray = [[NSMutableArray alloc]init];
-    conditionsArray = [[NSMutableArray alloc]init];
-    check =[NSMutableString stringWithString:@""];
+    if (self)
+    {
+        pageArray = [[NSMutableArray alloc]init];
+        fieldArray = [[NSMutableArray alloc]init];
+        allArray = [[NSMutableArray alloc]init];
+        ifArray = [[NSMutableArray alloc]init];
+        fieldPageArray = [[NSMutableArray alloc]init];
+        conditionsArray = [[NSMutableArray alloc]init];
+        check =[NSMutableString stringWithString:@""];
+    }
     return self;
 }
 -(void)parseCheckCode:(NSString *)pcc
@@ -321,73 +324,73 @@
 {
     if (ifArray.count>1) {
         
-    
-    for (int i=0; i<ifArray.count; i++)
-    {
-        ElementPairsCheck *elePair = [[ElementPairsCheck alloc]init];
-        ElementPairsCheck *eleNewPairs = [[ElementPairsCheck alloc]init];
         
-        elePair = [ifArray objectAtIndex:i];
-        if ([elePair.condition isEqualToString:@"If"])
+        for (int i=0; i<ifArray.count; i++)
         {
-            NSString *tmp = [NSString stringWithFormat:@"if %@end-if", elePair.stringValue];
-            if ([elePair.name isEqualToString:@"pageafter"] )
+            ElementPairsCheck *elePair = [[ElementPairsCheck alloc]init];
+            ElementPairsCheck *eleNewPairs = [[ElementPairsCheck alloc]init];
+            
+            elePair = [ifArray objectAtIndex:i];
+            if ([elePair.condition isEqualToString:@"If"])
             {
-                NSString *newStr = [newString stringByReplacingOccurrencesOfString:tmp withString:@""];
-                eleNewPairs.name = newFrom;
-                eleNewPairs.condition = newCondition;
-                eleNewPairs.stringValue = newStr;
-                [fieldPageArray addObject:eleNewPairs];
-             //   [edv.elementsArray addObject:eleNewPairs];
-                
-            }
-            else if ([elePair.name isEqualToString:@"pagebefore"] )
-            {
-                NSString *newStr = [newString stringByReplacingOccurrencesOfString:tmp withString:@""];
-                eleNewPairs.name = newFrom;
-                eleNewPairs.condition = newCondition;
-                eleNewPairs.stringValue = newStr;
-                [fieldPageArray addObject:eleNewPairs];
-              //  [edv.elementsArray addObject:eleNewPairs];
-
-            }
-            else if ([elePair.name isEqualToString:@"fieldafter"] )
-            {
-                NSString *newStr = [newString stringByReplacingOccurrencesOfString:tmp withString:@""];
-                eleNewPairs.name = newFrom;
-                eleNewPairs.condition = newCondition;
-                eleNewPairs.stringValue = newStr;
-                
-                [fieldPageArray addObject:eleNewPairs];
-               // [edv.elementsArray addObject:eleNewPairs];
-
-            }
-            else if ([elePair.name isEqualToString:@"fieldbefore"] )
-            {
-                NSString *newStr = [newString stringByReplacingOccurrencesOfString:tmp withString:@""];
-                eleNewPairs.name = newFrom;
-                eleNewPairs.condition = newCondition;
-                
-                eleNewPairs.stringValue = newStr;
-                
-                [fieldPageArray addObject:eleNewPairs];
-                //[edv.elementsArray addObject:eleNewPairs];
-
-            }
-            else
-            {
-                eleNewPairs.name = newFrom;
-                eleNewPairs.condition = newCondition;
-                eleNewPairs.stringValue = elePair.stringValue;
-                
-                [fieldPageArray addObject:eleNewPairs];
-               // [edv.elementsArray addObject:eleNewPairs];
-
-                
+                NSString *tmp = [NSString stringWithFormat:@"if %@end-if", elePair.stringValue];
+                if ([elePair.name isEqualToString:@"pageafter"] )
+                {
+                    NSString *newStr = [newString stringByReplacingOccurrencesOfString:tmp withString:@""];
+                    eleNewPairs.name = newFrom;
+                    eleNewPairs.condition = newCondition;
+                    eleNewPairs.stringValue = newStr;
+                    [fieldPageArray addObject:eleNewPairs];
+                    //   [edv.elementsArray addObject:eleNewPairs];
+                    
+                }
+                else if ([elePair.name isEqualToString:@"pagebefore"] )
+                {
+                    NSString *newStr = [newString stringByReplacingOccurrencesOfString:tmp withString:@""];
+                    eleNewPairs.name = newFrom;
+                    eleNewPairs.condition = newCondition;
+                    eleNewPairs.stringValue = newStr;
+                    [fieldPageArray addObject:eleNewPairs];
+                    //  [edv.elementsArray addObject:eleNewPairs];
+                    
+                }
+                else if ([elePair.name isEqualToString:@"fieldafter"] )
+                {
+                    NSString *newStr = [newString stringByReplacingOccurrencesOfString:tmp withString:@""];
+                    eleNewPairs.name = newFrom;
+                    eleNewPairs.condition = newCondition;
+                    eleNewPairs.stringValue = newStr;
+                    
+                    [fieldPageArray addObject:eleNewPairs];
+                    // [edv.elementsArray addObject:eleNewPairs];
+                    
+                }
+                else if ([elePair.name isEqualToString:@"fieldbefore"] )
+                {
+                    NSString *newStr = [newString stringByReplacingOccurrencesOfString:tmp withString:@""];
+                    eleNewPairs.name = newFrom;
+                    eleNewPairs.condition = newCondition;
+                    
+                    eleNewPairs.stringValue = newStr;
+                    
+                    [fieldPageArray addObject:eleNewPairs];
+                    //[edv.elementsArray addObject:eleNewPairs];
+                    
+                }
+                else
+                {
+                    eleNewPairs.name = newFrom;
+                    eleNewPairs.condition = newCondition;
+                    eleNewPairs.stringValue = elePair.stringValue;
+                    
+                    [fieldPageArray addObject:eleNewPairs];
+                    // [edv.elementsArray addObject:eleNewPairs];
+                    
+                    
+                }
             }
         }
-    }
-    NSLog(@"####***%lu",fieldPageArray.count);
+        NSLog(@"####***%lu",fieldPageArray.count);
     }
     else
         fieldPageArray = allArray;
@@ -395,8 +398,8 @@
 -(void)getConditions
 {
     ElementPairsCheck *elePair = [[ElementPairsCheck alloc]init];
-//    edv.elementsArray = fieldPageArray;
-
+    //    edv.elementsArray = fieldPageArray;
+    
     for (int i=0; i<fieldPageArray.count; i++)
     {
         elePair = [fieldPageArray objectAtIndex:i];
@@ -413,38 +416,38 @@
             
         }
     }
-  //  [edv copyToArray:fieldPageArray];
-
+    //  [edv copyToArray:fieldPageArray];
     
-        //checking if it is not an if condition
-        
+    
+    //checking if it is not an if condition
+    
     /*    if ([elePair.name containsString:@"page"])
-        {
-            if ([elePair.condition isEqualToString:@"before"])
-            {
-                [self getDisableString:elePair.stringValue from:conditionWord name:conditionWordOne befAfter:@"before"];
-                
-                
-            }
-            else if ([elePair.condition isEqualToString:@"after"])
-            {
-                [self getDisableString:elePair.stringValue from:conditionWord name:conditionWordOne befAfter:@"after"];
-            }
-            
-        }
-        else if ([elePair.name containsString:@"field"])
-        {
-            if ([elePair.condition isEqualToString:@"before"])
-            {
-                [self getDisableString:elePair.stringValue from:conditionWord name:conditionWordOne befAfter:@"before"];
-            }
-            else if ([elePair.condition isEqualToString:@"after"])
-            {
-                [self getDisableString:elePair.stringValue from:conditionWord name:conditionWordOne befAfter:@"after"];
-            }
-            
-        }
-    }*/
+     {
+     if ([elePair.condition isEqualToString:@"before"])
+     {
+     [self getDisableString:elePair.stringValue from:conditionWord name:conditionWordOne befAfter:@"before"];
+     
+     
+     }
+     else if ([elePair.condition isEqualToString:@"after"])
+     {
+     [self getDisableString:elePair.stringValue from:conditionWord name:conditionWordOne befAfter:@"after"];
+     }
+     
+     }
+     else if ([elePair.name containsString:@"field"])
+     {
+     if ([elePair.condition isEqualToString:@"before"])
+     {
+     [self getDisableString:elePair.stringValue from:conditionWord name:conditionWordOne befAfter:@"before"];
+     }
+     else if ([elePair.condition isEqualToString:@"after"])
+     {
+     [self getDisableString:elePair.stringValue from:conditionWord name:conditionWordOne befAfter:@"after"];
+     }
+     
+     }
+     }*/
 }
 
 -(NSMutableArray *)sendArray
