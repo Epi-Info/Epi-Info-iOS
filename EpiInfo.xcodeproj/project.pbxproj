@@ -280,6 +280,7 @@
 		92A25C0719391A97003225E1 /* EpiInfoCodesField.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A25C0619391A97003225E1 /* EpiInfoCodesField.m */; };
 		92A5D8D018CF91820048C160 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92A5D8CF18CF91820048C160 /* Security.framework */; };
 		92AAC01C1C208917005D77F3 /* FeedbackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AAC01B1C208917005D77F3 /* FeedbackView.m */; };
+		92ABAA1D1D22F727000C5B60 /* PageDots.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ABAA1C1D22F727000C5B60 /* PageDots.m */; };
 		92AE52A119ED66A000F7B7B2 /* VHFPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 92AE52A019ED66A000F7B7B2 /* VHFPad.png */; };
 		92AED73E186E09D5004A4DB9 /* StAndrewXButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92AED73C186E09D5004A4DB9 /* StAndrewXButton.png */; };
 		92AED73F186E09D5004A4DB9 /* XButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92AED73D186E09D5004A4DB9 /* XButton.png */; };
@@ -708,6 +709,8 @@
 		92A5D8CF18CF91820048C160 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		92AAC01A1C208917005D77F3 /* FeedbackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackView.h; sourceTree = "<group>"; };
 		92AAC01B1C208917005D77F3 /* FeedbackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackView.m; sourceTree = "<group>"; };
+		92ABAA1B1D22F727000C5B60 /* PageDots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageDots.h; sourceTree = "<group>"; };
+		92ABAA1C1D22F727000C5B60 /* PageDots.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageDots.m; sourceTree = "<group>"; };
 		92AE52A019ED66A000F7B7B2 /* VHFPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VHFPad.png; sourceTree = "<group>"; };
 		92AED73C186E09D5004A4DB9 /* StAndrewXButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StAndrewXButton.png; sourceTree = "<group>"; };
 		92AED73D186E09D5004A4DB9 /* XButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = XButton.png; sourceTree = "<group>"; };
@@ -1388,6 +1391,8 @@
 				9259D2E41C9327D200AE9181 /* ChildFormFieldAssignments.h */,
 				9259D2E51C9327D200AE9181 /* ChildFormFieldAssignments.m */,
 				9265FF991CBC0FB3003AD6E0 /* EpiInfoControlProtocol.h */,
+				92ABAA1B1D22F727000C5B60 /* PageDots.h */,
+				92ABAA1C1D22F727000C5B60 /* PageDots.m */,
 			);
 			name = Entry;
 			sourceTree = "<group>";
@@ -1786,6 +1791,7 @@
 				4A409A6D161F6CFB0038F572 /* PopulationSurveySampleSizeCompute.m in Sources */,
 				4AC7D6241625BD640056A8AC /* CohortSampleSizeViewController.m in Sources */,
 				9266C53D184684CA00739AF2 /* DateField.m in Sources */,
+				92ABAA1D1D22F727000C5B60 /* PageDots.m in Sources */,
 				4AC7D6301625C0C80056A8AC /* UnmatchedCaseControlSampleSizeViewController.m in Sources */,
 				92A25C011938E0AC003225E1 /* TimeField.m in Sources */,
 				4A977F381627097C0009E572 /* CohortSampleSizeCompute.m in Sources */,

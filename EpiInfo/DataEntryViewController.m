@@ -833,7 +833,9 @@
             [footerBar setItems:[NSArray arrayWithObject:footerBarNavigationItem]];
             [self.view addSubview:footerBar];
             
-            [footerBarNavigationItem setTitle:@"Swipe to turn page."];
+//            [footerBarNavigationItem setTitle:@"Swipe to turn page."];
+            pagedots = [[PageDots alloc] initWithNumberOfDots:(int)[edv pagesArray].count AndFooterFrame:footerBar.frame];
+            [footerBar addSubview: pagedots];
             
             UIButton *uploadButton = [[UIButton alloc] initWithFrame:CGRectMake(2, 2, 30, 30)];
             [uploadButton setBackgroundColor:[UIColor clearColor]];
@@ -860,9 +862,10 @@
 //            [orangeBanner addSubview:lineListButton];
             
             [edv setPageBeingDisplayed:[NSNumber numberWithInt:1]];
-            [header setText:[NSString stringWithFormat:@"%@, page %d of %lu", [edv formName], [edv pageBeingDisplayed].intValue, (unsigned long)[edv pagesArray].count]];
-            float fontSize = 32.0;
-            while ([header.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontSize]}].width > 180)
+//            [header setText:[NSString stringWithFormat:@"%@, page %d of %lu", [edv formName], [edv pageBeingDisplayed].intValue, (unsigned long)[edv pagesArray].count]];
+            [header setText:[NSString stringWithFormat:@"%@", [edv formName]]];
+            float fontSize = 28.0;
+            while ([header.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontSize]}].width > 160)
                 fontSize -= 0.1;
             [header setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontSize]];
             
@@ -2612,6 +2615,15 @@
 - (UIImageView *)backgroundImage
 {
     return fadingColorView;
+}
+
+- (void)advancePagedots
+{
+    [pagedots advancePage];
+}
+- (void)retreatPagedots
+{
+    [pagedots retreatPage];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
