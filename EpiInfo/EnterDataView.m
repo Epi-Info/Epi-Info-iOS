@@ -653,7 +653,6 @@
         pageName = [[NSUserDefaults standardUserDefaults]
                     stringForKey:@"pageName"];
         
-        [self checkDialogs:[pageName lowercaseString] Tag:1 type:1 from:@"before" from:pageName];
         firstEdit = TRUE;
         NSLog(@"111%@ %d",pageName,firstEdit);
         
@@ -662,6 +661,8 @@
         
         
     }
+    [self checkDialogs:[pageName lowercaseString] Tag:1 type:1 from:@"before" from:pageName];
+
     //    [self registerForKeyboardNotifications];
     
     return self;
@@ -4680,6 +4681,7 @@
     }
 }
 
+#pragma mark parse and track
 /*KeyWords Parsing*/
 
 -(void)getDisEnb
@@ -4972,7 +4974,7 @@
     return present;
 }
 
-
+#pragma mark checkcode UI manipulations
 /*Dialog Display*/
 
 -(void)checkDialogs:(NSString *)name Tag:(NSInteger *)newTag type:(int)newType from:(NSString *)befAft from:(NSString *)newFrom
@@ -5028,6 +5030,8 @@
     [self showAlertsQueuedTag:newTag];
 }
 
+/*Checkcode after page loads for multiple pages*/
+
 -(void)onLoadEleCheck
 {
     for (ElementsModel *emc in elementListArray)
@@ -5071,6 +5075,7 @@
     }
 }
 
+#pragma mark Boolean UI checks for checkcode
 
 -(BOOL)isEnableName:(NSString *)newName
 {
@@ -5136,6 +5141,9 @@
     }
     return val;
 }
+
+#pragma mark checkcode checkelements 
+
 -(void)checkElements:(NSString *)name from:(NSString *)befAft page:(NSString *)newPage
 //Tag:(NSInteger *)newTag type:(int)newType from:(NSString *)newFrom
 {
@@ -5324,6 +5332,8 @@
     }
 }
 
+/*Check Required strings*/
+
 -(BOOL)checkRequiredstr:(NSString *)name Tag:(NSInteger *)newTag type:(int)newType from:(NSString *)befAft str:(NSString *)
 newStr{
     
@@ -5368,6 +5378,8 @@ newStr{
     }
     return reqYes;
 }
+
+/*Show Alerts*/
 
 -(void)showAlertsQueuedTag:(int)newTag
 {
