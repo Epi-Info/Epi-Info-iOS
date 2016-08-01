@@ -4158,7 +4158,8 @@
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"21"])
             {
-                contentSizeHeight -= 25.0;
+                if (isCurrentPage)
+                    contentSizeHeight -= 25.0;
             }
             else
             {
