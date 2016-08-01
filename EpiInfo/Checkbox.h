@@ -16,6 +16,7 @@
     BOOL value;
 }
 
+-(void)setText:(NSString *)checkboxText;
 -(BOOL)value;
 -(void)reset;
 -(void)setTrueFalse:(NSInteger)trueFalse;

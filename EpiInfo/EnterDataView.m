@@ -421,17 +421,14 @@
     if ([nextPageButton isEnabled])
     {
         [self previousOrNextPageButtonPressed:nextPageButton];
-<<<<<<< HEAD
         pageName = [[NSUserDefaults standardUserDefaults]
                     stringForKey:@"pageName"];
         NSLog(@"%@000000",pageName);
         
         
         
-=======
         DataEntryViewController *devc = (DataEntryViewController *)self.rootViewController;
         [devc advancePagedots];
->>>>>>> 2.0.4
     }
 }
 - (void)userSwipedToTheRight
@@ -439,7 +436,6 @@
     if ([previousPageButton isEnabled])
     {
         [self previousOrNextPageButtonPressed:previousPageButton];
-<<<<<<< HEAD
         pageName = [[NSUserDefaults standardUserDefaults]
                     stringForKey:@"pageName"];
         NSLog(@"%@1111111",pageName);
@@ -448,10 +444,8 @@
         //[self onLoadEleCheck];
         
         
-=======
         DataEntryViewController *devc = (DataEntryViewController *)self.rootViewController;
         [devc retreatPagedots];
->>>>>>> 2.0.4
     }
 }
 - (void)previousOrNextPageButtonPressed:(UIButton *)sender
@@ -530,7 +524,6 @@
                 {
                     if ([[(UILabel *)l text] containsString:formName])
                     {
-<<<<<<< HEAD
                         [(UILabel *)l setText:[NSString stringWithFormat:@"%@, page %d of %lu", formName, (int)[sender tag], (unsigned long)[self pagesArray].count]];
                         pageName = [NSString stringWithFormat:@"%d",(int)[sender tag]];
                         [[NSUserDefaults standardUserDefaults] setObject:pageName forKey:@"pageName"];
@@ -543,9 +536,7 @@
                         
                         
                         //                        }
-=======
                         [(UILabel *)l setText:[NSString stringWithFormat:@"%@", formName]];
->>>>>>> 2.0.4
                     }
                 }
             }
@@ -3350,7 +3341,7 @@
                     }
                     else
                     {
-                        [cb setBackgroundColor:[UIColor clearColor]];
+                        [cb setBackgroundColor:[UIColor blackColor]];
                     }
                     
                     [formCanvas addSubview:cb];

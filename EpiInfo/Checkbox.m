@@ -11,6 +11,11 @@
 @implementation Checkbox
 @synthesize columnName = _columnName;
 
+- (void)setText:(NSString *)checkboxText
+{
+    NSLog(@"checkboxText = %@", checkboxText);
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, 30, 30)];
