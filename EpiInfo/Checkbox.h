@@ -22,6 +22,7 @@
 -(void)setTrueFalse:(NSInteger)trueFalse;
 -(void)setFormFieldValue:(NSString *)formFieldValue;
 -(void)setCheckboxAccessibilityLabel:(NSString *)accessibilityLabel;
+-(void)setText:(NSString *)controlText;
 
 -(UIButton *)myButton;
 

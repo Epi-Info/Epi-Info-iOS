@@ -421,6 +421,7 @@
     if ([nextPageButton isEnabled])
     {
         [self previousOrNextPageButtonPressed:nextPageButton];
+
         pageName = [[NSUserDefaults standardUserDefaults]
                     stringForKey:@"pageName"];
         NSLog(@"%@000000",pageName);
@@ -536,6 +537,7 @@
                         
                         
                         //                        }
+                        [(UILabel *)l setText:[NSString stringWithFormat:@"%@", formName]];
                         [(UILabel *)l setText:[NSString stringWithFormat:@"%@", formName]];
                     }
                 }
