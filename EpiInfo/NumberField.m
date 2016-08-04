@@ -130,7 +130,8 @@
 - (BOOL)becomeFirstResponder
 {
     NSLog(@"%@ becoming first responder", self.columnName);
-    [(EnterDataView *)[[self superview] superview] fieldBecameFirstResponder:self];
+    if ([[[self superview] superview] isKindOfClass:[EnterDataView class]])
+        [(EnterDataView *)[[self superview] superview] fieldBecameFirstResponder:self];
     
     return [super becomeFirstResponder];
 }
@@ -139,7 +140,8 @@
 {
     NSLog(@"%@ resigning first responder", self.columnName);
     [(CheckCode *)checkcode ownerDidResign];
-    [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+    if ([[[self superview] superview] isKindOfClass:[EnterDataView class]])
+        [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
     
     return [super resignFirstResponder];
 }
