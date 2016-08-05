@@ -13,6 +13,7 @@
 #import "ElementsModel.h"
 #import "DialogModel.h"
 #import "ConditionsModel.h"
+#import "AssignModel.h"
 #import "UIView+UpdateAutoLayoutConstraints.h"
 
 
@@ -4692,6 +4693,65 @@
 #pragma mark parse and track
 /*KeyWords Parsing*/
 
+- (void)getAssign
+{
+    NSLog(@"getAssign method");
+    ElementPairsCheck *epc = [[ElementPairsCheck alloc]init];
+    if (assignArray.count<1)
+    {
+        assignArray = [[NSMutableArray alloc]init];
+    }
+    if (elementsArray.count<1)
+    {
+        elementsArray = [ccp sendArray];
+        
+    }
+    for (int i=0; i<elementsArray.count; i++)
+    {
+        epc = [elementsArray objectAtIndex:i];
+        NSString *conditionWord;
+        NSString *conditionWordOne;
+        NSUInteger count = [self numberOfWordsInString:epc.name];
+        conditionWord= [[[epc.name componentsSeparatedByString:@" "] objectAtIndex:0]lowercaseString];
+        if (count>1) {
+            NSRange range = [epc.name rangeOfString:conditionWord];
+            conditionWordOne=[epc.name stringByReplacingCharactersInRange:range withString:@""];
+            conditionWordOne = [[self removeSp:conditionWordOne]lowercaseString];
+            
+        }
+        conditionWordOne=[[conditionWordOne stringByReplacingOccurrencesOfString:@" Before" withString:@""]stringByReplacingOccurrencesOfString:@" before" withString:@""];
+        
+        NSString *elmt;
+        NSString *lastElmt;
+        NSString *eleSp= [[self removeSp:epc.stringValue]lowercaseString];
+        for (int j = 0; j<1; j++)
+        {
+            elmt = [[eleSp componentsSeparatedByString:@" "]objectAtIndex:j];
+            
+            // NSLog(@"Satya - %@ %d",elmt,j);
+            
+            if (![elmt isEqualToString:@""] && elmt)
+            {
+                if ([self checkKeyWordArray:elmt])
+                {
+                    if ([elmt isEqualToString:@"assign"])
+                    {
+                        NSMutableString *assignmentMutableString = [NSMutableString stringWithString:[[eleSp componentsSeparatedByString:@"="] objectAtIndex:1]];
+                        while ([assignmentMutableString characterAtIndex:0] == ' ')
+                            [assignmentMutableString deleteCharactersInRange:NSMakeRange(0, 1)];
+                        
+                        AssignModel *aModel = [[AssignModel alloc]initWithPage:pageName from:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] assignment:[NSString stringWithString:assignmentMutableString] beforeAfter:epc.condition condition:@"assign"];
+                        [assignArray addObject:aModel];
+                        lastElmt = @"assign";
+                        j++;
+                        
+                    }
+                }
+            }
+        }
+    }
+}
+
 -(void)getDisEnb
 {
     ElementPairsCheck *epc = [[ElementPairsCheck alloc]init];
@@ -4720,7 +4780,7 @@
         
         NSString *elmt;
         NSString *lastElmt;
-        int eleCount = [self numberOfWordsInString:epc.stringValue];
+        int eleCount = (int)[self numberOfWordsInString:epc.stringValue];
         NSString *eleSp= [[self removeSp:epc.stringValue]lowercaseString];
         for (int j = 0; j<eleCount; j++) {
             elmt = [[eleSp componentsSeparatedByString:@" "]objectAtIndex:j];
@@ -5156,10 +5216,12 @@
 //Tag:(NSInteger *)newTag type:(int)newType from:(NSString *)newFrom
 {
     ConditionsModel *cpm = [[ConditionsModel alloc]init];
+    AssignModel *am = [[AssignModel alloc] init];
     if (conditionsArray.count<1)
     {
         [self getDialogs];
         [self getDisEnb];
+        [self getAssign];
     }
     
     NSLog(@"COUNT %lu %lu",(unsigned long)elementListArray.count, (unsigned long)conditionsArray.count);
@@ -5337,6 +5399,59 @@
         
         
         // }
+    }
+    // ASSIGN
+    NSLog(@"COUNT %lu %lu",(unsigned long)elementListArray.count, (unsigned long)assignArray.count);
+    for (am in assignArray)
+    {
+        counter++;
+        NSLog(@"counter is %d",counter);
+        //        if ([cpm.page isEqualToString:newPage]) //Change to page
+        // {
+        if ([befAft isEqualToString:@"before"])
+        {
+            if([am.beforeAfter isEqualToString:@"before"])//check CM cond
+            {
+                if (([am.element caseInsensitiveCompare:name] == NSOrderedSame)) //check for element match
+                {
+                    if ([elmArray containsObject:am.element]) //check for elements list todo check elm array
+                    {
+                        NSUInteger idx = [elmArray indexOfObject:am.element];
+                        ElementsModel *emc = [elementListArray objectAtIndex:idx];
+                        NSLog(@"******%lu******",(unsigned long)assignArray.count);
+                        if ([am.condition isEqualToString:@"assign"])
+                        {
+                            emc.enable = YES;
+                            [elementListArray replaceObjectAtIndex:idx withObject:emc];
+                            [self enable:emc.tag type:emc.type];
+                        }
+                    }
+                }
+            }
+        }
+        
+        else if([befAft isEqualToString:@"after"])
+        {
+            if([am.beforeAfter isEqualToString:@"after"])
+            {
+                if (([am.name caseInsensitiveCompare:name] == NSOrderedSame))
+                {
+                    if ([elmArray containsObject:am.element]) //check for elements list todo check elm array
+                    {
+                        NSUInteger idx = [elmArray indexOfObject:am.element];
+                        ElementsModel *emc = [elementListArray objectAtIndex:idx];
+                        
+                        if ([am.condition isEqualToString:@"assign"])
+                        {
+                            emc.enable = YES;
+                            [elementListArray replaceObjectAtIndex:idx withObject:emc];
+                            NSLog(@"-ena--%@",emc.elementName);
+                            [self enable:emc.tag type:emc.type];
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -106,6 +106,7 @@
     NSMutableArray *dialogListArray;
     NSMutableArray *dialogTitleArray;
     NSMutableArray *requiredArray;
+    NSMutableArray *assignArray;
     
     BOOL alertBefore;
     

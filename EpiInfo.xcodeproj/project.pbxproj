@@ -117,6 +117,7 @@
 		92095BE51835686200B7A0ED /* Default-1024h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92095BE41835686200B7A0ED /* Default-1024h@2x.png */; };
 		920AE61019C88D71001C96CE /* EpiInfoViewForRounding.m in Sources */ = {isa = PBXBuildFile; fileRef = 920AE60F19C88D71001C96CE /* EpiInfoViewForRounding.m */; };
 		92119A601923FBD3008155F7 /* EpiInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92119A5F1923FBD3008155F7 /* EpiInfoViewController.m */; };
+		9211F6EF1D53758F002583D4 /* AssignModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9211F6EE1D53758F002583D4 /* AssignModel.m */; };
 		92130CF01CE0F5EE001040D6 /* FormsButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130CEE1CE0F5EE001040D6 /* FormsButtonNR.png */; };
 		92130CF11CE0F5EE001040D6 /* FormsButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130CEF1CE0F5EE001040D6 /* FormsButton.png */; };
 		92130CF41CE0F69B001040D6 /* AnalysisButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130CF21CE0F69B001040D6 /* AnalysisButtonNR.png */; };
@@ -495,6 +496,8 @@
 		920AE60E19C88D71001C96CE /* EpiInfoViewForRounding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpiInfoViewForRounding.h; sourceTree = "<group>"; };
 		920AE60F19C88D71001C96CE /* EpiInfoViewForRounding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpiInfoViewForRounding.m; sourceTree = "<group>"; };
 		92119A5F1923FBD3008155F7 /* EpiInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpiInfoViewController.m; sourceTree = "<group>"; };
+		9211F6ED1D53758F002583D4 /* AssignModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignModel.h; sourceTree = "<group>"; };
+		9211F6EE1D53758F002583D4 /* AssignModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignModel.m; sourceTree = "<group>"; };
 		92130CEE1CE0F5EE001040D6 /* FormsButtonNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FormsButtonNR.png; sourceTree = "<group>"; };
 		92130CEF1CE0F5EE001040D6 /* FormsButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FormsButton.png; sourceTree = "<group>"; };
 		92130CF21CE0F69B001040D6 /* AnalysisButtonNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AnalysisButtonNR.png; sourceTree = "<group>"; };
@@ -1216,6 +1219,8 @@
 				84C8167B1CE22D8D00F408D2 /* CheckCodeParser.m */,
 				84C8167C1CE22D8D00F408D2 /* ConditionsModel.h */,
 				84C8167D1CE22D8D00F408D2 /* ConditionsModel.m */,
+				9211F6ED1D53758F002583D4 /* AssignModel.h */,
+				9211F6EE1D53758F002583D4 /* AssignModel.m */,
 				84C8167E1CE22D8D00F408D2 /* DialogModel.h */,
 				84C8167F1CE22D8D00F408D2 /* DialogModel.m */,
 				84C816801CE22D8D00F408D2 /* ElementPairsCheck.h */,
@@ -1833,6 +1838,7 @@
 				4AC04F49178B37610001F3DC /* FrequencyView.m in Sources */,
 				9266C5341846795000739AF2 /* YesNo.m in Sources */,
 				9266C528184657E900739AF2 /* DataEntryViewController.m in Sources */,
+				9211F6EF1D53758F002583D4 /* AssignModel.m in Sources */,
 				92D43A471992A5BD00B24712 /* ConfirmDeleteButton.m in Sources */,
 				847C97DA1D427494001E47DD /* UIView+UpdateAutoLayoutConstraints.m in Sources */,
 				926C9D561A7AA8FE004A6ADD /* SimulationsViewController.m in Sources */,
