@@ -275,6 +275,7 @@
 
 -(void)fetchIfEnd:(NSString *)startValue end:(NSString *)endValue parameter:(NSString *)newParameter from:(NSString *)fromValue
 {
+    /*Expand method to capture page or elements details*/
     NSScanner *scanner = [NSScanner scannerWithString:newParameter];
     [scanner scanUpToString:startValue intoString:nil]; // Scan all characters before
     while(![scanner isAtEnd]) {
