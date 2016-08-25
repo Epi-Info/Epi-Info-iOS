@@ -163,6 +163,8 @@
     if (allArray.count>0) {
         for (int i=0; i<allArray.count; i++)
         {
+            
+            //change here to add parameter to track elements for page name or element name
             elePairs = [allArray objectAtIndex:i];
             NSString *tmp = [[elePairs.name componentsSeparatedByString:@" "] objectAtIndex:0];
             if ([tmp isEqualToString:@"page"]) {
