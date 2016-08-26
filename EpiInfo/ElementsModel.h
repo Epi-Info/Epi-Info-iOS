@@ -21,6 +21,7 @@
     BOOL enable;
     BOOL highlight;
     BOOL hide;
+    NSString *fieldValue; //For if-EndIf
 }
 
 @property(nonatomic) NSString *elementName;
@@ -34,8 +35,11 @@
 @property(nonatomic)BOOL enable;
 @property(nonatomic)BOOL highlight;
 @property(nonatomic)BOOL hide;
+@property(nonatomic)NSString *fieldValue;
 
 
--(id)initWithElement:(NSString *)newElement page:(NSString *)newPage uniqueId:(NSString *)newUniqueId type:(int)newType tag:(int)newTag required:(BOOL)newReq prompt:(NSString *)newPrompt value:(BOOL)newValue enable:(BOOL)newEnable highlight:(BOOL)newHighlight hidden:(BOOL)newHide;
+
+
+-(id)initWithElement:(NSString *)newElement page:(NSString *)newPage uniqueId:(NSString *)newUniqueId type:(int)newType tag:(int)newTag required:(BOOL)newReq prompt:(NSString *)newPrompt value:(BOOL)newValue enable:(BOOL)newEnable highlight:(BOOL)newHighlight hidden:(BOOL)newHide fieldValue:(NSString *)newFieldValue;
 
 @end

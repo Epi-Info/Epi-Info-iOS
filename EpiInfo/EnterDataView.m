@@ -4479,6 +4479,7 @@
         NSLog(@"%@ resigned first responder", [dateField columnName]);
         [self checkDialogs:[dateField columnName] Tag:1 type:1 from:@"after" from:@"field"];
         [self checkElements:[dateField columnName] from:@"after" page:pageName];
+        
     }
     
     if ([field isKindOfClass:[EpiInfoTextField class]])
@@ -4488,6 +4489,18 @@
         
         [self checkDialogs:[etf columnName] Tag:1 type:1 from:@"after" from:@"field"];
         [self checkElements:[etf columnName] from:@"after" page:pageName];
+        
+        /*If-EndIf*/
+        //Add if-endIf text value to array here
+        
+        ElementsModel *emc = [[ElementsModel alloc]init];
+    
+        emc.fieldValue = etf.text;
+        
+       NSUInteger idx = [elementListArray indexOfObject:etf.columnName];
+        [elementsArray replaceObjectAtIndex:idx withObject:emc];
+        
+        /*End of if-EndIf*/
         
     }
     if ([field isKindOfClass:[EpiInfoTextView class]])

@@ -20,9 +20,10 @@
 @synthesize enable;
 @synthesize highlight;
 @synthesize hide;
+@synthesize fieldValue;
 
 
--(id)initWithElement:(NSString *)newElement page:(NSString *)newPage uniqueId:(NSString *)newUniqueId type:(int)newType tag:(int)newTag required:(BOOL)newReq prompt:(NSString *)newPrompt value:(BOOL)newValue enable:(BOOL)newEnable highlight:(BOOL)newHighlight hidden:(BOOL)newHide;
+-(id)initWithElement:(NSString *)newElement page:(NSString *)newPage uniqueId:(NSString *)newUniqueId type:(int)newType tag:(int)newTag required:(BOOL)newReq prompt:(NSString *)newPrompt value:(BOOL)newValue enable:(BOOL)newEnable highlight:(BOOL)newHighlight hidden:(BOOL)newHide fieldValue:(NSString *)newFieldValue
 {
     self = [super init];
     if (self!=nil) {
@@ -37,6 +38,7 @@
         self.enable = newEnable;
         self.highlight = newHighlight;
         self.hide = newHide;
+        self.fieldValue = newFieldValue;
     }
     return self;
 }
