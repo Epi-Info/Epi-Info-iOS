@@ -118,6 +118,7 @@
 		920AE61019C88D71001C96CE /* EpiInfoViewForRounding.m in Sources */ = {isa = PBXBuildFile; fileRef = 920AE60F19C88D71001C96CE /* EpiInfoViewForRounding.m */; };
 		92119A601923FBD3008155F7 /* EpiInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92119A5F1923FBD3008155F7 /* EpiInfoViewController.m */; };
 		9211F6EF1D53758F002583D4 /* AssignModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9211F6EE1D53758F002583D4 /* AssignModel.m */; };
+		9211F6F21D54C02F002583D4 /* AssignParse.c in Sources */ = {isa = PBXBuildFile; fileRef = 9211F6F01D54C02F002583D4 /* AssignParse.c */; };
 		92130CF01CE0F5EE001040D6 /* FormsButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130CEE1CE0F5EE001040D6 /* FormsButtonNR.png */; };
 		92130CF11CE0F5EE001040D6 /* FormsButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130CEF1CE0F5EE001040D6 /* FormsButton.png */; };
 		92130CF41CE0F69B001040D6 /* AnalysisButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130CF21CE0F69B001040D6 /* AnalysisButtonNR.png */; };
@@ -152,6 +153,8 @@
 		9228250B186387DA00DF9493 /* SubmitButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92282507186387DA00DF9493 /* SubmitButton.png */; };
 		9228250C186387DA00DF9493 /* SubmitButtonOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 92282508186387DA00DF9493 /* SubmitButtonOrange.png */; };
 		922920851AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922920841AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift */; };
+		922D49ED1D64F3D40090631E /* ParseAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 922D49EC1D64F3D40090631E /* ParseAssignment.m */; };
+		922D49F01D64F4490090631E /* AssignmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 922D49EF1D64F4490090631E /* AssignmentModel.m */; };
 		9233A7C518FD685F00CA5CA3 /* WindowsAzureMobileServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921974961880583D007F6DFA /* WindowsAzureMobileServices.framework */; };
 		923A263817B41BCE00DCBCD5 /* AnalysisFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A263717B41BCE00DCBCD5 /* AnalysisFilterView.m */; };
 		923A263B17B4265D00DCBCD5 /* FilterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A263A17B4265D00DCBCD5 /* FilterButton.m */; };
@@ -498,6 +501,8 @@
 		92119A5F1923FBD3008155F7 /* EpiInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpiInfoViewController.m; sourceTree = "<group>"; };
 		9211F6ED1D53758F002583D4 /* AssignModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignModel.h; sourceTree = "<group>"; };
 		9211F6EE1D53758F002583D4 /* AssignModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignModel.m; sourceTree = "<group>"; };
+		9211F6F01D54C02F002583D4 /* AssignParse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = AssignParse.c; sourceTree = "<group>"; };
+		9211F6F11D54C02F002583D4 /* AssignParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignParse.h; sourceTree = "<group>"; };
 		92130CEE1CE0F5EE001040D6 /* FormsButtonNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FormsButtonNR.png; sourceTree = "<group>"; };
 		92130CEF1CE0F5EE001040D6 /* FormsButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FormsButton.png; sourceTree = "<group>"; };
 		92130CF21CE0F69B001040D6 /* AnalysisButtonNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AnalysisButtonNR.png; sourceTree = "<group>"; };
@@ -538,6 +543,10 @@
 		92282507186387DA00DF9493 /* SubmitButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SubmitButton.png; sourceTree = "<group>"; };
 		92282508186387DA00DF9493 /* SubmitButtonOrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SubmitButtonOrange.png; sourceTree = "<group>"; };
 		922920841AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpiInfoMultiLineIndentedUILabel.swift; sourceTree = "<group>"; };
+		922D49EB1D64F3D40090631E /* ParseAssignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseAssignment.h; sourceTree = "<group>"; };
+		922D49EC1D64F3D40090631E /* ParseAssignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseAssignment.m; sourceTree = "<group>"; };
+		922D49EE1D64F4490090631E /* AssignmentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignmentModel.h; sourceTree = "<group>"; };
+		922D49EF1D64F4490090631E /* AssignmentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignmentModel.m; sourceTree = "<group>"; };
 		923A263617B41BCE00DCBCD5 /* AnalysisFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalysisFilterView.h; sourceTree = "<group>"; };
 		923A263717B41BCE00DCBCD5 /* AnalysisFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalysisFilterView.m; sourceTree = "<group>"; };
 		923A263917B4265D00DCBCD5 /* FilterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterButton.h; sourceTree = "<group>"; };
@@ -1227,6 +1236,12 @@
 				84C816811CE22D8D00F408D2 /* ElementPairsCheck.m */,
 				84C816821CE22D8D00F408D2 /* ElementsModel.h */,
 				84C816831CE22D8D00F408D2 /* ElementsModel.m */,
+				9211F6F01D54C02F002583D4 /* AssignParse.c */,
+				9211F6F11D54C02F002583D4 /* AssignParse.h */,
+				922D49EB1D64F3D40090631E /* ParseAssignment.h */,
+				922D49EC1D64F3D40090631E /* ParseAssignment.m */,
+				922D49EE1D64F4490090631E /* AssignmentModel.h */,
+				922D49EF1D64F4490090631E /* AssignmentModel.m */,
 			);
 			name = CheckCode;
 			sourceTree = "<group>";
@@ -1765,6 +1780,7 @@
 			files = (
 				4AFD8536161F137B00FFBA65 /* main.m in Sources */,
 				4AFD853A161F137B00FFBA65 /* EpiInfoAppDelegate.m in Sources */,
+				9211F6F21D54C02F002583D4 /* AssignParse.c in Sources */,
 				4AFD854F161F142600FFBA65 /* StatCalcViewController.m in Sources */,
 				92A1F68F1B03E9A4004654B8 /* CheckCode.swift in Sources */,
 				920AE61019C88D71001C96CE /* EpiInfoViewForRounding.m in Sources */,
@@ -1807,6 +1823,7 @@
 				9259D2E61C9327D200AE9181 /* ChildFormFieldAssignments.m in Sources */,
 				92E1A83918730614003E58A5 /* EpiInfoTextField.m in Sources */,
 				924D8AAA1AAE2BA1005A6253 /* CohortSimulationModel.swift in Sources */,
+				922D49ED1D64F3D40090631E /* ParseAssignment.m in Sources */,
 				92921B9919A6427000AA9477 /* MeansView.m in Sources */,
 				847C97D71D427301001E47DD /* LegalValuesEnter.m in Sources */,
 				4AB23ED616288B9900AE47C0 /* ChiSquareCalculatorViewController.m in Sources */,
@@ -1815,6 +1832,7 @@
 				4AB23EDF16289C8C00AE47C0 /* PoissonCalculatorCompute.m in Sources */,
 				4A071E891639C2E3002C05E9 /* BinomialCalculatorCompute.m in Sources */,
 				4A943006163F144400138E0A /* ChiSquareCalculatorCompute.m in Sources */,
+				922D49F01D64F4490090631E /* AssignmentModel.m in Sources */,
 				92EBAD03194A400D000EF983 /* EpiInfoUILabel.m in Sources */,
 				92B8E4CC191A8011007E4ECC /* EpiInfoLineListView.m in Sources */,
 				9268178B1AA8D27900935BE9 /* CohortSimulationView.swift in Sources */,
@@ -1969,7 +1987,7 @@
 					"$(SRCROOT)",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = EpiInfo;
+				PRODUCT_BUNDLE_IDENTIFIER = Z827RBGAJC.EpiInfo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "EpiInfo/EpiInfo-Bridging-Header.h";
@@ -2001,7 +2019,7 @@
 					"$(SRCROOT)",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = EpiInfo;
+				PRODUCT_BUNDLE_IDENTIFIER = Z827RBGAJC.EpiInfo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "EpiInfo/EpiInfo-Bridging-Header.h";

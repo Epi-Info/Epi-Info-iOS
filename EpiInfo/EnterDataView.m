@@ -5457,10 +5457,13 @@
                         
                         if ([am.condition isEqualToString:@"assign"])
                         {
-                            emc.enable = YES;
+                            AssignmentModel *assignmentModel = [ParseAssignment parseAssign:am.assignment];
+                            NSLog(@"%@", assignmentModel.initialText);
+//                            struct AssignPieces postAssign = parseAssign((char*)[am.assignment UTF8String]);
+//                            NSLog(@"%s", postAssign.token0->initialText);
+//                            NSLog(@"%s", postAssign.token1->initialText);
                             [elementListArray replaceObjectAtIndex:idx withObject:emc];
                             NSLog(@"-ena--%@",emc.elementName);
-                            [self enable:emc.tag type:emc.type];
                         }
                     }
                 }

@@ -30,6 +30,9 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "sqlite3.h"
+#import "AssignParse.h"
+#import "ParseAssignment.h"
+#import "AssignmentModel.h"
 
 @interface EnterDataView : UIScrollView <NSXMLParserDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UITextViewDelegate, UIAlertViewDelegate>
 {
