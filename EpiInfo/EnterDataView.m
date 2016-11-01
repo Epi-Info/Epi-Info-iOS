@@ -528,8 +528,8 @@
                     {
                         [(UILabel *)l setText:[NSString stringWithFormat:@"%@, page %d of %lu", formName, (int)[sender tag], (unsigned long)[self pagesArray].count]];
                         pageName = [NSString stringWithFormat:@"%d",(int)[sender tag]];
-                        [[NSUserDefaults standardUserDefaults] setObject:pageName forKey:@"pageName"];
-                        [[NSUserDefaults standardUserDefaults] synchronize];
+//                        [[NSUserDefaults standardUserDefaults] setObject:pageName forKey:@"pageName"];
+//                        [[NSUserDefaults standardUserDefaults] synchronize];
                         
                         NSLog(@"SETSATYA %@",pageName);
                         NSLog(@"page name is %@ checkcode",pageName);
