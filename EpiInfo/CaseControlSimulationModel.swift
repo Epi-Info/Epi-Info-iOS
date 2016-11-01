@@ -8,23 +8,23 @@
 import Foundation
 
 class CaseControlSimulationModel {
-  class func compute(a: Float, b: Float, c: Float, d: Float) -> (Int, Float, Float) {
+  class func compute(_ a: Float, b: Float, c: Float, d: Float) -> (Int, Float, Float) {
     var significantCount : Int = 0
     
-    for var j = 0; j < 1000; j++ {
+    for j in 0 ..< 1000 {
       var sickExposed : Int = 0
-      for var i = 0; i < Int(a); i++ {
+      for i in 0 ..< Int(a) {
         let randomNumber = (Float(arc4random()) / Float(UINT32_MAX)) * 100.0
         if randomNumber < c {
-          sickExposed++
+          sickExposed += 1
         }
       }
       
       var sickUnexposed : Int = 0
-      for var i = 0; i < Int(b); i++ {
+      for i in 0 ..< Int(b) {
         let randomNumber = (Float(arc4random()) / Float(UINT32_MAX)) * 100.0
         if randomNumber < d {
-          sickUnexposed++
+          sickUnexposed += 1
         }
       }
       
@@ -34,18 +34,18 @@ class CaseControlSimulationModel {
       let nn = Int32(b - Float(sickUnexposed))
       
       let computer = Twox2Compute()
-      var RRStats : UnsafeMutablePointer<Double> = UnsafeMutablePointer<Double>.alloc(12)
+      var RRStats : UnsafeMutablePointer<Double> = UnsafeMutablePointer<Double>.allocate(capacity: 12)
       
-      var lcl = Float(computer.OddsRatioLower(yy, cellb: yn, cellc: ny, celld: nn))
-      var ucl = Float(computer.OddsRatioUpper(yy, cellb: yn, cellc: ny, celld: nn))
+      let lcl = Float(computer.oddsRatioLower(yy, cellb: yn, cellc: ny, celld: nn))
+      let ucl = Float(computer.oddsRatioUpper(yy, cellb: yn, cellc: ny, celld: nn))
       
       if c > d {
         if lcl > 1.0 {
-          significantCount++
+          significantCount += 1
         }
       } else if d > c {
         if ucl < 1.0 {
-          significantCount++
+          significantCount += 1
         }
       }
     }

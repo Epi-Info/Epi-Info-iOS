@@ -1,13 +1,13 @@
 {
   "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++7498408",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
-    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++499E748" : {
+    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++78F8680" : {
 
     },
     "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++E863B54" : {
 
     },
-    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++78F8680" : {
+    "1BDC8E7CC887F947D4FCAB72BA5F5B539BC4289C+++499E748" : {
 
     },
     "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++7498408" : {
@@ -15,16 +15,16 @@
     }
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++499E748" : 0,
-    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++E863B54" : 0,
     "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++78F8680" : 0,
+    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++E863B54" : 0,
+    "1BDC8E7CC887F947D4FCAB72BA5F5B539BC4289C+++499E748" : 0,
     "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++7498408" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "5C2D3E35-0AA4-4220-8998-45DD6DA8850A",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++499E748" : "EpiInfo",
-    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++E863B54" : "EpiInfo",
     "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++78F8680" : "Epi-Info-iOS\/",
+    "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++E863B54" : "EpiInfo",
+    "1BDC8E7CC887F947D4FCAB72BA5F5B539BC4289C+++499E748" : "EpiInfo\/",
     "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++7498408" : "Epi-Info-iOS\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "EpiInfo",
@@ -34,7 +34,7 @@
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Epi-Info\/Epi-Info-iOS.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4ef1bfeb-0a34-4d02-9305-240e5b07a168++4234+++499E748"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1BDC8E7CC887F947D4FCAB72BA5F5B539BC4289C+++499E748"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Epi-Info\/Epi-Info-iOS.git",

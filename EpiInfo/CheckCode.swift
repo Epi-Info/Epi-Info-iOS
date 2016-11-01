@@ -15,25 +15,26 @@ class CheckCode: NSObject {
     super.init()
   }
   
-  func setTheWords(wds: NSArray) {
+  func setTheWords(_ wds: NSArray) {
     self.words = wds
   }
   
   // Field that owns the CheckCode object calls this function when it resigns first responder
   func ownerDidResign() {
     // Get the owner's class description from the dictionary of fields, using the first CheckCode word
-    let ownerClassDescription = dictionaryOfFields.objectForKey(words.objectAtIndex(0))?.description
+    let ownerClassDescription = (dictionaryOfFields.object(forKey: words.object(at: 0)) as AnyObject).description
     // Get the index of the first colon
-    let idx: Int = ownerClassDescription!.startIndex.distanceTo((ownerClassDescription!.rangeOfString(":"))!.startIndex)
+    let idx: Int = ownerClassDescription!.characters.distance(from: ownerClassDescription!.startIndex, to: (ownerClassDescription!.range(of: ":"))!.lowerBound)
     // Start after the initial < and substring to that first colon to get the class of the owner
-    let ownerClass = ownerClassDescription!.substringWithRange(Range<String.Index>(start: ownerClassDescription!.startIndex.advancedBy(1), end: ownerClassDescription!.startIndex.advancedBy(idx)))
+    let ownerClass = ownerClassDescription!.substring(with: (ownerClassDescription!.characters.index(ownerClassDescription!.startIndex, offsetBy: 1) ..< ownerClassDescription!.characters.index(ownerClassDescription!.startIndex, offsetBy: idx)))
     
     print("ownerClass name = " + ownerClass)
     print("ownerClass = " + ownerClassDescription!)
     var i = 0
     for word in words as! [NSString]
     {
-      if i++ == 0 {continue}
+        i += 1
+      if i == 0 {continue}
       print(word)
     }
   }

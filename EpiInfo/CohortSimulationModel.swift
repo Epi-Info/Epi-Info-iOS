@@ -8,23 +8,23 @@
 import Foundation
 
 class CohortSimulationModel {
-  class func compute(a: Float, b: Float, c: Float, d: Float) -> (Int, Float, Float) {
+  class func compute(_ a: Float, b: Float, c: Float, d: Float) -> (Int, Float, Float) {
     var significantCount : Int = 0
     
-    for var j = 0; j < 1000; j++ {
+    for j in 0 ..< 1000 {
       var sickExposed : Int = 0
-      for var i = 0; i < Int(a); i++ {
+      for i in 0 ..< Int(a) {
         let randomNumber = (Float(arc4random()) / Float(UINT32_MAX)) * 100.0
         if randomNumber < c {
-          sickExposed++
+          sickExposed += 1
         }
       }
       
       var sickUnexposed : Int = 0
-      for var i = 0; i < Int(b); i++ {
+      for i in 0 ..< Int(b) {
         let randomNumber = (Float(arc4random()) / Float(UINT32_MAX)) * 100.0
         if randomNumber < d {
-          sickUnexposed++
+          sickUnexposed += 1
         }
       }
       
@@ -34,16 +34,16 @@ class CohortSimulationModel {
       let nn = Int32(b - Float(sickUnexposed))
       
       let computer = Twox2Compute()
-      var RRStats : UnsafeMutablePointer<Double> = UnsafeMutablePointer<Double>.alloc(12)
-      computer.RRStats(yy, RRSb: yn, RRSc: ny, RRSd: nn, RRSstats: RRStats)
+      let RRStats : UnsafeMutablePointer<Double> = UnsafeMutablePointer<Double>.allocate(capacity: 12)
+      computer.rrStats(yy, rrSb: yn, rrSc: ny, rrSd: nn, rrSstats: RRStats)
       
       if c > d {
         if RRStats[1] > 1.0 {
-          significantCount++
+          significantCount += 1
         }
       } else if d > c {
         if RRStats[2] < 1.0 {
-          significantCount++
+          significantCount += 1
         }
       }
     }
