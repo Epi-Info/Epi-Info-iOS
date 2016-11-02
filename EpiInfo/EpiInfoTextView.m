@@ -51,6 +51,11 @@
     return [self text];
 }
 
+- (void)assignValue:(NSString *)value
+{
+    [self setText:value];
+}
+
 /*
  // Only override drawRect: if you perform custom drawing.
  // An empty implementation adversely affects performance during animation.

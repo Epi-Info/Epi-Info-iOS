@@ -21,10 +21,10 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    [picked setText:[NSString stringWithFormat:@"%d", row]];
+    [picked setText:[NSString stringWithFormat:@"%d", (int)row]];
     if (self.textFieldToUpdate)
     {
-        [self.textFieldToUpdate setText:[NSString stringWithString:[NSString stringWithFormat:@"%d", row]]];
+        [self.textFieldToUpdate setText:[NSString stringWithString:[NSString stringWithFormat:@"%d", (int)row]]];
     }
     if (self.viewToAlertOfChanges)
     {

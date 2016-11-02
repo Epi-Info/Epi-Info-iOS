@@ -179,6 +179,11 @@
     return [self picked];
 }
 
+- (void)assignValue:(NSString *)value
+{
+    [self setPicked:value];
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

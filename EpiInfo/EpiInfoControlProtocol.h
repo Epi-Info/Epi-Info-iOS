@@ -10,5 +10,6 @@
 @protocol EpiInfoControlProtocol <NSObject>
 
 - (NSString *)epiInfoControlValue;
+- (void)assignValue:(NSString *)value;
 
 @end

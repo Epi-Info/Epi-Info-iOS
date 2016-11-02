@@ -96,6 +96,14 @@
     return retVal;
 }
 
+- (void)assignValue:(NSString *)val
+{
+    if ([val isEqualToString:@"TRUE"])
+        [self setTrueFalse:1];
+    else
+        [self setTrueFalse:0];
+}
+
 /*
  // Only override drawRect: if you perform custom drawing.
  // An empty implementation adversely affects performance during animation.

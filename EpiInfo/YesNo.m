@@ -81,7 +81,7 @@
         [picker selectRow:1 inComponent:0 animated:NO];
     else
         [picker selectRow:2 inComponent:0 animated:NO];
-    [picked setText:[NSString stringWithFormat:@"%d", yesNo]];
+    [picked setText:[NSString stringWithFormat:@"%d", (int)yesNo]];
 }
 - (void)setFormFieldValue:(NSString *)formFieldValue
 {
@@ -94,6 +94,14 @@
 - (NSString *)epiInfoControlValue
 {
     return [self picked];
+}
+
+- (void)assignValue:(NSString *)value
+{
+    if ([value isEqualToString:@"Yes"])
+        [self setYesNo:1];
+    else
+        [self setYesNo:0];
 }
 
 /*
