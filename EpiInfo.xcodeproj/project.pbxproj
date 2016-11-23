@@ -317,6 +317,8 @@
 		92E9801618A538C30011CC8B /* MSAzure.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E9801318A538C30011CC8B /* MSAzure.png */; };
 		92E9801718A538C30011CC8B /* MSAzureNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E9801418A538C30011CC8B /* MSAzureNR.png */; };
 		92E9801818A538C30011CC8B /* MSAzurePhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E9801518A538C30011CC8B /* MSAzurePhone.png */; };
+		92EB1ACC1DCA660100694282 /* FieldsAndStringValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 92EB1ACB1DCA660100694282 /* FieldsAndStringValues.m */; };
+		92EB1ACF1DCA77B900694282 /* DictionaryOfFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 92EB1ACE1DCA77B900694282 /* DictionaryOfFields.m */; };
 		92EBAD03194A400D000EF983 /* EpiInfoUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92EBAD02194A400D000EF983 /* EpiInfoUILabel.m */; };
 		92F520E91CD3BFAC0058F352 /* icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F520E01CD3BFAC0058F352 /* icon-29.png */; };
 		92F520EA1CD3BFAC0058F352 /* icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F520E11CD3BFAC0058F352 /* icon-40.png */; };
@@ -763,6 +765,10 @@
 		92E9801318A538C30011CC8B /* MSAzure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MSAzure.png; sourceTree = "<group>"; };
 		92E9801418A538C30011CC8B /* MSAzureNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MSAzureNR.png; sourceTree = "<group>"; };
 		92E9801518A538C30011CC8B /* MSAzurePhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MSAzurePhone.png; sourceTree = "<group>"; };
+		92EB1ACA1DCA660100694282 /* FieldsAndStringValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldsAndStringValues.h; sourceTree = "<group>"; };
+		92EB1ACB1DCA660100694282 /* FieldsAndStringValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldsAndStringValues.m; sourceTree = "<group>"; };
+		92EB1ACD1DCA77B900694282 /* DictionaryOfFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryOfFields.h; sourceTree = "<group>"; };
+		92EB1ACE1DCA77B900694282 /* DictionaryOfFields.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryOfFields.m; sourceTree = "<group>"; };
 		92EBAD01194A400D000EF983 /* EpiInfoUILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpiInfoUILabel.h; sourceTree = "<group>"; };
 		92EBAD02194A400D000EF983 /* EpiInfoUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpiInfoUILabel.m; sourceTree = "<group>"; };
 		92F520E01CD3BFAC0058F352 /* icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-29.png"; sourceTree = "<group>"; };
@@ -1413,6 +1419,10 @@
 				9265FF991CBC0FB3003AD6E0 /* EpiInfoControlProtocol.h */,
 				92ABAA1B1D22F727000C5B60 /* PageDots.h */,
 				92ABAA1C1D22F727000C5B60 /* PageDots.m */,
+				92EB1ACA1DCA660100694282 /* FieldsAndStringValues.h */,
+				92EB1ACB1DCA660100694282 /* FieldsAndStringValues.m */,
+				92EB1ACD1DCA77B900694282 /* DictionaryOfFields.h */,
+				92EB1ACE1DCA77B900694282 /* DictionaryOfFields.m */,
 			);
 			name = Entry;
 			sourceTree = "<group>";
@@ -1780,6 +1790,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AFD8536161F137B00FFBA65 /* main.m in Sources */,
+				92EB1ACF1DCA77B900694282 /* DictionaryOfFields.m in Sources */,
 				4AFD853A161F137B00FFBA65 /* EpiInfoAppDelegate.m in Sources */,
 				9211F6F21D54C02F002583D4 /* AssignParse.c in Sources */,
 				4AFD854F161F142600FFBA65 /* StatCalcViewController.m in Sources */,
@@ -1858,6 +1869,7 @@
 				9266C5341846795000739AF2 /* YesNo.m in Sources */,
 				9266C528184657E900739AF2 /* DataEntryViewController.m in Sources */,
 				9211F6EF1D53758F002583D4 /* AssignModel.m in Sources */,
+				92EB1ACC1DCA660100694282 /* FieldsAndStringValues.m in Sources */,
 				92D43A471992A5BD00B24712 /* ConfirmDeleteButton.m in Sources */,
 				847C97DA1D427494001E47DD /* UIView+UpdateAutoLayoutConstraints.m in Sources */,
 				926C9D561A7AA8FE004A6ADD /* SimulationsViewController.m in Sources */,

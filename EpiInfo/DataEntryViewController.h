@@ -15,6 +15,7 @@
 #import "Reachability.h"
 #import "PageDots.h"
 #import "sqlite3.h"
+#import "FieldsAndStringValues.h"
 #import <CoreImage/CoreImage.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import <CommonCrypto/CommonCrypto.h>
@@ -66,6 +67,7 @@
     PageDots *pagedots;
 }
 @property NSMutableDictionary *legalValuesDictionary;
+@property FieldsAndStringValues *fieldsAndStringValues;
 -(UIButton *)openButton;
 -(void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID;
 -(void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID OnEnterDataView:(UIView *)onEdv;

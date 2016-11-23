@@ -33,6 +33,8 @@
 #import "AssignParse.h"
 #import "ParseAssignment.h"
 #import "AssignmentModel.h"
+#import "FieldsAndStringValues.h"
+#import "DictionaryOfFields.h"
 
 @interface EnterDataView : UIScrollView <NSXMLParserDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UITextViewDelegate, UIAlertViewDelegate>
 {
@@ -132,8 +134,10 @@
 
 @property NSMutableDictionary *dictionaryOfCommentLegals;
 
-@property NSMutableDictionary *dictionaryOfFields;
+@property DictionaryOfFields *dictionaryOfFields;
 @property NSMutableDictionary *dictionaryOfWordsArrays;
+
+@property FieldsAndStringValues *fieldsAndStringValues;
 
 @property(strong, nonatomic) NSMutableArray *conditionsArray;
 @property(strong) NSMutableArray* dialogArray;
@@ -189,4 +193,6 @@
 - (NSString *)createTableStatement;
 
 -(void)confirmSubmitOrClear:(UIButton *)sender;
+
+-(void)setAssignArray:(NSMutableArray *)aa;
 @end

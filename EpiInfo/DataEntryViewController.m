@@ -28,6 +28,7 @@
 @implementation DataEntryViewController
 //@synthesize epiinfoService = _epiinfoService;
 @synthesize legalValuesDictionary = _legalValuesDictionary;
+@synthesize fieldsAndStringValues = _fieldsAndStringValues;
 
 - (NSMutableArray *)formNavigationItems
 {
@@ -754,14 +755,15 @@
             
             NSString *path = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/"] stringByAppendingString:lvSelected.text] stringByAppendingString:@".xml"];
             NSURL *url = [NSURL fileURLWithPath:path];
+            self.fieldsAndStringValues = [[FieldsAndStringValues alloc] init];
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
             {
-                edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, self.view.frame.size.height) AndURL:url AndRootViewController:self AndNameOfTheForm:lvSelected.text AndPageToDisplay:[sender tag]];
+                edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, self.view.frame.size.height) AndURL:url AndRootViewController:self AndNameOfTheForm:lvSelected.text AndPageToDisplay:(int)[sender tag]];
                 orangeBanner = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, 36)];
             }
             else
             {
-                edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, 320, 506) AndURL:url AndRootViewController:self AndNameOfTheForm:lvSelected.text AndPageToDisplay:[sender tag]];
+                edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, 320, 506) AndURL:url AndRootViewController:self AndNameOfTheForm:lvSelected.text AndPageToDisplay:(int)[sender tag]];
                 orangeBanner = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 36)];
             }
             [edv setMyOrangeBanner:orangeBanner];
@@ -2465,6 +2467,7 @@
             [edv.updateLocationThread cancel];
         [edv removeFromSuperview];
         edv = nil;
+        self.fieldsAndStringValues.nsmd = nil;
         [orangeBannerBackground removeFromSuperview];
         [orangeBanner removeFromSuperview];
         [footerBar removeFromSuperview];

@@ -9,6 +9,8 @@
 
 @protocol EpiInfoControlProtocol <NSObject>
 
+@property NSString *columnName;
+
 - (NSString *)epiInfoControlValue;
 - (void)assignValue:(NSString *)value;
 

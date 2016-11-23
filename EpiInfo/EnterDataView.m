@@ -43,6 +43,7 @@
 @synthesize nameOfTheForm = _nameOfTheForm;
 @synthesize dictionaryOfFields = _dictionaryOfFields;
 @synthesize dictionaryOfCommentLegals = _dictionaryOfCommentLegals;
+@synthesize fieldsAndStringValues = _fieldsAndStringValues;
 @synthesize dialogArray;
 @synthesize elmArray;
 //@synthesize elementsArray;
@@ -177,6 +178,11 @@
     return myOrangeBanner;
 }
 
+- (void)setAssignArray:(NSMutableArray *)aa
+{
+    assignArray = aa;
+}
+
 - (NSString *)formCheckCodeString
 {
     return formCheckCodeString;
@@ -200,8 +206,10 @@
         //    [self setEpiinfoService:[QSEpiInfoService defaultService]];
         seenFirstGeocodeField = NO;
         legalValuesDictionaryForRVC = [[NSMutableDictionary alloc] init];
-        self.dictionaryOfFields = [[NSMutableDictionary alloc] init];
+        self.dictionaryOfFields = [[DictionaryOfFields alloc] init];
         self.dictionaryOfCommentLegals = [[NSMutableDictionary alloc] init];
+//        self.fieldsAndStringValues = [[FieldsAndStringValues alloc] init];
+        [self.dictionaryOfFields setFasv:self.fieldsAndStringValues];
         newRecordGUID = CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL)));
         
         //      NSThread *guidThread = [[NSThread alloc] initWithTarget:self selector:@selector(logTheGUIDS) object:nil];
@@ -492,9 +500,12 @@
     }
     else
     {
-        EnterDataView *edv = [[EnterDataView alloc] initWithFrame:self.frame AndURL:self.url AndRootViewController:self.rootViewController AndNameOfTheForm:self.nameOfTheForm AndPageToDisplay:(int)[sender tag] condArray:conditionsArray eleArray:elementListArray firstEdit:firstEdit elmAr:elmArray checkEleArr:elementsArray];
+        EnterDataView *edv = [[EnterDataView alloc] initWithFrame:self.frame AndURL:self.url AndRootViewController:self.rootViewController AndNameOfTheForm:self.nameOfTheForm AndPageToDisplay:(int)[sender tag] condArray:conditionsArray eleArray:elementListArray firstEdit:firstEdit elmAr:elmArray checkEleArr:elementsArray assignArray:assignArray];
         NSLog(@"EXECUTE");
         [edv setDictionaryOfPages:dictionaryOfPages];
+//        for (id key in edv.fieldsAndStringValues.nsmd)
+//            [self.fieldsAndStringValues setObject:[edv.fieldsAndStringValues objectForKey:key] forKey:key];
+//        [edv setFieldsAndStringValues:self.fieldsAndStringValues];
         [edv setGuidBeingUpdated:guidBeingUpdated];
         [edv setNewRecordGUID:newRecordGUID];
         [edv setMyOrangeBanner:myOrangeBanner];
@@ -555,9 +566,19 @@
 
 - (id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndNameOfTheForm:(NSString *)notf AndPageToDisplay:(int)page
 {
+    self.fieldsAndStringValues = [(DataEntryViewController *)rvc fieldsAndStringValues];
     self = [self initWithFrame:frame AndURL:url AndNameOfTheForm:(NSString *)notf AndPageToDisplay:page];
     if (self)
     {
+        //Conditionally initialize or copy
+//        if (page == 1)
+//        {
+//            self.fieldsAndStringValues = [[FieldsAndStringValues alloc] init];
+//            [(DataEntryViewController *)rvc setFieldsAndStringValues:self.fieldsAndStringValues];
+//        }
+//        else
+//            [self setFieldsAndStringValues:[(DataEntryViewController *)rvc fieldsAndStringValues]];
+        
         [self setRootViewController:rvc];
         if ([[(DataEntryViewController *)self.rootViewController backgroundImage] tag] == 4)
         {
@@ -676,17 +697,29 @@
     return self;
     
 }
-- (id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndNameOfTheForm:(NSString *)notf AndPageToDisplay:(int)page condArray:(NSMutableArray *)newCondArray eleArray:(NSMutableArray *)newEleArray firstEdit:(BOOL)newFirst elmAr:(NSMutableArray *)newElm checkEleArr:(NSMutableArray *)newCheckEleArr
+- (id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndNameOfTheForm:(NSString *)notf AndPageToDisplay:(int)page condArray:(NSMutableArray *)newCondArray eleArray:(NSMutableArray *)newEleArray firstEdit:(BOOL)newFirst elmAr:(NSMutableArray *)newElm checkEleArr:(NSMutableArray *)newCheckEleArr assignArray:(NSMutableArray *)newAssignArray
 {
     conditionsArray = newCondArray;
     elementListArray = newEleArray;
     firstEdit = newFirst;
     elmArray = newElm;
     elementsArray = newCheckEleArr;
+    assignArray = newAssignArray;
     
+    self.fieldsAndStringValues = [(DataEntryViewController *)rvc fieldsAndStringValues];
     self = [self initWithFrame:frame AndURL:url AndNameOfTheForm:(NSString *)notf AndPageToDisplay:page];
     if (self)
     {
+        //Conditionally initialize or copy
+//        if (page == 1)
+//        {
+//            self.fieldsAndStringValues = [[FieldsAndStringValues alloc] init];
+//            [(DataEntryViewController *)rvc setFieldsAndStringValues:self.fieldsAndStringValues];
+//        }
+//        else
+//            [self setFieldsAndStringValues:[(DataEntryViewController *)rvc fieldsAndStringValues]];
+//        [self.dictionaryOfFields setFasv:self.fieldsAndStringValues];
+        
         [self setRootViewController:rvc];
         if ([[(DataEntryViewController *)self.rootViewController backgroundImage] tag] == 4)
         {
@@ -2014,6 +2047,9 @@
                 [(Checkbox *)v reset];
             [v setEnabled:YES];
         }
+        // Clear the fieldsAndStringValues dictionary
+//        for (id key in self.fieldsAndStringValues.nsmd)
+//            [self.fieldsAndStringValues setObject:@"" forKey:key];
         [tempedv resignAll];
         [tempedv setContentOffset:CGPointZero animated:YES];
         [self doNotSubmitOrClear];
@@ -2504,7 +2540,6 @@
                     }
                     beginColumList = YES;
                     [self.dictionaryOfFields setObject:tf forKey:[attributeDict objectForKey:@"Name"]];
-                    
                     //ADD
                 }
                 
@@ -4339,6 +4374,17 @@
             }
             else
                 continue;
+            if ([v conformsToProtocol:@protocol(EpiInfoControlProtocol)])
+            {
+                if ([[self.fieldsAndStringValues objectForKey:[(id<EpiInfoControlProtocol>)v columnName]] isEqualToString:@""])
+                {
+                    [self.fieldsAndStringValues setObject:[(id<EpiInfoControlProtocol>)v epiInfoControlValue] forKey:[(id<EpiInfoControlProtocol>)v columnName]];
+                }
+                else
+                {
+                    [(id<EpiInfoControlProtocol>)v assignValue:[self.fieldsAndStringValues objectForKey:[(id<EpiInfoControlProtocol>)v columnName]]];
+                }
+            }
         }
         for (UIView *v in [tempedv subviews])
         {
@@ -5458,6 +5504,14 @@
                         if ([am.condition isEqualToString:@"assign"])
                         {
                             AssignmentModel *assignmentModel = [ParseAssignment parseAssign:am.assignment];
+                            for (id key in [self.fieldsAndStringValues nsmd])
+                            {
+                                if ([assignmentModel.initialText containsString:(NSString *)key])
+                                {
+                                    [assignmentModel setInitialText:[assignmentModel.initialText stringByReplacingOccurrencesOfString:(NSString *)key withString:[self.fieldsAndStringValues objectForKey:key]]];
+                                }
+                            }
+                            [[self.dictionaryOfFields objectForKey:am.element] assignValue:assignmentModel.initialText];
                             NSLog(@"%@", assignmentModel.initialText);
 //                            struct AssignPieces postAssign = parseAssign((char*)[am.assignment UTF8String]);
 //                            NSLog(@"%s", postAssign.token0->initialText);
@@ -7011,7 +7065,7 @@ newStr{
     }
     else if (req == NO)
     {
-        eleLabel.text = newText;
+//        eleLabel.text = newText;
         UITextField *utf = (UITextField *)[formCanvas viewWithTag:newTag];
         utf.layer.borderWidth = 1.0f;
         utf.layer.borderColor = [[UIColor clearColor] CGColor];
