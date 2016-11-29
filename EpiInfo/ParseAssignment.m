@@ -12,7 +12,7 @@
 {
     AssignmentModel *am = [[AssignmentModel alloc] init];
     [am setInitialText:[NSString stringWithString:statement]];
-    [self tokenize:am];
+ //   [self tokenize:am];
     return am;
 }
 

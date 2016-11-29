@@ -45,10 +45,39 @@
 
 -(void)removeSingle
 {
-    
+    [self replaceLinefeedCharsAfterAssigns];
     [check replaceOccurrencesOfString:@"//(.*?)\r?\n" withString:@"" options:NSRegularExpressionSearch range:(NSRange){0,check.length}];
     [self removeSpaces];
     
+}
+
+- (void)replaceLinefeedCharsAfterAssigns
+{
+    NSMutableArray *arrayOfAssignIndexes = [[NSMutableArray alloc] init];
+    NSMutableArray *arrayOfLineFeedCharacters = [[NSMutableArray alloc] init];
+    
+    NSString *copyOfCheck = [NSString stringWithString:check];
+    int addToIndex = 0;
+    
+    while ([copyOfCheck length] > 0)
+    {
+        if (![[copyOfCheck uppercaseString] containsString:@"ASSIGN"])
+            break;
+        
+        int indexOfAssign = (int)[copyOfCheck rangeOfString:@"ASSIGN"].location;
+        int indexOfLineFeed = (int)[[copyOfCheck substringFromIndex:indexOfAssign] rangeOfString:@"\n"].location;
+        
+        [arrayOfAssignIndexes addObject:[NSNumber numberWithInteger:indexOfAssign + addToIndex]];
+        [arrayOfLineFeedCharacters addObject:[NSNumber numberWithInteger:indexOfLineFeed + indexOfAssign + addToIndex]];
+        
+        addToIndex += indexOfLineFeed + indexOfAssign;
+        copyOfCheck = [copyOfCheck substringFromIndex:indexOfAssign + indexOfLineFeed];
+    }
+    
+    for (int i = (int)arrayOfLineFeedCharacters.count - 1; i >= 0; i--)
+    {
+        [check replaceCharactersInRange:NSMakeRange([(NSNumber *)[arrayOfLineFeedCharacters objectAtIndex:i] intValue], 1) withString:@"<LINEFEED>"];
+    }
 }
 
 -(void)removeSpaces
