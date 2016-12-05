@@ -15,6 +15,8 @@
 #import "ConditionsModel.h"
 #import "AssignModel.h"
 #import "UIView+UpdateAutoLayoutConstraints.h"
+#import "AssignStatementParser.h"
+#import <PEGKit/PEGKit.h>
 
 
 
@@ -5511,6 +5513,26 @@
                                     [assignmentModel setInitialText:[assignmentModel.initialText stringByReplacingOccurrencesOfString:(NSString *)key withString:[self.fieldsAndStringValues objectForKey:key]]];
                                 }
                             }
+                            
+                            AssignStatementParser *parser = [[AssignStatementParser alloc] init];
+                            
+                            NSError *err = nil;
+                            PKAssembly *result = [parser parseString:assignmentModel.initialText error:&err];
+                            
+                            if (!result) {
+                                if (err) NSLog(@"%@", err);
+                                assignmentModel.initialText = @"Unable to parse";
+                                return;
+                            }
+                            
+                            // print the entire assembly in the result output field
+                            id n = [result pop];
+                            assignmentModel.initialText = [result description];
+                            if ([n isKindOfClass:[NSString class]])
+                                assignmentModel.initialText = n;
+                            else
+                                assignmentModel.initialText = [n stringValue];
+                            
                             [[self.dictionaryOfFields objectForKey:am.element] assignValue:assignmentModel.initialText];
                             NSLog(@"%@", assignmentModel.initialText);
 //                            struct AssignPieces postAssign = parseAssign((char*)[am.assignment UTF8String]);

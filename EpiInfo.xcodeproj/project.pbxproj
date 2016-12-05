@@ -240,6 +240,8 @@
 		92867AC1183EAE5100CCC2B5 /* ChiSquareNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92867ABF183EAE5100CCC2B5 /* ChiSquareNR.png */; };
 		92867AC4183EAE6000CCC2B5 /* Poisson.png in Resources */ = {isa = PBXBuildFile; fileRef = 92867AC2183EAE6000CCC2B5 /* Poisson.png */; };
 		92867AC5183EAE6000CCC2B5 /* PoissonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92867AC3183EAE6000CCC2B5 /* PoissonNR.png */; };
+		928AF0EE1DF09D54002BFEF8 /* libPEGKitIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 928AF0E31DF09B8D002BFEF8 /* libPEGKitIOS.a */; };
+		928AF0F11DF09D91002BFEF8 /* AssignStatementParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 928AF0F01DF09D91002BFEF8 /* AssignStatementParser.m */; };
 		928FCEF219E5692000641A95 /* VHFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 928FCEF119E5692000641A95 /* VHFViewController.m */; };
 		928FCEF519E570B300641A95 /* VHFButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 928FCEF319E570B300641A95 /* VHFButton.png */; };
 		928FCEF619E570B300641A95 /* VHFButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 928FCEF419E570B300641A95 /* VHFButtonNR.png */; };
@@ -340,6 +342,58 @@
 		92FD407D182D33AD004B4729 /* PMCCNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92FD4073182D33AD004B4729 /* PMCCNR.png */; };
 		92FD4081182D3876004B4729 /* FadeDown7.png in Resources */ = {isa = PBXBuildFile; fileRef = 92FD4080182D3876004B4729 /* FadeDown7.png */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		928AF0DC1DF09B8D002BFEF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 928AF0D31DF09B8D002BFEF8 /* PEGKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D3F8A48D175817DF00056188;
+			remoteInfo = PEGKit;
+		};
+		928AF0DE1DF09B8D002BFEF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 928AF0D31DF09B8D002BFEF8 /* PEGKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D305025D1CE5560F00AB4B68;
+			remoteInfo = PEGKitiOS;
+		};
+		928AF0E01DF09B8D002BFEF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 928AF0D31DF09B8D002BFEF8 /* PEGKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D366C55418D1F29D00AF3EFB;
+			remoteInfo = libPEGKitOSX;
+		};
+		928AF0E21DF09B8D002BFEF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 928AF0D31DF09B8D002BFEF8 /* PEGKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D317C12B18D1F5EB0036BE75;
+			remoteInfo = libPEGKitIOS;
+		};
+		928AF0E41DF09B8D002BFEF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 928AF0D31DF09B8D002BFEF8 /* PEGKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D37D8DC61571A4F700CDB822;
+			remoteInfo = PEGKitTests;
+		};
+		928AF0E61DF09B8D002BFEF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 928AF0D31DF09B8D002BFEF8 /* PEGKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D338302F171C923700CCE513;
+			remoteInfo = ParserGenApp;
+		};
+		928AF0EC1DF09D23002BFEF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 928AF0D31DF09B8D002BFEF8 /* PEGKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D305025C1CE5560F00AB4B68;
+			remoteInfo = PEGKitiOS;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		4A071E871639C2E3002C05E9 /* BinomialCalculatorCompute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinomialCalculatorCompute.h; sourceTree = "<group>"; };
@@ -667,6 +721,9 @@
 		92867ABF183EAE5100CCC2B5 /* ChiSquareNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChiSquareNR.png; sourceTree = "<group>"; };
 		92867AC2183EAE6000CCC2B5 /* Poisson.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Poisson.png; sourceTree = "<group>"; };
 		92867AC3183EAE6000CCC2B5 /* PoissonNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoissonNR.png; sourceTree = "<group>"; };
+		928AF0D31DF09B8D002BFEF8 /* PEGKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PEGKit.xcodeproj; path = ../../iOS/PEGKit/PEGKit.xcodeproj; sourceTree = "<group>"; };
+		928AF0EF1DF09D91002BFEF8 /* AssignStatementParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignStatementParser.h; sourceTree = "<group>"; };
+		928AF0F01DF09D91002BFEF8 /* AssignStatementParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignStatementParser.m; sourceTree = "<group>"; };
 		928FCEF019E5692000641A95 /* VHFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHFViewController.h; sourceTree = "<group>"; };
 		928FCEF119E5692000641A95 /* VHFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHFViewController.m; sourceTree = "<group>"; };
 		928FCEF319E570B300641A95 /* VHFButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VHFButton.png; sourceTree = "<group>"; };
@@ -797,6 +854,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				928AF0EE1DF09D54002BFEF8 /* libPEGKitIOS.a in Frameworks */,
 				9233A7C518FD685F00CA5CA3 /* WindowsAzureMobileServices.framework in Frameworks */,
 				92A5D8D018CF91820048C160 /* Security.framework in Frameworks */,
 				9224991018C66FB500D8105E /* MessageUI.framework in Frameworks */,
@@ -855,6 +913,7 @@
 		4AFD851A161F137B00FFBA65 = {
 			isa = PBXGroup;
 			children = (
+				928AF0D31DF09B8D002BFEF8 /* PEGKit.xcodeproj */,
 				9252017F17D0CC930071C754 /* QuartzCore.framework */,
 				9284E8EC17B94BDB00158139 /* libsqlite3.dylib */,
 				92095BE0183567B300B7A0ED /* Default-568h@2x.png */,
@@ -1248,6 +1307,8 @@
 				922D49EC1D64F3D40090631E /* ParseAssignment.m */,
 				922D49EE1D64F4490090631E /* AssignmentModel.h */,
 				922D49EF1D64F4490090631E /* AssignmentModel.m */,
+				928AF0EF1DF09D91002BFEF8 /* AssignStatementParser.h */,
+				928AF0F01DF09D91002BFEF8 /* AssignStatementParser.m */,
 			);
 			name = CheckCode;
 			sourceTree = "<group>";
@@ -1442,6 +1503,19 @@
 			name = Simulations;
 			sourceTree = "<group>";
 		};
+		928AF0D41DF09B8D002BFEF8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				928AF0DD1DF09B8D002BFEF8 /* PEGKit.framework */,
+				928AF0DF1DF09B8D002BFEF8 /* PEGKit.framework */,
+				928AF0E11DF09B8D002BFEF8 /* libPEGKitOSX.a */,
+				928AF0E31DF09B8D002BFEF8 /* libPEGKitIOS.a */,
+				928AF0E51DF09B8D002BFEF8 /* PEGKitTests.xctest */,
+				928AF0E71DF09B8D002BFEF8 /* ParserGenApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		928FCEE619E567AD00641A95 /* VHF */ = {
 			isa = PBXGroup;
 			children = (
@@ -1522,6 +1596,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				928AF0ED1DF09D23002BFEF8 /* PBXTargetDependency */,
 			);
 			name = EpiInfo;
 			productName = EpiInfo;
@@ -1560,12 +1635,63 @@
 			mainGroup = 4AFD851A161F137B00FFBA65;
 			productRefGroup = 4AFD8526161F137B00FFBA65 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 928AF0D41DF09B8D002BFEF8 /* Products */;
+					ProjectRef = 928AF0D31DF09B8D002BFEF8 /* PEGKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				4AFD8524161F137B00FFBA65 /* EpiInfo */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		928AF0DD1DF09B8D002BFEF8 /* PEGKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PEGKit.framework;
+			remoteRef = 928AF0DC1DF09B8D002BFEF8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		928AF0DF1DF09B8D002BFEF8 /* PEGKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PEGKit.framework;
+			remoteRef = 928AF0DE1DF09B8D002BFEF8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		928AF0E11DF09B8D002BFEF8 /* libPEGKitOSX.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libPEGKitOSX.a;
+			remoteRef = 928AF0E01DF09B8D002BFEF8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		928AF0E31DF09B8D002BFEF8 /* libPEGKitIOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libPEGKitIOS.a;
+			remoteRef = 928AF0E21DF09B8D002BFEF8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		928AF0E51DF09B8D002BFEF8 /* PEGKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = PEGKitTests.xctest;
+			remoteRef = 928AF0E41DF09B8D002BFEF8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		928AF0E71DF09B8D002BFEF8 /* ParserGenApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = ParserGenApp.app;
+			remoteRef = 928AF0E61DF09B8D002BFEF8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4AFD8523161F137B00FFBA65 /* Resources */ = {
@@ -1902,11 +2028,20 @@
 				9284E8F017B94E8C00158139 /* SQLiteData.m in Sources */,
 				9270CA1917CBB0C100522D4F /* BigDouble.m in Sources */,
 				9266C53118466ED600739AF2 /* Checkbox.m in Sources */,
+				928AF0F11DF09D91002BFEF8 /* AssignStatementParser.m in Sources */,
 				9252017E17D0C89A0071C754 /* ShinyButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		928AF0ED1DF09D23002BFEF8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PEGKitiOS;
+			targetProxy = 928AF0EC1DF09D23002BFEF8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4AFD8532161F137B00FFBA65 /* InfoPlist.strings */ = {
