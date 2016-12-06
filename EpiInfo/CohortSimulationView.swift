@@ -6,6 +6,30 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class CohortSimulationsView: UIView, UITextFieldDelegate {
   
@@ -36,7 +60,7 @@ class CohortSimulationsView: UIView, UITextFieldDelegate {
     maxHeight = frame.height
     maxWidth = frame.width
     
-    if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+    if UIDevice.current.userInterfaceIdiom == .pad {
     } else {
       // Add background image
       fadingColorView = UIImageView(frame: frame)
@@ -47,160 +71,160 @@ class CohortSimulationsView: UIView, UITextFieldDelegate {
         fadingColorView.image = UIImage(named: "iPhone4Background.png")
       }
       self.addSubview(fadingColorView)
-      self.sendSubviewToBack(fadingColorView)
+      self.sendSubview(toBack: fadingColorView)
       
       //Add the screen-sized clear button to dismiss all keyboards
       resignAllButton = UIButton(frame: frame)
-      resignAllButton.backgroundColor = .clearColor()
-      resignAllButton.addTarget(self, action: "resignAll", forControlEvents: .TouchUpInside)
+      resignAllButton.backgroundColor = .clear
+      resignAllButton.addTarget(self, action: #selector(CohortSimulationsView.resignAll), for: .touchUpInside)
       self.addSubview(resignAllButton)
       
       //Screen header
-      header = UILabel(frame: CGRectMake(0, 4 * (frame.height / maxHeight), frame.width * (frame.width / maxWidth), 26 * (frame.height / maxHeight)))
-      header.backgroundColor = .clearColor()
-      header.textColor = .whiteColor()
-      header.textAlignment = .Center
+      header = UILabel(frame: CGRect(x: 0, y: 4 * (frame.height / maxHeight), width: frame.width * (frame.width / maxWidth), height: 26 * (frame.height / maxHeight)))
+      header.backgroundColor = .clear
+      header.textColor = .white
+      header.textAlignment = .center
       header.font = UIFont(name: "HelveticaNeue-Bold", size: 24.0)
       header.text = "Simulate Cohort Study"
       self.addSubview(header)
       
       //Add navy background for input fields
-      inputBackground = UIButton(frame: CGRectMake(4 * (frame.width / maxWidth), 40 * (frame.height / maxHeight), 312 * (frame.width / maxWidth), 170 * (frame.height / maxHeight)))
+      inputBackground = UIButton(frame: CGRect(x: 4 * (frame.width / maxWidth), y: 40 * (frame.height / maxHeight), width: 312 * (frame.width / maxWidth), height: 170 * (frame.height / maxHeight)))
       inputBackground.backgroundColor = UIColor(red: 3/255.0, green: 36/255.0, blue: 77/255.0, alpha: 1.0)
       inputBackground.layer.masksToBounds = true
       inputBackground.layer.cornerRadius = 8.0
-      inputBackground.addTarget(self, action: "resignAll", forControlEvents: .TouchUpInside)
+      inputBackground.addTarget(self, action: #selector(CohortSimulationsView.resignAll), for: .touchUpInside)
       self.addSubview(inputBackground)
       
       //Add the NumberField for number of exposed
-      exposedLabel = UIButton(frame: CGRectMake(4 * (frame.width / maxWidth), 2 * (frame.height / maxHeight), 148 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
-      exposedLabel.backgroundColor = .clearColor()
+      exposedLabel = UIButton(frame: CGRect(x: 4 * (frame.width / maxWidth), y: 2 * (frame.height / maxHeight), width: 148 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight)))
+      exposedLabel.backgroundColor = .clear
       exposedLabel.clipsToBounds = true
-      exposedLabel.setTitle("Number Exposed", forState: .Normal)
-      exposedLabel.contentHorizontalAlignment = .Left
-      exposedLabel.titleLabel!.textAlignment = .Left
-      exposedLabel.titleLabel!.textColor = .whiteColor()
+      exposedLabel.setTitle("Number Exposed", for: UIControlState())
+      exposedLabel.contentHorizontalAlignment = .left
+      exposedLabel.titleLabel!.textAlignment = .left
+      exposedLabel.titleLabel!.textColor = .white
       exposedLabel.titleLabel!.font = UIFont(name: "HelveticaNeue-Bold", size: 14.0)
-      exposedLabel.addTarget(self, action: "resignAll", forControlEvents: .TouchUpInside)
+      exposedLabel.addTarget(self, action: #selector(CohortSimulationsView.resignAll), for: .touchUpInside)
       inputBackground.addSubview(exposedLabel)
       
-      exposed = NumberField(frame: CGRectMake(230 * (frame.width / maxWidth), 2 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
-      exposed.borderStyle = .RoundedRect
-      exposed.keyboardType = .NumberPad
+      exposed = NumberField(frame: CGRect(x: 230 * (frame.width / maxWidth), y: 2 * (frame.height / maxHeight), width: 80 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight)))
+      exposed.borderStyle = .roundedRect
+      exposed.keyboardType = .numberPad
       exposed.delegate = self
-      exposed.returnKeyType = .Done
+      exposed.returnKeyType = .done
       inputBackground.addSubview(exposed)
       
       //Add the NumberField for number of unexposed
-      unexposedLabel = UIButton(frame: CGRectMake(4 * (frame.width / maxWidth), 44 * (frame.height / maxHeight), 148 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
-      unexposedLabel.backgroundColor = .clearColor()
+      unexposedLabel = UIButton(frame: CGRect(x: 4 * (frame.width / maxWidth), y: 44 * (frame.height / maxHeight), width: 148 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight)))
+      unexposedLabel.backgroundColor = .clear
       unexposedLabel.clipsToBounds = true
-      unexposedLabel.setTitle("Number Unexposed", forState: .Normal)
-      unexposedLabel.contentHorizontalAlignment = .Left
-      unexposedLabel.titleLabel!.textAlignment = .Left
-      unexposedLabel.titleLabel!.textColor = .whiteColor()
+      unexposedLabel.setTitle("Number Unexposed", for: UIControlState())
+      unexposedLabel.contentHorizontalAlignment = .left
+      unexposedLabel.titleLabel!.textAlignment = .left
+      unexposedLabel.titleLabel!.textColor = .white
       unexposedLabel.titleLabel!.font = UIFont(name: "HelveticaNeue-Bold", size: 14.0)
-      unexposedLabel.addTarget(self, action: "resignAll", forControlEvents: .TouchUpInside)
+      unexposedLabel.addTarget(self, action: #selector(CohortSimulationsView.resignAll), for: .touchUpInside)
       inputBackground.addSubview(unexposedLabel)
       
-      unexposed = NumberField(frame: CGRectMake(230 * (frame.width / maxWidth), 44 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
-      unexposed.borderStyle = .RoundedRect
-      unexposed.keyboardType = .NumberPad
+      unexposed = NumberField(frame: CGRect(x: 230 * (frame.width / maxWidth), y: 44 * (frame.height / maxHeight), width: 80 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight)))
+      unexposed.borderStyle = .roundedRect
+      unexposed.keyboardType = .numberPad
       unexposed.delegate = self
-      unexposed.returnKeyType = .Done
+      unexposed.returnKeyType = .done
       inputBackground.addSubview(unexposed)
       
       //Add the NumberField for percent in exposed
-      percentInExposedLabel = UIButton(frame: CGRectMake(4 * (frame.width / maxWidth), 86 * (frame.height / maxHeight), 224 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
-      percentInExposedLabel.backgroundColor = .clearColor()
+      percentInExposedLabel = UIButton(frame: CGRect(x: 4 * (frame.width / maxWidth), y: 86 * (frame.height / maxHeight), width: 224 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight)))
+      percentInExposedLabel.backgroundColor = .clear
       percentInExposedLabel.clipsToBounds = true
-      percentInExposedLabel.setTitle("Expected % Exposed with Outcome", forState: .Normal)
-      percentInExposedLabel.contentHorizontalAlignment = .Left
-      percentInExposedLabel.titleLabel!.textAlignment = .Left
-      percentInExposedLabel.titleLabel!.textColor = .whiteColor()
+      percentInExposedLabel.setTitle("Expected % Exposed with Outcome", for: UIControlState())
+      percentInExposedLabel.contentHorizontalAlignment = .left
+      percentInExposedLabel.titleLabel!.textAlignment = .left
+      percentInExposedLabel.titleLabel!.textColor = .white
       percentInExposedLabel.titleLabel!.font = UIFont(name: "HelveticaNeue-Bold", size: 14.0)
       percentInExposedLabel.titleLabel?.adjustsFontSizeToFitWidth = true
-      percentInExposedLabel.addTarget(self, action: "resignAll", forControlEvents: .TouchUpInside)
+      percentInExposedLabel.addTarget(self, action: #selector(CohortSimulationsView.resignAll), for: .touchUpInside)
       inputBackground.addSubview(percentInExposedLabel)
       
-      percentInExposed = NumberField(frame: CGRectMake(230 * (frame.width / maxWidth), 86 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
-      percentInExposed.borderStyle = .RoundedRect
-      percentInExposed.keyboardType = .DecimalPad
+      percentInExposed = NumberField(frame: CGRect(x: 230 * (frame.width / maxWidth), y: 86 * (frame.height / maxHeight), width: 80 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight)))
+      percentInExposed.borderStyle = .roundedRect
+      percentInExposed.keyboardType = .decimalPad
       percentInExposed.delegate = self
-      percentInExposed.returnKeyType = .Done
+      percentInExposed.returnKeyType = .done
       inputBackground.addSubview(percentInExposed)
       
       //Add the NumberField for percent in unexposed
-      percentInUnexposedLabel = UIButton(frame: CGRectMake(4 * (frame.width / maxWidth), 128 * (frame.height / maxHeight), 224 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
-      percentInUnexposedLabel.backgroundColor = .clearColor()
+      percentInUnexposedLabel = UIButton(frame: CGRect(x: 4 * (frame.width / maxWidth), y: 128 * (frame.height / maxHeight), width: 224 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight)))
+      percentInUnexposedLabel.backgroundColor = .clear
       percentInUnexposedLabel.clipsToBounds = true
-      percentInUnexposedLabel.setTitle("Expected % Unexposed with Outcome", forState: .Normal)
-      percentInUnexposedLabel.contentHorizontalAlignment = .Left
-      percentInUnexposedLabel.titleLabel!.textAlignment = .Left
-      percentInUnexposedLabel.titleLabel!.textColor = .whiteColor()
+      percentInUnexposedLabel.setTitle("Expected % Unexposed with Outcome", for: UIControlState())
+      percentInUnexposedLabel.contentHorizontalAlignment = .left
+      percentInUnexposedLabel.titleLabel!.textAlignment = .left
+      percentInUnexposedLabel.titleLabel!.textColor = .white
       percentInUnexposedLabel.titleLabel!.font = UIFont(name: "HelveticaNeue-Bold", size: 14.0)
       percentInUnexposedLabel.titleLabel?.adjustsFontSizeToFitWidth = true
-      percentInUnexposedLabel.addTarget(self, action: "resignAll", forControlEvents: .TouchUpInside)
+      percentInUnexposedLabel.addTarget(self, action: #selector(CohortSimulationsView.resignAll), for: .touchUpInside)
       inputBackground.addSubview(percentInUnexposedLabel)
       
-      percentInUnexposed = NumberField(frame: CGRectMake(230 * (frame.width / maxWidth), 128 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
-      percentInUnexposed.borderStyle = .RoundedRect
-      percentInUnexposed.keyboardType = .DecimalPad
+      percentInUnexposed = NumberField(frame: CGRect(x: 230 * (frame.width / maxWidth), y: 128 * (frame.height / maxHeight), width: 80 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight)))
+      percentInUnexposed.borderStyle = .roundedRect
+      percentInUnexposed.keyboardType = .decimalPad
       percentInUnexposed.delegate = self
-      percentInUnexposed.returnKeyType = .Done
+      percentInUnexposed.returnKeyType = .done
       inputBackground.addSubview(percentInUnexposed)
       
       //Add the results label
-      resultsLabel = EpiInfoMultiLineIndentedUILabel(frame: CGRectMake(4, frame.height - 60, 312, 60))
+      resultsLabel = EpiInfoMultiLineIndentedUILabel(frame: CGRect(x: 4, y: frame.height - 60, width: 312, height: 60))
       resultsLabel.backgroundColor = UIColor(red: 3/255.0, green: 36/255.0, blue: 77/255.0, alpha: 1.0)
       resultsLabel.layer.masksToBounds = true
       resultsLabel.layer.cornerRadius = 8.0
-      resultsLabel.textColor = .whiteColor()
-      resultsLabel.textAlignment = .Left
+      resultsLabel.textColor = .white
+      resultsLabel.textAlignment = .left
       resultsLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18.0)
       resultsLabel.numberOfLines = 0
       resultsLabel.numLines = 2
-      resultsLabel.lineBreakMode = .ByWordWrapping
+      resultsLabel.lineBreakMode = .byWordWrapping
       self.addSubview(resultsLabel)
-      resultsLabel.hidden = true
+      resultsLabel.isHidden = true
     }
   }
   
-  func changeFrame(frame: CGRect) {
+  func changeFrame(_ frame: CGRect) {
     self.frame = frame
-    fadingColorView.frame = CGRectMake(0, 0, frame.width, frame.height)
+    fadingColorView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
     resignAllButton.frame = fadingColorView.frame
     if frame.width < maxWidth {
-      header.transform = CGAffineTransformScale(header.transform , 10 / maxWidth, 10 / maxHeight)
+      header.transform = header.transform.scaledBy(x: 10 / maxWidth, y: 10 / maxHeight)
     } else {
-      header.transform = CGAffineTransformScale(header.transform , maxWidth / 10, maxHeight / 10)
+      header.transform = header.transform.scaledBy(x: maxWidth / 10, y: maxHeight / 10)
     }
-    header.frame = CGRectMake(0, 4 * (frame.height / maxHeight), frame.width * (frame.width / maxWidth), 26 * (frame.height / maxHeight))
-    inputBackground.frame = CGRectMake(4 * (frame.width / maxWidth), 40 * (frame.height / maxHeight), 312 * (frame.width / maxWidth), 170 * (frame.height / maxHeight))
-    exposedLabel.frame = CGRectMake(4 * (frame.width / maxWidth), 2 * (frame.height / maxHeight), 148 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
-    exposed.frame = CGRectMake(230 * (frame.width / maxWidth), 2 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
-    unexposedLabel.frame = CGRectMake(4 * (frame.width / maxWidth), 44 * (frame.height / maxHeight), 148 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
-    unexposed.frame = CGRectMake(230 * (frame.width / maxWidth), 44 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
-    percentInExposedLabel.frame = CGRectMake(4 * (frame.width / maxWidth), 86 * (frame.height / maxHeight), 224 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
-    percentInExposed.frame = CGRectMake(230 * (frame.width / maxWidth), 86 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
-    percentInUnexposedLabel.frame = CGRectMake(4 * (frame.width / maxWidth), 128 * (frame.height / maxHeight), 224 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
-    percentInUnexposed.frame = CGRectMake(230 * (frame.width / maxWidth), 128 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
-    if !resultsLabel.hidden {
-      resultsLabel.frame = CGRectMake(resultsLabel.frame.origin.x * (frame.width / maxWidth), resultsLabel.frame.origin.y * (frame.height / maxHeight), resultsLabel.frame.width * (frame.width / maxWidth), resultsLabel.frame.height * (frame.height / maxHeight))
+    header.frame = CGRect(x: 0, y: 4 * (frame.height / maxHeight), width: frame.width * (frame.width / maxWidth), height: 26 * (frame.height / maxHeight))
+    inputBackground.frame = CGRect(x: 4 * (frame.width / maxWidth), y: 40 * (frame.height / maxHeight), width: 312 * (frame.width / maxWidth), height: 170 * (frame.height / maxHeight))
+    exposedLabel.frame = CGRect(x: 4 * (frame.width / maxWidth), y: 2 * (frame.height / maxHeight), width: 148 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight))
+    exposed.frame = CGRect(x: 230 * (frame.width / maxWidth), y: 2 * (frame.height / maxHeight), width: 80 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight))
+    unexposedLabel.frame = CGRect(x: 4 * (frame.width / maxWidth), y: 44 * (frame.height / maxHeight), width: 148 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight))
+    unexposed.frame = CGRect(x: 230 * (frame.width / maxWidth), y: 44 * (frame.height / maxHeight), width: 80 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight))
+    percentInExposedLabel.frame = CGRect(x: 4 * (frame.width / maxWidth), y: 86 * (frame.height / maxHeight), width: 224 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight))
+    percentInExposed.frame = CGRect(x: 230 * (frame.width / maxWidth), y: 86 * (frame.height / maxHeight), width: 80 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight))
+    percentInUnexposedLabel.frame = CGRect(x: 4 * (frame.width / maxWidth), y: 128 * (frame.height / maxHeight), width: 224 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight))
+    percentInUnexposed.frame = CGRect(x: 230 * (frame.width / maxWidth), y: 128 * (frame.height / maxHeight), width: 80 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight))
+    if !resultsLabel.isHidden {
+      resultsLabel.frame = CGRect(x: resultsLabel.frame.origin.x * (frame.width / maxWidth), y: resultsLabel.frame.origin.y * (frame.height / maxHeight), width: resultsLabel.frame.width * (frame.width / maxWidth), height: resultsLabel.frame.height * (frame.height / maxHeight))
     }
   }
   
-  func textFieldShouldReturn(textField: UITextField) -> Bool {
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     return textField.resignFirstResponder()
   }
   
-  func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
     killThread = true
-    UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveLinear, animations: {
-      self.resultsLabel.frame = CGRectMake(4, self.frame.height - 60, 312, 60)
+    UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions.curveLinear, animations: {
+      self.resultsLabel.frame = CGRect(x: 4, y: self.frame.height - 60, width: 312, height: 60)
       }, completion: {
         (value: Bool) in
-        self.resultsLabel.hidden = true
+        self.resultsLabel.isHidden = true
         self.resultsLabel.text = ""
     })
     return true
@@ -208,9 +232,9 @@ class CohortSimulationsView: UIView, UITextFieldDelegate {
   
   func resignAll() {
     var noFirstResponder = true
-    for v in inputBackground.subviews as! [UIView] {
+    for v in inputBackground.subviews {
       if let tf = v as? UITextField {
-        if tf.isFirstResponder() {
+        if tf.isFirstResponder {
           tf.resignFirstResponder()
           noFirstResponder = false
         }
@@ -237,23 +261,23 @@ class CohortSimulationsView: UIView, UITextFieldDelegate {
       }
       
       killThread = false
-      let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-      dispatch_async(queue) {
+      let queue = DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default)
+      queue.async {
         self.runComputer((numExposed, numUnexposed, pctExposed, pctUnexposed))
       }
-      resultsLabel.hidden = false
-      UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
-        self.resultsLabel.frame = CGRectMake(self.resultsLabel.frame.origin.x, self.inputBackground.frame.origin.y + self.inputBackground.frame.height + 8, self.resultsLabel.frame.width, self.resultsLabel.frame.height)
+      resultsLabel.isHidden = false
+      UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: {
+        self.resultsLabel.frame = CGRect(x: self.resultsLabel.frame.origin.x, y: self.inputBackground.frame.origin.y + self.inputBackground.frame.height + 8, width: self.resultsLabel.frame.width, height: self.resultsLabel.frame.height)
         }, completion: {
           (value: Bool) in
       })
     }
   }
   
-  func runComputer(inputs : (Float, Float, Float, Float)) {
+  func runComputer(_ inputs : (Float, Float, Float, Float)) {
     while !killThread {
       let rr = CohortSimulationModel.compute(inputs.0, b: inputs.1, c: inputs.2, d: inputs.3)
-      dispatch_async(dispatch_get_main_queue()) {
+      DispatchQueue.main.async {
         self.resultsLabel.text = "\(rr.0)% of simulations found a significant relative risk."
       }
       sleep(2)
