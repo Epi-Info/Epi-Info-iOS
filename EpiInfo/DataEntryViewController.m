@@ -1313,7 +1313,7 @@
                             i++;
                             continue;
                         }
-                        if ([[columnName lowercaseString] isEqualToString:[[(NSMutableArray *)[edv.pagesArray objectAtIndex:0] objectAtIndex:0] lowercaseString]])
+                        if ([(NSMutableArray *)[edv.pagesArray objectAtIndex:0] count] > 0 && [[columnName lowercaseString] isEqualToString:[[(NSMutableArray *)[edv.pagesArray objectAtIndex:0] objectAtIndex:0] lowercaseString]])
                         {
                             //                                xmlFileText = [[[xmlFileText stringByAppendingString:@"\n\t<Page PageId=\""] stringByAppendingString:[edv.pageIDs objectAtIndex:0]] stringByAppendingString:@"\">"];
                             [xmlFileText appendString:@"\n\t<Page PageId=\""];
@@ -1533,6 +1533,29 @@
 
 //    xmlFileText = [[[xmlFileText stringByAppendingString:@"\n</"] stringByAppendingString:@"SurveyResponses"] stringByAppendingString:@">"];
     [xmlFileText appendString:@"</SurveyResponses>"];
+    
+    // Find and remove orphan </Page> tags
+    int substringFrom = 0;
+    while (YES)
+    {
+        if (substringFrom >= [xmlFileText length])
+            break;
+        if (![[xmlFileText substringFromIndex:substringFrom] containsString:@"\n\t</Page>"])
+            break;
+        
+        int openTagIndex = (int)[[xmlFileText substringFromIndex:substringFrom] rangeOfString:@"<Page PageId"].location;
+        NSRange closeTagRange = [[xmlFileText substringFromIndex:substringFrom] rangeOfString:@"\n\t</Page>"];
+        if (closeTagRange.location < openTagIndex)
+        {
+            [xmlFileText deleteCharactersInRange:NSMakeRange(substringFrom + closeTagRange.location, closeTagRange.length)];
+            substringFrom += closeTagRange.location;
+        }
+        else
+        {
+            substringFrom += closeTagRange.location + closeTagRange.length;
+        }
+    }
+    // End of orphan </Page> check
 //    NSLog(@"%@", xmlFileText);
     
     [xmlFileText writeToFile:tmpFile atomically:NO encoding:NSUTF8StringEncoding error:nil];
@@ -1765,7 +1788,7 @@
                                 i++;
                                 continue;
                             }
-                            if ([[columnName lowercaseString] isEqualToString:[[(NSMutableArray *)[edv.pagesArray objectAtIndex:0] objectAtIndex:0] lowercaseString]])
+                            if ([(NSMutableArray *)[edv.pagesArray objectAtIndex:0] count] > 0 && [[columnName lowercaseString] isEqualToString:[[(NSMutableArray *)[edv.pagesArray objectAtIndex:0] objectAtIndex:0] lowercaseString]])
                             {
 //                                xmlFileText = [[[xmlFileText stringByAppendingString:@"\n\t<Page PageId=\""] stringByAppendingString:[edv.pageIDs objectAtIndex:0]] stringByAppendingString:@"\">"];
                                 [xmlFileText appendString:@"\n\t<Page PageId=\""];
@@ -1984,6 +2007,29 @@
         
 //        xmlFileText = [[[xmlFileText stringByAppendingString:@"\n</"] stringByAppendingString:@"SurveyResponses"] stringByAppendingString:@">"];
         [xmlFileText appendString:@"</SurveyResponses>"];
+        
+        // Find and remove orphan </Page> tags
+        int substringFrom = 0;
+        while (YES)
+        {
+            if (substringFrom >= [xmlFileText length])
+                break;
+            if (![[xmlFileText substringFromIndex:substringFrom] containsString:@"\n\t</Page>"])
+                break;
+            
+            int openTagIndex = (int)[[xmlFileText substringFromIndex:substringFrom] rangeOfString:@"<Page PageId"].location;
+            NSRange closeTagRange = [[xmlFileText substringFromIndex:substringFrom] rangeOfString:@"\n\t</Page>"];
+            if (closeTagRange.location < openTagIndex)
+            {
+                [xmlFileText deleteCharactersInRange:NSMakeRange(substringFrom + closeTagRange.location, closeTagRange.length)];
+                substringFrom += closeTagRange.location;
+            }
+            else
+            {
+                substringFrom += closeTagRange.location + closeTagRange.length;
+            }
+        }
+        // End of orphan </Page> check
 //        NSLog(@"%@", xmlFileText);
         
         [xmlFileText writeToFile:tmpFile atomically:NO encoding:NSUTF8StringEncoding error:nil];
