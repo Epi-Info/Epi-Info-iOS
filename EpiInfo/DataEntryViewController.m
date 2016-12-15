@@ -407,6 +407,17 @@
             [self.view sendSubviewToBack:lv];
         }
     }
+    
+    float tutorialButtonY = openButton.frame.origin.y + openButton.frame.size.height;
+    UIButton *tutorialButton = [[UIButton alloc] initWithFrame:CGRectMake(openButton.frame.origin.x, tutorialButtonY, openButton.frame.size.width * 2.0, openButton.frame.size.height)];
+    [tutorialButton setTitle:@"Data Collection Tutorial" forState:UIControlStateNormal];
+    [tutorialButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [tutorialButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [tutorialButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
+    [tutorialButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [tutorialButton addTarget:self action:@selector(tutorialButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:tutorialButton];
+    
     mailComposerShown = NO;
 }
 
@@ -2348,6 +2359,11 @@
 - (void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID
 {
     [edv populateFieldsWithRecord:tableNameAndGUID];
+}
+
+- (void)tutorialButtonPressed:(UIButton *)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://epiinfoios.codeplex.com/documentation"]];
 }
 
 - (void)didReceiveMemoryWarning
