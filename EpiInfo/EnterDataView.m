@@ -559,6 +559,15 @@
         if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
         {
           NSLog(@"Failed to create table: %s :::: %@", errMsg, createTableStatement);
+            [areYouSure setText:[NSString stringWithFormat:@"Failed to create table:\n%s", errMsg]];
+            [uiaiv setHidden:NO];
+            [uiaiv startAnimating];
+            [okButton setEnabled:NO];
+            {
+                [uiaiv stopAnimating];
+                [uiaiv setHidden:YES];
+                [okButton setEnabled:YES];
+            }
         }
         else
         {
@@ -570,6 +579,15 @@
       else
       {
         NSLog(@"Failed to open/create database");
+          [areYouSure setText:[NSString stringWithFormat:@"Failed to open/create database"]];
+          [uiaiv setHidden:NO];
+          [uiaiv startAnimating];
+          [okButton setEnabled:NO];
+          {
+              [uiaiv stopAnimating];
+              [uiaiv setHidden:YES];
+              [okButton setEnabled:YES];
+          }
       }
     }
     
@@ -615,6 +633,15 @@
             if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &secondErrMsg) != SQLITE_OK)
             {
               NSLog(@"Failed to alter table: %s :::: %@", secondErrMsg, alterTableStatement);
+                [areYouSure setText:[NSString stringWithFormat:@"Failed to alter table:\n%s", secondErrMsg]];
+                [uiaiv setHidden:NO];
+                [uiaiv startAnimating];
+                [okButton setEnabled:NO];
+                {
+                    [uiaiv stopAnimating];
+                    [uiaiv setHidden:YES];
+                    [okButton setEnabled:YES];
+                }
             }
             else
             {
@@ -623,6 +650,15 @@
             }
           }
           NSLog(@"Failed to insert row into table: %s :::: %@", errMsg, insertStatement);
+            [areYouSure setText:[NSString stringWithFormat:@"Failed to insert row into table:\n%s", errMsg]];
+            [uiaiv setHidden:NO];
+            [uiaiv startAnimating];
+            [okButton setEnabled:NO];
+            {
+                [uiaiv stopAnimating];
+                [uiaiv setHidden:YES];
+                [okButton setEnabled:YES];
+            }
         }
         else
         {
@@ -656,6 +692,15 @@
       else
       {
         NSLog(@"Failed to open database or insert record");
+          [areYouSure setText:[NSString stringWithFormat:@"Failed to open database\n"]];
+          [uiaiv setHidden:NO];
+          [uiaiv startAnimating];
+          [okButton setEnabled:NO];
+          {
+              [uiaiv stopAnimating];
+              [uiaiv setHidden:YES];
+              [okButton setEnabled:YES];
+          }
       }
     }
     else
@@ -913,6 +958,15 @@
         if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
         {
           NSLog(@"Failed to create table: %s :::: %@", errMsg, createTableStatement);
+            [areYouSure setText:[NSString stringWithFormat:@"Failed to create table:\n%s", errMsg]];
+            [uiaiv setHidden:NO];
+            [uiaiv startAnimating];
+            [okButton setEnabled:NO];
+            {
+                [uiaiv stopAnimating];
+                [uiaiv setHidden:YES];
+                [okButton setEnabled:YES];
+            }
         }
         else
         {
@@ -924,6 +978,15 @@
       else
       {
         NSLog(@"Failed to open/create database");
+          [areYouSure setText:[NSString stringWithFormat:@"Failed to open database"]];
+          [uiaiv setHidden:NO];
+          [uiaiv startAnimating];
+          [okButton setEnabled:NO];
+          {
+              [uiaiv stopAnimating];
+              [uiaiv setHidden:YES];
+              [okButton setEnabled:YES];
+          }
       }
     }
     
@@ -967,6 +1030,15 @@
             if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &secondErrMsg) != SQLITE_OK)
             {
               NSLog(@"Failed to alter table: %s :::: %@", secondErrMsg, alterTableStatement);
+                [areYouSure setText:[NSString stringWithFormat:@"Failed to alter table:\n%s", secondErrMsg]];
+                [uiaiv setHidden:NO];
+                [uiaiv startAnimating];
+                [okButton setEnabled:NO];
+                {
+                    [uiaiv stopAnimating];
+                    [uiaiv setHidden:YES];
+                    [okButton setEnabled:YES];
+                }
             }
             else
             {
@@ -975,6 +1047,15 @@
             }
           }
           NSLog(@"Failed to insert row into table: %s :::: %@", errMsg, insertStatement);
+            [areYouSure setText:[NSString stringWithFormat:@"Failed to update row in table:\n%s", errMsg]];
+            [uiaiv setHidden:NO];
+            [uiaiv startAnimating];
+            [okButton setEnabled:NO];
+            {
+                [uiaiv stopAnimating];
+                [uiaiv setHidden:YES];
+                [okButton setEnabled:YES];
+            }
         }
         else
         {
@@ -1009,11 +1090,29 @@
       else
       {
         NSLog(@"Failed to open database or insert record");
+          [areYouSure setText:[NSString stringWithFormat:@"Failed to open database or insert record"]];
+          [uiaiv setHidden:NO];
+          [uiaiv startAnimating];
+          [okButton setEnabled:NO];
+          {
+              [uiaiv stopAnimating];
+              [uiaiv setHidden:YES];
+              [okButton setEnabled:YES];
+          }
       }
     }
     else
     {
       NSLog(@"Could not find table");
+        [areYouSure setText:[NSString stringWithFormat:@"Could not find table"]];
+        [uiaiv setHidden:NO];
+        [uiaiv startAnimating];
+        [okButton setEnabled:NO];
+        {
+            [uiaiv stopAnimating];
+            [uiaiv setHidden:YES];
+            [okButton setEnabled:YES];
+        }
     }
   }
   
@@ -1108,6 +1207,15 @@
         if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
         {
           NSLog(@"Failed to delete row from table: %s :::: %@", errMsg, insertStatement);
+            [areYouSure setText:[NSString stringWithFormat:@"Failed to delete row from table:\n%s", errMsg]];
+            [uiaiv setHidden:NO];
+            [uiaiv startAnimating];
+            [okButton setEnabled:NO];
+            {
+                [uiaiv stopAnimating];
+                [uiaiv setHidden:YES];
+                [okButton setEnabled:YES];
+            }
         }
         else
         {
@@ -1141,6 +1249,15 @@
       else
       {
         NSLog(@"Failed to open database or delete record");
+          [areYouSure setText:[NSString stringWithFormat:@"Failed to open database"]];
+          [uiaiv setHidden:NO];
+          [uiaiv startAnimating];
+          [okButton setEnabled:NO];
+          {
+              [uiaiv stopAnimating];
+              [uiaiv setHidden:YES];
+              [okButton setEnabled:YES];
+          }
       }
     }
     else
