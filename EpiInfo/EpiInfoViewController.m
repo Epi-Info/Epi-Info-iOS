@@ -394,6 +394,29 @@
 //    [v1 setFrame:CGRectMake(v1.superview.frame.size.width / 3.0 - v1.frame.size.width, v1.frame.origin.y, v1.frame.size.width, v1.frame.size.height)];
 //    [v3 setFrame:CGRectMake(2.0 * v3.superview.frame.size.width / 3.0, v3.frame.origin.y, v3.frame.size.width, v3.frame.size.height)];
     // End of hide analysis section
+    
+    // Add footnote and link to tutorial
+    float bottomOfFadingColorView = fadingColorView.frame.origin.y + fadingColorView.frame.size.height;
+    UILabel *footnoteLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, bottomOfFadingColorView - 80.0, 300, 18)];
+    [footnoteLabel setTextAlignment:NSTextAlignmentLeft];
+    [footnoteLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
+    [footnoteLabel setText:@"This app is a companion to Epi Enfo 7 for PC."];
+    [footnoteLabel setTextColor:[UIColor blackColor]];
+    [self.view addSubview:footnoteLabel];
+    UILabel *footnoteLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(10, footnoteLabel.frame.origin.y + footnoteLabel.frame.size.height, 300, 18)];
+    [footnoteLabel2 setTextAlignment:NSTextAlignmentLeft];
+    [footnoteLabel2 setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
+    [footnoteLabel2 setText:@"For a tutorial on using this app with Epi Info 7,"];
+    [footnoteLabel2 setTextColor:[UIColor blackColor]];
+    [self.view addSubview:footnoteLabel2];
+    UIButton *tutorialButton = [[UIButton alloc] initWithFrame:CGRectMake(10, footnoteLabel2.frame.origin.y + footnoteLabel2.frame.size.height, 300, 18)];
+    [tutorialButton setTitle:@"click here. (Opens in Web Browser)" forState:UIControlStateNormal];
+    [tutorialButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [tutorialButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [tutorialButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
+    [tutorialButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [tutorialButton addTarget:self action:@selector(tutorialButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:tutorialButton];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -590,5 +613,10 @@
             }];
         }
     }
+}
+
+- (void)tutorialButtonPressed:(UIButton *)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://epiinfoios.codeplex.com/documentation"]];
 }
 @end
