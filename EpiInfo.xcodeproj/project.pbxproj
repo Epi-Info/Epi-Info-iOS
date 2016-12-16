@@ -240,8 +240,8 @@
 		92867AC1183EAE5100CCC2B5 /* ChiSquareNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92867ABF183EAE5100CCC2B5 /* ChiSquareNR.png */; };
 		92867AC4183EAE6000CCC2B5 /* Poisson.png in Resources */ = {isa = PBXBuildFile; fileRef = 92867AC2183EAE6000CCC2B5 /* Poisson.png */; };
 		92867AC5183EAE6000CCC2B5 /* PoissonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92867AC3183EAE6000CCC2B5 /* PoissonNR.png */; };
-		928AF0F71E04339F002BFEF8 /* QuestionMarkButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 928AF0F61E04339F002BFEF8 /* QuestionMarkButton.png */; };
-		928AF0F91E0436B4002BFEF8 /* QuestionMarkBoldButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 928AF0F81E0436B4002BFEF8 /* QuestionMarkBoldButton.png */; };
+		928AF0FC1E046F7B002BFEF8 /* QuestionMarkButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 928AF0FA1E046F7B002BFEF8 /* QuestionMarkButton.png */; };
+		928AF0FD1E046F7B002BFEF8 /* QuestionMarkBoldButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 928AF0FB1E046F7B002BFEF8 /* QuestionMarkBoldButton.png */; };
 		928FCEF219E5692000641A95 /* VHFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 928FCEF119E5692000641A95 /* VHFViewController.m */; };
 		928FCEF519E570B300641A95 /* VHFButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 928FCEF319E570B300641A95 /* VHFButton.png */; };
 		928FCEF619E570B300641A95 /* VHFButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 928FCEF419E570B300641A95 /* VHFButtonNR.png */; };
@@ -668,8 +668,8 @@
 		92867ABF183EAE5100CCC2B5 /* ChiSquareNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChiSquareNR.png; sourceTree = "<group>"; };
 		92867AC2183EAE6000CCC2B5 /* Poisson.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Poisson.png; sourceTree = "<group>"; };
 		92867AC3183EAE6000CCC2B5 /* PoissonNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoissonNR.png; sourceTree = "<group>"; };
-		928AF0F61E04339F002BFEF8 /* QuestionMarkButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMarkButton.png; sourceTree = "<group>"; };
-		928AF0F81E0436B4002BFEF8 /* QuestionMarkBoldButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMarkBoldButton.png; sourceTree = "<group>"; };
+		928AF0FA1E046F7B002BFEF8 /* QuestionMarkButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMarkButton.png; sourceTree = "<group>"; };
+		928AF0FB1E046F7B002BFEF8 /* QuestionMarkBoldButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMarkBoldButton.png; sourceTree = "<group>"; };
 		928FCEF019E5692000641A95 /* VHFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHFViewController.h; sourceTree = "<group>"; };
 		928FCEF119E5692000641A95 /* VHFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHFViewController.m; sourceTree = "<group>"; };
 		928FCEF319E570B300641A95 /* VHFButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VHFButton.png; sourceTree = "<group>"; };
@@ -1481,8 +1481,8 @@
 				9208F824186250070022C6FB /* OpenButtonOrange.png */,
 				92BA7F9518C773E400841104 /* PackageAndEmailDataButton.png */,
 				9273F95818C8E08E00815573 /* PackageForiTunesButton.png */,
-				928AF0F61E04339F002BFEF8 /* QuestionMarkButton.png */,
-				928AF0F81E0436B4002BFEF8 /* QuestionMarkBoldButton.png */,
+				928AF0FA1E046F7B002BFEF8 /* QuestionMarkButton.png */,
+				928AF0FB1E046F7B002BFEF8 /* QuestionMarkBoldButton.png */,
 				92D43A481992C61700B24712 /* RoundDeleteButton60.png */,
 				92D4BB62184F77CC00B2D70C /* SaveButton.png */,
 				92282507186387DA00DF9493 /* SubmitButton.png */,
@@ -1773,10 +1773,10 @@
 				68F0E84116E5368A00ADD7A3 /* ChiB1.png in Resources */,
 				926DFB391832753100FACCD2 /* CaseControlNR.png in Resources */,
 				92E42B2E1959F06B0077EF41 /* wgtagecdc.csv in Resources */,
-				928AF0F71E04339F002BFEF8 /* QuestionMarkButton.png in Resources */,
+				928AF0FC1E046F7B002BFEF8 /* QuestionMarkButton.png in Resources */,
 				922227AD19BA150A002CD855 /* icon-152.png in Resources */,
 				925354A41823F49500065B69 /* PadPoissonScreenshot.png in Resources */,
-				928AF0F91E0436B4002BFEF8 /* QuestionMarkBoldButton.png in Resources */,
+				928AF0FD1E046F7B002BFEF8 /* QuestionMarkBoldButton.png in Resources */,
 				68F0E84316E5393600ADD7A3 /* PopT.png in Resources */,
 				68F0E84516E53BA700ADD7A3 /* PoissonTop.png in Resources */,
 				92001B9C186C979E00B87D21 /* NoButton.png in Resources */,
