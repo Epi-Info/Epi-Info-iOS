@@ -401,6 +401,7 @@
     float footnoteLabelHeight = 18.0;
     float footnoteLabelWidth = 300.0;
     float footnoteLabelX = 10.0;
+    UIImage *questionMarkImage = [UIImage imageNamed:@"QuestionMarkButton"];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         bottomOfFadingColorView -= 68;
@@ -408,27 +409,32 @@
         footnoteLabelHeight = 20.0;
         footnoteLabelWidth = 360;
         footnoteLabelX = 32;
+        questionMarkImage = [UIImage imageNamed:@"QuestionMarkBoldButton"];
     }
-    UILabel *footnoteLabel = [[UILabel alloc] initWithFrame:CGRectMake(footnoteLabelX, bottomOfFadingColorView - 80.0, footnoteLabelWidth, footnoteLabelHeight)];
+    UILabel *footnoteLabel = [[UILabel alloc] initWithFrame:CGRectMake(footnoteLabelX, bottomOfFadingColorView - 100.0, footnoteLabelWidth, footnoteLabelHeight)];
     [footnoteLabel setTextAlignment:NSTextAlignmentLeft];
     [footnoteLabel setFont:footnoteFont];
-    [footnoteLabel setText:@"This app is a companion to Epi Enfo 7 for PC."];
+    [footnoteLabel setText:@"This app is a companion to Epi Info for"];
     [footnoteLabel setTextColor:[UIColor blackColor]];
     [self.view addSubview:footnoteLabel];
     UILabel *footnoteLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(footnoteLabelX, footnoteLabel.frame.origin.y + footnoteLabel.frame.size.height, footnoteLabelWidth, footnoteLabelHeight)];
     [footnoteLabel2 setTextAlignment:NSTextAlignmentLeft];
     [footnoteLabel2 setFont:footnoteFont];
-    [footnoteLabel2 setText:@"For a tutorial on using this app with Epi Info 7,"];
+    [footnoteLabel2 setText:@"Windows. For a tutorial on using this app with"];
     [footnoteLabel2 setTextColor:[UIColor blackColor]];
     [self.view addSubview:footnoteLabel2];
-    UIButton *tutorialButton = [[UIButton alloc] initWithFrame:CGRectMake(footnoteLabelX, footnoteLabel2.frame.origin.y + footnoteLabel2.frame.size.height, 300, footnoteLabelHeight)];
-    [tutorialButton setTitle:@"click here. (Opens in Web Browser)" forState:UIControlStateNormal];
+    UIButton *tutorialButton = [[UIButton alloc] initWithFrame:CGRectMake(footnoteLabelX, footnoteLabel2.frame.origin.y + footnoteLabel2.frame.size.height, footnoteLabelWidth, footnoteLabelHeight)];
+    [tutorialButton setTitle:@"Epi Info, click here. (Opens in Web Browser)" forState:UIControlStateNormal];
     [tutorialButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [tutorialButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [tutorialButton.titleLabel setFont:footnoteFont];
     [tutorialButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [tutorialButton addTarget:self action:@selector(tutorialButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:tutorialButton];
+    UIButton *questionMarkButton = [[UIButton alloc] initWithFrame:CGRectMake(footnoteLabelX, tutorialButton.frame.origin.y + tutorialButton.frame.size.height, 40, 40)];
+    [questionMarkButton setImage:questionMarkImage forState:UIControlStateNormal];
+    [questionMarkButton addTarget:self action:@selector(tutorialButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:questionMarkButton];
 }
 
 -(void)viewDidAppear:(BOOL)animated
