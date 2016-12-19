@@ -591,6 +591,29 @@
 //    [v1 setFrame:CGRectMake(v1.superview.frame.size.width / 3.0 - v1.frame.size.width, v1.frame.origin.y, v1.frame.size.width, v1.frame.size.height)];
 //    [v3 setFrame:CGRectMake(2.0 * v3.superview.frame.size.width / 3.0, v3.frame.origin.y, v3.frame.size.width, v3.frame.size.height)];
     // End of hide analysis section
+
+    [self loadSampleForm:@"Sample_Contact_Investigation"];
+    [self loadSampleForm:@"_ContactFollowup"];
+    
+}
+
+-(void)loadSampleForm:(NSString*)resourceName
+{
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"SampleForms" ofType:@"bundle"];
+    NSString *formName = [[NSBundle bundleWithPath:bundlePath] pathForResource:resourceName ofType:@"xml"];
+    NSString *xmlContents = [NSString stringWithContentsOfFile:formName];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
+    {
+        [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] withIntermediateDirectories:NO attributes:nil error:nil];
+    }
+    NSString *filePathAndName = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/"] stringByAppendingString:resourceName] stringByAppendingString:@".xml"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePathAndName])
+    {
+        [[NSFileManager defaultManager] removeItemAtPath:filePathAndName error:nil];
+    }
+    [xmlContents writeToFile:filePathAndName atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated

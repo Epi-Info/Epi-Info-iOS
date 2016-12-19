@@ -240,7 +240,6 @@
 		92867AC1183EAE5100CCC2B5 /* ChiSquareNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92867ABF183EAE5100CCC2B5 /* ChiSquareNR.png */; };
 		92867AC4183EAE6000CCC2B5 /* Poisson.png in Resources */ = {isa = PBXBuildFile; fileRef = 92867AC2183EAE6000CCC2B5 /* Poisson.png */; };
 		92867AC5183EAE6000CCC2B5 /* PoissonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92867AC3183EAE6000CCC2B5 /* PoissonNR.png */; };
-		928AF0EE1DF09D54002BFEF8 /* libPEGKitIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 928AF0E31DF09B8D002BFEF8 /* libPEGKitIOS.a */; };
 		928AF0F11DF09D91002BFEF8 /* AssignStatementParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 928AF0F01DF09D91002BFEF8 /* AssignStatementParser.m */; };
 		928FCEF219E5692000641A95 /* VHFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 928FCEF119E5692000641A95 /* VHFViewController.m */; };
 		928FCEF519E570B300641A95 /* VHFButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 928FCEF319E570B300641A95 /* VHFButton.png */; };
@@ -341,54 +340,56 @@
 		92FD407C182D33AD004B4729 /* PMCC.png in Resources */ = {isa = PBXBuildFile; fileRef = 92FD4072182D33AD004B4729 /* PMCC.png */; };
 		92FD407D182D33AD004B4729 /* PMCCNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92FD4073182D33AD004B4729 /* PMCCNR.png */; };
 		92FD4081182D3876004B4729 /* FadeDown7.png in Resources */ = {isa = PBXBuildFile; fileRef = 92FD4080182D3876004B4729 /* FadeDown7.png */; };
+		C39E67AD1E03381A0002A4EF /* libPEGKitIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C39E67A81E0337A60002A4EF /* libPEGKitIOS.a */; };
+		C39E67B11E082F990002A4EF /* SampleForms.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C39E67B01E082F990002A4EF /* SampleForms.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		928AF0DC1DF09B8D002BFEF8 /* PBXContainerItemProxy */ = {
+		C39E67A11E0337A60002A4EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 928AF0D31DF09B8D002BFEF8 /* PEGKit.xcodeproj */;
+			containerPortal = C39E67981E0337A60002A4EF /* PEGKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D3F8A48D175817DF00056188;
 			remoteInfo = PEGKit;
 		};
-		928AF0DE1DF09B8D002BFEF8 /* PBXContainerItemProxy */ = {
+		C39E67A31E0337A60002A4EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 928AF0D31DF09B8D002BFEF8 /* PEGKit.xcodeproj */;
+			containerPortal = C39E67981E0337A60002A4EF /* PEGKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D305025D1CE5560F00AB4B68;
 			remoteInfo = PEGKitiOS;
 		};
-		928AF0E01DF09B8D002BFEF8 /* PBXContainerItemProxy */ = {
+		C39E67A51E0337A60002A4EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 928AF0D31DF09B8D002BFEF8 /* PEGKit.xcodeproj */;
+			containerPortal = C39E67981E0337A60002A4EF /* PEGKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D366C55418D1F29D00AF3EFB;
 			remoteInfo = libPEGKitOSX;
 		};
-		928AF0E21DF09B8D002BFEF8 /* PBXContainerItemProxy */ = {
+		C39E67A71E0337A60002A4EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 928AF0D31DF09B8D002BFEF8 /* PEGKit.xcodeproj */;
+			containerPortal = C39E67981E0337A60002A4EF /* PEGKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D317C12B18D1F5EB0036BE75;
 			remoteInfo = libPEGKitIOS;
 		};
-		928AF0E41DF09B8D002BFEF8 /* PBXContainerItemProxy */ = {
+		C39E67A91E0337A60002A4EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 928AF0D31DF09B8D002BFEF8 /* PEGKit.xcodeproj */;
+			containerPortal = C39E67981E0337A60002A4EF /* PEGKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D37D8DC61571A4F700CDB822;
 			remoteInfo = PEGKitTests;
 		};
-		928AF0E61DF09B8D002BFEF8 /* PBXContainerItemProxy */ = {
+		C39E67AB1E0337A60002A4EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 928AF0D31DF09B8D002BFEF8 /* PEGKit.xcodeproj */;
+			containerPortal = C39E67981E0337A60002A4EF /* PEGKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D338302F171C923700CCE513;
 			remoteInfo = ParserGenApp;
 		};
-		928AF0EC1DF09D23002BFEF8 /* PBXContainerItemProxy */ = {
+		C39E67AE1E033E140002A4EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 928AF0D31DF09B8D002BFEF8 /* PEGKit.xcodeproj */;
+			containerPortal = C39E67981E0337A60002A4EF /* PEGKit.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = D305025C1CE5560F00AB4B68;
 			remoteInfo = PEGKitiOS;
@@ -721,7 +722,6 @@
 		92867ABF183EAE5100CCC2B5 /* ChiSquareNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChiSquareNR.png; sourceTree = "<group>"; };
 		92867AC2183EAE6000CCC2B5 /* Poisson.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Poisson.png; sourceTree = "<group>"; };
 		92867AC3183EAE6000CCC2B5 /* PoissonNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoissonNR.png; sourceTree = "<group>"; };
-		928AF0D31DF09B8D002BFEF8 /* PEGKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PEGKit.xcodeproj; path = ../../iOS/PEGKit/PEGKit.xcodeproj; sourceTree = "<group>"; };
 		928AF0EF1DF09D91002BFEF8 /* AssignStatementParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignStatementParser.h; sourceTree = "<group>"; };
 		928AF0F01DF09D91002BFEF8 /* AssignStatementParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignStatementParser.m; sourceTree = "<group>"; };
 		928FCEF019E5692000641A95 /* VHFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHFViewController.h; sourceTree = "<group>"; };
@@ -847,6 +847,8 @@
 		92FD4072182D33AD004B4729 /* PMCC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PMCC.png; sourceTree = "<group>"; };
 		92FD4073182D33AD004B4729 /* PMCCNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PMCCNR.png; sourceTree = "<group>"; };
 		92FD4080182D3876004B4729 /* FadeDown7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FadeDown7.png; sourceTree = "<group>"; };
+		C39E67981E0337A60002A4EF /* PEGKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PEGKit.xcodeproj; path = PEGKit/PEGKit.xcodeproj; sourceTree = "<group>"; };
+		C39E67B01E082F990002A4EF /* SampleForms.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SampleForms.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -854,7 +856,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				928AF0EE1DF09D54002BFEF8 /* libPEGKitIOS.a in Frameworks */,
+				C39E67AD1E03381A0002A4EF /* libPEGKitIOS.a in Frameworks */,
 				9233A7C518FD685F00CA5CA3 /* WindowsAzureMobileServices.framework in Frameworks */,
 				92A5D8D018CF91820048C160 /* Security.framework in Frameworks */,
 				9224991018C66FB500D8105E /* MessageUI.framework in Frameworks */,
@@ -913,7 +915,7 @@
 		4AFD851A161F137B00FFBA65 = {
 			isa = PBXGroup;
 			children = (
-				928AF0D31DF09B8D002BFEF8 /* PEGKit.xcodeproj */,
+				C39E67981E0337A60002A4EF /* PEGKit.xcodeproj */,
 				9252017F17D0CC930071C754 /* QuartzCore.framework */,
 				9284E8EC17B94BDB00158139 /* libsqlite3.dylib */,
 				92095BE0183567B300B7A0ED /* Default-568h@2x.png */,
@@ -976,6 +978,7 @@
 				4AB23ECC16284A2500AE47C0 /* Utilities */,
 				4AFD8538161F137B00FFBA65 /* EpiInfoAppDelegate.h */,
 				4AFD8539161F137B00FFBA65 /* EpiInfoAppDelegate.m */,
+				C39E67B01E082F990002A4EF /* SampleForms.bundle */,
 				4AFD8541161F137B00FFBA65 /* MainStoryboard.storyboard */,
 				4AFD8544161F137B00FFBA65 /* EpiInfoViewController.h */,
 				92119A5F1923FBD3008155F7 /* EpiInfoViewController.m */,
@@ -1503,19 +1506,6 @@
 			name = Simulations;
 			sourceTree = "<group>";
 		};
-		928AF0D41DF09B8D002BFEF8 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				928AF0DD1DF09B8D002BFEF8 /* PEGKit.framework */,
-				928AF0DF1DF09B8D002BFEF8 /* PEGKit.framework */,
-				928AF0E11DF09B8D002BFEF8 /* libPEGKitOSX.a */,
-				928AF0E31DF09B8D002BFEF8 /* libPEGKitIOS.a */,
-				928AF0E51DF09B8D002BFEF8 /* PEGKitTests.xctest */,
-				928AF0E71DF09B8D002BFEF8 /* ParserGenApp.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		928FCEE619E567AD00641A95 /* VHF */ = {
 			isa = PBXGroup;
 			children = (
@@ -1582,6 +1572,19 @@
 			name = ButtonImages;
 			sourceTree = "<group>";
 		};
+		C39E67991E0337A60002A4EF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C39E67A21E0337A60002A4EF /* PEGKit.framework */,
+				C39E67A41E0337A60002A4EF /* PEGKit.framework */,
+				C39E67A61E0337A60002A4EF /* libPEGKitOSX.a */,
+				C39E67A81E0337A60002A4EF /* libPEGKitIOS.a */,
+				C39E67AA1E0337A60002A4EF /* PEGKitTests.xctest */,
+				C39E67AC1E0337A60002A4EF /* ParserGenApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1596,7 +1599,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				928AF0ED1DF09D23002BFEF8 /* PBXTargetDependency */,
+				C39E67AF1E033E140002A4EF /* PBXTargetDependency */,
 			);
 			name = EpiInfo;
 			productName = EpiInfo;
@@ -1637,8 +1640,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 928AF0D41DF09B8D002BFEF8 /* Products */;
-					ProjectRef = 928AF0D31DF09B8D002BFEF8 /* PEGKit.xcodeproj */;
+					ProductGroup = C39E67991E0337A60002A4EF /* Products */;
+					ProjectRef = C39E67981E0337A60002A4EF /* PEGKit.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1649,46 +1652,46 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		928AF0DD1DF09B8D002BFEF8 /* PEGKit.framework */ = {
+		C39E67A21E0337A60002A4EF /* PEGKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = PEGKit.framework;
-			remoteRef = 928AF0DC1DF09B8D002BFEF8 /* PBXContainerItemProxy */;
+			remoteRef = C39E67A11E0337A60002A4EF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		928AF0DF1DF09B8D002BFEF8 /* PEGKit.framework */ = {
+		C39E67A41E0337A60002A4EF /* PEGKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = PEGKit.framework;
-			remoteRef = 928AF0DE1DF09B8D002BFEF8 /* PBXContainerItemProxy */;
+			remoteRef = C39E67A31E0337A60002A4EF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		928AF0E11DF09B8D002BFEF8 /* libPEGKitOSX.a */ = {
+		C39E67A61E0337A60002A4EF /* libPEGKitOSX.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libPEGKitOSX.a;
-			remoteRef = 928AF0E01DF09B8D002BFEF8 /* PBXContainerItemProxy */;
+			remoteRef = C39E67A51E0337A60002A4EF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		928AF0E31DF09B8D002BFEF8 /* libPEGKitIOS.a */ = {
+		C39E67A81E0337A60002A4EF /* libPEGKitIOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libPEGKitIOS.a;
-			remoteRef = 928AF0E21DF09B8D002BFEF8 /* PBXContainerItemProxy */;
+			remoteRef = C39E67A71E0337A60002A4EF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		928AF0E51DF09B8D002BFEF8 /* PEGKitTests.xctest */ = {
+		C39E67AA1E0337A60002A4EF /* PEGKitTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = PEGKitTests.xctest;
-			remoteRef = 928AF0E41DF09B8D002BFEF8 /* PBXContainerItemProxy */;
+			remoteRef = C39E67A91E0337A60002A4EF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		928AF0E71DF09B8D002BFEF8 /* ParserGenApp.app */ = {
+		C39E67AC1E0337A60002A4EF /* ParserGenApp.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = ParserGenApp.app;
-			remoteRef = 928AF0E61DF09B8D002BFEF8 /* PBXContainerItemProxy */;
+			remoteRef = C39E67AB1E0337A60002A4EF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1877,6 +1880,7 @@
 				92001B9C186C979E00B87D21 /* NoButton.png in Resources */,
 				92D4BB64184F77CC00B2D70C /* SaveButton.png in Resources */,
 				68F0E84716E53C5C00ADD7A3 /* MPBOT.png in Resources */,
+				C39E67B11E082F990002A4EF /* SampleForms.bundle in Resources */,
 				92B258271820376A008D88FC /* CohortCrossSectional.png in Resources */,
 				926F550A1AC5D13200790628 /* SimulateCaseControl.png in Resources */,
 				92130CFC1CE0FB62001040D6 /* epi_info_logo_full.png in Resources */,
@@ -2036,10 +2040,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		928AF0ED1DF09D23002BFEF8 /* PBXTargetDependency */ = {
+		C39E67AF1E033E140002A4EF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = PEGKitiOS;
-			targetProxy = 928AF0EC1DF09D23002BFEF8 /* PBXContainerItemProxy */;
+			targetProxy = C39E67AE1E033E140002A4EF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
