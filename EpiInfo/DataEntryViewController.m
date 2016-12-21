@@ -1558,6 +1558,10 @@
                             //                                                 stringByAppendingString:@"</"]
                             //                                                stringByAppendingString:@"ResponseDetail"]
                             //                                               stringByAppendingString:@">"];
+                            stringValue = [stringValue stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"];
+                            stringValue = [stringValue stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"];
+                            stringValue = [stringValue stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"];
+                            stringValue = [stringValue stringByReplacingOccurrencesOfString:@"'" withString:@"&apos;"];
                             [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
                             [xmlFileText appendString:columnName];
                             [xmlFileText appendString:@"\">"];
@@ -2032,6 +2036,10 @@
 //                                                 stringByAppendingString:@"</"]
 //                                                stringByAppendingString:@"ResponseDetail"]
 //                                               stringByAppendingString:@">"];
+                                stringValue = [stringValue stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"];
+                                stringValue = [stringValue stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"];
+                                stringValue = [stringValue stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"];
+                                stringValue = [stringValue stringByReplacingOccurrencesOfString:@"'" withString:@"&apos;"];
                                 [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
                                 [xmlFileText appendString:columnName];
                                 [xmlFileText appendString:@"\">"];
