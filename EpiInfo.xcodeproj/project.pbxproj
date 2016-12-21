@@ -234,6 +234,7 @@
 		9276EEBC17B029E60050858B /* AnalysisList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9276EEBB17B029E60050858B /* AnalysisList.m */; };
 		927B555C18B65281000AB7B1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 927B555B18B65281000AB7B1 /* SystemConfiguration.framework */; };
 		927B555F18B6533B000AB7B1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 927B555E18B6533B000AB7B1 /* Reachability.m */; };
+		927BF3411E09B21E00FA07CE /* EColiFoodHistory.xml in Resources */ = {isa = PBXBuildFile; fileRef = 927BF3401E09B21E00FA07CE /* EColiFoodHistory.xml */; };
 		9284E8ED17B94BDB00158139 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9284E8EC17B94BDB00158139 /* libsqlite3.dylib */; };
 		9284E8F017B94E8C00158139 /* SQLiteData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9284E8EF17B94E8C00158139 /* SQLiteData.m */; };
 		92867AC0183EAE5100CCC2B5 /* ChiSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 92867ABE183EAE5100CCC2B5 /* ChiSquare.png */; };
@@ -661,6 +662,7 @@
 		927B555B18B65281000AB7B1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		927B555D18B6533B000AB7B1 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		927B555E18B6533B000AB7B1 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		927BF3401E09B21E00FA07CE /* EColiFoodHistory.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = EColiFoodHistory.xml; sourceTree = "<group>"; };
 		9284E8EC17B94BDB00158139 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		9284E8EE17B94E8C00158139 /* SQLiteData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLiteData.h; sourceTree = "<group>"; };
 		9284E8EF17B94E8C00158139 /* SQLiteData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLiteData.m; sourceTree = "<group>"; };
@@ -1389,6 +1391,7 @@
 			isa = PBXGroup;
 			children = (
 				92E9801218A538B40011CC8B /* ButtonImages */,
+				927BF33C1E09AB1300FA07CE /* SampleFormsAndData */,
 				9266C526184657E900739AF2 /* DataEntryViewController.h */,
 				9266C527184657E900739AF2 /* DataEntryViewController.m */,
 				922825021863821700DF9493 /* EnterDataView.h */,
@@ -1451,6 +1454,14 @@
 				926F55031AC5CDF200790628 /* CaseControlSimulationModel.swift */,
 			);
 			name = Simulations;
+			sourceTree = "<group>";
+		};
+		927BF33C1E09AB1300FA07CE /* SampleFormsAndData */ = {
+			isa = PBXGroup;
+			children = (
+				927BF3401E09B21E00FA07CE /* EColiFoodHistory.xml */,
+			);
+			name = SampleFormsAndData;
 			sourceTree = "<group>";
 		};
 		928FCEE619E567AD00641A95 /* VHF */ = {
@@ -1756,6 +1767,7 @@
 				921D53501892E1F900FA8E0A /* CaseControlSSScreenPad.png in Resources */,
 				92A192501C690DD40095E69F /* NextPage.png in Resources */,
 				926817851AA8C54E00935BE9 /* SimulateCohortNR.png in Resources */,
+				927BF3411E09B21E00FA07CE /* EColiFoodHistory.xml in Resources */,
 				925354A11823F49500065B69 /* PadChiSquareScreenshot.png in Resources */,
 				92A192471C56B33D0095E69F /* Dot.png in Resources */,
 				921D53461892DF9C00FA8E0A /* PMCCScreenPad.png in Resources */,
