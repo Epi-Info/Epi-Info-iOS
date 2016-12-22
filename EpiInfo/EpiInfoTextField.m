@@ -41,7 +41,13 @@
 - (BOOL)becomeFirstResponder
 {
     NSLog(@"%@ becoming first responder", self.columnName);
-    [(EnterDataView *)[[self superview] superview] fieldBecameFirstResponder:self];
+    @try {
+        [(EnterDataView *)[[self superview] superview] fieldBecameFirstResponder:self];
+    } @catch (NSException *exception) {
+        //
+    } @finally {
+        //
+    }
     
     return [super becomeFirstResponder];
 }
@@ -49,7 +55,13 @@
 - (BOOL)resignFirstResponder
 {
     NSLog(@"%@ resigning first responder", self.columnName);
-    [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+    @try {
+        [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+    } @catch (NSException *exception) {
+        //
+    } @finally {
+        //
+    }
     
     return [super resignFirstResponder];
 }

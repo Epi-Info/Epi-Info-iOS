@@ -1015,7 +1015,7 @@
                     }
                     else
                     {
-                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [(LegalValuesEnter *)v picked]]];
+                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
                         [azureDictionary setObject:[NSNumber numberWithFloat:(float)[(LegalValuesEnter *)v selectedIndex].intValue] forKey:[(LegalValuesEnter *)v columnName]];
                     }
                 }
@@ -1087,7 +1087,7 @@
                     }
                     else
                     {
-                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [(EpiInfoTextView *)v text]]];
+                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [[(EpiInfoTextView *)v text] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
                         [azureDictionary setObject:[(EpiInfoTextView *)v text] forKey:[(EpiInfoTextView *)v columnName]];
                     }
                 }
@@ -1106,7 +1106,7 @@
                     }
                     else
                     {
-                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [(EpiInfoTextField *)v text]]];
+                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [[(EpiInfoTextField *)v text] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
                         [azureDictionary setObject:[(EpiInfoTextField *)v text] forKey:[(EpiInfoTextField *)v columnName]];
                     }
                 }
@@ -1125,7 +1125,7 @@
                     }
                     else
                     {
-                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [[(UppercaseTextField *)v text] uppercaseString]]];
+                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [[[(UppercaseTextField *)v text] uppercaseString] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
                         [azureDictionary setObject:[(UppercaseTextField *)v text] forKey:[(UppercaseTextField *)v columnName]];
                     }
                 }
@@ -1415,7 +1415,7 @@
                     }
                     else
                     {
-                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [(LegalValuesEnter *)v picked]]];
+                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
                         [azureDictionary setObject:[NSNumber numberWithFloat:(float)[(LegalValuesEnter *)v selectedIndex].intValue] forKey:[(LegalValuesEnter *)v columnName]];
                     }
                 }
@@ -1487,7 +1487,7 @@
                     }
                     else
                     {
-                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [(EpiInfoTextView *)v text]]];
+                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [[(EpiInfoTextView *)v text] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
                         [azureDictionary setObject:[(EpiInfoTextView *)v text] forKey:[(EpiInfoTextView *)v columnName]];
                     }
                 }
@@ -1506,7 +1506,7 @@
                     }
                     else
                     {
-                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [(EpiInfoTextField *)v text]]];
+                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [[(EpiInfoTextField *)v text] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
                         [azureDictionary setObject:[(EpiInfoTextField *)v text] forKey:[(EpiInfoTextField *)v columnName]];
                     }
                 }
@@ -1525,7 +1525,7 @@
                     }
                     else
                     {
-                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [[(UppercaseTextField *)v text] uppercaseString]]];
+                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [[[(UppercaseTextField *)v text] uppercaseString] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
                         [azureDictionary setObject:[(UppercaseTextField *)v text] forKey:[(UppercaseTextField *)v columnName]];
                     }
                 }
@@ -4546,7 +4546,7 @@
         emc.fieldValue = etf.text;
         
        NSUInteger idx = [elementListArray indexOfObject:etf.columnName];
-        [elementsArray replaceObjectAtIndex:idx withObject:emc];
+//        [elementsArray replaceObjectAtIndex:idx withObject:emc];
         
         /*End of if-EndIf*/
         
