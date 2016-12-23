@@ -596,6 +596,39 @@
     [self loadSampleForm:@"_ContactFollowup"];
     [self loadSampleForm:@"Sample_EColiFoodHistory"];
     
+    // Add footnote and link to tutorial
+    float bottomOfFadingColorView = fadingColorView.frame.origin.y + fadingColorView.frame.size.height;
+    UIFont *footnoteFont = [UIFont fontWithName:@"HelveticaNeue" size:14.0];
+    float footnoteLabelHeight = 54.0;
+    float footnoteLabelWidth = 262.0;
+    float footnoteLabelX = 48.0;
+    float questionMarkButtonX = 4.0;
+    float questionMarkButtonYPlus = 7.0;
+    UIImage *questionMarkImage = [UIImage imageNamed:@"QuestionMarkButtonForTutorial"];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        bottomOfFadingColorView -= 80;
+        footnoteFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0];
+        footnoteLabelHeight = 60.0;
+        footnoteLabelWidth = 480;
+        footnoteLabelX = 68;
+        questionMarkImage = [UIImage imageNamed:@"QuestionMarkBoldButton"];
+        questionMarkButtonX = 20;
+        questionMarkButtonYPlus = 10;
+    }
+    UIButton *footnoteLabel = [[UIButton alloc] initWithFrame:CGRectMake(footnoteLabelX, bottomOfFadingColorView - 60.0, footnoteLabelWidth, footnoteLabelHeight)];
+    [footnoteLabel setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [footnoteLabel.titleLabel setFont:footnoteFont];
+    [footnoteLabel setTitle:@"This app is a companion to Epi Info for Windows. For a tutorial on using this app, click here. (Opens in Web Browser)" forState:UIControlStateNormal];
+    [footnoteLabel setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [footnoteLabel setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [footnoteLabel addTarget:self action:@selector(tutorialButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [footnoteLabel.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
+    [self.view addSubview:footnoteLabel];
+    UIButton *questionMarkButton = [[UIButton alloc] initWithFrame:CGRectMake(questionMarkButtonX, footnoteLabel.frame.origin.y + questionMarkButtonYPlus, 40, 40)];
+    [questionMarkButton setImage:questionMarkImage forState:UIControlStateNormal];
+    [questionMarkButton addTarget:self action:@selector(tutorialButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:questionMarkButton];
 }
 
 -(void)loadSampleForm:(NSString*)resourceName

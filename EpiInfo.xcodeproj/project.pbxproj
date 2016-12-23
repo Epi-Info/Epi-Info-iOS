@@ -234,6 +234,8 @@
 		9276EEBC17B029E60050858B /* AnalysisList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9276EEBB17B029E60050858B /* AnalysisList.m */; };
 		927B555C18B65281000AB7B1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 927B555B18B65281000AB7B1 /* SystemConfiguration.framework */; };
 		927B555F18B6533B000AB7B1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 927B555E18B6533B000AB7B1 /* Reachability.m */; };
+		927BF34C1E0D713D00FA07CE /* QuestionMarkButtonForTutorial.png in Resources */ = {isa = PBXBuildFile; fileRef = 927BF34A1E0D713D00FA07CE /* QuestionMarkButtonForTutorial.png */; };
+		927BF34D1E0D713D00FA07CE /* QuestionMarkBoldButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 927BF34B1E0D713D00FA07CE /* QuestionMarkBoldButton.png */; };
 		9284E8ED17B94BDB00158139 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9284E8EC17B94BDB00158139 /* libsqlite3.dylib */; };
 		9284E8F017B94E8C00158139 /* SQLiteData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9284E8EF17B94E8C00158139 /* SQLiteData.m */; };
 		92867AC0183EAE5100CCC2B5 /* ChiSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 92867ABE183EAE5100CCC2B5 /* ChiSquare.png */; };
@@ -715,6 +717,8 @@
 		927B555B18B65281000AB7B1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		927B555D18B6533B000AB7B1 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		927B555E18B6533B000AB7B1 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		927BF34A1E0D713D00FA07CE /* QuestionMarkButtonForTutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMarkButtonForTutorial.png; sourceTree = "<group>"; };
+		927BF34B1E0D713D00FA07CE /* QuestionMarkBoldButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMarkBoldButton.png; sourceTree = "<group>"; };
 		9284E8EC17B94BDB00158139 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		9284E8EE17B94E8C00158139 /* SQLiteData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLiteData.h; sourceTree = "<group>"; };
 		9284E8EF17B94E8C00158139 /* SQLiteData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLiteData.m; sourceTree = "<group>"; };
@@ -1539,6 +1543,8 @@
 				92130D071CE12496001040D6 /* OpenButtonWhite.png */,
 				92BA7F9518C773E400841104 /* PackageAndEmailDataButton.png */,
 				9273F95818C8E08E00815573 /* PackageForiTunesButton.png */,
+				927BF34A1E0D713D00FA07CE /* QuestionMarkButtonForTutorial.png */,
+				927BF34B1E0D713D00FA07CE /* QuestionMarkBoldButton.png */,
 				92D43A481992C61700B24712 /* RoundDeleteButton60.png */,
 				92D4BB62184F77CC00B2D70C /* SaveButton.png */,
 				92282507186387DA00DF9493 /* SubmitButton.png */,
@@ -1733,6 +1739,7 @@
 				924004E0182A942600ED0CE8 /* FadeDownS.png in Resources */,
 				68D769F116A9DDF900D831EB /* 2x2BK.png in Resources */,
 				9265FF931CB5939E003AD6E0 /* ClearButtonBlue.png in Resources */,
+				927BF34C1E0D713D00FA07CE /* QuestionMarkButtonForTutorial.png in Resources */,
 				92BA2E1718AA6B0200E2CC33 /* MSAzureBluePhone.png in Resources */,
 				92130D151CEA456F001040D6 /* CentimetersButton.png in Resources */,
 				92E42B271959DD9C0077EF41 /* hgtagewho.csv in Resources */,
@@ -1765,6 +1772,7 @@
 				92B2582A1820376A008D88FC /* UnmatchedCaseControl.png in Resources */,
 				926DFB3F1832772800FACCD2 /* CohortNR.png in Resources */,
 				68D769F716A9DDF900D831EB /* SC.png in Resources */,
+				927BF34D1E0D713D00FA07CE /* QuestionMarkBoldButton.png in Resources */,
 				92130D0E1CE5112E001040D6 /* iPadBackgroundWhite.png in Resources */,
 				92AED741186E0CF9004A4DB9 /* StAndrewXButtonWhite.png in Resources */,
 				9296747C19E5CC3B0040CB9D /* VHF.png in Resources */,
