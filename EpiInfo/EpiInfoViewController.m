@@ -891,4 +891,9 @@
         }
     }
 }
+
+- (void)tutorialButtonPressed:(UIButton *)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://epiinfoios.codeplex.com/documentation"]];
+}
 @end
