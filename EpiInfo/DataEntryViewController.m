@@ -69,6 +69,38 @@
     updatingExistingRecord = NO;
     [self setTitle:@""];
     
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
+    {
+        [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"] withIntermediateDirectories:NO attributes:nil error:nil];
+    }
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
+    {
+        NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+        
+        int tableAlreadyExists = 0;
+        if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+        {
+            NSString *selStmt = [NSString stringWithFormat:@"select count(name) as n from sqlite_master where name = '%@'", @"EColiFoodHistory"];
+            const char *query_stmt = [selStmt UTF8String];
+            sqlite3_stmt *statement;
+            if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+            {
+                if (sqlite3_step(statement) == SQLITE_ROW)
+                {
+                    tableAlreadyExists = sqlite3_column_int(statement, 0);
+                }
+            }
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(epiinfoDB);
+        if (tableAlreadyExists == 0)
+        {
+            NSThread *createEcoliFoodHistorySampleTableThread = [[NSThread alloc] initWithTarget:self selector:@selector(createEColiFoodHistorySampleTable) object:nil];
+            [createEcoliFoodHistorySampleTableThread start];
+        }
+    }
+   
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         // Change the standard NavigationController "Back" button to an "X"
