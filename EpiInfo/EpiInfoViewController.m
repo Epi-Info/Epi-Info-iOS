@@ -594,6 +594,7 @@
 
     [self loadSampleForm:@"Sample_Contact_Investigation"];
     [self loadSampleForm:@"_ContactFollowup"];
+    [self loadSampleForm:@"Sample_EColiFoodHistory"];
     
 }
 
