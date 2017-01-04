@@ -1046,6 +1046,31 @@
               return;
             }
           }
+            if ([[NSString stringWithUTF8String:errMsg] rangeOfString:@"no such column:"].location != NSNotFound)
+            {
+                NSString *newColumn = [[NSString stringWithUTF8String:errMsg] substringFromIndex:[[NSString stringWithUTF8String:errMsg] rangeOfString:@"no such column:"].location + 16];
+                NSString *alterTableStatement = [NSString stringWithFormat:@"alter table %@\nadd %@ %@", formName, newColumn, [alterTableElements objectForKey:newColumn]];
+                sql_stmt = [alterTableStatement UTF8String];
+                char *secondErrMsg;
+                if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &secondErrMsg) != SQLITE_OK)
+                {
+                    NSLog(@"Failed to alter table: %s :::: %@", secondErrMsg, alterTableStatement);
+                    [areYouSure setText:[NSString stringWithFormat:@"Failed to alter table:\n%s", secondErrMsg]];
+                    [uiaiv setHidden:NO];
+                    [uiaiv startAnimating];
+                    [okButton setEnabled:NO];
+                    {
+                        [uiaiv stopAnimating];
+                        [uiaiv setHidden:YES];
+                        [okButton setEnabled:YES];
+                    }
+                }
+                else
+                {
+                    [self updateButtonPressed];
+                    return;
+                }
+            }
           NSLog(@"Failed to insert row into table: %s :::: %@", errMsg, insertStatement);
             [areYouSure setText:[NSString stringWithFormat:@"Failed to update row in table:\n%s", errMsg]];
             [uiaiv setHidden:NO];
