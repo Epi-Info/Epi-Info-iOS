@@ -1587,6 +1587,8 @@
     
     // Find and remove orphan </Page> tags
     int substringFrom = 0;
+    BOOL neverFoundOrphan = YES;
+    int locationOfSRCloseTag = [xmlFileText rangeOfString:@"</SurveyResponse>"].location;
     while (YES)
     {
         if (substringFrom >= [xmlFileText length])
@@ -1598,12 +1600,15 @@
         NSRange closeTagRange = [[xmlFileText substringFromIndex:substringFrom] rangeOfString:@"\n\t</Page>"];
         if (closeTagRange.location < openTagIndex)
         {
+            neverFoundOrphan = NO;
             [xmlFileText deleteCharactersInRange:NSMakeRange(substringFrom + closeTagRange.location, closeTagRange.length)];
             substringFrom += closeTagRange.location;
         }
         else
         {
             substringFrom += closeTagRange.location + closeTagRange.length;
+            if (neverFoundOrphan && substringFrom > locationOfSRCloseTag)
+                break;
         }
     }
     // End of orphan </Page> check
@@ -2065,6 +2070,8 @@
         
         // Find and remove orphan </Page> tags
         int substringFrom = 0;
+        BOOL neverFoundOrphan = YES;
+        int locationOfSRCloseTag = [xmlFileText rangeOfString:@"</SurveyResponse>"].location;
         while (YES)
         {
             if (substringFrom >= [xmlFileText length])
@@ -2076,12 +2083,15 @@
             NSRange closeTagRange = [[xmlFileText substringFromIndex:substringFrom] rangeOfString:@"\n\t</Page>"];
             if (closeTagRange.location < openTagIndex)
             {
+                neverFoundOrphan = NO;
                 [xmlFileText deleteCharactersInRange:NSMakeRange(substringFrom + closeTagRange.location, closeTagRange.length)];
                 substringFrom += closeTagRange.location;
             }
             else
             {
                 substringFrom += closeTagRange.location + closeTagRange.length;
+                if (neverFoundOrphan && substringFrom > locationOfSRCloseTag)
+                    break;
             }
         }
         // End of orphan </Page> check
@@ -2169,9 +2179,12 @@
             [composer addAttachmentData:[NSData dataWithContentsOfFile:docFile] mimeType:@"text/plain" fileName:[edv.formName stringByAppendingString:@".epi7"]];
             [composer setSubject:@"Epi Info Data"];
             [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
-            [self presentViewController:composer animated:YES completion:^(void){
-                mailComposerShown = YES;
-            }];
+            if (composer != nil)
+            {
+                [self presentViewController:composer animated:YES completion:^(void){
+                    mailComposerShown = YES;
+                }];
+            }
 //            free(buffer);
             [self dismissPrePackageDataView:sender];
             return;
