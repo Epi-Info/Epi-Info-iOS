@@ -1005,6 +1005,12 @@
 //                            [self.epiinfoService setApplicationURL:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)]];
 //                            [self.epiinfoService setApplicationKey:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)]];
                         }
+                        else
+                        {
+                            [areYouSure setText:[areYouSure.text stringByAppendingString:@"\nNo cloud connection credentials found for this table."]];
+                            [yesButton setEnabled:NO];
+                            [noButton setImage:[UIImage imageNamed:@"CancelButton.png"] forState:UIControlStateNormal];
+                        }
                     }
                 }
                 sqlite3_finalize(statement);
