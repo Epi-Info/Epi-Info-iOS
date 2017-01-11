@@ -47,7 +47,8 @@
 - (void)setText:(NSString *)text
 {
     // First set the string value in the FieldsAndStringValues object
-    [[(EnterDataView *)[[self superview] superview] fieldsAndStringValues] setObject:text forKey:[self.columnName lowercaseString]];
+    if (text != nil)
+        [[(EnterDataView *)[[self superview] superview] fieldsAndStringValues] setObject:text forKey:[self.columnName lowercaseString]];
     
     [super setText:text];
     
