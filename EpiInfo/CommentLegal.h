@@ -5,8 +5,8 @@
 //  Created by John Copeland on 4/1/16.
 //
 
-#import "LegalValues.h"
+#import "LegalValuesEnter.h"
 
-@interface CommentLegal : LegalValues
+@interface CommentLegal : LegalValuesEnter
 
 @end
