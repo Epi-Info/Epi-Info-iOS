@@ -31,7 +31,7 @@
 
 - (BOOL)becomeFirstResponder
 {
-    NSLog(@"%@ becoming first responder", self.columnName);
+    NSLog(@"%@ becoming first responder (color is %@)", self.columnName, [[self backgroundColor] description]);
     [(EnterDataView *)[[self superview] superview] fieldBecameFirstResponder:self];
     
     return [super becomeFirstResponder];
@@ -54,6 +54,13 @@
 - (void)assignValue:(NSString *)value
 {
     [self setText:value];
+}
+
+- (void)setBackgroundColor:(UIColor *)backgroundColor
+{
+    [super setBackgroundColor:backgroundColor];
+    if ([backgroundColor isEqual:[UIColor clearColor]])
+        [super setBackgroundColor:[UIColor whiteColor]];
 }
 
 /*
