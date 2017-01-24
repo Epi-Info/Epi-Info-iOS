@@ -83,4 +83,5 @@
 -(void)setFooterBarNavigationItemTitle:(NSString *)footerBarNavigationItemTitle;
 -(void)advancePagedots;
 -(void)retreatPagedots;
+-(void)resetPagedots;
 @end

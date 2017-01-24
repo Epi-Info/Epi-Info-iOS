@@ -2012,11 +2012,16 @@
         if ([(NSString *)key isEqualToString:@"Page1"])
         {
             [selfsuperview addSubview:tempedv];
+            if (!populateInstructionCameFromLineList)
+            {
+                DataEntryViewController *devc = (DataEntryViewController *)self.rootViewController;
+                [devc resetPagedots];
+            }
         }
         else if (!populateInstructionCameFromLineList)
         {
             [tempedv removeFromSuperview];
-        }
+       }
         for (UIView *v in [self.rootViewController.view subviews])
         {
             if ([[v backgroundColor] isEqual:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:0.95]] && v == myOrangeBanner)

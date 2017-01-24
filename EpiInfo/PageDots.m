@@ -65,6 +65,12 @@
     pagenumber--;
     [(UIButton *)[arrayOfDots objectAtIndex:pagenumber] setBackgroundColor:dotFillColor];
 }
+- (void)resetToFirstPage
+{
+    [(UIButton *)[arrayOfDots objectAtIndex:pagenumber] setBackgroundColor:[UIColor clearColor]];
+    pagenumber = 0;
+    [(UIButton *)[arrayOfDots objectAtIndex:pagenumber] setBackgroundColor:dotFillColor];
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

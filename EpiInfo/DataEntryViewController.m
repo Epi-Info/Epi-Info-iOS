@@ -2742,6 +2742,10 @@
 {
     [pagedots retreatPage];
 }
+- (void)resetPagedots
+{
+    [pagedots resetToFirstPage];
+}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {

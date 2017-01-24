@@ -17,4 +17,5 @@
 -(id)initWithNumberOfDots:(int)dots AndFooterFrame:(CGRect)footerframe;
 -(void)advancePage;
 -(void)retreatPage;
+-(void)resetToFirstPage;
 @end
