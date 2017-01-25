@@ -4382,6 +4382,8 @@
             else
                 continue;
             if ([v conformsToProtocol:@protocol(EpiInfoControlProtocol)])
+                [self.fieldsAndStringValues setObject:[(id<EpiInfoControlProtocol>)v epiInfoControlValue] forKey:[(id<EpiInfoControlProtocol>)v columnName]];
+            if ([v conformsToProtocol:@protocol(EpiInfoControlProtocol)])
             {
                 if ([[self.fieldsAndStringValues objectForKey:[(id<EpiInfoControlProtocol>)v columnName]] isEqualToString:@""])
                 {

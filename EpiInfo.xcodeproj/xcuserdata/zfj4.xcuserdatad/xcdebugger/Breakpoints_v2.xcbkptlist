@@ -55,13 +55,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "506968481.874065"
+            filePath = "EpiInfo/EpiInfoTextField.m"
+            timestampString = "507040060.838834"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1378"
-            endingLineNumber = "1378"
-            landmarkName = "-updateButtonPressed"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "-assignValue:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/EpiInfoTextField.m"
+            timestampString = "507040102.835055"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "-setFormFieldValue:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -72,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "506981227.328686"
+            timestampString = "507043545.310125"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6392"
-            endingLineNumber = "6392"
+            startingLineNumber = "6394"
+            endingLineNumber = "6394"
             landmarkName = "-unhighlight:type:"
             landmarkType = "7">
          </BreakpointContent>
