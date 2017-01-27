@@ -81,7 +81,7 @@
         int tableAlreadyExists = 0;
         if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
         {
-            NSString *selStmt = [NSString stringWithFormat:@"select count(name) as n from sqlite_master where name = '%@'", @"EColiFoodHistory"];
+            NSString *selStmt = [NSString stringWithFormat:@"select count(name) as n from sqlite_master where name = '%@'", @"Sample_EColiFoodHistory"];
             const char *query_stmt = [selStmt UTF8String];
             sqlite3_stmt *statement;
             if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
