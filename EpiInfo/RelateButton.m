@@ -109,6 +109,8 @@
         edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, parentEDV.frame.size.height, parentEDV.frame.size.width, parentEDV.frame.size.height) AndURL:url AndRootViewController:[(EnterDataView *)parentEDV rootViewController] AndNameOfTheForm:relatedViewName AndPageToDisplay:1];
         rootViewController = [(EnterDataView *)edv rootViewController];
         
+        [(DataEntryViewController *)rootViewController addNewSetOfPageDots:(EnterDataView *)edv];
+        
         [(EnterDataView *)edv setParentRecordGUID:[(EnterDataView *)parentEDV guidToSendToChild]];
         [(EnterDataView *)edv setParentEnterDataView:(EnterDataView *)parentEDV];
         [(EnterDataView *)edv setRelateButtonName:relateButtonName];
@@ -312,6 +314,7 @@
         [[(DataEntryViewController *)rootViewController formNavigationItems] removeLastObject];
         [[(DataEntryViewController *)rootViewController closeFormBarButtonItems] removeLastObject];
         [[(DataEntryViewController *)rootViewController deleteRecordBarButtonItems] removeLastObject];
+        [(DataEntryViewController *)rootViewController popPageDots];
 
         CATransform3D rotate = CATransform3DIdentity;
         rotate.m34 = 1.0 / -2000;

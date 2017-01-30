@@ -869,7 +869,9 @@
             
 //            [footerBarNavigationItem setTitle:@"Swipe to turn page."];
             pagedots = [[PageDots alloc] initWithNumberOfDots:(int)[edv pagesArray].count AndFooterFrame:footerBar.frame];
-            [footerBar addSubview: pagedots];
+            arrayOfPageDots = [[NSMutableArray alloc] init];
+            [arrayOfPageDots addObject:pagedots];
+            [footerBar addSubview: (PageDots *)[arrayOfPageDots lastObject]];
             
             UIButton *uploadButton = [[UIButton alloc] initWithFrame:CGRectMake(2, 2, 30, 30)];
             [uploadButton setBackgroundColor:[UIColor clearColor]];
@@ -2736,15 +2738,28 @@
 
 - (void)advancePagedots
 {
-    [pagedots advancePage];
+    [(PageDots *)[arrayOfPageDots lastObject] advancePage];
 }
 - (void)retreatPagedots
 {
-    [pagedots retreatPage];
+    [(PageDots *)[arrayOfPageDots lastObject] retreatPage];
 }
 - (void)resetPagedots
 {
-    [pagedots resetToFirstPage];
+    [(PageDots *)[arrayOfPageDots lastObject] resetToFirstPage];
+}
+- (void)addNewSetOfPageDots:(EnterDataView *)newedv
+{
+    PageDots *pds = [[PageDots alloc] initWithNumberOfDots:(int)[(EnterDataView *)newedv pagesArray].count AndFooterFrame:footerBar.frame];
+    [[arrayOfPageDots lastObject] removeFromSuperview];
+    [arrayOfPageDots addObject:pds];
+    [footerBar addSubview: (PageDots *)[arrayOfPageDots lastObject]];
+}
+- (void)popPageDots
+{
+    [[arrayOfPageDots lastObject] removeFromSuperview];
+    [arrayOfPageDots removeLastObject];
+    [footerBar addSubview: (PageDots *)[arrayOfPageDots lastObject]];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

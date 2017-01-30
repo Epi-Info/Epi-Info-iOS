@@ -65,6 +65,7 @@
     BOOL updatingExistingRecord;
     
     PageDots *pagedots;
+    NSMutableArray *arrayOfPageDots;
 }
 @property NSMutableDictionary *legalValuesDictionary;
 @property FieldsAndStringValues *fieldsAndStringValues;
@@ -84,4 +85,6 @@
 -(void)advancePagedots;
 -(void)retreatPagedots;
 -(void)resetPagedots;
+-(void)addNewSetOfPageDots:(EnterDataView *)newedv;
+-(void)popPageDots;
 @end
