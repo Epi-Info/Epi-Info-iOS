@@ -56,12 +56,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "507043545.310125"
+            timestampString = "507494767.467356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6394"
-            endingLineNumber = "6394"
+            startingLineNumber = "6400"
+            endingLineNumber = "6400"
             landmarkName = "-unhighlight:type:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/EnterDataView.m"
+            timestampString = "507495101.630588"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "844"
+            endingLineNumber = "844"
+            landmarkName = "-initWithFrame:AndURL:AndRootViewController:AndNameOfTheForm:AndPageToDisplay:condArray:eleArray:firstEdit:elmAr:checkEleArr:assignArray:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

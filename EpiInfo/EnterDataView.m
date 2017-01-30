@@ -4350,6 +4350,12 @@
     sqlite3_close(epiinfoDB);
     
     // New code for sepatrating pages
+    if (!dictionaryOfPages)
+    {
+        dictionaryOfPages = [[NSMutableDictionary alloc] init];
+        [dictionaryOfPages setObject:self forKey:[NSString stringWithFormat:@"Page%d", pageToDisplay]];
+    }
+
     for (id key in dictionaryOfPages)
     {
         if (updatevisibleScreenOnly && ![(NSString *)key isEqualToString:[NSString stringWithFormat:@"Page%d", pageToDisplay]])
