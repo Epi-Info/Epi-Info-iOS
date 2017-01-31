@@ -6501,7 +6501,7 @@ newStr{
         case 10:
         {
             Checkbox *utf = (Checkbox *)[formCanvas viewWithTag:eleTag];
-            [utf setBackgroundColor:[UIColor whiteColor]];
+//            [utf setBackgroundColor:[UIColor blackColor]];
             
             break;
         }
