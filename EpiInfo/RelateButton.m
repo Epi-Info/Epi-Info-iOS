@@ -304,6 +304,14 @@
         {
             [(EnterDataView *)[(NSDictionary *)[(EnterDataView *)edv dictionaryOfPages] objectForKey:key] removeFromSuperview];
         }
+        
+        // Fix for EM-624: child form values being preserved after child form dismissed
+        for (id key in [(EnterDataView *)edv dictionaryOfFields])
+        {
+            [[(FieldsAndStringValues *)[(DataEntryViewController *)rootViewController fieldsAndStringValues] nsmd] removeObjectForKey:key];
+        }
+        //
+        
         [edv removeFromSuperview];
         edv = nil;
         [orangeBannerBackground removeFromSuperview];
