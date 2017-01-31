@@ -2483,6 +2483,11 @@
                     tagNum++;
                     
                 }
+                else
+                {
+                    int indexofcontrol = (int)[elmArray indexOfObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                    [(ElementsModel *)[elementListArray objectAtIndex:indexofcontrol] setTag:epc.tag];
+                }
                 
                 //          if (firstEdit == YES && isCurrentPage)
                 //          {
@@ -2606,7 +2611,12 @@
                     [elementListArray addObject:epc];
                     [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
                 }
-                
+                else
+                {
+                    int indexofcontrol = (int)[elmArray indexOfObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                    [(ElementsModel *)[elementListArray objectAtIndex:indexofcontrol] setTag:epc.tag];
+                }
+               
                 /*END-CHECK*/
                 
                 if (isCurrentPage)
@@ -2714,7 +2724,12 @@
                     [elementListArray addObject:epc];
                     [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
                 }
-                
+                else
+                {
+                    int indexofcontrol = (int)[elmArray indexOfObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                    [(ElementsModel *)[elementListArray objectAtIndex:indexofcontrol] setTag:epc.tag];
+                }
+               
                 /*END-CHECK*/
                 
                 if (isCurrentPage)
@@ -2814,7 +2829,12 @@
                     [elementListArray addObject:epc];
                     [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
                 }
-                
+                else
+                {
+                    int indexofcontrol = (int)[elmArray indexOfObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                    [(ElementsModel *)[elementListArray objectAtIndex:indexofcontrol] setTag:epc.tag];
+                }
+               
                 /*END-CHECK*/
                 
                 if (isCurrentPage)
@@ -2940,7 +2960,12 @@
                     [elementListArray addObject:epc];
                     [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
                 }
-                
+                else
+                {
+                    int indexofcontrol = (int)[elmArray indexOfObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                    [(ElementsModel *)[elementListArray objectAtIndex:indexofcontrol] setTag:epc.tag];
+                }
+               
                 /*END-CHECK*/
                 
                 if (isCurrentPage)
@@ -3043,7 +3068,12 @@
                     [elementListArray addObject:epc];
                     [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
                 }
-                
+                else
+                {
+                    int indexofcontrol = (int)[elmArray indexOfObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                    [(ElementsModel *)[elementListArray objectAtIndex:indexofcontrol] setTag:epc.tag];
+                }
+               
                 /*END-CHECK*/
                 
                 
@@ -3146,6 +3176,11 @@
                 {
                     [elementListArray addObject:epc];
                     [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                }
+                else
+                {
+                    int indexofcontrol = (int)[elmArray indexOfObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                    [(ElementsModel *)[elementListArray objectAtIndex:indexofcontrol] setTag:epc.tag];
                 }
                 
                 /*END-CHECK*/
@@ -3250,7 +3285,12 @@
                     [elementListArray addObject:epc];
                     [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
                 }
-                
+                else
+                {
+                    int indexofcontrol = (int)[elmArray indexOfObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                    [(ElementsModel *)[elementListArray objectAtIndex:indexofcontrol] setTag:epc.tag];
+                }
+               
                 /*END-CHECK*/
                 
                 
@@ -3353,7 +3393,12 @@
                     [elementListArray addObject:epc];
                     [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
                 }
-                
+                else
+                {
+                    int indexofcontrol = (int)[elmArray indexOfObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                    [(ElementsModel *)[elementListArray objectAtIndex:indexofcontrol] setTag:epc.tag];
+                }
+               
                 /*END-CHECK*/
                 
                 
@@ -3446,7 +3491,12 @@
                     [elementListArray addObject:epc];
                     [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
                 }
-                
+                else
+                {
+                    int indexofcontrol = (int)[elmArray indexOfObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                    [(ElementsModel *)[elementListArray objectAtIndex:indexofcontrol] setTag:epc.tag];
+                }
+               
                 /*END-CHECK*/
                 
                 
@@ -3543,7 +3593,12 @@
                     [elementListArray addObject:epc];
                     [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
                 }
-                
+                else
+                {
+                    int indexofcontrol = (int)[elmArray indexOfObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                    [(ElementsModel *)[elementListArray objectAtIndex:indexofcontrol] setTag:epc.tag];
+                }
+               
                 /*END-CHECK*/
                 
                 
@@ -3635,6 +3690,11 @@
                 {
                     [elementListArray addObject:epc];
                     [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                }
+                else
+                {
+                    int indexofcontrol = (int)[elmArray indexOfObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                    [(ElementsModel *)[elementListArray objectAtIndex:indexofcontrol] setTag:epc.tag];
                 }
                 
                 /*END-CHECK*/
@@ -3736,7 +3796,12 @@
                     [elementListArray addObject:epc];
                     [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
                 }
-                
+                else
+                {
+                    int indexofcontrol = (int)[elmArray indexOfObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                    [(ElementsModel *)[elementListArray objectAtIndex:indexofcontrol] setTag:epc.tag];
+                }
+               
                 /*END-CHECK*/
                 
                 
@@ -3819,7 +3884,12 @@
                     [elementListArray addObject:epc];
                     [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
                 }
-                
+                else
+                {
+                    int indexofcontrol = (int)[elmArray indexOfObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                    [(ElementsModel *)[elementListArray objectAtIndex:indexofcontrol] setTag:epc.tag];
+                }
+               
                 /*END-CHECK*/
                 
                 if (isCurrentPage)
@@ -3937,6 +4007,11 @@
                     [elementListArray addObject:epc];
                     [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
                 }
+                else
+                {
+                    int indexofcontrol = (int)[elmArray indexOfObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                    [(ElementsModel *)[elementListArray objectAtIndex:indexofcontrol] setTag:epc.tag];
+                }
                 
                 /*END-CHECK*/
                 
@@ -3992,6 +4067,11 @@
                 {
                     [elementListArray addObject:epc];
                     [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                }
+                else
+                {
+                    int indexofcontrol = (int)[elmArray indexOfObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                    [(ElementsModel *)[elementListArray objectAtIndex:indexofcontrol] setTag:epc.tag];
                 }
                 
                 /*END-CHECK*/
@@ -4090,6 +4170,11 @@
                     [elementListArray addObject:epc];
                     [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
                 }
+                else
+                {
+                    int indexofcontrol = (int)[elmArray indexOfObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                    [(ElementsModel *)[elementListArray objectAtIndex:indexofcontrol] setTag:epc.tag];
+                }
                 
                 /*END-CHECK*/
                 
@@ -4157,6 +4242,11 @@
                     
                     [elementListArray addObject:epc];
                     [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                }
+                else
+                {
+                    int indexofcontrol = (int)[elmArray indexOfObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                    [(ElementsModel *)[elementListArray objectAtIndex:indexofcontrol] setTag:epc.tag];
                 }
                 
                 /*END-CHECK*/
