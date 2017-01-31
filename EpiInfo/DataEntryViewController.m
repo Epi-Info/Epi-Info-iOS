@@ -70,6 +70,23 @@
     [self setTitle:@""];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/Sample_EColiFoodHistory.xml"]])
+    {
+        if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
+        {
+            [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] withIntermediateDirectories:NO attributes:nil error:nil];
+        }
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
+        {
+            NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"SampleForms" ofType:@"bundle"];
+            NSString *formName = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"Sample_EColiFoodHistory" ofType:@"xml"];
+            NSError *error = nil;
+            NSString *xmlText = [NSString stringWithContentsOfFile:formName encoding:NSUTF8StringEncoding error:&error];
+            NSString *filePathAndName = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/Sample_EColiFoodHistory.xml"];
+            [xmlText writeToFile:filePathAndName atomically:YES encoding:NSUTF8StringEncoding error:nil];
+        }
+    }
+    
     if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
     {
         [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"] withIntermediateDirectories:NO attributes:nil error:nil];
