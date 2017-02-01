@@ -5624,8 +5624,10 @@
                             
                             if (!result) {
                                 if (err) NSLog(@"%@", err);
-                                assignmentModel.initialText = @"Unable to parse";
-                                return;
+//                                assignmentModel.initialText = @"Unable to parse";
+                                result = [[PKAssembly alloc] init];
+                                [result push:assignmentModel.initialText];
+ //                               return;
                             }
                             
                             // print the entire assembly in the result output field

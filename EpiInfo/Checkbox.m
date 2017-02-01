@@ -75,6 +75,8 @@
         value = YES;
         [button setBackgroundColor:[UIColor clearColor]];
     }
+    if ([[[self superview] superview] isKindOfClass:[EnterDataView class]])
+        [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
 }
 
 - (void)reset
@@ -98,7 +100,7 @@
 
 - (void)assignValue:(NSString *)val
 {
-    if ([val isEqualToString:@"TRUE"])
+    if ([val isEqualToString:@"TRUE"] || [val isEqualToString:@"(+)"])
         [self setTrueFalse:1];
     else
         [self setTrueFalse:0];

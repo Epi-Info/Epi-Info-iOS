@@ -178,6 +178,13 @@
             
             
         }
+        for (int i=0; i<fieldArray.count; i++)
+        {
+            beforeString = [fieldArray objectAtIndex:i];
+            [self fetchBeforeAfter:@"click" end:@"end-click" parameter:beforeString from:@"field"];
+            
+            
+        }
         
     }
     [self getIfEnd];
@@ -301,6 +308,14 @@
                 elePairs.stringValue = tag;
                 [allArray addObject:elePairs];
             }
+
+            else if([startValue isEqualToString:@"click"] && [fromValue isEqualToString:@"field"])
+            {
+                elePairs.name = [NSString stringWithFormat:@"field %@",conditionWord];
+                elePairs.condition = @"after";
+                elePairs.stringValue = tag;
+                [allArray addObject:elePairs];
+            }
         }
     }
 }
@@ -356,7 +371,10 @@
 
 -(void)removeIfEndString:(NSString *)newString from:(NSString *)newFrom condition:(NSString *)newCondition
 {
-    if (ifArray.count>1) {
+    // ifArray is picking up any string that contains 'if', such as PacificIslander
+    // so skip this for now
+//    if (ifArray.count>1) {
+    if (NO) {
         
         
         for (int i=0; i<ifArray.count; i++)
