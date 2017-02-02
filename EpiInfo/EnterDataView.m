@@ -4888,27 +4888,31 @@
         NSString *elmt;
         NSString *lastElmt;
         NSString *eleSp= [[self removeSp:epc.stringValue]lowercaseString];
-        for (int j = 0; j<1; j++)
+        NSArray *arrayOfStatements = [eleSp componentsSeparatedByString:@"<linefeed>"];
+        for (NSString *eleSp in arrayOfStatements)
         {
-            elmt = [[eleSp componentsSeparatedByString:@" "]objectAtIndex:j];
-            
-            // NSLog(@"Satya - %@ %d",elmt,j);
-            
-            if (![elmt isEqualToString:@""] && elmt)
+            for (int j = 0; j<1; j++)
             {
-                if ([self checkKeyWordArray:elmt])
+                elmt = [[[self removeSp:eleSp] componentsSeparatedByString:@" "]objectAtIndex:j];
+                
+                // NSLog(@"Satya - %@ %d",elmt,j);
+                
+                if (![elmt isEqualToString:@""] && elmt)
                 {
-                    if ([elmt isEqualToString:@"assign"])
+                    if ([self checkKeyWordArray:elmt])
                     {
-                        NSMutableString *assignmentMutableString = [NSMutableString stringWithString:[[eleSp componentsSeparatedByString:@"="] objectAtIndex:1]];
-                        while ([assignmentMutableString characterAtIndex:0] == ' ')
-                            [assignmentMutableString deleteCharactersInRange:NSMakeRange(0, 1)];
-                        
-                        AssignModel *aModel = [[AssignModel alloc]initWithPage:pageName from:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] assignment:[NSString stringWithString:assignmentMutableString] beforeAfter:epc.condition condition:@"assign"];
-                        [assignArray addObject:aModel];
-                        lastElmt = @"assign";
-                        j++;
-                        
+                        if ([elmt isEqualToString:@"assign"])
+                        {
+                            NSMutableString *assignmentMutableString = [NSMutableString stringWithString:[[[self removeSp:eleSp] componentsSeparatedByString:@"="] objectAtIndex:1]];
+                            while ([assignmentMutableString characterAtIndex:0] == ' ')
+                                [assignmentMutableString deleteCharactersInRange:NSMakeRange(0, 1)];
+                            
+                            AssignModel *aModel = [[AssignModel alloc]initWithPage:pageName from:conditionWord name:conditionWordOne element:[[[self removeSp:eleSp] componentsSeparatedByString:@" "]objectAtIndex:j+1] assignment:[NSString stringWithString:assignmentMutableString] beforeAfter:epc.condition condition:@"assign"];
+                            [assignArray addObject:aModel];
+                            lastElmt = @"assign";
+                            j++;
+                            
+                        }
                     }
                 }
             }

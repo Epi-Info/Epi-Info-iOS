@@ -15,8 +15,8 @@
     self = [super initWithPage:newPage from:newFrom name:newName element:newElement beforeAfter:newbeforeAfter condition:newCondition];
     if (self)
     {
-        self.assignment = [newAssignment substringToIndex:(int)[newAssignment rangeOfString:@"<linefeed>"].location];
-//        self.assignment = newAssignment;
+//        self.assignment = [newAssignment substringToIndex:(int)[newAssignment rangeOfString:@"<linefeed>"].location];
+        self.assignment = newAssignment;
     }
     
     return self;
