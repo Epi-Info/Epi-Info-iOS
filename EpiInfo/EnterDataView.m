@@ -5694,7 +5694,25 @@
             {
                 if (([[[ifElement.name componentsSeparatedByString:@" "] objectAtIndex:1] caseInsensitiveCompare:name] == NSOrderedSame)) //check for element match
                 {
-                    //TO DO
+                    IfParser *ifParser = [[IfParser alloc] init];
+                    NSError *err = nil;
+                    ifParser.silentlyConsumesWhitespace = NO;
+                    PKTokenizer *t = ifParser.tokenizer;
+                    t.whitespaceState.reportsWhitespaceTokens = YES;
+                    ifParser.tokenizer.whitespaceState.reportsWhitespaceTokens = YES;
+                    ifParser.assembly.preservesWhitespaceTokens = YES;
+                    
+                    [ifParser setDictionaryOfFields:self.dictionaryOfFields];
+                    
+                    PKAssembly *ifResult = [ifParser parseString:[ifElement stringValue] error:&err];
+                    if (ifResult)
+                    {
+                        id nn = [ifResult pop];
+                        if ([nn isKindOfClass:[NSString class]])
+                            NSLog(@"%@", nn);
+                        else
+                            NSLog(@"%@", [nn stringValue]);
+                    }
                 }
             }
         }

@@ -155,13 +155,16 @@
                 {
                     FullAssignStatementParser *fasParser = [[FullAssignStatementParser alloc] init];
                     NSError *err = nil;
-                    PKAssembly *fasResult = [fasParser parseString:nsms error:&err];
+                    PKAssembly *fasResult = [fasParser parseString:[nsms stringByReplacingOccurrencesOfString:@"<LINEFEED>" withString:@""] error:&err];
                     if (fasResult)
                     {
                         NSString *assignInput = [fasResult pop];
+                        NSString *targetField = [fasResult pop];
                         AssignStatementParser *parser = [[AssignStatementParser alloc] init];
                         PKAssembly *result = [parser parseString:assignInput error:&err];
-                        NSLog(@"Result is %@", [result pop]);
+                        NSString *stringToAssign = [result pop];
+                        NSLog(@"Result is %@. Target Field is %@", stringToAssign, targetField);
+                        [[self.dictionaryOfFields objectForKey:targetField] assignValue:stringToAssign];
                     }
                 }
             }
