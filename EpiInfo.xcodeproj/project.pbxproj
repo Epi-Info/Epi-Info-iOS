@@ -155,6 +155,9 @@
 		922920851AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922920841AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift */; };
 		922D49ED1D64F3D40090631E /* ParseAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 922D49EC1D64F3D40090631E /* ParseAssignment.m */; };
 		922D49F01D64F4490090631E /* AssignmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 922D49EF1D64F4490090631E /* AssignmentModel.m */; };
+		9232266F1E5381C20099439F /* FullAssignStatementParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9232266E1E5381C20099439F /* FullAssignStatementParser.m */; };
+		923226771E53825E0099439F /* ExpressionActionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 923226761E53825E0099439F /* ExpressionActionParser.m */; };
+		9232267A1E53829E0099439F /* IfParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 923226791E53829E0099439F /* IfParser.m */; };
 		9233A7C518FD685F00CA5CA3 /* WindowsAzureMobileServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921974961880583D007F6DFA /* WindowsAzureMobileServices.framework */; };
 		923A263817B41BCE00DCBCD5 /* AnalysisFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A263717B41BCE00DCBCD5 /* AnalysisFilterView.m */; };
 		923A263B17B4265D00DCBCD5 /* FilterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A263A17B4265D00DCBCD5 /* FilterButton.m */; };
@@ -606,6 +609,12 @@
 		922D49EC1D64F3D40090631E /* ParseAssignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseAssignment.m; sourceTree = "<group>"; };
 		922D49EE1D64F4490090631E /* AssignmentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignmentModel.h; sourceTree = "<group>"; };
 		922D49EF1D64F4490090631E /* AssignmentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignmentModel.m; sourceTree = "<group>"; };
+		9232266D1E5381C20099439F /* FullAssignStatementParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullAssignStatementParser.h; sourceTree = "<group>"; };
+		9232266E1E5381C20099439F /* FullAssignStatementParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullAssignStatementParser.m; sourceTree = "<group>"; };
+		923226751E53825E0099439F /* ExpressionActionParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpressionActionParser.h; sourceTree = "<group>"; };
+		923226761E53825E0099439F /* ExpressionActionParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionActionParser.m; sourceTree = "<group>"; };
+		923226781E53829E0099439F /* IfParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IfParser.h; sourceTree = "<group>"; };
+		923226791E53829E0099439F /* IfParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IfParser.m; sourceTree = "<group>"; };
 		923A263617B41BCE00DCBCD5 /* AnalysisFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalysisFilterView.h; sourceTree = "<group>"; };
 		923A263717B41BCE00DCBCD5 /* AnalysisFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalysisFilterView.m; sourceTree = "<group>"; };
 		923A263917B4265D00DCBCD5 /* FilterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterButton.h; sourceTree = "<group>"; };
@@ -1316,6 +1325,12 @@
 				922D49EF1D64F4490090631E /* AssignmentModel.m */,
 				928AF0EF1DF09D91002BFEF8 /* AssignStatementParser.h */,
 				928AF0F01DF09D91002BFEF8 /* AssignStatementParser.m */,
+				9232266D1E5381C20099439F /* FullAssignStatementParser.h */,
+				9232266E1E5381C20099439F /* FullAssignStatementParser.m */,
+				923226751E53825E0099439F /* ExpressionActionParser.h */,
+				923226761E53825E0099439F /* ExpressionActionParser.m */,
+				923226781E53829E0099439F /* IfParser.h */,
+				923226791E53829E0099439F /* IfParser.m */,
 			);
 			name = CheckCode;
 			sourceTree = "<group>";
@@ -1964,6 +1979,7 @@
 				9266C53D184684CA00739AF2 /* DateField.m in Sources */,
 				92ABAA1D1D22F727000C5B60 /* PageDots.m in Sources */,
 				4AC7D6301625C0C80056A8AC /* UnmatchedCaseControlSampleSizeViewController.m in Sources */,
+				923226771E53825E0099439F /* ExpressionActionParser.m in Sources */,
 				92A25C011938E0AC003225E1 /* TimeField.m in Sources */,
 				4A977F381627097C0009E572 /* CohortSampleSizeCompute.m in Sources */,
 				4AB23ED016284B6B00AE47C0 /* EpiInfoScrollView.m in Sources */,
@@ -1979,6 +1995,7 @@
 				4AB23ED616288B9900AE47C0 /* ChiSquareCalculatorViewController.m in Sources */,
 				4AB23ED916288CB800AE47C0 /* BinomialCalculatorViewController.m in Sources */,
 				4AB23EDC16288D3600AE47C0 /* PoissonCalculatorViewController.m in Sources */,
+				9232267A1E53829E0099439F /* IfParser.m in Sources */,
 				4AB23EDF16289C8C00AE47C0 /* PoissonCalculatorCompute.m in Sources */,
 				4A071E891639C2E3002C05E9 /* BinomialCalculatorCompute.m in Sources */,
 				4A943006163F144400138E0A /* ChiSquareCalculatorCompute.m in Sources */,
@@ -2039,6 +2056,7 @@
 				92A25BFB1938D8F9003225E1 /* DateTimeField.m in Sources */,
 				9284E8F017B94E8C00158139 /* SQLiteData.m in Sources */,
 				9270CA1917CBB0C100522D4F /* BigDouble.m in Sources */,
+				9232266F1E5381C20099439F /* FullAssignStatementParser.m in Sources */,
 				9266C53118466ED600739AF2 /* Checkbox.m in Sources */,
 				928AF0F11DF09D91002BFEF8 /* AssignStatementParser.m in Sources */,
 				9252017E17D0C89A0071C754 /* ShinyButton.m in Sources */,

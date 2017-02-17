@@ -3,12 +3,12 @@
 //  EpiInfo
 //
 //  Created by admin on 2/19/16.
-//  Copyright © 2016 John Copeland. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "EpiInfoControlProtocol.h"
 
-@interface LegalValuesEnter : UIView <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface LegalValuesEnter : UIView <UIPickerViewDelegate, UIPickerViewDataSource, EpiInfoControlProtocol>
 {
     UILabel *picked;
     //    UIPickerView *picker;

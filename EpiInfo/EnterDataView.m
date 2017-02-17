@@ -4920,6 +4920,32 @@
     }
 }
 
+-(void)getIfs
+{
+    NSLog(@"getIfs method");
+    ElementPairsCheck *epc = [[ElementPairsCheck alloc]init];
+    if (ifsArray.count<1)
+    {
+        ifsArray = [[NSMutableArray alloc]init];
+    }
+    if (elementsArray.count<1)
+    {
+        elementsArray = [ccp sendArray];
+        
+    }
+    for (int i=0; i<elementsArray.count; i++)
+    {
+        epc = [elementsArray objectAtIndex:i];
+        NSString *eleSp= [self removeSp:epc.stringValue];
+        NSArray *arrayOfWords = [eleSp componentsSeparatedByString:@" "];
+        if (arrayOfWords.count > 0 && [[[arrayOfWords objectAtIndex:0] lowercaseString] isEqualToString:@"if"] &&
+            [[[arrayOfWords lastObject] lowercaseString] isEqualToString:@"end-if"])
+        {
+            [ifsArray addObject:epc];
+        }
+    }
+}
+
 -(void)getDisEnb
 {
     ElementPairsCheck *epc = [[ElementPairsCheck alloc]init];
@@ -5391,6 +5417,7 @@
         [self getDialogs];
         [self getDisEnb];
         [self getAssign];
+        [self getIfs];
     }
     
     NSLog(@"COUNT %lu %lu",(unsigned long)elementListArray.count, (unsigned long)conditionsArray.count);
@@ -5650,6 +5677,52 @@
                             [elementListArray replaceObjectAtIndex:idx withObject:emc];
                             NSLog(@"-ena--%@",emc.elementName);
                         }
+                    }
+                }
+            }
+        }
+    }
+    
+    for (ElementPairsCheck *ifElement in ifsArray)
+    {
+        NSLog(@"%@", [ifElement name]);
+        NSLog(@"%@", [ifElement stringValue]);
+        NSLog(@"%@", [ifElement condition]);
+        if ([befAft isEqualToString:@"before"])
+        {
+            if([ifElement.condition isEqualToString:@"before"])//check CM cond
+            {
+                if (([[[ifElement.name componentsSeparatedByString:@" "] objectAtIndex:1] caseInsensitiveCompare:name] == NSOrderedSame)) //check for element match
+                {
+                    //TO DO
+                }
+            }
+        }
+        
+        else if([befAft isEqualToString:@"after"])
+        {
+            if([ifElement.condition isEqualToString:@"after"])
+            {
+                if (([[[ifElement.name componentsSeparatedByString:@" "] objectAtIndex:1] caseInsensitiveCompare:name] == NSOrderedSame))
+                {
+                    IfParser *ifParser = [[IfParser alloc] init];
+                    NSError *err = nil;
+                    ifParser.silentlyConsumesWhitespace = NO;
+                    PKTokenizer *t = ifParser.tokenizer;
+                    t.whitespaceState.reportsWhitespaceTokens = YES;
+                    ifParser.tokenizer.whitespaceState.reportsWhitespaceTokens = YES;
+                    ifParser.assembly.preservesWhitespaceTokens = YES;
+                    
+                    [ifParser setDictionaryOfFields:self.dictionaryOfFields];
+
+                    PKAssembly *ifResult = [ifParser parseString:[ifElement stringValue] error:&err];
+                    if (ifResult)
+                    {
+                        id nn = [ifResult pop];
+                        if ([nn isKindOfClass:[NSString class]])
+                            NSLog(@"%@", nn);
+                        else
+                            NSLog(@"%@", [nn stringValue]);
                     }
                 }
             }

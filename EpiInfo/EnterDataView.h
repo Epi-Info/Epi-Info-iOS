@@ -33,6 +33,7 @@
 #import "AssignParse.h"
 #import "ParseAssignment.h"
 #import "AssignmentModel.h"
+#import "IfParser.h"
 #import "FieldsAndStringValues.h"
 #import "DictionaryOfFields.h"
 
@@ -112,6 +113,7 @@
     NSMutableArray *dialogTitleArray;
     NSMutableArray *requiredArray;
     NSMutableArray *assignArray;
+    NSMutableArray *ifsArray;
     
     BOOL alertBefore;
     
