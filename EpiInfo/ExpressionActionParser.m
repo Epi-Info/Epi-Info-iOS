@@ -415,13 +415,13 @@
         
         int caseNumber = -1;
         
-        if ([rightObject isKindOfClass:[NSNumber class]] && [leftObject isKindOfClass:[NSNumber class]])
+        if ([self isANumber:leftObject] && [self isANumber:rightObject])
             caseNumber = 0;
         else if ([rightObject isKindOfClass:[NSDate class]] && [leftObject isKindOfClass:[NSDate class]])
             caseNumber = 1;
-        else if ([rightObject isKindOfClass:[NSString class]] && [leftObject isKindOfClass:[NSString class]])
+        else if ([self isAString:rightObject] && [self isAString:leftObject])
         {
-            if ([self isADateString:(NSString *)rightObject] && [self isADateString:(NSString *)leftObject])
+            if ([self isADateString:(NSString *)leftObject] && [self isADateString:(NSString *)rightObject])
                 caseNumber = 1;
             else
                 caseNumber = 2;
@@ -504,8 +504,8 @@
                 NSString  *op = POP_STR();
                 NSString *lhs = POP_STR();
                 
-                if (EQ(op, @"="))  PUSH_BOOL([lhs isEqualToString:rhs]);
-                else if (EQ(op, @"<>"))  PUSH_BOOL(![lhs isEqualToString:rhs]);
+                if (EQ(op, @"="))  PUSH_BOOL([lhs isEqualToString:rhs] || [[self stripQuotes:lhs] isEqualToString:[self stripQuotes:rhs]]);
+                else if (EQ(op, @"<>"))  PUSH_BOOL(!([lhs isEqualToString:rhs] || [[self stripQuotes:lhs] isEqualToString:[self stripQuotes:rhs]]));
             }
                 break;
                 
@@ -1595,6 +1595,9 @@
 {
     bool testResult = NO;
     
+    if ([testString isKindOfClass:[PKToken class]])
+        testString = [(PKToken *)testString stringValue];
+    
     if ([testString componentsSeparatedByString:@"/"].count == 3)
     {
         int firstSlash1 = (int)[testString rangeOfString:@"/"].location;
@@ -1617,6 +1620,28 @@
     }
     
     return testResult;
+}
+- (bool)isANumber:(id)testObject
+{
+    if ([testObject isKindOfClass:[NSNumber class]])
+        return YES;
+    if ([testObject isKindOfClass:[PKToken class]])
+    {
+        if ([(PKToken *)testObject tokenType] == PKTokenTypeNumber)
+            return YES;
+    }
+    return NO;
+}
+- (bool)isAString:(id)testObject
+{
+    if ([testObject isKindOfClass:[NSString class]])
+        return YES;
+    if ([testObject isKindOfClass:[PKToken class]])
+    {
+        if ([(PKToken *)testObject tokenType] == PKTokenTypeWord)
+            return YES;
+    }
+    return NO;
 }
 
 - (NSDate *)dateFromString:(NSString *)properDateString
