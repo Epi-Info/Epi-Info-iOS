@@ -504,7 +504,7 @@
                 NSString  *op = POP_STR();
                 NSString *lhs = POP_STR();
                 
-                if (EQ(op, @"="))  PUSH_BOOL([lhs isEqualToString:rhs] || [[self stripQuotes:lhs] isEqualToString:[self stripQuotes:rhs]]);
+                if (EQ(op, @"="))  PUSH_BOOL([lhs isEqualToString:rhs] || [[self stripQuotes:lhs] isEqualToString:[self stripQuotes:rhs]] || [self lhsAndRhsAreBothMissing:lhs AndRHS:rhs]);
                 else if (EQ(op, @"<>"))  PUSH_BOOL(!([lhs isEqualToString:rhs] || [[self stripQuotes:lhs] isEqualToString:[self stripQuotes:rhs]]));
             }
                 break;
@@ -515,7 +515,7 @@
                 NSString  *op = POP_STR();
                 NSString *lhs = POP_STR();
                 
-                if (EQ(op, @"="))  PUSH_BOOL([lhs isEqualToString:rhs] || [[self stripQuotes:lhs] isEqualToString:[self stripQuotes:rhs]]);
+                if (EQ(op, @"="))  PUSH_BOOL([lhs isEqualToString:rhs] || [[self stripQuotes:lhs] isEqualToString:[self stripQuotes:rhs]] || [self lhsAndRhsAreBothMissing:lhs AndRHS:rhs]);
                 else if (EQ(op, @"<>"))  PUSH_BOOL(!([lhs isEqualToString:rhs] || [[self stripQuotes:lhs] isEqualToString:[self stripQuotes:rhs]]));
             }
                 break;
@@ -1670,6 +1670,25 @@
         [nsms replaceCharactersInRange:NSMakeRange(0, 1) withString:@""];
     }
     return [NSString stringWithString:nsms];
+}
+
+- (bool)lhsAndRhsAreBothMissing:(NSString *)lhs AndRHS:(NSString *)rhs
+{
+    bool testResult = NO;
+    bool lhsIsMissing = NO;
+    bool rhsIsMissing = NO;
+    
+    NSString *strippedLHS = [[self stripQuotes:lhs] uppercaseString];
+    NSString *strippedRHS = [[self stripQuotes:rhs] uppercaseString];
+    
+    if ([strippedLHS isEqualToString:@""] || [strippedLHS isEqualToString:@"NULL"] || [strippedLHS isEqualToString:@"(.)"])
+        lhsIsMissing = YES;
+    if ([strippedRHS isEqualToString:@""] || [strippedRHS isEqualToString:@"NULL"] || [strippedRHS isEqualToString:@"(.)"])
+        rhsIsMissing = YES;
+    
+    if (lhsIsMissing && rhsIsMissing)
+        testResult = YES;
+    return testResult;
 }
 
 @end

@@ -255,13 +255,20 @@
         {
             if (!([newStr isEqualToString:@"IF"] || [newStr isEqualToString:@"THEN"] || [newStr isEqualToString:@"ELSE"] || [newStr isEqualToString:@"END-IF"]))
             {
+                [nsms insertString:@" " atIndex:0];
                 id field = [self.dictionaryOfFields objectForKey:newStr];
                 if (field)
-                    [nsms insertString:[field epiInfoControlValue] atIndex:0];
+                {
+                    NSString *fieldsControlValue = [field epiInfoControlValue];
+                    if (fieldsControlValue.length == 0)
+                        fieldsControlValue = @"NULL";
+                    [nsms insertString:fieldsControlValue atIndex:0];
+                }
                 else
                     [nsms insertString:newStr atIndex:0];
             }
         }
+        [nsms replaceCharactersInRange:NSMakeRange(nsms.length - 1, 1) withString:@""];
         //NSLog(@"Condition is: %@", nsms);
         ExpressionActionParser *eParser = [[ExpressionActionParser alloc] init];
         NSError *err = nil;

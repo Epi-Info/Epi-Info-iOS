@@ -4938,12 +4938,49 @@
         epc = [elementsArray objectAtIndex:i];
         NSString *eleSp= [self removeSp:epc.stringValue];
         NSArray *arrayOfWords = [eleSp componentsSeparatedByString:@" "];
+        NSArray *aoifs = [self arrayOfIFs:eleSp];
         if (arrayOfWords.count > 0 && [[[arrayOfWords objectAtIndex:0] lowercaseString] isEqualToString:@"if"] &&
             [[[arrayOfWords lastObject] lowercaseString] isEqualToString:@"end-if"])
         {
-            [ifsArray addObject:epc];
+            for (int j = 0; j < aoifs.count; j++)
+            {
+                ElementPairsCheck *epc0 = [[ElementPairsCheck alloc] init];
+                epc0.name = epc.name;
+                epc0.condition = epc.condition;
+                epc0.stringValue = [[[[aoifs objectAtIndex:j] stringByReplacingOccurrencesOfString:@"(.)" withString:@"\"\""] stringByReplacingOccurrencesOfString:@"OR" withString:@"or"] stringByReplacingOccurrencesOfString:@"AND" withString:@"and"];
+                [ifsArray addObject:epc0];
+            }
         }
     }
+}
+
+-(NSArray *)arrayOfIFs:(NSString *)ifString
+{
+    NSMutableArray *nsma = [[NSMutableArray alloc] init];
+    NSMutableString *nsms = [[NSMutableString alloc] init];
+    
+    NSArray *words = [ifString componentsSeparatedByString:@" "];
+    int ifcount = 0;
+    
+    for (int i = 0; i < words.count; i++)
+    {
+        [nsms appendString:[NSString stringWithFormat:@" %@", [words objectAtIndex:i]]];
+        if ([[[words objectAtIndex:i] lowercaseString] isEqualToString:@"if"])
+        {
+            ifcount++;
+        }
+        if ([[[words objectAtIndex:i] lowercaseString] isEqualToString:@"end-if"])
+        {
+            ifcount--;
+            if (ifcount == 0)
+            {
+                [nsma addObject:[NSString stringWithString:[nsms substringFromIndex:1]]];
+                nsms = [[NSMutableString alloc] init];
+            }
+        }
+    }
+    
+    return [NSArray arrayWithArray:nsma];
 }
 
 -(void)getDisEnb
