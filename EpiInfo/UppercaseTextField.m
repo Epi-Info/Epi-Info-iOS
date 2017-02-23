@@ -54,6 +54,11 @@
     [self setText:[value uppercaseString]];
 }
 
+- (void)setIsEnabled:(BOOL)isEnabled
+{
+    [self setEnabled:isEnabled];
+}
+
 /*
  // Only override drawRect: if you perform custom drawing.
  // An empty implementation adversely affects performance during animation.

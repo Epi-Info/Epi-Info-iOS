@@ -141,30 +141,66 @@
             NSMutableString *nsms = [[NSMutableString alloc] init];
             while ((newStr = POP_STR()))
             {
+                if (nsms.length > 0 && ![newStr isEqualToString:@"LINEFEED"] && ![oldStr isEqualToString:@"LINEFEED"])
+                    [nsms insertString:@" " atIndex:0];
                 [nsms insertString:newStr atIndex:0];
                 oldStr = [NSString stringWithString:newStr];
             }
-            [nsms insertString:@" " atIndex:oldStr.length];
             NSLog(@"Statement is: %@", nsms);
             NSLog(@"truthState is %@.", [self truthStateString]);
             NSLog(@"elseing is %@.", [self elseingString]);
             if ((truthState && !elseing) || (!truthState && elseing))
             {
                 NSLog(@"Execute this statement");
-                if ([oldStr isEqualToString:@"ASSIGN"])
+                NSArray *arrayOfStatements = [nsms componentsSeparatedByString:@"<LINEFEED>"];
+                for (int aos = 0; aos < arrayOfStatements.count; aos++)
                 {
-                    FullAssignStatementParser *fasParser = [[FullAssignStatementParser alloc] init];
-                    NSError *err = nil;
-                    PKAssembly *fasResult = [fasParser parseString:[nsms stringByReplacingOccurrencesOfString:@"<LINEFEED>" withString:@""] error:&err];
-                    if (fasResult)
+                    NSString *statement = [arrayOfStatements objectAtIndex:aos];
+                    if (statement.length == 0)
+                        continue;
+                    if ([statement characterAtIndex:statement.length - 1] == ' ')
+                        statement = [statement substringToIndex:statement.length - 1];
+                    if ([statement characterAtIndex:0] == ' ')
+                        statement = [statement substringFromIndex:1];
+                    if ([[[[statement uppercaseString] componentsSeparatedByString:@" "] objectAtIndex:0] isEqualToString:@"ASSIGN"])
                     {
-                        NSString *assignInput = [fasResult pop];
-                        NSString *targetField = [fasResult pop];
-                        AssignStatementParser *parser = [[AssignStatementParser alloc] init];
-                        PKAssembly *result = [parser parseString:assignInput error:&err];
-                        NSString *stringToAssign = [result pop];
-                        NSLog(@"Result is %@. Target Field is %@", stringToAssign, targetField);
-                        [[self.dictionaryOfFields objectForKey:targetField] assignValue:stringToAssign];
+                        FullAssignStatementParser *fasParser = [[FullAssignStatementParser alloc] init];
+                        NSError *err = nil;
+                        PKAssembly *fasResult = [fasParser parseString:[statement stringByReplacingOccurrencesOfString:@"<LINEFEED>" withString:@""] error:&err];
+                        if (fasResult)
+                        {
+                            NSString *assignInput = [fasResult pop];
+                            NSString *targetField = [fasResult pop];
+                            AssignStatementParser *parser = [[AssignStatementParser alloc] init];
+                            PKAssembly *result = [parser parseString:assignInput error:&err];
+                            NSString *stringToAssign = [result pop];
+                            NSLog(@"Result is %@. Target Field is %@", stringToAssign, targetField);
+                            [[self.dictionaryOfFields objectForKey:targetField] assignValue:stringToAssign];
+                        }
+                    }
+                    else if ([[[[statement uppercaseString] componentsSeparatedByString:@" "] objectAtIndex:0] isEqualToString:@"CLEAR"])
+                    {
+                        NSArray *controlsToAlter = [statement componentsSeparatedByString:@" "];
+                        for (int cto = 1; cto < controlsToAlter.count; cto++)
+                        {
+                            [[self.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] assignValue:@""];
+                        }
+                    }
+                    else if ([[[[statement uppercaseString] componentsSeparatedByString:@" "] objectAtIndex:0] isEqualToString:@"ENABLE"])
+                    {
+                        NSArray *controlsToAlter = [statement componentsSeparatedByString:@" "];
+                        for (int cto = 1; cto < controlsToAlter.count; cto++)
+                        {
+                            [[self.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] setIsEnabled:YES];
+                       }
+                    }
+                    else if ([[[[statement uppercaseString] componentsSeparatedByString:@" "] objectAtIndex:0] isEqualToString:@"DISABLE"])
+                    {
+                        NSArray *controlsToAlter = [statement componentsSeparatedByString:@" "];
+                        for (int cto = 1; cto < controlsToAlter.count; cto++)
+                        {
+                            [[self.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] setIsEnabled:NO];
+                        }
                     }
                 }
             }

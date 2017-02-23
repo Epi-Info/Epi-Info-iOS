@@ -98,10 +98,20 @@
 
 - (void)assignValue:(NSString *)value
 {
+    if ([value isEqualToString:@""] || [value isEqualToString:@"NULL"])
+    {
+        [self reset];
+        return;
+    }
     if ([value isEqualToString:@"Yes"])
         [self setYesNo:1];
     else
         [self setYesNo:0];
+}
+
+- (void)setIsEnabled:(BOOL)isEnabled
+{
+    [picker setUserInteractionEnabled:isEnabled];
 }
 
 /*

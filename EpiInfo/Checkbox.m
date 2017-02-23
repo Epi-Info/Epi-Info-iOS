@@ -106,6 +106,11 @@
         [self setTrueFalse:0];
 }
 
+- (void)setIsEnabled:(BOOL)isEnabled
+{
+    [button setEnabled:isEnabled];
+}
+
 /*
  // Only override drawRect: if you perform custom drawing.
  // An empty implementation adversely affects performance during animation.

@@ -4939,8 +4939,7 @@
         NSString *eleSp= [self removeSp:epc.stringValue];
         NSArray *arrayOfWords = [eleSp componentsSeparatedByString:@" "];
         NSArray *aoifs = [self arrayOfIFs:eleSp];
-        if (arrayOfWords.count > 0 && [[[arrayOfWords objectAtIndex:0] lowercaseString] isEqualToString:@"if"] &&
-            [[[arrayOfWords lastObject] lowercaseString] isEqualToString:@"end-if"])
+        if (aoifs.count > 0)
         {
             for (int j = 0; j < aoifs.count; j++)
             {
@@ -4964,11 +4963,12 @@
     
     for (int i = 0; i < words.count; i++)
     {
-        [nsms appendString:[NSString stringWithFormat:@" %@", [words objectAtIndex:i]]];
         if ([[[words objectAtIndex:i] lowercaseString] isEqualToString:@"if"])
         {
             ifcount++;
         }
+        if (ifcount > 0)
+            [nsms appendString:[NSString stringWithFormat:@" %@", [words objectAtIndex:i]]];
         if ([[[words objectAtIndex:i] lowercaseString] isEqualToString:@"end-if"])
         {
             ifcount--;
@@ -5091,6 +5091,10 @@
                         [conditionsArray addObject:cModel];
                         lastElmt = @"unhidden";
                         j++;
+                    }
+                    else if ([elmt isEqualToString:@"if"])
+                    {
+                        break;
                     }
                     
                 }
@@ -6224,6 +6228,7 @@ newStr{
         {
             YesNo *utf = (YesNo *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:YES];
+            [utf setIsEnabled:YES];
             [utf setAlpha:1.0f];
             
             break;

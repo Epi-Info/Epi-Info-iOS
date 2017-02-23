@@ -185,7 +185,17 @@
 
 - (void)assignValue:(NSString *)value
 {
+    if ([value isEqualToString:@""] || [value isEqualToString:@"NULL"])
+    {
+        [self reset];
+        return;
+    }
     [self setPicked:value];
+}
+
+- (void)setIsEnabled:(BOOL)isEnabled
+{
+    [self.picker setUserInteractionEnabled:isEnabled];
 }
 
 /*
