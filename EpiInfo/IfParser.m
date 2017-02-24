@@ -202,6 +202,14 @@
                             [[self.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] setIsEnabled:NO];
                         }
                     }
+                    else if ([[[[statement uppercaseString] componentsSeparatedByString:@" "] objectAtIndex:0] isEqualToString:@"GOTO"])
+                    {
+                        NSArray *controlsToAlter = [statement componentsSeparatedByString:@" "];
+                        for (int cto = 1; cto < controlsToAlter.count; cto++)
+                        {
+                            [[self.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] selfFocus];
+                        }
+                    }
                 }
             }
             else

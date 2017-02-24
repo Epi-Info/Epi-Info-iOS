@@ -14,5 +14,6 @@
 - (NSString *)epiInfoControlValue;
 - (void)assignValue:(NSString *)value;
 - (void)setIsEnabled:(BOOL)isEnabled;
+- (void)selfFocus;
 
 @end

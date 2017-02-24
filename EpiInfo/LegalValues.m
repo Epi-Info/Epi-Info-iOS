@@ -195,6 +195,10 @@
     [self setAlpha:0.5 + 0.5 * (int)isEnabled];
 }
 
+- (void)selfFocus
+{
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

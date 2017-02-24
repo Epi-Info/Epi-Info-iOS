@@ -115,6 +115,21 @@
     [self setAlpha:0.5 + 0.5 * (int)isEnabled];
 }
 
+- (void)selfFocus
+{
+    CGPoint pt = self.frame.origin;
+    [(EnterDataView *)[[self superview] superview] setContentOffset:pt animated:YES];
+    if ([(EnterDataView *)[[self superview] superview] contentOffset].x == pt.x && [(UIScrollView *)[self superview] contentOffset].y == pt.y)
+        NSLog(@"Scrolled to point %f, %f", pt.x, pt.y);
+    else
+    {
+        NSLog(@"Couldn't scroll to point %f, %f", pt.x, pt.y);
+        NSLog(@"Scrolling to bottom instead.");
+        pt = CGPointMake(0, [(EnterDataView *)[[self superview] superview] contentSize].height - [(EnterDataView *)[[self superview] superview] bounds].size.height);
+        [(EnterDataView *)[[self superview] superview] setContentOffset:pt animated:YES];
+    }
+}
+
 /*
  // Only override drawRect: if you perform custom drawing.
  // An empty implementation adversely affects performance during animation.
