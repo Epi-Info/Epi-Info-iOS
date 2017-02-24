@@ -4937,7 +4937,7 @@
     {
         epc = [elementsArray objectAtIndex:i];
         NSString *eleSp= [self removeSp:epc.stringValue];
-        NSArray *arrayOfWords = [eleSp componentsSeparatedByString:@" "];
+//        NSArray *arrayOfWords = [eleSp componentsSeparatedByString:@" "];
         NSArray *aoifs = [self arrayOfIFs:eleSp];
         if (aoifs.count > 0)
         {
@@ -5012,7 +5012,7 @@
         NSString *elmt;
         NSString *lastElmt;
         int eleCount = (int)[self numberOfWordsInString:epc.stringValue];
-        NSString *eleSp= [[self removeSp:epc.stringValue]lowercaseString];
+        NSString *eleSp= [[[self removeSp:epc.stringValue] stringByReplacingOccurrencesOfString:@"<LINEFEED>" withString:@""] lowercaseString];
         for (int j = 0; j<eleCount; j++) {
             elmt = [[eleSp componentsSeparatedByString:@" "]objectAtIndex:j];
             
@@ -6157,6 +6157,7 @@ newStr{
             EpiInfoTextField *utf = (EpiInfoTextField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:YES];
             [utf setAlpha:1.0f];
+            [utf setIsEnabled:YES];
             
             break;
         }
@@ -6165,6 +6166,7 @@ newStr{
             UppercaseTextField *utf = (UppercaseTextField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:YES];
             [utf setAlpha:1.0f];
+            [utf setIsEnabled:YES];
             
             break;
         }
@@ -6173,6 +6175,7 @@ newStr{
             EpiInfoTextView *utf = (EpiInfoTextView *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:YES];
             [utf setAlpha:1.0f];
+            [utf setIsEnabled:YES];
             
             break;
         }
@@ -6181,6 +6184,7 @@ newStr{
             NumberField *utf = (NumberField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:YES];
             [utf setAlpha:1.0f];
+            [utf setIsEnabled:YES];
             
             break;
         }
@@ -6197,7 +6201,8 @@ newStr{
             DateField *utf = (DateField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:YES];
             [utf setAlpha:1.0f];
-            
+            [utf setIsEnabled:YES];
+           
             break;
         }
         case 8:
@@ -6205,6 +6210,7 @@ newStr{
             TimeField *utf = (TimeField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:YES];
             [utf setAlpha:1.0f];
+            [utf setIsEnabled:YES];
             
             break;
         }
@@ -6213,6 +6219,7 @@ newStr{
             DateTimeField *utf = (DateTimeField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:YES];
             [utf setAlpha:1.0f];
+            [utf setIsEnabled:YES];
             
             break;
         }
@@ -6221,6 +6228,7 @@ newStr{
             Checkbox *utf = (Checkbox *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:YES];
             [utf setAlpha:1.0f];
+            [utf setIsEnabled:YES];
             
             break;
         }
@@ -6238,6 +6246,7 @@ newStr{
             EpiInfoOptionField *utf = (EpiInfoOptionField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:YES];
             [utf setAlpha:1.0f];
+            [utf setIsEnabled:YES];
             break;
         }
         case 15:
@@ -6245,14 +6254,15 @@ newStr{
             NSLog(@"Mirror");
             MirrorField *utf = (MirrorField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:YES];
-            [utf setAlpha:0.5f];
+            [utf setAlpha:1.0f];
             break;
         }
         case 17:
         {
             LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:YES];
-            [utf setAlpha:0.5f];
+            [utf setAlpha:1.0f];
+            [utf setIsEnabled:YES];
             break;
         }
         case 18:
@@ -6260,7 +6270,8 @@ newStr{
             NSLog(@"codes");
             EpiInfoCodesField *utf = (EpiInfoCodesField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:YES];
-            [utf setAlpha:0.5f];
+            [utf setAlpha:1.0f];
+            [utf setIsEnabled:YES];
             break;
         }
         case 19:
@@ -6268,7 +6279,8 @@ newStr{
             NSLog(@"legalcomment");
             LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:YES];
-            [utf setAlpha:0.5f];
+            [utf setAlpha:1.0f];
+            [utf setIsEnabled:YES];
             break;
         }
         case 14:
@@ -6276,7 +6288,7 @@ newStr{
             NSLog(@"image");
             UIImageView *utf = (UIImageView *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:YES];
-            [utf setAlpha:0.5f];
+            [utf setAlpha:1.0f];
             break;
         }
         case 25:
@@ -6284,8 +6296,9 @@ newStr{
             NSLog(@"unique");
             EpiInfoUniqueIDField *utf = (EpiInfoUniqueIDField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:YES];
-            [utf setAlpha:0.5f];
-            break;
+            [utf setAlpha:1.0f];
+            [utf setIsEnabled:YES];
+           break;
         }
         default:
             break;
@@ -6305,6 +6318,7 @@ newStr{
             EpiInfoTextField *utf = (EpiInfoTextField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
+            [utf setIsEnabled:NO];
             break;
         }
         case 3:
@@ -6312,6 +6326,7 @@ newStr{
             UppercaseTextField *utf = (UppercaseTextField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
+            [utf setIsEnabled:NO];
             
             break;
         }
@@ -6320,6 +6335,7 @@ newStr{
             EpiInfoTextView *utf = (EpiInfoTextView *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
+            [utf setIsEnabled:NO];
             
             break;
         }
@@ -6328,6 +6344,7 @@ newStr{
             NumberField *utf = (NumberField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
+            [utf setIsEnabled:NO];
             
             break;
         }
@@ -6336,6 +6353,7 @@ newStr{
             PhoneNumberField *utf = (PhoneNumberField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
+            [utf setIsEnabled:NO];
             
             break;
         }
@@ -6344,6 +6362,7 @@ newStr{
             DateField *utf = (DateField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
+            [utf setIsEnabled:NO];
             
             break;
         }
@@ -6352,6 +6371,7 @@ newStr{
             TimeField *utf = (TimeField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
+            [utf setIsEnabled:NO];
             
             break;
         }
@@ -6360,6 +6380,7 @@ newStr{
             DateTimeField *utf = (DateTimeField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
+            [utf setIsEnabled:NO];
             
             break;
         }
@@ -6368,6 +6389,7 @@ newStr{
             Checkbox *utf = (Checkbox *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
+            [utf setIsEnabled:NO];
             
             break;
         }
@@ -6376,6 +6398,7 @@ newStr{
             YesNo *utf = (YesNo *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
+            [utf setIsEnabled:NO];
             
             break;
         }
@@ -6384,6 +6407,7 @@ newStr{
             EpiInfoOptionField *utf = (EpiInfoOptionField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
+            [utf setIsEnabled:NO];
             break;
         }
         case 15:
@@ -6399,6 +6423,7 @@ newStr{
             LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
+            [utf setIsEnabled:NO];
             break;
         }
         case 18:
@@ -6407,6 +6432,7 @@ newStr{
             EpiInfoCodesField *utf = (EpiInfoCodesField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
+            [utf setIsEnabled:NO];
             break;
         }
         case 19:
@@ -6415,6 +6441,7 @@ newStr{
             LegalValuesEnter *utf = (LegalValuesEnter *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
+            [utf setIsEnabled:NO];
             break;
         }
         case 14:
@@ -6431,6 +6458,7 @@ newStr{
             EpiInfoUniqueIDField *utf = (EpiInfoUniqueIDField *)[formCanvas viewWithTag:eleTag];
             [utf setUserInteractionEnabled:NO];
             [utf setAlpha:0.5f];
+            [utf setIsEnabled:NO];
             break;
         }
         default:

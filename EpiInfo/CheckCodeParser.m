@@ -48,6 +48,7 @@
     [self replaceLinefeedCharsAfterAssigns];
     [self replaceLinefeedCharsAfterClears];
     [self replaceLinefeedCharsAfterDisables];
+    [self replaceLinefeedCharsAfterEnables];
     [check replaceOccurrencesOfString:@"//(.*?)\r?\n" withString:@"" options:NSRegularExpressionSearch range:(NSRange){0,check.length}];
     [self removeSpaces];
     
