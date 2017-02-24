@@ -197,4 +197,6 @@
 -(void)confirmSubmitOrClear:(UIButton *)sender;
 
 -(void)setAssignArray:(NSMutableArray *)aa;
+
+-(void)doResignAll;
 @end

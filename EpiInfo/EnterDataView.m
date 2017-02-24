@@ -2125,6 +2125,10 @@
     NSLog(@"------------------------- %f, %f",self.contentSize.width, self.contentSize.height - 200.0);
     
 }
+- (void)doResignAll
+{
+    [self resignAll];
+}
 
 - (void)dismissForm;
 {

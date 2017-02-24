@@ -299,7 +299,8 @@
         {
             if (!([newStr isEqualToString:@"IF"] || [newStr isEqualToString:@"THEN"] || [newStr isEqualToString:@"ELSE"] || [newStr isEqualToString:@"END-IF"]))
             {
-                [nsms insertString:@" " atIndex:0];
+                if (!([newStr isEqualToString:@"<"] && [nsms characterAtIndex:0] == '>'))
+                    [nsms insertString:@" " atIndex:0];
                 id field = [self.dictionaryOfFields objectForKey:newStr];
                 if (field)
                 {

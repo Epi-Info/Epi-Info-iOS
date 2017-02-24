@@ -102,6 +102,26 @@
 
 - (void)selfFocus
 {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [NSThread sleepForTimeInterval:0.1f];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([self isEnabled])
+                [self becomeFirstResponder];
+            
+            float yForBottom = [(EnterDataView *)[[self superview] superview] contentSize].height - [(EnterDataView *)[[self superview] superview] bounds].size.height;
+            float selfY = self.frame.origin.y - 80.0f;
+            
+            CGPoint pt = CGPointMake(0.0f, selfY);
+            if (selfY > yForBottom)
+                pt = CGPointMake(0.0f, yForBottom);
+            
+            [(EnterDataView *)[[self superview] superview] setContentOffset:pt animated:YES];
+        });
+        [NSThread sleepForTimeInterval:0.3f];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [(EnterDataView *)[[self superview] superview] doResignAll];
+        });
+    });
 }
 
 /*

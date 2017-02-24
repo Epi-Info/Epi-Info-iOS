@@ -505,7 +505,7 @@
                 NSString *lhs = POP_STR();
                 
                 if (EQ(op, @"="))  PUSH_BOOL([lhs isEqualToString:rhs] || [[self stripQuotes:lhs] isEqualToString:[self stripQuotes:rhs]] || [self lhsAndRhsAreBothMissing:lhs AndRHS:rhs]);
-                else if (EQ(op, @"<>"))  PUSH_BOOL(!([lhs isEqualToString:rhs] || [[self stripQuotes:lhs] isEqualToString:[self stripQuotes:rhs]]));
+                else if (EQ(op, @"<>"))  PUSH_BOOL(!([lhs isEqualToString:rhs] || [[self stripQuotes:lhs] isEqualToString:[self stripQuotes:rhs]] || [self lhsAndRhsAreBothMissing:lhs AndRHS:rhs]));
             }
                 break;
                 

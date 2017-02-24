@@ -117,17 +117,19 @@
 
 - (void)selfFocus
 {
-    CGPoint pt = self.frame.origin;
-    [(EnterDataView *)[[self superview] superview] setContentOffset:pt animated:YES];
-    if ([(EnterDataView *)[[self superview] superview] contentOffset].x == pt.x && [(UIScrollView *)[self superview] contentOffset].y == pt.y)
-        NSLog(@"Scrolled to point %f, %f", pt.x, pt.y);
-    else
-    {
-        NSLog(@"Couldn't scroll to point %f, %f", pt.x, pt.y);
-        NSLog(@"Scrolling to bottom instead.");
-        pt = CGPointMake(0, [(EnterDataView *)[[self superview] superview] contentSize].height - [(EnterDataView *)[[self superview] superview] bounds].size.height);
-        [(EnterDataView *)[[self superview] superview] setContentOffset:pt animated:YES];
-    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [NSThread sleepForTimeInterval:0.1f];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            float yForBottom = [(EnterDataView *)[[self superview] superview] contentSize].height - [(EnterDataView *)[[self superview] superview] bounds].size.height;
+            float selfY = self.frame.origin.y - 80.0f;
+            
+            CGPoint pt = CGPointMake(0.0f, selfY);
+            if (selfY > yForBottom)
+                pt = CGPointMake(0.0f, yForBottom);
+            
+            [(EnterDataView *)[[self superview] superview] setContentOffset:pt animated:YES];
+        });
+    });
 }
 
 /*
