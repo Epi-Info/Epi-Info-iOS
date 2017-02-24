@@ -196,6 +196,7 @@
 - (void)setIsEnabled:(BOOL)isEnabled
 {
     [self.picker setUserInteractionEnabled:isEnabled];
+    [self setAlpha:0.5 + 0.5 * (int)isEnabled];
 }
 
 /*

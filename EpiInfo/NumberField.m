@@ -159,6 +159,7 @@
 - (void)setIsEnabled:(BOOL)isEnabled
 {
     [self setEnabled:isEnabled];
+    [self setAlpha:0.5 + 0.5 * (int)isEnabled];
 }
 
 /*
