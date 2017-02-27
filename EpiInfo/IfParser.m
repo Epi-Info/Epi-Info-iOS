@@ -67,6 +67,7 @@
 
 @implementation IfParser
 @synthesize dictionaryOfFields = _dictionaryOfFields;
+@synthesize dictionaryOfPages = _dictionaryOfPages;
 
 - (id)initWithDelegate:(id)d {
     self = [super initWithDelegate:d];
@@ -207,7 +208,11 @@
                         NSArray *controlsToAlter = [statement componentsSeparatedByString:@" "];
                         for (int cto = 1; cto < controlsToAlter.count; cto++)
                         {
-                            [[self.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] selfFocus];
+                            for (id key in self.dictionaryOfPages)
+                            {
+                                EnterDataView *edv0 = [self.dictionaryOfPages objectForKey:key];
+                                [[edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] selfFocus];
+                            }
                         }
                     }
                 }

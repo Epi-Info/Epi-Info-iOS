@@ -5759,6 +5759,7 @@
                     ifParser.assembly.preservesWhitespaceTokens = YES;
                     
                     [ifParser setDictionaryOfFields:self.dictionaryOfFields];
+                    [ifParser setDictionaryOfPages:[self dictionaryOfPages]];
                     
                     PKAssembly *ifResult = [ifParser parseString:[ifElement stringValue] error:&err];
                     if (ifResult)
@@ -5788,6 +5789,7 @@
                     ifParser.assembly.preservesWhitespaceTokens = YES;
                     
                     [ifParser setDictionaryOfFields:self.dictionaryOfFields];
+                    [ifParser setDictionaryOfPages:[self dictionaryOfPages]];
 
                     PKAssembly *ifResult = [ifParser parseString:[ifElement stringValue] error:&err];
                     if (ifResult)

@@ -1,6 +1,7 @@
 #import <PEGKit/PKParser.h>
 #import "DictionaryOfFields.h"
 #import "EpiInfoControlProtocol.h"
+#import "EnterDataView.h"
 
 enum {
     IFPARSER_TOKEN_KIND_THENWORD = 14,
@@ -15,5 +16,6 @@ enum {
     bool elseing;
 }
 @property DictionaryOfFields *dictionaryOfFields;
+@property NSDictionary *dictionaryOfPages;
 @end
 
