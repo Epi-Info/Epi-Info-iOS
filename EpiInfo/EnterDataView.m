@@ -5350,7 +5350,11 @@
             //            [self checkElements:emc.elementName from:@"before" page:emc.page];
             if (emc.enable == NO)
             {
-                [self disable:emc.tag type:emc.type];
+                UIView *control = [self.dictionaryOfFields objectForKey:emc.elementName];
+                if (!control)
+                    continue;
+                int controlTag = (int)control.tag;
+                [self disable:controlTag type:emc.type];
             }
             if (emc.highlight == YES)
             {
@@ -5365,7 +5369,11 @@
             }
             if (emc.enable == YES)
             {
-                [self enable:emc.tag type:emc.type];
+                UIView *control = [self.dictionaryOfFields objectForKey:emc.elementName];
+                if (!control)
+                    continue;
+                int controlTag = (int)control.tag;
+                [self enable:controlTag type:emc.type];
             }
             if (emc.highlight == NO)
             {
@@ -5566,15 +5574,18 @@
                             emc.enable = YES;
                             [elementListArray replaceObjectAtIndex:idx withObject:emc];
                             NSLog(@"-ena--%@",emc.elementName);
-                            [self enable:emc.tag type:emc.type];
+                            UIView *control = [self.dictionaryOfFields objectForKey:emc.elementName];
+                            int controlTag = (int)control.tag;
+                            [self enable:controlTag type:emc.type];
                         }
                         if ([cpm.condition isEqualToString:@"disable"])
                         {
                             emc.enable = NO;
                             [elementListArray replaceObjectAtIndex:idx withObject:emc];
                             NSLog(@"-dis--%@",emc.elementName);
-                            
-                            [self disable:emc.tag type:emc.type];
+                            UIView *control = [self.dictionaryOfFields objectForKey:emc.elementName];
+                            int controlTag = (int)control.tag;
+                            [self disable:controlTag type:emc.type];
                         }
                         if ([cpm.condition isEqualToString:@"highlight"])
                         {
