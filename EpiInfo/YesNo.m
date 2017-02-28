@@ -103,7 +103,7 @@
         [self reset];
         return;
     }
-    if ([value isEqualToString:@"Yes"])
+    if ([value isEqualToString:@"Yes"] || [value isEqualToString:@"1"])
         [self setYesNo:1];
     else
         [self setYesNo:0];
