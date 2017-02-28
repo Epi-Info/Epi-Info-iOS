@@ -2032,7 +2032,7 @@
                 {
                     if ([l isKindOfClass:[UILabel class]])
                     {
-                        [(UILabel *)l setText:[NSString stringWithFormat:@"%@, page 1 of %lu", formName, (unsigned long)[self pagesArray].count]];
+                        [(UILabel *)l setText:[NSString stringWithFormat:@"%@", formName]];
                     }
                 }
             }
