@@ -140,10 +140,11 @@
 {
     NSLog(@"%@ resigning first responder", self.columnName);
     [(CheckCode *)checkcode ownerDidResign];
+    BOOL retVal = [super resignFirstResponder];
     if ([[[self superview] superview] isKindOfClass:[EnterDataView class]])
         [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
     
-    return [super resignFirstResponder];
+    return retVal;
 }
 
 - (NSString *)epiInfoControlValue

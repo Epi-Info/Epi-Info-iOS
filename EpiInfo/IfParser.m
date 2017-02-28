@@ -208,10 +208,66 @@
                         NSArray *controlsToAlter = [statement componentsSeparatedByString:@" "];
                         for (int cto = 1; cto < controlsToAlter.count; cto++)
                         {
-                            for (id key in self.dictionaryOfPages)
+                            bool pageAlreadyExists = NO;
+                            int pageBeingDisplayed = 0;
+                            int pageToWhichWeAreTurning = 0;
+                            while (!pageAlreadyExists)
                             {
-                                EnterDataView *edv0 = [self.dictionaryOfPages objectForKey:key];
-                                [[edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] selfFocus];
+                                EnterDataView *edv0;
+                                for (id key in self.dictionaryOfPages)
+                                {
+                                    edv0 = [self.dictionaryOfPages objectForKey:key];
+                                    if ([edv0 superview])
+                                        pageBeingDisplayed = [[(NSString *)key substringFromIndex:4] intValue];
+                                    if ([edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]])
+                                    {
+                                        [[edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] selfFocus];
+                                        pageAlreadyExists = YES;
+                                        pageToWhichWeAreTurning = [[(NSString *)key substringFromIndex:4] intValue];
+                                    }
+                                }
+                                if (edv0 && !pageAlreadyExists)
+                                {
+                                    @try {
+                                        [edv0 userSwipedToTheLeft];
+                                    } @catch (NSException *exception) {
+                                        NSLog(@"Could not swipe left for some reason.");
+                                        break;
+                                    } @finally {
+                                        //
+                                    }
+                                }
+                                if (!edv0)
+                                    break;
+                            }
+                            if (pageBeingDisplayed > 0 && pageToWhichWeAreTurning > 0)
+                            {
+                                if (pageToWhichWeAreTurning > pageBeingDisplayed)
+                                {
+                                    @try {
+                                        for (int swipe = 0; swipe < pageToWhichWeAreTurning - pageBeingDisplayed; swipe++)
+                                        {
+                                            [(EnterDataView *)[self.dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", pageBeingDisplayed + swipe]] userSwipedToTheLeft];
+                                        }
+                                    } @catch (NSException *exception) {
+                                        NSLog(@"Could not swipe left for some reason");
+                                    } @finally {
+                                        //
+                                    }
+                                }
+                                else if (pageBeingDisplayed > pageToWhichWeAreTurning)
+                                {
+                                    @try {
+                                        for (int swipe = 0; swipe < pageBeingDisplayed - pageToWhichWeAreTurning; swipe++)
+                                        {
+                                            [(EnterDataView *)[self.dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", pageBeingDisplayed - swipe]] userSwipedToTheRight];
+                                        }
+                                    } @catch (NSException *exception) {
+                                        NSLog(@"Could not swipe right for some reason");
+                                    } @finally {
+                                        //
+                                    }
+                                }
                             }
                         }
                     }

@@ -502,7 +502,7 @@
     }
     else
     {
-        EnterDataView *edv = [[EnterDataView alloc] initWithFrame:self.frame AndURL:self.url AndRootViewController:self.rootViewController AndNameOfTheForm:self.nameOfTheForm AndPageToDisplay:(int)[sender tag] condArray:conditionsArray eleArray:elementListArray firstEdit:firstEdit elmAr:elmArray checkEleArr:elementsArray assignArray:assignArray];
+        EnterDataView *edv = [[EnterDataView alloc] initWithFrame:self.frame AndURL:self.url AndRootViewController:self.rootViewController AndNameOfTheForm:self.nameOfTheForm AndPageToDisplay:(int)[sender tag] condArray:conditionsArray eleArray:elementListArray firstEdit:firstEdit elmAr:elmArray checkEleArr:elementsArray assignArray:assignArray ifsArray:ifsArray];
         NSLog(@"EXECUTE");
         [edv setDictionaryOfPages:dictionaryOfPages];
 //        for (id key in edv.fieldsAndStringValues.nsmd)
@@ -699,7 +699,7 @@
     return self;
     
 }
-- (id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndNameOfTheForm:(NSString *)notf AndPageToDisplay:(int)page condArray:(NSMutableArray *)newCondArray eleArray:(NSMutableArray *)newEleArray firstEdit:(BOOL)newFirst elmAr:(NSMutableArray *)newElm checkEleArr:(NSMutableArray *)newCheckEleArr assignArray:(NSMutableArray *)newAssignArray
+- (id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndNameOfTheForm:(NSString *)notf AndPageToDisplay:(int)page condArray:(NSMutableArray *)newCondArray eleArray:(NSMutableArray *)newEleArray firstEdit:(BOOL)newFirst elmAr:(NSMutableArray *)newElm checkEleArr:(NSMutableArray *)newCheckEleArr assignArray:(NSMutableArray *)newAssignArray ifsArray:(NSMutableArray *)newIfsArray
 {
     conditionsArray = newCondArray;
     elementListArray = newEleArray;
@@ -707,6 +707,7 @@
     elmArray = newElm;
     elementsArray = newCheckEleArr;
     assignArray = newAssignArray;
+    ifsArray = newIfsArray;
     
     self.fieldsAndStringValues = [(DataEntryViewController *)rvc fieldsAndStringValues];
     self = [self initWithFrame:frame AndURL:url AndNameOfTheForm:(NSString *)notf AndPageToDisplay:page];

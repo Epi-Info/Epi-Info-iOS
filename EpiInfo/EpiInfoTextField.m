@@ -8,6 +8,7 @@
 
 #import "EpiInfoTextField.h"
 #import "EnterDataView.h"
+#import "DataEntryViewController.h"
 
 @implementation EpiInfoTextField
 @synthesize columnName = _columnName;
@@ -55,6 +56,7 @@
 - (BOOL)resignFirstResponder
 {
     NSLog(@"%@ resigning first responder", self.columnName);
+    BOOL retVal = [super resignFirstResponder];
     @try {
         [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
     } @catch (NSException *exception) {
@@ -63,7 +65,7 @@
         //
     }
     
-    return [super resignFirstResponder];
+    return retVal;
 }
 
 - (NSString *)epiInfoControlValue
@@ -100,16 +102,6 @@
                 pt = CGPointMake(0.0f, yForBottom);
             
             [myEdv setContentOffset:pt animated:YES];
-            
-            UIViewController *myVC = myEdv.rootViewController;
-            for (UIView *v in [myVC.view subviews])
-            {
-                if ([v isKindOfClass:[EnterDataView class]])
-                {
-                    [v removeFromSuperview];
-                }
-            }
-            [myVC.view addSubview:myEdv];
         });
     });
 }

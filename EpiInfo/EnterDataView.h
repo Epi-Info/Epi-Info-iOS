@@ -198,5 +198,8 @@
 
 -(void)setAssignArray:(NSMutableArray *)aa;
 
+-(void)userSwipedToTheLeft;
+-(void)userSwipedToTheRight;
+
 -(void)doResignAll;
 @end
