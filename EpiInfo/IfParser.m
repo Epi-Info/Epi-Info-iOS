@@ -184,7 +184,41 @@
                         NSArray *controlsToAlter = [statement componentsSeparatedByString:@" "];
                         for (int cto = 1; cto < controlsToAlter.count; cto++)
                         {
-                            [[self.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] assignValue:@""];
+                            BOOL pageAlreadyExists = NO;
+                            int pageTurns = 0;
+                            EnterDataView *edv0;
+                            while (!pageAlreadyExists)
+                            {
+                                for (id key in self.dictionaryOfPages)
+                                {
+                                    edv0 = [self.dictionaryOfPages objectForKey:key];
+                                    if ([edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]])
+                                    {
+                                        [[edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] assignValue:@""];
+                                        pageAlreadyExists = YES;
+                                    }
+                                }
+                                if (edv0 && !pageAlreadyExists)
+                                {
+                                    @try {
+                                        [edv0 userSwipedToTheLeft];
+                                        pageTurns++;
+                                    } @catch (NSException *exception) {
+                                        NSLog(@"Could not swipe left for some reason.");
+                                        break;
+                                    } @finally {
+                                        //
+                                    }
+                                }
+                                if (!edv0)
+                                    break;
+                            }
+                            while (pageTurns > 0)
+                            {
+                                if (edv0)
+                                    [edv0 userSwipedToTheRight];
+                                pageTurns--;
+                            }
                         }
                     }
                     else if ([[[[statement uppercaseString] componentsSeparatedByString:@" "] objectAtIndex:0] isEqualToString:@"ENABLE"])
@@ -192,15 +226,83 @@
                         NSArray *controlsToAlter = [statement componentsSeparatedByString:@" "];
                         for (int cto = 1; cto < controlsToAlter.count; cto++)
                         {
-                            [[self.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] setIsEnabled:YES];
-                       }
+                            BOOL pageAlreadyExists = NO;
+                            int pageTurns = 0;
+                            EnterDataView *edv0;
+                            while (!pageAlreadyExists)
+                            {
+                                for (id key in self.dictionaryOfPages)
+                                {
+                                    edv0 = [self.dictionaryOfPages objectForKey:key];
+                                    if ([edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]])
+                                    {
+                                        [[edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] setIsEnabled:YES];
+                                        pageAlreadyExists = YES;
+                                    }
+                                }
+                                if (edv0 && !pageAlreadyExists)
+                                {
+                                    @try {
+                                        [edv0 userSwipedToTheLeft];
+                                        pageTurns++;
+                                    } @catch (NSException *exception) {
+                                        NSLog(@"Could not swipe left for some reason.");
+                                        break;
+                                    } @finally {
+                                        //
+                                    }
+                                }
+                                if (!edv0)
+                                    break;
+                            }
+                            while (pageTurns > 0)
+                            {
+                                if (edv0)
+                                    [edv0 userSwipedToTheRight];
+                                pageTurns--;
+                            }
+                        }
                     }
                     else if ([[[[statement uppercaseString] componentsSeparatedByString:@" "] objectAtIndex:0] isEqualToString:@"DISABLE"])
                     {
                         NSArray *controlsToAlter = [statement componentsSeparatedByString:@" "];
                         for (int cto = 1; cto < controlsToAlter.count; cto++)
                         {
-                            [[self.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] setIsEnabled:NO];
+                            BOOL pageAlreadyExists = NO;
+                            int pageTurns = 0;
+                            EnterDataView *edv0;
+                            while (!pageAlreadyExists)
+                            {
+                                for (id key in self.dictionaryOfPages)
+                                {
+                                    edv0 = [self.dictionaryOfPages objectForKey:key];
+                                    if ([edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]])
+                                    {
+                                        [[edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] setIsEnabled:NO];
+                                        pageAlreadyExists = YES;
+                                    }
+                                }
+                                if (edv0 && !pageAlreadyExists)
+                                {
+                                    @try {
+                                        [edv0 userSwipedToTheLeft];
+                                        pageTurns++;
+                                    } @catch (NSException *exception) {
+                                        NSLog(@"Could not swipe left for some reason.");
+                                        break;
+                                    } @finally {
+                                        //
+                                    }
+                                }
+                                if (!edv0)
+                                    break;
+                            }
+                            while (pageTurns > 0)
+                            {
+                                if (edv0)
+                                    [edv0 userSwipedToTheRight];
+                                pageTurns--;
+                            }
                         }
                     }
                     else if ([[[[statement uppercaseString] componentsSeparatedByString:@" "] objectAtIndex:0] isEqualToString:@"GOTO"])
@@ -208,7 +310,7 @@
                         NSArray *controlsToAlter = [statement componentsSeparatedByString:@" "];
                         for (int cto = 1; cto < controlsToAlter.count; cto++)
                         {
-                            bool pageAlreadyExists = NO;
+                            BOOL pageAlreadyExists = NO;
                             int pageBeingDisplayed = 0;
                             int pageToWhichWeAreTurning = 0;
                             while (!pageAlreadyExists)
