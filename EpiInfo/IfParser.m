@@ -468,7 +468,7 @@
                 if (field)
                 {
                     NSString *fieldsControlValue = [field epiInfoControlValue];
-                    if ([fieldsControlValue componentsSeparatedByString:@" "].count > 1)
+                    if ([fieldsControlValue componentsSeparatedByString:@" "].count > 1 || [fieldsControlValue componentsSeparatedByString:@"\n"].count > 1)
                         fieldsControlValue = [NSString stringWithFormat:@"\"%@\"", [field epiInfoControlValue]];
                     if (fieldsControlValue.length == 0)
                         fieldsControlValue = @"NULL";
