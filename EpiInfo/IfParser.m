@@ -468,6 +468,8 @@
                 if (field)
                 {
                     NSString *fieldsControlValue = [field epiInfoControlValue];
+                    if ([fieldsControlValue componentsSeparatedByString:@" "].count > 1)
+                        fieldsControlValue = [NSString stringWithFormat:@"\"%@\"", [field epiInfoControlValue]];
                     if (fieldsControlValue.length == 0)
                         fieldsControlValue = @"NULL";
                     [nsms insertString:fieldsControlValue atIndex:0];
