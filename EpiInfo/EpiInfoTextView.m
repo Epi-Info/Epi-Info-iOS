@@ -71,6 +71,24 @@
 
 - (void)selfFocus
 {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [NSThread sleepForTimeInterval:0.1f];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([self isUserInteractionEnabled])
+                [self becomeFirstResponder];
+            
+            EnterDataView *myEdv = (EnterDataView *)[[self superview] superview];
+            
+            float yForBottom = [myEdv contentSize].height - [myEdv bounds].size.height;
+            float selfY = self.frame.origin.y - 80.0f;
+            
+            CGPoint pt = CGPointMake(0.0f, selfY);
+            if (selfY > yForBottom)
+                pt = CGPointMake(0.0f, yForBottom);
+            
+            [myEdv setContentOffset:pt animated:YES];
+        });
+    });
 }
 
 /*
