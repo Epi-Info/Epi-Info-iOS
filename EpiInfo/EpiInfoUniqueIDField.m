@@ -40,9 +40,10 @@
 - (BOOL)resignFirstResponder
 {
     NSLog(@"%@ resigning first responder", self.columnName);
+    BOOL retVal = [super resignFirstResponder];
     [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
     
-    return [super resignFirstResponder];
+    return retVal;
 }
 
 /*
