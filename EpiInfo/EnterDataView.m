@@ -2054,6 +2054,8 @@
             else if ([v isKindOfClass:[Checkbox class]])
                 [(Checkbox *)v reset];
             [v setEnabled:YES];
+            if ([v conformsToProtocol:@protocol(EpiInfoControlProtocol)])
+                [v setIsEnabled:YES];
         }
         // Clear the fieldsAndStringValues dictionary
 //        for (id key in self.fieldsAndStringValues.nsmd)
@@ -5602,7 +5604,71 @@
                         }
                         if ([cpm.condition isEqualToString:@"goto"])
                         {
-                            [self gotoFormField:emc.type tag:emc.tag];
+                            NSString *gotoFieldName = emc.elementName;
+//                            id gotoField = [self.dictionaryOfFields objectForKey:gotoFieldName];
+//                            [gotoField selfFocus];
+//                            [self gotoFormField:emc.type tag:emc.tag];
+                            BOOL pageAlreadyExists = NO;
+                            int pageCurrentlyBeingDisplayed = 0;
+                            int pageToWhichWeAreTurning = 0;
+                            while (!pageAlreadyExists)
+                            {
+                                EnterDataView *edv0;
+                                for (id key in self.dictionaryOfPages)
+                                {
+                                    edv0 = [self.dictionaryOfPages objectForKey:key];
+                                    if ([edv0 superview])
+                                        pageCurrentlyBeingDisplayed = [[(NSString *)key substringFromIndex:4] intValue];
+                                    if ([edv0.dictionaryOfFields objectForKey:gotoFieldName])
+                                    {
+                                        [[edv0.dictionaryOfFields objectForKey:gotoFieldName] selfFocus];
+                                        pageAlreadyExists = YES;
+                                        pageToWhichWeAreTurning = [[(NSString *)key substringFromIndex:4] intValue];
+                                    }
+                                }
+                                if (edv0 && !pageAlreadyExists)
+                                {
+                                    @try {
+                                        [edv0 userSwipedToTheLeft];
+                                    } @catch (NSException *exception) {
+                                        NSLog(@"Could not swipe left for some reason.");
+                                        break;
+                                    } @finally {
+                                        //
+                                    }
+                                }
+                                if (!edv0)
+                                    break;
+                            }
+                            if (pageCurrentlyBeingDisplayed > 0 && pageToWhichWeAreTurning > 0)
+                            {
+                                if (pageToWhichWeAreTurning > pageCurrentlyBeingDisplayed)
+                                {
+                                    @try {
+                                        for (int swipe = 0; swipe < pageToWhichWeAreTurning - pageCurrentlyBeingDisplayed; swipe++)
+                                        {
+                                            [(EnterDataView *)[self.dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", pageCurrentlyBeingDisplayed + swipe]] userSwipedToTheLeft];
+                                        }
+                                    } @catch (NSException *exception) {
+                                        NSLog(@"Could not swipe left for some reason");
+                                    } @finally {
+                                        //
+                                    }
+                                }
+                                else if (pageCurrentlyBeingDisplayed > pageToWhichWeAreTurning)
+                                {
+                                    @try {
+                                        for (int swipe = 0; swipe < pageCurrentlyBeingDisplayed - pageToWhichWeAreTurning; swipe++)
+                                        {
+                                            [(EnterDataView *)[self.dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", pageCurrentlyBeingDisplayed - swipe]] userSwipedToTheRight];
+                                        }
+                                    } @catch (NSException *exception) {
+                                        NSLog(@"Could not swipe right for some reason");
+                                    } @finally {
+                                        //
+                                    }
+                                }
+                            }
                         }
                         if ([cpm.condition isEqualToString:@"clear"])
                         {
@@ -7035,7 +7101,7 @@ newStr{
         case 1:
         {
             EpiInfoTextField *utf = (EpiInfoTextField *)[formCanvas viewWithTag:newTag];
-            [utf becomeFirstResponder];
+            [utf selfFocus];
             break;
         }
         case 3:
