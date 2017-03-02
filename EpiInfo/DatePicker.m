@@ -7,6 +7,7 @@
 
 #import "DatePicker.h"
 #import "BlurryView.h"
+#import "DateField.h"
 
 @implementation DatePicker
 @synthesize dateField = _dateField;
@@ -149,6 +150,10 @@
             else if (month == 12) [monthsLV setPicked:@"December"];
         }
     }
+    UILabel *fieldLabelLabel = [[UILabel alloc] initWithFrame:CGRectMake(8.0, 0, self.frame.size.width - 16.0, 40.0)];
+    [fieldLabelLabel setText:[(DateField *)dateField fieldLabel]];
+    [fieldLabelLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+    [self addSubview:fieldLabelLabel];
     return self;
 }
 

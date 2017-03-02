@@ -3123,6 +3123,7 @@
                     createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                     [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
                     [tf setColumnName:[attributeDict objectForKey:@"Name"]];
+                    [tf setFieldLabel:[attributeDict objectForKey:@"PromptText"]];
                     [tf setAccessibilityLabel:[attributeDict objectForKey:@"Name"]];
                     [tf setTemplateFieldID:[NSNumber numberWithInt:[[attributeDict objectForKey:@"FieldId"] intValue]]];
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)

@@ -13,6 +13,7 @@
 @synthesize columnName = _columnName;
 @synthesize mirroringMe = _mirroringMe;
 @synthesize templateFieldID = _templateFieldID;
+@synthesize fieldLabel = _fieldLabel;
 
 - (id)initWithFrame:(CGRect)frame
 {

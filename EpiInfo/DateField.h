@@ -10,6 +10,7 @@
 
 @interface DateField : UITextField <EpiInfoControlProtocol>
 @property NSString *columnName;
+@property NSString *fieldLabel;
 @property UITextField *mirroringMe;
 @property NSNumber *templateFieldID;
 -(void)setFormFieldValue:(NSString *)formFieldValue;
