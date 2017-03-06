@@ -14,4 +14,5 @@
 @property NSString *columnName;
 @property UITextField *mirroringMe;
 -(void)setFormFieldValue:(NSString *)formFieldValue;
+-(void)reset;
 @end

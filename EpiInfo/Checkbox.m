@@ -83,6 +83,7 @@
 {
     value = NO;
     [button setBackgroundColor:[UIColor whiteColor]];
+    [self setIsEnabled:YES];
 }
 
 - (UIButton *)myButton

@@ -108,6 +108,12 @@
     });
 }
 
+- (void)reset
+{
+    [self setText:nil];
+    [self setIsEnabled:YES];
+}
+
 /*
  // Only override drawRect: if you perform custom drawing.
  // An empty implementation adversely affects performance during animation.

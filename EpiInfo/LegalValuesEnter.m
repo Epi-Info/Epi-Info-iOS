@@ -176,6 +176,7 @@
     [picked setText:nil];
     [self setSelectedIndex:[NSNumber numberWithInt:0]];
     [self.picker selectRow:0 inComponent:0 animated:YES];
+    [self setIsEnabled:YES];
 }
 
 - (NSString *)epiInfoControlValue

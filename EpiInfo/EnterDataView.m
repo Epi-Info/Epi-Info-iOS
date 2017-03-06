@@ -2044,7 +2044,14 @@
         }
         for (id v in [[tempedv formCanvas] subviews])
         {
-            if ([v isKindOfClass:[UITextField class]])
+            if ([v conformsToProtocol:@protocol(EpiInfoControlProtocol)])
+            {
+                [(UIView <EpiInfoControlProtocol> *)v reset];
+                continue;
+            }
+            if ([v isKindOfClass:[DateField class]])
+                [(DateField *)v reset];
+            else if ([v isKindOfClass:[UITextField class]])
                 [(UITextField *)v setText:nil];
             else if ([v isKindOfClass:[UITextView class]])
                 [(UITextView *)v setText:nil];

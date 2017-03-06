@@ -12,4 +12,5 @@
 @interface TimeField : EpiInfoTextField
 @property NSString *columnName;
 -(void)setFormFieldValue:(NSString *)formFieldValue;
+-(void)reset;
 @end

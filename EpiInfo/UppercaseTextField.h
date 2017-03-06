@@ -13,4 +13,5 @@
 @property CheckCode *checkcode;
 @property NSString *columnName;
 -(void)setFormFieldValue:(NSString *)formFieldValue;
+-(void)reset;
 @end

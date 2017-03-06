@@ -24,4 +24,5 @@
 
 -(void)setCheckcode:(id)ccode;
 -(id)checkcode;
+-(void)reset;
 @end
