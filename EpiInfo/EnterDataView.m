@@ -2001,7 +2001,8 @@
     guidBeingUpdated = nil;
     recordUIDForUpdate = nil;
     newRecordGUID = CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL)));
-    for (id key in dictionaryOfPages)
+    NSDictionary *copyOfDictionaryOfPages = [NSDictionary dictionaryWithDictionary:dictionaryOfPages];
+    for (id key in copyOfDictionaryOfPages)
     {
         [(EnterDataView *)[dictionaryOfPages objectForKey:key] setNewRecordGUID:newRecordGUID];
         if (updatevisibleScreenOnly && ![(NSString *)key isEqualToString:[NSString stringWithFormat:@"Page%d", pageToDisplay]])
