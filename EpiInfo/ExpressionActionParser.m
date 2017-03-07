@@ -426,6 +426,8 @@
             else
                 caseNumber = 2;
         }
+        else if ([self isGenericPositiveOrNegative:rightObject] || [self isGenericPositiveOrNegative:leftObject])
+            caseNumber = 3;
         
         PUSH(leftObject);
         PUSH(operatorObject);
@@ -506,6 +508,17 @@
                 
                 if (EQ(op, @"="))  PUSH_BOOL([lhs isEqualToString:rhs] || [[self stripQuotes:lhs] isEqualToString:[self stripQuotes:rhs]] || [self lhsAndRhsAreBothMissing:lhs AndRHS:rhs]);
                 else if (EQ(op, @"<>"))  PUSH_BOOL(!([lhs isEqualToString:rhs] || [[self stripQuotes:lhs] isEqualToString:[self stripQuotes:rhs]] || [self lhsAndRhsAreBothMissing:lhs AndRHS:rhs]));
+            }
+                break;
+                
+            case 3:
+            {
+                NSString *rhs = POP_STR();
+                NSString  *op = POP_STR();
+                NSString *lhs = POP_STR();
+                
+                if (EQ(op, @"=")) PUSH_BOOL([self testLHS:lhs equalityWithGeneric:rhs]);
+                if (EQ(op, @"<>")) PUSH_BOOL(![self testLHS:lhs equalityWithGeneric:rhs]);
             }
                 break;
                 
@@ -1591,9 +1604,9 @@
     [self parseRule:@selector(__bool) withMemo:_bool_memo];
 }
 
-- (bool)isADateString:(NSString *)testString
+- (BOOL)isADateString:(NSString *)testString
 {
-    bool testResult = NO;
+    BOOL testResult = NO;
     
     if ([testString isKindOfClass:[PKToken class]])
         testString = [(PKToken *)testString stringValue];
@@ -1621,7 +1634,7 @@
     
     return testResult;
 }
-- (bool)isANumber:(id)testObject
+- (BOOL)isANumber:(id)testObject
 {
     if ([testObject isKindOfClass:[NSNumber class]])
         return YES;
@@ -1632,7 +1645,7 @@
     }
     return NO;
 }
-- (bool)isAString:(id)testObject
+- (BOOL)isAString:(id)testObject
 {
     if ([testObject isKindOfClass:[NSString class]])
         return YES;
@@ -1642,6 +1655,78 @@
             return YES;
     }
     return NO;
+}
+- (BOOL)isGenericPositiveOrNegative:(id)testObject
+{
+    BOOL testResult = NO;
+    
+    if ([testObject isKindOfClass:[NSString class]])
+    {
+        if ([(NSString *)testObject length] < 5)
+        {
+            return NO;
+        }
+        if ([testObject characterAtIndex:1] == '(' && [testObject characterAtIndex:3] == ')' &&
+            ([testObject characterAtIndex:2] == '+' || [testObject characterAtIndex:2] == '-'))
+        {
+            testResult = YES;
+        }
+    }
+    else if ([testObject isKindOfClass:[PKToken class]])
+    {
+        if ([(PKToken *)testObject tokenKind] == PKTokenTypeWord)
+        {
+            NSString *tokenWord = [(PKToken *)testObject stringValue];
+            if (tokenWord.length < 5)
+            {
+                return NO;
+            }
+            if ([tokenWord characterAtIndex:1] == '(' && [tokenWord characterAtIndex:3] == ')' &&
+                ([tokenWord characterAtIndex:2] == '+' || [tokenWord characterAtIndex:2] == '-'))
+            {
+                testResult = YES;
+            }
+        }
+    }
+    
+    return testResult;
+}
+- (BOOL)testLHS:(NSString *)lhs equalityWithGeneric:(NSString *)rhs
+{
+    BOOL testResult = NO;
+    
+    NSArray *positiveValues = @[@"TRUE", @"1", @"YES"];
+    NSArray *negativeValues = @[@"FALSE", @"0", @"NO"];
+    
+    if ([[self stripQuotes:rhs] isEqualToString:@"(+)"])
+    {
+        NSString *compareString = [[self stripQuotes:lhs] uppercaseString];
+        if ([positiveValues containsObject:compareString])
+            return YES;
+    }
+    
+    if ([[self stripQuotes:rhs] isEqualToString:@"(-)"])
+    {
+        NSString *compareString = [[self stripQuotes:lhs] uppercaseString];
+        if ([negativeValues containsObject:compareString])
+            return YES;
+    }
+    
+    if ([[self stripQuotes:lhs] isEqualToString:@"(+)"])
+    {
+        NSString *compareString = [[self stripQuotes:rhs] uppercaseString];
+        if ([positiveValues containsObject:compareString])
+            return YES;
+    }
+    
+    if ([[self stripQuotes:lhs] isEqualToString:@"(-)"])
+    {
+        NSString *compareString = [[self stripQuotes:rhs] uppercaseString];
+        if ([negativeValues containsObject:compareString])
+            return YES;
+    }
+    
+    return testResult;
 }
 
 - (NSDate *)dateFromString:(NSString *)properDateString

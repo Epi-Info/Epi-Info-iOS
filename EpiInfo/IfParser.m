@@ -462,7 +462,11 @@
         {
             if (!([newStr isEqualToString:@"IF"] || [newStr isEqualToString:@"THEN"] || [newStr isEqualToString:@"ELSE"] || [newStr isEqualToString:@"END-IF"]))
             {
-                if (!([newStr isEqualToString:@"<"] && [nsms characterAtIndex:0] == '>'))
+                if (!([newStr isEqualToString:@"<"] && [nsms characterAtIndex:0] == '>') &&
+                    !([newStr isEqualToString:@"+"] && [nsms characterAtIndex:0] == ')') &&
+                    !([newStr isEqualToString:@"-"] && [nsms characterAtIndex:0] == ')') &&
+                    !([newStr isEqualToString:@"("] && [nsms characterAtIndex:0] == '+' && [nsms characterAtIndex:1] == ')') &&
+                    !([newStr isEqualToString:@"("] && [nsms characterAtIndex:0] == '-' && [nsms characterAtIndex:1] == ')'))
                     [nsms insertString:@" " atIndex:0];
                 id field = [self.dictionaryOfFields objectForKey:newStr];
                 if (field)
@@ -479,6 +483,7 @@
             }
         }
         [nsms replaceCharactersInRange:NSMakeRange(nsms.length - 1, 1) withString:@""];
+        [nsms replaceOccurrencesOfString:@"(+)" withString:@"\"(+)\"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, nsms.length)];
         //NSLog(@"Condition is: %@", nsms);
         ExpressionActionParser *eParser = [[ExpressionActionParser alloc] init];
         NSError *err = nil;
