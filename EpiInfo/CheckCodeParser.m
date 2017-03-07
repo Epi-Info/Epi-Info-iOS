@@ -45,12 +45,12 @@
 
 -(void)removeSingle
 {
+    [check replaceOccurrencesOfString:@"//(.*?)\r?\n" withString:@"" options:NSRegularExpressionSearch range:(NSRange){0,check.length}];
     [self replaceLinefeedCharsAfterAssigns];
     [self replaceLinefeedCharsAfterClears];
     [self replaceLinefeedCharsAfterDisables];
     [self replaceLinefeedCharsAfterEnables];
     [self replaceLinefeedCharsAfterGoTos];
-    [check replaceOccurrencesOfString:@"//(.*?)\r?\n" withString:@"" options:NSRegularExpressionSearch range:(NSRange){0,check.length}];
     [self removeSpaces];
     
 }
