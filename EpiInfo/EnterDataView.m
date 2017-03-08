@@ -505,7 +505,7 @@
         [self.rootViewController.view bringSubviewToFront:[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]]];
         [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] setGuidBeingUpdated:recordUIDForUpdate];
         [self onLoadEleCheck];
-        [self checkElements:pageName from:@"before" page:pageName];
+        [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] checkElements:pageName from:@"before" page:pageName];
     }
     else
     {

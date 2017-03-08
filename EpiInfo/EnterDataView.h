@@ -204,4 +204,6 @@
 -(void)doResignAll;
 
 -(NSArray *)arrayOfGroups;
+
+-(void)checkElements:(NSString *)name from:(NSString *)befAft page:(NSString *)newPage;
 @end
