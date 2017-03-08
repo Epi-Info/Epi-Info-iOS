@@ -17,6 +17,9 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
+    float minWidth = 110.0;
+    if (frame.size.width < minWidth)
+        frame = CGRectMake(frame.origin.x, frame.origin.y, minWidth, frame.size.height);
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
