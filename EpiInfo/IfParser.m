@@ -192,6 +192,14 @@
                                 for (id key in self.dictionaryOfPages)
                                 {
                                     edv0 = [self.dictionaryOfPages objectForKey:key];
+                                    if ([edv0 arrayOfGroups])
+                                    {
+                                        if ([(NSArray *)[edv0 arrayOfGroups] containsObject:[controlsToAlter objectAtIndex:cto]])
+                                        {
+                                            pageAlreadyExists = YES;
+                                            break;
+                                        }
+                                    }
                                     if ([edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]])
                                     {
                                         [[edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] resetDoNotEnable];
@@ -234,6 +242,14 @@
                                 for (id key in self.dictionaryOfPages)
                                 {
                                     edv0 = [self.dictionaryOfPages objectForKey:key];
+                                    if ([edv0 arrayOfGroups])
+                                    {
+                                        if ([(NSArray *)[edv0 arrayOfGroups] containsObject:[controlsToAlter objectAtIndex:cto]])
+                                        {
+                                            pageAlreadyExists = YES;
+                                            break;
+                                        }
+                                    }
                                     if ([edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]])
                                     {
                                         [[edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] setIsEnabled:YES];
@@ -276,6 +292,14 @@
                                 for (id key in self.dictionaryOfPages)
                                 {
                                     edv0 = [self.dictionaryOfPages objectForKey:key];
+                                    if ([edv0 arrayOfGroups])
+                                    {
+                                        if ([(NSArray *)[edv0 arrayOfGroups] containsObject:[controlsToAlter objectAtIndex:cto]])
+                                        {
+                                            pageAlreadyExists = YES;
+                                            break;
+                                        }
+                                    }
                                     if ([edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]])
                                     {
                                         [[edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] setIsEnabled:NO];
@@ -319,6 +343,14 @@
                                 for (id key in self.dictionaryOfPages)
                                 {
                                     edv0 = [self.dictionaryOfPages objectForKey:key];
+                                    if ([edv0 arrayOfGroups])
+                                    {
+                                        if ([(NSArray *)[edv0 arrayOfGroups] containsObject:[controlsToAlter objectAtIndex:cto]])
+                                        {
+                                            pageAlreadyExists = YES;
+                                            break;
+                                        }
+                                    }
                                     if ([edv0 superview])
                                         pageBeingDisplayed = [[(NSString *)key substringFromIndex:4] intValue];
                                     if ([edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]])

@@ -92,6 +92,13 @@
     return (EnterDataView *)parentEnterDataView;
 }
 
+- (NSArray *)arrayOfGroups
+{
+    if (arrayOfGroups)
+        return [NSArray arrayWithArray:arrayOfGroups];
+    return nil;
+}
+
 - (void)setParentRecordGUID:(NSString *)prguid
 {
     parentRecordGUID = prguid;
@@ -4309,6 +4316,9 @@
             {
                 if (isCurrentPage)
                     contentSizeHeight -= 25.0;
+                if (!arrayOfGroups)
+                    arrayOfGroups = [[NSMutableArray alloc] init];
+                [arrayOfGroups addObject:[attributeDict objectForKey:@"Name"]];
             }
             else
             {

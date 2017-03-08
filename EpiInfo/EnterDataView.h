@@ -117,7 +117,7 @@
     
     BOOL alertBefore;
     
-    
+    NSMutableArray *arrayOfGroups;
 }
 
 @property NSURL *url;
@@ -202,4 +202,6 @@
 -(void)userSwipedToTheRight;
 
 -(void)doResignAll;
+
+-(NSArray *)arrayOfGroups;
 @end
