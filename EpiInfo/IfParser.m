@@ -484,6 +484,7 @@
         }
         [nsms replaceCharactersInRange:NSMakeRange(nsms.length - 1, 1) withString:@""];
         [nsms replaceOccurrencesOfString:@"(+)" withString:@"\"(+)\"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, nsms.length)];
+        [nsms replaceOccurrencesOfString:@"(-)" withString:@"\"(-)\"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, nsms.length)];
         //NSLog(@"Condition is: %@", nsms);
         ExpressionActionParser *eParser = [[ExpressionActionParser alloc] init];
         NSError *err = nil;
