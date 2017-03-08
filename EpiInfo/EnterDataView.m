@@ -2102,6 +2102,8 @@
         [ChildFormFieldAssignments parseForAssignStatements:[self formCheckCodeString] parentForm:(EnterDataView *)parentEnterDataView childForm:self relateButtonName:relateButtonName];
     else
         [(DataEntryViewController *)self.rootViewController setUpdateExistingRecord:NO];
+
+    [self checkElements:@"1" from:@"before" page:@"1"];
 }
 - (void)okButtonPressed
 {
