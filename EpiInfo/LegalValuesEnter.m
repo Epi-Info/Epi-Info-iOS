@@ -179,6 +179,13 @@
     [self setIsEnabled:YES];
 }
 
+- (void)resetDoNotEnable
+{
+    [picked setText:nil];
+    [self setSelectedIndex:[NSNumber numberWithInt:0]];
+    [self.picker selectRow:0 inComponent:0 animated:YES];
+}
+
 - (NSString *)epiInfoControlValue
 {
     return [self picked];

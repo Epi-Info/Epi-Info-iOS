@@ -11,10 +11,11 @@
 
 @property NSString *columnName;
 
-- (NSString *)epiInfoControlValue;
-- (void)assignValue:(NSString *)value;
-- (void)setIsEnabled:(BOOL)isEnabled;
-- (void)selfFocus;
-- (void)reset;
+-(NSString *)epiInfoControlValue;
+-(void)assignValue:(NSString *)value;
+-(void)setIsEnabled:(BOOL)isEnabled;
+-(void)selfFocus;
+-(void)reset;
+-(void)resetDoNotEnable;
 
 @end

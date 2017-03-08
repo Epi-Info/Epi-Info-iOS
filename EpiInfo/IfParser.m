@@ -194,7 +194,7 @@
                                     edv0 = [self.dictionaryOfPages objectForKey:key];
                                     if ([edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]])
                                     {
-                                        [[edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] assignValue:@""];
+                                        [[edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] resetDoNotEnable];
                                         pageAlreadyExists = YES;
                                     }
                                 }

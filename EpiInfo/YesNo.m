@@ -74,6 +74,12 @@
     [self setIsEnabled:YES];
 }
 
+- (void)resetDoNotEnable
+{
+    [picked setText:nil];
+    [picker selectRow:0 inComponent:0 animated:YES];
+}
+
 - (void)setYesNo:(NSInteger)yesNo
 {
     if (yesNo < 0 || yesNo > 1)

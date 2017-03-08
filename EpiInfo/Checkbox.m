@@ -86,6 +86,12 @@
     [self setIsEnabled:YES];
 }
 
+- (void)resetDoNotEnable
+{
+    value = NO;
+    [button setBackgroundColor:[UIColor whiteColor]];
+}
+
 - (UIButton *)myButton
 {
     return button;
