@@ -423,6 +423,8 @@
         {
             if ([self isADateString:(NSString *)leftObject] && [self isADateString:(NSString *)rightObject])
                 caseNumber = 1;
+            else if ([self isGenericPositiveOrNegative:rightObject] || [self isGenericPositiveOrNegative:leftObject])
+                caseNumber = 3;
             else
                 caseNumber = 2;
         }

@@ -4970,9 +4970,29 @@
             for (int j = 0; j < aoifs.count; j++)
             {
                 ElementPairsCheck *epc0 = [[ElementPairsCheck alloc] init];
+                NSMutableString *epc0StringValue = [NSMutableString stringWithString:[[[[aoifs objectAtIndex:j] stringByReplacingOccurrencesOfString:@"(.)" withString:@"\"\""] stringByReplacingOccurrencesOfString:@"OR" withString:@"or"] stringByReplacingOccurrencesOfString:@"AND" withString:@"and"]];
+                NSString *epc0StringValueLC = [epc0StringValue lowercaseString];
+                
+                // Replace not-all-caps end-if with END-IF
+                NSRange searchRange = NSMakeRange(0, epc0StringValueLC.length);
+                NSRange foundRange;
+                while (searchRange.location < epc0StringValueLC.length)
+                {
+                    searchRange.length = epc0StringValueLC.length - searchRange.location;
+                    foundRange = [epc0StringValueLC rangeOfString:@"end-if" options:nil range:searchRange];
+                    if (foundRange.location != NSNotFound)
+                    {
+                        [epc0StringValue replaceCharactersInRange:foundRange withString:@"END-IF"];
+                        searchRange.location = foundRange.location + foundRange.length;
+                    } else
+                    {
+                        // no more substring to find
+                        break;
+                    }
+                }
                 epc0.name = epc.name;
                 epc0.condition = epc.condition;
-                epc0.stringValue = [[[[aoifs objectAtIndex:j] stringByReplacingOccurrencesOfString:@"(.)" withString:@"\"\""] stringByReplacingOccurrencesOfString:@"OR" withString:@"or"] stringByReplacingOccurrencesOfString:@"AND" withString:@"and"];
+                epc0.stringValue = [NSString stringWithString:epc0StringValue ];
                 [ifsArray addObject:epc0];
             }
         }
@@ -5834,7 +5854,9 @@
         {
             if([ifElement.condition isEqualToString:@"before"])//check CM cond
             {
-                if (([[[ifElement.name componentsSeparatedByString:@" "] objectAtIndex:1] caseInsensitiveCompare:name] == NSOrderedSame)) //check for element match
+                if (([[[ifElement.name componentsSeparatedByString:@" "] objectAtIndex:1] caseInsensitiveCompare:name] == NSOrderedSame) ||
+                    (([[[ifElement.name componentsSeparatedByString:@" "] objectAtIndex:1] caseInsensitiveCompare:@"Page"] == NSOrderedSame) &&
+                     ([[[ifElement.name componentsSeparatedByString:@" "] objectAtIndex:2] caseInsensitiveCompare:name] == NSOrderedSame))) //check for element match
                 {
                     IfParser *ifParser = [[IfParser alloc] init];
                     NSError *err = nil;
