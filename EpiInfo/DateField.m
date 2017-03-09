@@ -50,11 +50,20 @@
 
 - (void)setText:(NSString *)text
 {
-    // First set the string value in the FieldsAndStringValues object
-    if (text != nil)
-        [[(EnterDataView *)[[self superview] superview] fieldsAndStringValues] setObject:text forKey:[self.columnName lowercaseString]];
+    // First remove midnight if necessary
+    NSString *textToUse = [NSString stringWithString:text];
+    if (textToUse != nil && textToUse.length > 3)
+    {
+        NSRange ran = NSMakeRange(text.length - 4, 4);
+        if ([[text substringWithRange:ran] isEqualToString:@"0:00"])
+            textToUse = [[text componentsSeparatedByString:@" "] objectAtIndex:0];
+    }
     
-    [super setText:text];
+    // Then set the string value in the FieldsAndStringValues object
+    if (textToUse != nil)
+        [[(EnterDataView *)[[self superview] superview] fieldsAndStringValues] setObject:textToUse forKey:[self.columnName lowercaseString]];
+    
+    [super setText:textToUse];
     
     [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
     
