@@ -510,7 +510,6 @@
     else
     {
         EnterDataView *edv = [[EnterDataView alloc] initWithFrame:self.frame AndURL:self.url AndRootViewController:self.rootViewController AndNameOfTheForm:self.nameOfTheForm AndPageToDisplay:(int)[sender tag] condArray:conditionsArray eleArray:elementListArray firstEdit:firstEdit elmAr:elmArray checkEleArr:elementsArray assignArray:assignArray ifsArray:ifsArray];
-        NSLog(@"EXECUTE");
         [edv setDictionaryOfPages:dictionaryOfPages];
 //        for (id key in edv.fieldsAndStringValues.nsmd)
 //            [self.fieldsAndStringValues setObject:[edv.fieldsAndStringValues objectForKey:key] forKey:key];
@@ -534,6 +533,7 @@
         }
         [self.rootViewController.view addSubview:edv];
         [self.rootViewController.view bringSubviewToFront:edv];
+        [edv checkElements:[NSString stringWithFormat:@"%d", (int)[sender tag]] from:@"before" page:[NSString stringWithFormat:@"%d", (int)[sender tag]]];
     }
     for (UIView *v in [self.rootViewController.view subviews])
     {
