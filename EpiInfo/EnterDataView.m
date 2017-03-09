@@ -533,7 +533,7 @@
         }
         [self.rootViewController.view addSubview:edv];
         [self.rootViewController.view bringSubviewToFront:edv];
-        [edv checkElements:[NSString stringWithFormat:@"%d", (int)[sender tag]] from:@"before" page:[NSString stringWithFormat:@"%d", (int)[sender tag]]];
+//        [edv checkElements:[NSString stringWithFormat:@"%d", (int)[sender tag]] from:@"before" page:[NSString stringWithFormat:@"%d", (int)[sender tag]]];
     }
     for (UIView *v in [self.rootViewController.view subviews])
     {
@@ -4537,6 +4537,7 @@
         }
         [(DataEntryViewController *)self.rootViewController setFooterBarToUpdate];
     }
+    [self checkElements:pageName from:@"before" page:pageName];
 }
 
 - (void)fieldBecameFirstResponder:(id)field
