@@ -4537,7 +4537,7 @@
         }
         [(DataEntryViewController *)self.rootViewController setFooterBarToUpdate];
     }
-    [self checkElements:pageName from:@"before" page:pageName];
+    [self checkElements:[NSString stringWithFormat:@"%d", pageToDisplay] from:@"before" page:[NSString stringWithFormat:@"%d", pageToDisplay]];
 }
 
 - (void)fieldBecameFirstResponder:(id)field
