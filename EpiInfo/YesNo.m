@@ -92,8 +92,21 @@
 }
 - (void)setFormFieldValue:(NSString *)formFieldValue
 {
-    if ([formFieldValue isEqualToString:@"(null)"])
+    if ([formFieldValue isEqualToString:@"(null)"] || [[formFieldValue uppercaseString] isEqualToString:@"NULL"])
+    {
+        [picker selectRow:0 inComponent:0 animated:NO];
         return;
+    }
+    else if ([[formFieldValue uppercaseString] isEqualToString:@"YES"])
+    {
+        [self setYesNo:1];
+        return;
+    }
+    else if ([[formFieldValue uppercaseString] isEqualToString:@"NO"])
+    {
+        [self setYesNo:0];
+        return;
+    }
     
     [self setYesNo:[formFieldValue integerValue]];
 }
