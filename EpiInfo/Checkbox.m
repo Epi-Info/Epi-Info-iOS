@@ -58,6 +58,12 @@
 }
 - (void)setFormFieldValue:(NSString *)formFieldValue
 {
+    if ([[formFieldValue uppercaseString] isEqualToString:@"YES"] ||
+        [[formFieldValue uppercaseString] isEqualToString:@"TRUE"])
+    {
+        [self setTrueFalse:1];
+        return;
+    }
     [self setTrueFalse:[formFieldValue integerValue]];
 }
 
