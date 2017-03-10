@@ -118,6 +118,7 @@
     BOOL alertBefore;
     
     NSMutableArray *arrayOfGroups;
+    NSMutableDictionary *dictionaryOfGroupsAndLists;
 }
 
 @property NSURL *url;
@@ -204,6 +205,7 @@
 -(void)doResignAll;
 
 -(NSArray *)arrayOfGroups;
+-(NSDictionary *)dictionaryOfGroupsAndLists;
 
 -(void)checkElements:(NSString *)name from:(NSString *)befAft page:(NSString *)newPage;
 @end

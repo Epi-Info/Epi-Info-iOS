@@ -99,6 +99,13 @@
     return nil;
 }
 
+- (NSDictionary *)dictionaryOfGroupsAndLists
+{
+    if (dictionaryOfGroupsAndLists)
+        return [NSDictionary dictionaryWithDictionary:dictionaryOfGroupsAndLists];
+    return nil;
+}
+
 - (void)setParentRecordGUID:(NSString *)prguid
 {
     parentRecordGUID = prguid;
@@ -4320,7 +4327,10 @@
                     contentSizeHeight -= 25.0;
                 if (!arrayOfGroups)
                     arrayOfGroups = [[NSMutableArray alloc] init];
+                if (!dictionaryOfGroupsAndLists)
+                    dictionaryOfGroupsAndLists = [[NSMutableDictionary alloc] init];
                 [arrayOfGroups addObject:[attributeDict objectForKey:@"Name"]];
+                [dictionaryOfGroupsAndLists setObject:[attributeDict objectForKey:@"List"] forKey:[attributeDict objectForKey:@"Name"]];
             }
             else
             {

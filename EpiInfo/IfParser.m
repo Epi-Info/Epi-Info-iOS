@@ -181,7 +181,7 @@
                     }
                     else if ([[[[statement uppercaseString] componentsSeparatedByString:@" "] objectAtIndex:0] isEqualToString:@"CLEAR"])
                     {
-                        NSArray *controlsToAlter = [statement componentsSeparatedByString:@" "];
+                        NSMutableArray *controlsToAlter = [NSMutableArray arrayWithArray:[statement componentsSeparatedByString:@" "]];
                         for (int cto = 1; cto < controlsToAlter.count; cto++)
                         {
                             BOOL pageAlreadyExists = NO;
@@ -192,12 +192,21 @@
                                 for (id key in self.dictionaryOfPages)
                                 {
                                     edv0 = [self.dictionaryOfPages objectForKey:key];
-                                    if ([edv0 arrayOfGroups])
+                                    if ([edv0 dictionaryOfGroupsAndLists])
                                     {
-                                        if ([(NSArray *)[edv0 arrayOfGroups] containsObject:[controlsToAlter objectAtIndex:cto]])
+                                        if ([(NSDictionary *)[edv0 dictionaryOfGroupsAndLists] objectForKey:[controlsToAlter objectAtIndex:cto]])
                                         {
+                                            NSArray *arrayOfFieldsInGroup = [(NSString *)[(NSDictionary *)[edv0 dictionaryOfGroupsAndLists] objectForKey:[controlsToAlter objectAtIndex:cto]] componentsSeparatedByString:@","];
+                                            for (int fig = 0; fig < arrayOfFieldsInGroup.count; fig++)
+                                            {
+                                                NSString *fieldInGroup = [arrayOfFieldsInGroup objectAtIndex:fig];
+                                                if ([edv0.dictionaryOfFields objectForKey:fieldInGroup])
+                                                {
+                                                    if (![controlsToAlter containsObject:fieldInGroup])
+                                                        [controlsToAlter addObject:fieldInGroup];
+                                                }
+                                            }
                                             pageAlreadyExists = YES;
-                                            break;
                                         }
                                     }
                                     if ([edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]])
@@ -232,7 +241,7 @@
                     else if ([[[[statement uppercaseString] componentsSeparatedByString:@" "] objectAtIndex:0] isEqualToString:@"ENABLE"] ||
                              [[[[statement uppercaseString] componentsSeparatedByString:@" "] objectAtIndex:0] isEqualToString:@"UNHIDE"])
                     {
-                        NSArray *controlsToAlter = [statement componentsSeparatedByString:@" "];
+                        NSMutableArray *controlsToAlter = [NSMutableArray arrayWithArray:[statement componentsSeparatedByString:@" "]];
                         for (int cto = 1; cto < controlsToAlter.count; cto++)
                         {
                             BOOL pageAlreadyExists = NO;
@@ -243,12 +252,21 @@
                                 for (id key in self.dictionaryOfPages)
                                 {
                                     edv0 = [self.dictionaryOfPages objectForKey:key];
-                                    if ([edv0 arrayOfGroups])
+                                    if ([edv0 dictionaryOfGroupsAndLists])
                                     {
-                                        if ([(NSArray *)[edv0 arrayOfGroups] containsObject:[controlsToAlter objectAtIndex:cto]])
+                                        if ([(NSDictionary *)[edv0 dictionaryOfGroupsAndLists] objectForKey:[controlsToAlter objectAtIndex:cto]])
                                         {
+                                            NSArray *arrayOfFieldsInGroup = [(NSString *)[(NSDictionary *)[edv0 dictionaryOfGroupsAndLists] objectForKey:[controlsToAlter objectAtIndex:cto]] componentsSeparatedByString:@","];
+                                            for (int fig = 0; fig < arrayOfFieldsInGroup.count; fig++)
+                                            {
+                                                NSString *fieldInGroup = [arrayOfFieldsInGroup objectAtIndex:fig];
+                                                if ([edv0.dictionaryOfFields objectForKey:fieldInGroup])
+                                                {
+                                                    if (![controlsToAlter containsObject:fieldInGroup])
+                                                        [controlsToAlter addObject:fieldInGroup];
+                                                }
+                                            }
                                             pageAlreadyExists = YES;
-                                            break;
                                         }
                                     }
                                     if ([edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]])
@@ -283,7 +301,7 @@
                     else if ([[[[statement uppercaseString] componentsSeparatedByString:@" "] objectAtIndex:0] isEqualToString:@"DISABLE"] ||
                              [[[[statement uppercaseString] componentsSeparatedByString:@" "] objectAtIndex:0] isEqualToString:@"HIDE"])
                     {
-                        NSArray *controlsToAlter = [statement componentsSeparatedByString:@" "];
+                        NSMutableArray *controlsToAlter = [NSMutableArray arrayWithArray:[statement componentsSeparatedByString:@" "]];
                         for (int cto = 1; cto < controlsToAlter.count; cto++)
                         {
                             BOOL pageAlreadyExists = NO;
@@ -294,12 +312,21 @@
                                 for (id key in self.dictionaryOfPages)
                                 {
                                     edv0 = [self.dictionaryOfPages objectForKey:key];
-                                    if ([edv0 arrayOfGroups])
+                                    if ([edv0 dictionaryOfGroupsAndLists])
                                     {
-                                        if ([(NSArray *)[edv0 arrayOfGroups] containsObject:[controlsToAlter objectAtIndex:cto]])
+                                        if ([(NSDictionary *)[edv0 dictionaryOfGroupsAndLists] objectForKey:[controlsToAlter objectAtIndex:cto]])
                                         {
+                                            NSArray *arrayOfFieldsInGroup = [(NSString *)[(NSDictionary *)[edv0 dictionaryOfGroupsAndLists] objectForKey:[controlsToAlter objectAtIndex:cto]] componentsSeparatedByString:@","];
+                                            for (int fig = 0; fig < arrayOfFieldsInGroup.count; fig++)
+                                            {
+                                                NSString *fieldInGroup = [arrayOfFieldsInGroup objectAtIndex:fig];
+                                                if ([edv0.dictionaryOfFields objectForKey:fieldInGroup])
+                                                {
+                                                    if (![controlsToAlter containsObject:fieldInGroup])
+                                                        [controlsToAlter addObject:fieldInGroup];
+                                                }
+                                            }
                                             pageAlreadyExists = YES;
-                                            break;
                                         }
                                     }
                                     if ([edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]])
