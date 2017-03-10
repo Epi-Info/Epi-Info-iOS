@@ -51,6 +51,8 @@
     [self replaceLinefeedCharsAfterDisables];
     [self replaceLinefeedCharsAfterEnables];
     [self replaceLinefeedCharsAfterGoTos];
+    [self replaceLinefeedCharsAfterUnhides];
+    [self replaceLinefeedCharsAfterHides];
     [self removeSpaces];
     
 }
@@ -181,6 +183,71 @@
             break;
         
         int indexOfAssign = (int)[copyOfCheck rangeOfString:@"GOTO"].location;
+        int indexOfLineFeed = (int)[[copyOfCheck substringFromIndex:indexOfAssign] rangeOfString:@"\n"].location;
+        
+        [arrayOfAssignIndexes addObject:[NSNumber numberWithInteger:indexOfAssign + addToIndex]];
+        [arrayOfLineFeedCharacters addObject:[NSNumber numberWithInteger:indexOfLineFeed + indexOfAssign + addToIndex]];
+        
+        addToIndex += indexOfLineFeed + indexOfAssign;
+        copyOfCheck = [copyOfCheck substringFromIndex:indexOfAssign + indexOfLineFeed];
+    }
+    
+    for (int i = (int)arrayOfLineFeedCharacters.count - 1; i >= 0; i--)
+    {
+        [check replaceCharactersInRange:NSMakeRange([(NSNumber *)[arrayOfLineFeedCharacters objectAtIndex:i] intValue], 1) withString:@"<LINEFEED>"];
+    }
+}
+- (void)replaceLinefeedCharsAfterHides
+{
+    NSMutableArray *arrayOfAssignIndexes = [[NSMutableArray alloc] init];
+    NSMutableArray *arrayOfLineFeedCharacters = [[NSMutableArray alloc] init];
+    
+    NSString *copyOfCheck = [NSString stringWithString:check];
+    int addToIndex = 0;
+    
+    while ([copyOfCheck length] > 0)
+    {
+        if (![[copyOfCheck uppercaseString] containsString:@"HIDE"])
+            break;
+        
+        int indexOfAssign = (int)[copyOfCheck rangeOfString:@"HIDE"].location;
+        if ([[copyOfCheck uppercaseString] containsString:@"UNHIDE"])
+        {
+            int indexOfUnhide = (int)[copyOfCheck rangeOfString:@"UNHIDE"].location;
+            if (indexOfAssign - 2 == indexOfUnhide)
+            {
+                copyOfCheck = [copyOfCheck substringFromIndex:indexOfAssign + 4];
+                continue;
+            }
+        }
+        int indexOfLineFeed = (int)[[copyOfCheck substringFromIndex:indexOfAssign] rangeOfString:@"\n"].location;
+        
+        [arrayOfAssignIndexes addObject:[NSNumber numberWithInteger:indexOfAssign + addToIndex]];
+        [arrayOfLineFeedCharacters addObject:[NSNumber numberWithInteger:indexOfLineFeed + indexOfAssign + addToIndex]];
+        
+        addToIndex += indexOfLineFeed + indexOfAssign;
+        copyOfCheck = [copyOfCheck substringFromIndex:indexOfAssign + indexOfLineFeed];
+    }
+    
+    for (int i = (int)arrayOfLineFeedCharacters.count - 1; i >= 0; i--)
+    {
+        [check replaceCharactersInRange:NSMakeRange([(NSNumber *)[arrayOfLineFeedCharacters objectAtIndex:i] intValue], 1) withString:@"<LINEFEED>"];
+    }
+}
+- (void)replaceLinefeedCharsAfterUnhides
+{
+    NSMutableArray *arrayOfAssignIndexes = [[NSMutableArray alloc] init];
+    NSMutableArray *arrayOfLineFeedCharacters = [[NSMutableArray alloc] init];
+    
+    NSString *copyOfCheck = [NSString stringWithString:check];
+    int addToIndex = 0;
+    
+    while ([copyOfCheck length] > 0)
+    {
+        if (![[copyOfCheck uppercaseString] containsString:@"UNHIDE"])
+            break;
+        
+        int indexOfAssign = (int)[copyOfCheck rangeOfString:@"UNHIDE"].location;
         int indexOfLineFeed = (int)[[copyOfCheck substringFromIndex:indexOfAssign] rangeOfString:@"\n"].location;
         
         [arrayOfAssignIndexes addObject:[NSNumber numberWithInteger:indexOfAssign + addToIndex]];
