@@ -208,4 +208,6 @@
 -(NSDictionary *)dictionaryOfGroupsAndLists;
 
 -(void)checkElements:(NSString *)name from:(NSString *)befAft page:(NSString *)newPage;
+
+-(void)restoreToViewController;
 @end

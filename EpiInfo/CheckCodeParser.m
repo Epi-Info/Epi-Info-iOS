@@ -216,6 +216,7 @@
             int indexOfUnhide = (int)[copyOfCheck rangeOfString:@"UNHIDE"].location;
             if (indexOfAssign - 2 == indexOfUnhide)
             {
+                addToIndex += indexOfAssign + 4;
                 copyOfCheck = [copyOfCheck substringFromIndex:indexOfAssign + 4];
                 continue;
             }
