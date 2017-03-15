@@ -546,6 +546,8 @@
                 if (field)
                 {
                     NSString *fieldsControlValue = [field epiInfoControlValue];
+                    if ([field isKindOfClass:[EpiInfoOptionField class]])
+                        fieldsControlValue = [NSString stringWithFormat:@"%d", [fieldsControlValue intValue] - 1];
                     if ([fieldsControlValue componentsSeparatedByString:@" "].count > 1 || [fieldsControlValue componentsSeparatedByString:@"\n"].count > 1)
                         fieldsControlValue = [NSString stringWithFormat:@"\"%@\"", [field epiInfoControlValue]];
                     if (fieldsControlValue.length == 0)
