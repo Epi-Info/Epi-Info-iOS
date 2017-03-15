@@ -2347,6 +2347,7 @@
                 
                 pageName = [NSString stringWithFormat:@"%d",pageToDisplay];
                 [[NSUserDefaults standardUserDefaults] setObject:pageName forKey:@"pageName"];
+                [[NSUserDefaults standardUserDefaults] setObject:[attributeDict objectForKey:@"Name"] forKey:@"nameOfThePage"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
                 NSLog(@"000%@",pageName);
@@ -5863,11 +5864,13 @@
         NSLog(@"%@", [ifElement name]);
         NSLog(@"%@", [ifElement stringValue]);
         NSLog(@"%@", [ifElement condition]);
+        NSString *nameOfThePage = [[NSUserDefaults standardUserDefaults] stringForKey:@"nameOfThePage"];
         if ([befAft isEqualToString:@"before"])
         {
             if([ifElement.condition isEqualToString:@"before"])//check CM cond
             {
                 if (([[[ifElement.name componentsSeparatedByString:@" "] objectAtIndex:1] caseInsensitiveCompare:name] == NSOrderedSame) ||
+                    ([name intValue] > 0 && ([[ifElement.name substringFromIndex:[[ifElement.name componentsSeparatedByString:@" "] objectAtIndex:0].length + 1] caseInsensitiveCompare:nameOfThePage] == NSOrderedSame)) ||
                     (([[[ifElement.name componentsSeparatedByString:@" "] objectAtIndex:1] caseInsensitiveCompare:@"Page"] == NSOrderedSame) &&
                      ([[[ifElement.name componentsSeparatedByString:@" "] objectAtIndex:2] caseInsensitiveCompare:name] == NSOrderedSame))) //check for element match
                 {
@@ -5899,7 +5902,10 @@
         {
             if([ifElement.condition isEqualToString:@"after"])
             {
-                if (([[[ifElement.name componentsSeparatedByString:@" "] objectAtIndex:1] caseInsensitiveCompare:name] == NSOrderedSame))
+                if (([[[ifElement.name componentsSeparatedByString:@" "] objectAtIndex:1] caseInsensitiveCompare:name] == NSOrderedSame) ||
+                    ([name intValue] > 0 && ([[ifElement.name substringFromIndex:[[ifElement.name componentsSeparatedByString:@" "] objectAtIndex:0].length + 1] caseInsensitiveCompare:nameOfThePage] == NSOrderedSame)) ||
+                    (([[[ifElement.name componentsSeparatedByString:@" "] objectAtIndex:1] caseInsensitiveCompare:@"Page"] == NSOrderedSame) &&
+                     ([[[ifElement.name componentsSeparatedByString:@" "] objectAtIndex:2] caseInsensitiveCompare:name] == NSOrderedSame))) //check for element match
                 {
                     IfParser *ifParser = [[IfParser alloc] init];
                     NSError *err = nil;

@@ -136,11 +136,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "511288410.184914"
+            timestampString = "511298973.9588"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6455"
-            endingLineNumber = "6455"
+            startingLineNumber = "6458"
+            endingLineNumber = "6458"
             landmarkName = "-disable:type:"
             landmarkType = "7">
          </BreakpointContent>
@@ -200,11 +200,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "511288410.184914"
+            timestampString = "511298973.9588"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "7160"
-            endingLineNumber = "7160"
+            startingLineNumber = "7163"
+            endingLineNumber = "7163"
             landmarkName = "-gotoFormField:tag:"
             landmarkType = "7">
          </BreakpointContent>
@@ -232,11 +232,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "511288410.184914"
+            timestampString = "511298973.9588"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5918"
-            endingLineNumber = "5918"
+            startingLineNumber = "5921"
+            endingLineNumber = "5921"
             landmarkName = "-checkElements:from:page:"
             landmarkType = "7">
          </BreakpointContent>
@@ -296,11 +296,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "511288410.184914"
+            timestampString = "511298973.9588"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6881"
-            endingLineNumber = "6881"
+            startingLineNumber = "6884"
+            endingLineNumber = "6884"
             landmarkName = "-hide:type:"
             landmarkType = "7">
          </BreakpointContent>
