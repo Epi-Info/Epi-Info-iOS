@@ -7501,7 +7501,7 @@ newStr{
         utf.layer.borderColor = [[UIColor clearColor] CGColor];
         utf.layer.cornerRadius = 5;
         utf.clipsToBounds      = YES;
-        [utf setAlpha:1.0f];
+//        [utf setAlpha:1.0f];
         
         
     }
