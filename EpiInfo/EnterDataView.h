@@ -210,4 +210,6 @@
 -(void)checkElements:(NSString *)name from:(NSString *)befAft page:(NSString *)newPage;
 
 -(void)restoreToViewController;
+
+-(void)setElementListArrayIsEnabledForElement:(NSString *)elementName andIsEnabled:(BOOL)enabled;
 @end

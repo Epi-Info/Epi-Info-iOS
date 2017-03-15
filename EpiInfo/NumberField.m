@@ -160,7 +160,9 @@
 - (void)setIsEnabled:(BOOL)isEnabled
 {
     [self setEnabled:isEnabled];
+    [self setUserInteractionEnabled:isEnabled];
     [self setAlpha:0.5 + 0.5 * (int)isEnabled];
+    [(EnterDataView *)[[self superview] superview] setElementListArrayIsEnabledForElement:self.columnName andIsEnabled:isEnabled];
 }
 
 - (void)selfFocus
@@ -194,6 +196,11 @@
 - (void)resetDoNotEnable
 {
     [self setText:nil];
+}
+
+- (void)setAlpha:(CGFloat)alpha
+{
+    [super setAlpha:alpha];
 }
 
 /*

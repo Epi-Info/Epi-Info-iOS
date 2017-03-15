@@ -511,7 +511,7 @@
         [self.rootViewController.view addSubview:[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]]];
         [self.rootViewController.view bringSubviewToFront:[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]]];
         [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] setGuidBeingUpdated:recordUIDForUpdate];
-        [self onLoadEleCheck];
+        [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] onLoadEleCheck];
         [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] checkElements:pageName from:@"before" page:pageName];
     }
     else
@@ -7529,6 +7529,19 @@ newStr{
         else if ([v isKindOfClass:[UINavigationBar class]])
         {
             [self.rootViewController.view bringSubviewToFront:v];
+        }
+    }
+}
+
+- (void)setElementListArrayIsEnabledForElement:(NSString *)elementName andIsEnabled:(BOOL)enabled
+{
+    for (int ela = 0; ela < elementListArray.count; ela++)
+    {
+        ElementsModel *em0 = (ElementsModel *)[elementListArray objectAtIndex:ela];
+        if ([em0.elementName isEqualToString:elementName])
+        {
+            em0.enable = enabled;
+            break;
         }
     }
 }

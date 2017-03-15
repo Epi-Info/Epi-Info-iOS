@@ -219,6 +219,8 @@
                                 {
                                     @try {
                                         [edv0 userSwipedToTheLeft];
+                                        if (pageTurns == 0)
+                                            [edv0 restoreToViewController];
                                         pageTurns++;
                                     } @catch (NSException *exception) {
                                         NSLog(@"Could not swipe left for some reason.");
@@ -279,6 +281,8 @@
                                 {
                                     @try {
                                         [edv0 userSwipedToTheLeft];
+                                        if (pageTurns == 0)
+                                            [edv0 restoreToViewController];
                                         pageTurns++;
                                     } @catch (NSException *exception) {
                                         NSLog(@"Could not swipe left for some reason.");
