@@ -145,7 +145,7 @@
     {
         [self.viewToAlertOfChanges didChangeValueForKey:[NSString stringWithString:[listOfValues objectAtIndex:row]]];
     }
-       [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+    [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
     
 }
 
@@ -199,6 +199,9 @@
         return;
     }
     [self setPicked:value];
+    [self setSelectedIndex:[NSNumber numberWithInt:[value intValue]]];
+    [self.picker selectRow:[value intValue] inComponent:0 animated:YES];
+    [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
 }
 
 - (void)setIsEnabled:(BOOL)isEnabled

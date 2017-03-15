@@ -174,7 +174,7 @@
                             NSString *targetField = [fasResult pop];
                             AssignStatementParser *parser = [[AssignStatementParser alloc] init];
                             PKAssembly *result = [parser parseString:assignInput error:&err];
-                            NSString *stringToAssign = [result pop];
+                            NSString *stringToAssign = [NSString stringWithFormat:@"%@", [result pop]];
                             NSLog(@"Result is %@. Target Field is %@", stringToAssign, targetField);
                             [[self.dictionaryOfFields objectForKey:targetField] assignValue:stringToAssign];
                         }
@@ -547,7 +547,11 @@
                 {
                     NSString *fieldsControlValue = [field epiInfoControlValue];
                     if ([field isKindOfClass:[EpiInfoOptionField class]])
+                    {
                         fieldsControlValue = [NSString stringWithFormat:@"%d", [fieldsControlValue intValue] - 1];
+                        if ([fieldsControlValue intValue] < 0)
+                            fieldsControlValue = @"";
+                    }
                     if ([fieldsControlValue componentsSeparatedByString:@" "].count > 1 || [fieldsControlValue componentsSeparatedByString:@"\n"].count > 1)
                         fieldsControlValue = [NSString stringWithFormat:@"\"%@\"", [field epiInfoControlValue]];
                     if (fieldsControlValue.length == 0)
