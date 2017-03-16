@@ -296,11 +296,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/AssignStatementParser.m"
-            timestampString = "511375815.40721"
+            timestampString = "511377155.066469"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "643"
-            endingLineNumber = "643"
+            startingLineNumber = "646"
+            endingLineNumber = "646"
             landmarkName = "-__syslatitudeFunction"
             landmarkType = "7">
          </BreakpointContent>

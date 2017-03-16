@@ -67,6 +67,7 @@
 @property (nonatomic, retain) NSMutableDictionary *dateValue_memo;
 @property (nonatomic, retain) NSMutableDictionary *dateLiteral_memo;
 @property (nonatomic, retain) NSMutableDictionary *sysdateExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *systimeExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *mdyExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *dmyExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *absFunction_memo;
@@ -135,6 +136,7 @@
         self.dateValue_memo = [NSMutableDictionary dictionary];
         self.dateLiteral_memo = [NSMutableDictionary dictionary];
         self.sysdateExpr_memo = [NSMutableDictionary dictionary];
+        self.systimeExpr_memo = [NSMutableDictionary dictionary];
         self.mdyExpr_memo = [NSMutableDictionary dictionary];
         self.dmyExpr_memo = [NSMutableDictionary dictionary];
         self.absFunction_memo = [NSMutableDictionary dictionary];
@@ -178,6 +180,7 @@
     [_dateValue_memo removeAllObjects];
     [_dateLiteral_memo removeAllObjects];
     [_sysdateExpr_memo removeAllObjects];
+    [_systimeExpr_memo removeAllObjects];
     [_mdyExpr_memo removeAllObjects];
     [_dmyExpr_memo removeAllObjects];
     [_absFunction_memo removeAllObjects];
@@ -677,6 +680,28 @@
     [self parseRule:@selector(__syslongitudeFunction) withMemo:_syslongitudeFunction_memo];
 }
 
+- (void)__systimeExpr {
+    
+    [self testAndThrow:(id)^{ return MATCHES_IGNORE_CASE(LS(1), @"systemtime"); }];
+    [self matchWord:YES];
+    [self execute:(id)^{
+        
+        int thishour = (int)[[NSCalendar currentCalendar] component:NSCalendarUnitHour fromDate:[NSDate date]];
+        int thisminute = (int)[[NSCalendar currentCalendar] component:NSCalendarUnitMinute fromDate:[NSDate date]];
+        int thissecond = (int)[[NSCalendar currentCalendar] component:NSCalendarUnitSecond fromDate:[NSDate date]];
+        NSString *thistime = [NSString stringWithFormat:@"%d:%d", thishour, thisminute];
+        PUSH(thistime);
+        thistime = [NSString stringWithFormat:@"%d/%d/%d", 10, 9, 2016];
+        
+    }];
+    
+    [self fireDelegateSelector:@selector(parser:didMatchSystimeExpr:)];
+}
+
+- (void)systimeExpr_ {
+    [self parseRule:@selector(__systimeExpr) withMemo:_systimeExpr_memo];
+}
+
 - (void)__sysdateExpr {
     
     [self testAndThrow:(id)^{ return MATCHES_IGNORE_CASE(LS(1), @"systemdate"); }];
@@ -975,6 +1000,8 @@
     
     if ([self speculate:^{ [self uppercaseExpression_]; }]) {
         [self uppercaseExpression_];
+    } else if ([self speculate:^{ [self systimeExpr_]; }]) {
+        [self systimeExpr_];
     } else if ([self speculate:^{ [self matchWord:NO]; }]) {
         [self matchWord:NO];
     } else if ([self speculate:^{ [self quotedString_]; }]) {
