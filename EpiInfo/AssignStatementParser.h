@@ -1,4 +1,5 @@
 #import <PEGKit/PKParser.h>
+#import <CoreLocation/CoreLocation.h>
 
 enum {
     ASSIGNSTATEMENT_TOKEN_KIND_STAR = 14,
@@ -13,7 +14,7 @@ enum {
     ASSIGNSTATEMENT_TOKEN_KIND_PERCENT,
 };
 
-@interface AssignStatementParser : PKParser
+@interface AssignStatementParser : PKParser <CLLocationManagerDelegate>
 
 @end
 
