@@ -40,6 +40,19 @@
     [self.textFieldToUpdate setText:[NSString stringWithFormat:@"%d", [selectedLegalValue intValue]]];
 }
 
+- (void)assignValue:(NSString *)value
+{
+    if ([value isEqualToString:@""] || [value isEqualToString:@"NULL"])
+    {
+        [self reset];
+        return;
+    }
+    [self setPicked:value];
+    [self setSelectedIndex:[NSNumber numberWithInt:[value intValue]]];
+    [self.picker selectRow:[value intValue] inComponent:0 animated:YES];
+    [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+}
+
 /*
  // Only override drawRect: if you perform custom drawing.
  // An empty implementation adversely affects performance during animation.

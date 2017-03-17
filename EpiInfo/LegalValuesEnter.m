@@ -199,8 +199,7 @@
         return;
     }
     [self setPicked:value];
-    [self setSelectedIndex:[NSNumber numberWithInt:[value intValue]]];
-    [self.picker selectRow:[value intValue] inComponent:0 animated:YES];
+    [self setFormFieldValue:value];
     [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
 }
 
