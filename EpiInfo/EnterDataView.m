@@ -441,6 +441,37 @@
 }
 
 // New code for separating pages
+- (void)checkcodeSwipedToTheLeft
+{
+    if ([nextPageButton isEnabled])
+    {
+        [self previousOrNextPageButtonPressed:nextPageButton];
+        
+        pageName = [[NSUserDefaults standardUserDefaults]
+                    stringForKey:@"pageName"];
+        NSLog(@"%@000000",pageName);
+        
+        
+        
+        DataEntryViewController *devc = (DataEntryViewController *)self.rootViewController;
+    }
+}
+- (void)checkcodeSwipedToTheRight
+{
+    if ([previousPageButton isEnabled])
+    {
+        [self previousOrNextPageButtonPressed:previousPageButton];
+        pageName = [[NSUserDefaults standardUserDefaults]
+                    stringForKey:@"pageName"];
+        NSLog(@"%@1111111",pageName);
+        [self performSelector:@selector(onLoadEleCheck) withObject:nil afterDelay:0.3];
+        
+        //[self onLoadEleCheck];
+        
+        
+        DataEntryViewController *devc = (DataEntryViewController *)self.rootViewController;
+    }
+}
 - (void)userSwipedToTheLeft
 {
     if ([nextPageButton isEnabled])

@@ -342,7 +342,7 @@
                                 if (edv0 && !pageAlreadyExists)
                                 {
                                     @try {
-                                        [edv0 userSwipedToTheLeft];
+                                        [edv0 checkcodeSwipedToTheLeft];
                                         if (pageTurns == 0)
                                             [edv0 restoreToViewController];
                                         pageTurns++;
@@ -360,7 +360,7 @@
                             {
                                 @try {
                                     if (edv0)
-                                        [edv0 userSwipedToTheRight];
+                                        [edv0 checkcodeSwipedToTheRight];
                                     pageTurns--;
                                 } @catch (NSException *exception) {
                                     NSLog(@"Could not swipe right for some reason.");

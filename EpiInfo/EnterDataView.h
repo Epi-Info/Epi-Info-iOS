@@ -199,6 +199,8 @@
 
 -(void)setAssignArray:(NSMutableArray *)aa;
 
+-(void)checkcodeSwipedToTheLeft;
+-(void)checkcodeSwipedToTheRight;
 -(void)userSwipedToTheLeft;
 -(void)userSwipedToTheRight;
 
