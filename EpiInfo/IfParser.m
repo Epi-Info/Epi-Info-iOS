@@ -218,7 +218,7 @@
                                 if (edv0 && !pageAlreadyExists)
                                 {
                                     @try {
-                                        [edv0 userSwipedToTheLeft];
+                                        [edv0 checkcodeSwipedToTheLeft];
                                         if (pageTurns == 0)
                                             [edv0 restoreToViewController];
                                         pageTurns++;
@@ -235,7 +235,7 @@
                             while (pageTurns > 0)
                             {
                                 if (edv0)
-                                    [edv0 userSwipedToTheRight];
+                                    [edv0 checkcodeSwipedToTheRight];
                                 pageTurns--;
                             }
                         }
@@ -280,7 +280,7 @@
                                 if (edv0 && !pageAlreadyExists)
                                 {
                                     @try {
-                                        [edv0 userSwipedToTheLeft];
+                                        [edv0 checkcodeSwipedToTheLeft];
                                         if (pageTurns == 0)
                                             [edv0 restoreToViewController];
                                         pageTurns++;
@@ -297,7 +297,7 @@
                             while (pageTurns > 0)
                             {
                                 if (edv0)
-                                    [edv0 userSwipedToTheRight];
+                                    [edv0 checkcodeSwipedToTheRight];
                                 pageTurns--;
                             }
                         }
