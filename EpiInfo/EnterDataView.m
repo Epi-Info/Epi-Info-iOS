@@ -450,10 +450,6 @@
         pageName = [[NSUserDefaults standardUserDefaults]
                     stringForKey:@"pageName"];
         NSLog(@"%@000000",pageName);
-        
-        
-        
-        DataEntryViewController *devc = (DataEntryViewController *)self.rootViewController;
     }
 }
 - (void)checkcodeSwipedToTheRight
@@ -467,9 +463,6 @@
         [self performSelector:@selector(onLoadEleCheck) withObject:nil afterDelay:0.3];
         
         //[self onLoadEleCheck];
-        
-        
-        DataEntryViewController *devc = (DataEntryViewController *)self.rootViewController;
     }
 }
 - (void)userSwipedToTheLeft
