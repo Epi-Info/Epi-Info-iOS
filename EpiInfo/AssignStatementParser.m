@@ -690,6 +690,12 @@
         int thisminute = (int)[[NSCalendar currentCalendar] component:NSCalendarUnitMinute fromDate:[NSDate date]];
         int thissecond = (int)[[NSCalendar currentCalendar] component:NSCalendarUnitSecond fromDate:[NSDate date]];
         NSString *thistime = [NSString stringWithFormat:@"%d:%d", thishour, thisminute];
+        if (thishour < 10 && thisminute < 10)
+            thistime = [NSString stringWithFormat:@"0%d:0%d", thishour, thisminute];
+        else if (thishour < 10)
+            thistime = [NSString stringWithFormat:@"0%d:%d", thishour, thisminute];
+        else if (thisminute < 10)
+            thistime = [NSString stringWithFormat:@"%d:0%d", thishour, thisminute];
         PUSH(thistime);
         thistime = [NSString stringWithFormat:@"%d/%d/%d", 10, 9, 2016];
         

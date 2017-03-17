@@ -568,6 +568,7 @@
         //NSLog(@"Condition is: %@", nsms);
         ExpressionActionParser *eParser = [[ExpressionActionParser alloc] init];
         NSError *err = nil;
+        // ExpressionActionParser BREAKPOINT goes here
         PKAssembly *eResult = [eParser parseString:nsms error:&err];
         if (eResult)
         {
