@@ -513,6 +513,8 @@
         [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] setGuidBeingUpdated:recordUIDForUpdate];
         [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] onLoadEleCheck];
         [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] checkElements:pageName from:@"before" page:pageName];
+        if ([(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] myOrangeBanner] == nil)
+            [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] setMyOrangeBanner:myOrangeBanner];
     }
     else
     {
