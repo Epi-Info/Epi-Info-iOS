@@ -4276,6 +4276,7 @@
                     /*CHECK*/
                     
                     tf.tag = tagNum;
+                    [self.dictionaryOfFields setObject:tf forKey:[attributeDict objectForKey:@"Name"]];
                 }
                 BOOL required;
                 if ([[attributeDict objectForKey:@"IsRequired"]caseInsensitiveCompare:@"true"]==NSOrderedSame)

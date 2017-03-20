@@ -189,8 +189,9 @@
                             EnterDataView *edv0;
                             while (!pageAlreadyExists)
                             {
-                                for (id key in self.dictionaryOfPages)
+                                for (int keyint = 0; keyint < self.dictionaryOfPages.count; keyint++)
                                 {
+                                    NSString *key = [NSString stringWithFormat:@"Page%d", keyint + 1];
                                     edv0 = [self.dictionaryOfPages objectForKey:key];
                                     if ([edv0 dictionaryOfGroupsAndLists])
                                     {
@@ -251,8 +252,9 @@
                             EnterDataView *edv0;
                             while (!pageAlreadyExists)
                             {
-                                for (id key in self.dictionaryOfPages)
+                                for (int keyint = 0; keyint < self.dictionaryOfPages.count; keyint++)
                                 {
+                                    NSString *key = [NSString stringWithFormat:@"Page%d", keyint + 1];
                                     edv0 = [self.dictionaryOfPages objectForKey:key];
                                     if ([edv0 dictionaryOfGroupsAndLists])
                                     {
@@ -313,8 +315,9 @@
                             EnterDataView *edv0;
                             while (!pageAlreadyExists)
                             {
-                                for (id key in self.dictionaryOfPages)
+                                for (int keyint = 0; keyint < self.dictionaryOfPages.count; keyint++)
                                 {
+                                    NSString *key = [NSString stringWithFormat:@"Page%d", keyint + 1];
                                     edv0 = [self.dictionaryOfPages objectForKey:key];
                                     if ([edv0 dictionaryOfGroupsAndLists])
                                     {
@@ -382,8 +385,9 @@
                             while (!pageAlreadyExists)
                             {
                                 EnterDataView *edv0;
-                                for (id key in self.dictionaryOfPages)
+                                for (int keyint = 0; keyint < self.dictionaryOfPages.count; keyint++)
                                 {
+                                    NSString *key = [NSString stringWithFormat:@"Page%d", keyint + 1];
                                     edv0 = [self.dictionaryOfPages objectForKey:key];
                                     if ([edv0 arrayOfGroups])
                                     {

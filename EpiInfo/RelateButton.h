@@ -46,4 +46,5 @@
 -(UIViewController *)rootViewController;
 -(void)setParentEDV:(UIView *)medv;
 -(UIView *)parentEDV;
+-(void)selfFocus;
 @end
