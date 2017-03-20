@@ -142,6 +142,8 @@
 
 @property FieldsAndStringValues *fieldsAndStringValues;
 
+@property NSString *myTextPageName;
+
 @property(strong, nonatomic) NSMutableArray *conditionsArray;
 @property(strong) NSMutableArray* dialogArray;
 @property(strong) NSMutableArray *elementListArray;
@@ -214,4 +216,6 @@
 -(void)restoreToViewController;
 
 -(void)setElementListArrayIsEnabledForElement:(NSString *)elementName andIsEnabled:(BOOL)enabled;
+
+-(void)clearButtonPressedAction;
 @end

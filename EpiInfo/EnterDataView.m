@@ -534,11 +534,15 @@
     {
         [self.rootViewController.view addSubview:[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]]];
         [self.rootViewController.view bringSubviewToFront:[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]]];
+        [[NSUserDefaults standardUserDefaults] setObject:[(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] myTextPageName] forKey:@"nameOfThePage"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] setGuidBeingUpdated:recordUIDForUpdate];
         [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] onLoadEleCheck];
         [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] checkElements:pageName from:@"before" page:pageName];
         if ([(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] myOrangeBanner] == nil)
             [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] setMyOrangeBanner:myOrangeBanner];
+        [[NSUserDefaults standardUserDefaults] setObject:[(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] myTextPageName] forKey:@"nameOfThePage"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     else
     {
@@ -2034,6 +2038,10 @@
         if (![v isKindOfClass:[UILabel class]])
             [v setEnabled:YES];
 }
+- (void)clearButtonPressedAction
+{
+    [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", 1]] clearButtonPressedAction];
+}
 - (void)clearButtonPressed
 {
     // New code for separating pages
@@ -2136,7 +2144,9 @@
     else
         [(DataEntryViewController *)self.rootViewController setUpdateExistingRecord:NO];
 
-    [self checkElements:@"1" from:@"before" page:@"1"];
+    [[NSUserDefaults standardUserDefaults] setObject:[(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", 1]] myTextPageName] forKey:@"nameOfThePage"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", 1]] checkElements:@"1" from:@"before" page:@"1"];
 }
 - (void)okButtonPressed
 {
@@ -2373,6 +2383,7 @@
                 
                 pageName = [NSString stringWithFormat:@"%d",pageToDisplay];
                 [[NSUserDefaults standardUserDefaults] setObject:pageName forKey:@"pageName"];
+                [self setMyTextPageName:[NSString stringWithString:[attributeDict objectForKey:@"Name"]]];
                 [[NSUserDefaults standardUserDefaults] setObject:[attributeDict objectForKey:@"Name"] forKey:@"nameOfThePage"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
