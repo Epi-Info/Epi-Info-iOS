@@ -33,6 +33,11 @@
             
             for (int i = (int)[arrayOfLines count] - 1; i > -1; i--)
             {
+                if ([(NSString *)[arrayOfLines objectAtIndex:i] length] < 2)
+                {
+                    [arrayOfLines removeObjectAtIndex:i];
+                    continue;
+                }
                 if ([(NSString *)[arrayOfLines objectAtIndex:i] isEqualToString:@"Before"] ||
                     [(NSString *)[arrayOfLines objectAtIndex:i] isEqualToString:@"End-Before"] ||
                     [[(NSString *)[arrayOfLines objectAtIndex:i] substringToIndex:2] isEqualToString:@"//"])
@@ -73,7 +78,7 @@
         for (int i = (int)[nonIfs count] - 1; i > -1; i--)
         {
             NSString *arrayObject = (NSString *)[nonIfs objectAtIndex:i];
-            if ([[[arrayObject substringToIndex:[arrayObject rangeOfString:@" "].location] uppercaseString] isEqualToString:@"ASSIGN"])
+            if ([[[[arrayObject uppercaseString] componentsSeparatedByString:@" "] objectAtIndex:0] isEqualToString:@"ASSIGN"])
             {
                 [unconditionalAssigns addObject:[arrayObject substringFromIndex:7]];
                 [nonIfs removeObjectAtIndex:i];

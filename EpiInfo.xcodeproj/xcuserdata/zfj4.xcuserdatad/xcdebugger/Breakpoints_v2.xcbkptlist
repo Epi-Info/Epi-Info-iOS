@@ -247,29 +247,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EpiInfo/IfParser.m"
-            timestampString = "511724971.908038"
+            filePath = "EpiInfo/RelateButton.m"
+            timestampString = "511800132.542434"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "423"
-            endingLineNumber = "423"
-            landmarkName = "-__statement"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "511733600.592761"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4596"
-            endingLineNumber = "4596"
-            landmarkName = "-populateFieldsWithRecord:"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "-selfPressed:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -70,7 +70,7 @@
         if (![[copyOfCheck uppercaseString] containsString:@"ASSIGN"])
             break;
         
-        int indexOfAssign = (int)[copyOfCheck rangeOfString:@"ASSIGN"].location;
+        int indexOfAssign = (int)[[copyOfCheck uppercaseString] rangeOfString:@"ASSIGN"].location;
         int indexOfLineFeed = (int)[[copyOfCheck substringFromIndex:indexOfAssign] rangeOfString:@"\n"].location;
         
         [arrayOfAssignIndexes addObject:[NSNumber numberWithInteger:indexOfAssign + addToIndex]];
@@ -98,7 +98,7 @@
         if (![[copyOfCheck uppercaseString] containsString:@"ENABLE"])
             break;
         
-        int indexOfAssign = (int)[copyOfCheck rangeOfString:@"ENABLE"].location;
+        int indexOfAssign = (int)[[copyOfCheck uppercaseString] rangeOfString:@"ENABLE"].location;
         int indexOfLineFeed = (int)[[copyOfCheck substringFromIndex:indexOfAssign] rangeOfString:@"\n"].location;
         
         [arrayOfAssignIndexes addObject:[NSNumber numberWithInteger:indexOfAssign + addToIndex]];
@@ -126,7 +126,7 @@
         if (![[copyOfCheck uppercaseString] containsString:@"DISABLE"])
             break;
         
-        int indexOfAssign = (int)[copyOfCheck rangeOfString:@"DISABLE"].location;
+        int indexOfAssign = (int)[[copyOfCheck uppercaseString] rangeOfString:@"DISABLE"].location;
         int indexOfLineFeed = (int)[[copyOfCheck substringFromIndex:indexOfAssign] rangeOfString:@"\n"].location;
         
         [arrayOfAssignIndexes addObject:[NSNumber numberWithInteger:indexOfAssign + addToIndex]];
@@ -154,7 +154,7 @@
         if (![[copyOfCheck uppercaseString] containsString:@"CLEAR"])
             break;
         
-        int indexOfAssign = (int)[copyOfCheck rangeOfString:@"CLEAR"].location;
+        int indexOfAssign = (int)[[copyOfCheck uppercaseString] rangeOfString:@"CLEAR"].location;
         int indexOfLineFeed = (int)[[copyOfCheck substringFromIndex:indexOfAssign] rangeOfString:@"\n"].location;
         
         [arrayOfAssignIndexes addObject:[NSNumber numberWithInteger:indexOfAssign + addToIndex]];
@@ -182,7 +182,7 @@
         if (![[copyOfCheck uppercaseString] containsString:@"GOTO"])
             break;
         
-        int indexOfAssign = (int)[copyOfCheck rangeOfString:@"GOTO"].location;
+        int indexOfAssign = (int)[[copyOfCheck uppercaseString] rangeOfString:@"GOTO"].location;
         int indexOfLineFeed = (int)[[copyOfCheck substringFromIndex:indexOfAssign] rangeOfString:@"\n"].location;
         
         [arrayOfAssignIndexes addObject:[NSNumber numberWithInteger:indexOfAssign + addToIndex]];
@@ -210,7 +210,7 @@
         if (![[copyOfCheck uppercaseString] containsString:@"HIDE"])
             break;
         
-        int indexOfAssign = (int)[copyOfCheck rangeOfString:@"HIDE"].location;
+        int indexOfAssign = (int)[[copyOfCheck uppercaseString] rangeOfString:@"HIDE"].location;
         if ([[copyOfCheck uppercaseString] containsString:@"UNHIDE"])
         {
             int indexOfUnhide = (int)[copyOfCheck rangeOfString:@"UNHIDE"].location;
@@ -248,7 +248,7 @@
         if (![[copyOfCheck uppercaseString] containsString:@"UNHIDE"])
             break;
         
-        int indexOfAssign = (int)[copyOfCheck rangeOfString:@"UNHIDE"].location;
+        int indexOfAssign = (int)[[copyOfCheck uppercaseString] rangeOfString:@"UNHIDE"].location;
         int indexOfLineFeed = (int)[[copyOfCheck substringFromIndex:indexOfAssign] rangeOfString:@"\n"].location;
         
         [arrayOfAssignIndexes addObject:[NSNumber numberWithInteger:indexOfAssign + addToIndex]];
