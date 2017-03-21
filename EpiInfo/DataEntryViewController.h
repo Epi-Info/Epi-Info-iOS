@@ -87,4 +87,5 @@
 -(void)resetPagedots;
 -(void)addNewSetOfPageDots:(EnterDataView *)newedv;
 -(void)popPageDots;
+-(void)setPageDotsPage:(int)pg;
 @end

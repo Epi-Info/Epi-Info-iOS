@@ -71,6 +71,13 @@
     pagenumber = 0;
     [(UIButton *)[arrayOfDots objectAtIndex:pagenumber] setBackgroundColor:dotFillColor];
 }
+- (void)setSpacificPage:(int)pg
+{
+    for (UIButton *uib in arrayOfDots)
+        [uib setBackgroundColor:[UIColor clearColor]];
+    pagenumber = pg;
+    [(UIButton *)[arrayOfDots objectAtIndex:pagenumber] setBackgroundColor:dotFillColor];
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

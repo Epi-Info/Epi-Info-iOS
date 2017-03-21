@@ -4587,6 +4587,15 @@
         [(DataEntryViewController *)self.rootViewController setFooterBarToUpdate];
     }
     [self checkElements:[NSString stringWithFormat:@"%d", pageToDisplay] from:@"before" page:[NSString stringWithFormat:@"%d", pageToDisplay]];
+    
+    for (id pageskey in self.dictionaryOfPages)
+    {
+        if ([[self.dictionaryOfPages objectForKey:pageskey] superview])
+        {
+            NSLog(@"");
+            [(EnterDataView *)[self.dictionaryOfPages objectForKey:pageskey] syncPageDots];
+        }
+    }
 }
 
 - (void)fieldBecameFirstResponder:(id)field
@@ -7588,6 +7597,12 @@ newStr{
             break;
         }
     }
+}
+
+- (void)syncPageDots
+{
+    NSLog(@"%d", pageToDisplay);
+    [(DataEntryViewController *)self.rootViewController setPageDotsPage:pageToDisplay - 1];
 }
 
 @end

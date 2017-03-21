@@ -2765,6 +2765,10 @@
 {
     [(PageDots *)[arrayOfPageDots lastObject] resetToFirstPage];
 }
+- (void)setPageDotsPage:(int)pg
+{
+    [(PageDots *)[arrayOfPageDots lastObject] setSpacificPage:pg];
+}
 - (void)addNewSetOfPageDots:(EnterDataView *)newedv
 {
     PageDots *pds = [[PageDots alloc] initWithNumberOfDots:(int)[(EnterDataView *)newedv pagesArray].count AndFooterFrame:footerBar.frame];

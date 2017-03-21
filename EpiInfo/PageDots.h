@@ -18,4 +18,5 @@
 -(void)advancePage;
 -(void)retreatPage;
 -(void)resetToFirstPage;
+-(void)setSpacificPage:(int)pg;
 @end
