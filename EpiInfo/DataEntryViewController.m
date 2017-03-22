@@ -1783,7 +1783,36 @@
 
 //    xmlFileText = [[[xmlFileText stringByAppendingString:@"\n</"] stringByAppendingString:@"SurveyResponses"] stringByAppendingString:@">"];
     [xmlFileText appendString:@"</SurveyResponses>"];
-//    NSLog(@"%@", xmlFileText);
+
+    // Find and remove orphan </Page> tags
+    int substringFrom = 0;
+    BOOL neverFoundOrphan = YES;
+    int locationOfSRCloseTag = (int)[xmlFileText rangeOfString:@"</SurveyResponse>"].location;
+    while (YES)
+    {
+        if (substringFrom >= [xmlFileText length])
+            break;
+        if (![[xmlFileText substringFromIndex:substringFrom] containsString:@"\n\t</Page>"])
+            break;
+        
+        int openTagIndex = (int)[[xmlFileText substringFromIndex:substringFrom] rangeOfString:@"<Page PageId"].location;
+        NSRange closeTagRange = [[xmlFileText substringFromIndex:substringFrom] rangeOfString:@"\n\t</Page>"];
+        if (closeTagRange.location < openTagIndex)
+        {
+            neverFoundOrphan = NO;
+            [xmlFileText deleteCharactersInRange:NSMakeRange(substringFrom + closeTagRange.location, closeTagRange.length)];
+            substringFrom += closeTagRange.location;
+        }
+        else
+        {
+            substringFrom += closeTagRange.location + closeTagRange.length;
+            if (neverFoundOrphan && substringFrom > locationOfSRCloseTag)
+                break;
+        }
+    }
+    // End of orphan </Page> check
+
+    //    NSLog(@"%@", xmlFileText);
     
     [xmlFileText writeToFile:tmpFile atomically:NO encoding:NSUTF8StringEncoding error:nil];
     
@@ -2247,6 +2276,35 @@
         
 //        xmlFileText = [[[xmlFileText stringByAppendingString:@"\n</"] stringByAppendingString:@"SurveyResponses"] stringByAppendingString:@">"];
         [xmlFileText appendString:@"</SurveyResponses>"];
+        
+        // Find and remove orphan </Page> tags
+        int substringFrom = 0;
+        BOOL neverFoundOrphan = YES;
+        int locationOfSRCloseTag = (int)[xmlFileText rangeOfString:@"</SurveyResponse>"].location;
+        while (YES)
+        {
+            if (substringFrom >= [xmlFileText length])
+                break;
+            if (![[xmlFileText substringFromIndex:substringFrom] containsString:@"\n\t</Page>"])
+                break;
+            
+            int openTagIndex = (int)[[xmlFileText substringFromIndex:substringFrom] rangeOfString:@"<Page PageId"].location;
+            NSRange closeTagRange = [[xmlFileText substringFromIndex:substringFrom] rangeOfString:@"\n\t</Page>"];
+            if (closeTagRange.location < openTagIndex)
+            {
+                neverFoundOrphan = NO;
+                [xmlFileText deleteCharactersInRange:NSMakeRange(substringFrom + closeTagRange.location, closeTagRange.length)];
+                substringFrom += closeTagRange.location;
+            }
+            else
+            {
+                substringFrom += closeTagRange.location + closeTagRange.length;
+                if (neverFoundOrphan && substringFrom > locationOfSRCloseTag)
+                    break;
+            }
+        }
+        // End of orphan </Page> check
+        
 //        NSLog(@"%@", xmlFileText);
         
         [xmlFileText writeToFile:tmpFile atomically:NO encoding:NSUTF8StringEncoding error:nil];
