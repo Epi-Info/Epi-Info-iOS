@@ -1549,6 +1549,11 @@
                             i++;
                             continue;
                         }
+                        BOOL isOptionField = NO;
+                        NSDictionary *nsdof = [edv.dictionaryOfFields nsmd];
+                        id controlField = [nsdof objectForKey:[columnName lowercaseString]];
+                        if ([controlField isKindOfClass:[EpiInfoOptionField class]])
+                            isOptionField = YES;
                         // Find the first page with data-containing controls
                         int firstPage = 0;
                         while ((int)[(NSMutableArray *)[edv.pagesArray objectAtIndex:firstPage] count] < 1)
@@ -1764,6 +1769,14 @@
                             [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
                             [xmlFileText appendString:columnName];
                             [xmlFileText appendString:@"\">"];
+                            if (isOptionField)
+                            {
+                                if ([stringValue isEqualToString:[NSString stringWithFormat:@"%d", [stringValue intValue]]])
+                                {
+                                    int stringValueIntValue = [stringValue intValue];
+                                    stringValue = [NSString stringWithFormat:@"%d", stringValueIntValue - 1];
+                                }
+                            }
                             [xmlFileText appendString:stringValue];
                             [xmlFileText appendString:@"</"];
                             [xmlFileText appendString:@"ResponseDetail"];
@@ -2044,6 +2057,11 @@
                                 i++;
                                 continue;
                             }
+                            BOOL isOptionField = NO;
+                            NSDictionary *nsdof = [edv.dictionaryOfFields nsmd];
+                            id controlField = [nsdof objectForKey:[columnName lowercaseString]];
+                            if ([controlField isKindOfClass:[EpiInfoOptionField class]])
+                                isOptionField = YES;
                             // Find the first page with data-containing controls
                             int firstPage = 0;
                             while ((int)[(NSMutableArray *)[edv.pagesArray objectAtIndex:firstPage] count] < 1)
@@ -2257,6 +2275,14 @@
                                 [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
                                 [xmlFileText appendString:columnName];
                                 [xmlFileText appendString:@"\">"];
+                                if (isOptionField)
+                                {
+                                    if ([stringValue isEqualToString:[NSString stringWithFormat:@"%d", [stringValue intValue]]])
+                                    {
+                                        int stringValueIntValue = [stringValue intValue];
+                                        stringValue = [NSString stringWithFormat:@"%d", stringValueIntValue - 1];
+                                    }
+                                }
                                 [xmlFileText appendString:stringValue];
                                 [xmlFileText appendString:@"</"];
                                 [xmlFileText appendString:@"ResponseDetail"];
