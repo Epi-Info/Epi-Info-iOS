@@ -56,7 +56,7 @@
                   moduleName = "EpiInfo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/EnterDataView.m"
-                  timestampString = "511986958.495289"
+                  timestampString = "511988559.661473"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "2204"
@@ -71,7 +71,7 @@
                   moduleName = "EpiInfo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/EnterDataView.m"
-                  timestampString = "511986958.497311"
+                  timestampString = "511988559.664845"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "2204"
@@ -141,22 +141,6 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "5600"
             endingLineNumber = "5600"
-            landmarkName = "-checkElements:from:page:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "511979492.359719"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5681"
-            endingLineNumber = "5681"
             landmarkName = "-checkElements:from:page:"
             landmarkType = "7">
          </BreakpointContent>

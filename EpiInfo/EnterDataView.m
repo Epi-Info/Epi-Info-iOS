@@ -4850,7 +4850,7 @@
 {
     int substringStartPosition = 0;
     int pageNumber = 1;
-    while ((int)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"<Page "].location > -1)
+    while ([[xmlText substringFromIndex:substringStartPosition] containsString:@"<Page "])
     {
         substringStartPosition += (int)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"<Page "].location;
         substringStartPosition += (int)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"PageId=\""].location + 8;
@@ -5586,7 +5586,7 @@
     for (cpm in conditionsArray)
     {
         counter++;
-        NSLog(@"counter is %d",counter);
+//        NSLog(@"counter is %d",counter);
         //        if ([cpm.page isEqualToString:newPage]) //Change to page
         // {
         if ([befAft isEqualToString:@"before"])
@@ -5830,7 +5830,7 @@
     for (am in assignArray)
     {
         counter++;
-        NSLog(@"counter is %d",counter);
+//        NSLog(@"counter is %d",counter);
         //        if ([cpm.page isEqualToString:newPage]) //Change to page
         // {
         if ([befAft isEqualToString:@"before"])
