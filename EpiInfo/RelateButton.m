@@ -106,7 +106,7 @@
         NSURL *url = [NSURL fileURLWithPath:_path];
         if (![[NSFileManager defaultManager] fileExistsAtPath:_path])
             url = [NSURL fileURLWithPath:path];
-        edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, parentEDV.frame.size.height, parentEDV.frame.size.width, parentEDV.frame.size.height) AndURL:url AndRootViewController:[(EnterDataView *)parentEDV rootViewController] AndNameOfTheForm:relatedViewName AndPageToDisplay:1];
+        edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, parentEDV.frame.size.height, parentEDV.frame.size.width, parentEDV.frame.size.height) AndURL:url AndRootViewController:[(EnterDataView *)parentEDV rootViewController] AndNameOfTheForm:relatedViewName AndPageToDisplay:1 AndParentForm:(EnterDataView *)parentEDV];
         rootViewController = [(EnterDataView *)edv rootViewController];
         
         [(DataEntryViewController *)rootViewController addNewSetOfPageDots:(EnterDataView *)edv];
@@ -137,7 +137,8 @@
         [orangeBanner addSubview:header];
         
         [(EnterDataView *)edv setPageBeingDisplayed:[NSNumber numberWithInt:1]];
-        [header setText:[NSString stringWithFormat:@"%@, page %d of %lu", [(EnterDataView *)edv formName], [(EnterDataView *)edv pageBeingDisplayed].intValue, (unsigned long)[(EnterDataView *)edv pagesArray].count]];
+        [header setText:[NSString stringWithFormat:@"%@", [(EnterDataView *)edv formName]]];
+//        [header setText:[NSString stringWithFormat:@"%@, page %d of %lu", [(EnterDataView *)edv formName], [(EnterDataView *)edv pageBeingDisplayed].intValue, (unsigned long)[(EnterDataView *)edv pagesArray].count]];
         float fontSize = 32.0;
         while ([header.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontSize]}].width > 180)
             fontSize -= 0.1;
@@ -205,6 +206,9 @@
             [edv setFrame:CGRectMake(0, 0, parentEDV.frame.size.width, parentEDV.frame.size.height)];
             [orangeBanner setFrame:[orangeBannerBackground frame]];
         } completion:^(BOOL finished){
+//            [parentEDV.superview addSubview:edv];
+//            [parentEDV.superview bringSubviewToFront:edv];
+            NSLog(@"%@", [edv superview]);
             for (id v in [rootViewController.view subviews])
             {
                 if ([v isKindOfClass:[UINavigationBar class]])

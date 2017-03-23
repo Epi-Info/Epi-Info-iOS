@@ -449,7 +449,7 @@
         
         pageName = [[NSUserDefaults standardUserDefaults]
                     stringForKey:@"pageName"];
-        NSLog(@"%@000000",pageName);
+ //       NSLog(@"%@000000",pageName);
     }
 }
 - (void)checkcodeSwipedToTheRight
@@ -459,7 +459,7 @@
         [self previousOrNextPageButtonPressed:previousPageButton];
         pageName = [[NSUserDefaults standardUserDefaults]
                     stringForKey:@"pageName"];
-        NSLog(@"%@1111111",pageName);
+//        NSLog(@"%@1111111",pageName);
         [self performSelector:@selector(onLoadEleCheck) withObject:nil afterDelay:0.3];
         
         //[self onLoadEleCheck];
@@ -473,8 +473,7 @@
 
         pageName = [[NSUserDefaults standardUserDefaults]
                     stringForKey:@"pageName"];
-        NSLog(@"%@000000",pageName);
-        
+//        NSLog(@"%@000000",pageName);
         
         
         DataEntryViewController *devc = (DataEntryViewController *)self.rootViewController;
@@ -488,7 +487,7 @@
         [self previousOrNextPageButtonPressed:previousPageButton];
         pageName = [[NSUserDefaults standardUserDefaults]
                     stringForKey:@"pageName"];
-        NSLog(@"%@1111111",pageName);
+//        NSLog(@"%@1111111",pageName);
         [self performSelector:@selector(onLoadEleCheck) withObject:nil afterDelay:0.3];
         
         //[self onLoadEleCheck];
@@ -588,8 +587,8 @@
 //                        [[NSUserDefaults standardUserDefaults] setObject:pageName forKey:@"pageName"];
 //                        [[NSUserDefaults standardUserDefaults] synchronize];
                         
-                        NSLog(@"SETSATYA %@",pageName);
-                        NSLog(@"page name is %@ checkcode",pageName);
+//                        NSLog(@"SETSATYA %@",pageName);
+//                        NSLog(@"page name is %@ checkcode",pageName);
                         
                         
                         
@@ -608,6 +607,13 @@
     }
     if (parentEnterDataView)
         [ChildFormFieldAssignments parseForAssignStatements:[self formCheckCodeString] parentForm:(EnterDataView *)parentEnterDataView childForm:self relateButtonName:relateButtonName];
+}
+
+- (id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndNameOfTheForm:(NSString *)notf AndPageToDisplay:(int)page AndParentForm:(EnterDataView *)parentForm
+{
+    [self setParentEnterDataView:parentForm];
+    self = [self initWithFrame:frame AndURL:url AndRootViewController:rvc AndNameOfTheForm:notf AndPageToDisplay:page];
+    return  self;
 }
 
 - (id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndNameOfTheForm:(NSString *)notf AndPageToDisplay:(int)page
@@ -729,10 +735,10 @@
                     stringForKey:@"pageName"];
         
         firstEdit = TRUE;
-        NSLog(@"111%@ %d",pageName,firstEdit);
+//        NSLog(@"111%@ %d",pageName,firstEdit);
         
         [self checkElements:pageName from:@"before" page:pageName];
-        NSLog(@"page name is %@ checkcode first",pageName);
+//        NSLog(@"page name is %@ checkcode first",pageName);
         
         
     }
@@ -873,11 +879,11 @@
         
         [self checkDialogs:[pageName lowercaseString] Tag:1 type:1 from:@"before" from:pageName];
         firstEdit = TRUE;
-        NSLog(@"111%@",pageName);
+//        NSLog(@"111%@",pageName);
         // for (NSString *ele in elmArray)
         //{
         [self checkElements:pageName from:@"before" page:pageName];
-        NSLog(@"page name is %@ checkcode",pageName);
+//        NSLog(@"page name is %@ checkcode",pageName);
         //}
         
         
@@ -1722,7 +1728,7 @@
     updatevisibleScreenOnly = NO;
     
     //  [self.superview addSubview:bv];
-    NSLog(@"Superview == %@", self.superview);
+//    NSLog(@"Superview == %@", self.superview);
     [self clearButtonPressed];
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [bv setFrame:CGRectMake(0, 0, self.superview.frame.size.width, self.superview.frame.size.width)];
@@ -1860,7 +1866,7 @@
     [self clearButtonPressed];
     
     //  [((EnterDataView *)[dictionaryOfPages objectForKey:@"Page1"]).superview addSubview:bv];
-    NSLog(@"Superview == %@", ((EnterDataView *)[dictionaryOfPages objectForKey:@"Page1"]).superview);
+//    NSLog(@"Superview == %@", ((EnterDataView *)[dictionaryOfPages objectForKey:@"Page1"]).superview);
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [bv setFrame:CGRectMake(0, 0, self.superview.frame.size.width, self.superview.frame.size.width)];
         [areYouSure setFrame:CGRectMake(10, 10, bv.frame.size.width - 20, 72)];
@@ -2185,7 +2191,7 @@
         }
     }
     
-    NSLog(@"------------------------- %f, %f",self.contentSize.width, self.contentSize.height - 200.0);
+//    NSLog(@"------------------------- %f, %f",self.contentSize.width, self.contentSize.height - 200.0);
     
 }
 - (void)doResignAll
@@ -2364,7 +2370,7 @@
                 if (elementsArray.count<1 || elmArray.count<1 || elementListArray.count<1)
                 {
                     [self copyToArray:eleTemArray];
-                    NSLog(@"satya IN");
+//                    NSLog(@"satya IN");
                 }
             }
         }
@@ -2373,13 +2379,13 @@
         {
             NSString *pageNo = [attributeDict objectForKey:@"ActualPageNumber"];
             int pageNumber = [pageNo intValue];
-            NSLog(@"Page %d", pageNumber);
+//            NSLog(@"Page %d", pageNumber);
             isFirstPage = (pageToDisplay == 1);
             isLastPage = YES;
             if (pageNumber == pageToDisplay)
             {
                 isCurrentPage = YES;
-                NSLog(@"PageId attribute (%d) equals pageToDisplay(%d)", pageNumber, pageToDisplay);
+ //               NSLog(@"PageId attribute (%d) equals pageToDisplay(%d)", pageNumber, pageToDisplay);
                 
                 pageName = [NSString stringWithFormat:@"%d",pageToDisplay];
                 [[NSUserDefaults standardUserDefaults] setObject:pageName forKey:@"pageName"];
@@ -2387,26 +2393,26 @@
                 [[NSUserDefaults standardUserDefaults] setObject:[attributeDict objectForKey:@"Name"] forKey:@"nameOfThePage"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
-                NSLog(@"000%@",pageName);
+//                NSLog(@"000%@",pageName);
                 
             }
             else if (pageNumber == pageToDisplay + 1)
             {
                 isCurrentPage = NO;
                 isLastPage = NO;
-                NSLog(@"PageId attribute (%d) is the next page", pageNumber);
+//                NSLog(@"PageId attribute (%d) is the next page", pageNumber);
             }
             else if (pageNumber == pageToDisplay - 1)
             {
                 isCurrentPage = NO;
-                NSLog(@"PageId attribute (%d) is the previous page", pageNumber);
+//                NSLog(@"PageId attribute (%d) is the previous page", pageNumber);
             }
             else
             {
                 isCurrentPage = NO;
                 if (pageNumber > pageToDisplay)
                     isLastPage = NO;
-                NSLog(@"PageId attribute (%d) is neither the next or the previous page", pageNumber);
+//                NSLog(@"PageId attribute (%d) is neither the next or the previous page", pageNumber);
             }
             if (isFirstPage && isCurrentPage)
                 createTableStatement = [NSString stringWithFormat:@"create table %@(GlobalRecordID text", formName];
@@ -4603,7 +4609,7 @@
     if ([field isKindOfClass:[DateField class]])
     {
         DateField *dateField = (DateField *)field;
-        NSLog(@"%@ became first responder", [dateField columnName]);
+//        NSLog(@"%@ became first responder", [dateField columnName]);
         [self checkDialogs:[dateField columnName] Tag:1 type:1 from:@"before" from:@"field"];
         [self checkElements:[dateField columnName] from:@"before" page:pageName];
     }
@@ -5909,7 +5915,7 @@
     for (ElementPairsCheck *ifElement in ifsArray)
     {
         NSLog(@"%@", [ifElement name]);
-        NSLog(@"%@", [ifElement stringValue]);
+//        NSLog(@"%@", [ifElement stringValue]);
         NSLog(@"%@", [ifElement condition]);
         NSString *nameOfThePage = [[NSUserDefaults standardUserDefaults] stringForKey:@"nameOfThePage"];
         if ([befAft isEqualToString:@"before"])

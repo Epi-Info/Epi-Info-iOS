@@ -284,7 +284,7 @@
     [check setString:@""];
     check = [myFinalAgain mutableCopy];
     //[check setString:[check lowercaseString]];
-    NSLog(@"FinalString %@",check);
+//    NSLog(@"FinalString %@",check);
     [self getPage];
     [self getField];
 }
@@ -626,7 +626,7 @@
                 }
             }
         }
-        NSLog(@"####***%lu",fieldPageArray.count);
+//        NSLog(@"####***%lu",fieldPageArray.count);
     }
     else
         fieldPageArray = allArray;

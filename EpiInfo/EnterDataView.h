@@ -177,6 +177,7 @@
 -(NSString *)formName;
 -(id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndNameOfTheForm:(NSString *)notf AndPageToDisplay:(int)page;
 -(id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndNameOfTheForm:(NSString *)notf AndPageToDisplay:(int)page;
+-(id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndNameOfTheForm:(NSString *)notf AndPageToDisplay:(int)page AndParentForm:(EnterDataView *)parentForm;
 -(void)getMyLocation;
 -(void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID;
 -(void)setPageToDisplay:(int)pageNumber;

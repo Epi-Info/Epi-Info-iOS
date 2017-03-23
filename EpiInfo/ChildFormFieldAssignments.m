@@ -28,7 +28,7 @@
             {
                 [arrayOfLines addObject:[[ccs substringToIndex:[ccs rangeOfString:@"\n"].location] stringByReplacingOccurrencesOfString:@"\t" withString:@""]];
                 ccs = [ccs substringFromIndex:[ccs rangeOfString:@"\n"].location + 1];
-                NSLog(@"%@", [arrayOfLines lastObject]);
+//                NSLog(@"%@", [arrayOfLines lastObject]);
             }
             
             for (int i = (int)[arrayOfLines count] - 1; i > -1; i--)
@@ -84,13 +84,13 @@
                 [nonIfs removeObjectAtIndex:i];
             }
         }
-        NSLog(@"nonIfs:\n%@", nonIfs);
+//        NSLog(@"nonIfs:\n%@", nonIfs);
         
         NSDictionary *buttonClickAssignments = [self buttonClickAssignmentsFromParentForm:parentForm andButtonName:relateButtonName];
-        NSLog(@"%@", buttonClickAssignments);
+//        NSLog(@"%@", buttonClickAssignments);
         
         NSDictionary *unconditionalAssignmentsDictionary = [self unconditionalAssignmentsDictionaryFromUnconditionalAssignsArray:unconditionalAssigns];
-        NSLog(@"unconditionalAssigns in child form:\n%@", unconditionalAssignmentsDictionary);
+//        NSLog(@"unconditionalAssigns in child form:\n%@", unconditionalAssignmentsDictionary);
         
        for (id key in unconditionalAssignmentsDictionary)
        {

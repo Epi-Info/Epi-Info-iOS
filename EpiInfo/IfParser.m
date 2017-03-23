@@ -216,7 +216,8 @@
                                         pageAlreadyExists = YES;
                                     }
                                 }
-                                if (edv0 && !pageAlreadyExists)
+                                // REVISIT this bit preventing page-turning by Check Code on Child Forms
+                                if (edv0 && !pageAlreadyExists && [edv0 parentEnterDataView] == nil)
                                 {
                                     @try {
                                         [edv0 checkcodeSwipedToTheLeft];
@@ -230,7 +231,8 @@
                                         //
                                     }
                                 }
-                                if (!edv0)
+                                // REVISIT this bit preventing page-turning by Check Code on Child Forms
+                                if (!edv0 || [edv0 parentEnterDataView] != nil)
                                     break;
                             }
                             while (pageTurns > 0)
@@ -279,7 +281,8 @@
                                         pageAlreadyExists = YES;
                                     }
                                 }
-                                if (edv0 && !pageAlreadyExists)
+                                // REVISIT this bit preventing page-turning by Check Code on Child Forms
+                                if (edv0 && !pageAlreadyExists && [edv0 parentEnterDataView] == nil)
                                 {
                                     @try {
                                         [edv0 checkcodeSwipedToTheLeft];
@@ -293,7 +296,8 @@
                                         //
                                     }
                                 }
-                                if (!edv0)
+                                // REVISIT this bit preventing page-turning by Check Code on Child Forms
+                                if (!edv0 || [edv0 parentEnterDataView] != nil)
                                     break;
                             }
                             while (pageTurns > 0)
@@ -342,7 +346,8 @@
                                         pageAlreadyExists = YES;
                                     }
                                 }
-                                if (edv0 && !pageAlreadyExists)
+                                // REVISIT this bit preventing page-turning by Check Code on Child Forms
+                                if (edv0 && !pageAlreadyExists && [edv0 parentEnterDataView] == nil)
                                 {
                                     @try {
                                         [edv0 checkcodeSwipedToTheLeft];
@@ -356,14 +361,22 @@
                                         //
                                     }
                                 }
-                                if (!edv0)
+                                // REVISIT this bit preventing page-turning by Check Code on Child Forms
+                                if (!edv0 || [edv0 parentEnterDataView] != nil)
                                     break;
                             }
                             while (pageTurns > 0)
                             {
+                                // REVISIT consider implementing this for back page turns
                                 @try {
                                     if (edv0)
+                                    {
                                         [edv0 checkcodeSwipedToTheRight];
+                                        int newEDV0 = [[[NSUserDefaults standardUserDefaults] objectForKey:@"pageName"] intValue] - 1;
+                                        NSLog(@"%d", newEDV0);
+                                        edv0 = [edv0.dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", newEDV0]];
+                                        [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d", newEDV0] forKey:@"pageName"];
+                                    }
                                     pageTurns--;
                                 } @catch (NSException *exception) {
                                     NSLog(@"Could not swipe right for some reason.");
