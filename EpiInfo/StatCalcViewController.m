@@ -318,27 +318,45 @@
             
             if ([[UIScreen mainScreen] scale] > 1.0)
             {
-                [self.button1 setBackgroundImage:[UIImage imageNamed:@"2x2.png"] forState:UIControlStateNormal];
-                [self.button2 setBackgroundImage:[UIImage imageNamed:@"PMCC.png"] forState:UIControlStateNormal];
-                [self.button3 setBackgroundImage:[UIImage imageNamed:@"ChiSquare.png"] forState:UIControlStateNormal];
-                [self.button4 setBackgroundImage:[UIImage imageNamed:@"Poisson.png"] forState:UIControlStateNormal];
-                [self.button5 setBackgroundImage:[UIImage imageNamed:@"Binomial.png"] forState:UIControlStateNormal];
-                [self.button8 setBackgroundImage:[UIImage imageNamed:@"PopulationSS.png"] forState:UIControlStateNormal];
-                [self.button7 setBackgroundImage:[UIImage imageNamed:@"Cohort.png"] forState:UIControlStateNormal];
-                [self.button6 setBackgroundImage:[UIImage imageNamed:@"CaseControl.png"] forState:UIControlStateNormal];
-                [self.button10 setBackgroundImage:[UIImage imageNamed:@"GrowthButton.png"] forState:UIControlStateNormal];
+//                [self.button1 setBackgroundImage:[UIImage imageNamed:@"2x2_icon.png"] forState:UIControlStateNormal];
+//                [self.button2 setBackgroundImage:[UIImage imageNamed:@"PMCC.png"] forState:UIControlStateNormal];
+//                [self.button3 setBackgroundImage:[UIImage imageNamed:@"ChiSquare.png"] forState:UIControlStateNormal];
+//                [self.button4 setBackgroundImage:[UIImage imageNamed:@"Poisson.png"] forState:UIControlStateNormal];
+//                [self.button5 setBackgroundImage:[UIImage imageNamed:@"Binomial.png"] forState:UIControlStateNormal];
+//                [self.button8 setBackgroundImage:[UIImage imageNamed:@"PopulationSS.png"] forState:UIControlStateNormal];
+//                [self.button7 setBackgroundImage:[UIImage imageNamed:@"Cohort.png"] forState:UIControlStateNormal];
+//                [self.button6 setBackgroundImage:[UIImage imageNamed:@"CaseControl.png"] forState:UIControlStateNormal];
+//                [self.button10 setBackgroundImage:[UIImage imageNamed:@"GrowthButton.png"] forState:UIControlStateNormal];
+                [self.button1 setBackgroundImage:[UIImage imageNamed:@"2x2_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button2 setBackgroundImage:[UIImage imageNamed:@"matched_pair_case_control_6+.png"] forState:UIControlStateNormal];
+                [self.button3 setBackgroundImage:[UIImage imageNamed:@"chi_squared_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button4 setBackgroundImage:[UIImage imageNamed:@"poisson_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button5 setBackgroundImage:[UIImage imageNamed:@"binomial_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button8 setBackgroundImage:[UIImage imageNamed:@"population_survey_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button7 setBackgroundImage:[UIImage imageNamed:@"cohort_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button6 setBackgroundImage:[UIImage imageNamed:@"case_control_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button10 setBackgroundImage:[UIImage imageNamed:@"growth_percentiles_icon_6+.png"] forState:UIControlStateNormal];
             }
             else
             {
-                [self.button1 setBackgroundImage:[UIImage imageNamed:@"2x2NR.png"] forState:UIControlStateNormal];
-                [self.button2 setBackgroundImage:[UIImage imageNamed:@"PMCCNR.png"] forState:UIControlStateNormal];
-                [self.button3 setBackgroundImage:[UIImage imageNamed:@"ChiSquareNR.png"] forState:UIControlStateNormal];
-                [self.button4 setBackgroundImage:[UIImage imageNamed:@"PoissonNR.png"] forState:UIControlStateNormal];
-                [self.button5 setBackgroundImage:[UIImage imageNamed:@"BinomialNR.png"] forState:UIControlStateNormal];
-                [self.button8 setBackgroundImage:[UIImage imageNamed:@"PopulationSSNR.png"] forState:UIControlStateNormal];
-                [self.button7 setBackgroundImage:[UIImage imageNamed:@"CohortNR.png"] forState:UIControlStateNormal];
-                [self.button6 setBackgroundImage:[UIImage imageNamed:@"CaseControlNR.png"] forState:UIControlStateNormal];
-                [self.button10 setBackgroundImage:[UIImage imageNamed:@"GrowthButtonNR.png"] forState:UIControlStateNormal];
+//                [self.button1 setBackgroundImage:[UIImage imageNamed:@"2x2NR.png"] forState:UIControlStateNormal];
+//                [self.button2 setBackgroundImage:[UIImage imageNamed:@"PMCCNR.png"] forState:UIControlStateNormal];
+//                [self.button3 setBackgroundImage:[UIImage imageNamed:@"ChiSquareNR.png"] forState:UIControlStateNormal];
+//                [self.button4 setBackgroundImage:[UIImage imageNamed:@"PoissonNR.png"] forState:UIControlStateNormal];
+//                [self.button5 setBackgroundImage:[UIImage imageNamed:@"BinomialNR.png"] forState:UIControlStateNormal];
+//                [self.button8 setBackgroundImage:[UIImage imageNamed:@"PopulationSSNR.png"] forState:UIControlStateNormal];
+//                [self.button7 setBackgroundImage:[UIImage imageNamed:@"CohortNR.png"] forState:UIControlStateNormal];
+//                [self.button6 setBackgroundImage:[UIImage imageNamed:@"CaseControlNR.png"] forState:UIControlStateNormal];
+//                [self.button10 setBackgroundImage:[UIImage imageNamed:@"GrowthButtonNR.png"] forState:UIControlStateNormal];
+                [self.button1 setBackgroundImage:[UIImage imageNamed:@"2x2_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button2 setBackgroundImage:[UIImage imageNamed:@"matched_pair_case_control_6+.png"] forState:UIControlStateNormal];
+                [self.button3 setBackgroundImage:[UIImage imageNamed:@"chi_squared_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button4 setBackgroundImage:[UIImage imageNamed:@"poisson_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button5 setBackgroundImage:[UIImage imageNamed:@"binomial_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button8 setBackgroundImage:[UIImage imageNamed:@"population_survey_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button7 setBackgroundImage:[UIImage imageNamed:@"cohort_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button6 setBackgroundImage:[UIImage imageNamed:@"case_control_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button10 setBackgroundImage:[UIImage imageNamed:@"growth_percentiles_icon_6+.png"] forState:UIControlStateNormal];
             }
             
             [self.button1 setClipsToBounds:YES];
@@ -661,28 +679,28 @@
             
             if ([[UIScreen mainScreen] scale] > 1.0)
             {
-                [self.button1 setBackgroundImage:[UIImage imageNamed:@"2x2.png"] forState:UIControlStateNormal];
-                [self.button2 setBackgroundImage:[UIImage imageNamed:@"PMCC.png"] forState:UIControlStateNormal];
+                [self.button1 setBackgroundImage:[UIImage imageNamed:@"2x2_icon.png"] forState:UIControlStateNormal];
+                [self.button2 setBackgroundImage:[UIImage imageNamed:@"matched_pair_case_control.png"] forState:UIControlStateNormal];
                 [self.button3 setBackgroundImage:[UIImage imageNamed:@"Power.png"] forState:UIControlStateNormal];
-                [self.button4 setBackgroundImage:[UIImage imageNamed:@"ChiSquare.png"] forState:UIControlStateNormal];
-                [self.button5 setBackgroundImage:[UIImage imageNamed:@"Poisson.png"] forState:UIControlStateNormal];
-                [self.button6 setBackgroundImage:[UIImage imageNamed:@"Binomial.png"] forState:UIControlStateNormal];
-                [self.button7 setBackgroundImage:[UIImage imageNamed:@"PopulationSS.png"] forState:UIControlStateNormal];
-                [self.button8 setBackgroundImage:[UIImage imageNamed:@"Cohort.png"] forState:UIControlStateNormal];
-                [self.button9 setBackgroundImage:[UIImage imageNamed:@"CaseControl.png"] forState:UIControlStateNormal];
-                [self.button10 setBackgroundImage:[UIImage imageNamed:@"GrowthButton.png"] forState:UIControlStateNormal];
+                [self.button4 setBackgroundImage:[UIImage imageNamed:@"chi_squared_icon.png"] forState:UIControlStateNormal];
+                [self.button5 setBackgroundImage:[UIImage imageNamed:@"poisson_icon.png"] forState:UIControlStateNormal];
+                [self.button6 setBackgroundImage:[UIImage imageNamed:@"binomial_icon.png"] forState:UIControlStateNormal];
+                [self.button7 setBackgroundImage:[UIImage imageNamed:@"population_survey_icon.png"] forState:UIControlStateNormal];
+                [self.button8 setBackgroundImage:[UIImage imageNamed:@"cohort_icon.png"] forState:UIControlStateNormal];
+                [self.button9 setBackgroundImage:[UIImage imageNamed:@"case_control_icon.png"] forState:UIControlStateNormal];
+                [self.button10 setBackgroundImage:[UIImage imageNamed:@"growth_percentiles_icon.png"] forState:UIControlStateNormal];
             }
             else
             {
-                [self.button1 setBackgroundImage:[UIImage imageNamed:@"2x2NR.png"] forState:UIControlStateNormal];
-                [self.button2 setBackgroundImage:[UIImage imageNamed:@"PMCCNR.png"] forState:UIControlStateNormal];
+                [self.button1 setBackgroundImage:[UIImage imageNamed:@"2x2_icon.png"] forState:UIControlStateNormal];
+                [self.button2 setBackgroundImage:[UIImage imageNamed:@"matched_pair_case_control.png"] forState:UIControlStateNormal];
                 [self.button3 setBackgroundImage:[UIImage imageNamed:@"Power.png"] forState:UIControlStateNormal];
-                [self.button4 setBackgroundImage:[UIImage imageNamed:@"ChiSquareNR.png"] forState:UIControlStateNormal];
-                [self.button5 setBackgroundImage:[UIImage imageNamed:@"PoissonNR.png"] forState:UIControlStateNormal];
-                [self.button6 setBackgroundImage:[UIImage imageNamed:@"BinomialNR.png"] forState:UIControlStateNormal];
-                [self.button7 setBackgroundImage:[UIImage imageNamed:@"PopulationSSNR.png"] forState:UIControlStateNormal];
-                [self.button8 setBackgroundImage:[UIImage imageNamed:@"CohortNR.png"] forState:UIControlStateNormal];
-                [self.button9 setBackgroundImage:[UIImage imageNamed:@"CaseControlNR.png"] forState:UIControlStateNormal];
+                [self.button4 setBackgroundImage:[UIImage imageNamed:@"chi_squared_icon.png"] forState:UIControlStateNormal];
+                [self.button5 setBackgroundImage:[UIImage imageNamed:@"poisson_icon.png"] forState:UIControlStateNormal];
+                [self.button6 setBackgroundImage:[UIImage imageNamed:@"binomial_icon.png"] forState:UIControlStateNormal];
+                [self.button7 setBackgroundImage:[UIImage imageNamed:@"population_survey_icon.png"] forState:UIControlStateNormal];
+                [self.button8 setBackgroundImage:[UIImage imageNamed:@"cohort_icon.png"] forState:UIControlStateNormal];
+                [self.button9 setBackgroundImage:[UIImage imageNamed:@"case_control_icon.png"] forState:UIControlStateNormal];
                 [self.button10 setBackgroundImage:[UIImage imageNamed:@"GrowthButtonNR.png"] forState:UIControlStateNormal];
             }
             

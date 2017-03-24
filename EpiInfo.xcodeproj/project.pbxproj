@@ -304,6 +304,24 @@
 		92BA2E1718AA6B0200E2CC33 /* MSAzureBluePhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BA2E1418AA6B0200E2CC33 /* MSAzureBluePhone.png */; };
 		92BA7F9718C773E400841104 /* PackageAndEmailDataButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BA7F9518C773E400841104 /* PackageAndEmailDataButton.png */; };
 		92BA7F9818C773E400841104 /* UploadDataToCloudButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BA7F9618C773E400841104 /* UploadDataToCloudButton.png */; };
+		92C2BC4D1E857E880034F85B /* 2x2_icon_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC3B1E857E880034F85B /* 2x2_icon_6+.png */; };
+		92C2BC4E1E857E880034F85B /* 2x2_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC3C1E857E880034F85B /* 2x2_icon.png */; };
+		92C2BC4F1E857E880034F85B /* binomial_icon_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC3D1E857E880034F85B /* binomial_icon_6+.png */; };
+		92C2BC501E857E880034F85B /* binomial_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC3E1E857E880034F85B /* binomial_icon.png */; };
+		92C2BC511E857E880034F85B /* case_control_icon_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC3F1E857E880034F85B /* case_control_icon_6+.png */; };
+		92C2BC521E857E880034F85B /* case_control_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC401E857E880034F85B /* case_control_icon.png */; };
+		92C2BC531E857E880034F85B /* chi_squared_icon_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC411E857E880034F85B /* chi_squared_icon_6+.png */; };
+		92C2BC541E857E880034F85B /* chi_squared_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC421E857E880034F85B /* chi_squared_icon.png */; };
+		92C2BC551E857E880034F85B /* cohort_icon_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC431E857E880034F85B /* cohort_icon_6+.png */; };
+		92C2BC561E857E880034F85B /* cohort_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC441E857E880034F85B /* cohort_icon.png */; };
+		92C2BC571E857E880034F85B /* growth_percentiles_icon_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC451E857E880034F85B /* growth_percentiles_icon_6+.png */; };
+		92C2BC581E857E880034F85B /* growth_percentiles_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC461E857E880034F85B /* growth_percentiles_icon.png */; };
+		92C2BC591E857E880034F85B /* matched_pair_case_control_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC471E857E880034F85B /* matched_pair_case_control_6+.png */; };
+		92C2BC5A1E857E880034F85B /* matched_pair_case_control.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC481E857E880034F85B /* matched_pair_case_control.png */; };
+		92C2BC5B1E857E880034F85B /* poisson_icon_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC491E857E880034F85B /* poisson_icon_6+.png */; };
+		92C2BC5C1E857E880034F85B /* poisson_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC4A1E857E880034F85B /* poisson_icon.png */; };
+		92C2BC5D1E857E880034F85B /* population_survey_icon_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC4B1E857E880034F85B /* population_survey_icon_6+.png */; };
+		92C2BC5E1E857E880034F85B /* population_survey_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC4C1E857E880034F85B /* population_survey_icon.png */; };
 		92C419D91921595000FA46EA /* DeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C419D81921595000FA46EA /* DeleteButton.png */; };
 		92D30F5B1899726100CEBCAE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92D30F5A1899726100CEBCAE /* CoreLocation.framework */; };
 		92D43A471992A5BD00B24712 /* ConfirmDeleteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D43A461992A5BD00B24712 /* ConfirmDeleteButton.m */; };
@@ -809,6 +827,24 @@
 		92BA2E1418AA6B0200E2CC33 /* MSAzureBluePhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MSAzureBluePhone.png; sourceTree = "<group>"; };
 		92BA7F9518C773E400841104 /* PackageAndEmailDataButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PackageAndEmailDataButton.png; sourceTree = "<group>"; };
 		92BA7F9618C773E400841104 /* UploadDataToCloudButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UploadDataToCloudButton.png; sourceTree = "<group>"; };
+		92C2BC3B1E857E880034F85B /* 2x2_icon_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2x2_icon_6+.png"; sourceTree = "<group>"; };
+		92C2BC3C1E857E880034F85B /* 2x2_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2x2_icon.png; sourceTree = "<group>"; };
+		92C2BC3D1E857E880034F85B /* binomial_icon_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "binomial_icon_6+.png"; sourceTree = "<group>"; };
+		92C2BC3E1E857E880034F85B /* binomial_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = binomial_icon.png; sourceTree = "<group>"; };
+		92C2BC3F1E857E880034F85B /* case_control_icon_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_control_icon_6+.png"; sourceTree = "<group>"; };
+		92C2BC401E857E880034F85B /* case_control_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = case_control_icon.png; sourceTree = "<group>"; };
+		92C2BC411E857E880034F85B /* chi_squared_icon_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chi_squared_icon_6+.png"; sourceTree = "<group>"; };
+		92C2BC421E857E880034F85B /* chi_squared_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chi_squared_icon.png; sourceTree = "<group>"; };
+		92C2BC431E857E880034F85B /* cohort_icon_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cohort_icon_6+.png"; sourceTree = "<group>"; };
+		92C2BC441E857E880034F85B /* cohort_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cohort_icon.png; sourceTree = "<group>"; };
+		92C2BC451E857E880034F85B /* growth_percentiles_icon_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "growth_percentiles_icon_6+.png"; sourceTree = "<group>"; };
+		92C2BC461E857E880034F85B /* growth_percentiles_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = growth_percentiles_icon.png; sourceTree = "<group>"; };
+		92C2BC471E857E880034F85B /* matched_pair_case_control_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "matched_pair_case_control_6+.png"; sourceTree = "<group>"; };
+		92C2BC481E857E880034F85B /* matched_pair_case_control.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = matched_pair_case_control.png; sourceTree = "<group>"; };
+		92C2BC491E857E880034F85B /* poisson_icon_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "poisson_icon_6+.png"; sourceTree = "<group>"; };
+		92C2BC4A1E857E880034F85B /* poisson_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = poisson_icon.png; sourceTree = "<group>"; };
+		92C2BC4B1E857E880034F85B /* population_survey_icon_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "population_survey_icon_6+.png"; sourceTree = "<group>"; };
+		92C2BC4C1E857E880034F85B /* population_survey_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = population_survey_icon.png; sourceTree = "<group>"; };
 		92C419D81921595000FA46EA /* DeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeleteButton.png; sourceTree = "<group>"; };
 		92D30F5A1899726100CEBCAE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		92D43A451992A5BD00B24712 /* ConfirmDeleteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmDeleteButton.h; sourceTree = "<group>"; };
@@ -1013,6 +1049,24 @@
 				9222279F19BA14E0002CD855 /* Icon Images */,
 				925C894B19535A8900F3DCE7 /* Growth Data */,
 				92D4BB60184F77BD00B2D70C /* Button Images */,
+				92C2BC3B1E857E880034F85B /* 2x2_icon_6+.png */,
+				92C2BC3C1E857E880034F85B /* 2x2_icon.png */,
+				92C2BC3D1E857E880034F85B /* binomial_icon_6+.png */,
+				92C2BC3E1E857E880034F85B /* binomial_icon.png */,
+				92C2BC3F1E857E880034F85B /* case_control_icon_6+.png */,
+				92C2BC401E857E880034F85B /* case_control_icon.png */,
+				92C2BC411E857E880034F85B /* chi_squared_icon_6+.png */,
+				92C2BC421E857E880034F85B /* chi_squared_icon.png */,
+				92C2BC431E857E880034F85B /* cohort_icon_6+.png */,
+				92C2BC441E857E880034F85B /* cohort_icon.png */,
+				92C2BC451E857E880034F85B /* growth_percentiles_icon_6+.png */,
+				92C2BC461E857E880034F85B /* growth_percentiles_icon.png */,
+				92C2BC471E857E880034F85B /* matched_pair_case_control_6+.png */,
+				92C2BC481E857E880034F85B /* matched_pair_case_control.png */,
+				92C2BC491E857E880034F85B /* poisson_icon_6+.png */,
+				92C2BC4A1E857E880034F85B /* poisson_icon.png */,
+				92C2BC4B1E857E880034F85B /* population_survey_icon_6+.png */,
+				92C2BC4C1E857E880034F85B /* population_survey_icon.png */,
 				92130CFA1CE0FB62001040D6 /* epi_info_logo_full.png */,
 				92130CFB1CE0FB62001040D6 /* epi_info_logo_full_6+.png */,
 				9295FFD61CEE07B00022B75C /* CohortBN.png */,
@@ -1725,14 +1779,17 @@
 				92095BE51835686200B7A0ED /* Default-1024h@2x.png in Resources */,
 				926F550E1AC5E01700790628 /* Simulations4.png in Resources */,
 				9208F82318624D170022C6FB /* OpenButton.png in Resources */,
+				92C2BC5D1E857E880034F85B /* population_survey_icon_6+.png in Resources */,
 				92095BDA1835645E00B7A0ED /* SpotlightNR.png in Resources */,
 				926C9D5A1A7AB3EC004A6ADD /* SimulationButtonNR.png in Resources */,
+				92C2BC511E857E880034F85B /* case_control_icon_6+.png in Resources */,
 				92FD4077182D33AD004B4729 /* 2x2NR.png in Resources */,
 				92BA7F9718C773E400841104 /* PackageAndEmailDataButton.png in Resources */,
 				4AFD8534161F137B00FFBA65 /* InfoPlist.strings in Resources */,
 				9295FFF91CEE07B00022B75C /* 2x2BN.png in Resources */,
 				922227BA19BA1E20002CD855 /* iPad-Portrait@2x.png in Resources */,
 				9295FFCF1CEB8F4B0022B75C /* ArrowFull.png in Resources */,
+				92C2BC4E1E857E880034F85B /* 2x2_icon.png in Resources */,
 				92D43A491992C61700B24712 /* RoundDeleteButton60.png in Resources */,
 				92130CFD1CE0FB62001040D6 /* epi_info_logo_full_6+.png in Resources */,
 				92AED73F186E09D5004A4DB9 /* XButton.png in Resources */,
@@ -1752,6 +1809,7 @@
 				92F520F11CD3BFAC0058F352 /* icon-180.png in Resources */,
 				92B258291820376A008D88FC /* PopulationStudy.png in Resources */,
 				924004E0182A942600ED0CE8 /* FadeDownS.png in Resources */,
+				92C2BC501E857E880034F85B /* binomial_icon.png in Resources */,
 				68D769F116A9DDF900D831EB /* 2x2BK.png in Resources */,
 				9265FF931CB5939E003AD6E0 /* ClearButtonBlue.png in Resources */,
 				927BF34C1E0D713D00FA07CE /* QuestionMarkButtonForTutorial.png in Resources */,
@@ -1761,6 +1819,7 @@
 				922227B419BA1DCF002CD855 /* iPhone4Launch.png in Resources */,
 				92130CF91CE0F6E7001040D6 /* CalculatorButton.png in Resources */,
 				926817841AA8C54E00935BE9 /* SimulateCohort.png in Resources */,
+				92C2BC591E857E880034F85B /* matched_pair_case_control_6+.png in Resources */,
 				92F520EC1CD3BFAC0058F352 /* icon-76.png in Resources */,
 				9295FFE91CEE07B00022B75C /* UnmatchN.png in Resources */,
 				9295FFD11CEB8F4B0022B75C /* ArrowRight.png in Resources */,
@@ -1787,8 +1846,10 @@
 				92B2582A1820376A008D88FC /* UnmatchedCaseControl.png in Resources */,
 				926DFB3F1832772800FACCD2 /* CohortNR.png in Resources */,
 				68D769F716A9DDF900D831EB /* SC.png in Resources */,
+				92C2BC4D1E857E880034F85B /* 2x2_icon_6+.png in Resources */,
 				927BF34D1E0D713D00FA07CE /* QuestionMarkBoldButton.png in Resources */,
 				92130D0E1CE5112E001040D6 /* iPadBackgroundWhite.png in Resources */,
+				92C2BC5C1E857E880034F85B /* poisson_icon.png in Resources */,
 				92AED741186E0CF9004A4DB9 /* StAndrewXButtonWhite.png in Resources */,
 				9296747C19E5CC3B0040CB9D /* VHF.png in Resources */,
 				68D769F816A9DDF900D831EB /* button2.png in Resources */,
@@ -1797,6 +1858,7 @@
 				9240E95E195481DA006345FE /* hcageinf.csv in Resources */,
 				9273F95918C8E08E00815573 /* PackageForiTunesButton.png in Resources */,
 				92E9801618A538C30011CC8B /* MSAzure.png in Resources */,
+				92C2BC551E857E880034F85B /* cohort_icon_6+.png in Resources */,
 				9248261D19CB40E300A0C1DD /* Images.xcassets in Resources */,
 				68D769FB16A9DDF900D831EB /* back.png in Resources */,
 				9295FFF41CEE07B00022B75C /* 2x2Summary-2N.png in Resources */,
@@ -1811,9 +1873,11 @@
 				68D769FE16A9DDF900D831EB /* PopB.png in Resources */,
 				92E9801718A538C30011CC8B /* MSAzureNR.png in Resources */,
 				926C9D591A7AB3EC004A6ADD /* SimulationButton.png in Resources */,
+				92C2BC531E857E880034F85B /* chi_squared_icon_6+.png in Resources */,
 				921ED3201C7F7462004C6091 /* PlainPurpleButton.png in Resources */,
 				9295FFD41CECEAB90022B75C /* Comma.png in Resources */,
 				9265FF941CB5939E003AD6E0 /* SubmitButtonBlue.png in Resources */,
+				92C2BC541E857E880034F85B /* chi_squared_icon.png in Resources */,
 				92A192511C690DD40095E69F /* PreviousPage.png in Resources */,
 				925ACD38191D60480067CE7A /* UpdateButton.png in Resources */,
 				68D769FF16A9DDF900D831EB /* MPB.png in Resources */,
@@ -1823,9 +1887,11 @@
 				9295FFEE1CEE07B00022B75C /* PoissonBN.png in Resources */,
 				92FD4078182D33AD004B4729 /* Binomial.png in Resources */,
 				92F520EB1CD3BFAC0058F352 /* icon-58.png in Resources */,
+				92C2BC571E857E880034F85B /* growth_percentiles_icon_6+.png in Resources */,
 				68D76A0016A9DDF900D831EB /* textured-Bar.png in Resources */,
 				92F520E91CD3BFAC0058F352 /* icon-29.png in Resources */,
 				926DFB411832772800FACCD2 /* PopulationSSNR.png in Resources */,
+				92C2BC581E857E880034F85B /* growth_percentiles_icon.png in Resources */,
 				922227B619BA1DF4002CD855 /* iPhone5Launch.png in Resources */,
 				92FD4081182D3876004B4729 /* FadeDown7.png in Resources */,
 				92095BE1183567B400B7A0ED /* Default-568h@2x.png in Resources */,
@@ -1836,6 +1902,7 @@
 				926DFB4818328A1B00FACCD2 /* iPhone4Background.png in Resources */,
 				9295FFF71CEE07B00022B75C /* 2x2B1N.png in Resources */,
 				9295FFF01CEE07B00022B75C /* ChiTN.png in Resources */,
+				92C2BC561E857E880034F85B /* cohort_icon.png in Resources */,
 				9295FFF81CEE07B00022B75C /* 2x2B0N.png in Resources */,
 				92130CF51CE0F69B001040D6 /* AnalysisButton.png in Resources */,
 				92130D0F1CE5112E001040D6 /* iPhone4BackgroundWhite.png in Resources */,
@@ -1851,7 +1918,9 @@
 				9265FF981CB8314E003AD6E0 /* RecallButtonBlue.png in Resources */,
 				92095BDB1835645E00B7A0ED /* SpotlightR.png in Resources */,
 				92867AC5183EAE6000CCC2B5 /* PoissonNR.png in Resources */,
+				92C2BC5A1E857E880034F85B /* matched_pair_case_control.png in Resources */,
 				92E42B261959DD9C0077EF41 /* hcagewho.csv in Resources */,
+				92C2BC4F1E857E880034F85B /* binomial_icon_6+.png in Resources */,
 				92130D081CE12496001040D6 /* ManageButtonWhite.png in Resources */,
 				92130CF11CE0F5EE001040D6 /* FormsButton.png in Resources */,
 				9295FFF21CEE07B00022B75C /* MPBOTN.png in Resources */,
@@ -1875,6 +1944,7 @@
 				92095BDF183564D000B7A0ED /* SettingsR.png in Resources */,
 				928FCEF519E570B300641A95 /* VHFButton.png in Resources */,
 				92FD4079182D33AD004B4729 /* BinomialNR.png in Resources */,
+				92C2BC5B1E857E880034F85B /* poisson_icon_6+.png in Resources */,
 				92A192501C690DD40095E69F /* NextPage.png in Resources */,
 				926817851AA8C54E00935BE9 /* SimulateCohortNR.png in Resources */,
 				9295FFEA1CEE07B00022B75C /* PopTN.png in Resources */,
@@ -1897,6 +1967,7 @@
 				926DFB391832753100FACCD2 /* CaseControlNR.png in Resources */,
 				92E42B2E1959F06B0077EF41 /* wgtagecdc.csv in Resources */,
 				68F0E84316E5393600ADD7A3 /* PopT.png in Resources */,
+				92C2BC521E857E880034F85B /* case_control_icon.png in Resources */,
 				9265FF961CB59A09003AD6E0 /* QuestionMarkButton.png in Resources */,
 				9295FFD51CECEAB90022B75C /* Dot.png in Resources */,
 				68F0E84516E53BA700ADD7A3 /* PoissonTop.png in Resources */,
@@ -1922,6 +1993,7 @@
 				926F550D1AC5E01700790628 /* Simulations5.png in Resources */,
 				4AF6D4AD1704C7CE00ED9A44 /* 2x2B1.png in Resources */,
 				92001B9D186C979E00B87D21 /* NoButtonOrange.png in Resources */,
+				92C2BC5E1E857E880034F85B /* population_survey_icon.png in Resources */,
 				9228250B186387DA00DF9493 /* SubmitButton.png in Resources */,
 				92FD407D182D33AD004B4729 /* PMCCNR.png in Resources */,
 				92F520ED1CD3BFAC0058F352 /* icon-80.png in Resources */,
