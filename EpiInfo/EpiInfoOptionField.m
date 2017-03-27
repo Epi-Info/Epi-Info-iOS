@@ -21,6 +21,7 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
+    row--;
     [picked setText:[NSString stringWithFormat:@"%d", (int)row]];
     if (self.textFieldToUpdate)
     {
@@ -47,9 +48,11 @@
         [self reset];
         return;
     }
+    value = [NSString stringWithFormat:@"%d", [value intValue] + 1];
     [self setPicked:value];
     [self setSelectedIndex:[NSNumber numberWithInt:[value intValue]]];
     [self.picker selectRow:[value intValue] inComponent:0 animated:YES];
+    [self pickerView:self.picker didSelectRow:[value intValue] inComponent:0];
     [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
 }
 
