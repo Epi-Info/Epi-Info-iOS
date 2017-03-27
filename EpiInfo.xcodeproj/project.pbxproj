@@ -322,6 +322,12 @@
 		92C2BC5C1E857E880034F85B /* poisson_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC4A1E857E880034F85B /* poisson_icon.png */; };
 		92C2BC5D1E857E880034F85B /* population_survey_icon_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC4B1E857E880034F85B /* population_survey_icon_6+.png */; };
 		92C2BC5E1E857E880034F85B /* population_survey_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC4C1E857E880034F85B /* population_survey_icon.png */; };
+		92C2BC6A1E8956380034F85B /* cohort_icon_blue_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC641E8956380034F85B /* cohort_icon_blue_6+.png */; };
+		92C2BC6B1E8956380034F85B /* cohort_icon_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC651E8956380034F85B /* cohort_icon_blue.png */; };
+		92C2BC6C1E8956380034F85B /* case_control_icon_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC661E8956380034F85B /* case_control_icon_blue.png */; };
+		92C2BC6D1E8956380034F85B /* case_control_icon_blue_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC671E8956380034F85B /* case_control_icon_blue_6+.png */; };
+		92C2BC6E1E8956380034F85B /* population_survey_icon_blue_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC681E8956380034F85B /* population_survey_icon_blue_6+.png */; };
+		92C2BC6F1E8956380034F85B /* population_survey_icon_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC691E8956380034F85B /* population_survey_icon_blue.png */; };
 		92C419D91921595000FA46EA /* DeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C419D81921595000FA46EA /* DeleteButton.png */; };
 		92D30F5B1899726100CEBCAE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92D30F5A1899726100CEBCAE /* CoreLocation.framework */; };
 		92D43A471992A5BD00B24712 /* ConfirmDeleteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D43A461992A5BD00B24712 /* ConfirmDeleteButton.m */; };
@@ -845,6 +851,12 @@
 		92C2BC4A1E857E880034F85B /* poisson_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = poisson_icon.png; sourceTree = "<group>"; };
 		92C2BC4B1E857E880034F85B /* population_survey_icon_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "population_survey_icon_6+.png"; sourceTree = "<group>"; };
 		92C2BC4C1E857E880034F85B /* population_survey_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = population_survey_icon.png; sourceTree = "<group>"; };
+		92C2BC641E8956380034F85B /* cohort_icon_blue_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cohort_icon_blue_6+.png"; sourceTree = "<group>"; };
+		92C2BC651E8956380034F85B /* cohort_icon_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cohort_icon_blue.png; sourceTree = "<group>"; };
+		92C2BC661E8956380034F85B /* case_control_icon_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = case_control_icon_blue.png; sourceTree = "<group>"; };
+		92C2BC671E8956380034F85B /* case_control_icon_blue_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "case_control_icon_blue_6+.png"; sourceTree = "<group>"; };
+		92C2BC681E8956380034F85B /* population_survey_icon_blue_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "population_survey_icon_blue_6+.png"; sourceTree = "<group>"; };
+		92C2BC691E8956380034F85B /* population_survey_icon_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = population_survey_icon_blue.png; sourceTree = "<group>"; };
 		92C419D81921595000FA46EA /* DeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeleteButton.png; sourceTree = "<group>"; };
 		92D30F5A1899726100CEBCAE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		92D43A451992A5BD00B24712 /* ConfirmDeleteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmDeleteButton.h; sourceTree = "<group>"; };
@@ -1067,6 +1079,12 @@
 				92C2BC4A1E857E880034F85B /* poisson_icon.png */,
 				92C2BC4B1E857E880034F85B /* population_survey_icon_6+.png */,
 				92C2BC4C1E857E880034F85B /* population_survey_icon.png */,
+				92C2BC641E8956380034F85B /* cohort_icon_blue_6+.png */,
+				92C2BC651E8956380034F85B /* cohort_icon_blue.png */,
+				92C2BC661E8956380034F85B /* case_control_icon_blue.png */,
+				92C2BC671E8956380034F85B /* case_control_icon_blue_6+.png */,
+				92C2BC681E8956380034F85B /* population_survey_icon_blue_6+.png */,
+				92C2BC691E8956380034F85B /* population_survey_icon_blue.png */,
 				92130CFA1CE0FB62001040D6 /* epi_info_logo_full.png */,
 				92130CFB1CE0FB62001040D6 /* epi_info_logo_full_6+.png */,
 				9295FFD61CEE07B00022B75C /* CohortBN.png */,
@@ -1797,6 +1815,7 @@
 				925A5DAF1858C0E2000C2E9E /* PlainOrangeButton.png in Resources */,
 				92243A6E182BF91100E6156B /* Power.png in Resources */,
 				4AFD853C161F137B00FFBA65 /* Default.png in Resources */,
+				92C2BC6E1E8956380034F85B /* population_survey_icon_blue_6+.png in Resources */,
 				4AFD853E161F137B00FFBA65 /* Default@2x.png in Resources */,
 				925C894A19534F8000F3DCE7 /* GrowthButtonNR.png in Resources */,
 				92243A7A182C3A4600E6156B /* PhoneRH.png in Resources */,
@@ -1820,6 +1839,7 @@
 				92130CF91CE0F6E7001040D6 /* CalculatorButton.png in Resources */,
 				926817841AA8C54E00935BE9 /* SimulateCohort.png in Resources */,
 				92C2BC591E857E880034F85B /* matched_pair_case_control_6+.png in Resources */,
+				92C2BC6F1E8956380034F85B /* population_survey_icon_blue.png in Resources */,
 				92F520EC1CD3BFAC0058F352 /* icon-76.png in Resources */,
 				9295FFE91CEE07B00022B75C /* UnmatchN.png in Resources */,
 				9295FFD11CEB8F4B0022B75C /* ArrowRight.png in Resources */,
@@ -1891,6 +1911,7 @@
 				68D76A0016A9DDF900D831EB /* textured-Bar.png in Resources */,
 				92F520E91CD3BFAC0058F352 /* icon-29.png in Resources */,
 				926DFB411832772800FACCD2 /* PopulationSSNR.png in Resources */,
+				92C2BC6D1E8956380034F85B /* case_control_icon_blue_6+.png in Resources */,
 				92C2BC581E857E880034F85B /* growth_percentiles_icon.png in Resources */,
 				922227B619BA1DF4002CD855 /* iPhone5Launch.png in Resources */,
 				92FD4081182D3876004B4729 /* FadeDown7.png in Resources */,
@@ -1959,6 +1980,7 @@
 				9295FFF61CEE07B00022B75C /* 2x2T.png in Resources */,
 				68BA38F316C585D000236D06 /* 2x2Summary-2.png in Resources */,
 				926A0F0A18340A7400D49165 /* Default-Portrait@2x.png in Resources */,
+				92C2BC6C1E8956380034F85B /* case_control_icon_blue.png in Resources */,
 				9208F825186250070022C6FB /* OpenButtonOrange.png in Resources */,
 				9295FFF31CEE07B00022B75C /* MatchedPTN.png in Resources */,
 				9295FFD01CEB8F4B0022B75C /* ArrowLeft.png in Resources */,
@@ -1970,6 +1992,7 @@
 				92C2BC521E857E880034F85B /* case_control_icon.png in Resources */,
 				9265FF961CB59A09003AD6E0 /* QuestionMarkButton.png in Resources */,
 				9295FFD51CECEAB90022B75C /* Dot.png in Resources */,
+				92C2BC6A1E8956380034F85B /* cohort_icon_blue_6+.png in Resources */,
 				68F0E84516E53BA700ADD7A3 /* PoissonTop.png in Resources */,
 				92001B9C186C979E00B87D21 /* NoButton.png in Resources */,
 				92D4BB64184F77CC00B2D70C /* SaveButton.png in Resources */,
@@ -1984,6 +2007,7 @@
 				92282509186387DA00DF9493 /* ClearButton.png in Resources */,
 				684CCA4016EFA795007C4E6E /* FadeUpAndDown.png in Resources */,
 				92001B9E186C979E00B87D21 /* YesButton.png in Resources */,
+				92C2BC6B1E8956380034F85B /* cohort_icon_blue.png in Resources */,
 				92130D141CEA456F001040D6 /* InchesButton.png in Resources */,
 				92F520EA1CD3BFAC0058F352 /* icon-40.png in Resources */,
 				684CCA4216EFAB8B007C4E6E /* FadeDown.png in Resources */,
