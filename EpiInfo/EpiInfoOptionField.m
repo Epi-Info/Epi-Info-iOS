@@ -23,6 +23,8 @@
 {
     row--;
     [picked setText:[NSString stringWithFormat:@"%d", (int)row]];
+    if (row == -1)
+        [picked setText:@"NULL"];
     if (self.textFieldToUpdate)
     {
         [self.textFieldToUpdate setText:[NSString stringWithString:[NSString stringWithFormat:@"%d", (int)row]]];
@@ -43,7 +45,7 @@
 
 - (void)assignValue:(NSString *)value
 {
-    if ([value isEqualToString:@""] || [value isEqualToString:@"NULL"])
+    if ([value isEqualToString:@""] || [value isEqualToString:@"NULL"] || [value isEqualToString:@"(null)"])
     {
         [self reset];
         return;
