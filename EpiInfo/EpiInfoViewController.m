@@ -927,6 +927,6 @@
 
 - (void)tutorialButtonPressed:(UIButton *)sender
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://epiinfoios.codeplex.com/documentation"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/Epi-Info/Epi-Info-iOS/wiki"]];
 }
 @end
