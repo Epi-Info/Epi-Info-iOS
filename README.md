@@ -31,7 +31,7 @@ Included calculators are:
 * Binomial calculator for determining the probability of an observed proportion
 * Poisson calculator for determining the probability of an observed number of successes
 * Child Growth Percentiles
-* Sample size calculators
-* * For unmatched case-control studies
+###### Sample size calculators
+* For unmatched case-control studies
 * For cohort studies
 * For population surveys
