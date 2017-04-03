@@ -1,1 +1,1 @@
-# Epi-Info-iOS
+# Epi Info Companion App for iOS
