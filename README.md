@@ -19,6 +19,7 @@ Allows the user to read and analyze locally-stored datasets. Features include:
 * 2x2 or MxN tables and associated statistics
 * Means and associated statistics
 * Deleting local SQLite tables from the device
+* Executing SQL statements such as SELECT, UPDATE, and DELETE
 
 ### StatCalc
 StatCalc statistical calculators have long been a feature of CDC’s Epi info desktop software. Each calculator has been adapted for iOS and is included in this app. The app controls and facilitates user inputs by taking advantage of the iPad’s touchscreen interface and using input devices such as sliders and steppers.
