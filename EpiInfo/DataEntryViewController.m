@@ -274,6 +274,8 @@
             int count = 0;
             for (id i in files)
             {
+                if ([(NSString *)i characterAtIndex:0] == '_')
+                    continue;
                 count++;
                 [pickerFiles addObject:[(NSString *)i substringToIndex:[(NSString *)i length] - 4]];
             }
