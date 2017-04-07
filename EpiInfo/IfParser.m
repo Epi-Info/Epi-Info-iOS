@@ -373,7 +373,7 @@
                                     {
                                         [edv0 checkcodeSwipedToTheRight];
                                         int newEDV0 = [[[NSUserDefaults standardUserDefaults] objectForKey:@"pageName"] intValue] - 1;
-                                        NSLog(@"%d", newEDV0);
+                                        NSLog(@"__statement method newEDV0 = %d", newEDV0);
                                         edv0 = [edv0.dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", newEDV0]];
                                         [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d", newEDV0] forKey:@"pageName"];
                                     }

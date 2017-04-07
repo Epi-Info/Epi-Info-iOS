@@ -56,13 +56,21 @@
 - (void)advancePage
 {
     [(UIButton *)[arrayOfDots objectAtIndex:pagenumber] setBackgroundColor:[UIColor clearColor]];
-    pagenumber++;
-    [(UIButton *)[arrayOfDots objectAtIndex:pagenumber] setBackgroundColor:dotFillColor];
+    if (pagenumber < [arrayOfDots count] - 1)
+        pagenumber++;
+    @try {
+        [(UIButton *)[arrayOfDots objectAtIndex:pagenumber] setBackgroundColor:dotFillColor];
+    } @catch (NSException *exception) {
+        NSLog(@"arrayOfDots exception: %@", exception);
+    } @finally {
+        //
+    }
 }
 - (void)retreatPage
 {
     [(UIButton *)[arrayOfDots objectAtIndex:pagenumber] setBackgroundColor:[UIColor clearColor]];
-    pagenumber--;
+    if (pagenumber > 0)
+        pagenumber--;
     [(UIButton *)[arrayOfDots objectAtIndex:pagenumber] setBackgroundColor:dotFillColor];
 }
 - (void)resetToFirstPage

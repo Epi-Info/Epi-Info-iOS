@@ -7607,7 +7607,7 @@ newStr{
 
 - (void)syncPageDots
 {
-    NSLog(@"%d", pageToDisplay);
+    NSLog(@"syncPageDots method pageToDisplay = %d", pageToDisplay);
     [(DataEntryViewController *)self.rootViewController setPageDotsPage:pageToDisplay - 1];
 }
 
