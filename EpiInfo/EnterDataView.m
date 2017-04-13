@@ -402,9 +402,10 @@
             [self setContentSize:CGSizeMake(frame.size.width, contentSizeHeight)];
         }
         
-        UIButton *resignAllButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, formCanvas.frame.size.width, formCanvas.frame.size.height)];
+        UIButton *resignAllButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, formCanvas.frame.size.width / 2.0, formCanvas.frame.size.height)];
         [resignAllButton setBackgroundColor:[UIColor clearColor]];
         [resignAllButton addTarget:self action:@selector(resignAll) forControlEvents:UIControlEventTouchUpInside];
+        [resignAllButton addTarget:self action:@selector(userSwipedToTheRight) forControlEvents:UIControlEventTouchDownRepeat];
         //    [resignAllButton addTarget:self action:@selector(userSwipedToTheRight) forControlEvents:UISwipeGestureRecognizerDirectionRight];
         UISwipeGestureRecognizer *leftRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(userSwipedToTheLeft)];
         [leftRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
@@ -417,6 +418,23 @@
         //    [resignAllButton addTarget:self action:@selector(userSwipedToTheLeft) forControlEvents:UISwipeGestureRecognizerDirectionLeft];
         [formCanvas addSubview:resignAllButton];
         [formCanvas sendSubviewToBack:resignAllButton];
+        
+        UIButton *resignAllButtonRight = [[UIButton alloc] initWithFrame:CGRectMake(formCanvas.frame.size.width / 2.0, 0, formCanvas.frame.size.width / 2.0, formCanvas.frame.size.height)];
+        [resignAllButtonRight setBackgroundColor:[UIColor clearColor]];
+        [resignAllButtonRight addTarget:self action:@selector(resignAll) forControlEvents:UIControlEventTouchUpInside];
+        [resignAllButtonRight addTarget:self action:@selector(userSwipedToTheLeft) forControlEvents:UIControlEventTouchDownRepeat];
+        //    [resignAllButton addTarget:self action:@selector(userSwipedToTheRight) forControlEvents:UISwipeGestureRecognizerDirectionRight];
+        UISwipeGestureRecognizer *leftRecognizerForRightButton = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(userSwipedToTheLeft)];
+        [leftRecognizerForRightButton setDirection:UISwipeGestureRecognizerDirectionLeft];
+        [leftRecognizerForRightButton setNumberOfTouchesRequired:1];
+        [resignAllButtonRight addGestureRecognizer:leftRecognizerForRightButton];
+        UISwipeGestureRecognizer *rightRecognizerForRightButton = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(userSwipedToTheRight)];
+        [rightRecognizerForRightButton setDirection:UISwipeGestureRecognizerDirectionRight];
+        [rightRecognizerForRightButton setNumberOfTouchesRequired:1];
+        [resignAllButtonRight addGestureRecognizer:rightRecognizerForRightButton];
+        //    [resignAllButton addTarget:self action:@selector(userSwipedToTheLeft) forControlEvents:UISwipeGestureRecognizerDirectionLeft];
+        [formCanvas addSubview:resignAllButtonRight];
+        [formCanvas sendSubviewToBack:resignAllButtonRight];
         
         UILabel *disclaimer = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 100)];
         [disclaimer setBackgroundColor:[UIColor colorWithRed:0/255.0 green:128/255.0 blue:128/255.0 alpha:1.0]];
