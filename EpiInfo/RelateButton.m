@@ -161,6 +161,7 @@
         [formNavigationBar setTranslucent:YES];
         formNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
         closeFormBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(confirmDismissal)];
+        [closeFormBarButtonItem setAccessibilityLabel:@"Close Child Form"];
         [closeFormBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [formNavigationItem setRightBarButtonItem:closeFormBarButtonItem];
         deleteRecordBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(footerBarDelete)];
