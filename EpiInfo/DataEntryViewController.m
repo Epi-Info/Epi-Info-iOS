@@ -131,6 +131,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setAccessibilityLabel:@"Close"];
         [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [backToMainMenu setTitle:@"Back to previous screen"];
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
@@ -341,6 +342,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setAccessibilityLabel:@"Close"];
         [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [backToMainMenu setTitle:@"Back to previous screen"];
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
@@ -850,6 +852,7 @@
             formNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
             closeFormBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(confirmDismissal)];
             [closeFormBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+            [closeFormBarButtonItem setAccessibilityLabel:@"Close Form"];
             [formNavigationItem setRightBarButtonItem:closeFormBarButtonItem];
             deleteRecordBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(footerBarDelete)];
             [deleteRecordBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];

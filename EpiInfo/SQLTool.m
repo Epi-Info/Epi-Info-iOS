@@ -680,6 +680,8 @@
     [instructions setNumberOfLines:0];
     [instructions setLineBreakMode:NSLineBreakByWordWrapping];
     NSMutableString *instructionsText = [NSMutableString stringWithString:@"Swipe down on the SQL Tool to return to Analyze Data."];
+    if (UIAccessibilityIsVoiceOverRunning())
+        instructionsText = [NSMutableString stringWithString:@"To return to Analyze Data, close and re-open."];
     [instructionsText appendString:@"\n\nSubmit TABLES to get a list of Epi Info tables on this device."];
     [instructionsText appendString:@"\n\nSubmit METADATA <table name> (or META <table name>) to see a table's columns, data types, and number of rows."];
     [instructionsText appendString:@"\n\nTouch and hold an output field's or column header's text for one second to copy its value to the clipboard."];
@@ -690,6 +692,7 @@
     [instructions sizeToFit];
     
     UIBarButtonItem *quitHelp = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissInstructionsView:)];
+    [quitHelp setAccessibilityLabel:@"Close SQL Tool Help"];
     [quitHelp setTintColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
     
     UINavigationBar *quitHelpBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(2, 8, header.frame.size.width, 30.0)];
