@@ -41,6 +41,7 @@
         [lineListNavigationBar setTranslucent:YES];
         UINavigationItem *lineListNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
         UIBarButtonItem *closeLineListBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(removeSelfFromSuperview)];
+        [closeLineListBarButtonItem setAccessibilityLabel:@"Close List"];
         [closeLineListBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [lineListNavigationItem setRightBarButtonItem:closeLineListBarButtonItem];
         [lineListNavigationBar setItems:[NSArray arrayWithObject:lineListNavigationItem]];
