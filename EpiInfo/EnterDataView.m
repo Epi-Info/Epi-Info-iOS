@@ -1324,9 +1324,15 @@
                 else
                 {
                     //                    NSLog(@"Row inserted");
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Submit" message:@"Row inserted into local database." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [alert setTag:42];
-                    [alert show];
+                    // Replace deprecated UIAlertViews
+//                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Submit" message:@"Row inserted into local database." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//                    [alert setTag:42];
+//                    [alert show];
+                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Submit" message:@"Row inserted into local database." preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    }];
+                    [alertC addAction:okAction];
+                    [self.rootViewController presentViewController:alertC animated:YES completion:nil];
                     [areYouSure setText:@"Row inserted into local database."];
                     [uiaiv setHidden:NO];
                     [uiaiv startAnimating];
@@ -1704,9 +1710,15 @@
                 {
                     //                    NSLog(@"Row inserted");
                     [areYouSure setText:@"Local database row updated."];
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update" message:@"Local database row updated." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [alert setTag:42];
-                    [alert show];
+                    // Replace deprecated UIAlertViews
+//                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update" message:@"Local database row updated." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//                    [alert setTag:42];
+//                    [alert show];
+                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Update" message:@"Local database row updated." preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    }];
+                    [alertC addAction:okAction];
+                    [self.rootViewController presentViewController:alertC animated:YES completion:nil];
                     [uiaiv setHidden:NO];
                     [uiaiv startAnimating];
                     [okButton setEnabled:NO];
@@ -1840,9 +1852,15 @@
                 }
                 else
                 {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:@"Local database row deleted." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [alert setTag:42];
-                    [alert show];
+                    // Replace deprecated UIAlertViews
+//                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:@"Local database row deleted." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//                    [alert setTag:42];
+//                    [alert show];
+                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Delete" message:@"Local database row deleted." preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    }];
+                    [alertC addAction:okAction];
+                    [self.rootViewController presentViewController:alertC animated:YES completion:nil];
                     [areYouSure setText:@"Local database row deleted."];
                     [uiaiv setHidden:NO];
                     [uiaiv startAnimating];
@@ -1902,27 +1920,58 @@
     //    if (![v isKindOfClass:[UILabel class]])
     //      [v setEnabled:NO];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Submit" message:@"Submit this record?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-    [alert setTag:0];
+    // Replace deprecated UIAlertViews
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Submit" message:@"Submit this record?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+//    [alert setTag:0];
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Submit" message:@"Submit this record?" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+    }];
+    [alertC addAction:noAction];
     if ([sender tag] == 9)
     {
-        [alert setTitle:@"Clear"];
-        [alert setMessage:@"Clear all fields without submitting?"];
-        [alert setTag:3];
+//        [alert setTitle:@"Clear"];
+//        [alert setMessage:@"Clear all fields without submitting?"];
+//        [alert setTag:3];
+        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            [self clearButtonPressed];
+        }];
+        [alertC addAction:yesAction];
+        [alertC setTitle:@"Clear"];
+        [alertC setMessage:@"Clear all fields without submitting?"];
     }
     else if ([sender tag] == 8)
     {
-        [alert setTitle:@"Update"];
-        [alert setMessage:@"Update this record?"];
-        [alert setTag:1];
+//        [alert setTitle:@"Update"];
+//        [alert setMessage:@"Update this record?"];
+//        [alert setTag:1];
+        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            [self updateButtonPressed];
+        }];
+        [alertC addAction:yesAction];
+        [alertC setTitle:@"Update"];
+        [alertC setMessage:@"Update this record?"];
     }
     else if ([sender tag] == 7)
     {
-        [alert setTitle:@"Delete"];
-        [alert setMessage:@"Delete this record?"];
-        [alert setTag:2];
+//        [alert setTitle:@"Delete"];
+//        [alert setMessage:@"Delete this record?"];
+//        [alert setTag:2];
+        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            [self deleteButtonPressed];
+        }];
+        [alertC addAction:yesAction];
+        [alertC setTitle:@"Delete"];
+        [alertC setMessage:@"Delete this record?"];
     }
-    [alert show];
+    else
+    {
+        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            [self submitButtonPressed];
+        }];
+        [alertC addAction:yesAction];
+    }
+//    [alert show];
+    [self.rootViewController presentViewController:alertC animated:YES completion:nil];
     if (sender.tag == 9 || sender.tag == 7) {
         
         BlurryView *bv = [[BlurryView alloc] initWithFrame:CGRectMake(sender.frame.origin.x, self.superview.frame.size.height - (formCanvas.frame.size.height - sender.frame.origin.y), sender.frame.size.width, sender.frame.size.height)];

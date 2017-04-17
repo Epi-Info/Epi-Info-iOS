@@ -1287,8 +1287,18 @@
 
 - (void)confirmDismissal
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dismiss Form" message:@"Dismiss this form?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-    [alert show];
+    // Replace deprecated UIAlertViews
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dismiss Form" message:@"Dismiss this form?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Dismiss Form" message:@"Dismiss this form?" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+    }];
+    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        [self dismissForm];
+    }];
+    [alertC addAction:noAction];
+    [alertC addAction:yesAction];
+    [self presentViewController:alertC animated:YES completion:nil];
+//    [alert show];
 //    // Create a confirmation view with frosted glass effect.
 //    // This requires capturing what was in view in an image, then blurring it and adding translucent white layer on top.
 //    

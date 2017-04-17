@@ -764,8 +764,15 @@
         UILabel *sender = (UILabel *)[gestureRecognizer view];
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         [pasteboard setString:[sender text]];
-        UIAlertView *copyNotice = [[UIAlertView alloc] initWithTitle:@"Copy" message:@"Field text copied to clipboard." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [copyNotice show];
+        
+        // Replace deprecated UIAlertViews
+//        UIAlertView *copyNotice = [[UIAlertView alloc] initWithTitle:@"Copy" message:@"Field text copied to clipboard." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//        [copyNotice show];
+        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Copy" message:@"Field text copied to clipboard." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        }];
+        [alertC addAction:okAction];
+        [[[[[UIApplication sharedApplication] delegate] window] rootViewController] presentViewController:alertC animated:YES completion:nil];
     }
 }
 /*
