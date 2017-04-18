@@ -303,7 +303,7 @@
         beginColumList = NO;
         success = [xmlParser1 parse];
         
-        if (isLastPage)
+//        if (isLastPage)
             createTableStatement = [createTableStatement stringByAppendingString:@")"];
         
         UIButton *submitButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0 + 38.0, contentSizeHeight, 120, 40)];
@@ -1241,7 +1241,7 @@
                 {
                     int pagesindictionary = (int)[dictionaryOfPages count];
                     NSMutableString *tempCreateTableStatement = [NSMutableString stringWithString:@""];
-                    for (int i = 0; i < pagesindictionary; i++)
+                    for (int i = 0; i < 1; i++)
                     {
                         EnterDataView *edv0 = (EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", i + 1]];
                         NSString *cts = [edv0 createTableStatement];
@@ -1933,7 +1933,7 @@
 //        [alert setMessage:@"Clear all fields without submitting?"];
 //        [alert setTag:3];
         UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            [self clearButtonPressed];
+            [self callClearButtonPressed];
         }];
         [alertC addAction:yesAction];
         [alertC setTitle:@"Clear"];
@@ -2114,6 +2114,47 @@
 - (void)clearButtonPressedAction
 {
     [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", 1]] clearButtonPressedAction];
+}
+- (void)callClearButtonPressed
+{
+    guidBeingUpdated = nil;
+    BlurryView *bv = [[BlurryView alloc] initWithFrame:CGRectMake(self.superview.frame.size.width - 5.0, self.superview.frame.size.height - 5.0, 10, 10)];
+    
+    UILabel *areYouSure = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    [areYouSure setBackgroundColor:[UIColor clearColor]];
+    [areYouSure setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [areYouSure setNumberOfLines:0];
+    [areYouSure setLineBreakMode:NSLineBreakByWordWrapping];
+    [areYouSure setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+    [areYouSure setTextAlignment:NSTextAlignmentLeft];
+    [bv addSubview:areYouSure];
+    
+    UIActivityIndicatorView *uiaiv = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [uiaiv setColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [uiaiv setHidden:YES];
+    [bv addSubview:uiaiv];
+    
+    UIButton *okButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    [okButton setImage:[UIImage imageNamed:@"OKButton.png"] forState:UIControlStateNormal];
+    [okButton setTitle:@"Oh Kay" forState:UIControlStateNormal];
+    [okButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+    [okButton.layer setMasksToBounds:YES];
+    [okButton.layer setCornerRadius:4.0];
+    [okButton addTarget:self action:@selector(okButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [bv addSubview:okButton];
+    
+    updatevisibleScreenOnly = NO;
+    
+    //  [self.superview addSubview:bv];
+    //    NSLog(@"Superview == %@", self.superview);
+    [self clearButtonPressed];
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [bv setFrame:CGRectMake(0, 0, self.superview.frame.size.width, self.superview.frame.size.width)];
+        [areYouSure setFrame:CGRectMake(10, 10, bv.frame.size.width - 20, 72)];
+        [uiaiv setFrame:CGRectMake(bv.frame.size.width / 2.0 - 20.0, bv.frame.size.height / 2.0 - 60.0, 40, 40)];
+        [okButton setFrame:CGRectMake(bv.frame.size.width / 2.0 - 60.0, bv.frame.size.height / 2.0 - 22.0, 120, 40)];
+    } completion:^(BOOL finished){
+    }];
 }
 - (void)clearButtonPressed
 {
@@ -2491,6 +2532,7 @@
         {
             UILabel *elementLabel;
             float fontsize;
+            commaOrParen = @",";
             if (isCurrentPage)
             {
                 if (tagNum<100)
@@ -2674,7 +2716,6 @@
                     contentSizeHeight += 40.0;
                     [tf setDelegate:self];
                     [tf setReturnKeyType:UIReturnKeyDone];
-                    createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                     [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
                     [tf setColumnName:[attributeDict objectForKey:@"Name"]];
                     [tf setAccessibilityLabel:[attributeDict objectForKey:@"Name"]];
@@ -2696,6 +2737,7 @@
                     [self.dictionaryOfFields setObject:tf forKey:[attributeDict objectForKey:@"Name"]];
                     //ADD
                 }
+                createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                 
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"2"])
@@ -2797,7 +2839,6 @@
                     contentSizeHeight += 40.0;
                     [tf setDelegate:self];
                     [tf setReturnKeyType:UIReturnKeyDone];
-                    createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                     [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
                     [tf setColumnName:[attributeDict objectForKey:@"Name"]];
                     [tf setAccessibilityLabel:[attributeDict objectForKey:@"Name"]];
@@ -2809,6 +2850,7 @@
                     beginColumList = YES;
                     [self.dictionaryOfFields setObject:tf forKey:[attributeDict objectForKey:@"Name"]];
                 }
+                createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"4"])
             {
@@ -2909,7 +2951,6 @@
                     [formCanvas addSubview:tf];
                     contentSizeHeight += 160;
                     [tf setDelegate:self];
-                    createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                     [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
                     [tf setColumnName:[attributeDict objectForKey:@"Name"]];
                     [tf setAccessibilityLabel:[attributeDict objectForKey:@"Name"]];
@@ -2918,6 +2959,7 @@
                         [tf setFont:[UIFont fontWithName:@"HelveticaNeue" size:24.0]];
                     [self.dictionaryOfFields setObject:tf forKey:[attributeDict objectForKey:@"Name"]];
                 }
+                createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"5"])
             {
@@ -3015,7 +3057,6 @@
                     contentSizeHeight += 40.0;
                     [tf setDelegate:self];
                     [tf setReturnKeyType:UIReturnKeyDone];
-                    createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ real", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                     [alterTableElements setObject:@"real" forKey:[attributeDict objectForKey:@"Name"]];
                     [tf setColumnName:[attributeDict objectForKey:@"Name"]];
                     [tf setAccessibilityLabel:[attributeDict objectForKey:@"Name"]];
@@ -3051,6 +3092,7 @@
                         seenFirstGeocodeField = YES;
                     [self.dictionaryOfFields setObject:tf forKey:[attributeDict objectForKey:@"Name"]];
                 }
+                createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ real", commaOrParen, [attributeDict objectForKey:@"Name"]]];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"6"])
             {
@@ -3146,7 +3188,6 @@
                     contentSizeHeight += 40.0;
                     [tf setDelegate:self];
                     [tf setReturnKeyType:UIReturnKeyDone];
-                    createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                     [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
                     [tf setColumnName:[attributeDict objectForKey:@"Name"]];
                     [tf setAccessibilityLabel:[attributeDict objectForKey:@"Name"]];
@@ -3158,6 +3199,7 @@
                     beginColumList = YES;
                     [self.dictionaryOfFields setObject:tf forKey:[attributeDict objectForKey:@"Name"]];
                 }
+                createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"7"])
             {
@@ -3255,7 +3297,6 @@
                     contentSizeHeight += 40.0;
                     [tf setDelegate:self];
                     [tf setReturnKeyType:UIReturnKeyDone];
-                    createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                     [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
                     [tf setColumnName:[attributeDict objectForKey:@"Name"]];
                     [tf setFieldLabel:[attributeDict objectForKey:@"PromptText"]];
@@ -3269,6 +3310,7 @@
                     beginColumList = YES;
                     [self.dictionaryOfFields setObject:tf forKey:[attributeDict objectForKey:@"Name"]];
                 }
+                createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"8"])
             {
@@ -3365,7 +3407,6 @@
                     contentSizeHeight += 40.0;
                     [tf setDelegate:self];
                     [tf setReturnKeyType:UIReturnKeyDone];
-                    createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                     [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
                     [tf setColumnName:[attributeDict objectForKey:@"Name"]];
                     [tf setAccessibilityLabel:[attributeDict objectForKey:@"Name"]];
@@ -3377,6 +3418,7 @@
                     beginColumList = YES;
                     [self.dictionaryOfFields setObject:tf forKey:[attributeDict objectForKey:@"Name"]];
                 }
+                createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"9"])
             {
@@ -3473,7 +3515,6 @@
                     contentSizeHeight += 40.0;
                     [tf setDelegate:self];
                     [tf setReturnKeyType:UIReturnKeyDone];
-                    createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                     [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
                     [tf setColumnName:[attributeDict objectForKey:@"Name"]];
                     [tf setAccessibilityLabel:[attributeDict objectForKey:@"Name"]];
@@ -3485,6 +3526,7 @@
                     beginColumList = YES;
                     [self.dictionaryOfFields setObject:tf forKey:[attributeDict objectForKey:@"Name"]];
                 }
+                createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"10"])
             {
@@ -3578,7 +3620,6 @@
                     }
                     
                     [formCanvas addSubview:cb];
-                    createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ integer", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                     [alterTableElements setObject:@"integer" forKey:[attributeDict objectForKey:@"Name"]];
                     [cb setColumnName:[attributeDict objectForKey:@"Name"]];
                     [cb setCheckboxAccessibilityLabel:[attributeDict objectForKey:@"Name"]];
@@ -3595,6 +3636,7 @@
                         }
                     }
                 }
+                createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ integer", commaOrParen, [attributeDict objectForKey:@"Name"]]];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"11"])
             {
@@ -3677,13 +3719,13 @@
                     
                     [formCanvas addSubview:yn];
                     contentSizeHeight += 160;
-                    createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ integer", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                     [alterTableElements setObject:@"integer" forKey:[attributeDict objectForKey:@"Name"]];
                     [yn setColumnName:[attributeDict objectForKey:@"Name"]];
                     [yn setAccessibilityLabel:[attributeDict objectForKey:@"Name"]];
                     beginColumList = YES;
                     [self.dictionaryOfFields setObject:yn forKey:[attributeDict objectForKey:@"Name"]];
                 }
+                createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ integer", commaOrParen, [attributeDict objectForKey:@"Name"]]];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"15"])
             {
@@ -3781,7 +3823,6 @@
                     contentSizeHeight += 40.0;
                     [tf setDelegate:self];
                     [tf setReturnKeyType:UIReturnKeyDone];
-                    createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                     [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
                     [tf setColumnName:[attributeDict objectForKey:@"Name"]];
                     [tf setAccessibilityLabel:[attributeDict objectForKey:@"Name"]];
@@ -3795,6 +3836,7 @@
                     beginColumList = YES;
                     [self.dictionaryOfFields setObject:tf forKey:[attributeDict objectForKey:@"Name"]];
                 }
+                createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"17"])
             {
@@ -3877,7 +3919,6 @@
                     
                     [formCanvas addSubview:lv];
                     contentSizeHeight += 160;
-                    createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                     [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
                     [lv setColumnName:[attributeDict objectForKey:@"Name"]];
                     // Add the array of values to the root view controller's legal values dictionary
@@ -3888,6 +3929,7 @@
                     beginColumList = YES;
                     [self.dictionaryOfFields setObject:lv forKey:[attributeDict objectForKey:@"Name"]];
                 }
+                createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"18"])
             {
@@ -3982,13 +4024,13 @@
                     
                     [formCanvas addSubview:lv];
                     contentSizeHeight += 160;
-                    createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                     [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
                     [lv setColumnName:[attributeDict objectForKey:@"Name"]];
                     [lv setTextColumnName:[attributeDict objectForKey:@"TextColumnName"]];
                     beginColumList = YES;
                     [self.dictionaryOfFields setObject:lv forKey:[attributeDict objectForKey:@"Name"]];
                 }
+                createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"19"])
             {
@@ -4069,7 +4111,6 @@
                     
                     [formCanvas addSubview:lv];
                     contentSizeHeight += 160;
-                    createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                     [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
                     [lv setColumnName:[attributeDict objectForKey:@"Name"]];
                     if ([legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]])
@@ -4080,6 +4121,7 @@
                     [self.dictionaryOfFields setObject:lv forKey:[attributeDict objectForKey:@"Name"]];
                     [self.dictionaryOfCommentLegals setObject:lv forKey:[attributeDict objectForKey:@"Name"]];
                 }
+                createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"14"])
             {
@@ -4253,13 +4295,13 @@
                     
                     [formCanvas addSubview:lv];
                     contentSizeHeight += 160;
-                    createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                     [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
                     [lv setColumnName:[attributeDict objectForKey:@"Name"]];
                     beginColumList = YES;
                     [self.dictionaryOfFields setObject:lv forKey:[attributeDict objectForKey:@"Name"]];
                 }
-            }
+                createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
+           }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"25"])
             {
                 EpiInfoUniqueIDField *tf;
@@ -4328,7 +4370,6 @@
                     contentSizeHeight += 40.0;
                     [tf setDelegate:self];
                     [tf setReturnKeyType:UIReturnKeyDone];
-                    createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                     [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
                     [tf setColumnName:[attributeDict objectForKey:@"Name"]];
                     [tf setAccessibilityLabel:[attributeDict objectForKey:@"Name"]];
@@ -4340,6 +4381,7 @@
                     beginColumList = YES;
                     [self.dictionaryOfFields setObject:tf forKey:[attributeDict objectForKey:@"Name"]];
                 }
+                createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"20"])
             {

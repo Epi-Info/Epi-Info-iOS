@@ -72,11 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "514130426.02943"
+            timestampString = "514230002.230816"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5697"
-            endingLineNumber = "5697"
+            startingLineNumber = "5741"
+            endingLineNumber = "5741"
             landmarkName = "-checkElements:from:page:"
             landmarkType = "7">
          </BreakpointContent>
@@ -88,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "514130426.02943"
+            timestampString = "514230002.230816"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5941"
-            endingLineNumber = "5941"
+            startingLineNumber = "5985"
+            endingLineNumber = "5985"
             landmarkName = "-checkElements:from:page:"
             landmarkType = "7">
          </BreakpointContent>
@@ -104,11 +104,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "514130426.02943"
+            timestampString = "514230002.230816"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "7306"
-            endingLineNumber = "7306"
+            startingLineNumber = "7350"
+            endingLineNumber = "7350"
             landmarkName = "-gotoFormField:tag:"
             landmarkType = "7">
          </BreakpointContent>
@@ -174,6 +174,22 @@
             startingLineNumber = "305"
             endingLineNumber = "305"
             landmarkName = "-__statement"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/EnterDataView.m"
+            timestampString = "514230002.230816"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2162"
+            endingLineNumber = "2162"
+            landmarkName = "-clearButtonPressed"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
