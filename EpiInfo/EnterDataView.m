@@ -703,7 +703,14 @@
                 }
                 sqlite3_close(epiinfoDB);
                 if (tableAlreadyExists < 1)
+                {
+                    if (!dictionaryOfPages)
+                    {
+                        dictionaryOfPages = [[NSMutableDictionary alloc] init];
+                    }
+                    [dictionaryOfPages setObject:self forKey:[NSString stringWithFormat:@"Page%d", pageToDisplay]];
                     return self;
+                }
                 else
                 {
                     if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
