@@ -937,6 +937,8 @@
             [self.view.layer setTransform:rotate];
         } completion:^(BOOL finished){
             [edv getMyLocation];
+            if (![edv superview])
+                [edv restoreToViewController];
         }];
     }];
 }
@@ -1789,7 +1791,7 @@
                                 if ([stringValue isEqualToString:[NSString stringWithFormat:@"%d", [stringValue intValue]]])
                                 {
                                     int stringValueIntValue = [stringValue intValue];
-                                    stringValue = [NSString stringWithFormat:@"%d", stringValueIntValue - 1];
+                                    stringValue = [NSString stringWithFormat:@"%d", stringValueIntValue - 0];
                                 }
                             }
                             [xmlFileText appendString:stringValue];
