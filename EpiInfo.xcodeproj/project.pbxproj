@@ -136,6 +136,11 @@
 		92130D151CEA456F001040D6 /* CentimetersButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D111CEA456F001040D6 /* CentimetersButton.png */; };
 		92130D161CEA456F001040D6 /* PoundsButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D121CEA456F001040D6 /* PoundsButton.png */; };
 		92130D171CEA456F001040D6 /* KilogramsButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92130D131CEA456F001040D6 /* KilogramsButton.png */; };
+		921500781EA9269400E2CF9A /* menu_lines.png in Resources */ = {isa = PBXBuildFile; fileRef = 921500771EA9269400E2CF9A /* menu_lines.png */; };
+		9215007F1EA9297A00E2CF9A /* menu_lines20.png in Resources */ = {isa = PBXBuildFile; fileRef = 9215007E1EA9297A00E2CF9A /* menu_lines20.png */; };
+		921500821EA92A2100E2CF9A /* MainMenuMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 921500811EA92A2100E2CF9A /* MainMenuMenu.m */; };
+		921500851EAA39CF00E2CF9A /* PrivacyAndDisclaimerPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 921500841EAA39CF00E2CF9A /* PrivacyAndDisclaimerPresenter.m */; };
+		921500871EAA3E8D00E2CF9A /* BarButtonBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 921500861EAA3E8D00E2CF9A /* BarButtonBack.png */; };
 		9218EA5B1869D37500A4E2D9 /* ClickingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9218EA5A1869D37500A4E2D9 /* ClickingView.m */; };
 		9218EA611869E83800A4E2D9 /* iPhoneDataEntryBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 9218EA601869E83800A4E2D9 /* iPhoneDataEntryBackground.png */; };
 		921ED31E1C7F7043004C6091 /* RelateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 921ED31D1C7F7043004C6091 /* RelateButton.m */; };
@@ -606,6 +611,13 @@
 		92130D111CEA456F001040D6 /* CentimetersButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CentimetersButton.png; sourceTree = "<group>"; };
 		92130D121CEA456F001040D6 /* PoundsButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoundsButton.png; sourceTree = "<group>"; };
 		92130D131CEA456F001040D6 /* KilogramsButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KilogramsButton.png; sourceTree = "<group>"; };
+		921500771EA9269400E2CF9A /* menu_lines.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_lines.png; sourceTree = "<group>"; };
+		9215007E1EA9297A00E2CF9A /* menu_lines20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_lines20.png; sourceTree = "<group>"; };
+		921500801EA92A2100E2CF9A /* MainMenuMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuMenu.h; sourceTree = "<group>"; };
+		921500811EA92A2100E2CF9A /* MainMenuMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuMenu.m; sourceTree = "<group>"; };
+		921500831EAA39CF00E2CF9A /* PrivacyAndDisclaimerPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivacyAndDisclaimerPresenter.h; sourceTree = "<group>"; };
+		921500841EAA39CF00E2CF9A /* PrivacyAndDisclaimerPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivacyAndDisclaimerPresenter.m; sourceTree = "<group>"; };
+		921500861EAA3E8D00E2CF9A /* BarButtonBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BarButtonBack.png; sourceTree = "<group>"; };
 		9218EA591869D37500A4E2D9 /* ClickingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClickingView.h; sourceTree = "<group>"; };
 		9218EA5A1869D37500A4E2D9 /* ClickingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClickingView.m; sourceTree = "<group>"; };
 		9218EA601869E83800A4E2D9 /* iPhoneDataEntryBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneDataEntryBackground.png; sourceTree = "<group>"; };
@@ -969,6 +981,10 @@
 				920AE60E19C88D71001C96CE /* EpiInfoViewForRounding.h */,
 				920AE60F19C88D71001C96CE /* EpiInfoViewForRounding.m */,
 				922920841AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift */,
+				921500801EA92A2100E2CF9A /* MainMenuMenu.h */,
+				921500811EA92A2100E2CF9A /* MainMenuMenu.m */,
+				921500831EAA39CF00E2CF9A /* PrivacyAndDisclaimerPresenter.h */,
+				921500841EAA39CF00E2CF9A /* PrivacyAndDisclaimerPresenter.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -1609,6 +1625,9 @@
 		92D4BB60184F77BD00B2D70C /* Button Images */ = {
 			isa = PBXGroup;
 			children = (
+				921500771EA9269400E2CF9A /* menu_lines.png */,
+				9215007E1EA9297A00E2CF9A /* menu_lines20.png */,
+				921500861EAA3E8D00E2CF9A /* BarButtonBack.png */,
 				92D4BB61184F77CC00B2D70C /* CancelButton.png */,
 				92130D101CEA456F001040D6 /* InchesButton.png */,
 				92130D111CEA456F001040D6 /* CentimetersButton.png */,
@@ -1818,6 +1837,7 @@
 				92C2BC6E1E8956380034F85B /* population_survey_icon_blue_6+.png in Resources */,
 				4AFD853E161F137B00FFBA65 /* Default@2x.png in Resources */,
 				925C894A19534F8000F3DCE7 /* GrowthButtonNR.png in Resources */,
+				9215007F1EA9297A00E2CF9A /* menu_lines20.png in Resources */,
 				92243A7A182C3A4600E6156B /* PhoneRH.png in Resources */,
 				4AFD8543161F137B00FFBA65 /* MainStoryboard.storyboard in Resources */,
 				9295FFEF1CEE07B00022B75C /* PoissonTopN.png in Resources */,
@@ -1891,6 +1911,7 @@
 				92F520EF1CD3BFAC0058F352 /* icon-120.png in Resources */,
 				928FCEF619E570B300641A95 /* VHFButtonNR.png in Resources */,
 				68D769FE16A9DDF900D831EB /* PopB.png in Resources */,
+				921500781EA9269400E2CF9A /* menu_lines.png in Resources */,
 				92E9801718A538C30011CC8B /* MSAzureNR.png in Resources */,
 				926C9D591A7AB3EC004A6ADD /* SimulationButton.png in Resources */,
 				92C2BC531E857E880034F85B /* chi_squared_icon_6+.png in Resources */,
@@ -1954,6 +1975,7 @@
 				9228250A186387DA00DF9493 /* ClearButtonOrange.png in Resources */,
 				68D76A0A16A9DDF900D831EB /* Calculate.png in Resources */,
 				926DFB551832B0A400FACCD2 /* iPhone4RetinaLaunch.png in Resources */,
+				921500871EAA3E8D00E2CF9A /* BarButtonBack.png in Resources */,
 				68D76A0B16A9DDF900D831EB /* PoissonB.png in Resources */,
 				9228250C186387DA00DF9493 /* SubmitButtonOrange.png in Resources */,
 				68D76A0C16A9DDF900D831EB /* PoissonT.png in Resources */,
@@ -2070,12 +2092,14 @@
 				4AFD8574161F531400FFBA65 /* PopulationSurveyView.m in Sources */,
 				4AFD8577161F563100FFBA65 /* SampleSizeAndPowerViewController.m in Sources */,
 				92119A601923FBD3008155F7 /* EpiInfoViewController.m in Sources */,
+				921500851EAA39CF00E2CF9A /* PrivacyAndDisclaimerPresenter.m in Sources */,
 				4A409A6D161F6CFB0038F572 /* PopulationSurveySampleSizeCompute.m in Sources */,
 				4AC7D6241625BD640056A8AC /* CohortSampleSizeViewController.m in Sources */,
 				9266C53D184684CA00739AF2 /* DateField.m in Sources */,
 				92ABAA1D1D22F727000C5B60 /* PageDots.m in Sources */,
 				4AC7D6301625C0C80056A8AC /* UnmatchedCaseControlSampleSizeViewController.m in Sources */,
 				923226771E53825E0099439F /* ExpressionActionParser.m in Sources */,
+				921500821EA92A2100E2CF9A /* MainMenuMenu.m in Sources */,
 				92A25C011938E0AC003225E1 /* TimeField.m in Sources */,
 				4A977F381627097C0009E572 /* CohortSampleSizeCompute.m in Sources */,
 				4AB23ED016284B6B00AE47C0 /* EpiInfoScrollView.m in Sources */,

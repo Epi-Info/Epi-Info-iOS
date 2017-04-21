@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "sqlite3.h"
+#import "MainMenuMenu.h"
 
 @interface EpiInfoViewController : UIViewController
 {
@@ -50,6 +51,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *dataEntryButton;
 @property (weak, nonatomic) IBOutlet UIButton *vhfButton;
 @property (weak, nonatomic) IBOutlet UIButton *simulationsButton;
+
+@property UIBarButtonItem *mainMenuMenu;
 
 -(CGRect)frameOfButtonPressed;
 -(UIButton *)buttonPressed;

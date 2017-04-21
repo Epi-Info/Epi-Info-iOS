@@ -18,6 +18,7 @@
 @implementation EpiInfoViewController
 @synthesize analyzeDataButton = _analyzeDataButton;
 @synthesize statCalcButton = _statCalcButton;
+@synthesize mainMenuMenu = _mainMenuMenu;
 
 - (CGRect)frameOfButtonPressed
 {
@@ -108,6 +109,12 @@
     UIImage *hhsImage = [UIImage imageNamed:@"HHSLogo.jpeg"];
     [hhsImageView setImage:hhsImage];
     [hhsImageView setAlpha:0.2];
+    
+    self.mainMenuMenu = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"menu_lines20.png"] style:UIBarButtonItemStylePlain target:self action:@selector(mainMenuMenuButtonPressed:)];
+    [self.mainMenuMenu setAccessibilityLabel:@"Disclaimers and Privacy Policy"];
+    [self.mainMenuMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+    [self.mainMenuMenu setWidth:10.0];
+    [self.navigationItem setLeftBarButtonItem:self.mainMenuMenu];
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
@@ -928,5 +935,18 @@
 - (void)tutorialButtonPressed:(UIButton *)sender
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/Epi-Info/Epi-Info-iOS/wiki"]];
+}
+
+- (void)mainMenuMenuButtonPressed:(UIBarButtonItem *)sender
+{
+    MainMenuMenu *mmm = [[MainMenuMenu alloc] initWithFrame:CGRectMake(-self.view.frame.size.width, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [mmm setEivc:self];
+    [self.view addSubview:mmm];
+    
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [mmm setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        [self.mainMenuMenu setEnabled:NO];
+    } completion:^(BOOL finished){
+    }];
 }
 @end
