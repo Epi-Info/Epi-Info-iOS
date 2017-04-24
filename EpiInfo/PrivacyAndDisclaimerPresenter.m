@@ -9,11 +9,6 @@
 #import "PrivacyAndDisclaimerPresenter.h"
 
 @implementation PrivacyAndDisclaimerPresenter
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
-    return contentHolder;
-}
-
 - (id)initWithFrame:(CGRect)frame andTag:(NSInteger)tag
 {
     self = [super initWithFrame:frame];
@@ -45,7 +40,6 @@
         
         contentHolder = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 32, frame.size.width, frame.size.height - 32)];
         [contentHolder setBackgroundColor:[UIColor clearColor]];
-        [contentHolder setDelegate:self];
 //        [contentHolder setMinimumZoomScale:1.0];
 //        [contentHolder setMaximumZoomScale:3.0];
         [self addSubview:contentHolder];

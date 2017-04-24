@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PrivacyAndDisclaimerPresenter : UIView <UIScrollViewDelegate>
+@interface PrivacyAndDisclaimerPresenter : UIView
 {
     UIScrollView *contentHolder;
     
