@@ -30,6 +30,10 @@
         UINavigationItem *item = [[UINavigationItem alloc] initWithTitle:@"Privacy Policy"];
         if (tag == 1)
             [item setTitle:@"Disclaimer"];
+        else if (tag == 2)
+            [item setTitle:@"Activity Log"];
+        else if (tag == 3)
+            [item setTitle:@"Error Log"];
         [banner setItems:[NSArray arrayWithObject:item]];
         
         UIBarButtonItem *back = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"UINavigationBarBackIndicatorDefault"] style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
@@ -427,6 +431,38 @@
             case 1:
             {
                 [content setText:@"\nTHE MATERIALS EMBODIED IN THIS SOFTWARE ARE PROVIDED TO YOU \"AS-IS\" AND WITHOUT WARRANTY OF ANY KIND, EXPRESSED, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL THE CENTERS FOR DISEASE CONTROL AND PREVENTION (CDC) OR THE UNITED STATES (U.S.) GOVERNMENT BE LIABLE TO YOU OR ANYONE ELSE FOR ANY DIRECT, SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND, OR ANY DAMAGES WHATSOEVER, INCLUDING WITHOUT LIMITATION, LOSS OF PROFIT, LOSS OF USE, SAVINGS OR REVENUE, OR THE CLAIMS OF THIRD PARTIES, WHETHER OR NOT CDC OR THE U.S. GOVERNMENT HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH LOSS, HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE POSSESSION, USE OR PERFORMANCE OF THIS SOFTWARE.\n\nCDC is not responsible for confidentiality or any information shared by the owner or user of the device that runs the Epi Info™ Mobile Application with other parties. CDC is not responsible for information shared with third parties through loss or theft of the device.\n\nThis application is used for data collection and is not intended to provide medical advice or diagnoses. Any questions regarding personal medical information should be directed to a primary care physician.\n\nUse of trade names, commercial sources or private organizations is for identification only and does not imply endorsement by the U.S. Department of Health and Human Services and/or CDC."];
+                [content sizeToFit];
+            }
+                break;
+                
+            case 2:
+            {
+                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"]])
+                {
+                    [content setText:@"Activity Log not found."];
+                }
+                else
+                {
+                    NSString *activityLogFile = [[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] stringByAppendingPathComponent:@"Activity_Log.txt"];
+                    [content setText:[NSString stringWithContentsOfFile:activityLogFile encoding:NSUTF8StringEncoding error:nil]];
+                }
+                [content sizeToFit];
+            }
+                break;
+                
+            case 3:
+            {
+                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"]])
+                {
+                    [content setText:@"Error Log not found."];
+                }
+                else
+                {
+                    NSString *activityLogFile = [[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] stringByAppendingPathComponent:@"Error_Log.txt"];
+                    [content setText:[NSString stringWithContentsOfFile:activityLogFile encoding:NSUTF8StringEncoding error:nil]];
+                }
                 [content sizeToFit];
             }
                 break;

@@ -37,7 +37,7 @@
         [back setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [item setRightBarButtonItem:back];
         
-        UIView *gravView = [[UIView alloc] initWithFrame:CGRectMake(0, 32, frame.size.width, 90)];
+        UIView *gravView = [[UIView alloc] initWithFrame:CGRectMake(0, 32, frame.size.width, 180)];
         [gravView setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
         [self addSubview:gravView];
         
@@ -64,6 +64,30 @@
         [disclaimerButton setContentEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
         [disclaimerButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
         [gravView addSubview:disclaimerButton];
+        
+        UIButton *activityLogButton = [[UIButton alloc] initWithFrame:CGRectMake(0, disclaimerButton.frame.origin.y + disclaimerButton.frame.size.height + 1, frame.size.width, disclaimerButton.frame.size.height)];
+        [activityLogButton setTag:2];
+        [activityLogButton addTarget:self action:@selector(showContent:) forControlEvents:UIControlEventTouchUpInside];
+        [activityLogButton setBackgroundColor:[UIColor whiteColor]];
+        [activityLogButton setTitle:@"Activity Log" forState:UIControlStateNormal];
+        [activityLogButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [activityLogButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [activityLogButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [activityLogButton setContentEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
+        [activityLogButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+        [gravView addSubview:activityLogButton];
+        
+        UIButton *errorLogButton = [[UIButton alloc] initWithFrame:CGRectMake(0, activityLogButton.frame.origin.y + activityLogButton.frame.size.height + 1, frame.size.width, activityLogButton.frame.size.height)];
+        [errorLogButton setTag:3];
+        [errorLogButton addTarget:self action:@selector(showContent:) forControlEvents:UIControlEventTouchUpInside];
+        [errorLogButton setBackgroundColor:[UIColor whiteColor]];
+        [errorLogButton setTitle:@"Error Log" forState:UIControlStateNormal];
+        [errorLogButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [errorLogButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [errorLogButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [errorLogButton setContentEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
+        [errorLogButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+        [gravView addSubview:errorLogButton];
         
         UILabel *versionInfo = [[UILabel alloc] initWithFrame:CGRectMake(4, frame.size.height - 30, frame.size.width - 4, 30)];
         [versionInfo setTextAlignment:NSTextAlignmentLeft];
