@@ -163,7 +163,6 @@
 		9232266F1E5381C20099439F /* FullAssignStatementParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9232266E1E5381C20099439F /* FullAssignStatementParser.m */; };
 		923226771E53825E0099439F /* ExpressionActionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 923226761E53825E0099439F /* ExpressionActionParser.m */; };
 		9232267A1E53829E0099439F /* IfParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 923226791E53829E0099439F /* IfParser.m */; };
-		9233A7C518FD685F00CA5CA3 /* WindowsAzureMobileServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921974961880583D007F6DFA /* WindowsAzureMobileServices.framework */; };
 		923A263817B41BCE00DCBCD5 /* AnalysisFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A263717B41BCE00DCBCD5 /* AnalysisFilterView.m */; };
 		923A263B17B4265D00DCBCD5 /* FilterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A263A17B4265D00DCBCD5 /* FilterButton.m */; };
 		923A49F617B56636000FFC0C /* NewVariablesButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A49F517B56636000FFC0C /* NewVariablesButton.m */; };
@@ -257,6 +256,8 @@
 		9291F43E1AA779C60041DE6E /* SimulationsViewControllerSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9291F43D1AA779C60041DE6E /* SimulationsViewControllerSwift.swift */; };
 		92921B9619A63E0000AA9477 /* MeansObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 92921B9519A63E0000AA9477 /* MeansObject.m */; };
 		92921B9919A6427000AA9477 /* MeansView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92921B9819A6427000AA9477 /* MeansView.m */; };
+		929230151EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 929230141EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework */; };
+		9292301B1EC4F3EE0078D9C2 /* WindowsAzureMobileServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921974961880583D007F6DFA /* WindowsAzureMobileServices.framework */; };
 		92955547192B963F008DEC5C /* ConverterMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 92955546192B963F008DEC5C /* ConverterMethods.m */; };
 		9295554A192BC8C5008DEC5C /* DatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 92955549192BC8C5008DEC5C /* DatePicker.m */; };
 		9295FFCF1CEB8F4B0022B75C /* ArrowFull.png in Resources */ = {isa = PBXBuildFile; fileRef = 9295FFCC1CEB8F4B0022B75C /* ArrowFull.png */; };
@@ -783,6 +784,7 @@
 		92921B9519A63E0000AA9477 /* MeansObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeansObject.m; sourceTree = "<group>"; };
 		92921B9719A6427000AA9477 /* MeansView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeansView.h; sourceTree = "<group>"; };
 		92921B9819A6427000AA9477 /* MeansView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeansView.m; sourceTree = "<group>"; };
+		929230141EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MicrosoftAzureMobile.framework; sourceTree = "<group>"; };
 		92955545192B963F008DEC5C /* ConverterMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConverterMethods.h; sourceTree = "<group>"; };
 		92955546192B963F008DEC5C /* ConverterMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConverterMethods.m; sourceTree = "<group>"; };
 		92955548192BC8C5008DEC5C /* DatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePicker.h; sourceTree = "<group>"; };
@@ -929,14 +931,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9292301B1EC4F3EE0078D9C2 /* WindowsAzureMobileServices.framework in Frameworks */,
 				C39E67AD1E03381A0002A4EF /* libPEGKitIOS.a in Frameworks */,
-				9233A7C518FD685F00CA5CA3 /* WindowsAzureMobileServices.framework in Frameworks */,
 				92A5D8D018CF91820048C160 /* Security.framework in Frameworks */,
 				9224991018C66FB500D8105E /* MessageUI.framework in Frameworks */,
 				927B555C18B65281000AB7B1 /* SystemConfiguration.framework in Frameworks */,
 				92D30F5B1899726100CEBCAE /* CoreLocation.framework in Frameworks */,
 				92001B97186C8C2E00B87D21 /* CoreImage.framework in Frameworks */,
 				9252018017D0CC930071C754 /* QuartzCore.framework in Frameworks */,
+				929230151EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework in Frameworks */,
 				9284E8ED17B94BDB00158139 /* libsqlite3.dylib in Frameworks */,
 				4AFD852A161F137B00FFBA65 /* UIKit.framework in Frameworks */,
 				4AFD852C161F137B00FFBA65 /* Foundation.framework in Frameworks */,
@@ -1026,6 +1029,7 @@
 		4AFD8528161F137B00FFBA65 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				929230141EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework */,
 				92A5D8CF18CF91820048C160 /* Security.framework */,
 				92DE0E1E18CA4770000D388E /* libcorecrypto.dylib */,
 				92DE0E1C18CA46D3000D388E /* libcommonCrypto.dylib */,
@@ -1073,6 +1077,7 @@
 		4AFD8530161F137B00FFBA65 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9292301C1ECA08370078D9C2 /* Logs */,
 				922227AE19BA1CBC002CD855 /* Launch Images */,
 				9222279F19BA14E0002CD855 /* Icon Images */,
 				925C894B19535A8900F3DCE7 /* Growth Data */,
@@ -1620,6 +1625,13 @@
 				928FCEF119E5692000641A95 /* VHFViewController.m */,
 			);
 			name = VHF;
+			sourceTree = "<group>";
+		};
+		9292301C1ECA08370078D9C2 /* Logs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Logs;
 			sourceTree = "<group>";
 		};
 		92D4BB60184F77BD00B2D70C /* Button Images */ = {
@@ -2271,6 +2283,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = J8992FE8QS;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -2305,6 +2318,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = J8992FE8QS;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",

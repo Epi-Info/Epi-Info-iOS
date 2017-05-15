@@ -2551,10 +2551,12 @@
         }
     }
     
-    NSMutableArray *uploads = [[NSMutableArray alloc] init];
+    [self uploadAllToAzureThread:arrayOfAzureDictionaries];
+    
+//    NSMutableArray *uploads = [[NSMutableArray alloc] init];
 
-    for (int i = 0; i < arrayOfAzureDictionaries.count; i++)
-    {
+//    for (int i = 0; i < arrayOfAzureDictionaries.count; i++)
+//    {
 //        [self.epiinfoService addItem:[NSDictionary dictionaryWithDictionary:(NSMutableDictionary *)[arrayOfAzureDictionaries objectAtIndex:i]] completion:^(NSUInteger index)
 //         {
 //             if ((int)index < 0)
@@ -2597,9 +2599,87 @@
 //                 }
 //             }
 //         }];
-    }
+//    }
 
-//    [self doNotDismiss];
+    [self doNotDismiss];
+    
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Sending" message:@"Records are being sent to Azure Cloud" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+    }];
+    [alertC addAction:noAction];
+    [self presentViewController:alertC animated:YES completion:nil];
+}
+
+- (void)uploadAllToAzureThread:(NSArray *)arrayOfAzureDictionaries
+{
+    [self doNotDismiss];
+    if (edv.client)
+    {
+        // Create Activity_Log.txt and Error_Log.txt if they do not already exist
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"]])
+        {
+            [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] withIntermediateDirectories:NO attributes:nil error:nil];
+        }
+        
+        MSTable *itemTable = [edv.client tableWithName:edv.formName];
+        __block bool okayToContinue = YES;
+        for (int i = 0; i < arrayOfAzureDictionaries.count; i++)
+        {
+            //            while (!okayToContinue)
+            {
+                //                [NSThread sleepForTimeInterval:1.1f];
+            }
+            okayToContinue = NO;
+            [itemTable readWithId:[(NSMutableDictionary *)[arrayOfAzureDictionaries objectAtIndex:i] objectForKey:@"id"] completion:^(NSDictionary *queriedItem, NSError *queryError) {
+                if (queryError) {
+                    [itemTable insert:(NSMutableDictionary *)[arrayOfAzureDictionaries objectAtIndex:i] completion:^(NSDictionary *insertedItem, NSError *error) {
+                        if (error) {
+                            NSLog(@"Insert error: %@", error);
+                            NSString *errorLogFile = [[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] stringByAppendingPathComponent:@"Error_Log.txt"];
+                            NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:errorLogFile];
+                            [fileHandle seekToEndOfFile];
+                            [fileHandle writeData:[[NSString stringWithFormat:@"%@:: Update error: %@\n", [NSDate date], error] dataUsingEncoding:NSUTF8StringEncoding]];
+                            [fileHandle closeFile];
+                        } else {
+                            NSLog(@"Item inserted, id: %@", [insertedItem objectForKey:@"id"]);
+                            NSString *activityLogFile = [[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] stringByAppendingPathComponent:@"Activity_Log.txt"];
+                            NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:activityLogFile];
+                            [fileHandle seekToEndOfFile];
+                            [fileHandle writeData:[[NSString stringWithFormat:@"%@:: Item inserted, id: %@\n", [NSDate date], [insertedItem objectForKey:@"id"]] dataUsingEncoding:NSUTF8StringEncoding]];
+                            [fileHandle closeFile];
+                        }
+                    }];
+                    okayToContinue = YES;
+                } else {
+                    NSLog(@"Item found, id: %@", [queriedItem objectForKey:@"id"]);
+                    NSString *activityLogFile = [[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] stringByAppendingPathComponent:@"Activity_Log.txt"];
+                    NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:activityLogFile];
+                    [fileHandle seekToEndOfFile];
+                    [fileHandle writeData:[[NSString stringWithFormat:@"%@:: Item found, id: %@\n", [NSDate date], [queriedItem objectForKey:@"id"]] dataUsingEncoding:NSUTF8StringEncoding]];
+                    [fileHandle closeFile];
+                    [itemTable update:(NSMutableDictionary *)[arrayOfAzureDictionaries objectAtIndex:i] completion:^(NSDictionary *updateDictionary, NSError *updateError) {
+                        if (updateError) {
+                            NSLog(@"Update error: %@", updateError);
+                            NSString *errorLogFile = [[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] stringByAppendingPathComponent:@"Error_Log.txt"];
+                            NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:errorLogFile];
+                            [fileHandle seekToEndOfFile];
+                            [fileHandle writeData:[[NSString stringWithFormat:@"%@:: Update error: %@\n", [NSDate date], updateError] dataUsingEncoding:NSUTF8StringEncoding]];
+                            [fileHandle closeFile];
+                        } else {
+                            NSLog(@"Item updated, id: %@", [updateDictionary objectForKey:@"id"]);
+                            NSString *activityLogFile = [[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] stringByAppendingPathComponent:@"Activity_Log.txt"];
+                            NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:activityLogFile];
+                            [fileHandle seekToEndOfFile];
+                            [fileHandle writeData:[[NSString stringWithFormat:@"%@:: Item updated, id: %@\n", [NSDate date], [updateDictionary objectForKey:@"id"]] dataUsingEncoding:NSUTF8StringEncoding]];
+                            [fileHandle closeFile];
+                        }
+                    }];
+                    okayToContinue = YES;
+                }
+            }];
+        }
+    }
 }
 
 - (void)dismissForm;

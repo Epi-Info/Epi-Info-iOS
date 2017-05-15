@@ -36,6 +36,7 @@
 #import "IfParser.h"
 #import "FieldsAndStringValues.h"
 #import "DictionaryOfFields.h"
+#import <MicrosoftAzureMobile/MicrosoftAzureMobile.h>
 
 @interface EnterDataView : UIScrollView <NSXMLParserDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UITextViewDelegate, UIAlertViewDelegate>
 {
@@ -150,6 +151,8 @@
 @property(strong, nonatomic) NSMutableArray *elementsArray;
 @property(strong) NSMutableArray *elmArray;
 @property(nonatomic) BOOL firstEdit;
+
+@property (strong, nonatomic) MSClient *client;
 
 
 -(void)setNewRecordGUID:(NSString *)guid;

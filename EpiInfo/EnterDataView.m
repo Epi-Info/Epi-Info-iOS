@@ -724,6 +724,7 @@
                             {
                                 if ([[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 1)] isEqualToString:@"MSAzure"])
                                 {
+                                    self.client = [MSClient clientWithApplicationURLString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)]];
                                     //                  self.epiinfoService = [[QSEpiInfoService alloc] initWithURL:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)] AndKey:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)]];
                                     //                  [self.epiinfoService setApplicationURL:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)]];
                                     //                  [self.epiinfoService setApplicationKey:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)]];
@@ -866,6 +867,7 @@
                             {
                                 if ([[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 1)] isEqualToString:@"MSAzure"])
                                 {
+                                    self.client = [MSClient clientWithApplicationURLString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)]];
                                     //                  self.epiinfoService = [[QSEpiInfoService alloc] initWithURL:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)] AndKey:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)]];
                                     //                  [self.epiinfoService setApplicationURL:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)]];
                                     //                  [self.epiinfoService setApplicationKey:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)]];
@@ -1092,7 +1094,7 @@
                     else
                     {
                         valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
-                        [azureDictionary setObject:[NSNumber numberWithFloat:(float)[(LegalValuesEnter *)v selectedIndex].intValue] forKey:[(LegalValuesEnter *)v columnName]];
+                        [azureDictionary setObject:[[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"] forKey:[(LegalValuesEnter *)v columnName]];
                     }
                 }
                 else if ([v isKindOfClass:[NumberField class]])
@@ -1344,6 +1346,17 @@
                     [uiaiv setHidden:NO];
                     [uiaiv startAnimating];
                     [okButton setEnabled:NO];
+                    if (self.client)
+                    {
+                        MSTable *itemTable = [self.client tableWithName:formName];
+                        [itemTable insert:azureDictionary completion:^(NSDictionary *insertedItem, NSError *error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            } else {
+                                NSLog(@"Item inserted, id: %@", [insertedItem objectForKey:@"id"]);
+                            }
+                        }];
+                    }
                     //          NSLog(@"%@", self.epiinfoService.applicationURL);
                     //          if (self.epiinfoService.applicationURL)
                     //            [self.epiinfoService addItem:[NSDictionary dictionaryWithDictionary:azureDictionary] completion:^(NSUInteger index)
@@ -1498,7 +1511,7 @@
                     else
                     {
                         insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
-                        [azureDictionary setObject:[NSNumber numberWithFloat:(float)[(LegalValuesEnter *)v selectedIndex].intValue] forKey:[(LegalValuesEnter *)v columnName]];
+                        [azureDictionary setObject:[[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"] forKey:[(LegalValuesEnter *)v columnName]];
                     }
                 }
                 else if ([v isKindOfClass:[NumberField class]])
@@ -1729,6 +1742,30 @@
                     [uiaiv setHidden:NO];
                     [uiaiv startAnimating];
                     [okButton setEnabled:NO];
+                    if (self.client)
+                    {
+                        MSTable *itemTable = [self.client tableWithName:formName];
+                        [itemTable readWithId:[azureDictionary objectForKey:@"id"] completion:^(NSDictionary *queriedItem, NSError *queryError) {
+                            if (queryError) {
+                                [itemTable insert:azureDictionary completion:^(NSDictionary *insertedItem, NSError *error) {
+                                    if (error) {
+                                        NSLog(@"Insert error: %@", error);
+                                    } else {
+                                        NSLog(@"Item inserted, id: %@", [insertedItem objectForKey:@"id"]);
+                                    }
+                                }];
+                            } else {
+                                NSLog(@"Item found, id: %@", [queriedItem objectForKey:@"id"]);
+                                [itemTable update:azureDictionary completion:^(NSDictionary *updateDictionary, NSError *updateError) {
+                                    if (updateError) {
+                                        NSLog(@"Update error: %@", updateError);
+                                    } else {
+                                        NSLog(@"Item updated, id: %@", [updateDictionary objectForKey:@"id"]);
+                                    }
+                                }];
+                            }
+                        }];
+                    }
                     //          if (self.epiinfoService.applicationURL)
                     //          {
                     //            [self.epiinfoService addItem:[NSDictionary dictionaryWithDictionary:azureDictionary] completion:^(NSUInteger index)
@@ -1872,6 +1909,17 @@
                     [uiaiv setHidden:NO];
                     [uiaiv startAnimating];
                     [okButton setEnabled:NO];
+                    if (self.client)
+                    {
+                        MSTable *itemTable = [self.client tableWithName:formName];
+                        [itemTable deleteWithId:[azureDictionary objectForKey:@"id"] completion:^(id itemID, NSError *error) {
+                            if (error) {
+                                NSLog(@"Error deleting record: %@", error);
+                            } else {
+                                NSLog(@"Item deleted, id: %@", itemID);
+                            }
+                        }];
+                    }
                     //          if (self.epiinfoService.applicationURL)
                     //          {
                     //            [self.epiinfoService deleteItem:[NSDictionary dictionaryWithDictionary:azureDictionary] completion:^(NSUInteger index)
