@@ -246,7 +246,7 @@ four:
     double k = 0.0;
     double l = 0.0;
     double m = 0.0;
-    double pi = 3.1416;
+    double pi = M_PI;
     double absx = x;
     if (x < 0)
         absx = -x;
