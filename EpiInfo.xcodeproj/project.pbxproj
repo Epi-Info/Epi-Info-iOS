@@ -356,6 +356,7 @@
 		92EB1ACC1DCA660100694282 /* FieldsAndStringValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 92EB1ACB1DCA660100694282 /* FieldsAndStringValues.m */; };
 		92EB1ACF1DCA77B900694282 /* DictionaryOfFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 92EB1ACE1DCA77B900694282 /* DictionaryOfFields.m */; };
 		92EBAD03194A400D000EF983 /* EpiInfoUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92EBAD02194A400D000EF983 /* EpiInfoUILabel.m */; };
+		92F25A3C1ECB558400638DF9 /* EpiInfoLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F25A3B1ECB558400638DF9 /* EpiInfoLogManager.m */; };
 		92F520E91CD3BFAC0058F352 /* icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F520E01CD3BFAC0058F352 /* icon-29.png */; };
 		92F520EA1CD3BFAC0058F352 /* icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F520E11CD3BFAC0058F352 /* icon-40.png */; };
 		92F520EB1CD3BFAC0058F352 /* icon-58.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F520E21CD3BFAC0058F352 /* icon-58.png */; };
@@ -903,6 +904,8 @@
 		92EB1ACE1DCA77B900694282 /* DictionaryOfFields.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryOfFields.m; sourceTree = "<group>"; };
 		92EBAD01194A400D000EF983 /* EpiInfoUILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpiInfoUILabel.h; sourceTree = "<group>"; };
 		92EBAD02194A400D000EF983 /* EpiInfoUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpiInfoUILabel.m; sourceTree = "<group>"; };
+		92F25A3A1ECB558400638DF9 /* EpiInfoLogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpiInfoLogManager.h; sourceTree = "<group>"; };
+		92F25A3B1ECB558400638DF9 /* EpiInfoLogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpiInfoLogManager.m; sourceTree = "<group>"; };
 		92F520E01CD3BFAC0058F352 /* icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-29.png"; sourceTree = "<group>"; };
 		92F520E11CD3BFAC0058F352 /* icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40.png"; sourceTree = "<group>"; };
 		92F520E21CD3BFAC0058F352 /* icon-58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-58.png"; sourceTree = "<group>"; };
@@ -988,6 +991,8 @@
 				921500811EA92A2100E2CF9A /* MainMenuMenu.m */,
 				921500831EAA39CF00E2CF9A /* PrivacyAndDisclaimerPresenter.h */,
 				921500841EAA39CF00E2CF9A /* PrivacyAndDisclaimerPresenter.m */,
+				92F25A3A1ECB558400638DF9 /* EpiInfoLogManager.h */,
+				92F25A3B1ECB558400638DF9 /* EpiInfoLogManager.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -2109,6 +2114,7 @@
 				4AC7D6241625BD640056A8AC /* CohortSampleSizeViewController.m in Sources */,
 				9266C53D184684CA00739AF2 /* DateField.m in Sources */,
 				92ABAA1D1D22F727000C5B60 /* PageDots.m in Sources */,
+				92F25A3C1ECB558400638DF9 /* EpiInfoLogManager.m in Sources */,
 				4AC7D6301625C0C80056A8AC /* UnmatchedCaseControlSampleSizeViewController.m in Sources */,
 				923226771E53825E0099439F /* ExpressionActionParser.m in Sources */,
 				921500821EA92A2100E2CF9A /* MainMenuMenu.m in Sources */,

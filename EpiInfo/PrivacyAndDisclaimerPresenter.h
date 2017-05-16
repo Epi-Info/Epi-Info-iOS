@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MessageUI/MFMailComposeViewController.h>
+#import "EpiInfoLogManager.h"
 
 @interface PrivacyAndDisclaimerPresenter : UIView <MFMailComposeViewControllerDelegate>
 {

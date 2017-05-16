@@ -534,19 +534,18 @@
 - (void)doClearLogFile:(NSUInteger)senderTag
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] withIntermediateDirectories:NO attributes:nil error:nil];
     
     if (senderTag == 3)
     {
+        [EpiInfoLogManager resetErrorLog];
         NSString *errorLogFile = [[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] stringByAppendingPathComponent:@"Error_Log.txt"];
-        [[NSString stringWithFormat:@"Epi Info iOS App Error Log\n"] writeToFile:errorLogFile atomically:NO encoding:NSUTF8StringEncoding error:nil];
         [content setText:[NSString stringWithContentsOfFile:errorLogFile encoding:NSUTF8StringEncoding error:nil]];
         [content sizeToFit];
     }
     else if (senderTag == 2)
     {
+        [EpiInfoLogManager resetActivityLog];
         NSString *activityLogFile = [[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] stringByAppendingPathComponent:@"Activity_Log.txt"];
-        [[NSString stringWithFormat:@"Epi Info iOS App Activity Log\n"] writeToFile:activityLogFile atomically:NO encoding:NSUTF8StringEncoding error:nil];
         [content setText:[NSString stringWithContentsOfFile:activityLogFile encoding:NSUTF8StringEncoding error:nil]];
         [content sizeToFit];
     }

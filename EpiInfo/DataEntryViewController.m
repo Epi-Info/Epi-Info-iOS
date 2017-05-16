@@ -2636,43 +2636,23 @@
                     [itemTable insert:(NSMutableDictionary *)[arrayOfAzureDictionaries objectAtIndex:i] completion:^(NSDictionary *insertedItem, NSError *error) {
                         if (error) {
                             NSLog(@"Insert error: %@", error);
-                            NSString *errorLogFile = [[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] stringByAppendingPathComponent:@"Error_Log.txt"];
-                            NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:errorLogFile];
-                            [fileHandle seekToEndOfFile];
-                            [fileHandle writeData:[[NSString stringWithFormat:@"%@:: Update error: %@\n", [NSDate date], error] dataUsingEncoding:NSUTF8StringEncoding]];
-                            [fileHandle closeFile];
+                            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Update error: %@\n", [NSDate date], error]];
                         } else {
                             NSLog(@"Item inserted, id: %@", [insertedItem objectForKey:@"id"]);
-                            NSString *activityLogFile = [[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] stringByAppendingPathComponent:@"Activity_Log.txt"];
-                            NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:activityLogFile];
-                            [fileHandle seekToEndOfFile];
-                            [fileHandle writeData:[[NSString stringWithFormat:@"%@:: Item inserted, id: %@\n", [NSDate date], [insertedItem objectForKey:@"id"]] dataUsingEncoding:NSUTF8StringEncoding]];
-                            [fileHandle closeFile];
+                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item inserted, id: %@\n", [NSDate date], [insertedItem objectForKey:@"id"]]];
                         }
                     }];
                     okayToContinue = YES;
                 } else {
                     NSLog(@"Item found, id: %@", [queriedItem objectForKey:@"id"]);
-                    NSString *activityLogFile = [[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] stringByAppendingPathComponent:@"Activity_Log.txt"];
-                    NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:activityLogFile];
-                    [fileHandle seekToEndOfFile];
-                    [fileHandle writeData:[[NSString stringWithFormat:@"%@:: Item found, id: %@\n", [NSDate date], [queriedItem objectForKey:@"id"]] dataUsingEncoding:NSUTF8StringEncoding]];
-                    [fileHandle closeFile];
+                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item found, id: %@\n", [NSDate date], [queriedItem objectForKey:@"id"]]];
                     [itemTable update:(NSMutableDictionary *)[arrayOfAzureDictionaries objectAtIndex:i] completion:^(NSDictionary *updateDictionary, NSError *updateError) {
                         if (updateError) {
                             NSLog(@"Update error: %@", updateError);
-                            NSString *errorLogFile = [[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] stringByAppendingPathComponent:@"Error_Log.txt"];
-                            NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:errorLogFile];
-                            [fileHandle seekToEndOfFile];
-                            [fileHandle writeData:[[NSString stringWithFormat:@"%@:: Update error: %@\n", [NSDate date], updateError] dataUsingEncoding:NSUTF8StringEncoding]];
-                            [fileHandle closeFile];
+                            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Update error: %@\n", [NSDate date], updateError]];
                         } else {
                             NSLog(@"Item updated, id: %@", [updateDictionary objectForKey:@"id"]);
-                            NSString *activityLogFile = [[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] stringByAppendingPathComponent:@"Activity_Log.txt"];
-                            NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:activityLogFile];
-                            [fileHandle seekToEndOfFile];
-                            [fileHandle writeData:[[NSString stringWithFormat:@"%@:: Item updated, id: %@\n", [NSDate date], [updateDictionary objectForKey:@"id"]] dataUsingEncoding:NSUTF8StringEncoding]];
-                            [fileHandle closeFile];
+                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item updated, id: %@\n", [NSDate date], [updateDictionary objectForKey:@"id"]]];
                         }
                     }];
                     okayToContinue = YES;
