@@ -8,7 +8,7 @@
 //#import "QSEpiInfoService.h"
 #import "DataEntryViewController.h"
 #import "ConverterMethods.h"
-
+#import "EpiInfoLogManager.h"
 
 #pragma mark * Private Interface
 
@@ -66,6 +66,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    // Remove old lines from the logs.
+    [EpiInfoLogManager removeOldLinesFromLogs];
+
     updatingExistingRecord = NO;
     [self setTitle:@""];
     
