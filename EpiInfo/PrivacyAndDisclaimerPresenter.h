@@ -3,12 +3,12 @@
 //  EpiInfo
 //
 //  Created by John Copeland on 4/21/17.
-//  Copyright © 2017 John Copeland. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
-@interface PrivacyAndDisclaimerPresenter : UIView
+@interface PrivacyAndDisclaimerPresenter : UIView <MFMailComposeViewControllerDelegate>
 {
     UIScrollView *contentHolder;
     
@@ -27,6 +27,8 @@
     NSTextStorage *usingMobileApplicationsBullet1TextStorage;
     NSRange usingMobileApplicationsBullet1HyperlinkRange0;
     NSRange usingMobileApplicationsBullet1HyperlinkRange1;
+    
+    UILabel *content;
 }
 -(id)initWithFrame:(CGRect)frame andTag:(NSInteger)tag;
 @end

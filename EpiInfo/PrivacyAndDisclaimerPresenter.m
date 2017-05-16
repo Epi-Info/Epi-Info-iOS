@@ -3,7 +3,6 @@
 //  EpiInfo
 //
 //  Created by John Copeland on 4/21/17.
-//  Copyright © 2017 John Copeland. All rights reserved.
 //
 
 #import "PrivacyAndDisclaimerPresenter.h"
@@ -42,13 +41,22 @@
         [back setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [item setLeftBarButtonItem:back];
         
+        if (tag == 2 || tag == 3)
+        {
+            UIBarButtonItem *manageLogFile = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(manageLogFile:)];
+            [manageLogFile setAccessibilityLabel:@"Reset or email this log"];
+            [manageLogFile setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+            [manageLogFile setTag:tag];
+            [item setRightBarButtonItem:manageLogFile];
+        }
+        
         contentHolder = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 32, frame.size.width, frame.size.height - 32)];
         [contentHolder setBackgroundColor:[UIColor clearColor]];
 //        [contentHolder setMinimumZoomScale:1.0];
 //        [contentHolder setMaximumZoomScale:3.0];
         [self addSubview:contentHolder];
         
-        UILabel *content = [[UILabel alloc] init];
+        content = [[UILabel alloc] init];
         [content setNumberOfLines:0];
         [content setLineBreakMode:NSLineBreakByWordWrapping];
         [content setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
@@ -484,6 +492,126 @@
     } completion:^(BOOL finished){
         [self removeFromSuperview];
     }];
+}
+
+- (void)manageLogFile:(id)sender
+{
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Activity Log Management" message:@"What do you want to do with the Activity Log?" preferredStyle:UIAlertControllerStyleAlert];
+    if ([sender tag] == 3)
+    {
+        [alertC setTitle:@"Error Log Management"];
+        [alertC setMessage:@"What do you want to do with the Error Log?"];
+    }
+    UIAlertAction *clearAction = [UIAlertAction actionWithTitle:@"Clear It" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        [self confirmClearLogFile:[sender tag]];
+    }];
+    UIAlertAction *emailAction = [UIAlertAction actionWithTitle:@"Email It" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        [self emailLogFile:[sender tag]];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+    }];
+    [alertC addAction:clearAction];
+    [alertC addAction:emailAction];
+    [alertC addAction:cancelAction];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertC animated:YES completion:nil];
+}
+- (void)confirmClearLogFile:(NSUInteger)senderTag
+{
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Confirm" message:@"Are you sure you want to clear the Activity Log?" preferredStyle:UIAlertControllerStyleAlert];
+    if (senderTag == 3)
+    {
+        [alertC setMessage:@"Are you sure you want to clear the Error Log?"];
+    }
+    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        [self doClearLogFile:senderTag];
+    }];
+    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+    }];
+    [alertC addAction:yesAction];
+    [alertC addAction:noAction];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertC animated:YES completion:nil];
+}
+- (void)doClearLogFile:(NSUInteger)senderTag
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] withIntermediateDirectories:NO attributes:nil error:nil];
+    
+    if (senderTag == 3)
+    {
+        NSString *errorLogFile = [[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] stringByAppendingPathComponent:@"Error_Log.txt"];
+        [[NSString stringWithFormat:@"Epi Info iOS App Error Log\n"] writeToFile:errorLogFile atomically:NO encoding:NSUTF8StringEncoding error:nil];
+        [content setText:[NSString stringWithContentsOfFile:errorLogFile encoding:NSUTF8StringEncoding error:nil]];
+        [content sizeToFit];
+    }
+    else if (senderTag == 2)
+    {
+        NSString *activityLogFile = [[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] stringByAppendingPathComponent:@"Activity_Log.txt"];
+        [[NSString stringWithFormat:@"Epi Info iOS App Activity Log\n"] writeToFile:activityLogFile atomically:NO encoding:NSUTF8StringEncoding error:nil];
+        [content setText:[NSString stringWithContentsOfFile:activityLogFile encoding:NSUTF8StringEncoding error:nil]];
+        [content sizeToFit];
+    }
+}
+- (void)emailLogFile:(NSUInteger)senderTag
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] withIntermediateDirectories:NO attributes:nil error:nil];
+    NSString *errorLogFile = [[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] stringByAppendingPathComponent:@"Error_Log.txt"];
+    NSString *activityLogFile = [[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] stringByAppendingPathComponent:@"Activity_Log.txt"];
+    
+
+    MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
+    [composer setMailComposeDelegate:self];
+
+    if (senderTag == 2)
+        [composer addAttachmentData:[NSData dataWithContentsOfFile:activityLogFile] mimeType:@"text/plain" fileName:@"Activity_Log.txt"];
+    else if (senderTag == 3)
+        [composer addAttachmentData:[NSData dataWithContentsOfFile:errorLogFile] mimeType:@"text/plain" fileName:@"Error_Log.txt"];
+
+    [composer setSubject:@"Epi Info Log"];
+    [composer setMessageBody:@"Here is the requested log from the Epi Info iOS app." isHTML:NO];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:composer animated:YES completion:^(void){
+
+    }];
+    //            free(buffer);
+    return;
+}
+
+// <MFMailComposeViewControllerDelegate> delegate method
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+    // Notifies users about errors associated with the interface
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            //            NSLog(@"Result: canceled");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Result: saved");
+            break;
+        case MFMailComposeResultSent:
+        {
+            //            NSLog(@"Result: sent");
+            NSThread *nst = [[NSThread alloc] initWithTarget:self selector:@selector(confirmLogFileEmailed) object:nil];
+            [nst start];
+        }
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Result: failed");
+            break;
+        default:
+            NSLog(@"Result: not sent");
+            break;
+    }
+    [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:YES completion:^{
+    }];
+}
+- (void)confirmLogFileEmailed
+{
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Log Sent" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+    }];
+    [alertC addAction:okAction];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertC animated:YES completion:nil];
 }
 
 - (void)handleTapsInLabelHyperlinks:(UITapGestureRecognizer *)tapGesture
