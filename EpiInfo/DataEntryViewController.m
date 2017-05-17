@@ -2606,7 +2606,7 @@
 
     [self doNotDismiss];
     
-    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Sending" message:@"Records are being sent to Azure Cloud" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Sending" message:@"Records are being sent to Azure Cloud. See logs for results." preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
     }];
     [alertC addAction:noAction];
