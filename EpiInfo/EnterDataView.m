@@ -1352,8 +1352,10 @@
                         [itemTable insert:azureDictionary completion:^(NSDictionary *insertedItem, NSError *error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
+                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE SUBMIT: Error: %@\n", [NSDate date], error]];
                             } else {
                                 NSLog(@"Item inserted, id: %@", [insertedItem objectForKey:@"id"]);
+                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE SUBMIT: Item inserted, id: %@\n", [NSDate date], [insertedItem objectForKey:@"id"]]];
                             }
                         }];
                     }
@@ -1750,8 +1752,10 @@
                                 [itemTable insert:azureDictionary completion:^(NSDictionary *insertedItem, NSError *error) {
                                     if (error) {
                                         NSLog(@"Insert error: %@", error);
+                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Insert error: %@\n", [NSDate date], error]];
                                     } else {
                                         NSLog(@"Item inserted, id: %@", [insertedItem objectForKey:@"id"]);
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Item inserted, id: %@\n", [NSDate date], [insertedItem objectForKey:@"id"]]];
                                     }
                                 }];
                             } else {
@@ -1759,8 +1763,10 @@
                                 [itemTable update:azureDictionary completion:^(NSDictionary *updateDictionary, NSError *updateError) {
                                     if (updateError) {
                                         NSLog(@"Update error: %@", updateError);
+                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Update error: %@\n", [NSDate date], updateError]];
                                     } else {
                                         NSLog(@"Item updated, id: %@", [updateDictionary objectForKey:@"id"]);
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Item updated, id: %@\n", [NSDate date], [updateDictionary objectForKey:@"id"]]];
                                     }
                                 }];
                             }
@@ -1915,8 +1921,10 @@
                         [itemTable deleteWithId:[azureDictionary objectForKey:@"id"] completion:^(id itemID, NSError *error) {
                             if (error) {
                                 NSLog(@"Error deleting record: %@", error);
+                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE DELETE: Error deleting record: %@\n", [NSDate date], error]];
                             } else {
                                 NSLog(@"Item deleted, id: %@", itemID);
+                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE DELETE: Item deleted, id: %@\n", [NSDate date], itemID]];
                             }
                         }];
                     }
