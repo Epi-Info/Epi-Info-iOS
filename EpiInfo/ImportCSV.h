@@ -3,7 +3,6 @@
 //  EpiInfo
 //
 //  Created by John Copeland on 8/1/14.
-//  Copyright (c) 2014 John Copeland. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -33,8 +32,8 @@
 
 @property NSURL *url;
 @property UIViewController *rootViewController;
-@property UILabel *fakeNavBar;
+@property UIView *fakeNavBar;
 
 -(id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url;
--(id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndFakeNavBar:(UILabel *)fnb;
+-(id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndFakeNavBar:(UIView *)fnb;
 @end

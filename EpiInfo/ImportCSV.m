@@ -3,7 +3,6 @@
 //  EpiInfo
 //
 //  Created by John Copeland on 8/1/14.
-//  Copyright (c) 2014 John Copeland. All rights reserved.
 //
 
 #import "ImportCSV.h"
@@ -37,7 +36,8 @@
         hasAFirstResponder = NO;
         
         formCanvas = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-        [formCanvas setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
+        [formCanvas setBackgroundColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [self setBackgroundColor:[UIColor whiteColor]];
         
         [self addSubview:formCanvas];
         [self setScrollEnabled:YES];
@@ -190,19 +190,21 @@
             
             contentSizeHeight += 10;
             UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(198, contentSizeHeight, 120, 40)];
-            [saveButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [saveButton.layer setCornerRadius:4.0];
             [saveButton setTitle:@"Save" forState:UIControlStateNormal];
-            [saveButton setImage:[UIImage imageNamed:@"SaveButton.png"] forState:UIControlStateNormal];
+            [saveButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+            [saveButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+            [saveButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+            [saveButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [saveButton.layer setMasksToBounds:YES];
             [saveButton.layer setCornerRadius:4.0];
             [saveButton addTarget:self action:@selector(saveTheForm) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:saveButton];
             UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(2, contentSizeHeight, 120, 40)];
-            [cancelButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [cancelButton.layer setCornerRadius:4.0];
             [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
-            [cancelButton setImage:[UIImage imageNamed:@"CancelButton.png"] forState:UIControlStateNormal];
+            [cancelButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+            [cancelButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+            [cancelButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+            [cancelButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [cancelButton.layer setMasksToBounds:YES];
             [cancelButton.layer setCornerRadius:4.0];
             [cancelButton addTarget:self action:@selector(dismissForm) forControlEvents:UIControlEventTouchUpInside];
@@ -404,13 +406,29 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndFakeNavBar:(EpiInfoUILabel *)fnb
+- (id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndFakeNavBar:(UIView *)fnb
 {
     self = [self initWithFrame:frame AndURL:url];
     if (self)
     {
         [self setRootViewController:rvc];
         [self setFakeNavBar:fnb];
+        
+        UINavigationBar *uinb = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 20, self.fakeNavBar.frame.size.width, 20)];
+        [uinb setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+        [uinb setShadowImage:[UIImage new]];
+        [uinb setTranslucent:YES];
+        UINavigationItem *uini = [[UINavigationItem alloc] initWithTitle:@""];
+        UIBarButtonItem *xBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissForm)];
+        [xBarButton setAccessibilityLabel:@"Cancel"];
+        [xBarButton setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        UIBarButtonItem *saveBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveTheForm)];
+        [saveBarButton setAccessibilityLabel:@"Continue Saving the data."];
+        [saveBarButton setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [uini setRightBarButtonItem:xBarButton];
+        [uini setLeftBarButtonItem:saveBarButton];
+        [uinb setItems:[NSArray arrayWithObject:uini]];
+        [self.fakeNavBar addSubview:uinb];
         
         if ([[url.lastPathComponent substringToIndex:[url.lastPathComponent rangeOfString:@"." options:NSBackwardsSearch].location] isEqualToString:@"_VHFContactTracing"])
             [self saveTheForm];
@@ -420,7 +438,9 @@
 
 - (void)changeFakeNavBarText:(NSString *)text
 {
-    [self.fakeNavBar setText:text];
+    for (UIView *v in [self.fakeNavBar subviews])
+        if ([v isKindOfClass:[UILabel class]])
+            [(UILabel *)v setText:text];
 }
 
 - (void)saveTheForm
