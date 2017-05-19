@@ -100,6 +100,8 @@
         {
             [privacyPolicyButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
             [disclaimerButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+            [activityLogButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+            [errorLogButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
             [versionInfo setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
         }
     }

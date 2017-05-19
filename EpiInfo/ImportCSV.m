@@ -362,19 +362,21 @@
             
             contentSizeHeight += 10;
             UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0 + 40, contentSizeHeight, 120, 40)];
-            [saveButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [saveButton.layer setCornerRadius:4.0];
             [saveButton setTitle:@"Save" forState:UIControlStateNormal];
-            [saveButton setImage:[UIImage imageNamed:@"SaveButton.png"] forState:UIControlStateNormal];
+            [saveButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+            [saveButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+            [saveButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+            [saveButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [saveButton.layer setMasksToBounds:YES];
             [saveButton.layer setCornerRadius:4.0];
             [saveButton addTarget:self action:@selector(saveTheForm) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:saveButton];
             UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0 - 160, contentSizeHeight, 120, 40)];
-            [cancelButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [cancelButton.layer setCornerRadius:4.0];
             [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
-            [cancelButton setImage:[UIImage imageNamed:@"CancelButton.png"] forState:UIControlStateNormal];
+            [cancelButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+            [cancelButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+            [cancelButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+            [cancelButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [cancelButton.layer setMasksToBounds:YES];
             [cancelButton.layer setCornerRadius:4.0];
             [cancelButton addTarget:self action:@selector(dismissForm) forControlEvents:UIControlEventTouchUpInside];

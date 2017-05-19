@@ -148,16 +148,18 @@
         }
         else
         {
-            [repositoryButtonsView0 setFrame:CGRectMake(0, 290, self.frame.size.width, 96)];
-            UIButton *msAzureButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, 76, 76)];
-            if ([[UIScreen mainScreen] scale] > 1.0)
-                [msAzureButton setBackgroundImage:[UIImage imageNamed:@"MSAzureBlue.png"] forState:UIControlStateNormal];
-            else
-                [msAzureButton setBackgroundImage:[UIImage imageNamed:@"MSAzureBlueNR.png"] forState:UIControlStateNormal];
-            [msAzureButton addTarget:self action:@selector(msButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [msAzureButton setClipsToBounds:YES];
-            [msAzureButton.layer setCornerRadius:10.0];
-            [repositoryButtonsView0 addSubview:msAzureButton];
+            [repositoryButtonsView0 setFrame:CGRectMake(0, repositoriesLabel.frame.origin.y + 40, self.frame.size.width, 96)];
+            UIButton *azureButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, 280, 40)];
+            [azureButton setTitle:@"MS Azure" forState:UIControlStateNormal];
+            [azureButton setAccessibilityLabel:@"Microsoft Azure Cloud Database"];
+            [azureButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+            [azureButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+            [azureButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+            [azureButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+            [azureButton.layer setMasksToBounds:YES];
+            [azureButton.layer setCornerRadius:4.0];
+            [azureButton addTarget:self action:@selector(msButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+            [repositoryButtonsView0 addSubview:azureButton];
         }
     }
     return self;
