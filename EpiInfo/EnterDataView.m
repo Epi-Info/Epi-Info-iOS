@@ -1339,6 +1339,14 @@
 //                    [alert show];
                     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Submit" message:@"Row inserted into local database." preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                        if (self.client)
+                        {
+                            UIAlertController *alertCloud = [UIAlertController alertControllerWithTitle:@"Submit" message:@"See logs for cloud database results." preferredStyle:UIAlertControllerStyleAlert];
+                            UIAlertAction *okActionCloud = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                            }];
+                            [alertCloud addAction:okActionCloud];
+                            [self.rootViewController presentViewController:alertCloud animated:YES completion:nil];
+                        }
                     }];
                     [alertC addAction:okAction];
                     [self.rootViewController presentViewController:alertC animated:YES completion:nil];
@@ -1738,6 +1746,14 @@
 //                    [alert show];
                     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Update" message:@"Local database row updated." preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                        if (self.client)
+                        {
+                            UIAlertController *alertCloud = [UIAlertController alertControllerWithTitle:@"Update" message:@"See logs for cloud database results." preferredStyle:UIAlertControllerStyleAlert];
+                            UIAlertAction *okActionCloud = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                            }];
+                            [alertCloud addAction:okActionCloud];
+                            [self.rootViewController presentViewController:alertCloud animated:YES completion:nil];
+                        }
                     }];
                     [alertC addAction:okAction];
                     [self.rootViewController presentViewController:alertC animated:YES completion:nil];
@@ -1906,27 +1922,52 @@
 //                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:@"Local database row deleted." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 //                    [alert setTag:42];
 //                    [alert show];
-                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Delete" message:@"Local database row deleted." preferredStyle:UIAlertControllerStyleAlert];
-                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                    }];
-                    [alertC addAction:okAction];
-                    [self.rootViewController presentViewController:alertC animated:YES completion:nil];
+                    if (self.client)
+                    {
+                        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Delete" message:@"Local database row deleted. Delete cloud database row also?" preferredStyle:UIAlertControllerStyleAlert];
+                        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                            MSTable *itemTable = [self.client tableWithName:formName];
+                            [itemTable deleteWithId:[azureDictionary objectForKey:@"id"] completion:^(id itemID, NSError *error) {
+                                if (error) {
+                                    NSLog(@"Error deleting record: %@", error);
+                                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE DELETE: Error deleting record: %@\n", [NSDate date], error]];
+                                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Error" message:@"Unable to delete cloud row. See Error Log." preferredStyle:UIAlertControllerStyleAlert];
+                                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                    }];
+                                    [alertC addAction:okAction];
+                                    [self.rootViewController presentViewController:alertC animated:YES completion:nil];
+                                } else {
+                                    NSLog(@"Item deleted, id: %@", itemID);
+                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE DELETE: Item deleted, id: %@\n", [NSDate date], itemID]];
+                                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Delete" message:@"Cloud database row deleted." preferredStyle:UIAlertControllerStyleAlert];
+                                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                    }];
+                                    [alertC addAction:okAction];
+                                    [self.rootViewController presentViewController:alertC animated:YES completion:nil];
+                                }
+                            }];
+                        }];
+                        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                        }];
+                        [alertC addAction:yesAction];
+                        [alertC addAction:noAction];
+                        [self.rootViewController presentViewController:alertC animated:YES completion:nil];
+                    }
+                    else
+                    {
+                        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Delete" message:@"Local database row deleted." preferredStyle:UIAlertControllerStyleAlert];
+                        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                        }];
+                        [alertC addAction:okAction];
+                        [self.rootViewController presentViewController:alertC animated:YES completion:nil];
+                    }
+                    
                     [areYouSure setText:@"Local database row deleted."];
                     [uiaiv setHidden:NO];
                     [uiaiv startAnimating];
                     [okButton setEnabled:NO];
                     if (self.client)
                     {
-                        MSTable *itemTable = [self.client tableWithName:formName];
-                        [itemTable deleteWithId:[azureDictionary objectForKey:@"id"] completion:^(id itemID, NSError *error) {
-                            if (error) {
-                                NSLog(@"Error deleting record: %@", error);
-                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE DELETE: Error deleting record: %@\n", [NSDate date], error]];
-                            } else {
-                                NSLog(@"Item deleted, id: %@", itemID);
-                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE DELETE: Item deleted, id: %@\n", [NSDate date], itemID]];
-                            }
-                        }];
                     }
                     //          if (self.epiinfoService.applicationURL)
                     //          {
