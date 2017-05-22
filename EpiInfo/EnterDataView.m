@@ -1265,10 +1265,12 @@
                 if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
                 {
                     NSLog(@"Failed to create table: %s :::: %@", errMsg, createTableStatement);
+                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: SUBMIT: Failed to create table: %s :::: %@\n", [NSDate date], errMsg, createTableStatement]];
                 }
                 else
                 {
                     //                    NSLog(@"Table created");
+                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: SUBMIT: %@ table created\n", [NSDate date], formName]];
                 }
                 //Close the sqlite connection
                 sqlite3_close(epiinfoDB);
@@ -1276,6 +1278,7 @@
             else
             {
                 NSLog(@"Failed to open/create database");
+                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: SUBMIT: Failed to open/create database\n", [NSDate date]]];
             }
         }
         
