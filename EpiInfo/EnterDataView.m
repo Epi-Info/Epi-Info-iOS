@@ -7759,6 +7759,8 @@ newStr{
     UILabel *eleLabel = (UILabel *)[formCanvas viewWithTag:newTag-1];
     
     if (req == YES) {
+        if (eleLabel == nil)
+            return;
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]  initWithString:@"*"];
         
         [eleLabel setText:[NSString stringWithFormat:@"%@ %@", newText,attributedString]];
