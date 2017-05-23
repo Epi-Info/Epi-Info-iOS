@@ -162,6 +162,8 @@
 -(void)setRecordUIDForUpdate:(NSString *)uid;
 
 -(NSDictionary *)dictionaryOfPages;
+-(NSMutableDictionary *)mutableDictionaryOfPages;
+-(void)setDictionaryOfPagesObject:(id)object forKey:(id<NSCopying>)key;
 
 -(void)setParentRecordGUID:(NSString *)prguid;
 -(NSString *)parentRecordGUID;

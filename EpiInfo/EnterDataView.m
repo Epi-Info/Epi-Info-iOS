@@ -77,6 +77,14 @@
 {
     return dictionaryOfPages;
 }
+- (NSMutableDictionary *)mutableDictionaryOfPages
+{
+    return dictionaryOfPages;
+}
+- (void)setDictionaryOfPagesObject:(id)object forKey:(id<NSCopying>)key
+{
+    [dictionaryOfPages setObject:object forKey:key];
+}
 
 - (void)setRelateButtonName:(NSString *)rbn
 {
