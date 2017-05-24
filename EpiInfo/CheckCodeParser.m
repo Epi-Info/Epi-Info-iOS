@@ -73,6 +73,12 @@
         int indexOfAssign = (int)[[copyOfCheck uppercaseString] rangeOfString:@"ASSIGN"].location;
         int indexOfLineFeed = (int)[[copyOfCheck substringFromIndex:indexOfAssign] rangeOfString:@"\n"].location;
         
+        // This may be insufficient but it at least breaks the loop if ASSIGN statements contain no line feeds
+        if (![[copyOfCheck substringFromIndex:indexOfAssign] containsString:@"\n"])
+        {
+            break;
+        }
+        
         [arrayOfAssignIndexes addObject:[NSNumber numberWithInteger:indexOfAssign + addToIndex]];
         [arrayOfLineFeedCharacters addObject:[NSNumber numberWithInteger:indexOfLineFeed + indexOfAssign + addToIndex]];
         
@@ -100,6 +106,12 @@
         
         int indexOfAssign = (int)[[copyOfCheck uppercaseString] rangeOfString:@"ENABLE"].location;
         int indexOfLineFeed = (int)[[copyOfCheck substringFromIndex:indexOfAssign] rangeOfString:@"\n"].location;
+        
+        // This may be insufficient but it at least breaks the loop if ENABLE statements contain no line feeds
+        if (![[copyOfCheck substringFromIndex:indexOfAssign] containsString:@"\n"])
+        {
+            break;
+        }
         
         [arrayOfAssignIndexes addObject:[NSNumber numberWithInteger:indexOfAssign + addToIndex]];
         [arrayOfLineFeedCharacters addObject:[NSNumber numberWithInteger:indexOfLineFeed + indexOfAssign + addToIndex]];
@@ -129,6 +141,12 @@
         int indexOfAssign = (int)[[copyOfCheck uppercaseString] rangeOfString:@"DISABLE"].location;
         int indexOfLineFeed = (int)[[copyOfCheck substringFromIndex:indexOfAssign] rangeOfString:@"\n"].location;
         
+        // This may be insufficient but it at least breaks the loop if DISABLE statements contain no line feeds
+        if (![[copyOfCheck substringFromIndex:indexOfAssign] containsString:@"\n"])
+        {
+            break;
+        }
+        
         [arrayOfAssignIndexes addObject:[NSNumber numberWithInteger:indexOfAssign + addToIndex]];
         [arrayOfLineFeedCharacters addObject:[NSNumber numberWithInteger:indexOfLineFeed + indexOfAssign + addToIndex]];
         
@@ -156,6 +174,12 @@
         
         int indexOfAssign = (int)[[copyOfCheck uppercaseString] rangeOfString:@"CLEAR"].location;
         int indexOfLineFeed = (int)[[copyOfCheck substringFromIndex:indexOfAssign] rangeOfString:@"\n"].location;
+        
+        // This may be insufficient but it at least breaks the loop if CLEAR statements contain no line feeds
+        if (![[copyOfCheck substringFromIndex:indexOfAssign] containsString:@"\n"])
+        {
+            break;
+        }
         
         [arrayOfAssignIndexes addObject:[NSNumber numberWithInteger:indexOfAssign + addToIndex]];
         [arrayOfLineFeedCharacters addObject:[NSNumber numberWithInteger:indexOfLineFeed + indexOfAssign + addToIndex]];
@@ -229,6 +253,12 @@
         }
         int indexOfLineFeed = (int)[[copyOfCheck substringFromIndex:indexOfAssign] rangeOfString:@"\n"].location;
         
+        // This may be insufficient but it at least breaks the loop if HIDE statements contain no line feeds
+        if (![[copyOfCheck substringFromIndex:indexOfAssign] containsString:@"\n"])
+        {
+            break;
+        }
+        
         [arrayOfAssignIndexes addObject:[NSNumber numberWithInteger:indexOfAssign + addToIndex]];
         [arrayOfLineFeedCharacters addObject:[NSNumber numberWithInteger:indexOfLineFeed + indexOfAssign + addToIndex]];
         
@@ -256,6 +286,12 @@
         
         int indexOfAssign = (int)[[copyOfCheck uppercaseString] rangeOfString:@"UNHIDE"].location;
         int indexOfLineFeed = (int)[[copyOfCheck substringFromIndex:indexOfAssign] rangeOfString:@"\n"].location;
+        
+        // This may be insufficient but it at least breaks the loop if UNHIDE statements contain no line feeds
+        if (![[copyOfCheck substringFromIndex:indexOfAssign] containsString:@"\n"])
+        {
+            break;
+        }
         
         [arrayOfAssignIndexes addObject:[NSNumber numberWithInteger:indexOfAssign + addToIndex]];
         [arrayOfLineFeedCharacters addObject:[NSNumber numberWithInteger:indexOfLineFeed + indexOfAssign + addToIndex]];
