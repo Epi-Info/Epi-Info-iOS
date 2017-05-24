@@ -46,6 +46,7 @@
 @synthesize dictionaryOfFields = _dictionaryOfFields;
 @synthesize dictionaryOfCommentLegals = _dictionaryOfCommentLegals;
 @synthesize fieldsAndStringValues = _fieldsAndStringValues;
+@synthesize skipThisPage = _skipThisPage;
 @synthesize dialogArray;
 @synthesize elmArray;
 //@synthesize elementsArray;
@@ -240,6 +241,8 @@
         //      [guidThread start];
         [self setBounces:NO];
         counter = 1;
+        
+        [self setSkipThisPage:NO];
     }
     return self;
 }
@@ -521,6 +524,21 @@
         
         DataEntryViewController *devc = (DataEntryViewController *)self.rootViewController;
         [devc retreatPagedots];
+
+        EnterDataView *currentEDV;
+        for (UIView *uiv in [self.rootViewController.view subviews])
+        {
+            if ([uiv isKindOfClass:[EnterDataView class]])
+            {
+                currentEDV = (EnterDataView *)uiv;
+                break;
+            }
+        }
+        if (currentEDV.skipThisPage)
+        {
+            [currentEDV setSkipThisPage:NO];
+            [currentEDV userSwipedToTheRight];
+        }
     }
 }
 - (void)previousOrNextPageButtonPressed:(UIButton *)sender isAdvancing:(BOOL)isAdvancing

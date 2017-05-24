@@ -145,6 +145,8 @@
 
 @property NSString *myTextPageName;
 
+@property BOOL skipThisPage;
+
 @property(strong, nonatomic) NSMutableArray *conditionsArray;
 @property(strong) NSMutableArray* dialogArray;
 @property(strong) NSMutableArray *elementListArray;

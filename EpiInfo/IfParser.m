@@ -441,6 +441,7 @@
                                         for (int swipe = 0; swipe < pageToWhichWeAreTurning - pageBeingDisplayed; swipe++)
                                         {
                                             [(EnterDataView *)[self.dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", pageBeingDisplayed + swipe]] userSwipedToTheLeft];
+                                            [(EnterDataView *)[self.dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", pageBeingDisplayed + swipe]] setSkipThisPage:YES];
                                         }
                                     } @catch (NSException *exception) {
                                         NSLog(@"Could not swipe left for some reason");
