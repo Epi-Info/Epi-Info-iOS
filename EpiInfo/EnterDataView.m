@@ -471,7 +471,7 @@
 {
     if ([nextPageButton isEnabled])
     {
-        [self previousOrNextPageButtonPressed:nextPageButton];
+        [self previousOrNextPageButtonPressed:nextPageButton isAdvancing:YES];
         
         pageName = [[NSUserDefaults standardUserDefaults]
                     stringForKey:@"pageName"];
@@ -482,7 +482,7 @@
 {
     if ([previousPageButton isEnabled])
     {
-        [self previousOrNextPageButtonPressed:previousPageButton];
+        [self previousOrNextPageButtonPressed:previousPageButton isAdvancing:NO];
         pageName = [[NSUserDefaults standardUserDefaults]
                     stringForKey:@"pageName"];
 //        NSLog(@"%@1111111",pageName);
@@ -495,7 +495,7 @@
 {
     if ([nextPageButton isEnabled])
     {
-        [self previousOrNextPageButtonPressed:nextPageButton];
+        [self previousOrNextPageButtonPressed:nextPageButton isAdvancing:YES];
 
         pageName = [[NSUserDefaults standardUserDefaults]
                     stringForKey:@"pageName"];
@@ -510,7 +510,7 @@
 {
     if ([previousPageButton isEnabled])
     {
-        [self previousOrNextPageButtonPressed:previousPageButton];
+        [self previousOrNextPageButtonPressed:previousPageButton isAdvancing:NO];
         pageName = [[NSUserDefaults standardUserDefaults]
                     stringForKey:@"pageName"];
 //        NSLog(@"%@1111111",pageName);
@@ -523,7 +523,7 @@
         [devc retreatPagedots];
     }
 }
-- (void)previousOrNextPageButtonPressed:(UIButton *)sender
+- (void)previousOrNextPageButtonPressed:(UIButton *)sender isAdvancing:(BOOL)isAdvancing
 {
     if (!dictionaryOfPages)
     {
@@ -557,17 +557,48 @@
     [self setContentOffset:CGPointZero animated:NO];
     if ([dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]])
     {
+        // This condition should always be met now that all pages are initialized at form load
+        //
         [self.rootViewController.view addSubview:[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]]];
         [self.rootViewController.view bringSubviewToFront:[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]]];
-        [[NSUserDefaults standardUserDefaults] setObject:[(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] myTextPageName] forKey:@"nameOfThePage"];
+        [[NSUserDefaults standardUserDefaults] setObject:[self myTextPageName] forKey:@"nameOfThePage"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] setGuidBeingUpdated:recordUIDForUpdate];
-        [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] onLoadEleCheck];
-        [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] checkElements:pageName from:@"before" page:pageName];
-        if ([(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] myOrangeBanner] == nil)
-            [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] setMyOrangeBanner:myOrangeBanner];
-        [[NSUserDefaults standardUserDefaults] setObject:[(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] myTextPageName] forKey:@"nameOfThePage"];
+        // Only execute page after check code when advancing page
+        if (isAdvancing)
+            [self checkElements:pageName from:@"after" page:pageName];
+        // The next two lines seem to be redundant
+//        [[NSUserDefaults standardUserDefaults] setObject:[(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] myTextPageName] forKey:@"nameOfThePage"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        // Get the EnterDataView from the ViewController and use it to run these methods
+        // Because a GOTO could make that page different from the one to which the user just swiped
+        EnterDataView *currentEDV;
+        for (UIView *uiv in [self.rootViewController.view subviews])
+        {
+            if ([uiv isKindOfClass:[EnterDataView class]])
+            {
+                currentEDV = (EnterDataView *)uiv;
+                break;
+            }
+        }
+        [[NSUserDefaults standardUserDefaults] setObject:[currentEDV myTextPageName] forKey:@"nameOfThePage"];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        [currentEDV setGuidBeingUpdated:recordUIDForUpdate];
+        [currentEDV onLoadEleCheck];
+        [currentEDV checkElements:pageName from:@"before" page:pageName];
+        if ([currentEDV myOrangeBanner] == nil)
+            [currentEDV setMyOrangeBanner:myOrangeBanner];
+        [[NSUserDefaults standardUserDefaults] setObject:[currentEDV myTextPageName] forKey:@"nameOfThePage"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        // Comment out the old dictionaryOfPages way
+//        [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] setGuidBeingUpdated:recordUIDForUpdate];
+//        [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] onLoadEleCheck];
+//        [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] checkElements:pageName from:@"before" page:pageName];
+//        if ([(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] myOrangeBanner] == nil)
+//            [(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] setMyOrangeBanner:myOrangeBanner];
+//        [[NSUserDefaults standardUserDefaults] setObject:[(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] myTextPageName] forKey:@"nameOfThePage"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     else
     {
@@ -5250,6 +5281,9 @@
         elementsArray = [ccp sendArray];
         
     }
+    // Next two lines are to prevent repeated items in ifsArray
+    if (ifsArray.count > 0)
+        return;
     for (int i=0; i<elementsArray.count; i++)
     {
         epc = [elementsArray objectAtIndex:i];
