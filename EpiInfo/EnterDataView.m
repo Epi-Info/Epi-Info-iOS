@@ -1381,17 +1381,21 @@
                         if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &secondErrMsg) != SQLITE_OK)
                         {
                             NSLog(@"Failed to alter table: %s :::: %@", secondErrMsg, alterTableStatement);
+                            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: SUBMIT: Failed to alter table: %s :::: %@\n", [NSDate date], secondErrMsg, alterTableStatement]];
                         }
                         else
                         {
+                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: SUBMIT: %@ table altered\n", [NSDate date], formName]];
                             [self submitButtonPressed];
                             return;
                         }
                     }
                     NSLog(@"Failed to insert row into table: %s :::: %@", errMsg, insertStatement);
+                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: SUBMIT: Failed to insert row into table: %s :::: %@\n", [NSDate date], errMsg, insertStatement]];
                 }
                 else
                 {
+                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: SUBMIT: Row added to %@\n", [NSDate date], formName]];
                     //                    NSLog(@"Row inserted");
                     // Replace deprecated UIAlertViews
 //                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Submit" message:@"Row inserted into local database." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -1452,11 +1456,13 @@
             else
             {
                 NSLog(@"Failed to open database or insert record");
+                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: SUBMIT: Failed to open database or insert record\n", [NSDate date]]];
             }
         }
         else
         {
             NSLog(@"Could not find table");
+            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: SUBMIT: Could not find table %@\n", [NSDate date], formName]];
         }
         
         //        if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
@@ -1733,6 +1739,7 @@
                 if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
                 {
                     NSLog(@"Failed to create table: %s :::: %@", errMsg, createTableStatement);
+                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: UPDATE: Failed to create table: %s :::: %@\n", [NSDate date], errMsg, createTableStatement]];
                 }
                 else
                 {
@@ -1744,6 +1751,7 @@
             else
             {
                 NSLog(@"Failed to open/create database");
+                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: UPDATE: Failed to open/create database: %@\n", [NSDate date], databasePath]];
             }
         }
         
@@ -1787,17 +1795,21 @@
                         if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &secondErrMsg) != SQLITE_OK)
                         {
                             NSLog(@"Failed to alter table: %s :::: %@", secondErrMsg, alterTableStatement);
+                            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: UPDATE: Failed to alter table: %s :::: %@\n", [NSDate date], secondErrMsg, alterTableStatement]];
                         }
                         else
                         {
+                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: UPDATE: %@ table altered\n", [NSDate date], formName]];
                             [self updateButtonPressed];
                             return;
                         }
                     }
                     NSLog(@"Failed to insert row into table: %s :::: %@", errMsg, insertStatement);
+                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: UPDATE: Failed to update row in table: %s :::: %@\n", [NSDate date], errMsg, insertStatement]];
                 }
                 else
                 {
+                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: UPDATE: %@ row updated\n", [NSDate date], formName]];
                     //                    NSLog(@"Row inserted");
                     [areYouSure setText:@"Local database row updated."];
                     // Replace deprecated UIAlertViews
@@ -1874,11 +1886,13 @@
             else
             {
                 NSLog(@"Failed to open database or insert record");
+                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: UPDATE: failed to open %@ dataset or insert record\n", [NSDate date], formName]];
             }
         }
         else
         {
             NSLog(@"Could not find table");
+            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: UPDATE: could not find table: %@\n", [NSDate date], formName]];
         }
     }
     updatevisibleScreenOnly = NO;
@@ -1975,9 +1989,11 @@
                 if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
                 {
                     NSLog(@"Failed to delete row from table: %s :::: %@", errMsg, insertStatement);
+                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: DELETE: Could not delete row from table: %s :::: %@\n", [NSDate date], errMsg, insertStatement]];
                 }
                 else
                 {
+                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: DELETE: %@ row deleted\n", [NSDate date], formName]];
                     // Replace deprecated UIAlertViews
 //                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:@"Local database row deleted." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 //                    [alert setTag:42];
@@ -2055,11 +2071,13 @@
             else
             {
                 NSLog(@"Failed to open database or delete record");
+                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: DELETE: Could not open database or delete record from %@\n", [NSDate date], formName]];
             }
         }
         else
         {
             NSLog(@"Could not find table");
+            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: DELETE: Could not find table %@\n", [NSDate date], formName]];
         }
     }
     updatevisibleScreenOnly = NO;
