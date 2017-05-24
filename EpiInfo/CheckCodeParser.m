@@ -185,6 +185,12 @@
         int indexOfAssign = (int)[[copyOfCheck uppercaseString] rangeOfString:@"GOTO"].location;
         int indexOfLineFeed = (int)[[copyOfCheck substringFromIndex:indexOfAssign] rangeOfString:@"\n"].location;
         
+        // This may be insufficient but it at least breaks the loop if GOTO statements contain no line feeds
+        if (![[copyOfCheck substringFromIndex:indexOfAssign] containsString:@"\n"])
+        {
+            break;
+        }
+        
         [arrayOfAssignIndexes addObject:[NSNumber numberWithInteger:indexOfAssign + addToIndex]];
         [arrayOfLineFeedCharacters addObject:[NSNumber numberWithInteger:indexOfLineFeed + indexOfAssign + addToIndex]];
         
