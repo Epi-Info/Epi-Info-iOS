@@ -152,11 +152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/DataEntryViewController.m"
-            timestampString = "517240697.137192"
+            timestampString = "517500304.638168"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2104"
-            endingLineNumber = "2104"
+            startingLineNumber = "2107"
+            endingLineNumber = "2107"
             landmarkName = "-packageAndEmailData:"
             landmarkType = "7">
          </BreakpointContent>

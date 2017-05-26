@@ -679,10 +679,12 @@
     [manageView addSubview:messageLabel];
     
     UIButton *confirmDeleteForm = [[UIButton alloc] initWithFrame:CGRectMake(20, manageView.frame.size.height / 2.0, 120, 40)];
-    [confirmDeleteForm setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
-    [confirmDeleteForm.layer setCornerRadius:4.0];
-    [confirmDeleteForm setTitle:@"Yes. Triple tap to confirm." forState:UIControlStateNormal];
-    [confirmDeleteForm setImage:[UIImage imageNamed:@"YesButtonOrange.png"] forState:UIControlStateNormal];
+    [confirmDeleteForm setTitle:@"Yes" forState:UIControlStateNormal];
+    [confirmDeleteForm setAccessibilityLabel:@"Yes - triple tap to confirm"];
+    [confirmDeleteForm setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [confirmDeleteForm setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [confirmDeleteForm.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+    [confirmDeleteForm setBackgroundColor:[UIColor colorWithRed:89/255.0 green:90/255.0 blue:91/255.0 alpha:1.0]];
     [confirmDeleteForm.layer setMasksToBounds:YES];
     [confirmDeleteForm.layer setCornerRadius:4.0];
     [confirmDeleteForm.layer setBorderColor:[[UIColor blackColor] CGColor]];
@@ -692,10 +694,11 @@
     [manageView addSubview:confirmDeleteForm];
     
     UIButton *cancleDeleteForm = [[UIButton alloc] initWithFrame:CGRectMake(160, manageView.frame.size.height / 2.0, 120, 40)];
-    [cancleDeleteForm setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
-    [cancleDeleteForm.layer setCornerRadius:4.0];
     [cancleDeleteForm setTitle:@"No" forState:UIControlStateNormal];
-    [cancleDeleteForm setImage:[UIImage imageNamed:@"NoButtonOrange.png"] forState:UIControlStateNormal];
+    [cancleDeleteForm setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [cancleDeleteForm setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [cancleDeleteForm.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+    [cancleDeleteForm setBackgroundColor:[UIColor colorWithRed:89/255.0 green:90/255.0 blue:91/255.0 alpha:1.0]];
     [cancleDeleteForm.layer setMasksToBounds:YES];
     [cancleDeleteForm.layer setCornerRadius:4.0];
     [cancleDeleteForm.layer setBorderColor:[[UIColor blackColor] CGColor]];
