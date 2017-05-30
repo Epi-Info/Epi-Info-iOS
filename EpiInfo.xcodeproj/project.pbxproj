@@ -304,6 +304,7 @@
 		92B258271820376A008D88FC /* CohortCrossSectional.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B258221820376A008D88FC /* CohortCrossSectional.png */; };
 		92B258291820376A008D88FC /* PopulationStudy.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B258241820376A008D88FC /* PopulationStudy.png */; };
 		92B2582A1820376A008D88FC /* UnmatchedCaseControl.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B258251820376A008D88FC /* UnmatchedCaseControl.png */; };
+		92B3A7FD1EDDEA9700234CB1 /* EICalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B3A7FC1EDDEA9700234CB1 /* EICalendar.m */; };
 		92B8E4CC191A8011007E4ECC /* EpiInfoLineListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B8E4CB191A8011007E4ECC /* EpiInfoLineListView.m */; };
 		92BA2E1518AA6B0200E2CC33 /* MSAzureBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BA2E1218AA6B0200E2CC33 /* MSAzureBlue.png */; };
 		92BA2E1618AA6B0200E2CC33 /* MSAzureBlueNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BA2E1318AA6B0200E2CC33 /* MSAzureBlueNR.png */; };
@@ -841,6 +842,8 @@
 		92B258221820376A008D88FC /* CohortCrossSectional.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CohortCrossSectional.png; sourceTree = "<group>"; };
 		92B258241820376A008D88FC /* PopulationStudy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopulationStudy.png; sourceTree = "<group>"; };
 		92B258251820376A008D88FC /* UnmatchedCaseControl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UnmatchedCaseControl.png; sourceTree = "<group>"; };
+		92B3A7FB1EDDEA9700234CB1 /* EICalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EICalendar.h; sourceTree = "<group>"; };
+		92B3A7FC1EDDEA9700234CB1 /* EICalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EICalendar.m; sourceTree = "<group>"; };
 		92B8E4CA191A8011007E4ECC /* EpiInfoLineListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpiInfoLineListView.h; sourceTree = "<group>"; };
 		92B8E4CB191A8011007E4ECC /* EpiInfoLineListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpiInfoLineListView.m; sourceTree = "<group>"; };
 		92BA2E1218AA6B0200E2CC33 /* MSAzureBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MSAzureBlue.png; sourceTree = "<group>"; };
@@ -1588,6 +1591,8 @@
 				92A25C031939005A003225E1 /* MirrorField.m */,
 				92DBD604193CDAFA00A40691 /* EpiInfoUniqueIDField.h */,
 				92DBD605193CDAFA00A40691 /* EpiInfoUniqueIDField.m */,
+				92B3A7FB1EDDEA9700234CB1 /* EICalendar.h */,
+				92B3A7FC1EDDEA9700234CB1 /* EICalendar.m */,
 				92955548192BC8C5008DEC5C /* DatePicker.h */,
 				92955549192BC8C5008DEC5C /* DatePicker.m */,
 				92A25BFC1938DAD2003225E1 /* TimePicker.h */,
@@ -2178,6 +2183,7 @@
 				9276EEBC17B029E60050858B /* AnalysisList.m in Sources */,
 				9266C52B1846613000739AF2 /* FormView.m in Sources */,
 				923A263817B41BCE00DCBCD5 /* AnalysisFilterView.m in Sources */,
+				92B3A7FD1EDDEA9700234CB1 /* EICalendar.m in Sources */,
 				92A25BFE1938DAD2003225E1 /* TimePicker.m in Sources */,
 				923A263B17B4265D00DCBCD5 /* FilterButton.m in Sources */,
 				926F55061AC5D09900790628 /* CaseControlSimulationView.swift in Sources */,

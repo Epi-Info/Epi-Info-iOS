@@ -154,6 +154,12 @@
     [fieldLabelLabel setText:[(DateField *)dateField fieldLabel]];
     [fieldLabelLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
     [self addSubview:fieldLabelLabel];
+    
+    // Switch to EICalendar
+    //
+//    eic = [[EICalendar alloc] initWithFrame:CGRectMake(4, 40, 312, 312) AndDateField:self.dateField];
+//    [self addSubview:eic];
+    //
     return self;
 }
 
