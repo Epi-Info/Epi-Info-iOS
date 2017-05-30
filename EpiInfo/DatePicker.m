@@ -62,18 +62,22 @@
         [bv addSubview:yearsLV];
         
         UIButton *noButton = [[UIButton alloc] initWithFrame:CGRectMake(bv.frame.size.width / 2.0 - 140, frame.size.height - 280, 120, 40)];
-        [noButton setImage:[UIImage imageNamed:@"CancelButton.png"] forState:UIControlStateNormal];
         [noButton setTitle:@"Cancel" forState:UIControlStateNormal];
-        [noButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+        [noButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [noButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [noButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [noButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [noButton.layer setMasksToBounds:YES];
         [noButton.layer setCornerRadius:4.0];
         [noButton addTarget:self action:@selector(removeSelfFromSuperview) forControlEvents:UIControlEventTouchUpInside];
         [bv addSubview:noButton];
         
         UIButton *okButton = [[UIButton alloc] initWithFrame:CGRectMake(bv.frame.size.width / 2.0 + 20, frame.size.height - 280, 120, 40)];
-        [okButton setImage:[UIImage imageNamed:@"OKButton.png"] forState:UIControlStateNormal];
-        [okButton setTitle:@"Okay" forState:UIControlStateNormal];
-        [okButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+        [okButton setTitle:@"OK" forState:UIControlStateNormal];
+        [okButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [okButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [okButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [okButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [okButton.layer setMasksToBounds:YES];
         [okButton.layer setCornerRadius:4.0];
         [okButton addTarget:self action:@selector(okButtonPressed) forControlEvents:UIControlEventTouchUpInside];
