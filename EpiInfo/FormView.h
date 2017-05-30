@@ -37,6 +37,9 @@
     SaveFormView *saveFormView;
     
     NSString *formName;
+    
+    UIBarButtonItem *xBarButton;
+    UIBarButtonItem *saveBarButton;
 }
 
 @property NSURL *url;

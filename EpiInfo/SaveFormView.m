@@ -195,6 +195,7 @@
     [applicationURL setReturnKeyType:UIReturnKeyDone];
     [applicationURL setDelegate:self];
     [applicationURL setColumnName:@"cloudDataBase"];
+    [applicationURL setAccessibilityLabel:@"URL for Azure cloud table"];
     [msAzureCredsView addSubview:applicationURL];
     
     UILabel *applicationKeyLabel = [[UILabel alloc] initWithFrame:CGRectMake(20 * ratio, 90 * ratio, 280 * ratio, 28 * ratio)];
@@ -447,6 +448,7 @@
         rotate = CATransform3DRotate(rotate, M_PI * 1.5, 0.0, 1.0, 0.0);
         [self.rootViewController.view.layer setTransform:rotate];
     } completion:^(BOOL finished){
+        [self.formView setHidden:NO];
         [self removeFromSuperview];
         CATransform3D rotate = CATransform3DIdentity;
         rotate.m34 = 1.0 / -2000;

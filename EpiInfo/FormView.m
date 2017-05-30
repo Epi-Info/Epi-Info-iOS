@@ -140,10 +140,10 @@
         [uinb setShadowImage:[UIImage new]];
         [uinb setTranslucent:YES];
         UINavigationItem *uini = [[UINavigationItem alloc] initWithTitle:@""];
-        UIBarButtonItem *xBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissForm)];
+        xBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissForm)];
         [xBarButton setAccessibilityLabel:@"Cancel"];
         [xBarButton setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
-        UIBarButtonItem *saveBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveTheForm)];
+        saveBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveTheForm)];
         [saveBarButton setAccessibilityLabel:@"Continue Saving the form."];
         [saveBarButton setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [uini setRightBarButtonItem:xBarButton];
@@ -152,6 +152,13 @@
         [self.fakeNavBar addSubview:uinb];
     }
     return self;
+}
+
+- (void)setHidden:(BOOL)hidden
+{
+    [super setHidden:hidden];
+    [xBarButton setEnabled:YES];
+    [saveBarButton setEnabled:YES];
 }
 
 - (void)saveTheForm
@@ -164,6 +171,8 @@
     } completion:^(BOOL finished){
         saveFormView = [[SaveFormView alloc] initWithFrame:self.frame AndRootViewController:self.rootViewController AndFormView:self AndFormName:formName AndURL:self.url];
         [self.rootViewController.view addSubview:saveFormView];
+        [xBarButton setEnabled:NO];
+        [saveBarButton setEnabled:NO];
         CATransform3D rotate = CATransform3DIdentity;
         rotate.m34 = 1.0 / -2000;
         rotate = CATransform3DRotate(rotate, M_PI * 1.5, 0.0, 1.0, 0.0);
