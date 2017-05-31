@@ -161,8 +161,8 @@
     
     // Switch to EICalendar
     //
-//    eic = [[EICalendar alloc] initWithFrame:CGRectMake(4, 40, 312, 312) AndDateField:self.dateField];
-//    [self addSubview:eic];
+    eic = [[EICalendar alloc] initWithFrame:CGRectMake(4, 40, 312, 312) AndDateField:self.dateField];
+    [self addSubview:eic];
     //
     return self;
 }

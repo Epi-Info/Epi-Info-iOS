@@ -7,11 +7,11 @@
 
 #import <UIKit/UIKit.h>
 #import "LegalValues.h"
-//#import "EICalendar.h"
+#import "EICalendar.h"
 
 @interface DatePicker : UIView <UIPickerViewDelegate>
 {
-//    EICalendar *eic;
+    EICalendar *eic;
     LegalValues *monthsLV;
     LegalValues *daysLV;
     LegalValues *yearsLV;

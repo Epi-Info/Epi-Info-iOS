@@ -10,6 +10,16 @@
 @interface EICalendar : UIView
 {
     BOOL dmy;
+    
+    UIButton *monthButton;
+    
+    BOOL displayingAMonth;
+    BOOL displayingAYear;
+    BOOL displayingADecade;
+    
+    UIView *daysGridBase;
+    UIView *monthsGridBase;
+    UIView *yearsGridBase;
 }
 @property UITextField *dateField;
 -(id)initWithFrame:(CGRect)frame AndDateField:(UITextField *)dateField;
