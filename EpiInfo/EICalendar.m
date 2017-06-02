@@ -8,9 +8,11 @@
 #import "EICalendar.h"
 #import "BlurryView.h"
 #import "DateField.h"
+#import "DatePicker.h"
 
 @implementation EICalendar
 @synthesize dateField = _dateField;
+@synthesize datePickerView = _datePickerView;
 
 - (id)initWithFrame:(CGRect)frame AndDateField:(UITextField *)dateField
 {
@@ -28,9 +30,9 @@
         displayingAYear = NO;
         displayingADecade = NO;
         
-        int month = (int)[[[NSCalendar currentCalendar] components:NSMonthCalendarUnit fromDate:dateObject] month];
-        int day = (int)[[[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:dateObject] day];
-        int year = (int)[[[NSCalendar currentCalendar] components:NSYearCalendarUnit fromDate:dateObject] year];
+        month = (int)[[[NSCalendar currentCalendar] components:NSMonthCalendarUnit fromDate:dateObject] month];
+        day = (int)[[[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:dateObject] day];
+        year = (int)[[[NSCalendar currentCalendar] components:NSYearCalendarUnit fromDate:dateObject] year];
         
         if ([self.dateField text].length > 0)
         {
@@ -44,6 +46,9 @@
                 day = dayactually;
             }
         }
+        
+        initialMonth = month;
+        initialYear = year;
         
         NSString *wordMonth = [[[[NSDateFormatter alloc] init] monthSymbols] objectAtIndex:month - 1];
         
@@ -105,10 +110,15 @@
                 plus = 0.0;
             UIButton *dayButton = [[UIButton alloc] initWithFrame:CGRectMake(dayX, dayY, widthOfDaySquare, widthOfDaySquare)];
             [dayButton setBackgroundColor:[UIColor whiteColor]];
+            [dayButton setTitleColor:[UIColor colorWithRed:89/255.0 green:90/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+            [dayButton setTitleColor:[UIColor colorWithRed:188/255.0 green:189/255.0 blue:191/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+            [dayButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
             [dayButton setTag:i];
             [dayButton addTarget:self action:@selector(dayButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [daysGridBase addSubview:dayButton];
+            
         }
+        [self numberTheDayButtonsForMonth:month AndYear:year];
         //
         
         // Construct the months grid
@@ -122,6 +132,51 @@
     return self;
 }
 
+- (void)numberTheDayButtonsForMonth:(int)methodmonth AndYear:(int)methodyear
+{
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    [components setDay:1];
+    [components setMonth:methodmonth];
+    [components setYear:methodyear];
+    NSDate *firstOfMonth = [[NSCalendar currentCalendar] dateFromComponents:components];
+    NSDateComponents *comps = [[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:firstOfMonth];
+    
+//    NSDateFormatter *nsdf = [[NSDateFormatter alloc] init];
+//    [nsdf setDateFormat:@"EEEE"];
+    
+    int lastDayOfMonth = 31;
+    if (methodmonth == 4 || methodmonth == 6 || methodmonth == 9 || methodmonth == 11)
+        lastDayOfMonth = 30;
+    else if (methodmonth == 2)
+    {
+        lastDayOfMonth = 28;
+        if (methodyear % 4 == 0 && methodyear % 400 != 0)
+            lastDayOfMonth = 29;
+    }
+    
+//    NSLog(@"%d/1/%d is %@, which is day number %ld", methodmonth, methodyear, [nsdf stringFromDate:firstOfMonth], (long)[comps weekday]);
+    
+    int tagForFirstSquare = (int)[comps weekday] - 1;
+    
+    for (UIView *v in [daysGridBase subviews])
+    {
+        if ([v isKindOfClass:[UIButton class]])
+        {
+            [(UIButton *)v setEnabled:YES];
+            [(UIButton *)v setTitle:@"" forState:UIControlStateNormal];
+            [v setBackgroundColor:[UIColor whiteColor]];
+            if ([v tag] >= tagForFirstSquare && (int)[v tag] - tagForFirstSquare < lastDayOfMonth)
+            {
+                [(UIButton *)v setTitle:[NSString stringWithFormat:@"%d", (int)[v tag] + 1 - tagForFirstSquare] forState:UIControlStateNormal];
+                if ((int)[v tag] + 1 - tagForFirstSquare == day && methodmonth == initialMonth && methodyear == initialYear)
+                    [(UIButton *)v setBackgroundColor:[UIColor colorWithRed:188/255.0 green:189/255.0 blue:191/255.0 alpha:1.0]];
+            }
+            else
+                [(UIButton *)v setEnabled:NO];
+        }
+    }
+}
+
 - (void)monthButtonPressed:(UIButton *)sender
 {
     
@@ -129,17 +184,69 @@
 
 - (void)leftButtonPressed:(UIButton *)sender
 {
-    
+    if (displayingAMonth)
+    {
+        month -= 1;
+        if (month == 0)
+        {
+            month = 12;
+            year -= 1;
+        }
+        NSString *wordMonth = [[[[NSDateFormatter alloc] init] monthSymbols] objectAtIndex:month - 1];
+        [monthButton setTitle:[NSString stringWithFormat:@"%@ %d", wordMonth, year] forState:UIControlStateNormal];
+        [self numberTheDayButtonsForMonth:month AndYear:year];
+    }
 }
 
 - (void)rightButtonPressed:(UIButton *)sender
 {
-    
+    if (displayingAMonth)
+    {
+        month += 1;
+        if (month == 13)
+        {
+            month = 1;
+            year += 1;
+        }
+        NSString *wordMonth = [[[[NSDateFormatter alloc] init] monthSymbols] objectAtIndex:month - 1];
+        [monthButton setTitle:[NSString stringWithFormat:@"%@ %d", wordMonth, year] forState:UIControlStateNormal];
+        [self numberTheDayButtonsForMonth:month AndYear:year];
+    }
 }
 
 - (void)dayButtonPressed:(UIButton *)sender
 {
-    NSLog(@"Day %ld pressed", (long)[sender tag]);
+    int thisday = [[[sender titleLabel] text] intValue];
+    
+    NSString *date = @"";
+    
+    if (dmy)
+    {
+        if (thisday < 10)
+            date = @"0";
+        date = [date stringByAppendingString:[NSString stringWithFormat:@"%d/", thisday]];
+        if (month < 10)
+            date = [date stringByAppendingString:@"0"];
+        date = [date stringByAppendingString:[NSString stringWithFormat:@"%d/%d", month, year]];
+    }
+    else
+    {
+        if (month < 10)
+            date = @"0";
+        date = [date stringByAppendingString:[NSString stringWithFormat:@"%d/", month]];
+        if (thisday < 10)
+            date = [date stringByAppendingString:@"0"];
+        date = [date stringByAppendingString:[NSString stringWithFormat:@"%d/%d", thisday, year]];
+    }
+    
+    for (UIView *v in [daysGridBase subviews])
+        [v setBackgroundColor:[UIColor whiteColor]];
+    
+    [sender setBackgroundColor:[UIColor colorWithRed:188/255.0 green:189/255.0 blue:191/255.0 alpha:1.0]];
+    
+    [self.dateField setText:date];
+    
+    [(DatePicker *)self.datePickerView removeSelfFromSuperview];
 }
 
 /*

@@ -20,89 +20,89 @@
         NSDate *dateObject = [NSDate date];
         dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
         
-        int month = (int)[[[NSCalendar currentCalendar] components:NSMonthCalendarUnit fromDate:dateObject] month];
-        int day = (int)[[[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:dateObject] day];
+//        int month = (int)[[[NSCalendar currentCalendar] components:NSMonthCalendarUnit fromDate:dateObject] month];
+//        int day = (int)[[[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:dateObject] day];
         
         BlurryView *bv = [[BlurryView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         [self addSubview:bv];
         
-        NSMutableArray *months = [NSMutableArray arrayWithArray:@[@"January",@"February",@"March",@"April",@"May",@"June",@"July",@"August",@"September",@"October",@"November",@"December"]];
-        monthsLV = [[LegalValues alloc] initWithFrame:CGRectMake(10, 10, 200, 180) AndListOfValues:months NoFixedDimensions:YES];
-        [monthsLV.picker selectRow:month - 1 inComponent:0 animated:NO];
-        [monthsLV setPicked:[months objectAtIndex:month - 1]];
-        [monthsLV setViewToAlertOfChanges:self];
-        [bv addSubview:monthsLV];
+//        NSMutableArray *months = [NSMutableArray arrayWithArray:@[@"January",@"February",@"March",@"April",@"May",@"June",@"July",@"August",@"September",@"October",@"November",@"December"]];
+//        monthsLV = [[LegalValues alloc] initWithFrame:CGRectMake(10, 10, 200, 180) AndListOfValues:months NoFixedDimensions:YES];
+//        [monthsLV.picker selectRow:month - 1 inComponent:0 animated:NO];
+//        [monthsLV setPicked:[months objectAtIndex:month - 1]];
+//        [monthsLV setViewToAlertOfChanges:self];
+//        [bv addSubview:monthsLV];
         
-        NSMutableArray *days = [[NSMutableArray alloc] init];
-        for (int i = 1; i < 32; i++)
-            [days addObject:[NSString stringWithFormat:@"%d", i]];
-        daysLV = [[LegalValues alloc] initWithFrame:CGRectMake(10, 200, 140, 180) AndListOfValues:days NoFixedDimensions:YES];
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-        {
-            [daysLV.picker setFrame:CGRectMake(0, 0, 140, 162)];
-            [daysLV setListOfValues:days];
-        }
-        [daysLV.picker selectRow:day - 1 inComponent:0 animated:NO];
-        [daysLV setPicked:[NSString stringWithFormat:@"%d", day]];
-        [daysLV setViewToAlertOfChanges:self];
-        [bv addSubview:daysLV];
+//        NSMutableArray *days = [[NSMutableArray alloc] init];
+//        for (int i = 1; i < 32; i++)
+//            [days addObject:[NSString stringWithFormat:@"%d", i]];
+//        daysLV = [[LegalValues alloc] initWithFrame:CGRectMake(10, 200, 140, 180) AndListOfValues:days NoFixedDimensions:YES];
+//        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+//        {
+//            [daysLV.picker setFrame:CGRectMake(0, 0, 140, 162)];
+//            [daysLV setListOfValues:days];
+//        }
+//        [daysLV.picker selectRow:day - 1 inComponent:0 animated:NO];
+//        [daysLV setPicked:[NSString stringWithFormat:@"%d", day]];
+//        [daysLV setViewToAlertOfChanges:self];
+//        [bv addSubview:daysLV];
         
-        NSMutableArray *years = [[NSMutableArray alloc] init];
-        for (int i = 1901; i < 2101; i++)
-            [years addObject:[NSString stringWithFormat:@"%d", i]];
-        yearsLV = [[LegalValues alloc] initWithFrame:CGRectMake(170, 200, 140, 180) AndListOfValues:years NoFixedDimensions:YES];
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-        {
-            [yearsLV.picker setFrame:CGRectMake(0, 0, 140, 162)];
-            [yearsLV setListOfValues:years];
-        }
-        [yearsLV.picker selectRow:[[[NSCalendar currentCalendar] components:NSYearCalendarUnit fromDate:[NSDate date]] year] - 1901 inComponent:0 animated:NO];
-        [yearsLV setPicked:[NSString stringWithFormat:@"%ld", (long)[[[NSCalendar currentCalendar] components:NSYearCalendarUnit fromDate:[NSDate date]] year]]];
-        [yearsLV setViewToAlertOfChanges:self];
-        [bv addSubview:yearsLV];
+//        NSMutableArray *years = [[NSMutableArray alloc] init];
+//        for (int i = 1901; i < 2101; i++)
+//            [years addObject:[NSString stringWithFormat:@"%d", i]];
+//        yearsLV = [[LegalValues alloc] initWithFrame:CGRectMake(170, 200, 140, 180) AndListOfValues:years NoFixedDimensions:YES];
+//        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+//        {
+//            [yearsLV.picker setFrame:CGRectMake(0, 0, 140, 162)];
+//            [yearsLV setListOfValues:years];
+//        }
+//        [yearsLV.picker selectRow:[[[NSCalendar currentCalendar] components:NSYearCalendarUnit fromDate:[NSDate date]] year] - 1901 inComponent:0 animated:NO];
+//        [yearsLV setPicked:[NSString stringWithFormat:@"%ld", (long)[[[NSCalendar currentCalendar] components:NSYearCalendarUnit fromDate:[NSDate date]] year]]];
+//        [yearsLV setViewToAlertOfChanges:self];
+//        [bv addSubview:yearsLV];
         
         UIButton *noButton = [[UIButton alloc] initWithFrame:CGRectMake(bv.frame.size.width / 2.0 - 140, frame.size.height - 280, 120, 40)];
         [noButton setTitle:@"Cancel" forState:UIControlStateNormal];
         [noButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
         [noButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [noButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
-        [noButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [noButton setBackgroundColor:[UIColor colorWithRed:89/255.0 green:90/255.0 blue:91/255.0 alpha:1.0]];
         [noButton.layer setMasksToBounds:YES];
         [noButton.layer setCornerRadius:4.0];
         [noButton addTarget:self action:@selector(removeSelfFromSuperview) forControlEvents:UIControlEventTouchUpInside];
         [bv addSubview:noButton];
         
         UIButton *okButton = [[UIButton alloc] initWithFrame:CGRectMake(bv.frame.size.width / 2.0 + 20, frame.size.height - 280, 120, 40)];
-        [okButton setTitle:@"OK" forState:UIControlStateNormal];
+        [okButton setTitle:@"Clear" forState:UIControlStateNormal];
         [okButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
         [okButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [okButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
-        [okButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [okButton setBackgroundColor:[UIColor colorWithRed:89/255.0 green:90/255.0 blue:91/255.0 alpha:1.0]];
         [okButton.layer setMasksToBounds:YES];
         [okButton.layer setCornerRadius:4.0];
-        [okButton addTarget:self action:@selector(okButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [okButton addTarget:self action:@selector(clearButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         [bv addSubview:okButton];
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         {
-            [monthsLV setFrame:CGRectMake(134, 40, 200, 180)];
+//            [monthsLV setFrame:CGRectMake(134, 40, 200, 180)];
             //      [daysLV.picker setFrame:CGRectMake(10, 10, 280, 160)];
-            [daysLV setFrame:CGRectMake(344, 40, 140, 180)];
-            [daysLV setListOfValues:days];
+//            [daysLV setFrame:CGRectMake(344, 40, 140, 180)];
+//            [daysLV setListOfValues:days];
             //      [yearsLV.picker setFrame:CGRectMake(10, 10, 280, 160)];
-            [yearsLV setFrame:CGRectMake(494, 40, 140, 180)];
-            [yearsLV setListOfValues:years];
+//            [yearsLV setFrame:CGRectMake(494, 40, 140, 180)];
+//            [yearsLV setListOfValues:years];
             
             [noButton setFrame:CGRectMake(noButton.frame.origin.x, 370, noButton.frame.size.width, noButton.frame.size.height)];
             [okButton setFrame:CGRectMake(okButton.frame.origin.x, 370, okButton.frame.size.width, okButton.frame.size.height)];
         }
         else
         {
-            [monthsLV setFrame:CGRectMake(50, monthsLV.frame.origin.y, monthsLV.frame.size.width, monthsLV.frame.size.height)];
-            [daysLV.picker setFrame:CGRectMake(0, 0, 140, 162)];
-            [daysLV setFrame:CGRectMake(10, 200, 140, 180)];
-            [yearsLV.picker setFrame:CGRectMake(10, 0, 120, 162)];
-            [yearsLV setFrame:CGRectMake(170, 200, 140, 180)];
+//            [monthsLV setFrame:CGRectMake(50, monthsLV.frame.origin.y, monthsLV.frame.size.width, monthsLV.frame.size.height)];
+//            [daysLV.picker setFrame:CGRectMake(0, 0, 140, 162)];
+//            [daysLV setFrame:CGRectMake(10, 200, 140, 180)];
+//            [yearsLV.picker setFrame:CGRectMake(10, 0, 120, 162)];
+//            [yearsLV setFrame:CGRectMake(170, 200, 140, 180)];
             
             [noButton setFrame:CGRectMake(noButton.frame.origin.x, 370, noButton.frame.size.width, noButton.frame.size.height)];
             [okButton setFrame:CGRectMake(okButton.frame.origin.x, 370, okButton.frame.size.width, okButton.frame.size.height)];
@@ -121,37 +121,37 @@
         
         if (dateField.text.length > 0)
         {
-            int indexOfFirstSlash = (int)[dateField.text rangeOfString:@"/"].location;
-            int indexOfSecondSlash = (int)[[dateField.text substringFromIndex:indexOfFirstSlash + 1] rangeOfString:@"/"].location + indexOfFirstSlash + 1;
-            int month = [[dateField.text substringToIndex:indexOfFirstSlash] intValue];
-            int day = [[dateField.text substringWithRange:NSMakeRange(indexOfFirstSlash + 1, indexOfSecondSlash - indexOfFirstSlash - 1)] intValue];
-            int year = [[dateField.text substringFromIndex:indexOfSecondSlash + 1] intValue];
+//            int indexOfFirstSlash = (int)[dateField.text rangeOfString:@"/"].location;
+//            int indexOfSecondSlash = (int)[[dateField.text substringFromIndex:indexOfFirstSlash + 1] rangeOfString:@"/"].location + indexOfFirstSlash + 1;
+//            int month = [[dateField.text substringToIndex:indexOfFirstSlash] intValue];
+//            int day = [[dateField.text substringWithRange:NSMakeRange(indexOfFirstSlash + 1, indexOfSecondSlash - indexOfFirstSlash - 1)] intValue];
+//            int year = [[dateField.text substringFromIndex:indexOfSecondSlash + 1] intValue];
             
             if (dmy)
             {
-                int notthemonth = month;
-                month = day;
-                day = notthemonth;
+//                int notthemonth = month;
+//                month = day;
+//                day = notthemonth;
             }
             
-            [monthsLV.picker selectRow:month - 1 inComponent:0 animated:NO];
-            [daysLV.picker selectRow:day - 1 inComponent:0 animated:NO];
-            [daysLV setPicked:[NSString stringWithFormat:@"%d", day]];
-            [yearsLV.picker selectRow:year - 1901 inComponent:0 animated:NO];
-            [yearsLV setPicked:[NSString stringWithFormat:@"%d", year]];
+//            [monthsLV.picker selectRow:month - 1 inComponent:0 animated:NO];
+//            [daysLV.picker selectRow:day - 1 inComponent:0 animated:NO];
+//            [daysLV setPicked:[NSString stringWithFormat:@"%d", day]];
+//            [yearsLV.picker selectRow:year - 1901 inComponent:0 animated:NO];
+//            [yearsLV setPicked:[NSString stringWithFormat:@"%d", year]];
             
-            if (month == 1) [monthsLV setPicked:@"January"];
-            else if (month == 2) [monthsLV setPicked:@"February"];
-            else if (month == 3) [monthsLV setPicked:@"March"];
-            else if (month == 4) [monthsLV setPicked:@"April"];
-            else if (month == 5) [monthsLV setPicked:@"May"];
-            else if (month == 6) [monthsLV setPicked:@"June"];
-            else if (month == 7) [monthsLV setPicked:@"July"];
-            else if (month == 8) [monthsLV setPicked:@"August"];
-            else if (month == 9) [monthsLV setPicked:@"September"];
-            else if (month == 10) [monthsLV setPicked:@"October"];
-            else if (month == 11) [monthsLV setPicked:@"November"];
-            else if (month == 12) [monthsLV setPicked:@"December"];
+//            if (month == 1) [monthsLV setPicked:@"January"];
+//            else if (month == 2) [monthsLV setPicked:@"February"];
+//            else if (month == 3) [monthsLV setPicked:@"March"];
+//            else if (month == 4) [monthsLV setPicked:@"April"];
+//            else if (month == 5) [monthsLV setPicked:@"May"];
+//            else if (month == 6) [monthsLV setPicked:@"June"];
+//            else if (month == 7) [monthsLV setPicked:@"July"];
+//            else if (month == 8) [monthsLV setPicked:@"August"];
+//            else if (month == 9) [monthsLV setPicked:@"September"];
+//            else if (month == 10) [monthsLV setPicked:@"October"];
+//            else if (month == 11) [monthsLV setPicked:@"November"];
+//            else if (month == 12) [monthsLV setPicked:@"December"];
         }
     }
     UILabel *fieldLabelLabel = [[UILabel alloc] initWithFrame:CGRectMake(8.0, 0, self.frame.size.width - 16.0, 40.0)];
@@ -162,6 +162,7 @@
     // Switch to EICalendar
     //
     eic = [[EICalendar alloc] initWithFrame:CGRectMake(4, 40, 312, 312) AndDateField:self.dateField];
+    [eic setDatePickerView:self];
     [self addSubview:eic];
     //
     return self;
@@ -196,6 +197,12 @@
     
     [self.dateField setText:date];
     
+    [self removeSelfFromSuperview];
+}
+
+- (void)clearButtonPressed
+{
+    [self.dateField setText:@""];
     [self removeSelfFromSuperview];
 }
 

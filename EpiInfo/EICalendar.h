@@ -20,7 +20,15 @@
     UIView *daysGridBase;
     UIView *monthsGridBase;
     UIView *yearsGridBase;
+    
+    int month;
+    int day;
+    int year;
+    
+    int initialMonth;
+    int initialYear;
 }
+@property UIView *datePickerView;
 @property UITextField *dateField;
 -(id)initWithFrame:(CGRect)frame AndDateField:(UITextField *)dateField;
 @end

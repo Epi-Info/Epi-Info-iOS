@@ -19,4 +19,5 @@
 }
 @property UITextField *dateField;
 -(id)initWithFrame:(CGRect)frame AndDateField:(UITextField *)dateField;
+-(void)removeSelfFromSuperview;
 @end
