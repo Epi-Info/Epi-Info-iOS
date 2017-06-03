@@ -17,6 +17,8 @@
     BOOL displayingAYear;
     BOOL displayingADecade;
     
+    UIView *whiteView;
+    
     UIView *daysGridBase;
     UIView *monthsGridBase;
     UIView *yearsGridBase;

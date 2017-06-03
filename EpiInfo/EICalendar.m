@@ -52,7 +52,7 @@
         
         NSString *wordMonth = [[[[NSDateFormatter alloc] init] monthSymbols] objectAtIndex:month - 1];
         
-        UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(1, 1, frame.size.width - 2.0, frame.size.height - 2.0)];
+        whiteView = [[UIView alloc] initWithFrame:CGRectMake(1, 1, frame.size.width - 2.0, frame.size.height - 2.0)];
         [whiteView setBackgroundColor:[UIColor whiteColor]];
         [self addSubview:whiteView];
         
@@ -83,6 +83,7 @@
         monthButton = [[UIButton alloc] initWithFrame:CGRectMake(40, 0, topBar.frame.size.width - 80, 40)];
         [monthButton setTitleColor:[UIColor colorWithRed:89/255.0 green:90/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
         [monthButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+        [monthButton addTarget:self action:@selector(monthButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [topBar addSubview:monthButton];
         
         [monthButton setTitle:[NSString stringWithFormat:@"%@ %d", wordMonth, year] forState:UIControlStateNormal];
@@ -122,6 +123,37 @@
         //
         
         // Construct the months grid
+        float widthOfMonthSquare = (widthOfDaysGridBase - 3.0) / 4.0;
+        float heightOfMonthsGridBase = widthOfMonthSquare * 3.0 + 4.0;
+        
+        monthsGridBase = [[UIView alloc] initWithFrame:CGRectMake(0, 40, widthOfDaysGridBase, heightOfMonthsGridBase)];
+        [monthsGridBase setBackgroundColor:[UIColor colorWithRed:89/255.0 green:90/255.0 blue:91/255.0 alpha:1.0]];
+        [whiteView addSubview:monthsGridBase];
+        
+        float monthX = 0.0;
+        float monthY = 1.0;
+        for (int i = 0; i < 12; i++)
+        {
+            monthX += (widthOfMonthSquare + 1.0);
+            if (i % 4 == 0)
+                monthX = 0.0;
+            if (i == 4 || i == 8)
+                monthY += (widthOfMonthSquare + 1.0);
+            float plus = 1.0;
+            if (i == 0 || i == 4 || i == 8)
+                plus = 0.0;
+            UIButton *monButton = [[UIButton alloc] initWithFrame:CGRectMake(monthX, monthY, widthOfMonthSquare, widthOfMonthSquare)];
+            [monButton setBackgroundColor:[UIColor whiteColor]];
+            [monButton setTitleColor:[UIColor colorWithRed:89/255.0 green:90/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+            [monButton setTitleColor:[UIColor colorWithRed:188/255.0 green:189/255.0 blue:191/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+            [monButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+            [monButton setTag:i];
+            [monButton addTarget:self action:@selector(monButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+            [monthsGridBase addSubview:monButton];
+            
+            NSString *wordMonth = [[[[NSDateFormatter alloc] init] monthSymbols] objectAtIndex:i];
+            [monButton setTitle:[NSString stringWithFormat:@"%@", wordMonth] forState:UIControlStateNormal];
+        }
         //
         
         // Construct the years grid
@@ -179,7 +211,19 @@
 
 - (void)monthButtonPressed:(UIButton *)sender
 {
+    if (displayingAMonth)
+    {
+        [monthButton setTitle:[NSString stringWithFormat:@"%d", year] forState:UIControlStateNormal];
+        [whiteView bringSubviewToFront:monthsGridBase];
+        [daysGridBase setAlpha:0.0];
+        displayingAMonth = NO;
+        displayingAYear = YES;
+    }
     
+    else if (displayingAYear)
+    {
+        
+    }
 }
 
 - (void)leftButtonPressed:(UIButton *)sender
@@ -196,6 +240,11 @@
         [monthButton setTitle:[NSString stringWithFormat:@"%@ %d", wordMonth, year] forState:UIControlStateNormal];
         [self numberTheDayButtonsForMonth:month AndYear:year];
     }
+    else if (displayingAYear)
+    {
+        year -= 1;
+        [monthButton setTitle:[NSString stringWithFormat:@"%d", year] forState:UIControlStateNormal];
+    }
 }
 
 - (void)rightButtonPressed:(UIButton *)sender
@@ -211,6 +260,11 @@
         NSString *wordMonth = [[[[NSDateFormatter alloc] init] monthSymbols] objectAtIndex:month - 1];
         [monthButton setTitle:[NSString stringWithFormat:@"%@ %d", wordMonth, year] forState:UIControlStateNormal];
         [self numberTheDayButtonsForMonth:month AndYear:year];
+    }
+    else if (displayingAYear)
+    {
+        year += 1;
+        [monthButton setTitle:[NSString stringWithFormat:@"%d", year] forState:UIControlStateNormal];
     }
 }
 
@@ -247,6 +301,18 @@
     [self.dateField setText:date];
     
     [(DatePicker *)self.datePickerView removeSelfFromSuperview];
+}
+
+- (void)monButtonPressed:(UIButton *)sender
+{
+    month = (int)[sender tag] + 1;
+    [whiteView bringSubviewToFront:daysGridBase];
+    [daysGridBase setAlpha:1.0];
+    NSString *wordMonth = [[[[NSDateFormatter alloc] init] monthSymbols] objectAtIndex:month - 1];
+    [monthButton setTitle:[NSString stringWithFormat:@"%@ %d", wordMonth, year] forState:UIControlStateNormal];
+    [self numberTheDayButtonsForMonth:month AndYear:year];
+    displayingAYear = NO;
+    displayingAMonth = YES;
 }
 
 /*
