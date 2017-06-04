@@ -157,6 +157,37 @@
         //
         
         // Construct the years grid
+        float widthOfYearSquare = (widthOfDaysGridBase - 4.0) / 5.0;
+        float heightOfYearsGridBase = widthOfYearSquare * 2.0 + 3.0;
+        
+        yearsGridBase = [[UIView alloc] initWithFrame:CGRectMake(0, 40, widthOfDaysGridBase, heightOfYearsGridBase)];
+        [yearsGridBase setBackgroundColor:[UIColor colorWithRed:89/255.0 green:90/255.0 blue:91/255.0 alpha:1.0]];
+        [whiteView addSubview:yearsGridBase];
+        
+        float yearX = 0.0;
+        float yearY = 1.0;
+        for (int i = 0; i < 10; i++)
+        {
+            yearX += (widthOfYearSquare + 1.0);
+            if (i % 5 == 0)
+                yearX = 0.0;
+            if (i == 5)
+                yearY += (widthOfYearSquare + 1.0);
+            float plus = 1.0;
+            if (i == 0 || i == 5)
+                plus = 0.0;
+            UIButton *yearButton = [[UIButton alloc] initWithFrame:CGRectMake(yearX, yearY, widthOfYearSquare, widthOfYearSquare)];
+            [yearButton setBackgroundColor:[UIColor whiteColor]];
+            [yearButton setTitleColor:[UIColor colorWithRed:89/255.0 green:90/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+            [yearButton setTitleColor:[UIColor colorWithRed:188/255.0 green:189/255.0 blue:191/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+            [yearButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+            [yearButton setTag:i];
+            [yearButton addTarget:self action:@selector(yearButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+            [yearsGridBase addSubview:yearButton];
+            
+            int iterYear = (int)((float)year / 10) * 10 + i;
+            [yearButton setTitle:[NSString stringWithFormat:@"%d", iterYear] forState:UIControlStateNormal];
+        }
         //
         
         [whiteView bringSubviewToFront:daysGridBase];
@@ -222,7 +253,13 @@
     
     else if (displayingAYear)
     {
-        
+        int firstYear = (int)((float)year / 10) * 10;
+        int lastYear = (int)((float)year / 10) * 10 + 9;
+        [monthButton setTitle:[NSString stringWithFormat:@"%d - %d", firstYear, lastYear] forState:UIControlStateNormal];
+        [whiteView bringSubviewToFront:yearsGridBase];
+        [monthsGridBase setAlpha:0.0];
+        displayingADecade = YES;
+        displayingAYear = NO;
     }
 }
 
@@ -245,6 +282,21 @@
         year -= 1;
         [monthButton setTitle:[NSString stringWithFormat:@"%d", year] forState:UIControlStateNormal];
     }
+    else if (displayingADecade)
+    {
+        year -= 10;
+        int firstYear = (int)((float)year / 10) * 10;
+        int lastYear = (int)((float)year / 10) * 10 + 9;
+        [monthButton setTitle:[NSString stringWithFormat:@"%d - %d", firstYear, lastYear] forState:UIControlStateNormal];
+        
+        for (UIView *v in [yearsGridBase subviews])
+        {
+            if ([v isKindOfClass:[UIButton class]])
+            {
+                [(UIButton *)v setTitle:[NSString stringWithFormat:@"%d", firstYear + (int)[v tag]] forState:UIControlStateNormal];
+            }
+        }
+    }
 }
 
 - (void)rightButtonPressed:(UIButton *)sender
@@ -265,6 +317,21 @@
     {
         year += 1;
         [monthButton setTitle:[NSString stringWithFormat:@"%d", year] forState:UIControlStateNormal];
+    }
+    else if (displayingADecade)
+    {
+        year += 10;
+        int firstYear = (int)((float)year / 10) * 10;
+        int lastYear = (int)((float)year / 10) * 10 + 9;
+        [monthButton setTitle:[NSString stringWithFormat:@"%d - %d", firstYear, lastYear] forState:UIControlStateNormal];
+        
+        for (UIView *v in [yearsGridBase subviews])
+        {
+            if ([v isKindOfClass:[UIButton class]])
+            {
+                [(UIButton *)v setTitle:[NSString stringWithFormat:@"%d", firstYear + (int)[v tag]] forState:UIControlStateNormal];
+            }
+        }
     }
 }
 
@@ -313,6 +380,16 @@
     [self numberTheDayButtonsForMonth:month AndYear:year];
     displayingAYear = NO;
     displayingAMonth = YES;
+}
+
+- (void)yearButtonPressed:(UIButton *)sender
+{
+    displayingADecade = NO;
+    displayingAYear = YES;
+    year = [[[sender titleLabel] text] intValue];
+    [monthButton setTitle:[NSString stringWithFormat:@"%d", year] forState:UIControlStateNormal];
+    [whiteView bringSubviewToFront:monthsGridBase];
+    [monthsGridBase setAlpha:1.0];
 }
 
 /*
