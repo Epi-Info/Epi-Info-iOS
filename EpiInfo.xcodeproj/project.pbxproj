@@ -116,6 +116,7 @@
 		92095BE31835682400B7A0ED /* Default-1024h.png in Resources */ = {isa = PBXBuildFile; fileRef = 92095BE21835682400B7A0ED /* Default-1024h.png */; };
 		92095BE51835686200B7A0ED /* Default-1024h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92095BE41835686200B7A0ED /* Default-1024h@2x.png */; };
 		920AE61019C88D71001C96CE /* EpiInfoViewForRounding.m in Sources */ = {isa = PBXBuildFile; fileRef = 920AE60F19C88D71001C96CE /* EpiInfoViewForRounding.m */; };
+		920CD0271EE4B30200415569 /* CheckButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 920CD0261EE4B30200415569 /* CheckButton.m */; };
 		92119A601923FBD3008155F7 /* EpiInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92119A5F1923FBD3008155F7 /* EpiInfoViewController.m */; };
 		9211F6EF1D53758F002583D4 /* AssignModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9211F6EE1D53758F002583D4 /* AssignModel.m */; };
 		9211F6F21D54C02F002583D4 /* AssignParse.c in Sources */ = {isa = PBXBuildFile; fileRef = 9211F6F01D54C02F002583D4 /* AssignParse.c */; };
@@ -592,6 +593,8 @@
 		92095BE41835686200B7A0ED /* Default-1024h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-1024h@2x.png"; sourceTree = "<group>"; };
 		920AE60E19C88D71001C96CE /* EpiInfoViewForRounding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpiInfoViewForRounding.h; sourceTree = "<group>"; };
 		920AE60F19C88D71001C96CE /* EpiInfoViewForRounding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpiInfoViewForRounding.m; sourceTree = "<group>"; };
+		920CD0251EE4B30200415569 /* CheckButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckButton.h; sourceTree = "<group>"; };
+		920CD0261EE4B30200415569 /* CheckButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckButton.m; sourceTree = "<group>"; };
 		92119A5F1923FBD3008155F7 /* EpiInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpiInfoViewController.m; sourceTree = "<group>"; };
 		9211F6ED1D53758F002583D4 /* AssignModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignModel.h; sourceTree = "<group>"; };
 		9211F6EE1D53758F002583D4 /* AssignModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignModel.m; sourceTree = "<group>"; };
@@ -1563,6 +1566,8 @@
 				92E1A83B18730974003E58A5 /* EpiInfoTextView.m */,
 				9266C52F18466ED600739AF2 /* Checkbox.h */,
 				9266C53018466ED600739AF2 /* Checkbox.m */,
+				920CD0251EE4B30200415569 /* CheckButton.h */,
+				920CD0261EE4B30200415569 /* CheckButton.m */,
 				9266C5321846795000739AF2 /* YesNo.h */,
 				9266C5331846795000739AF2 /* YesNo.m */,
 				9266C5351846848800739AF2 /* NumberField.h */,
@@ -2188,6 +2193,7 @@
 				923A263B17B4265D00DCBCD5 /* FilterButton.m in Sources */,
 				926F55061AC5D09900790628 /* CaseControlSimulationView.swift in Sources */,
 				9265FF901CB29B9F003AD6E0 /* SQLTool.m in Sources */,
+				920CD0271EE4B30200415569 /* CheckButton.m in Sources */,
 				84C816861CE22D8D00F408D2 /* DialogModel.m in Sources */,
 				92524A8C184E50BE003C820B /* SaveFormView.m in Sources */,
 				9266C540184684FD00739AF2 /* UppercaseTextField.m in Sources */,

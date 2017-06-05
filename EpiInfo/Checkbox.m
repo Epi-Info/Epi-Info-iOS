@@ -7,6 +7,7 @@
 
 #import "Checkbox.h"
 #import "EnterDataView.h"
+#import "CheckButton.h"
 
 @implementation Checkbox
 @synthesize columnName = _columnName;
@@ -28,6 +29,20 @@
         [button setBackgroundColor:[UIColor whiteColor]];
         [button.layer setCornerRadius:3.0];
         [button addTarget:self action:@selector(buttonPressed) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIView *whiteLayer = [[UIView alloc] initWithFrame:button.frame];
+        [whiteLayer.layer setCornerRadius:3.0];
+        [whiteLayer setBackgroundColor:[UIColor whiteColor]];
+        [self addSubview:whiteLayer];
+       
+        CheckButton *cb = [[CheckButton alloc] initWithFrame:button.frame];
+        [cb setBackgroundColor:[UIColor clearColor]];
+        [cb setText:@"\u2713"];
+        [cb setTextColor:[UIColor blackColor]];
+        [cb setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:28.0]];
+        [cb setTextAlignment:NSTextAlignmentCenter];
+        [self addSubview:cb];
+        
         [self addSubview:button];
     }
     return self;
