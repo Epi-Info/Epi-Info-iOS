@@ -61,7 +61,7 @@
 //        [yearsLV setViewToAlertOfChanges:self];
 //        [bv addSubview:yearsLV];
         
-        UIButton *noButton = [[UIButton alloc] initWithFrame:CGRectMake(bv.frame.size.width / 2.0 - 140, frame.size.height - 280, 120, 40)];
+        UIButton *noButton = [[UIButton alloc] initWithFrame:CGRectMake(320.0 / 2.0 - 140, frame.size.height - 280, 120, 40)];
         [noButton setTitle:@"Cancel" forState:UIControlStateNormal];
         [noButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
         [noButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
@@ -72,7 +72,7 @@
         [noButton addTarget:self action:@selector(removeSelfFromSuperview) forControlEvents:UIControlEventTouchUpInside];
         [bv addSubview:noButton];
         
-        UIButton *okButton = [[UIButton alloc] initWithFrame:CGRectMake(bv.frame.size.width / 2.0 + 20, frame.size.height - 280, 120, 40)];
+        UIButton *okButton = [[UIButton alloc] initWithFrame:CGRectMake(320.0 / 2.0 + 20, frame.size.height - 280, 120, 40)];
         [okButton setTitle:@"Clear" forState:UIControlStateNormal];
         [okButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
         [okButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
