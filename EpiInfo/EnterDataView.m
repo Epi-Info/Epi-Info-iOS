@@ -782,6 +782,8 @@
                                 if ([[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 1)] isEqualToString:@"MSAzure"])
                                 {
                                     self.client = [MSClient clientWithApplicationURLString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)]];
+                                    self.cloudService = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)];
+                                    self.cloudKey = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)];
                                     //                  self.epiinfoService = [[QSEpiInfoService alloc] initWithURL:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)] AndKey:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)]];
                                     //                  [self.epiinfoService setApplicationURL:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)]];
                                     //                  [self.epiinfoService setApplicationKey:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)]];
@@ -925,6 +927,8 @@
                                 if ([[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 1)] isEqualToString:@"MSAzure"])
                                 {
                                     self.client = [MSClient clientWithApplicationURLString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)]];
+                                    self.cloudService = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)];
+                                    self.cloudKey = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)];
                                     //                  self.epiinfoService = [[QSEpiInfoService alloc] initWithURL:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)] AndKey:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)]];
                                     //                  [self.epiinfoService setApplicationURL:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)]];
                                     //                  [self.epiinfoService setApplicationKey:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)]];

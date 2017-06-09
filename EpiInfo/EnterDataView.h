@@ -155,6 +155,8 @@
 @property(nonatomic) BOOL firstEdit;
 
 @property (strong, nonatomic) MSClient *client;
+@property (strong, nonatomic) NSString *cloudService;
+@property (strong, nonatomic) NSString *cloudKey;
 
 
 -(void)setNewRecordGUID:(NSString *)guid;

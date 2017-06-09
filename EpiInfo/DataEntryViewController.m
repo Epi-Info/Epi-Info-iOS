@@ -2666,6 +2666,123 @@
                 //                [NSThread sleepForTimeInterval:1.1f];
             }
             okayToContinue = NO;
+            NSMutableString *cloudDataString = [[NSMutableString alloc] init];
+            [cloudDataString appendString:@"{"];
+            NSString *guidValue = nil;
+            for (NSString *key in (NSDictionary *)[arrayOfAzureDictionaries objectAtIndex:i])
+            {
+                [cloudDataString appendString:[NSString stringWithFormat:@" \"%@\": \"", key]];
+                [cloudDataString appendString:[(NSDictionary *)[arrayOfAzureDictionaries objectAtIndex:i] objectForKey:key]];
+                [cloudDataString appendString:@"\","];
+                if ([key isEqualToString:@"id"])
+                    guidValue = [(NSDictionary *)[arrayOfAzureDictionaries objectAtIndex:i] objectForKey:key];
+            }
+            [cloudDataString deleteCharactersInRange:NSMakeRange([cloudDataString length] - 1, 1)];
+            [cloudDataString appendString:@" }"];
+            
+            NSData *cloudData = [cloudDataString dataUsingEncoding:NSUTF8StringEncoding];
+            NSString *cloudDataLength = [NSString stringWithFormat:@"%d", (int)[cloudData length]];
+            
+            // Write to Azure table using generic NSURLRequest method
+            NSMutableURLRequest *getRequest = [[NSMutableURLRequest alloc] init];
+            [getRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", edv.cloudService, edv.formName]]];
+            
+            [getRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+            [getRequest setValue:edv.cloudKey forHTTPHeaderField:@"epi-token"];
+            [getRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+            [getRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+            [getRequest setValue:edv.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+
+            [getRequest setHTTPMethod:@"GET"];
+
+            NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+            [[session dataTaskWithRequest:getRequest completionHandler:^(NSData *getData, NSURLResponse *response, NSError *error) {
+                NSString *requestReply = [[NSString alloc] initWithData:getData encoding:NSASCIIStringEncoding];
+                if (error)
+                {
+                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not read table %@. ERROR=%@\n", [NSDate date], edv.formName, error]];
+                }
+                else if ([requestReply containsString:guidValue])
+                {
+                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item found, id: %@\n", [NSDate date], guidValue]];
+                    NSMutableURLRequest *deleteRequest = [[NSMutableURLRequest alloc] init];
+                    [deleteRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@/%@", edv.cloudService, edv.formName, guidValue]]];
+                    
+                    [deleteRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                    [deleteRequest setValue:edv.cloudKey forHTTPHeaderField:@"epi-token"];
+                    [deleteRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                    [deleteRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                    [deleteRequest setValue:edv.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                    
+                    [deleteRequest setHTTPMethod:@"DELETE"];
+                    
+                    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                    [[session dataTaskWithRequest:deleteRequest completionHandler:^(NSData *deleteData, NSURLResponse *deleteResponse, NSError *deleteError) {
+                        if (deleteError)
+                        {
+                            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not delete id %@: %@\n", [NSDate date], guidValue, deleteError]];
+                        }
+                        else
+                        {
+                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item deleted, id: %@\n", [NSDate date], guidValue]];
+                            NSMutableURLRequest *postRequest = [[NSMutableURLRequest alloc] init];
+                            [postRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", edv.cloudService, edv.formName]]];
+                            
+                            [postRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                            [postRequest setValue:edv.cloudKey forHTTPHeaderField:@"epi-token"];
+                            [postRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                            [postRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                            [postRequest setValue:edv.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                            
+                            [postRequest setValue:cloudDataLength forHTTPHeaderField:@"Content-Length"];
+                            [postRequest setHTTPBody:cloudData];
+                            
+                            [postRequest setHTTPMethod:@"POST"];
+                            
+                            NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                            [[session dataTaskWithRequest:postRequest completionHandler:^(NSData *postData, NSURLResponse *response, NSError *postError) {
+                                if (postError)
+                                {
+                                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Insert error with id %@: %@\n", [NSDate date], guidValue, postError]];
+                                }
+                                else
+                                {
+                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item inserted, id: %@\n", [NSDate date], guidValue]];
+                                }
+                            }] resume];
+	                        }
+                    }] resume];
+                }
+                else
+                {
+                    NSMutableURLRequest *postRequest = [[NSMutableURLRequest alloc] init];
+                    [postRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", edv.cloudService, edv.formName]]];
+                    
+                    [postRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                    [postRequest setValue:edv.cloudKey forHTTPHeaderField:@"epi-token"];
+                    [postRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                    [postRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                    [postRequest setValue:edv.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                    
+                    [postRequest setValue:cloudDataLength forHTTPHeaderField:@"Content-Length"];
+                    [postRequest setHTTPBody:cloudData];
+                    
+                    [postRequest setHTTPMethod:@"POST"];
+                    
+                    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                    [[session dataTaskWithRequest:postRequest completionHandler:^(NSData *postData, NSURLResponse *response, NSError *postError) {
+                        if (postError)
+                        {
+                            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Insert error with id %@: %@\n", [NSDate date], guidValue, postError]];
+                        }
+                        else
+                        {
+                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item inserted, id: %@\n", [NSDate date], guidValue]];
+                        }
+                    }] resume];
+                }
+            }] resume];
+            /*
             [itemTable readWithId:[(NSMutableDictionary *)[arrayOfAzureDictionaries objectAtIndex:i] objectForKey:@"id"] completion:^(NSDictionary *queriedItem, NSError *queryError) {
                 if (queryError) {
                     [itemTable insert:(NSMutableDictionary *)[arrayOfAzureDictionaries objectAtIndex:i] completion:^(NSDictionary *insertedItem, NSError *error) {
@@ -2692,7 +2809,7 @@
                     }];
                     okayToContinue = YES;
                 }
-            }];
+            }];*/
         }
     }
 }

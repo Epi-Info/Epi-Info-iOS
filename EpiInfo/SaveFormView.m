@@ -203,14 +203,14 @@
     [applicationKeyLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
     [applicationKeyLabel setText:@"Application Key:"];
     [applicationKeyLabel setBackgroundColor:[UIColor clearColor]];
-//    [msAzureCredsView addSubview:applicationKeyLabel];
+    [msAzureCredsView addSubview:applicationKeyLabel];
     
     EpiInfoTextField *applicationKey = [[EpiInfoTextField alloc] initWithFrame:CGRectMake(20 * ratio, 118 * ratio, 280 * ratio, 40 * ratio)];
     [applicationKey setBorderStyle:UITextBorderStyleRoundedRect];
     [applicationKey setReturnKeyType:UIReturnKeyDone];
     [applicationKey setDelegate:self];
     [applicationKey setColumnName:@"cloudDataKey"];
-//    [msAzureCredsView addSubview:applicationKey];
+    [msAzureCredsView addSubview:applicationKey];
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
