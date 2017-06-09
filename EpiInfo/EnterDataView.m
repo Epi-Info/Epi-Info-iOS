@@ -1273,7 +1273,7 @@
         insertStatement = [insertStatement stringByAppendingString:@")"];
         valuesClause = [valuesClause stringByAppendingString:@")"];
         insertStatement = [insertStatement stringByAppendingString:valuesClause];
-        [azureDictionary setObject:@NO forKey:@"complete"];
+//        [azureDictionary setObject:@NO forKey:@"complete"];
         //        for (id key in azureDictionary)
         //        {
         //            NSLog(@"%@ :: %@", key, [azureDictionary objectForKey:key]);
@@ -1422,6 +1422,127 @@
                     [uiaiv setHidden:NO];
                     [uiaiv startAnimating];
                     [okButton setEnabled:NO];
+                    
+                    if (self.cloudService)
+                    {
+                        // Write to Azure table using generic NSURLRequest method
+                        NSMutableString *cloudDataString = [[NSMutableString alloc] init];
+                        [cloudDataString appendString:@"{"];
+                        NSString *guidValue = nil;
+                        for (NSString *key in azureDictionary)
+                        {
+                            [cloudDataString appendString:[NSString stringWithFormat:@" \"%@\": \"", key]];
+                            [cloudDataString appendString:[azureDictionary objectForKey:key]];
+                            [cloudDataString appendString:@"\","];
+                            if ([key isEqualToString:@"id"])
+                                guidValue = [azureDictionary objectForKey:key];
+                        }
+                        [cloudDataString deleteCharactersInRange:NSMakeRange([cloudDataString length] - 1, 1)];
+                        [cloudDataString appendString:@" }"];
+                        
+                        NSData *cloudData = [cloudDataString dataUsingEncoding:NSUTF8StringEncoding];
+                        NSString *cloudDataLength = [NSString stringWithFormat:@"%d", (int)[cloudData length]];
+                        
+                        NSMutableURLRequest *getRequest = [[NSMutableURLRequest alloc] init];
+                        [getRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", self.cloudService, self.formName]]];
+                        
+                        [getRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                        [getRequest setValue:self.cloudKey forHTTPHeaderField:@"epi-token"];
+                        [getRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                        [getRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                        [getRequest setValue:self.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                        
+                        [getRequest setHTTPMethod:@"GET"];
+                        
+                        NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                        [[session dataTaskWithRequest:getRequest completionHandler:^(NSData *getData, NSURLResponse *response, NSError *error) {
+                            NSString *requestReply = [[NSString alloc] initWithData:getData encoding:NSASCIIStringEncoding];
+                            if (error)
+                            {
+                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not read table %@. ERROR=%@\n", [NSDate date], self.formName, error]];
+                            }
+                            else if ([requestReply containsString:guidValue])
+                            {
+                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item found, id: %@\n", [NSDate date], guidValue]];
+                                NSMutableURLRequest *deleteRequest = [[NSMutableURLRequest alloc] init];
+                                [deleteRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@/%@", self.cloudService, self.formName, guidValue]]];
+                                
+                                [deleteRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                                [deleteRequest setValue:self.cloudKey forHTTPHeaderField:@"epi-token"];
+                                [deleteRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                                [deleteRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                                [deleteRequest setValue:self.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                                
+                                [deleteRequest setHTTPMethod:@"DELETE"];
+                                
+                                NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                                [[session dataTaskWithRequest:deleteRequest completionHandler:^(NSData *deleteData, NSURLResponse *deleteResponse, NSError *deleteError) {
+                                    if (deleteError)
+                                    {
+                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not delete id %@: %@\n", [NSDate date], guidValue, deleteError]];
+                                    }
+                                    else
+                                    {
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item deleted, id: %@\n", [NSDate date], guidValue]];
+                                        NSMutableURLRequest *postRequest = [[NSMutableURLRequest alloc] init];
+                                        [postRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", self.cloudService, self.formName]]];
+                                        
+                                        [postRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                                        [postRequest setValue:self.cloudKey forHTTPHeaderField:@"epi-token"];
+                                        [postRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                                        [postRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                                        [postRequest setValue:self.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                                        
+                                        [postRequest setValue:cloudDataLength forHTTPHeaderField:@"Content-Length"];
+                                        [postRequest setHTTPBody:cloudData];
+                                        
+                                        [postRequest setHTTPMethod:@"POST"];
+                                        
+                                        NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                                        [[session dataTaskWithRequest:postRequest completionHandler:^(NSData *postData, NSURLResponse *response, NSError *postError) {
+                                            if (postError)
+                                            {
+                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Insert error with id %@: %@\n", [NSDate date], guidValue, postError]];
+                                            }
+                                            else
+                                            {
+                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item inserted, id: %@\n", [NSDate date], guidValue]];
+                                            }
+                                        }] resume];
+                                    }
+                                }] resume];
+                            }
+                            else
+                            {
+                                NSMutableURLRequest *postRequest = [[NSMutableURLRequest alloc] init];
+                                [postRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", self.cloudService, self.formName]]];
+                                
+                                [postRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                                [postRequest setValue:self.cloudKey forHTTPHeaderField:@"epi-token"];
+                                [postRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                                [postRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                                [postRequest setValue:self.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                                
+                                [postRequest setValue:cloudDataLength forHTTPHeaderField:@"Content-Length"];
+                                [postRequest setHTTPBody:cloudData];
+                                
+                                [postRequest setHTTPMethod:@"POST"];
+                                
+                                NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                                [[session dataTaskWithRequest:postRequest completionHandler:^(NSData *postData, NSURLResponse *response, NSError *postError) {
+                                    if (postError)
+                                    {
+                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Insert error with id %@: %@\n", [NSDate date], guidValue, postError]];
+                                    }
+                                    else
+                                    {
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item inserted, id: %@\n", [NSDate date], guidValue]];
+                                    }
+                                }] resume];
+                            }
+                        }] resume];
+                    }
+                    /*
                     if (self.client)
                     {
                         MSTable *itemTable = [self.client tableWithName:formName];
@@ -1435,6 +1556,7 @@
                             }
                         }];
                     }
+                     */
                     //          NSLog(@"%@", self.epiinfoService.applicationURL);
                     //          if (self.epiinfoService.applicationURL)
                     //            [self.epiinfoService addItem:[NSDictionary dictionaryWithDictionary:azureDictionary] completion:^(NSUInteger index)
@@ -1708,7 +1830,7 @@
         }
         insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@"\nwhere GlobalRecordID = '%@'", recordUIDForUpdate]];
         
-        [azureDictionary setObject:@NO forKey:@"complete"];
+//        [azureDictionary setObject:@NO forKey:@"complete"];
         
         //Create the new table if necessary
         int tableAlreadyExists = 0;
@@ -1836,6 +1958,127 @@
                     [uiaiv setHidden:NO];
                     [uiaiv startAnimating];
                     [okButton setEnabled:NO];
+                    
+                    if (self.cloudService)
+                    {
+                        // Write to Azure table using generic NSURLRequest method
+                        NSMutableString *cloudDataString = [[NSMutableString alloc] init];
+                        [cloudDataString appendString:@"{"];
+                        NSString *guidValue = nil;
+                        for (NSString *key in azureDictionary)
+                        {
+                            [cloudDataString appendString:[NSString stringWithFormat:@" \"%@\": \"", key]];
+                            [cloudDataString appendString:[azureDictionary objectForKey:key]];
+                            [cloudDataString appendString:@"\","];
+                            if ([key isEqualToString:@"id"])
+                                guidValue = [azureDictionary objectForKey:key];
+                        }
+                        [cloudDataString deleteCharactersInRange:NSMakeRange([cloudDataString length] - 1, 1)];
+                        [cloudDataString appendString:@" }"];
+                        
+                        NSData *cloudData = [cloudDataString dataUsingEncoding:NSUTF8StringEncoding];
+                        NSString *cloudDataLength = [NSString stringWithFormat:@"%d", (int)[cloudData length]];
+                        
+                        NSMutableURLRequest *getRequest = [[NSMutableURLRequest alloc] init];
+                        [getRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", self.cloudService, self.formName]]];
+                        
+                        [getRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                        [getRequest setValue:self.cloudKey forHTTPHeaderField:@"epi-token"];
+                        [getRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                        [getRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                        [getRequest setValue:self.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                        
+                        [getRequest setHTTPMethod:@"GET"];
+                        
+                        NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                        [[session dataTaskWithRequest:getRequest completionHandler:^(NSData *getData, NSURLResponse *response, NSError *error) {
+                            NSString *requestReply = [[NSString alloc] initWithData:getData encoding:NSASCIIStringEncoding];
+                            if (error)
+                            {
+                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not read table %@. ERROR=%@\n", [NSDate date], self.formName, error]];
+                            }
+                            else if ([requestReply containsString:guidValue])
+                            {
+                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item found, id: %@\n", [NSDate date], guidValue]];
+                                NSMutableURLRequest *deleteRequest = [[NSMutableURLRequest alloc] init];
+                                [deleteRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@/%@", self.cloudService, self.formName, guidValue]]];
+                                
+                                [deleteRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                                [deleteRequest setValue:self.cloudKey forHTTPHeaderField:@"epi-token"];
+                                [deleteRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                                [deleteRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                                [deleteRequest setValue:self.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                                
+                                [deleteRequest setHTTPMethod:@"DELETE"];
+                                
+                                NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                                [[session dataTaskWithRequest:deleteRequest completionHandler:^(NSData *deleteData, NSURLResponse *deleteResponse, NSError *deleteError) {
+                                    if (deleteError)
+                                    {
+                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not delete id %@: %@\n", [NSDate date], guidValue, deleteError]];
+                                    }
+                                    else
+                                    {
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item deleted, id: %@\n", [NSDate date], guidValue]];
+                                        NSMutableURLRequest *postRequest = [[NSMutableURLRequest alloc] init];
+                                        [postRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", self.cloudService, self.formName]]];
+                                        
+                                        [postRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                                        [postRequest setValue:self.cloudKey forHTTPHeaderField:@"epi-token"];
+                                        [postRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                                        [postRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                                        [postRequest setValue:self.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                                        
+                                        [postRequest setValue:cloudDataLength forHTTPHeaderField:@"Content-Length"];
+                                        [postRequest setHTTPBody:cloudData];
+                                        
+                                        [postRequest setHTTPMethod:@"POST"];
+                                        
+                                        NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                                        [[session dataTaskWithRequest:postRequest completionHandler:^(NSData *postData, NSURLResponse *response, NSError *postError) {
+                                            if (postError)
+                                            {
+                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Insert error with id %@: %@\n", [NSDate date], guidValue, postError]];
+                                            }
+                                            else
+                                            {
+                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item inserted, id: %@\n", [NSDate date], guidValue]];
+                                            }
+                                        }] resume];
+                                    }
+                                }] resume];
+                            }
+                            else
+                            {
+                                NSMutableURLRequest *postRequest = [[NSMutableURLRequest alloc] init];
+                                [postRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", self.cloudService, self.formName]]];
+                                
+                                [postRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                                [postRequest setValue:self.cloudKey forHTTPHeaderField:@"epi-token"];
+                                [postRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                                [postRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                                [postRequest setValue:self.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                                
+                                [postRequest setValue:cloudDataLength forHTTPHeaderField:@"Content-Length"];
+                                [postRequest setHTTPBody:cloudData];
+                                
+                                [postRequest setHTTPMethod:@"POST"];
+                                
+                                NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                                [[session dataTaskWithRequest:postRequest completionHandler:^(NSData *postData, NSURLResponse *response, NSError *postError) {
+                                    if (postError)
+                                    {
+                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Insert error with id %@: %@\n", [NSDate date], guidValue, postError]];
+                                    }
+                                    else
+                                    {
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item inserted, id: %@\n", [NSDate date], guidValue]];
+                                    }
+                                }] resume];
+                            }
+                        }] resume];
+                    }
+                    /*
                     if (self.client)
                     {
                         MSTable *itemTable = [self.client tableWithName:formName];
@@ -1864,6 +2107,7 @@
                             }
                         }];
                     }
+                    */
                     //          if (self.epiinfoService.applicationURL)
                     //          {
                     //            [self.epiinfoService addItem:[NSDictionary dictionaryWithDictionary:azureDictionary] completion:^(NSUInteger index)
@@ -1959,7 +2203,7 @@
         
         insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@"\nwhere GlobalRecordID = '%@'", recordUIDForUpdate]];
         
-        [azureDictionary setObject:@NO forKey:@"complete"];
+//        [azureDictionary setObject:@NO forKey:@"complete"];
         
         // Delete the row
         int tableAlreadyExists = 0;
@@ -2002,6 +2246,7 @@
 //                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:@"Local database row deleted." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 //                    [alert setTag:42];
 //                    [alert show];
+                    /*
                     if (self.client)
                     {
                         UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Delete" message:@"Local database row deleted. Delete cloud database row also?" preferredStyle:UIAlertControllerStyleAlert];
@@ -2026,6 +2271,102 @@
                                     [self.rootViewController presentViewController:alertC animated:YES completion:nil];
                                 }
                             }];
+                        }];
+                        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                        }];
+                        [alertC addAction:yesAction];
+                        [alertC addAction:noAction];
+                        [self.rootViewController presentViewController:alertC animated:YES completion:nil];
+                    }
+                     */
+                    if (self.cloudService)
+                    {
+                        // Write to Azure table using generic NSURLRequest method
+                        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Delete" message:@"Local database row deleted. Delete cloud database row also?" preferredStyle:UIAlertControllerStyleAlert];
+                        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                            NSMutableString *cloudDataString = [[NSMutableString alloc] init];
+                            [cloudDataString appendString:@"{"];
+                            NSString *guidValue = nil;
+                            for (NSString *key in azureDictionary)
+                            {
+                                [cloudDataString appendString:[NSString stringWithFormat:@" \"%@\": \"", key]];
+                                [cloudDataString appendString:[azureDictionary objectForKey:key]];
+                                [cloudDataString appendString:@"\","];
+                                if ([key isEqualToString:@"id"])
+                                    guidValue = [azureDictionary objectForKey:key];
+                            }
+                            [cloudDataString deleteCharactersInRange:NSMakeRange([cloudDataString length] - 1, 1)];
+                            [cloudDataString appendString:@" }"];
+                            
+                            NSMutableURLRequest *getRequest = [[NSMutableURLRequest alloc] init];
+                            [getRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", self.cloudService, self.formName]]];
+                            
+                            [getRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                            [getRequest setValue:self.cloudKey forHTTPHeaderField:@"epi-token"];
+                            [getRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                            [getRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                            [getRequest setValue:self.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                            
+                            [getRequest setHTTPMethod:@"GET"];
+                            
+                            NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                            [[session dataTaskWithRequest:getRequest completionHandler:^(NSData *getData, NSURLResponse *response, NSError *error) {
+                                NSString *requestReply = [[NSString alloc] initWithData:getData encoding:NSASCIIStringEncoding];
+                                if (error)
+                                {
+                                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not read table %@. ERROR=%@\n", [NSDate date], self.formName, error]];
+                                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Error" message:@"Unable to read cloud table. See Error Log." preferredStyle:UIAlertControllerStyleAlert];
+                                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                    }];
+                                    [alertC addAction:okAction];
+                                    [self.rootViewController presentViewController:alertC animated:YES completion:nil];
+                                }
+                                else if ([requestReply containsString:guidValue])
+                                {
+                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item found, id: %@\n", [NSDate date], guidValue]];
+                                    NSMutableURLRequest *deleteRequest = [[NSMutableURLRequest alloc] init];
+                                    [deleteRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@/%@", self.cloudService, self.formName, guidValue]]];
+                                    
+                                    [deleteRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                                    [deleteRequest setValue:self.cloudKey forHTTPHeaderField:@"epi-token"];
+                                    [deleteRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                                    [deleteRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                                    [deleteRequest setValue:self.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                                    
+                                    [deleteRequest setHTTPMethod:@"DELETE"];
+                                    
+                                    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                                    [[session dataTaskWithRequest:deleteRequest completionHandler:^(NSData *deleteData, NSURLResponse *deleteResponse, NSError *deleteError) {
+                                        if (deleteError)
+                                        {
+                                            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not delete id %@: %@\n", [NSDate date], guidValue, deleteError]];
+                                            UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Error" message:@"Unable to delete cloud row. See Error Log." preferredStyle:UIAlertControllerStyleAlert];
+                                            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                            }];
+                                            [alertC addAction:okAction];
+                                            [self.rootViewController presentViewController:alertC animated:YES completion:nil];
+                                        }
+                                        else
+                                        {
+                                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item deleted, id: %@\n", [NSDate date], guidValue]];
+                                            UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Delete" message:@"Cloud database row deleted." preferredStyle:UIAlertControllerStyleAlert];
+                                            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                            }];
+                                            [alertC addAction:okAction];
+                                            [self.rootViewController presentViewController:alertC animated:YES completion:nil];
+                                        }
+                                    }] resume];
+                                }
+                                else
+                                {
+                                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not find id %@ table %@. ERROR=%@\n", [NSDate date], guidValue, self.formName, error]];
+                                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Error" message:@"Unable to find cloud row. See Error Log." preferredStyle:UIAlertControllerStyleAlert];
+                                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                    }];
+                                    [alertC addAction:okAction];
+                                    [self.rootViewController presentViewController:alertC animated:YES completion:nil];
+                                }
+                            }] resume];
                         }];
                         UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                         }];

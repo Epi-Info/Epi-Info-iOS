@@ -2657,7 +2657,7 @@
             [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] withIntermediateDirectories:NO attributes:nil error:nil];
         }
         
-        MSTable *itemTable = [edv.client tableWithName:edv.formName];
+//        MSTable *itemTable = [edv.client tableWithName:edv.formName];
         __block bool okayToContinue = YES;
         for (int i = 0; i < arrayOfAzureDictionaries.count; i++)
         {
@@ -2666,6 +2666,7 @@
                 //                [NSThread sleepForTimeInterval:1.1f];
             }
             okayToContinue = NO;
+            // Write to Azure table using generic NSURLRequest method
             NSMutableString *cloudDataString = [[NSMutableString alloc] init];
             [cloudDataString appendString:@"{"];
             NSString *guidValue = nil;
@@ -2683,7 +2684,6 @@
             NSData *cloudData = [cloudDataString dataUsingEncoding:NSUTF8StringEncoding];
             NSString *cloudDataLength = [NSString stringWithFormat:@"%d", (int)[cloudData length]];
             
-            // Write to Azure table using generic NSURLRequest method
             NSMutableURLRequest *getRequest = [[NSMutableURLRequest alloc] init];
             [getRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", edv.cloudService, edv.formName]]];
             
