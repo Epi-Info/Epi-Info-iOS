@@ -1459,11 +1459,11 @@
                             NSString *requestReply = [[NSString alloc] initWithData:getData encoding:NSASCIIStringEncoding];
                             if (error)
                             {
-                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not read table %@. ERROR=%@\n", [NSDate date], self.formName, error]];
+                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE SUBMIT: Could not read table %@. ERROR=%@\n", [NSDate date], self.formName, error]];
                             }
                             else if ([requestReply containsString:guidValue])
                             {
-                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item found, id: %@\n", [NSDate date], guidValue]];
+                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE SUBMIT: Item found, id: %@\n", [NSDate date], guidValue]];
                                 NSMutableURLRequest *deleteRequest = [[NSMutableURLRequest alloc] init];
                                 [deleteRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@/%@", self.cloudService, self.formName, guidValue]]];
                                 
@@ -1479,11 +1479,11 @@
                                 [[session dataTaskWithRequest:deleteRequest completionHandler:^(NSData *deleteData, NSURLResponse *deleteResponse, NSError *deleteError) {
                                     if (deleteError)
                                     {
-                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not delete id %@: %@\n", [NSDate date], guidValue, deleteError]];
+                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE SUBMIT: Could not delete id %@: %@\n", [NSDate date], guidValue, deleteError]];
                                     }
                                     else
                                     {
-                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item deleted, id: %@\n", [NSDate date], guidValue]];
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE SUBMIT: Item deleted, id: %@\n", [NSDate date], guidValue]];
                                         NSMutableURLRequest *postRequest = [[NSMutableURLRequest alloc] init];
                                         [postRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", self.cloudService, self.formName]]];
                                         
@@ -1502,11 +1502,11 @@
                                         [[session dataTaskWithRequest:postRequest completionHandler:^(NSData *postData, NSURLResponse *response, NSError *postError) {
                                             if (postError)
                                             {
-                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Insert error with id %@: %@\n", [NSDate date], guidValue, postError]];
+                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE SUBMIT: Insert error with id %@: %@\n", [NSDate date], guidValue, postError]];
                                             }
                                             else
                                             {
-                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item inserted, id: %@\n", [NSDate date], guidValue]];
+                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE SUBMIT: Item inserted, id: %@\n", [NSDate date], guidValue]];
                                             }
                                         }] resume];
                                     }
@@ -1532,11 +1532,11 @@
                                 [[session dataTaskWithRequest:postRequest completionHandler:^(NSData *postData, NSURLResponse *response, NSError *postError) {
                                     if (postError)
                                     {
-                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Insert error with id %@: %@\n", [NSDate date], guidValue, postError]];
+                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE SUBMIT: Insert error with id %@: %@\n", [NSDate date], guidValue, postError]];
                                     }
                                     else
                                     {
-                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item inserted, id: %@\n", [NSDate date], guidValue]];
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE SUBMIT: Item inserted, id: %@\n", [NSDate date], guidValue]];
                                     }
                                 }] resume];
                             }
@@ -1995,11 +1995,11 @@
                             NSString *requestReply = [[NSString alloc] initWithData:getData encoding:NSASCIIStringEncoding];
                             if (error)
                             {
-                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not read table %@. ERROR=%@\n", [NSDate date], self.formName, error]];
+                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Could not read table %@. ERROR=%@\n", [NSDate date], self.formName, error]];
                             }
                             else if ([requestReply containsString:guidValue])
                             {
-                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item found, id: %@\n", [NSDate date], guidValue]];
+                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Item found, id: %@\n", [NSDate date], guidValue]];
                                 NSMutableURLRequest *deleteRequest = [[NSMutableURLRequest alloc] init];
                                 [deleteRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@/%@", self.cloudService, self.formName, guidValue]]];
                                 
@@ -2015,11 +2015,11 @@
                                 [[session dataTaskWithRequest:deleteRequest completionHandler:^(NSData *deleteData, NSURLResponse *deleteResponse, NSError *deleteError) {
                                     if (deleteError)
                                     {
-                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not delete id %@: %@\n", [NSDate date], guidValue, deleteError]];
+                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Could not delete id %@: %@\n", [NSDate date], guidValue, deleteError]];
                                     }
                                     else
                                     {
-                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item deleted, id: %@\n", [NSDate date], guidValue]];
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Item deleted, id: %@\n", [NSDate date], guidValue]];
                                         NSMutableURLRequest *postRequest = [[NSMutableURLRequest alloc] init];
                                         [postRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", self.cloudService, self.formName]]];
                                         
@@ -2038,11 +2038,11 @@
                                         [[session dataTaskWithRequest:postRequest completionHandler:^(NSData *postData, NSURLResponse *response, NSError *postError) {
                                             if (postError)
                                             {
-                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Insert error with id %@: %@\n", [NSDate date], guidValue, postError]];
+                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Insert error with id %@: %@\n", [NSDate date], guidValue, postError]];
                                             }
                                             else
                                             {
-                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item inserted, id: %@\n", [NSDate date], guidValue]];
+                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Item inserted, id: %@\n", [NSDate date], guidValue]];
                                             }
                                         }] resume];
                                     }
@@ -2068,11 +2068,11 @@
                                 [[session dataTaskWithRequest:postRequest completionHandler:^(NSData *postData, NSURLResponse *response, NSError *postError) {
                                     if (postError)
                                     {
-                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Insert error with id %@: %@\n", [NSDate date], guidValue, postError]];
+                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Insert error with id %@: %@\n", [NSDate date], guidValue, postError]];
                                     }
                                     else
                                     {
-                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item inserted, id: %@\n", [NSDate date], guidValue]];
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Item inserted, id: %@\n", [NSDate date], guidValue]];
                                     }
                                 }] resume];
                             }
@@ -2314,7 +2314,7 @@
                                 NSString *requestReply = [[NSString alloc] initWithData:getData encoding:NSASCIIStringEncoding];
                                 if (error)
                                 {
-                                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not read table %@. ERROR=%@\n", [NSDate date], self.formName, error]];
+                                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE DELETE: Could not read table %@. ERROR=%@\n", [NSDate date], self.formName, error]];
                                     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Error" message:@"Unable to read cloud table. See Error Log." preferredStyle:UIAlertControllerStyleAlert];
                                     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                                     }];
@@ -2323,7 +2323,7 @@
                                 }
                                 else if ([requestReply containsString:guidValue])
                                 {
-                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item found, id: %@\n", [NSDate date], guidValue]];
+                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE DELETE: Item found, id: %@\n", [NSDate date], guidValue]];
                                     NSMutableURLRequest *deleteRequest = [[NSMutableURLRequest alloc] init];
                                     [deleteRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@/%@", self.cloudService, self.formName, guidValue]]];
                                     
@@ -2339,7 +2339,7 @@
                                     [[session dataTaskWithRequest:deleteRequest completionHandler:^(NSData *deleteData, NSURLResponse *deleteResponse, NSError *deleteError) {
                                         if (deleteError)
                                         {
-                                            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not delete id %@: %@\n", [NSDate date], guidValue, deleteError]];
+                                            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE DELETE: Could not delete id %@: %@\n", [NSDate date], guidValue, deleteError]];
                                             UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Error" message:@"Unable to delete cloud row. See Error Log." preferredStyle:UIAlertControllerStyleAlert];
                                             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                                             }];
@@ -2348,7 +2348,7 @@
                                         }
                                         else
                                         {
-                                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item deleted, id: %@\n", [NSDate date], guidValue]];
+                                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE DELETE: Item deleted, id: %@\n", [NSDate date], guidValue]];
                                             UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Delete" message:@"Cloud database row deleted." preferredStyle:UIAlertControllerStyleAlert];
                                             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                                             }];
@@ -2359,7 +2359,7 @@
                                 }
                                 else
                                 {
-                                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not find id %@ table %@. ERROR=%@\n", [NSDate date], guidValue, self.formName, error]];
+                                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE DELETE: Could not find id %@ table %@. ERROR=%@\n", [NSDate date], guidValue, self.formName, error]];
                                     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Error" message:@"Unable to find cloud row. See Error Log." preferredStyle:UIAlertControllerStyleAlert];
                                     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                                     }];
