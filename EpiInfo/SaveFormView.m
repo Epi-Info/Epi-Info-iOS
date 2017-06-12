@@ -210,7 +210,7 @@
     [applicationKey setReturnKeyType:UIReturnKeyDone];
     [applicationKey setDelegate:self];
     [applicationKey setColumnName:@"cloudDataKey"];
-    [applicationKey setAccessibilityHint:@"Cloud application security token"];
+    [applicationKey setAccessibilityLabel:@"Cloud application security token"];
     [msAzureCredsView addSubview:applicationKey];
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)

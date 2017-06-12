@@ -72,6 +72,7 @@
         [leftButton setTitleColor:[UIColor colorWithRed:188/255.0 green:189/255.0 blue:191/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [leftButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
         [leftButton setTitle:@"<" forState:UIControlStateNormal];
+        [leftButton setAccessibilityLabel:@"Page backward"];
         [leftButton addTarget:self action:@selector(leftButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [topBar addSubview:leftButton];
         
@@ -80,6 +81,7 @@
         [rightButton setTitleColor:[UIColor colorWithRed:188/255.0 green:189/255.0 blue:191/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [rightButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
         [rightButton setTitle:@">" forState:UIControlStateNormal];
+        [rightButton setAccessibilityLabel:@"Page forward"];
         [rightButton addTarget:self action:@selector(rightButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [topBar addSubview:rightButton];
         
