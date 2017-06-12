@@ -186,7 +186,7 @@
     UILabel *applicationURLLabel = [[UILabel alloc] initWithFrame:CGRectMake(20 * ratio, 20 * ratio, 280 * ratio, 28 * ratio)];
     [applicationURLLabel setTextColor:[UIColor blackColor]];
     [applicationURLLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-    [applicationURLLabel setText:@"Application URL:"];
+    [applicationURLLabel setText:@"Application Name:"];
     [applicationURLLabel setBackgroundColor:[UIColor clearColor]];
     [msAzureCredsView addSubview:applicationURLLabel];
     
@@ -195,13 +195,13 @@
     [applicationURL setReturnKeyType:UIReturnKeyDone];
     [applicationURL setDelegate:self];
     [applicationURL setColumnName:@"cloudDataBase"];
-    [applicationURL setAccessibilityLabel:@"URL for Azure cloud table"];
+    [applicationURL setAccessibilityLabel:@"Cloud application name"];
     [msAzureCredsView addSubview:applicationURL];
     
     UILabel *applicationKeyLabel = [[UILabel alloc] initWithFrame:CGRectMake(20 * ratio, 90 * ratio, 280 * ratio, 28 * ratio)];
     [applicationKeyLabel setTextColor:[UIColor blackColor]];
     [applicationKeyLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-    [applicationKeyLabel setText:@"Application Key:"];
+    [applicationKeyLabel setText:@"Application Token:"];
     [applicationKeyLabel setBackgroundColor:[UIColor clearColor]];
     [msAzureCredsView addSubview:applicationKeyLabel];
     
@@ -210,6 +210,7 @@
     [applicationKey setReturnKeyType:UIReturnKeyDone];
     [applicationKey setDelegate:self];
     [applicationKey setColumnName:@"cloudDataKey"];
+    [applicationKey setAccessibilityHint:@"Cloud application security token"];
     [msAzureCredsView addSubview:applicationKey];
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
