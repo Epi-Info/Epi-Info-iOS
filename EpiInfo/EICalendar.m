@@ -36,9 +36,12 @@
         
         if ([self.dateField text].length > 0)
         {
-            month = [[[self.dateField text] substringWithRange:NSMakeRange(0, 2)] intValue];
-            day = [[[self.dateField text] substringWithRange:NSMakeRange(3, 2)] intValue];
-            year = [[[self.dateField text] substringWithRange:NSMakeRange(6, 4)] intValue];
+            int indexOfFirstSlash = (int)[dateField.text rangeOfString:@"/"].location;
+            int indexOfSecondSlash = (int)[[dateField.text substringFromIndex:indexOfFirstSlash + 1] rangeOfString:@"/"].location + indexOfFirstSlash + 1;
+            month = [[dateField.text substringToIndex:indexOfFirstSlash] intValue];
+            day = [[dateField.text substringWithRange:NSMakeRange(indexOfFirstSlash + 1, indexOfSecondSlash - indexOfFirstSlash - 1)] intValue];
+            year = [[dateField.text substringFromIndex:indexOfSecondSlash + 1] intValue];
+            
             if (dmy)
             {
                 int dayactually = month;
