@@ -2717,6 +2717,8 @@
                         edvCloudService = [edv cloudService];
                         edvFormName = [edv formName];
                         edvCloudKey = [edv cloudKey];
+                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: main_queue edv: %@\n", [NSDate date], edv]];
+                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: main_queue [edv cloudService]: %@\n", [NSDate date], [edv cloudService]]];
                     });
                     
                     [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item found, id: %@\n", [NSDate date], guidValue]];
@@ -2735,7 +2737,9 @@
                     
                     if ([[deleteRequest.URL absoluteString] containsString:@"(null)"])
                     {
-                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD line 2729: URL is %@ [[absoluteString is %@]]\n", [NSDate date], deleteRequest.URL, [deleteRequest.URL absoluteString]]];
+                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD line 2740: URL is %@ [[absoluteString is %@]]\n", [NSDate date], deleteRequest.URL, [deleteRequest.URL absoluteString]]];
+                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Null values for cloud service, cloud key, and/or form name. Try uploading again.\n", [NSDate date]]];
+                        return;
                     }
                     
                     [[session dataTaskWithRequest:deleteRequest completionHandler:^(NSData *deleteData, NSURLResponse *deleteResponse, NSError *deleteError) {
@@ -2773,7 +2777,7 @@
                             
                             if ([[postRequest.URL absoluteString] containsString:@"(null)"])
                             {
-                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD line 2758: URL is %@ [[absoluteString is %@]]\n", [NSDate date], postRequest.URL, [postRequest.URL absoluteString]]];
+                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD line 2780: URL is %@ [[absoluteString is %@]]\n", [NSDate date], postRequest.URL, [postRequest.URL absoluteString]]];
                             }
                             
                             [[session dataTaskWithRequest:postRequest completionHandler:^(NSData *postData, NSURLResponse *response, NSError *postError) {
