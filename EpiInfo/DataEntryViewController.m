@@ -2650,11 +2650,6 @@
     [self doNotDismiss];
     if (edv.cloudService)
     {
-//        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Starting process\n", [NSDate date]]];
-//        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Service = %@\n", [NSDate date], edv.cloudService]];
-//        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Form = %@\n", [NSDate date], edv.formName]];
-//        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Key = %@\n", [NSDate date], edv.cloudKey]];
-//        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Start of process finished\n", [NSDate date]]];
         // Create Activity_Log.txt and Error_Log.txt if they do not already exist
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"]])
@@ -2690,7 +2685,6 @@
             NSString *cloudDataLength = [NSString stringWithFormat:@"%d", (int)[cloudData length]];
             
             NSMutableURLRequest *getRequest = [[NSMutableURLRequest alloc] init];
-//            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Setting URL with %@ and %@\n", [NSDate date], edv.cloudService, edv.formName]];
             [getRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", edv.cloudService, edv.formName]]];
             
             [getRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
@@ -2705,18 +2699,14 @@
             
             if ([[getRequest.URL absoluteString] containsString:@"(null)"])
             {
-                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD line 2708: URL is %@ [[absoluteString is %@]]\n", [NSDate date], getRequest.URL, [getRequest.URL absoluteString]]];
+                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD line 2702: URL is %@ [[absoluteString is %@]]\n", [NSDate date], getRequest.URL, [getRequest.URL absoluteString]]];
             }
             
             [[session dataTaskWithRequest:getRequest completionHandler:^(NSData *getData, NSURLResponse *response, NSError *error) {
                 NSString *requestReply = [[NSString alloc] initWithData:getData encoding:NSASCIIStringEncoding];
                 if (error)
                 {
-                    if ([[getRequest.URL absoluteString] containsString:@"(null)"])
-                    {
-                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD line 2717: URL is %@ [[absoluteString is %@]]\n", [NSDate date], getRequest.URL, [getRequest.URL absoluteString]]];
-                    }
-                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not read table %@. ERROR=%@\n", [NSDate date], edv.formName, error]];
+                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not read table %@. ERROR=%@ getRequest absoluteString=%@\n", [NSDate date], edv.formName, error, [getRequest.URL absoluteString]]];
                 }
                 else if ([requestReply containsString:guidValue])
                 {
@@ -2734,19 +2724,15 @@
                     
                     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
                     
-                    if ([[getRequest.URL absoluteString] containsString:@"(null)"])
+                    if ([[deleteRequest.URL absoluteString] containsString:@"(null)"])
                     {
-                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD line 2739: URL is %@ [[absoluteString is %@]]\n", [NSDate date], getRequest.URL, [getRequest.URL absoluteString]]];
+                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD line 2729: URL is %@ [[absoluteString is %@]]\n", [NSDate date], deleteRequest.URL, [deleteRequest.URL absoluteString]]];
                     }
                     
                     [[session dataTaskWithRequest:deleteRequest completionHandler:^(NSData *deleteData, NSURLResponse *deleteResponse, NSError *deleteError) {
                         if (deleteError)
                         {
-                            if ([[getRequest.URL absoluteString] containsString:@"(null)"])
-                            {
-                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD line 2747: URL is %@ [[absoluteString is %@]]\n", [NSDate date], getRequest.URL, [getRequest.URL absoluteString]]];
-                            }
-                            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not delete id %@: %@\n", [NSDate date], guidValue, deleteError]];
+                            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not delete id %@: %@ deleteRequest absoluteString=%@\n", [NSDate date], guidValue, deleteError, [deleteRequest.URL absoluteString]]];
                         }
                         else
                         {
@@ -2767,19 +2753,15 @@
                             
                             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
                             
-                            if ([[getRequest.URL absoluteString] containsString:@"(null)"])
+                            if ([[postRequest.URL absoluteString] containsString:@"(null)"])
                             {
-                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD line 2772: URL is %@ [[absoluteString is %@]]\n", [NSDate date], getRequest.URL, [getRequest.URL absoluteString]]];
+                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD line 2758: URL is %@ [[absoluteString is %@]]\n", [NSDate date], postRequest.URL, [postRequest.URL absoluteString]]];
                             }
                             
                             [[session dataTaskWithRequest:postRequest completionHandler:^(NSData *postData, NSURLResponse *response, NSError *postError) {
                                 if (postError)
                                 {
-                                    if ([[getRequest.URL absoluteString] containsString:@"(null)"])
-                                    {
-                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD line 2780: URL is %@ [[absoluteString is %@]]\n", [NSDate date], getRequest.URL, [getRequest.URL absoluteString]]];
-                                    }
-                                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Insert error with id %@: %@\n", [NSDate date], guidValue, postError]];
+                                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Insert error with id %@: %@ postRequest absoluteString=%@\n", [NSDate date], guidValue, postError, [postRequest.URL absoluteString]]];
                                 }
                                 else
                                 {
