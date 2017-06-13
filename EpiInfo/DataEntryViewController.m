@@ -2702,6 +2702,7 @@
                 [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD line 2702: URL is %@ [[absoluteString is %@]]\n", [NSDate date], getRequest.URL, [getRequest.URL absoluteString]]];
             }
             
+            wait(8);
             [[session dataTaskWithRequest:getRequest completionHandler:^(NSData *getData, NSURLResponse *response, NSError *error) {
                 NSString *requestReply = [[NSString alloc] initWithData:getData encoding:NSASCIIStringEncoding];
                 if (error)
@@ -2710,11 +2711,11 @@
                 }
                 else if ([requestReply containsString:guidValue])
                 {
-                    wait(1);
                     __block NSString *edvCloudService;
                     __block NSString *edvFormName;
                     __block NSString *edvCloudKey;
                     dispatch_sync(dispatch_get_main_queue(), ^{
+                        wait(8);
                         edvCloudService = [edv cloudService];
                         edvFormName = [edv formName];
                         edvCloudKey = [edv cloudKey];
