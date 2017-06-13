@@ -2710,15 +2710,24 @@
                 }
                 else if ([requestReply containsString:guidValue])
                 {
+                    __block NSString *edvCloudService;
+                    __block NSString *edvFormName;
+                    __block NSString *edvCloudKey;
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        edvCloudService = [edv cloudService];
+                        edvFormName = [edv formName];
+                        edvCloudKey = [edv cloudKey];
+                    });
+                    
                     [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item found, id: %@\n", [NSDate date], guidValue]];
                     NSMutableURLRequest *deleteRequest = [[NSMutableURLRequest alloc] init];
-                    [deleteRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@/%@", edv.cloudService, edv.formName, guidValue]]];
+                    [deleteRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@/%@", edvCloudService, edvFormName, guidValue]]];
                     
                     [deleteRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
-                    [deleteRequest setValue:edv.cloudKey forHTTPHeaderField:@"epi-token"];
+                    [deleteRequest setValue:edvCloudKey forHTTPHeaderField:@"epi-token"];
                     [deleteRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
                     [deleteRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
-                    [deleteRequest setValue:edv.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                    [deleteRequest setValue:edvCloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
                     
                     [deleteRequest setHTTPMethod:@"DELETE"];
                     
@@ -2736,15 +2745,24 @@
                         }
                         else
                         {
+                            __block NSString *edvCloudService;
+                            __block NSString *edvFormName;
+                            __block NSString *edvCloudKey;
+                            dispatch_sync(dispatch_get_main_queue(), ^{
+                                edvCloudService = [edv cloudService];
+                                edvFormName = [edv formName];
+                                edvCloudKey = [edv cloudKey];
+                            });
+                            
                             [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Item deleted, id: %@\n", [NSDate date], guidValue]];
                             NSMutableURLRequest *postRequest = [[NSMutableURLRequest alloc] init];
-                            [postRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", edv.cloudService, edv.formName]]];
+                            [postRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", edvCloudService, edvFormName]]];
                             
                             [postRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
-                            [postRequest setValue:edv.cloudKey forHTTPHeaderField:@"epi-token"];
+                            [postRequest setValue:edvCloudKey forHTTPHeaderField:@"epi-token"];
                             [postRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
                             [postRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
-                            [postRequest setValue:edv.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                            [postRequest setValue:edvCloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
                             
                             [postRequest setValue:cloudDataLength forHTTPHeaderField:@"Content-Length"];
                             [postRequest setHTTPBody:cloudData];
