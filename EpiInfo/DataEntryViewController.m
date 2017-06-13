@@ -2648,7 +2648,7 @@
 - (void)uploadAllToAzureThread:(NSArray *)arrayOfAzureDictionaries
 {
     [self doNotDismiss];
-    if (edv.client)
+    if (edv.cloudService)
     {
         // Create Activity_Log.txt and Error_Log.txt if they do not already exist
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
