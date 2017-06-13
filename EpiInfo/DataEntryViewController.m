@@ -2654,6 +2654,7 @@
         [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Service = %@\n", [NSDate date], edv.cloudService]];
         [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Form = %@\n", [NSDate date], edv.formName]];
         [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Key = %@\n", [NSDate date], edv.cloudKey]];
+        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Start of process finished\n", [NSDate date]]];
         // Create Activity_Log.txt and Error_Log.txt if they do not already exist
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"]])
@@ -2689,7 +2690,9 @@
             NSString *cloudDataLength = [NSString stringWithFormat:@"%d", (int)[cloudData length]];
             
             NSMutableURLRequest *getRequest = [[NSMutableURLRequest alloc] init];
+            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Setting URL with %@ and %@\n", [NSDate date], edv.cloudService, edv.formName]];
             [getRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", edv.cloudService, edv.formName]]];
+            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: URL is %@ [[absoluteString is %@]]\n", [NSDate date], getRequest.URL, [getRequest.URL absoluteString]]];
             
             [getRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
             [getRequest setValue:edv.cloudKey forHTTPHeaderField:@"epi-token"];
