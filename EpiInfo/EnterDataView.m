@@ -781,6 +781,9 @@
                             {
                                 if ([[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 1)] isEqualToString:@"MSAzure"])
                                 {
+                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Getting Azure credentials (line 784)\n", [NSDate date]]];
+                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: self.formName = %@\n", [NSDate date], self.formName]];
+                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Queried values = %s, %s, %s, %s\n", [NSDate date], sqlite3_column_text(statement, 0), sqlite3_column_text(statement, 1), sqlite3_column_text(statement, 2), sqlite3_column_text(statement, 3)]];
                                     self.client = [MSClient clientWithApplicationURLString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)]];
                                     self.cloudService = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)];
                                     self.cloudKey = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)];
@@ -926,6 +929,9 @@
                             {
                                 if ([[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 1)] isEqualToString:@"MSAzure"])
                                 {
+                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Getting Azure credentials (line 932)\n", [NSDate date]]];
+                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: self.formName = %@\n", [NSDate date], self.formName]];
+                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Queried values = %s, %s, %s, %s\n", [NSDate date], sqlite3_column_text(statement, 0), sqlite3_column_text(statement, 1), sqlite3_column_text(statement, 2), sqlite3_column_text(statement, 3)]];
                                     self.client = [MSClient clientWithApplicationURLString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)]];
                                     self.cloudService = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)];
                                     self.cloudKey = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)];

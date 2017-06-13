@@ -2650,6 +2650,10 @@
     [self doNotDismiss];
     if (edv.cloudService)
     {
+        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Starting process\n", [NSDate date]]];
+        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Service = %@\n", [NSDate date], edv.cloudService]];
+        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Form = %@\n", [NSDate date], edv.formName]];
+        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Key = %@\n", [NSDate date], edv.cloudKey]];
         // Create Activity_Log.txt and Error_Log.txt if they do not already exist
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"]])
