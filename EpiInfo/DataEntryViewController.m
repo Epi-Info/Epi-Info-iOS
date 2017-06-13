@@ -2710,6 +2710,7 @@
                 }
                 else if ([requestReply containsString:guidValue])
                 {
+                    wait(1);
                     __block NSString *edvCloudService;
                     __block NSString *edvFormName;
                     __block NSString *edvCloudKey;
@@ -2777,7 +2778,7 @@
                             
                             if ([[postRequest.URL absoluteString] containsString:@"(null)"])
                             {
-                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD line 2780: URL is %@ [[absoluteString is %@]]\n", [NSDate date], postRequest.URL, [postRequest.URL absoluteString]]];
+                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD line 2781: URL is %@ [[absoluteString is %@]]\n", [NSDate date], postRequest.URL, [postRequest.URL absoluteString]]];
                             }
                             
                             [[session dataTaskWithRequest:postRequest completionHandler:^(NSData *postData, NSURLResponse *response, NSError *postError) {
