@@ -583,7 +583,10 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         // Only execute page after check code when advancing page
         if (isAdvancing)
+        {
             [self checkElements:pageName from:@"after" page:pageName];
+            [self checkElements:self.myTextPageName from:@"after" page:self.myTextPageName];
+        }
         // The next two lines seem to be redundant
 //        [[NSUserDefaults standardUserDefaults] setObject:[(EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%ld", (long)[sender tag]]] myTextPageName] forKey:@"nameOfThePage"];
 //        [[NSUserDefaults standardUserDefaults] synchronize];
