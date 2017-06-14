@@ -604,6 +604,7 @@
         [currentEDV setGuidBeingUpdated:recordUIDForUpdate];
         [currentEDV onLoadEleCheck];
         [currentEDV checkElements:pageName from:@"before" page:pageName];
+        [currentEDV checkElements:currentEDV.myTextPageName from:@"before" page:currentEDV.myTextPageName];
         if ([currentEDV myOrangeBanner] == nil)
             [currentEDV setMyOrangeBanner:myOrangeBanner];
         [[NSUserDefaults standardUserDefaults] setObject:[currentEDV myTextPageName] forKey:@"nameOfThePage"];
@@ -6482,7 +6483,7 @@
         {
             if([am.beforeAfter isEqualToString:@"before"])//check CM cond
             {
-                if (([am.element caseInsensitiveCompare:name] == NSOrderedSame)) //check for element match
+                if (([am.element caseInsensitiveCompare:name] == NSOrderedSame) || ([am.name caseInsensitiveCompare:name] == NSOrderedSame)) //check for element match
                 {
                     if ([elmArray containsObject:am.element]) //check for elements list todo check elm array
                     {
@@ -6491,9 +6492,43 @@
                         NSLog(@"******%lu******",(unsigned long)assignArray.count);
                         if ([am.condition isEqualToString:@"assign"])
                         {
-                            emc.enable = YES;
+                            AssignmentModel *assignmentModel = [ParseAssignment parseAssign:am.assignment];
+                            for (id key in [self.fieldsAndStringValues nsmd])
+                            {
+                                if ([assignmentModel.initialText containsString:(NSString *)key])
+                                {
+                                    [assignmentModel setInitialText:[assignmentModel.initialText stringByReplacingOccurrencesOfString:(NSString *)key withString:[self.fieldsAndStringValues objectForKey:key]]];
+                                }
+                            }
+                            
+                            AssignStatementParser *parser = [[AssignStatementParser alloc] init];
+                            
+                            NSError *err = nil;
+                            PKAssembly *result = [parser parseString:assignmentModel.initialText error:&err];
+                            
+                            if (!result) {
+                                if (err) NSLog(@"%@", err);
+                                //                                assignmentModel.initialText = @"Unable to parse";
+                                result = [[PKAssembly alloc] init];
+                                [result push:assignmentModel.initialText];
+                                //                               return;
+                            }
+                            
+                            // print the entire assembly in the result output field
+                            id n = [result pop];
+                            assignmentModel.initialText = [result description];
+                            if ([n isKindOfClass:[NSString class]])
+                                assignmentModel.initialText = n;
+                            else
+                                assignmentModel.initialText = [n stringValue];
+                            
+                            [[self.dictionaryOfFields objectForKey:am.element] assignValue:assignmentModel.initialText];
+                            NSLog(@"%@", assignmentModel.initialText);
+                            //                            struct AssignPieces postAssign = parseAssign((char*)[am.assignment UTF8String]);
+                            //                            NSLog(@"%s", postAssign.token0->initialText);
+                            //                            NSLog(@"%s", postAssign.token1->initialText);
                             [elementListArray replaceObjectAtIndex:idx withObject:emc];
-                            [self enable:emc.tag type:emc.type];
+                            NSLog(@"-ena--%@",emc.elementName);
                         }
                     }
                 }

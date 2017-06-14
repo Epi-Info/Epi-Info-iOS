@@ -59,6 +59,7 @@
     BOOL retVal = [super resignFirstResponder];
     @try {
         [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+        [[(EnterDataView *)[[self superview] superview] fieldsAndStringValues] setObject:self.text forKey:[self.columnName lowercaseString]];
     } @catch (NSException *exception) {
         //
     } @finally {
