@@ -49,7 +49,7 @@
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
-    if ([[url.pathExtension lowercaseString] isEqualToString:@"epiform"])
+    if ([[url.pathExtension lowercaseString] isEqualToString:@"epiform"] || [[url.pathExtension lowercaseString] isEqualToString:@"xml"])
     {
         UIView *fakeNavBar = [[UIView alloc] initWithFrame:CGRectMake(0, 20, [[UIApplication sharedApplication].keyWindow.rootViewController view].frame.size.width, 40)];
         UILabel *fakeNavBarLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, [[UIApplication sharedApplication].keyWindow.rootViewController view].frame.size.width, 40)];

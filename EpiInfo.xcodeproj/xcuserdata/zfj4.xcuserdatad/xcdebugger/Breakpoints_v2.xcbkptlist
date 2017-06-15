@@ -56,11 +56,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "519225901.116112"
+            timestampString = "519230223.165535"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "7943"
-            endingLineNumber = "7943"
+            startingLineNumber = "7971"
+            endingLineNumber = "7971"
             landmarkName = "-gotoFormField:tag:"
             landmarkType = "7">
          </BreakpointContent>
@@ -152,11 +152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "519226509.682334"
+            timestampString = "519230223.165535"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6498"
-            endingLineNumber = "6498"
+            startingLineNumber = "6526"
+            endingLineNumber = "6526"
             landmarkName = "-checkElements:from:page:"
             landmarkType = "7">
          </BreakpointContent>
