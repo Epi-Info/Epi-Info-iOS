@@ -606,8 +606,11 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         [currentEDV setGuidBeingUpdated:recordUIDForUpdate];
         [currentEDV onLoadEleCheck];
-        [currentEDV checkElements:pageName from:@"before" page:pageName];
-        [currentEDV checkElements:currentEDV.myTextPageName from:@"before" page:currentEDV.myTextPageName];
+        if (isAdvancing)
+        {
+            [currentEDV checkElements:pageName from:@"before" page:pageName];
+            [currentEDV checkElements:currentEDV.myTextPageName from:@"before" page:currentEDV.myTextPageName];
+        }
         if ([currentEDV myOrangeBanner] == nil)
             [currentEDV setMyOrangeBanner:myOrangeBanner];
         [[NSUserDefaults standardUserDefaults] setObject:[currentEDV myTextPageName] forKey:@"nameOfThePage"];
@@ -3276,6 +3279,8 @@
                 }
                 createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                 
+                if ([[attributeDict objectForKey:@"IsReadOnly"]caseInsensitiveCompare:@"true"] == NSOrderedSame)
+                    [tf setIsEnabled:NO];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"2"])
             {
