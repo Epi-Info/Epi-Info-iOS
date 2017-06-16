@@ -1117,6 +1117,11 @@
     [yesButton.layer setCornerRadius:4.0];
     [yesButton addTarget:self action:@selector(uploadAllRecords:) forControlEvents:UIControlEventTouchUpInside];
     [messageView addSubview:yesButton];
+    if (!edv.cloudService)
+    {
+        [yesButton setUserInteractionEnabled:NO];
+        [yesButton setAlpha:0.5];
+    }
     
     //    UIButton *noButton = [[UIButton alloc] initWithFrame:dismissImageView.frame];
     UIButton *noButton = [[UIButton alloc] initWithFrame:CGRectMake(messageView.frame.size.width / 2.0 -  openButton.frame.size.width / 2.0, openButton.frame.origin.y + 88.0, openButton.frame.size.width, openButton.frame.size.height)];
@@ -2831,6 +2836,10 @@
                 }
             }];*/
         }
+    }
+    else
+    {
+        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: No cloud credentials found for form %@\n", [NSDate date], edvFormName]];
     }
 }
 
