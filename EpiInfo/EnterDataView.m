@@ -1445,7 +1445,10 @@
                         for (NSString *key in azureDictionary)
                         {
                             [cloudDataString appendString:[NSString stringWithFormat:@" \"%@\": \"", key]];
-                            [cloudDataString appendString:[azureDictionary objectForKey:key]];
+                            id keyValue = [azureDictionary objectForKey:key];
+                            if ([keyValue isKindOfClass:[NSNumber class]])
+                                keyValue = [(NSNumber *)keyValue stringValue];
+                            [cloudDataString appendString:keyValue];
                             [cloudDataString appendString:@"\","];
                             if ([key isEqualToString:@"id"])
                                 guidValue = [azureDictionary objectForKey:key];
@@ -1981,7 +1984,10 @@
                         for (NSString *key in azureDictionary)
                         {
                             [cloudDataString appendString:[NSString stringWithFormat:@" \"%@\": \"", key]];
-                            [cloudDataString appendString:[azureDictionary objectForKey:key]];
+                            id keyValue = [azureDictionary objectForKey:key];
+                            if ([keyValue isKindOfClass:[NSNumber class]])
+                                keyValue = [(NSNumber *)keyValue stringValue];
+                            [cloudDataString appendString:keyValue];
                             [cloudDataString appendString:@"\","];
                             if ([key isEqualToString:@"id"])
                                 guidValue = [azureDictionary objectForKey:key];
@@ -2303,7 +2309,10 @@
                             for (NSString *key in azureDictionary)
                             {
                                 [cloudDataString appendString:[NSString stringWithFormat:@" \"%@\": \"", key]];
-                                [cloudDataString appendString:[azureDictionary objectForKey:key]];
+                                id keyValue = [azureDictionary objectForKey:key];
+                                if ([keyValue isKindOfClass:[NSNumber class]])
+                                    keyValue = [(NSNumber *)keyValue stringValue];
+                                [cloudDataString appendString:keyValue];
                                 [cloudDataString appendString:@"\","];
                                 if ([key isEqualToString:@"id"])
                                     guidValue = [azureDictionary objectForKey:key];

@@ -2678,7 +2678,10 @@
             for (NSString *key in (NSDictionary *)[arrayOfAzureDictionaries objectAtIndex:i])
             {
                 [cloudDataString appendString:[NSString stringWithFormat:@" \"%@\": \"", key]];
-                [cloudDataString appendString:[(NSDictionary *)[arrayOfAzureDictionaries objectAtIndex:i] objectForKey:key]];
+                id keyValue = [(NSDictionary *)[arrayOfAzureDictionaries objectAtIndex:i] objectForKey:key];
+                if ([keyValue isKindOfClass:[NSNumber class]])
+                    keyValue = [(NSNumber *)keyValue stringValue];
+                [cloudDataString appendString:keyValue];
                 [cloudDataString appendString:@"\","];
                 if ([key isEqualToString:@"id"])
                     guidValue = [(NSDictionary *)[arrayOfAzureDictionaries objectAtIndex:i] objectForKey:key];
