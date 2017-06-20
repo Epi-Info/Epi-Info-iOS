@@ -196,6 +196,7 @@
     [applicationURL setDelegate:self];
     [applicationURL setColumnName:@"cloudDataBase"];
     [applicationURL setAccessibilityLabel:@"Cloud application name"];
+    [applicationURL setAutocapitalizationType:UITextAutocapitalizationTypeNone];
     [msAzureCredsView addSubview:applicationURL];
     
     UILabel *applicationKeyLabel = [[UILabel alloc] initWithFrame:CGRectMake(20 * ratio, 90 * ratio, 280 * ratio, 28 * ratio)];
@@ -211,6 +212,7 @@
     [applicationKey setDelegate:self];
     [applicationKey setColumnName:@"cloudDataKey"];
     [applicationKey setAccessibilityLabel:@"Cloud application security token"];
+    [applicationKey setAutocapitalizationType:UITextAutocapitalizationTypeNone];
     [msAzureCredsView addSubview:applicationKey];
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
