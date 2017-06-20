@@ -1168,7 +1168,7 @@
                     else
                     {
                         valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
-                        [azureDictionary setObject:[[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"] forKey:[(LegalValuesEnter *)v columnName]];
+                        [azureDictionary setObject:[NSString stringWithFormat:@"%d", (int)[[(LegalValuesEnter *)v picker] selectedRowInComponent:0]] forKey:[(LegalValuesEnter *)v columnName]];
                     }
                 }
                 else if ([v isKindOfClass:[NumberField class]])
@@ -1729,7 +1729,7 @@
                     else
                     {
                         insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
-                        [azureDictionary setObject:[[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"] forKey:[(LegalValuesEnter *)v columnName]];
+                        [azureDictionary setObject:[NSString stringWithFormat:@"%d", (int)[[(LegalValuesEnter *)v picker] selectedRowInComponent:0]] forKey:[(LegalValuesEnter *)v columnName]];
                     }
                 }
                 else if ([v isKindOfClass:[NumberField class]])
