@@ -122,6 +122,8 @@
                 [self becomeFirstResponder];
             
             float yForBottom = [(EnterDataView *)[[self superview] superview] contentSize].height - [(EnterDataView *)[[self superview] superview] bounds].size.height;
+            if (yForBottom < 0.0)
+                yForBottom = 0.0;
             float selfY = self.frame.origin.y - 80.0f;
             
             CGPoint pt = CGPointMake(0.0f, selfY);

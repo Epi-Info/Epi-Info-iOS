@@ -81,6 +81,8 @@
             EnterDataView *myEdv = (EnterDataView *)[[self superview] superview];
             
             float yForBottom = [myEdv contentSize].height - [myEdv bounds].size.height;
+            if (yForBottom < 0.0)
+                yForBottom = 0.0;
             float selfY = self.frame.origin.y - 80.0f;
             
             CGPoint pt = CGPointMake(0.0f, selfY);
