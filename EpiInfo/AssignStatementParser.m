@@ -62,8 +62,11 @@
 @property (nonatomic, retain) NSMutableDictionary *datemathExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *epiweekExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *daysmathExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *dayExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *monthsmathExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *monthExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *yearsmathExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *yearExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *dateValue_memo;
 @property (nonatomic, retain) NSMutableDictionary *dateLiteral_memo;
 @property (nonatomic, retain) NSMutableDictionary *sysdateExpr_memo;
@@ -131,8 +134,11 @@
         self.datemathExpr_memo = [NSMutableDictionary dictionary];
         self.epiweekExpr_memo = [NSMutableDictionary dictionary];
         self.daysmathExpr_memo = [NSMutableDictionary dictionary];
+        self.dayExpr_memo = [NSMutableDictionary dictionary];
         self.monthsmathExpr_memo = [NSMutableDictionary dictionary];
+        self.monthExpr_memo = [NSMutableDictionary dictionary];
         self.yearsmathExpr_memo = [NSMutableDictionary dictionary];
+        self.yearExpr_memo = [NSMutableDictionary dictionary];
         self.dateValue_memo = [NSMutableDictionary dictionary];
         self.dateLiteral_memo = [NSMutableDictionary dictionary];
         self.sysdateExpr_memo = [NSMutableDictionary dictionary];
@@ -175,8 +181,11 @@
     [_datemathExpr_memo removeAllObjects];
     [_epiweekExpr_memo removeAllObjects];
     [_daysmathExpr_memo removeAllObjects];
+    [_dayExpr_memo removeAllObjects];
     [_monthsmathExpr_memo removeAllObjects];
+    [_monthExpr_memo removeAllObjects];
     [_yearsmathExpr_memo removeAllObjects];
+    [_yearExpr_memo removeAllObjects];
     [_dateValue_memo removeAllObjects];
     [_dateLiteral_memo removeAllObjects];
     [_sysdateExpr_memo removeAllObjects];
@@ -376,10 +385,16 @@
     
     if ([self speculate:^{ [self daysmathExpr_]; }]) {
         [self daysmathExpr_];
+    } else if ([self speculate:^{ [self dayExpr_]; }]) {
+        [self dayExpr_];
     } else if ([self speculate:^{ [self monthsmathExpr_]; }]) {
         [self monthsmathExpr_];
+    } else if ([self speculate:^{ [self monthExpr_]; }]) {
+        [self monthExpr_];
     } else if ([self speculate:^{ [self yearsmathExpr_]; }]) {
         [self yearsmathExpr_];
+    } else if ([self speculate:^{ [self yearExpr_]; }]) {
+        [self yearExpr_];
     } else if ([self speculate:^{ [self epiweekExpr_]; }]) {
         [self epiweekExpr_];
     } else {
@@ -494,6 +509,42 @@
     [self parseRule:@selector(__daysmathExpr) withMemo:_daysmathExpr_memo];
 }
 
+- (void)__dayExpr {
+    
+    [self testAndThrow:(id)^{ return MATCHES_IGNORE_CASE(LS(1), @"day"); }];
+    [self matchWord:YES];
+    [self match:ASSIGNSTATEMENT_TOKEN_KIND_OPEN_PAREN discard:YES];
+    [self dateValue_];
+    [self match:ASSIGNSTATEMENT_TOKEN_KIND_CLOSE_PAREN discard:YES];
+    [self execute:(id)^{
+        
+        NSString *dateString = POP_STR();
+        
+        NSDate *dateObject = [NSDate date];
+        BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+        
+        int firstSlash1 = (int)[dateString rangeOfString:@"/"].location;
+        int secondSlash1 = (int)[[dateString substringFromIndex:firstSlash1 + 1] rangeOfString:@"/"].location + firstSlash1 + 1;
+        
+        int day = [[dateString substringToIndex:firstSlash1] intValue];
+        if (!dmy)
+        {
+            day = [[dateString substringWithRange:NSMakeRange(firstSlash1 + 1, secondSlash1 - firstSlash1 - 1)] intValue];
+        }
+        
+        PUSH_INT(day);
+        
+        dateString = [NSString stringWithFormat:@"%d/%d/%d", 3, 3, 1970];
+        
+    }];
+    
+    [self fireDelegateSelector:@selector(parser:didMatchDayExpr:)];
+}
+
+- (void)dayExpr_ {
+    [self parseRule:@selector(__dayExpr) withMemo:_dayExpr_memo];
+}
+
 - (void)__monthsmathExpr {
     
     [self testAndThrow:(id)^{ return MATCHES_IGNORE_CASE(LS(1), @"months"); }];
@@ -540,6 +591,42 @@
     [self parseRule:@selector(__monthsmathExpr) withMemo:_monthsmathExpr_memo];
 }
 
+- (void)__monthExpr {
+    
+    [self testAndThrow:(id)^{ return MATCHES_IGNORE_CASE(LS(1), @"month"); }];
+    [self matchWord:YES];
+    [self match:ASSIGNSTATEMENT_TOKEN_KIND_OPEN_PAREN discard:YES];
+    [self dateValue_];
+    [self match:ASSIGNSTATEMENT_TOKEN_KIND_CLOSE_PAREN discard:YES];
+    [self execute:(id)^{
+        
+        NSString *dateString = POP_STR();
+
+        NSDate *dateObject = [NSDate date];
+        BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+        
+        int firstSlash1 = (int)[dateString rangeOfString:@"/"].location;
+        int secondSlash1 = (int)[[dateString substringFromIndex:firstSlash1 + 1] rangeOfString:@"/"].location + firstSlash1 + 1;
+        
+        int month = [[dateString substringToIndex:firstSlash1] intValue];
+        if (dmy)
+        {
+            month = [[dateString substringWithRange:NSMakeRange(firstSlash1 + 1, secondSlash1 - firstSlash1 - 1)] intValue];
+        }
+        
+        PUSH_INT(month);
+        
+        dateString = [NSString stringWithFormat:@"%d/%d/%d", 3, 3, 1970];
+        
+    }];
+    
+    [self fireDelegateSelector:@selector(parser:didMatchMonthExpr:)];
+}
+
+- (void)monthExpr_ {
+    [self parseRule:@selector(__monthExpr) withMemo:_monthExpr_memo];
+}
+
 - (void)__yearsmathExpr {
     
     [self testAndThrow:(id)^{ return MATCHES_IGNORE_CASE(LS(1), @"years"); }];
@@ -584,6 +671,35 @@
 
 - (void)yearsmathExpr_ {
     [self parseRule:@selector(__yearsmathExpr) withMemo:_yearsmathExpr_memo];
+}
+
+- (void)__yearExpr {
+    
+    [self testAndThrow:(id)^{ return MATCHES_IGNORE_CASE(LS(1), @"year"); }];
+    [self matchWord:YES];
+    [self match:ASSIGNSTATEMENT_TOKEN_KIND_OPEN_PAREN discard:YES];
+    [self dateValue_];
+    [self match:ASSIGNSTATEMENT_TOKEN_KIND_CLOSE_PAREN discard:YES];
+    [self execute:(id)^{
+        
+        NSString *dateString = POP_STR();
+        
+        int firstSlash1 = (int)[dateString rangeOfString:@"/"].location;
+        int secondSlash1 = (int)[[dateString substringFromIndex:firstSlash1 + 1] rangeOfString:@"/"].location + firstSlash1 + 1;
+        
+        int year = [[dateString substringFromIndex:secondSlash1 + 1] intValue];
+        
+        PUSH_INT(year);
+        
+        dateString = [NSString stringWithFormat:@"%d/%d/%d", 3, 3, 1970];
+        
+    }];
+    
+    [self fireDelegateSelector:@selector(parser:didMatchYearExpr:)];
+}
+
+- (void)yearExpr_ {
+    [self parseRule:@selector(__yearExpr) withMemo:_yearExpr_memo];
 }
 
 - (void)__dateValue {
