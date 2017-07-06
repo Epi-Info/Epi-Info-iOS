@@ -460,7 +460,7 @@
                 UILabel *l = (UILabel*)[subarr objectAtIndex:j];
                 if ([l.text isEqualToString:@"Summary"])
                 {
-                    summaryTabLines = l.numberOfLines;
+                    summaryTabLines = (int)l.numberOfLines;
                     summaryTabMode = l.lineBreakMode;
                     summaryTabFrame = l.frame;
                 }
@@ -1421,7 +1421,7 @@
                 [self.phone2TailedPLabel setFrame:twoTailedPLabelFrame];
             }
             
-            stratum = [event selectedSegmentIndex];
+            stratum = (int)[event selectedSegmentIndex];
             
             if ([strataData[stratum] hasData])
             {
@@ -1526,7 +1526,7 @@
             [self.ynView setHidden:YES];
             [self.subView4 setHidden:YES];
             //
-            stratum = [event selectedSegmentIndex];
+            stratum = (int)[event selectedSegmentIndex];
             [self.yyField setEnabled:NO];
             [self.ynField setEnabled:NO];
             [self.nyField setEnabled:NO];
@@ -2177,7 +2177,7 @@
 
 - (IBAction)textFieldAction:(id)sender
 {
-    int cursorPosition = [sender offsetFromPosition:[sender endOfDocument] toPosition:[[sender selectedTextRange] start]];
+    int cursorPosition = (int)[sender offsetFromPosition:[sender endOfDocument] toPosition:[[sender selectedTextRange] start]];
     
     UITextField *theTextField = (UITextField *)sender;
     

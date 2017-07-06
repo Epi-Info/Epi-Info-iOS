@@ -399,7 +399,7 @@
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"12"])
             {
                 NSString *list = [attributeDict objectForKey:@"List"];
-                int pipes = [list rangeOfString:@"||"].location;
+                int pipes = (int)[list rangeOfString:@"||"].location;
                 NSString *valuesList = [list substringToIndex:pipes];
                 LegalValues *lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 300, 180) AndListOfValues:[NSMutableArray arrayWithArray:[valuesList componentsSeparatedByString:@","]]];
                 [formCanvas addSubview:lv];

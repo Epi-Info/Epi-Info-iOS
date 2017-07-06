@@ -958,7 +958,7 @@
 
 - (IBAction)textFieldAction:(id)sender
 {
-    int cursorPosition = [sender offsetFromPosition:[sender endOfDocument] toPosition:[[sender selectedTextRange] start]];
+    int cursorPosition = (int)[sender offsetFromPosition:[sender endOfDocument] toPosition:[[sender selectedTextRange] start]];
 
     UITextField *theTextField = (UITextField *)sender;
     

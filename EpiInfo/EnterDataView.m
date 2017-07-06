@@ -6763,7 +6763,7 @@ newStr{
 -(void)showAlertsQueuedTag:(int)newTag
 {
     if (dialogTitleArray.count>1) {
-        int count = (dialogTitleArray.count/3);
+        int count = (int)(dialogTitleArray.count/3);
         int i =0;
         NSString *title = [dialogTitleArray objectAtIndex:i];
         NSString *subject = [dialogTitleArray objectAtIndex:i+1];
@@ -8193,7 +8193,7 @@ newStr{
         {
             BOOL there = [elmArray containsObject:cpm.element];
             if (there) {
-                int idx = [elmArray indexOfObject:cpm.element];
+                int idx = (int)[elmArray indexOfObject:cpm.element];
                 ElementsModel *emc = [elementListArray objectAtIndex:idx];
                 int ty = 10;
                 //                NSLog(@"%d %lu",emc.type,(unsigned long)idx);

@@ -219,7 +219,7 @@
     //Boolean for whether variable has any null values
     BOOL hasANull = NO;
     //The variable's column number in the array of columns
-    int variableColumnNumber = [dataSet.columnNamesWorking indexOfObject:self.variableName];
+    int variableColumnNumber = (int)[dataSet.columnNamesWorking indexOfObject:self.variableName];
     //Integer case first
     if ([(NSNumber *)[dataSet.dataTypesWorking objectAtIndex:variableColumnNumber] intValue] == 0)
     {

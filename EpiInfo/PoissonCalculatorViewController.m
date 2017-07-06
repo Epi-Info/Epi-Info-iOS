@@ -583,7 +583,7 @@
 
 - (IBAction)textFieldActions:(id)sender
 {
-    int cursorPosition = [sender offsetFromPosition:[sender endOfDocument] toPosition:[[sender selectedTextRange] start]];
+    int cursorPosition = (int)[sender offsetFromPosition:[sender endOfDocument] toPosition:[[sender selectedTextRange] start]];
     
     UITextField *theTextField = (UITextField *)sender;
     
@@ -599,7 +599,7 @@
         return;
     }
     
-    int tag = [theTextField tag];
+    int tag = (int)[theTextField tag];
     NSCharacterSet *validSet; // = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
 /*
     if ([[theTextField.text substringWithRange:NSMakeRange(theTextField.text.length - 1 + cursorPosition, 1)] stringByTrimmingCharactersInSet:validSet].length > 0)
