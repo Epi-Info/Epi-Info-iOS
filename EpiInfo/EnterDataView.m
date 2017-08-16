@@ -1323,6 +1323,7 @@
                 if ([dictionaryOfPages count] > 1)
                 {
                     int pagesindictionary = (int)[dictionaryOfPages count];
+                    pagesindictionary = pagesindictionary;
                     NSMutableString *tempCreateTableStatement = [NSMutableString stringWithString:@""];
                     for (int i = 0; i < 1; i++)
                     {
@@ -3622,7 +3623,7 @@
                         {
                             [tf setCheckcode:[[CheckCode alloc] init]];
                             [(CheckCode *)[tf checkcode] setTheWords:(NSArray *)checkCodeFieldName];
-                            [(CheckCode *)[tf checkcode] setDictionaryOfFields:self.dictionaryOfFields];
+                            [(CheckCode *)[tf checkcode] setDictionaryOfFields:self.dictionaryOfFields.nsmd];
                         }
                     }
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -5430,6 +5431,7 @@
         emc.fieldValue = etf.text;
         
        NSUInteger idx = [elementListArray indexOfObject:etf.columnName];
+        idx = idx;
 //        [elementsArray replaceObjectAtIndex:idx withObject:emc];
         
         /*End of if-EndIf*/
@@ -8164,7 +8166,7 @@ newStr{
         {
             NSLog(@"image");
             UIImageView *utf = (UIImageView *)[formCanvas viewWithTag:eleTag];
-            [utf setImage:@""];
+            [utf setImage:[[UIImage alloc] init]];
             break;
         }
         case 25:

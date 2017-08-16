@@ -682,6 +682,7 @@
     {
         elePair = [fieldPageArray objectAtIndex:i];
         NSString *tmp= [[elePair.stringValue componentsSeparatedByString:@" "] objectAtIndex:0];
+        tmp = tmp;
         NSString *conditionWord;
         NSString *conditionWordOne;
         NSUInteger count = [self numberOfWordsInString:elePair.name];

@@ -56,11 +56,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "519588561.012046"
+            timestampString = "521057903.095415"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "7980"
-            endingLineNumber = "7980"
+            startingLineNumber = "7982"
+            endingLineNumber = "7982"
             landmarkName = "-gotoFormField:tag:"
             landmarkType = "7">
          </BreakpointContent>

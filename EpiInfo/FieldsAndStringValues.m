@@ -16,7 +16,7 @@
     if (self)
     {
         self.nsmd = [[NSMutableDictionary alloc] init];
-        NSThread *loggingThread = [[NSThread alloc] initWithTarget:self selector:@selector(backgroundLogging) object:nil];
+//        NSThread *loggingThread = [[NSThread alloc] initWithTarget:self selector:@selector(backgroundLogging) object:nil];
 //        [loggingThread start];
     }
     return self;

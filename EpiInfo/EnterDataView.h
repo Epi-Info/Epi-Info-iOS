@@ -147,12 +147,12 @@
 
 @property BOOL skipThisPage;
 
-@property(strong, nonatomic) NSMutableArray *conditionsArray;
+//@property(strong, nonatomic) NSMutableArray *conditionsArray;
 @property(strong) NSMutableArray* dialogArray;
 @property(strong) NSMutableArray *elementListArray;
-@property(strong, nonatomic) NSMutableArray *elementsArray;
+//@property(strong, nonatomic) NSMutableArray *elementsArray;
 @property(strong) NSMutableArray *elmArray;
-@property(nonatomic) BOOL firstEdit;
+//@property(nonatomic) BOOL firstEdit;
 
 @property (strong, nonatomic) MSClient *client;
 @property (strong, nonatomic) NSString *cloudService;

@@ -751,6 +751,7 @@
     [self execute:(id)^{
         
         NSString *latString = POP_STR();
+        latString = latString;
         CLLocationManager *locMan = [[CLLocationManager alloc] init];
         [locMan setDelegate:self];
         [locMan setDistanceFilter:kCLDistanceFilterNone];
@@ -777,6 +778,7 @@
     [self execute:(id)^{
         
         NSString *latString = POP_STR();
+        latString = latString;
         CLLocationManager *locMan = [[CLLocationManager alloc] init];
         [locMan setDelegate:self];
         [locMan setDistanceFilter:kCLDistanceFilterNone];
@@ -805,6 +807,7 @@
         int thishour = (int)[[NSCalendar currentCalendar] component:NSCalendarUnitHour fromDate:[NSDate date]];
         int thisminute = (int)[[NSCalendar currentCalendar] component:NSCalendarUnitMinute fromDate:[NSDate date]];
         int thissecond = (int)[[NSCalendar currentCalendar] component:NSCalendarUnitSecond fromDate:[NSDate date]];
+        thissecond += 0;
         NSString *thistime = [NSString stringWithFormat:@"%d:%d", thishour, thisminute];
         if (thishour < 10 && thisminute < 10)
             thistime = [NSString stringWithFormat:@"0%d:0%d", thishour, thisminute];
@@ -1284,7 +1287,9 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     float lat = [(CLLocation *)[locations objectAtIndex:[locations count] - 1] coordinate].latitude;
+    lat += 0.0;
     float lon = [(CLLocation *)[locations objectAtIndex:[locations count] - 1] coordinate].longitude;
+    lon += 0.0;
     NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
     [nsnf setMaximumFractionDigits:6];
 }

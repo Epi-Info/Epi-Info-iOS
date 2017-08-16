@@ -269,12 +269,12 @@
         // New, more verbose labels for new UI
         float labelX = self.dataEntryButton.frame.origin.x + self.dataEntryButton.frame.size.width + 16;
         float labelWidth = gravView.frame.size.width - labelX - 8;
-        UILabel *l1a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, 8, labelWidth, v1.frame.size.height * 0.4 - 8)];
-        UILabel *l1b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, 8 + l1a.frame.size.height, labelWidth, v1.frame.size.height - 8 - l1a.frame.size.height)];
-        UILabel *l2a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1a.frame.origin.y, labelWidth, l1a.frame.size.height)];
-        UILabel *l2b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1b.frame.origin.y, labelWidth, l1b.frame.size.height)];
-        UILabel *l3a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1a.frame.origin.y, labelWidth, l1a.frame.size.height)];
-        UILabel *l3b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1b.frame.origin.y, labelWidth, l1b.frame.size.height)];
+        l1a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, 8, labelWidth, v1.frame.size.height * 0.4 - 8)];
+        l1b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, 8 + l1a.frame.size.height, labelWidth, v1.frame.size.height - 8 - l1a.frame.size.height)];
+        l2a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1a.frame.origin.y, labelWidth, l1a.frame.size.height)];
+        l2b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1b.frame.origin.y, labelWidth, l1b.frame.size.height)];
+        l3a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1a.frame.origin.y, labelWidth, l1a.frame.size.height)];
+        l3b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1b.frame.origin.y, labelWidth, l1b.frame.size.height)];
         
         [l1a setText:@"ENTER DATA"];
         [l1a setTextAlignment:NSTextAlignmentLeft];
@@ -653,7 +653,7 @@
 {
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"SampleForms" ofType:@"bundle"];
     NSString *formName = [[NSBundle bundleWithPath:bundlePath] pathForResource:resourceName ofType:@"xml"];
-    NSString *xmlContents = [NSString stringWithContentsOfFile:formName];
+    NSString *xmlContents = [NSString stringWithContentsOfFile:formName encoding:NSUTF8StringEncoding error:NULL];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])

@@ -1394,8 +1394,8 @@
         double chiSqP = [SharedResources PValFromChiSq:chiSq PVFCSdf:(double)((to.exposureValues.count - 1) * (to.outcomeValues.count - 1))];
         EpiInfoUILabel *chiSqLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, outputTableView.frame.origin.y + outputTableView.frame.size.height, outputV.frame.size.width, 20)];
         [chiSqLabel setBackgroundColor:[UIColor clearColor]];
-        [chiSqLabel setText:[NSString stringWithFormat:@"Chi Square: %.2f, df: %u, p-value: %.3f", chiSq, (to.exposureValues.count - 1) * (to.outcomeValues.count - 1), chiSqP]];
-        [chiSqLabel setAccessibilityLabel:[NSString stringWithFormat:@"Ky Square: %.2f, degrees of freedom: %u, p-value: %.3f", chiSq, (to.exposureValues.count - 1) * (to.outcomeValues.count - 1), chiSqP]];
+        [chiSqLabel setText:[NSString stringWithFormat:@"Chi Square: %.2f, df: %lu, p-value: %.3f", chiSq, (to.exposureValues.count - 1) * (to.outcomeValues.count - 1), chiSqP]];
+        [chiSqLabel setAccessibilityLabel:[NSString stringWithFormat:@"Ky Square: %.2f, degrees of freedom: %lu, p-value: %.3f", chiSq, (to.exposureValues.count - 1) * (to.outcomeValues.count - 1), chiSqP]];
         [chiSqLabel setTextAlignment:NSTextAlignmentCenter];
         [outputV addSubview: chiSqLabel];
         outputTableViewHeight += chiSqLabel.frame.size.height;

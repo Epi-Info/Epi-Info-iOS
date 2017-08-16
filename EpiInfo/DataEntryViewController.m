@@ -1802,7 +1802,7 @@
                                 {
                                     NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
                                     NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:dt];
-                                    stringValue = [NSString stringWithFormat:@"%d-%d-%d", [components year], [components month], [components day]];
+                                    stringValue = [NSString stringWithFormat:@"%ld-%ld-%ld", [components year], [components month], [components day]];
                                 }
                                 NSLog(@"%@", stringValue);
                             }
