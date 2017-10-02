@@ -170,7 +170,18 @@
                         PKAssembly *fasResult = [fasParser parseString:[statement stringByReplacingOccurrencesOfString:@"<LINEFEED>" withString:@""] error:&err];
                         if (fasResult)
                         {
-                            NSString *assignInput = [fasResult pop];
+                            __block NSString *assignInput = [fasResult pop];
+                            for (id key in [[self.dictionaryOfFields fasv] nsmd])
+                            {
+                                PKTokenizer *pkparser = [[PKTokenizer alloc] initWithString:assignInput];
+                                [pkparser enumerateTokensUsingBlock:^(PKToken *token, BOOL *boo){
+                                    NSLog(@"%@", token.stringValue);
+                                    if ([[token.stringValue lowercaseString] isEqualToString:(NSString *)key])
+                                    {
+                                        assignInput = [[assignInput lowercaseString] stringByReplacingOccurrencesOfString:(NSString *)key withString:[[[self.dictionaryOfFields fasv] nsmd] objectForKey:key]];
+                                    }
+                                }];
+                            }
                             NSString *targetField = [fasResult pop];
                             AssignStatementParser *parser = [[AssignStatementParser alloc] init];
                             PKAssembly *result = [parser parseString:assignInput error:&err];

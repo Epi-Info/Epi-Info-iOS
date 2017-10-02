@@ -154,6 +154,8 @@
 
 - (void)assignValue:(NSString *)value
 {
+    if (value != nil)
+        [[(EnterDataView *)[[self superview] superview] fieldsAndStringValues] setObject:value forKey:[self.columnName lowercaseString]];
     [self setText:value];
 }
 
