@@ -36,10 +36,10 @@
     [thread2 start];
     [thread3 start];
     [thread4 start];
-    
-    while ([thread1 isExecuting] || [thread2 isExecuting] || [thread3 isExecuting] || [thread4 isExecuting])
-    {
 
+    while (![args4 objectForKey:@"ReturnV"])
+    {
+        
     }
 
     probabilitiesAndLimits[0] = [[args1 valueForKey:@"ReturnV"] doubleValue];
