@@ -36,10 +36,10 @@
     [thread2 start];
     [thread3 start];
     [thread4 start];
-
+    
     while (![args4 objectForKey:@"ReturnV"])
     {
-        
+        [NSThread sleepForTimeInterval:0.1f];
     }
 
     probabilitiesAndLimits[0] = [[args1 valueForKey:@"ReturnV"] doubleValue];
