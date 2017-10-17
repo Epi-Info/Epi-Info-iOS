@@ -964,16 +964,20 @@
     {
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         {
-            float viewWidth = self.view.frame.size.width;
-            EnterDataView *nextEDV = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, self.view.frame.size.height) AndURL:url AndRootViewController:self AndNameOfTheForm:lvSelected.text AndPageToDisplay:i];
-            [edv setDictionaryOfPagesObject:self forKey:[NSString stringWithFormat:@"Page%d", i]];
-            [nextEDV setDictionaryOfPages:[edv mutableDictionaryOfPages]];
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                float viewWidth = self.view.frame.size.width;
+                EnterDataView *nextEDV = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, self.view.frame.size.height) AndURL:url AndRootViewController:self AndNameOfTheForm:lvSelected.text AndPageToDisplay:i];
+                [edv setDictionaryOfPagesObject:self forKey:[NSString stringWithFormat:@"Page%d", i]];
+                [nextEDV setDictionaryOfPages:[edv mutableDictionaryOfPages]];
+            });
         }
         else
         {
-            EnterDataView *nextEDV = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, 320, 506) AndURL:url AndRootViewController:self AndNameOfTheForm:lvSelected.text AndPageToDisplay:i];
-            [edv setDictionaryOfPagesObject:self forKey:[NSString stringWithFormat:@"Page%d", i]];
-            [nextEDV setDictionaryOfPages:[edv mutableDictionaryOfPages]];
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                EnterDataView *nextEDV = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, 320, 506) AndURL:url AndRootViewController:self AndNameOfTheForm:lvSelected.text AndPageToDisplay:i];
+                [edv setDictionaryOfPagesObject:self forKey:[NSString stringWithFormat:@"Page%d", i]];
+                [nextEDV setDictionaryOfPages:[edv mutableDictionaryOfPages]];
+            });
         }
     }
 }
