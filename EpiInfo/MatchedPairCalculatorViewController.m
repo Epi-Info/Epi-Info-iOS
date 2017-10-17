@@ -121,15 +121,19 @@
     [self.epiInfoScrollView0 setScrollEnabled:NO];
     computingFrame = [self.computing frame];
     
+    [self.yyField setDelegate:self];
+    [self.ynField setDelegate:self];
+    [self.nyField setDelegate:self];
+    [self.nnField setDelegate:self];
     self.yyField.returnKeyType = UIReturnKeyNext;
     self.ynField.returnKeyType = UIReturnKeyNext;
     self.nyField.returnKeyType = UIReturnKeyNext;
     self.nnField.returnKeyType = UIReturnKeyDone;
-    self.yyField.delegate = self;
-    self.ynField.delegate = self;
-    self.nyField.delegate = self;
-    self.nnField.delegate = self;
-    
+    [self.yyField setEnablesReturnKeyAutomatically:NO];
+    [self.ynField setEnablesReturnKeyAutomatically:NO];
+    [self.nyField setEnablesReturnKeyAutomatically:NO];
+    [self.nnField setEnablesReturnKeyAutomatically:NO];
+
     self.twox2CalculatorView.contentSize = CGSizeMake(320, 758);
     
     [self.computing setHidden:YES];

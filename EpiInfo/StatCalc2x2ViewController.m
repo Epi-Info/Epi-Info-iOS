@@ -245,6 +245,10 @@
     self.ynField.delegate = self;
     self.nyField.delegate = self;
     self.nnField.delegate = self;
+    [self.yyField setEnablesReturnKeyAutomatically:NO];
+    [self.ynField setEnablesReturnKeyAutomatically:NO];
+    [self.nyField setEnablesReturnKeyAutomatically:NO];
+    [self.nnField setEnablesReturnKeyAutomatically:NO];
     //iPad
     self.view.backgroundColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
 //    self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"background-1.png"]];
