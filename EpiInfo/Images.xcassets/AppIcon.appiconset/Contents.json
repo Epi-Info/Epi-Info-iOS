@@ -101,6 +101,12 @@
       "idiom" : "ipad",
       "filename" : "iconCDC167.png",
       "scale" : "2x"
+    },
+    {
+      "size" : "1024x1024",
+      "idiom" : "ios-marketing",
+      "filename" : "iTunesArtworkCDC1024.png",
+      "scale" : "1x"
     }
   ],
   "info" : {
