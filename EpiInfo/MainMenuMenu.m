@@ -23,7 +23,7 @@
         [bannerBack setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
         [self addSubview:bannerBack];
         
-        UINavigationBar *banner = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 4, frame.size.width, 32)];
+        UINavigationBar *banner = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, -4, frame.size.width, 32)];
         [banner setBackgroundColor:[UIColor clearColor]];
         [banner setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         [banner setShadowImage:[UIImage new]];
