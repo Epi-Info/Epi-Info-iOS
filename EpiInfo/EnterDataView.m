@@ -3293,7 +3293,10 @@
                 createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                 
                 if ([[attributeDict objectForKey:@"IsReadOnly"]caseInsensitiveCompare:@"true"] == NSOrderedSame)
+                {
+                    [tf setIsReadOnly:YES];
                     [tf setIsEnabled:NO];
+                }
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"2"])
             {
@@ -3407,7 +3410,10 @@
                 }
                 createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                 if ([[attributeDict objectForKey:@"IsReadOnly"]caseInsensitiveCompare:@"true"] == NSOrderedSame)
+                {
+                    [tf setIsReadOnly:YES];
                     [tf setIsEnabled:NO];
+                }
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"4"])
             {
@@ -3518,7 +3524,10 @@
                 }
                 createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                 if ([[attributeDict objectForKey:@"IsReadOnly"]caseInsensitiveCompare:@"true"] == NSOrderedSame)
+                {
+                    [tf setIsReadOnly:YES];
                     [tf setIsEnabled:NO];
+                }
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"5"])
             {
@@ -3653,7 +3662,10 @@
                 }
                 createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ real", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                 if ([[attributeDict objectForKey:@"IsReadOnly"]caseInsensitiveCompare:@"true"] == NSOrderedSame)
+                {
+                    [tf setIsReadOnly:YES];
                     [tf setIsEnabled:NO];
+                }
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"6"])
             {
@@ -3762,7 +3774,10 @@
                 }
                 createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                 if ([[attributeDict objectForKey:@"IsReadOnly"]caseInsensitiveCompare:@"true"] == NSOrderedSame)
+                {
+                    [tf setIsReadOnly:YES];
                     [tf setIsEnabled:NO];
+                }
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"7"])
             {
@@ -3875,7 +3890,10 @@
                 }
                 createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                 if ([[attributeDict objectForKey:@"IsReadOnly"]caseInsensitiveCompare:@"true"] == NSOrderedSame)
+                {
+                    [tf setIsReadOnly:YES];
                     [tf setIsEnabled:NO];
+                }
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"8"])
             {
@@ -3985,7 +4003,10 @@
                 }
                 createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                 if ([[attributeDict objectForKey:@"IsReadOnly"]caseInsensitiveCompare:@"true"] == NSOrderedSame)
+                {
+                    [tf setIsReadOnly:YES];
                     [tf setIsEnabled:NO];
+                }
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"9"])
             {
@@ -4095,7 +4116,10 @@
                 }
                 createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                 if ([[attributeDict objectForKey:@"IsReadOnly"]caseInsensitiveCompare:@"true"] == NSOrderedSame)
+                {
+                    [tf setIsReadOnly:YES];
                     [tf setIsEnabled:NO];
+                }
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"10"])
             {
@@ -4207,7 +4231,10 @@
                 }
                 createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ integer", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                 if ([[attributeDict objectForKey:@"IsReadOnly"]caseInsensitiveCompare:@"true"] == NSOrderedSame)
+                {
+                    [cb setIsReadOnly:YES];
                     [cb setIsEnabled:NO];
+                }
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"11"])
             {
@@ -4298,7 +4325,10 @@
                 }
                 createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ integer", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                 if ([[attributeDict objectForKey:@"IsReadOnly"]caseInsensitiveCompare:@"true"] == NSOrderedSame)
+                {
+                    [yn setIsReadOnly:YES];
                     [yn setIsEnabled:NO];
+                }
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"15"])
             {
@@ -4504,7 +4534,10 @@
                 }
                 createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                 if ([[attributeDict objectForKey:@"IsReadOnly"]caseInsensitiveCompare:@"true"] == NSOrderedSame)
+                {
+                    [lv setIsReadOnly:YES];
                     [lv setIsEnabled:NO];
+                }
            }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"18"])
             {
@@ -4607,7 +4640,10 @@
                 }
                 createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                 if ([[attributeDict objectForKey:@"IsReadOnly"]caseInsensitiveCompare:@"true"] == NSOrderedSame)
+                {
+                    [lv setIsReadOnly:YES];
                     [lv setIsEnabled:NO];
+                }
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"19"])
             {
@@ -4700,7 +4736,10 @@
                 }
                 createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                 if ([[attributeDict objectForKey:@"IsReadOnly"]caseInsensitiveCompare:@"true"] == NSOrderedSame)
+                {
+                    [lv setIsReadOnly:YES];
                     [lv setIsEnabled:NO];
+                }
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"14"])
             {
@@ -4881,7 +4920,10 @@
                 }
                 createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                 if ([[attributeDict objectForKey:@"IsReadOnly"]caseInsensitiveCompare:@"true"] == NSOrderedSame)
+                {
+                    [lv setIsReadOnly:YES];
                     [lv setIsEnabled:NO];
+                }
            }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"25"])
             {
@@ -4964,7 +5006,10 @@
                 }
                 createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                 if ([[attributeDict objectForKey:@"IsReadOnly"]caseInsensitiveCompare:@"true"] == NSOrderedSame)
+                {
+                    [tf setIsReadOnly:YES];
                     [tf setIsEnabled:NO];
+                }
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"20"])
             {

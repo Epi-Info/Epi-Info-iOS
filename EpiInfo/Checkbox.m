@@ -11,6 +11,7 @@
 
 @implementation Checkbox
 @synthesize columnName = _columnName;
+@synthesize isReadOnly = _isReadOnly;
 
 - (void)setText:(NSString *)checkboxText
 {

@@ -10,6 +10,7 @@
 @protocol EpiInfoControlProtocol <NSObject>
 
 @property NSString *columnName;
+@property BOOL isReadOnly;
 
 -(NSString *)epiInfoControlValue;
 -(void)assignValue:(NSString *)value;

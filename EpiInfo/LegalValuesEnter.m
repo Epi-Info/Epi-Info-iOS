@@ -3,7 +3,6 @@
 //  EpiInfo
 //
 //  Created by admin on 2/19/16.
-//  Copyright © 2016 John Copeland. All rights reserved.
 //
 
 #import "LegalValuesEnter.h"
@@ -11,6 +10,7 @@
 
 @implementation LegalValuesEnter
 @synthesize columnName = _columnName;
+@synthesize isReadOnly = _isReadOnly;
 @synthesize picker = _picker;
 @synthesize textFieldToUpdate = _textFieldToUpdate;
 @synthesize viewToAlertOfChanges = _viewToAlertOfChanges;

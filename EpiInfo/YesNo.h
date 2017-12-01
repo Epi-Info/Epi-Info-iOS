@@ -21,4 +21,5 @@
 -(void)setFormFieldValue:(NSString *)formFieldValue;
 
 @property NSString *columnName;
+@property BOOL isReadOnly;
 @end

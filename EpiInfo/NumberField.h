@@ -16,6 +16,7 @@
 -(void)setFormFieldValue:(NSString *)formFieldValue;
 
 @property NSString *columnName;
+@property BOOL isReadOnly;
 @property BOOL nonNegative;
 @property BOOL hasMaximum;
 @property BOOL hasMinimum;

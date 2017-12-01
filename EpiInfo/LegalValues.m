@@ -10,6 +10,7 @@
 
 @implementation LegalValues
 @synthesize columnName = _columnName;
+@synthesize isReadOnly = _isReadOnly;
 @synthesize picker = _picker;
 @synthesize textFieldToUpdate = _textFieldToUpdate;
 @synthesize viewToAlertOfChanges = _viewToAlertOfChanges;

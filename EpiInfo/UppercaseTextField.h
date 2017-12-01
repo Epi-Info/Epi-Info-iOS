@@ -12,6 +12,7 @@
 @interface UppercaseTextField : UITextField <EpiInfoControlProtocol>
 @property CheckCode *checkcode;
 @property NSString *columnName;
+@property BOOL isReadOnly;
 -(void)setFormFieldValue:(NSString *)formFieldValue;
 -(void)reset;
 @end

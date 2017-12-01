@@ -11,6 +11,7 @@
 
 @implementation NumberField
 @synthesize columnName = _columnName;
+@synthesize isReadOnly = _isReadOnly;
 @synthesize nonNegative = _nonNegative;
 @synthesize hasMaximum = _hasMaximum;
 @synthesize hasMinimum = _hasMinimum;
@@ -194,7 +195,10 @@
 - (void)reset
 {
     [self setText:nil];
-    [self setIsEnabled:YES];
+    if (self.isReadOnly)
+        [self setIsEnabled:NO];
+    else
+        [self setIsEnabled:YES];
 }
 
 - (void)resetDoNotEnable

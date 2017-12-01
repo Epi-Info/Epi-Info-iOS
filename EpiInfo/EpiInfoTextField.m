@@ -12,6 +12,7 @@
 
 @implementation EpiInfoTextField
 @synthesize columnName = _columnName;
+@synthesize isReadOnly = _isReadOnly;
 @synthesize mirroringMe = _mirroringMe;
 @synthesize checkcode = _checkcode;
 

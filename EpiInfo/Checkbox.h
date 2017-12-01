@@ -27,4 +27,5 @@
 
 @property CheckCode *checkcode;
 @property NSString *columnName;
+@property BOOL isReadOnly;
 @end

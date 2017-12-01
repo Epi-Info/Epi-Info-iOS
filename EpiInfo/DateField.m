@@ -11,6 +11,7 @@
 
 @implementation DateField
 @synthesize columnName = _columnName;
+@synthesize isReadOnly = _isReadOnly;
 @synthesize mirroringMe = _mirroringMe;
 @synthesize templateFieldID = _templateFieldID;
 @synthesize fieldLabel = _fieldLabel;

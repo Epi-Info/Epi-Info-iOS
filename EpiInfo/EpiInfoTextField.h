@@ -12,6 +12,7 @@
 @interface EpiInfoTextField : UITextField <EpiInfoControlProtocol>
 @property CheckCode *checkcode;
 @property NSString *columnName;
+@property BOOL isReadOnly;
 @property UITextField *mirroringMe;
 -(void)setFormFieldValue:(NSString *)formFieldValue;
 -(void)reset;

@@ -15,6 +15,7 @@
     NSMutableArray *listOfValues;
 }
 @property NSString *columnName;
+@property BOOL isReadOnly;
 @property UIPickerView *picker;
 @property UITextField *textFieldToUpdate;
 @property UIView *viewToAlertOfChanges;

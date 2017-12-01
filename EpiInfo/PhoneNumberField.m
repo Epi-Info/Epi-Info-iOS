@@ -10,6 +10,7 @@
 
 @implementation PhoneNumberField
 @synthesize columnName = _columnName;
+@synthesize isReadOnly = _isReadOnly;
 
 - (id)initWithFrame:(CGRect)frame
 {
