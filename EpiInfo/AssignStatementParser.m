@@ -67,6 +67,7 @@
 @property (nonatomic, retain) NSMutableDictionary *monthExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *yearsmathExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *yearExpr_memo;
+@property (nonatomic, retain) NSMutableDictionary *recordcountExpr_memo;
 @property (nonatomic, retain) NSMutableDictionary *dateValue_memo;
 @property (nonatomic, retain) NSMutableDictionary *dateLiteral_memo;
 @property (nonatomic, retain) NSMutableDictionary *sysdateExpr_memo;
@@ -139,6 +140,7 @@
         self.monthExpr_memo = [NSMutableDictionary dictionary];
         self.yearsmathExpr_memo = [NSMutableDictionary dictionary];
         self.yearExpr_memo = [NSMutableDictionary dictionary];
+        self.recordcountExpr_memo = [NSMutableDictionary dictionary];
         self.dateValue_memo = [NSMutableDictionary dictionary];
         self.dateLiteral_memo = [NSMutableDictionary dictionary];
         self.sysdateExpr_memo = [NSMutableDictionary dictionary];
@@ -186,6 +188,7 @@
     [_monthExpr_memo removeAllObjects];
     [_yearsmathExpr_memo removeAllObjects];
     [_yearExpr_memo removeAllObjects];
+    [_recordcountExpr_memo removeAllObjects];
     [_dateValue_memo removeAllObjects];
     [_dateLiteral_memo removeAllObjects];
     [_sysdateExpr_memo removeAllObjects];
@@ -397,6 +400,8 @@
         [self yearExpr_];
     } else if ([self speculate:^{ [self epiweekExpr_]; }]) {
         [self epiweekExpr_];
+    } else if ([self speculate:^{ [self recordcountExpr_]; }]) {
+        [self recordcountExpr_];
     } else {
         [self raise:@"No viable alternative found in rule 'datemathExpr'."];
     }
@@ -700,6 +705,58 @@
 
 - (void)yearExpr_ {
     [self parseRule:@selector(__yearExpr) withMemo:_yearExpr_memo];
+}
+
+- (void)__recordcountExpr {
+    
+    [self testAndThrow:(id)^{ return MATCHES_IGNORE_CASE(LS(1), @"recordcount"); }];
+    [self matchWord:YES];
+    [self execute:(id)^{
+        
+        NSString *formName = [[NSUserDefaults standardUserDefaults]
+                    stringForKey:@"sudFormName"];
+        int numberOfRecordsInFormTable = -1;
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
+        {
+            NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+            int tableAlreadyExists = 0;
+            if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+            {
+                NSString *selStmt = [NSString stringWithFormat:@"select count(name) as n from sqlite_master where name = '%@'", formName];
+                const char *query_stmt = [selStmt UTF8String];
+                sqlite3_stmt *statement;
+                if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+                {
+                    if (sqlite3_step(statement) == SQLITE_ROW)
+                        numberOfRecordsInFormTable = sqlite3_column_int(statement, 0);
+                }
+                sqlite3_finalize(statement);
+                if (numberOfRecordsInFormTable > 0)
+                {
+                    NSString *selStmt = [NSString stringWithFormat:@"select count(*) as n from %@", formName];
+                    const char *query_stmt = [selStmt UTF8String];
+                    sqlite3_stmt *statement;
+                    if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+                    {
+                        if (sqlite3_step(statement) == SQLITE_ROW)
+                            numberOfRecordsInFormTable = sqlite3_column_int(statement, 0);
+                    }
+                    sqlite3_finalize(statement);
+                }
+            }
+            sqlite3_close(epiinfoDB);
+        }
+        NSString *recCount = [NSString stringWithFormat:@"%d", numberOfRecordsInFormTable];
+        PUSH(recCount);
+        
+    }];
+    
+    [self fireDelegateSelector:@selector(parser:didMatchRecordcountExpr:)];
+}
+
+- (void)recordcountExpr_ {
+    [self parseRule:@selector(__recordcountExpr) withMemo:_recordcountExpr_memo];
 }
 
 - (void)__dateValue {

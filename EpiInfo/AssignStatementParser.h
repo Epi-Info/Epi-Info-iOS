@@ -1,5 +1,6 @@
 #import <PEGKit/PKParser.h>
 #import <CoreLocation/CoreLocation.h>
+#import "sqlite3.h"
 
 enum {
     ASSIGNSTATEMENT_TOKEN_KIND_STAR = 14,
@@ -15,6 +16,8 @@ enum {
 };
 
 @interface AssignStatementParser : PKParser <CLLocationManagerDelegate>
-
+{
+    sqlite3 *epiinfoDB;
+}
 @end
 
