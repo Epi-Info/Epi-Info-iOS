@@ -712,7 +712,10 @@
 //        }
 //        else
 //            [self setFieldsAndStringValues:[(DataEntryViewController *)rvc fieldsAndStringValues]];
-        
+        pageName = [[NSUserDefaults standardUserDefaults]
+                    stringForKey:@"pageName"];
+        [[NSUserDefaults standardUserDefaults] setObject:notf forKey:@"sudFormName"];
+
         [self setRootViewController:rvc];
         if ([[(DataEntryViewController *)self.rootViewController backgroundImage] tag] == 4)
         {
@@ -6530,7 +6533,7 @@
         {
             if([am.beforeAfter isEqualToString:@"before"])//check CM cond
             {
-                if (([am.element caseInsensitiveCompare:name] == NSOrderedSame) || ([am.name caseInsensitiveCompare:name] == NSOrderedSame)) //check for element match
+                if (([am.element caseInsensitiveCompare:name] == NSOrderedSame) || ([am.name caseInsensitiveCompare:name] == NSOrderedSame) || ([am.name caseInsensitiveCompare:[NSString stringWithFormat:@"page %@", name]] == NSOrderedSame)) //check for element match
                 {
                     if ([elmArray containsObject:am.element]) //check for elements list todo check elm array
                     {
