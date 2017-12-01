@@ -35,7 +35,7 @@
         [xButton addTarget:self action:@selector(removeSelfFromSuperview) forControlEvents:UIControlEventTouchUpInside];
 //        [banner addSubview:xButton];
         
-        UINavigationBar *lineListNavigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 8, banner.frame.size.width, banner.frame.size.height - 4)];
+        UINavigationBar *lineListNavigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, banner.frame.size.width, banner.frame.size.height - 4)];
         [lineListNavigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         [lineListNavigationBar setShadowImage:[UIImage new]];
         [lineListNavigationBar setTranslucent:YES];
