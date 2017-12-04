@@ -155,7 +155,10 @@
         [xButton addTarget:self action:@selector(confirmDismissal) forControlEvents:UIControlEventTouchUpInside];
 //        [orangeBanner addSubview:xButton];
         
-        UINavigationBar *formNavigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, orangeBanner.frame.size.width, orangeBanner.frame.size.height - 4)];
+        float formNavigationBarY = 0.0;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+            formNavigationBarY = 8.0;
+        UINavigationBar *formNavigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, formNavigationBarY, orangeBanner.frame.size.width, orangeBanner.frame.size.height - 4)];
         [formNavigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         [formNavigationBar setShadowImage:[UIImage new]];
         [formNavigationBar setTranslucent:YES];
