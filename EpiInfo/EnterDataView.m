@@ -4743,11 +4743,11 @@
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"14"])
             {
-                UIImageView *iv;
+                EpiInfoImageField *iv;
                 if (isCurrentPage)
                 {
-                    iv = [[UIImageView alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 60, 60)];
-                    [iv setImage:[UIImage imageNamed:@"iconCDC_for_image_field"]];
+                    iv = [[EpiInfoImageField alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 60, 60)];
+                    [iv setBackgroundImage:[UIImage imageNamed:@"iconCDC_for_image_field"] forState:UIControlStateNormal];
                     if (isCurrentPage)
                     {
                         if ([self isEnableName:epc.elementName])

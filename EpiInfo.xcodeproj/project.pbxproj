@@ -252,6 +252,7 @@
 		92867AC5183EAE6000CCC2B5 /* PoissonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92867AC3183EAE6000CCC2B5 /* PoissonNR.png */; };
 		928AF0F11DF09D91002BFEF8 /* AssignStatementParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 928AF0F01DF09D91002BFEF8 /* AssignStatementParser.m */; };
 		928F8816200FEA66001F3E03 /* iconCDC_for_image_field.png in Resources */ = {isa = PBXBuildFile; fileRef = 928F8815200FEA66001F3E03 /* iconCDC_for_image_field.png */; };
+		928F8819200FEF85001F3E03 /* EpiInfoImageField.m in Sources */ = {isa = PBXBuildFile; fileRef = 928F8818200FEF85001F3E03 /* EpiInfoImageField.m */; };
 		928FCEF219E5692000641A95 /* VHFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 928FCEF119E5692000641A95 /* VHFViewController.m */; };
 		928FCEF519E570B300641A95 /* VHFButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 928FCEF319E570B300641A95 /* VHFButton.png */; };
 		928FCEF619E570B300641A95 /* VHFButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 928FCEF419E570B300641A95 /* VHFButtonNR.png */; };
@@ -781,6 +782,8 @@
 		928AF0EF1DF09D91002BFEF8 /* AssignStatementParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignStatementParser.h; sourceTree = "<group>"; };
 		928AF0F01DF09D91002BFEF8 /* AssignStatementParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignStatementParser.m; sourceTree = "<group>"; };
 		928F8815200FEA66001F3E03 /* iconCDC_for_image_field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconCDC_for_image_field.png; sourceTree = "<group>"; };
+		928F8817200FEF85001F3E03 /* EpiInfoImageField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EpiInfoImageField.h; sourceTree = "<group>"; };
+		928F8818200FEF85001F3E03 /* EpiInfoImageField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EpiInfoImageField.m; sourceTree = "<group>"; };
 		928FCEF019E5692000641A95 /* VHFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHFViewController.h; sourceTree = "<group>"; };
 		928FCEF119E5692000641A95 /* VHFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHFViewController.m; sourceTree = "<group>"; };
 		928FCEF319E570B300641A95 /* VHFButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VHFButton.png; sourceTree = "<group>"; };
@@ -1571,6 +1574,8 @@
 				9266C53018466ED600739AF2 /* Checkbox.m */,
 				920CD0251EE4B30200415569 /* CheckButton.h */,
 				920CD0261EE4B30200415569 /* CheckButton.m */,
+				928F8817200FEF85001F3E03 /* EpiInfoImageField.h */,
+				928F8818200FEF85001F3E03 /* EpiInfoImageField.m */,
 				9266C5321846795000739AF2 /* YesNo.h */,
 				9266C5331846795000739AF2 /* YesNo.m */,
 				9266C5351846848800739AF2 /* NumberField.h */,
@@ -2122,6 +2127,7 @@
 				4AFD8571161F524E00FFBA65 /* PopulationSurveyViewController.m in Sources */,
 				4AFD8574161F531400FFBA65 /* PopulationSurveyView.m in Sources */,
 				4AFD8577161F563100FFBA65 /* SampleSizeAndPowerViewController.m in Sources */,
+				928F8819200FEF85001F3E03 /* EpiInfoImageField.m in Sources */,
 				92119A601923FBD3008155F7 /* EpiInfoViewController.m in Sources */,
 				921500851EAA39CF00E2CF9A /* PrivacyAndDisclaimerPresenter.m in Sources */,
 				4A409A6D161F6CFB0038F572 /* PopulationSurveySampleSizeCompute.m in Sources */,

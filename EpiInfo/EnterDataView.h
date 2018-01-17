@@ -9,6 +9,7 @@
 #import "EpiInfoTextField.h"
 #import "EpiInfoTextView.h"
 #import "Checkbox.h"
+#import "EpiInfoImageField.h"
 #import "YesNo.h"
 #import "NumberField.h"
 #import "PhoneNumberField.h"
