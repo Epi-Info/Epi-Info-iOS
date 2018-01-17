@@ -4747,7 +4747,7 @@
                 if (isCurrentPage)
                 {
                     iv = [[UIImageView alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 60, 60)];
-                    [iv setImage:[UIImage imageNamed:@"PhoneRH"]];
+                    [iv setImage:[UIImage imageNamed:@"iconCDC_for_image_field"]];
                     if (isCurrentPage)
                     {
                         if ([self isEnableName:epc.elementName])

@@ -251,6 +251,7 @@
 		92867AC4183EAE6000CCC2B5 /* Poisson.png in Resources */ = {isa = PBXBuildFile; fileRef = 92867AC2183EAE6000CCC2B5 /* Poisson.png */; };
 		92867AC5183EAE6000CCC2B5 /* PoissonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92867AC3183EAE6000CCC2B5 /* PoissonNR.png */; };
 		928AF0F11DF09D91002BFEF8 /* AssignStatementParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 928AF0F01DF09D91002BFEF8 /* AssignStatementParser.m */; };
+		928F8816200FEA66001F3E03 /* iconCDC_for_image_field.png in Resources */ = {isa = PBXBuildFile; fileRef = 928F8815200FEA66001F3E03 /* iconCDC_for_image_field.png */; };
 		928FCEF219E5692000641A95 /* VHFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 928FCEF119E5692000641A95 /* VHFViewController.m */; };
 		928FCEF519E570B300641A95 /* VHFButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 928FCEF319E570B300641A95 /* VHFButton.png */; };
 		928FCEF619E570B300641A95 /* VHFButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 928FCEF419E570B300641A95 /* VHFButtonNR.png */; };
@@ -779,6 +780,7 @@
 		92867AC3183EAE6000CCC2B5 /* PoissonNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PoissonNR.png; sourceTree = "<group>"; };
 		928AF0EF1DF09D91002BFEF8 /* AssignStatementParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignStatementParser.h; sourceTree = "<group>"; };
 		928AF0F01DF09D91002BFEF8 /* AssignStatementParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignStatementParser.m; sourceTree = "<group>"; };
+		928F8815200FEA66001F3E03 /* iconCDC_for_image_field.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconCDC_for_image_field.png; sourceTree = "<group>"; };
 		928FCEF019E5692000641A95 /* VHFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHFViewController.h; sourceTree = "<group>"; };
 		928FCEF119E5692000641A95 /* VHFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHFViewController.m; sourceTree = "<group>"; };
 		928FCEF319E570B300641A95 /* VHFButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VHFButton.png; sourceTree = "<group>"; };
@@ -1457,6 +1459,7 @@
 				92F520E31CD3BFAC0058F352 /* icon-76.png */,
 				92F520E41CD3BFAC0058F352 /* icon-80.png */,
 				92F520E51CD3BFAC0058F352 /* icon-87.png */,
+				928F8815200FEA66001F3E03 /* iconCDC_for_image_field.png */,
 				92F520E61CD3BFAC0058F352 /* icon-120.png */,
 				92F520E71CD3BFAC0058F352 /* icon-152.png */,
 				92F520F21CD3C0420058F352 /* icon-167.png */,
@@ -1988,6 +1991,7 @@
 				92095BDB1835645E00B7A0ED /* SpotlightR.png in Resources */,
 				92867AC5183EAE6000CCC2B5 /* PoissonNR.png in Resources */,
 				92C2BC5A1E857E880034F85B /* matched_pair_case_control.png in Resources */,
+				928F8816200FEA66001F3E03 /* iconCDC_for_image_field.png in Resources */,
 				92E42B261959DD9C0077EF41 /* hcagewho.csv in Resources */,
 				92C2BC4F1E857E880034F85B /* binomial_icon_6+.png in Resources */,
 				92130D081CE12496001040D6 /* ManageButtonWhite.png in Resources */,
