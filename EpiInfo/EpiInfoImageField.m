@@ -3,12 +3,28 @@
 //  EpiInfo
 //
 //  Created by John Copeland on 1/17/18.
-//  Copyright © 2018 John Copeland. All rights reserved.
 //
 
 #import "EpiInfoImageField.h"
 
 @implementation EpiInfoImageField
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    
+    if (self)
+    {
+        [self addTarget:self action:@selector(selfPressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
+
+    return self;
+}
+
+- (void)selfPressed:(UIButton *)sender
+{
+    NSLog(@"Image Button Pressed");
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.
