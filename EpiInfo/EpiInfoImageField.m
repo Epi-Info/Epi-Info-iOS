@@ -6,8 +6,12 @@
 //
 
 #import "EpiInfoImageField.h"
+#import "EnterDataView.h"
+#import "DataEntryViewController.h"
 
 @implementation EpiInfoImageField
+@synthesize columnName = _columnName;
+@synthesize isReadOnly = _isReadOnly;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -15,7 +19,11 @@
     
     if (self)
     {
+        uiipc = [[UIImagePickerController alloc] init];
+        [uiipc setSourceType:UIImagePickerControllerSourceTypeCamera];
+        [uiipc setDelegate:self];
         [self addTarget:self action:@selector(selfPressed:) forControlEvents:UIControlEventTouchUpInside];
+        imageGUID = @"";
     }
 
     return self;
@@ -24,6 +32,88 @@
 - (void)selfPressed:(UIButton *)sender
 {
     NSLog(@"Image Button Pressed");
+    [((EnterDataView *)[[self superview] superview]).rootViewController presentViewController:uiipc animated:NO completion:nil];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [((EnterDataView *)[[self superview] superview]).rootViewController dismissViewControllerAnimated:YES completion:nil];
+}
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [self setImage:(UIImage *)[info objectForKey:UIImagePickerControllerOriginalImage] forState:UIControlStateNormal];
+    [((EnterDataView *)[[self superview] superview]).rootViewController dismissViewControllerAnimated:YES completion:nil];
+    if ([imageGUID length] == 0)
+    {
+        imageGUID = CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL)));
+    }
+}
+
+- (NSString *)epiInfoControlValue
+{
+    return imageGUID;
+}
+
+- (UIImage *)epiInfoImageValue
+{
+    return [[self imageView] image];
+}
+
+- (void)assignValue:(NSString *)value
+{
+    imageGUID = [NSString stringWithString:value];
+    NSString *myFormName = [(EnterDataView *)[[self superview] superview] nameOfTheForm];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *imageFile = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:myFormName] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", imageGUID]];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:imageFile])
+    {
+        [self setImage:[UIImage imageNamed:imageFile] forState:UIControlStateNormal];
+    }
+}
+
+- (void)setIsEnabled:(BOOL)isEnabled
+{
+    [self setEnabled:isEnabled];
+    [self setUserInteractionEnabled:isEnabled];
+    [self setAlpha:0.5 + 0.5 * (int)isEnabled];
+    [(EnterDataView *)[[self superview] superview] setElementListArrayIsEnabledForElement:self.columnName andIsEnabled:isEnabled];
+}
+
+- (void)selfFocus
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [NSThread sleepForTimeInterval:0.1f];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([self isEnabled])
+                [self becomeFirstResponder];
+            
+            EnterDataView *myEdv = (EnterDataView *)[[self superview] superview];
+            
+            float yForBottom = [myEdv contentSize].height - [myEdv bounds].size.height;
+            if (yForBottom < 0.0)
+                yForBottom = 0.0;
+            float selfY = self.frame.origin.y - 80.0f;
+            
+            CGPoint pt = CGPointMake(0.0f, selfY);
+            if (selfY > yForBottom)
+                pt = CGPointMake(0.0f, yForBottom);
+            
+            [myEdv setContentOffset:pt animated:YES];
+        });
+    });
+}
+
+- (void)reset
+{
+    [self setImage:nil forState:UIControlStateNormal];
+    [self setIsEnabled:YES];
+    imageGUID = @"";
+}
+
+- (void)resetDoNotEnable
+{
+    [self setImage:nil forState:UIControlStateNormal];
+    imageGUID = @"";
 }
 
 /*

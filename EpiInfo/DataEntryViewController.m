@@ -764,6 +764,12 @@
             {
                 NSLog(@"Failed to open/create database");
             }
+            
+            NSString *imageDirectoryToRemove = [[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:lvSelected.text];
+            if ([[NSFileManager defaultManager] fileExistsAtPath:imageDirectoryToRemove])
+            {
+                [nsfm removeItemAtPath:imageDirectoryToRemove error:&nse];
+            }
         }
     }
     
