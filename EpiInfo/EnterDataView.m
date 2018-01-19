@@ -1297,7 +1297,6 @@
                                 NSData *binaryImageData = UIImagePNGRepresentation(imageToInsert);
                                 NSString *imageFileToWrite = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", imageGUID]];
                                 [binaryImageData writeToFile:imageFileToWrite atomically:YES];
-                                NSString *valuesClauseAddition = [NSString stringWithFormat:@"'%@'", imageGUID];
                                 valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", imageGUID]];
                                 [azureDictionary setObject:imageGUID forKey:[(EpiInfoImageField *)v columnName]];
                             }
@@ -1874,6 +1873,52 @@
                         [azureDictionary setObject:[(EpiInfoTextField *)v text] forKey:[(EpiInfoTextField *)v columnName]];
                     }
                 }
+                else if ([v isKindOfClass:[EpiInfoImageField class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(EpiInfoImageField *)v columnName]];
+                    if (![(EpiInfoImageField *)v epiInfoImageValue])
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
+                    }
+                    else
+                    {
+                        UIImage *imageToInsert = [(EpiInfoImageField *)v epiInfoImageValue];
+                        NSString *imageGUID = [(EpiInfoImageField *)v epiInfoControlValue];
+                        if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository"]])
+                        {
+                            [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository"] withIntermediateDirectories:NO attributes:nil error:nil];
+                        }
+                        if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository"]])
+                        {
+                            if (![[NSFileManager defaultManager] fileExistsAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName]])
+                            {
+                                [[NSFileManager defaultManager] createDirectoryAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] withIntermediateDirectories:NO attributes:nil error:nil];
+                            }
+                            if ([[NSFileManager defaultManager] fileExistsAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName]])
+                            {
+                                NSData *binaryImageData = UIImagePNGRepresentation(imageToInsert);
+                                NSString *imageFileToWrite = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", imageGUID]];
+                                [binaryImageData writeToFile:imageFileToWrite atomically:YES];
+                                insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", imageGUID]];
+                                [azureDictionary setObject:imageGUID forKey:[(EpiInfoImageField *)v columnName]];
+                            }
+                            else
+                            {
+                                insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
+                            }
+                        }
+                        else
+                        {
+                            insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
+                        }
+                    }
+                }
                 else if ([v isKindOfClass:[UppercaseTextField class]])
                 {
                     if (valuesClauseBegun)
@@ -2311,6 +2356,41 @@
                 }
                 else
                 {
+                    for (id key in dictionaryOfPages)
+                    {
+                        EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
+                        for (UIView *v in [[tempedv formCanvas] subviews])
+                        {
+                            if ([v isKindOfClass:[EpiInfoImageField class]])
+                            {
+                                if (![(EpiInfoImageField *)v epiInfoImageValue])
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    NSString *imageGUID = [(EpiInfoImageField *)v epiInfoControlValue];
+                                    if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository"]])
+                                    {
+                                        if ([[NSFileManager defaultManager] fileExistsAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName]])
+                                        {
+                                            NSString *imageFileToRemove = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", imageGUID]];
+                                            NSError *nse;
+                                            [[NSFileManager defaultManager] removeItemAtPath:imageFileToRemove error:&nse];
+                                        }
+                                        else
+                                        {
+                                            continue;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
+                                }
+                            }
+                        }
+                    }
                     [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: DELETE: %@ row deleted\n", [NSDate date], formName]];
                     // Replace deprecated UIAlertViews
 //                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete" message:@"Local database row deleted." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -5330,7 +5410,9 @@
             else if ([v isKindOfClass:[EpiInfoTextView class]])
                 [(EpiInfoTextView *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(EpiInfoTextView *)v columnName] lowercaseString]]];
             else if ([v isKindOfClass:[EpiInfoImageField class]])
+            {
                 [(EpiInfoImageField *)v assignValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(EpiInfoTextView *)v columnName] lowercaseString]]];
+            }
             else if ([v isKindOfClass:[Checkbox class]])
                 [(Checkbox *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(Checkbox *)v columnName] lowercaseString]]];
             else if ([v isKindOfClass:[YesNo class]])

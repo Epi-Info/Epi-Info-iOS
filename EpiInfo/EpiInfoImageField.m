@@ -67,7 +67,7 @@
     NSString *imageFile = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:myFormName] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", imageGUID]];
     if ([[NSFileManager defaultManager] fileExistsAtPath:imageFile])
     {
-        [self setImage:[UIImage imageNamed:imageFile] forState:UIControlStateNormal];
+        [self setImage:[UIImage imageWithContentsOfFile:imageFile] forState:UIControlStateNormal];
     }
 }
 
