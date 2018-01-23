@@ -12,6 +12,7 @@
 {
     UIImagePickerController *uiipc;
     NSString *imageGUID;
+    CGSize initialSize;
 }
 @property NSString *columnName;
 -(UIImage *)epiInfoImageValue;

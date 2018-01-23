@@ -19,6 +19,7 @@
     
     if (self)
     {
+        initialSize = frame.size;
         uiipc = [[UIImagePickerController alloc] init];
         [uiipc setSourceType:UIImagePickerControllerSourceTypeCamera];
         [uiipc setDelegate:self];
@@ -41,7 +42,13 @@
 }
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [self setImage:(UIImage *)[info objectForKey:UIImagePickerControllerOriginalImage] forState:UIControlStateNormal];
+    CGSize newSize = CGSizeMake(0.1f * [(UIImage *)[info objectForKey:UIImagePickerControllerOriginalImage] size].width, 0.1f * [(UIImage *)[info objectForKey:UIImagePickerControllerOriginalImage] size].height);
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [(UIImage *)[info objectForKey:UIImagePickerControllerOriginalImage] drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *smallerImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    [self setImage:smallerImage forState:UIControlStateNormal];
     [((EnterDataView *)[[self superview] superview]).rootViewController dismissViewControllerAnimated:YES completion:nil];
     if ([imageGUID length] == 0)
     {
@@ -114,6 +121,29 @@
 {
     [self setImage:nil forState:UIControlStateNormal];
     imageGUID = @"";
+}
+
+- (void)setImage:(UIImage *)image forState:(UIControlState)state
+{
+    if (image)
+    {
+        if (image.size.width > image.size.height)
+        {
+            float ratio = initialSize.width / image.size.width;
+            [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, initialSize.width, ratio * image.size.height)];
+        }
+        else
+        {
+            float ratio = initialSize.height / image.size.height;
+            [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, ratio * image.size.width, initialSize.height)];
+        }
+    }
+    else
+    {
+        [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, initialSize.width, initialSize.height)];
+    }
+    
+    [super setImage:image forState:state];
 }
 
 /*
