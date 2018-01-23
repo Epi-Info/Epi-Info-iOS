@@ -4873,7 +4873,7 @@
                 EpiInfoImageField *iv;
                 if (isCurrentPage)
                 {
-                    iv = [[EpiInfoImageField alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 60, 60)];
+                    iv = [[EpiInfoImageField alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 120, 120)];
                     [iv setColumnName:[attributeDict objectForKey:@"Name"]];
                     [iv setBackgroundImage:[UIImage imageNamed:@"iconCDC_for_image_field"] forState:UIControlStateNormal];
                     if (isCurrentPage)
@@ -4949,7 +4949,7 @@
                 if (isCurrentPage)
                 {
                     
-                    contentSizeHeight += 60;
+                    contentSizeHeight += 120;
                 }
                 
                 createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ text", commaOrParen, [attributeDict objectForKey:@"Name"]]];
