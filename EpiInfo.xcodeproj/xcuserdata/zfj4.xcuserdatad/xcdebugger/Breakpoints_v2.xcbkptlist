@@ -40,11 +40,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/DataEntryViewController.m"
-            timestampString = "538430119.451524"
+            timestampString = "538937088.4419661"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "476"
-            endingLineNumber = "476"
+            startingLineNumber = "477"
+            endingLineNumber = "477"
             landmarkName = "-viewDidLoad"
             landmarkType = "7">
          </BreakpointContent>
@@ -56,11 +56,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "538430119.452607"
+            timestampString = "538937088.442062"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "8169"
-            endingLineNumber = "8169"
+            startingLineNumber = "8171"
+            endingLineNumber = "8171"
             landmarkName = "-gotoFormField:tag:"
             landmarkType = "7">
          </BreakpointContent>
@@ -136,11 +136,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "538430119.462559"
+            timestampString = "538937088.442187"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1607"
-            endingLineNumber = "1607"
+            startingLineNumber = "1608"
+            endingLineNumber = "1608"
             landmarkName = "-submitButtonPressed"
             landmarkType = "7">
             <Locations>
@@ -152,11 +152,11 @@
                   moduleName = "EpiInfo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/EnterDataView.m"
-                  timestampString = "538430119.632134"
+                  timestampString = "538937088.570845"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1607"
-                  endingLineNumber = "1607"
+                  startingLineNumber = "1608"
+                  endingLineNumber = "1608"
                   offsetFromSymbolStart = "516">
                </Location>
                <Location
@@ -167,11 +167,11 @@
                   moduleName = "EpiInfo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/EnterDataView.m"
-                  timestampString = "538430119.634853"
+                  timestampString = "538937088.5722769"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1607"
-                  endingLineNumber = "1607"
+                  startingLineNumber = "1608"
+                  endingLineNumber = "1608"
                   offsetFromSymbolStart = "64">
                </Location>
                <Location
@@ -182,11 +182,11 @@
                   moduleName = "EpiInfo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/EnterDataView.m"
-                  timestampString = "538430119.637004"
+                  timestampString = "538937088.573809"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1607"
-                  endingLineNumber = "1607"
+                  startingLineNumber = "1608"
+                  endingLineNumber = "1608"
                   offsetFromSymbolStart = "36">
                </Location>
             </Locations>
@@ -199,11 +199,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "538430119.463798"
+            timestampString = "538937088.442247"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1599"
-            endingLineNumber = "1599"
+            startingLineNumber = "1600"
+            endingLineNumber = "1600"
             landmarkName = "-submitButtonPressed"
             landmarkType = "7">
          </BreakpointContent>
@@ -215,11 +215,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/DataEntryViewController.m"
-            timestampString = "538430119.4650739"
+            timestampString = "538937088.442305"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "769"
-            endingLineNumber = "769"
+            startingLineNumber = "770"
+            endingLineNumber = "770"
             landmarkName = "-confirmDeleteFormPressed:"
             landmarkType = "7">
          </BreakpointContent>

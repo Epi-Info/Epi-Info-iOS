@@ -6,6 +6,7 @@
 //
 
 //#import "QSEpiInfoService.h"
+#import <Foundation/Foundation.h>
 #import "DataEntryViewController.h"
 #import "ConverterMethods.h"
 #import "EpiInfoLogManager.h"
@@ -2048,6 +2049,8 @@
     NSDate *dateObject = [NSDate date];
     BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
     
+    BOOL formHasImages = NO;
+    
     if (!mailComposerShown)
     {
         NSString *userPassword;
@@ -2071,6 +2074,13 @@
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"]])
         {
+            if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository"]])
+            {
+                if ([[NSFileManager defaultManager] fileExistsAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:edv.formName]])
+                {
+                    formHasImages = YES;
+                }
+            }
             NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
             if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
             {
@@ -2471,7 +2481,7 @@
             (void) CCCryptorRelease(thisEncipher);
             thisEncipher = NULL;
         }
-
+        
         if (result == kCCSuccess)
         {
             MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
@@ -2483,6 +2493,14 @@
             if (bufferPtr)
                 free(bufferPtr);
             [composer addAttachmentData:[NSData dataWithContentsOfFile:docFile] mimeType:@"text/plain" fileName:[edv.formName stringByAppendingString:@".epi7"]];
+            if (formHasImages)
+            {
+                NSArray *ls = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:edv.formName] error:nil];
+                for (id file in ls)
+                {
+                    [composer addAttachmentData:[NSData dataWithContentsOfFile:[[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:edv.formName] stringByAppendingString:[NSString stringWithFormat:@"/%@", file]]] mimeType:@"image/jpeg" fileName:(NSString *)file];
+                }
+            }
             [composer setSubject:@"Epi Info Data"];
             [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
             [self presentViewController:composer animated:YES completion:^(void){
@@ -2503,6 +2521,14 @@
         MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
         [composer setMailComposeDelegate:self];
         [composer addAttachmentData:[NSData dataWithContentsOfFile:docFile] mimeType:@"text/plain" fileName:[edv.formName stringByAppendingString:@".epi7"]];
+        if (formHasImages)
+        {
+            NSArray *ls = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:edv.formName] error:nil];
+            for (id file in ls)
+            {
+                [composer addAttachmentData:[NSData dataWithContentsOfFile:[[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:edv.formName] stringByAppendingString:[NSString stringWithFormat:@"/%@", file]]] mimeType:@"image/jpeg" fileName:(NSString *)file];
+            }
+        }
         [composer setSubject:@"Epi Info Data"];
         [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
         [self presentViewController:composer animated:YES completion:^(void){

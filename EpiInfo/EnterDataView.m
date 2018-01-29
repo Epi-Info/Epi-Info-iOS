@@ -1294,8 +1294,9 @@
                             }
                             if ([[NSFileManager defaultManager] fileExistsAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName]])
                             {
-                                NSData *binaryImageData = UIImagePNGRepresentation(imageToInsert);
-                                NSString *imageFileToWrite = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", imageGUID]];
+//                                NSData *binaryImageData = UIImagePNGRepresentation(imageToInsert);
+                                NSData *binaryImageData = UIImageJPEGRepresentation(imageToInsert, 0.9f);
+                                NSString *imageFileToWrite = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.jpg", imageGUID]];
                                 [binaryImageData writeToFile:imageFileToWrite atomically:YES];
                                 valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", imageGUID]];
                                 [azureDictionary setObject:imageGUID forKey:[(EpiInfoImageField *)v columnName]];
@@ -1902,8 +1903,9 @@
                             }
                             if ([[NSFileManager defaultManager] fileExistsAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName]])
                             {
-                                NSData *binaryImageData = UIImagePNGRepresentation(imageToInsert);
-                                NSString *imageFileToWrite = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", imageGUID]];
+//                                NSData *binaryImageData = UIImagePNGRepresentation(imageToInsert);
+                                NSData *binaryImageData = UIImageJPEGRepresentation(imageToInsert, 0.9f);
+                                NSString *imageFileToWrite = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.jpg", imageGUID]];
                                 [binaryImageData writeToFile:imageFileToWrite atomically:YES];
                                 insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", imageGUID]];
                                 [azureDictionary setObject:imageGUID forKey:[(EpiInfoImageField *)v columnName]];
@@ -2374,7 +2376,7 @@
                                     {
                                         if ([[NSFileManager defaultManager] fileExistsAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName]])
                                         {
-                                            NSString *imageFileToRemove = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", imageGUID]];
+                                            NSString *imageFileToRemove = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.jpg", imageGUID]];
                                             NSError *nse;
                                             [[NSFileManager defaultManager] removeItemAtPath:imageFileToRemove error:&nse];
                                         }

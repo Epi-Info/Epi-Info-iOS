@@ -71,7 +71,7 @@
     imageGUID = [NSString stringWithString:value];
     NSString *myFormName = [(EnterDataView *)[[self superview] superview] nameOfTheForm];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *imageFile = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:myFormName] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", imageGUID]];
+    NSString *imageFile = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:myFormName] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.jpg", imageGUID]];
     if ([[NSFileManager defaultManager] fileExistsAtPath:imageFile])
     {
         [self setImage:[UIImage imageWithContentsOfFile:imageFile] forState:UIControlStateNormal];
