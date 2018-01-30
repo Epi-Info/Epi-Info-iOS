@@ -4950,7 +4950,7 @@
                 
                 if (isCurrentPage)
                 {
-                    
+                    [self.dictionaryOfFields setObject:iv forKey:[attributeDict objectForKey:@"Name"]];
                     contentSizeHeight += 120;
                 }
                 

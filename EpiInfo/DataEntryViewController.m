@@ -2363,7 +2363,11 @@
                                         stringValue = [NSString stringWithFormat:@"%d", stringValueIntValue - 0];
                                     }
                                 }
+                                if ([controlField isKindOfClass:[EpiInfoImageField class]])
+                                    [xmlFileText appendString:@"F:\\ImagesFromImageCollectionForm\\"];
                                 [xmlFileText appendString:stringValue];
+                                if ([controlField isKindOfClass:[EpiInfoImageField class]])
+                                    [xmlFileText appendString:@".jpg"];
                                 [xmlFileText appendString:@"</"];
                                 [xmlFileText appendString:@"ResponseDetail"];
                                 [xmlFileText appendString:@">"];
