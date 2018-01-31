@@ -2364,7 +2364,10 @@
                                     }
                                 }
                                 if ([controlField isKindOfClass:[EpiInfoImageField class]])
-                                    [xmlFileText appendString:@"F:\\ImagesFromImageCollectionForm\\"];
+                                {
+                                    [xmlFileText appendString:@"EpiInfo\\Images\\"];
+                                    [xmlFileText appendString:[NSString stringWithFormat:@"%@\\", edv.formName]];
+                                }
                                 [xmlFileText appendString:stringValue];
                                 if ([controlField isKindOfClass:[EpiInfoImageField class]])
                                     [xmlFileText appendString:@".jpg"];
