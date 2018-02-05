@@ -1543,6 +1543,8 @@
     NSDate *dateObject = [NSDate date];
     BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
     
+    BOOL formHasImages = NO;
+
     NSString *userPassword;
     for (UIView *v in [[sender superview] subviews])
         if ([v isKindOfClass:[UITextField class]])
@@ -1564,6 +1566,13 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"]])
     {
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository"]])
+        {
+            if ([[NSFileManager defaultManager] fileExistsAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:edv.formName]])
+            {
+                formHasImages = YES;
+            }
+        }
         NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
         if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
         {
