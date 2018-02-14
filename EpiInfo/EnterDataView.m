@@ -701,6 +701,7 @@
 - (id)initWithFrame:(CGRect)frame AndURL:(NSURL *)url AndRootViewController:(UIViewController *)rvc AndNameOfTheForm:(NSString *)notf AndPageToDisplay:(int)page
 {
     self.fieldsAndStringValues = [(DataEntryViewController *)rvc fieldsAndStringValues];
+    [self setRootViewController:rvc];
     self = [self initWithFrame:frame AndURL:url AndNameOfTheForm:(NSString *)notf AndPageToDisplay:page];
     if (self)
     {
@@ -3028,8 +3029,21 @@
     
     ElementsModel *epc = [[ElementsModel alloc]init];
     
-    
-    
+    if ([elementName isEqualToString:@"Template"])
+    {
+        if ([[attributeDict objectForKey:@"Level"] isEqualToString:@"Project"] && ![(DataEntryViewController *)self.rootViewController didShowProjectTemplateWarning])
+        {
+            NSLog(@"THIS IS A PROJECT TEMPLATE!!!!");
+            UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Warning" message:@"This form was created with a Project Template. Forms should be loaded to the device with Form Templates." preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                [(DataEntryViewController *)self.rootViewController setDidShowProjectTemplateWarning:YES];
+            }];
+            [alertC addAction:yesAction];
+            [(DataEntryViewController *)self.rootViewController presentViewController:alertC animated:YES completion:nil];
+            [(DataEntryViewController *)self.rootViewController setDidShowProjectTemplateWarning:YES];
+        }
+    }
+
     NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
     [nsnf setMaximumFractionDigits:6];
     
@@ -3292,7 +3306,7 @@
                 }
                 
             }
-            
+
             if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"1"])
             {
                 EpiInfoTextField *tf;

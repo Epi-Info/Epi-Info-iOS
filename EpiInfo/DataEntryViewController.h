@@ -70,6 +70,7 @@
 }
 @property NSMutableDictionary *legalValuesDictionary;
 @property FieldsAndStringValues *fieldsAndStringValues;
+@property BOOL didShowProjectTemplateWarning;
 -(UIButton *)openButton;
 -(void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID;
 -(void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID OnEnterDataView:(UIView *)onEdv;

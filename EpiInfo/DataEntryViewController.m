@@ -30,6 +30,7 @@
 //@synthesize epiinfoService = _epiinfoService;
 @synthesize legalValuesDictionary = _legalValuesDictionary;
 @synthesize fieldsAndStringValues = _fieldsAndStringValues;
+@synthesize didShowProjectTemplateWarning = _didShowProjectTemplateWarning;
 
 - (NSMutableArray *)formNavigationItems
 {
@@ -810,6 +811,7 @@
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
         {
+            [self setDidShowProjectTemplateWarning:NO];
             [pickerLabel setHidden:YES];
             [lv setHidden:YES];
             [openButton setHidden:YES];
