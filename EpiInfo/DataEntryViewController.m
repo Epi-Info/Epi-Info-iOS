@@ -1812,6 +1812,25 @@
                         else
                         {
                             NSString *stringValue = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)];
+                            // New code for correcting single and double quote characters
+                            NSMutableArray *eightytwoeighteens = [[NSMutableArray alloc] init];
+                            for (int i = 0; i < stringValue.length; i++)
+                            {
+                                if ([stringValue characterAtIndex:i] == 8218)
+                                    [eightytwoeighteens addObject:[NSNumber numberWithInteger:i]];
+                            }
+                            for (int i = (int)eightytwoeighteens.count - 1; i >= 0; i--)
+                            {
+                                NSNumber *num = [eightytwoeighteens objectAtIndex:i];
+                                stringValue = [stringValue stringByReplacingCharactersInRange:NSMakeRange([num integerValue], 1) withString:@""];
+                            }
+                            if ([eightytwoeighteens count] > 0)
+                            {
+                                if ([stringValue containsString:[NSString stringWithFormat:@"%c%c", '\304', '\364']])
+                                    stringValue = [stringValue stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%c%c", '\304', '\364'] withString:@"'"];
+                                if ([stringValue containsString:[NSString stringWithFormat:@"%c%c", '\304', '\371']])
+                                    stringValue = [stringValue stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%c%c", '\304', '\371'] withString:@"\""];
+                            }
                             @try {
                                 NSDateFormatter *nsdf = [[NSDateFormatter alloc] init];
                                 if (dmy)
@@ -2327,6 +2346,25 @@
                             else
                             {
                                 NSString *stringValue = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)];
+                                // New code for correcting single and double quote characters
+                                NSMutableArray *eightytwoeighteens = [[NSMutableArray alloc] init];
+                                for (int i = 0; i < stringValue.length; i++)
+                                {
+                                    if ([stringValue characterAtIndex:i] == 8218)
+                                        [eightytwoeighteens addObject:[NSNumber numberWithInteger:i]];
+                                }
+                                for (int i = (int)eightytwoeighteens.count - 1; i >= 0; i--)
+                                {
+                                    NSNumber *num = [eightytwoeighteens objectAtIndex:i];
+                                    stringValue = [stringValue stringByReplacingCharactersInRange:NSMakeRange([num integerValue], 1) withString:@""];
+                                }
+                                if ([eightytwoeighteens count] > 0)
+                                {
+                                    if ([stringValue containsString:[NSString stringWithFormat:@"%c%c", '\304', '\364']])
+                                        stringValue = [stringValue stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%c%c", '\304', '\364'] withString:@"'"];
+                                    if ([stringValue containsString:[NSString stringWithFormat:@"%c%c", '\304', '\371']])
+                                        stringValue = [stringValue stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%c%c", '\304', '\371'] withString:@"\""];
+                                }
                                 @try {
                                     NSDateFormatter *nsdf = [[NSDateFormatter alloc] init];
                                     if (dmy)
