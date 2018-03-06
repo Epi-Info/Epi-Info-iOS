@@ -41,6 +41,11 @@
     self = [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, 300, 180)];
     if (self) {
         // Initialization code
+        if (@available(iOS 11.0, *)) {
+            [self.textFieldToUpdate setSmartQuotesType:UITextSmartQuotesTypeNo];
+        } else {
+            // Fallback on earlier versions
+        }
         [self setSelectedIndex:[NSNumber numberWithInt:0]];
     }
     return self;

@@ -18,6 +18,11 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        if (@available(iOS 11.0, *)) {
+            [self setSmartQuotesType:UITextSmartQuotesTypeNo];
+        } else {
+            // Fallback on earlier versions
+        }
     }
     return self;
 }
