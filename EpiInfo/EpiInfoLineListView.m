@@ -184,6 +184,26 @@
                         break;
                     rowDisplay = [rowDisplay stringByAppendingString:@" | "];
                 }
+                // Code for correcting bad single and double quote characters already in SQLite
+                NSMutableArray *eightytwoeighteens = [[NSMutableArray alloc] init];
+                for (int i = 0; i < rowDisplay.length; i++)
+                {
+                    if ([rowDisplay characterAtIndex:i] == 8218)
+                        [eightytwoeighteens addObject:[NSNumber numberWithInteger:i]];
+                }
+                for (int i = (int)eightytwoeighteens.count - 1; i >= 0; i--)
+                {
+                    NSNumber *num = [eightytwoeighteens objectAtIndex:i];
+                    rowDisplay = [rowDisplay stringByReplacingCharactersInRange:NSMakeRange([num integerValue], 1) withString:@""];
+                }
+                if ([eightytwoeighteens count] > 0)
+                {
+                    if ([rowDisplay containsString:[NSString stringWithFormat:@"%c%c", '\304', '\364']])
+                        rowDisplay = [rowDisplay stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%c%c", '\304', '\364'] withString:@"'"];
+                    if ([rowDisplay containsString:[NSString stringWithFormat:@"%c%c", '\304', '\371']])
+                        rowDisplay = [rowDisplay stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%c%c", '\304', '\371'] withString:@"\""];
+                }
+                //
                 [dataLines addObject:rowDisplay];
             }
         }

@@ -203,6 +203,26 @@
         [self reset];
         return;
     }
+    // Code for correcting bad single and double quote characters already in SQLite
+    NSMutableArray *eightytwoeighteens = [[NSMutableArray alloc] init];
+    for (int i = 0; i < value.length; i++)
+    {
+        if ([value characterAtIndex:i] == 8218)
+            [eightytwoeighteens addObject:[NSNumber numberWithInteger:i]];
+    }
+    for (int i = (int)eightytwoeighteens.count - 1; i >= 0; i--)
+    {
+        NSNumber *num = [eightytwoeighteens objectAtIndex:i];
+        value = [value stringByReplacingCharactersInRange:NSMakeRange([num integerValue], 1) withString:@""];
+    }
+    if ([eightytwoeighteens count] > 0)
+    {
+        if ([value containsString:[NSString stringWithFormat:@"%c%c", '\304', '\364']])
+            value = [value stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%c%c", '\304', '\364'] withString:@"'"];
+        if ([value containsString:[NSString stringWithFormat:@"%c%c", '\304', '\371']])
+            value = [value stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%c%c", '\304', '\371'] withString:@"\""];
+    }
+    //
     [self setPicked:value];
     [self setFormFieldValue:value];
     [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
