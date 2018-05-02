@@ -31,6 +31,11 @@
         sqlStatementFieldBackground = [[UIView alloc] initWithFrame:CGRectMake(2, 2, frame.size.width - 4.0, 128)];
         [sqlStatementFieldBackground setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
         sqlStatementField = [[UITextView alloc] initWithFrame:CGRectMake(2, 2, sqlStatementFieldBackground.frame.size.width - 4.0, sqlStatementFieldBackground.frame.size.height - 4.0)];
+        if (@available(iOS 11.0, *)) {
+            [sqlStatementField setSmartQuotesType:UITextSmartQuotesTypeNo];
+        } else {
+            // Fallback on earlier versions
+        }
         [sqlStatementField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
         [sqlStatementField setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
         [sqlStatementField setAutocorrectionType:UITextAutocorrectionTypeNo];
@@ -65,6 +70,33 @@
         
         recentSubmissionsIndex = 0;
         recentSubmissions = [[NSMutableArray alloc] init];
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
+        {
+            NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+            
+            if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+            {
+                NSString *selStmt = @"select sql_statement from __sqlite_recall_table__";
+                const char *query_stmt = [selStmt UTF8String];
+                sqlite3_stmt *statement;
+                if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+                {
+                    while (sqlite3_step(statement) == SQLITE_ROW)
+                    {
+                        [recentSubmissions addObject:[NSString  stringWithFormat:@"%s", sqlite3_column_text(statement, 0)]];
+                    }
+                }
+                else
+                {
+                    //
+                }
+                sqlite3_finalize(statement);
+            }
+            sqlite3_close(epiinfoDB);
+            recentSubmissionsIndex = (int)[recentSubmissions count] - 1;
+        }
     }
     
     return self;
@@ -773,6 +805,59 @@
         }];
         [alertC addAction:okAction];
         [[[[[UIApplication sharedApplication] delegate] window] rootViewController] presentViewController:alertC animated:YES completion:nil];
+    }
+}
+
+- (void)dealloc
+{
+    NSLog(@"Deallocating!");
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
+    {
+        NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+        
+        if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+        {
+            char *errMsg;
+            NSString *sqlStmt = @"drop table __sqlite_recall_table__";
+            const char *sql_stmt = [sqlStmt UTF8String];
+            if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) == SQLITE_OK)
+            {
+                //
+            }
+            else
+            {
+                //
+            }
+        }
+        if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+        {
+            char *errMsg;
+            NSString *sqlStmt = @"create table __sqlite_recall_table__(sql_statement text)";
+            const char *sql_stmt = [sqlStmt UTF8String];
+            if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) == SQLITE_OK)
+            {
+                for (int i = MAX(0, (int)recentSubmissions.count - 100); i < recentSubmissions.count; i++)
+                {
+                    NSString *recstmt = [recentSubmissions objectAtIndex:i];
+                    sqlStmt = [NSString stringWithFormat:@"insert into __sqlite_recall_table__ values('%@')", recstmt];
+                    const char *sql_stmt = [sqlStmt UTF8String];
+                    if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) == SQLITE_OK)
+                    {
+                        //
+                    }
+                    else
+                    {
+                        //
+                    }
+                }
+            }
+            else
+            {
+                //
+            }
+        }
+        sqlite3_close(epiinfoDB);
     }
 }
 /*
