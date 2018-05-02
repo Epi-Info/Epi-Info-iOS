@@ -840,7 +840,7 @@
                 for (int i = MAX(0, (int)recentSubmissions.count - 100); i < recentSubmissions.count; i++)
                 {
                     NSString *recstmt = [recentSubmissions objectAtIndex:i];
-                    sqlStmt = [NSString stringWithFormat:@"insert into __sqlite_recall_table__ values('%@')", recstmt];
+                    sqlStmt = [NSString stringWithFormat:@"insert into __sqlite_recall_table__ values('%@')", [recstmt stringByReplacingOccurrencesOfString:@"'" withString:@"''"]];
                     const char *sql_stmt = [sqlStmt UTF8String];
                     if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) == SQLITE_OK)
                     {
