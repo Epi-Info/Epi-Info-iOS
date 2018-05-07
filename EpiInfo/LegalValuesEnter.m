@@ -18,7 +18,14 @@
 
 - (void)setListOfValues:(NSArray *)lov
 {
-    listOfValues = [NSMutableArray arrayWithArray:lov];
+    NSMutableArray *mlov = [[NSMutableArray alloc] initWithCapacity:lov.count];
+    for (int i = 0; i < lov.count; i++)
+    {
+        NSMutableString *mstr = [[NSMutableString alloc] initWithString:[lov objectAtIndex:i]];
+        CFStringTransform((__bridge CFMutableStringRef)mstr, NULL, kCFStringTransformStripCombiningMarks, NO);
+        [mlov setObject:[NSString stringWithString:mstr] atIndexedSubscript:i];
+    }
+    listOfValues = [NSMutableArray arrayWithArray:mlov];
     [self.picker reloadAllComponents];
 }
 - (NSMutableArray *)listOfValues
