@@ -70,7 +70,11 @@
     } @finally {
         //
     }
-    
+
+    NSMutableString *mstr = [[NSMutableString alloc] initWithString:[self text]];
+    CFStringTransform((__bridge CFMutableStringRef)mstr, NULL, kCFStringTransformStripCombiningMarks, NO);
+    [self setText:[NSString stringWithString:mstr]];
+
     return retVal;
 }
 
