@@ -231,4 +231,6 @@
 -(void)clearButtonPressedAction;
 
 -(void)syncPageDots;
+
+-(NSString *)pageName;
 @end

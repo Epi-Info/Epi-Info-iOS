@@ -213,6 +213,11 @@
     return formCheckCodeString;
 }
 
+- (NSString *)pageName
+{
+    return pageName;
+}
+
 - (void)recordUIDForUpdateLogThreadMethod
 {
     while (YES)
@@ -608,7 +613,7 @@
         [currentEDV onLoadEleCheck];
         if (isAdvancing)
         {
-            [currentEDV checkElements:pageName from:@"before" page:pageName];
+            [currentEDV checkElements:currentEDV.pageName from:@"before" page:pageName];
             [currentEDV checkElements:currentEDV.myTextPageName from:@"before" page:currentEDV.myTextPageName];
         }
         if ([currentEDV myOrangeBanner] == nil)
