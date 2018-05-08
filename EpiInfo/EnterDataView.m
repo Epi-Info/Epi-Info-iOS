@@ -4280,7 +4280,7 @@
                     else
                         fontsize = 24.0;
                     [elementLabel setFrame:CGRectMake(60, contentSizeHeight, fieldWidth, 40)];
-                    while ([elementLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]}].width > 2.0 * fieldWidth)
+                    while ([elementLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]}].width > 2.0 * (fieldWidth - 18))
                         fontsize -= 0.1;
                     [elementLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]];
                     
