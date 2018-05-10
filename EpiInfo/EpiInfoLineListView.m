@@ -177,7 +177,7 @@
                         continue;
                     }
                     else
-                        rowDisplay = [rowDisplay stringByAppendingString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)]];
+                        rowDisplay = [rowDisplay stringByAppendingString:[NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]]];
                     i++;
                     j++;
                     if (j >= columsToDisplay)

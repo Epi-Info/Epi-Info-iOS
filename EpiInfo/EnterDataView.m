@@ -5401,7 +5401,7 @@
                         i++;
                         continue;
                     }
-                    [queriedColumnsAndValues setObject:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] forKey:[columnName lowercaseString]];
+                    [queriedColumnsAndValues setObject:[NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]] forKey:[columnName lowercaseString]];
                     i++;
                 }
                 break;
