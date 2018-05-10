@@ -85,7 +85,7 @@
                 {
                     while (sqlite3_step(statement) == SQLITE_ROW)
                     {
-                        [recentSubmissions addObject:[NSString  stringWithFormat:@"%s", sqlite3_column_text(statement, 0)]];
+                        [recentSubmissions addObject:[NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 0)] cStringUsingEncoding:NSMacOSRomanStringEncoding]]];
                     }
                 }
                 else

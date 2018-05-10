@@ -315,7 +315,7 @@
                     }
                     else
                     {
-                        NSString *rslt = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 0)];
+                        NSString *rslt = [NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 0)] cStringUsingEncoding:NSMacOSRomanStringEncoding]];
                         [outcomeArray addObject:rslt];
                     }
                     if (!sqlite3_column_text(statement, 1))
@@ -324,7 +324,7 @@
                     }
                     else
                     {
-                        NSString *rslt = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 1)];
+                        NSString *rslt = [NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 1)] cStringUsingEncoding:NSMacOSRomanStringEncoding]];
                         [exposureArray addObject:rslt];
                     }
                 }

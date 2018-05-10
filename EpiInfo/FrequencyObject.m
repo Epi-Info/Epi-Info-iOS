@@ -203,7 +203,7 @@
                         [dataArray addObject:[NSNull null]];
                         continue;
                     }
-                    NSString *rslt = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 0)];
+                    NSString *rslt = [NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 0)] cStringUsingEncoding:NSMacOSRomanStringEncoding]];
                     [dataArray addObject:rslt];
                 }
             }
