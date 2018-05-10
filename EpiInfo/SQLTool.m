@@ -432,7 +432,7 @@
                                     [arrayOfWidths addObject:[NSNumber numberWithFloat:cellWidth]];
                                     totalWidthOfResults += [(NSNumber *)[arrayOfWidths lastObject] intValue];
                                 }
-                                [rowArray addObject:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)]];
+                                [rowArray addObject:[NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]]];
                                 i++;
                             }
                             firstRow = NO;

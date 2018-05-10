@@ -1713,7 +1713,7 @@
                         }
                         else if ([[edv.dictionaryOfCommentLegals objectForKey:columnName] isKindOfClass:[CommentLegal class]])
                         {
-                            NSString *dataValue = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)];
+                            NSString *dataValue = [NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]];
                             if ([dataValue isEqualToString:@"(null)"])
                             {
                                 [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
@@ -1766,7 +1766,7 @@
                         }
                         else if (sqlite3_column_type(statement, i) == 2)
                         {
-                            NSString *value = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)];
+                            NSString *value = [NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]];
                             
                             NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
                             [nsnf setMaximumFractionDigits:6];
@@ -1811,7 +1811,7 @@
                         }
                         else
                         {
-                            NSString *stringValue = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)];
+                            NSString *stringValue = [NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]];
                             // New code for correcting single and double quote characters
                             NSMutableArray *eightytwoeighteens = [[NSMutableArray alloc] init];
                             for (int i = 0; i < stringValue.length; i++)
@@ -1961,7 +1961,7 @@
     size_t totalBytesWritten = 0;
     uint8_t *ptr;
     
-    NSData *plainText = [xmlFileText dataUsingEncoding:NSASCIIStringEncoding];
+    NSData *plainText = [xmlFileText dataUsingEncoding:NSUTF8StringEncoding];
 
     plainTextBufferSize = [plainText length];
     bufferPtrSize = CCCryptorGetOutputLength(thisEncipher, plainTextBufferSize, true);
@@ -2247,7 +2247,7 @@
                             }
                             else if ([[edv.dictionaryOfCommentLegals objectForKey:columnName] isKindOfClass:[CommentLegal class]])
                             {
-                                NSString *dataValue = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)];
+                                NSString *dataValue = [NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]];
                                 if ([dataValue isEqualToString:@"(null)"])
                                 {
                                     [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
@@ -2300,7 +2300,7 @@
                             }
                             else if (sqlite3_column_type(statement, i) == 2)
                             {
-                                NSString *value = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)];
+                                NSString *value = [NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]];
                                 
                                 NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
                                 [nsnf setMaximumFractionDigits:6];
@@ -2345,7 +2345,7 @@
                             }
                             else
                             {
-                                NSString *stringValue = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)];
+                                NSString *stringValue = [NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]];
                                 // New code for correcting single and double quote characters
                                 NSMutableArray *eightytwoeighteens = [[NSMutableArray alloc] init];
                                 for (int i = 0; i < stringValue.length; i++)
@@ -2503,7 +2503,7 @@
         size_t totalBytesWritten = 0;
         uint8_t *ptr;
         
-        NSData *plainText = [xmlFileText dataUsingEncoding:NSASCIIStringEncoding];
+        NSData *plainText = [xmlFileText dataUsingEncoding:NSUTF8StringEncoding];
         
         plainTextBufferSize = [plainText length];
         bufferPtrSize = CCCryptorGetOutputLength(thisEncipher, plainTextBufferSize, true);
@@ -2621,7 +2621,7 @@
                         if ([[columnName lowercaseString] isEqualToString:@"globalrecordid"])
                         {
                             if (!idAlreadyAdded)
-                                [azureDictionary setObject:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] forKey:@"id"];
+                                [azureDictionary setObject:[NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]]forKey:@"id"];
                             idAlreadyAdded = YES;
                         }
                         i++;
@@ -2654,13 +2654,13 @@
                                 int index = 0;
                                 for (int j = 0; j < nsma.count; j++)
                                 {
-                                    if ([[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] isEqualToString:(NSString *)[nsma objectAtIndex:j]])
+                                    if ([[NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]] isEqualToString:(NSString *)[nsma objectAtIndex:j]])
                                         index = j;
                                 }
                                 [azureDictionary setObject:[NSString stringWithFormat:@"%d", index] forKey:columnName];
                             }
                             else
-                                [azureDictionary setObject:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] forKey:columnName];
+                                [azureDictionary setObject:[NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]] forKey:columnName];
                             if ([(NSString *)[azureDictionary objectForKey:columnName] isEqualToString:@"(null)"])
                                 [azureDictionary removeObjectForKey:columnName];
                         }

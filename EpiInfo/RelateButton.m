@@ -888,7 +888,7 @@
                             }
                             else if (sqlite3_column_type(statement, i) == 2)
                             {
-                                NSString *value = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)];
+                                NSString *value = [NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]];
                                 
                                 NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
                                 [nsnf setMaximumFractionDigits:6];
@@ -916,7 +916,7 @@
                             }
                             else
                             {
-                                NSString *stringValue = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)];
+                                NSString *stringValue = [NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]];
                                 @try {
                                     NSDateFormatter *nsdf = [[NSDateFormatter alloc] init];
                                     if (dmy)
@@ -998,7 +998,7 @@
         size_t totalBytesWritten = 0;
         uint8_t *ptr;
         
-        NSData *plainText = [xmlFileText dataUsingEncoding:NSASCIIStringEncoding];
+        NSData *plainText = [xmlFileText dataUsingEncoding:NSUTF8StringEncoding];
         
         plainTextBufferSize = [plainText length];
         bufferPtrSize = CCCryptorGetOutputLength(thisEncipher, plainTextBufferSize, true);
