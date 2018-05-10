@@ -50,10 +50,6 @@
     BOOL retVal = [super resignFirstResponder];
     [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
 
-    NSMutableString *mstr = [[NSMutableString alloc] initWithString:[self text]];
-    CFStringTransform((__bridge CFMutableStringRef)mstr, NULL, kCFStringTransformStripCombiningMarks, NO);
-    [self setText:[NSString stringWithString:mstr]];
-
     return retVal;
 }
 
