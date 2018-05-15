@@ -7,6 +7,6 @@
 
 #import "LegalValuesEnter.h"
 
-@interface EpiInfoOptionField : LegalValuesEnter
-
+@interface EpiInfoOptionField : LegalValuesEnter <UITableViewDelegate, UITableViewDataSource>
+@property UITableView *tv;
 @end
