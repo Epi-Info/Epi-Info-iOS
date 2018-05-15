@@ -86,16 +86,14 @@
         [cell setFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, tableView.frame.size.width, cell.frame.size.height)];
     }
     
-    [cell.textLabel setText:[listOfValues objectAtIndex:indexPath.row]];
+    [cell.textLabel setText:[NSString stringWithFormat:@"\u25cb %@", [listOfValues objectAtIndex:indexPath.row]]];
+    if (indexPath.row == 0)
+        [cell.textLabel setText:@""];
     [cell.textLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
     [cell.textLabel setNumberOfLines:0];
     
     float fontSize = 16.0;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        fontSize = 20.0;
-//    while ([cell.textLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:fontSize]}].width > cell.frame.size.width - 40.0)
-//        fontSize -= 0.1;
-    [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontSize]];
+    [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:fontSize]];
     
     return cell;
 }
