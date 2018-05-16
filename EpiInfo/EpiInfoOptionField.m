@@ -84,9 +84,34 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TableIdentifier];
         [cell setFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, tableView.frame.size.width, cell.frame.size.height)];
+        [cell setIndentationLevel:1];
+        [cell setIndentationWidth:18];
+        
+        UILabel *leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, 0, 16, cell.frame.size.height)];
+        if ([indexPath row] > 0)
+            [leftLabel setText:@"\u25cb"];
+        else
+            [leftLabel setText:@""];
+        [leftLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [leftLabel setBackgroundColor:[UIColor whiteColor]];
+        [leftLabel setTag:34];
+        [cell.contentView addSubview:leftLabel];
+    }
+    else
+    {
+        for (UIView *uiv in [cell.contentView subviews])
+        {
+            if ([uiv isKindOfClass:[UILabel class]] && [uiv tag] == 34)
+            {
+                if ([indexPath row] > 0)
+                    [(UILabel *)uiv setText:@"\u25cb"];
+                else
+                    [(UILabel *)uiv setText:@""];
+            }
+        }
     }
     
-    [cell.textLabel setText:[NSString stringWithFormat:@"\u25cb %@", [listOfValues objectAtIndex:indexPath.row]]];
+    [cell.textLabel setText:[NSString stringWithFormat:@"%@", [listOfValues objectAtIndex:indexPath.row]]];
     if (indexPath.row == 0)
         [cell.textLabel setText:@""];
     [cell.textLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
