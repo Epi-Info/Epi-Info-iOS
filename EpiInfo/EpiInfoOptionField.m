@@ -89,7 +89,7 @@
         
         UILabel *leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, 0, 16, cell.frame.size.height)];
         if ([indexPath row] > 0)
-            [leftLabel setText:@"\u25cb"];
+             [leftLabel setText:@"\u25cb"];
         else
             [leftLabel setText:@""];
         [leftLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
@@ -104,7 +104,10 @@
             if ([uiv isKindOfClass:[UILabel class]] && [uiv tag] == 34)
             {
                 if ([indexPath row] > 0)
-                    [(UILabel *)uiv setText:@"\u25cb"];
+                    if ([indexPath row] == [self.picker selectedRowInComponent:0])
+                        [(UILabel *)uiv setText:@"\u25c9"];
+                    else
+                        [(UILabel *)uiv setText:@"\u25cb"];
                 else
                     [(UILabel *)uiv setText:@""];
             }
@@ -134,6 +137,41 @@
     [self.picker selectRow:nsui inComponent:0 animated:NO];
     [self.textFieldToUpdate setText:[NSString stringWithFormat:@"%ld", (long)nsui]];
     [self pickerView:self.picker didSelectRow:nsui inComponent:0];
+    
+    for (long i = 0; i < [tableView numberOfRowsInSection:0]; i++)
+    {
+        UITableViewCell *uitc = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        if (i == [indexPath row])
+        {
+            for (UIView *uiv in [uitc.contentView subviews])
+            {
+                if ([uiv isKindOfClass:[UILabel class]] && [uiv tag] == 34)
+                {
+                    [(UILabel *)uiv setText:@"\u25c9"];
+                }
+            }
+        }
+        else if (i > 0)
+        {
+            for (UIView *uiv in [uitc.contentView subviews])
+            {
+                if ([uiv isKindOfClass:[UILabel class]] && [uiv tag] == 34)
+                {
+                    [(UILabel *)uiv setText:@"\u25cb"];
+                }
+            }
+        }
+        else
+        {
+            for (UIView *uiv in [uitc.contentView subviews])
+            {
+                if ([uiv isKindOfClass:[UILabel class]] && [uiv tag] == 34)
+                {
+                    [(UILabel *)uiv setText:@""];
+                }
+            }
+        }
+    }
 }
 
 /*
