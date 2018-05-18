@@ -68,6 +68,26 @@
         [self.picker setShowsSelectionIndicator:YES];
         [self.picker setBackgroundColor:[UIColor clearColor]];
         [self addSubview:self.picker];
+        
+        valueButtonView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        [valueButtonView setBackgroundColor:[UIColor clearColor]];
+        
+        self.valueButton = [[UIButton alloc] initWithFrame:CGRectMake(8, 8, valueButtonView.frame.size.width - 16, 32)];
+        [self.valueButton setBackgroundColor:[UIColor whiteColor]];
+        [self.valueButton setTitle:@"" forState:UIControlStateNormal];
+        [self.valueButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [self.valueButton.layer setBorderWidth:1.0];
+        [self.valueButton.layer setBorderColor:[[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] CGColor]];
+        [self.valueButton addTarget:self action:@selector(valueButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.tv = [[UITableView alloc] initWithFrame:CGRectMake(self.valueButton.frame.origin.x, self.valueButton.frame.origin.y, self.valueButton.frame.size.width, 0) style:UITableViewStylePlain];
+        [self.tv setDelegate:self];
+        [self.tv setDataSource:self];
+        [self.tv setSeparatorColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+
+        [self addSubview:valueButtonView];
+        [valueButtonView addSubview:self.valueButton];
+        [valueButtonView addSubview:self.tv];
     }
     return self;
 }
@@ -163,6 +183,9 @@
         {
             [self.picker selectRow:i inComponent:0 animated:NO];
             [self.textFieldToUpdate setText:selectedLegalValue];
+            NSIndexPath *nsip = [NSIndexPath indexPathForRow:[selectedLegalValue intValue] + 1 inSection:0];
+            [self.tv selectRowAtIndexPath:nsip animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+            [self.valueButton setTitle:[[[self.tv cellForRowAtIndexPath:nsip] textLabel] text] forState:UIControlStateNormal];
             return;
         }
         i++;
@@ -181,6 +204,11 @@
     [picked setText:nil];
     [self setSelectedIndex:[NSNumber numberWithInt:0]];
     [self.picker selectRow:0 inComponent:0 animated:YES];
+    NSIndexPath *nsip = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tv selectRowAtIndexPath:nsip animated:NO scrollPosition:UITableViewScrollPositionTop];
+    [self tableView:self.tv didSelectRowAtIndexPath:nsip];
+    [self.tv deselectRowAtIndexPath:nsip animated:NO];
+    [self.valueButton setTitle:@"" forState:UIControlStateNormal];
     [self setIsEnabled:YES];
 }
 
@@ -189,6 +217,11 @@
     [picked setText:nil];
     [self setSelectedIndex:[NSNumber numberWithInt:0]];
     [self.picker selectRow:0 inComponent:0 animated:YES];
+    NSIndexPath *nsip = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tv selectRowAtIndexPath:nsip animated:NO scrollPosition:UITableViewScrollPositionTop];
+    [self tableView:self.tv didSelectRowAtIndexPath:nsip];
+    [self.tv deselectRowAtIndexPath:nsip animated:NO];
+    [self.valueButton setTitle:@"" forState:UIControlStateNormal];
 }
 
 - (NSString *)epiInfoControlValue
@@ -231,6 +264,8 @@
 - (void)setIsEnabled:(BOOL)isEnabled
 {
     [self.picker setUserInteractionEnabled:isEnabled];
+    [self.valueButton setUserInteractionEnabled:isEnabled];
+    [self.tv setFrame:CGRectMake(self.valueButton.frame.origin.x, self.valueButton.frame.origin.y, self.valueButton.frame.size.width, 0)];
     [self setAlpha:0.5 + 0.5 * (int)isEnabled];
 }
 
@@ -251,6 +286,59 @@
             [(EnterDataView *)[[self superview] superview] setContentOffset:pt animated:YES];
         });
     });
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *TableIdentifier = @"dataline";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TableIdentifier];
+    
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TableIdentifier];
+        [cell setFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, tableView.frame.size.width, cell.frame.size.height)];
+        [cell setIndentationLevel:1];
+        [cell setIndentationWidth:4];
+    }
+    
+    [cell.textLabel setText:[NSString stringWithFormat:@"%@", [listOfValues objectAtIndex:indexPath.row]]];
+    if (indexPath.row == 0)
+        [cell.textLabel setText:@""];
+    [cell.textLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+    [cell.textLabel setNumberOfLines:0];
+    
+    float fontSize = 16.0;
+    [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:fontSize]];
+    
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [listOfValues count];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSUInteger nsui = [indexPath item];
+    [self.picker selectRow:nsui inComponent:0 animated:NO];
+    [self.textFieldToUpdate setText:[NSString stringWithFormat:@"%ld", (long)nsui]];
+    [self pickerView:self.picker didSelectRow:nsui inComponent:0];
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [self.tv setFrame:CGRectMake(self.valueButton.frame.origin.x, self.valueButton.frame.origin.y, self.valueButton.frame.size.width, 0)];
+    } completion:^(BOOL finished){
+    }];
+
+    [self.valueButton setTitle:[[[self.tv cellForRowAtIndexPath:indexPath] textLabel] text] forState:UIControlStateNormal];
+}
+
+- (void)valueButtonPressed:(id)sender
+{
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [self.tv setFrame:CGRectMake(self.valueButton.frame.origin.x, self.valueButton.frame.origin.y, self.valueButton.frame.size.width, valueButtonView.frame.size.height - 16)];
+    } completion:^(BOOL finished){
+    }];
 }
 
 /*

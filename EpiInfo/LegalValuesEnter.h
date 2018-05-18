@@ -8,11 +8,12 @@
 #import <UIKit/UIKit.h>
 #import "EpiInfoControlProtocol.h"
 
-@interface LegalValuesEnter : UIView <UIPickerViewDelegate, UIPickerViewDataSource, EpiInfoControlProtocol>
+@interface LegalValuesEnter : UIView <UIPickerViewDelegate, UIPickerViewDataSource, EpiInfoControlProtocol, UITableViewDelegate, UITableViewDataSource>
 {
     UILabel *picked;
     //    UIPickerView *picker;
     NSMutableArray *listOfValues;
+    UIView *valueButtonView;
 }
 @property NSString *columnName;
 @property BOOL isReadOnly;
@@ -20,6 +21,8 @@
 @property UITextField *textFieldToUpdate;
 @property UIView *viewToAlertOfChanges;
 @property NSNumber *selectedIndex;
+@property UIButton *valueButton;
+@property UITableView *tv;
 - (void)setListOfValues:(NSMutableArray *)lov;
 - (NSMutableArray *)listOfValues;
 - (NSString *)picked;
