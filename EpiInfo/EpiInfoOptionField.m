@@ -138,7 +138,7 @@
     [self.textFieldToUpdate setText:[NSString stringWithFormat:@"%ld", (long)nsui]];
     [self pickerView:self.picker didSelectRow:nsui inComponent:0];
     
-    for (long i = 0; i < [tableView numberOfRowsInSection:0]; i++)
+    for (long i = 1; i < [tableView numberOfRowsInSection:0]; i++)
     {
         UITableViewCell *uitc = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
         if (i == [indexPath row])
@@ -151,7 +151,7 @@
                 }
             }
         }
-        else if (i > 0)
+        else
         {
             for (UIView *uiv in [uitc.contentView subviews])
             {
@@ -161,17 +161,27 @@
                 }
             }
         }
-        else
-        {
-            for (UIView *uiv in [uitc.contentView subviews])
-            {
-                if ([uiv isKindOfClass:[UILabel class]] && [uiv tag] == 34)
-                {
-                    [(UILabel *)uiv setText:@""];
-                }
-            }
-        }
     }
+}
+
+- (void)reset
+{
+    [self resetDoNotEnable];
+    [self setIsEnabled:YES];
+}
+- (void)resetDoNotEnable
+{
+    [super resetDoNotEnable];
+    NSIndexPath *nsip = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tv selectRowAtIndexPath:nsip animated:NO scrollPosition:UITableViewScrollPositionTop];
+    [self tableView:self.tv didSelectRowAtIndexPath:nsip];
+    [self.tv deselectRowAtIndexPath:nsip animated:NO];
+}
+
+- (void)setIsEnabled:(BOOL)isEnabled
+{
+    [super setIsEnabled:isEnabled];
+    [self.tv setUserInteractionEnabled:isEnabled];
 }
 
 /*
