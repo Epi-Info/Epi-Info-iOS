@@ -71,7 +71,7 @@
         [self addSubview:self.picker];
         
         valueButtonView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-        [valueButtonView setBackgroundColor:[UIColor clearColor]];
+        [valueButtonView setBackgroundColor:[UIColor whiteColor]];
         
         self.valueButton = [[UIButton alloc] initWithFrame:CGRectMake(8, 8, valueButtonView.frame.size.width - 16, 32)];
         [self.valueButton setBackgroundColor:[UIColor whiteColor]];
