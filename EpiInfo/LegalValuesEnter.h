@@ -34,4 +34,5 @@
 -(void)reset;
 -(void)setSelectedLegalValue:(NSString *)selectedLegalValue;
 -(void)setFormFieldValue:(NSString *)formFieldValue;
+-(void)removeValueButtonViewFromSuperview;
 @end

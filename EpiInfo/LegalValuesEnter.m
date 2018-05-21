@@ -15,6 +15,7 @@
 @synthesize textFieldToUpdate = _textFieldToUpdate;
 @synthesize viewToAlertOfChanges = _viewToAlertOfChanges;
 @synthesize selectedIndex = _selectedIndex;
+@synthesize tv = _tv;
 
 - (void)setListOfValues:(NSArray *)lov
 {
@@ -339,6 +340,13 @@
         [self.tv setFrame:CGRectMake(self.valueButton.frame.origin.x, self.valueButton.frame.origin.y, self.valueButton.frame.size.width, valueButtonView.frame.size.height - 16)];
     } completion:^(BOOL finished){
     }];
+}
+
+- (void)removeValueButtonViewFromSuperview
+{
+    for (UIView *v in [valueButtonView subviews])
+        [v removeFromSuperview];
+    [valueButtonView removeFromSuperview];
 }
 
 /*

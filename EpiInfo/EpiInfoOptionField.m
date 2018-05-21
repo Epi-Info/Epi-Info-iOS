@@ -9,6 +9,7 @@
 #import "EnterDataView.h"
 
 @implementation EpiInfoOptionField
+@synthesize oftv = _oftv;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -24,11 +25,12 @@
     self = [super initWithFrame:frame AndListOfValues:lov];
     if (self) {
         // Add the UITableView
-        self.tv = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height) style:UITableViewStylePlain];
-        [self.tv setDelegate:self];
-        [self.tv setDataSource:self];
-        [self.tv setSeparatorColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
-        [self addSubview:self.tv];
+        [self removeValueButtonViewFromSuperview];
+        self.oftv = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height) style:UITableViewStylePlain];
+        [self.oftv setDelegate:self];
+        [self.oftv setDataSource:self];
+        [self.oftv setSeparatorColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+        [self addSubview:self.oftv];
     }
     return self;
 }
@@ -56,7 +58,7 @@
 //    [self.picker selectRow:[selectedLegalValue intValue] inComponent:0 animated:NO];
 //    [self.textFieldToUpdate setText:[NSString stringWithFormat:@"%d", [selectedLegalValue intValue]]];
     NSIndexPath *nsip = [NSIndexPath indexPathForRow:[selectedLegalValue intValue] + 1 inSection:0];
-    [self.tv selectRowAtIndexPath:nsip animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+    [self.oftv selectRowAtIndexPath:nsip animated:NO scrollPosition:UITableViewScrollPositionMiddle];
 }
 
 - (void)assignValue:(NSString *)value
@@ -173,15 +175,15 @@
 {
     [super resetDoNotEnable];
     NSIndexPath *nsip = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tv selectRowAtIndexPath:nsip animated:NO scrollPosition:UITableViewScrollPositionTop];
-    [self tableView:self.tv didSelectRowAtIndexPath:nsip];
-    [self.tv deselectRowAtIndexPath:nsip animated:NO];
+    [self.oftv selectRowAtIndexPath:nsip animated:NO scrollPosition:UITableViewScrollPositionTop];
+    [self tableView:self.oftv didSelectRowAtIndexPath:nsip];
+    [self.oftv deselectRowAtIndexPath:nsip animated:NO];
 }
 
 - (void)setIsEnabled:(BOOL)isEnabled
 {
     [super setIsEnabled:isEnabled];
-    [self.tv setUserInteractionEnabled:isEnabled];
+    [self.oftv setUserInteractionEnabled:isEnabled];
 }
 
 /*
