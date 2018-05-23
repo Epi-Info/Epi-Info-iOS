@@ -58,7 +58,8 @@
 //    [self.picker selectRow:[selectedLegalValue intValue] inComponent:0 animated:NO];
 //    [self.textFieldToUpdate setText:[NSString stringWithFormat:@"%d", [selectedLegalValue intValue]]];
     NSIndexPath *nsip = [NSIndexPath indexPathForRow:[selectedLegalValue intValue] + 1 inSection:0];
-    [self.oftv selectRowAtIndexPath:nsip animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+    [self.oftv selectRowAtIndexPath:nsip animated:NO scrollPosition:UITableViewScrollPositionBottom];
+    [self tableView:self.oftv didSelectRowAtIndexPath:nsip];
 }
 
 - (void)assignValue:(NSString *)value

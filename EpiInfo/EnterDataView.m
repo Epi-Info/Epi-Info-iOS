@@ -4669,7 +4669,7 @@
                     }
                     
                     [formCanvas addSubview:lv];
-                    contentSizeHeight += 160;
+                    contentSizeHeight += [lv contentSizeHeightAdjustment];
                     [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
                     [lv setColumnName:[attributeDict objectForKey:@"Name"]];
                     // Add the array of values to the root view controller's legal values dictionary
@@ -4871,7 +4871,7 @@
                     }
                     
                     [formCanvas addSubview:lv];
-                    contentSizeHeight += 160;
+                    contentSizeHeight += [lv contentSizeHeightAdjustment];
                     [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
                     [lv setColumnName:[attributeDict objectForKey:@"Name"]];
                     if ([legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]])

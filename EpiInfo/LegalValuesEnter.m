@@ -36,10 +36,14 @@
 {
     [picked setText:pkd];
 }
+-(float)contentSizeHeightAdjustment
+{
+    return self.frame.size.height - 20.0;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, 300, 180)];
+    self = [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, 300, 80)];
     if (self) {
         // Initialization code
         if (@available(iOS 11.0, *)) {
@@ -73,7 +77,7 @@
         valueButtonView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         [valueButtonView setBackgroundColor:[UIColor whiteColor]];
         
-        self.valueButton = [[UIButton alloc] initWithFrame:CGRectMake(8, 8, valueButtonView.frame.size.width - 16, 32)];
+        self.valueButton = [[UIButton alloc] initWithFrame:CGRectMake(8, 8, valueButtonView.frame.size.width - 16, 48)];
         [self.valueButton setBackgroundColor:[UIColor whiteColor]];
         [self.valueButton setTitle:@"" forState:UIControlStateNormal];
         [self.valueButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
@@ -85,7 +89,9 @@
         [self.tv setDelegate:self];
         [self.tv setDataSource:self];
         [self.tv setSeparatorColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
-
+        [self.tv.layer setBorderWidth:1.0];
+        [self.tv.layer setBorderColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0].CGColor];
+        
         [self addSubview:valueButtonView];
         [valueButtonView addSubview:self.valueButton];
         [valueButtonView addSubview:self.tv];
@@ -326,9 +332,11 @@
     [self.picker selectRow:nsui inComponent:0 animated:NO];
     [self.textFieldToUpdate setText:[NSString stringWithFormat:@"%ld", (long)nsui]];
     [self pickerView:self.picker didSelectRow:nsui inComponent:0];
-    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [self.tv setFrame:CGRectMake(self.valueButton.frame.origin.x, self.valueButton.frame.origin.y, self.valueButton.frame.size.width, 0)];
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [self.tv setFrame:CGRectMake(topX, topY, self.valueButton.frame.size.width, 0)];
     } completion:^(BOOL finished){
+        [self.tv setFrame:CGRectMake(self.valueButton.frame.origin.x, self.valueButton.frame.origin.y, self.valueButton.frame.size.width, 0)];
+        [self.valueButton addSubview:self.tv];
     }];
 
     [self.valueButton setTitle:[[[self.tv cellForRowAtIndexPath:indexPath] textLabel] text] forState:UIControlStateNormal];
@@ -336,8 +344,18 @@
 
 - (void)valueButtonPressed:(id)sender
 {
-    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [self.tv setFrame:CGRectMake(self.valueButton.frame.origin.x, self.valueButton.frame.origin.y, self.valueButton.frame.size.width, valueButtonView.frame.size.height - 16)];
+    UIView *topView = [[UIApplication sharedApplication].keyWindow.rootViewController view];
+    topX = [self.valueButton convertRect:self.valueButton.bounds toView:nil].origin.x;
+    topY = [self.valueButton convertRect:self.valueButton.bounds toView:nil].origin.y;
+    finalTopY = topView.frame.size.height - 16.0 - (180.0 - 16);
+    if (topY < finalTopY)
+        finalTopY = topY;
+    [self.tv setFrame:CGRectMake(topX, topY, self.tv.frame.size.width, 0.0)];
+    [topView addSubview:self.tv];
+    [topView bringSubviewToFront:self.tv];
+    
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [self.tv setFrame:CGRectMake(topX, finalTopY, self.valueButton.frame.size.width, 180 - 16)];
     } completion:^(BOOL finished){
     }];
 }

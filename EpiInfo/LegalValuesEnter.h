@@ -10,6 +10,9 @@
 
 @interface LegalValuesEnter : UIView <UIPickerViewDelegate, UIPickerViewDataSource, EpiInfoControlProtocol, UITableViewDelegate, UITableViewDataSource>
 {
+    float topX;
+    float topY;
+    float finalTopY;
     UILabel *picked;
     //    UIPickerView *picker;
     NSMutableArray *listOfValues;
@@ -35,4 +38,5 @@
 -(void)setSelectedLegalValue:(NSString *)selectedLegalValue;
 -(void)setFormFieldValue:(NSString *)formFieldValue;
 -(void)removeValueButtonViewFromSuperview;
+-(float)contentSizeHeightAdjustment;
 @end
