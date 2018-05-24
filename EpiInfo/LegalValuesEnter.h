@@ -31,6 +31,8 @@
 - (NSString *)picked;
 - (void)setPicked:(NSString *)pkd;
 - (id)initWithFrame:(CGRect)frame AndListOfValues:(NSMutableArray *)lov;
+- (id)initWithFrame:(CGRect)frame ForOptionsField:(BOOL)forOptionsField;
+- (id)initWithFrame:(CGRect)frame AndListOfValues:(NSMutableArray *)lov ForOptionsField:(BOOL)forOptionsField;
 - (id)initWithFrame:(CGRect)frame AndListOfValues:(NSMutableArray *)lov AndTextFieldToUpdate:(UITextField *)tftu;
 - (id)initWithFrame:(CGRect)frame AndListOfValues:(NSMutableArray *)lov NoFixedDimensions:(BOOL)nfd;
 - (id)initWithFrame:(CGRect)frame AndListOfValues:(NSMutableArray *)lov AndTextFieldToUpdate:(UITextField *)tftu NoFixedDimensions:(BOOL)nfd;

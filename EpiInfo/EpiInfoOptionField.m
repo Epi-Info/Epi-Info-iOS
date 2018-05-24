@@ -22,7 +22,7 @@
 
 - (id)initWithFrame:(CGRect)frame AndListOfValues:(NSMutableArray *)lov
 {
-    self = [super initWithFrame:frame AndListOfValues:lov];
+    self = [super initWithFrame:frame AndListOfValues:lov ForOptionsField:YES];
     if (self) {
         // Add the UITableView
         [self removeValueButtonViewFromSuperview];

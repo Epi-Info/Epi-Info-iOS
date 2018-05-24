@@ -56,9 +56,67 @@
     return self;
 }
 
+- (id)initWithFrame:(CGRect)frame ForOptionsField:(BOOL)forOptionsField
+{
+    self = [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, 300, frame.size.height)];
+    if (self) {
+        // Initialization code
+        if (@available(iOS 11.0, *)) {
+            [self.textFieldToUpdate setSmartQuotesType:UITextSmartQuotesTypeNo];
+        } else {
+            // Fallback on earlier versions
+        }
+        [self setSelectedIndex:[NSNumber numberWithInt:0]];
+    }
+    return self;
+}
+
 - (id)initWithFrame:(CGRect)frame AndListOfValues:(NSMutableArray *)lov
 {
     self = [self initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, 300, 180)];
+    if (self) {
+        // Initialization code
+        [self setListOfValues:lov];
+        //        [self setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self setBackgroundColor:[UIColor clearColor]];
+        [self.layer setCornerRadius:4.0];
+        picked = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 40, 10)];
+        //        [self addSubview:picked];
+        self.picker = [[UIPickerView alloc] initWithFrame:CGRectMake(10, 10, 280, 160)];
+        [self.picker setDelegate:self];
+        [self.picker setDataSource:self];
+        [self.picker setShowsSelectionIndicator:YES];
+        [self.picker setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:self.picker];
+        
+        valueButtonView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        [valueButtonView setBackgroundColor:[UIColor whiteColor]];
+        
+        self.valueButton = [[UIButton alloc] initWithFrame:CGRectMake(8, 8, valueButtonView.frame.size.width - 16, 48)];
+        [self.valueButton setBackgroundColor:[UIColor whiteColor]];
+        [self.valueButton setTitle:@"" forState:UIControlStateNormal];
+        [self.valueButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [self.valueButton.layer setBorderWidth:1.0];
+        [self.valueButton.layer setBorderColor:[[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] CGColor]];
+        [self.valueButton addTarget:self action:@selector(valueButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.tv = [[UITableView alloc] initWithFrame:CGRectMake(self.valueButton.frame.origin.x, self.valueButton.frame.origin.y, self.valueButton.frame.size.width, 0) style:UITableViewStylePlain];
+        [self.tv setDelegate:self];
+        [self.tv setDataSource:self];
+        [self.tv setSeparatorColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+        [self.tv.layer setBorderWidth:1.0];
+        [self.tv.layer setBorderColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0].CGColor];
+        
+        [self addSubview:valueButtonView];
+        [valueButtonView addSubview:self.valueButton];
+        [valueButtonView addSubview:self.tv];
+    }
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame AndListOfValues:(NSMutableArray *)lov ForOptionsField:(BOOL)forOptionsField
+{
+    self = [self initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, 300, 180) ForOptionsField:forOptionsField];
     if (self) {
         // Initialization code
         [self setListOfValues:lov];
