@@ -395,6 +395,9 @@
     } completion:^(BOOL finished){
         [self.tv setFrame:CGRectMake(self.valueButton.frame.origin.x, self.valueButton.frame.origin.y, self.valueButton.frame.size.width, 0)];
         [self.valueButton addSubview:self.tv];
+        
+        UIScrollView *uisv = (UIScrollView *)[[self superview] superview];
+        [uisv setScrollEnabled:YES];
     }];
 
     [self.valueButton setTitle:[[[self.tv cellForRowAtIndexPath:indexPath] textLabel] text] forState:UIControlStateNormal];
@@ -411,6 +414,9 @@
     [self.tv setFrame:CGRectMake(topX, topY, self.tv.frame.size.width, 0.0)];
     [topView addSubview:self.tv];
     [topView bringSubviewToFront:self.tv];
+    
+    UIScrollView *uisv = (UIScrollView *)[[self superview] superview];
+    [uisv setScrollEnabled:NO];
     
     [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [self.tv setFrame:CGRectMake(topX, finalTopY, self.valueButton.frame.size.width, 180 - 16)];
