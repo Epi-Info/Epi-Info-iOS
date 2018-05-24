@@ -56,7 +56,7 @@
     
     self.epiInfoScrollView.contentSize = CGSizeMake(320, self.view.frame.size.height - 80.0);
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStyleBordered target: nil action: nil];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStylePlain target: nil action: nil];
     [self.navigationItem setBackBarButtonItem: backButton];
     
     // Set the title on the NavigationController

@@ -467,17 +467,17 @@
     
     if (timeUnit == 0)
     {
-        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:startNSDate toDate:endNSDate options:0];
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:startNSDate toDate:endNSDate options:0];
         returnString = [NSString stringWithFormat:@"%d", (int)[components day]];
     }
     else if (timeUnit == 1)
     {
-        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSMonthCalendarUnit fromDate:startNSDate toDate:endNSDate options:0];
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitMonth fromDate:startNSDate toDate:endNSDate options:0];
         returnString = [NSString stringWithFormat:@"%d", (int)[components month]];
     }
     else if (timeUnit == 2)
     {
-        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSYearCalendarUnit fromDate:startNSDate toDate:endNSDate options:0];
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitYear fromDate:startNSDate toDate:endNSDate options:0];
         returnString = [NSString stringWithFormat:@"%d", (int)[components year]];
     }
    

@@ -102,7 +102,7 @@
     label.text = @"";
     self.navigationItem.titleView = label;
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStyleBordered target: nil action: nil];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStylePlain target: nil action: nil];
     [self.navigationItem setBackBarButtonItem: backButton];
     //
     
@@ -516,7 +516,7 @@
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [UIView animateWithDuration:0.3 animations:^{
                 [self.epiInfoScrollView0 setFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height)];
@@ -541,7 +541,7 @@
     }
     else
     {
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
         {
             float viewLeftMargin = phoneResultsBlueBoxFrame.origin.x;
             [UIView animateWithDuration:0.3 animations:^{
@@ -590,7 +590,7 @@
         return;
     
     hasAFirstResponder = YES;
-    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
         [UIView animateWithDuration:0.3 animations:^{
             float zs = [self.populationSurveyView zoomScale];
             [self.populationSurveyView setZoomScale:1.0 animated:YES];
@@ -607,7 +607,7 @@
         if (textField != self.designEffectField)
         {
             hasAFirstResponder = NO;
-            if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+            if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
                 [UIView animateWithDuration:0.3 animations:^{
                     float zs = [self.populationSurveyView zoomScale];
                     [self.populationSurveyView setZoomScale:1.0 animated:YES];
@@ -630,7 +630,7 @@
 {
     [self.view endEditing:YES];
     hasAFirstResponder = NO;
-    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
         [UIView animateWithDuration:0.3 animations:^{
             float zs = [self.populationSurveyView zoomScale];
             [self.populationSurveyView setZoomScale:1.0 animated:YES];
@@ -700,7 +700,7 @@
     {
         [self.view endEditing:YES];
         hasAFirstResponder = NO;
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
             [UIView animateWithDuration:0.3 animations:^{
                 [self.populationSurveyView setContentSize:phoneLandscapeSize];
             }];
@@ -721,7 +721,7 @@
     {
         [self.view endEditing:YES];
         hasAFirstResponder = NO;
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
             [UIView animateWithDuration:0.3 animations:^{
                 [self.populationSurveyView setContentSize:phoneLandscapeSize];
             }];
@@ -820,7 +820,7 @@
     {
         [self.view endEditing:YES];
         hasAFirstResponder = NO;
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
             [UIView animateWithDuration:0.3 animations:^{
                 float zs = [self.populationSurveyView zoomScale];
                 [self.populationSurveyView setZoomScale:1.0 animated:YES];

@@ -1063,7 +1063,7 @@
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [UIView animateWithDuration:0.3 animations:^{
                 [self.epiInfoScrollView0 setFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height)];
@@ -1121,7 +1121,7 @@
     else
     {
         [self.twox2CalculatorView setZoomScale:1.0 animated:YES];
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [UIView animateWithDuration:0.3 animations:^{
                 [segmentedControl setWidth:40.0 forSegmentAtIndex:0];
@@ -1317,7 +1317,7 @@
     {
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         {
-            if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+            if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
             {
                 [UIView animateWithDuration:0.3 animations:^{
                     [phoneOddsBasedParametersColorBox setFrame:CGRectMake(phoneOddsBasedParametersColorBox.frame.origin.x, phoneOddsBasedParametersColorBox.frame.origin.y, phoneOddsBasedParametersColorBox.frame.size.width, 245 - (181 - 32))];
@@ -1363,7 +1363,7 @@
             }];
             [self.twox2CalculatorView setContentOffset:CGPointMake(0, 0) animated:YES];
         }
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
             [self.twox2CalculatorView setScrollEnabled:YES];
         [self.computingAdjustedOR setHidden:YES];
         if ([self.computingAdjustedOR isAnimating])
@@ -1475,7 +1475,7 @@
     {
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         {
-            if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+            if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
             {
                 [UIView animateWithDuration:0.3 animations:^{
                     [phoneOddsBasedParametersColorBox setFrame:CGRectMake(phoneOddsBasedParametersColorBox.frame.origin.x, phoneOddsBasedParametersColorBox.frame.origin.y, phoneOddsBasedParametersColorBox.frame.size.width, 245 - (181 - 34) + 34)];

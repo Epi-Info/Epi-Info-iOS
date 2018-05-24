@@ -106,7 +106,7 @@
 //  Deprecation replacement
     [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0], NSForegroundColorAttributeName, nil]];
 
-    if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+    if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
     {
         headerFrame = CGRectMake(0, 0, [self.view frame].size.width, 100);
         subHeaderFrame = CGRectMake(0, 100, [self.view frame].size.width, 50);
@@ -207,7 +207,7 @@
         
         if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)
         {
-            if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+            if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
                 fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height - 600)];
             else
                 fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.height, [self.view frame].size.width - 300)];
@@ -215,7 +215,7 @@
         }
         else
         {
-            if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+            if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
                 fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height)];
             else
                 fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.height, [self.view frame].size.width)];
@@ -908,7 +908,7 @@
         [self.phoneHeaderLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
     }
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStyleBordered target: nil action: nil];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStylePlain target: nil action: nil];
     [self.navigationItem setBackBarButtonItem: backButton];
     
     self.title = @"";
@@ -938,7 +938,7 @@
             [headerLabel setCenter:CGPointMake([self.view frame].size.width / 2.0, 50.0)];
             [subHeaderLabel setCenter:CGPointMake([self.view frame].size.width / 2.0, 125.0)];
         }];
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)
                 [fadingColorView setFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height - 600)];
@@ -1024,7 +1024,7 @@
         [UIView animateWithDuration:0.3 animations:^{
 //            [self.phoneHeaderLabel setCenter:CGPointMake([self.view frame].size.width / 2.0, 30.0)];
         }];
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [UIView animateWithDuration:0.3 animations:^{
                 if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)

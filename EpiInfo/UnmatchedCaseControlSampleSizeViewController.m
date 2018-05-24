@@ -74,7 +74,7 @@
 //    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"textured-Bar.png"] forBarMetrics:UIBarMetricsDefault];
 //    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:124/255.0 green:177/255.0 blue:55/255.0 alpha:1.0]];
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStyleBordered target: nil action: nil];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStylePlain target: nil action: nil];
     [self.navigationItem setBackBarButtonItem: backButton];
     
     self.title = @"";
@@ -395,7 +395,7 @@
 //    To here
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [UIView animateWithDuration:0.3 animations:^{
                 [self.epiInfoScrollView0 setFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height)];
@@ -453,7 +453,7 @@
         }];
         
         //Re-orient iPhone views if Landscape
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
         {
             //Re-size the zoomingView
             [zoomingView setFrame:CGRectMake(0, 0, self.populationSurveyView.frame.size.width, self.populationSurveyView.frame.size.height)];
@@ -545,7 +545,7 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         hasAFirstResponder = NO;
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation) && fourInchPhone)
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) && fourInchPhone)
         {
             float zs = [self.populationSurveyView zoomScale];
             [self.populationSurveyView setZoomScale:1.0 animated:YES];
@@ -642,7 +642,7 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         hasAFirstResponder = NO;
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation) && fourInchPhone)
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) && fourInchPhone)
         {
             self.populationSurveyView.contentSize = CGSizeMake(548, 250);
             self.populationSurveyView.initialContentSize = CGSizeMake(548, 250);
@@ -761,7 +761,7 @@
 - (IBAction)textFieldBecameFirstResponder:(id)sender
 {
     hasAFirstResponder = YES;
-    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation) && fourInchPhone)
+    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]) && fourInchPhone)
     {
         float zs = [self.populationSurveyView zoomScale];
         [self.populationSurveyView setZoomScale:1.0 animated:YES];

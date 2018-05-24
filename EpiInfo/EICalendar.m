@@ -30,9 +30,9 @@
         displayingAYear = NO;
         displayingADecade = NO;
         
-        month = (int)[[[NSCalendar currentCalendar] components:NSMonthCalendarUnit fromDate:dateObject] month];
-        day = (int)[[[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:dateObject] day];
-        year = (int)[[[NSCalendar currentCalendar] components:NSYearCalendarUnit fromDate:dateObject] year];
+        month = (int)[[[NSCalendar currentCalendar] components:NSCalendarUnitMonth fromDate:dateObject] month];
+        day = (int)[[[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:dateObject] day];
+        year = (int)[[[NSCalendar currentCalendar] components:NSCalendarUnitYear fromDate:dateObject] year];
         
         if ([self.dateField text].length > 0)
         {
@@ -207,7 +207,7 @@
     [components setMonth:methodmonth];
     [components setYear:methodyear];
     NSDate *firstOfMonth = [[NSCalendar currentCalendar] dateFromComponents:components];
-    NSDateComponents *comps = [[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:firstOfMonth];
+    NSDateComponents *comps = [[NSCalendar currentCalendar] components:NSCalendarUnitWeekday fromDate:firstOfMonth];
     
 //    NSDateFormatter *nsdf = [[NSDateFormatter alloc] init];
 //    [nsdf setDateFormat:@"EEEE"];

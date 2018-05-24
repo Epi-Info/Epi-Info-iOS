@@ -1844,8 +1844,8 @@
                                 NSDate *dt = [nsdf dateFromString:stringValue];
                                 if (dt)
                                 {
-                                    NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-                                    NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:dt];
+                                    NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+                                    NSDateComponents *components = [cal components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:dt];
                                     stringValue = [NSString stringWithFormat:@"%ld-%ld-%ld", [components year], [components month], [components day]];
                                 }
                                 NSLog(@"%@", stringValue);
@@ -2378,8 +2378,8 @@
                                     NSDate *dt = [nsdf dateFromString:stringValue];
                                     if (dt)
                                     {
-                                        NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-                                        NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:dt];
+                                        NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+                                        NSDateComponents *components = [cal components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:dt];
                                         stringValue = [NSString stringWithFormat:@"%d-%d-%d", (int)[components year], (int)[components month], (int)[components day]];
                                     }
                                     NSLog(@"%@", stringValue);

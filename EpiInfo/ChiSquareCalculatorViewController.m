@@ -380,7 +380,7 @@
 //    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"textured-Bar.png"] forBarMetrics:UIBarMetricsDefault];
 //    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:124/255.0 green:177/255.0 blue:55/255.0 alpha:1.0]];
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStyleBordered target: nil action: nil];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStylePlain target: nil action: nil];
     [self.navigationItem setBackBarButtonItem: backButton];
     
     self.title = @"";
@@ -452,7 +452,7 @@
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [UIView animateWithDuration:0.3 animations:^{
                 [self.epiInfoScrollView0 setFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height)];
@@ -480,7 +480,7 @@
         [self.epiInfoScrollView setFrame:CGRectMake(0, 70, self.view.frame.size.width, 840)];
         if (fourInchPhone)
             [self.epiInfoScrollView setFrame:CGRectMake(0, 70, self.view.frame.size.width, 920)];
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [UIView animateWithDuration:0.3 animations:^{
                 [selfViewControl setFrame:self.view.frame];
@@ -562,7 +562,7 @@
     float zs = [phoneScrollView zoomScale];
     [phoneScrollView setZoomScale:1.0 animated:YES];
     hasAFirstResponder = YES;
-    if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+    if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         [self.epiInfoScrollView setContentSize:responderSize];
     else
         [self.epiInfoScrollView setContentSize:landscapeResponderSize];
@@ -577,7 +577,7 @@
     [phoneScrollView setZoomScale:1.0 animated:YES];
     hasAFirstResponder = NO;
     [self.view endEditing:YES];
-    if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+    if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         [self.epiInfoScrollView setContentSize:noResponderSize];
     else
         [self.epiInfoScrollView setContentSize:landscapeNoResponderSize];
@@ -594,7 +594,7 @@
             float zs = [phoneScrollView zoomScale];
             [phoneScrollView setZoomScale:1.0 animated:YES];
             hasAFirstResponder = NO;
-            if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+            if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
                 [self.epiInfoScrollView setContentSize:noResponderSize];
             else
                 [self.epiInfoScrollView setContentSize:landscapeNoResponderSize];
@@ -1008,7 +1008,7 @@
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && !hasAFirstResponder)
     {
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
             [self.epiInfoScrollView setContentSize:noResponderSize];
         else
             [self.epiInfoScrollView setContentSize:landscapeNoResponderSize];

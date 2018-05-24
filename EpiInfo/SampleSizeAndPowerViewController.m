@@ -224,7 +224,7 @@
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [UIView animateWithDuration:0.3 animations:^{
                 [self.populationSurveyButton setFrame:CGRectMake(self.view.frame.size.width / 2.0 -  button1Frame.size.width / 2.0, button1Frame.origin.y - 40, button1Frame.size.width, button1Frame.size.height)];

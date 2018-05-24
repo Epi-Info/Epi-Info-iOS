@@ -56,8 +56,8 @@
 //            [yearsLV.picker setFrame:CGRectMake(0, 0, 140, 162)];
 //            [yearsLV setListOfValues:years];
 //        }
-//        [yearsLV.picker selectRow:[[[NSCalendar currentCalendar] components:NSYearCalendarUnit fromDate:[NSDate date]] year] - 1901 inComponent:0 animated:NO];
-//        [yearsLV setPicked:[NSString stringWithFormat:@"%ld", (long)[[[NSCalendar currentCalendar] components:NSYearCalendarUnit fromDate:[NSDate date]] year]]];
+//        [yearsLV.picker selectRow:[[[NSCalendar currentCalendar] components:NSCalendarUnitYear fromDate:[NSDate date]] year] - 1901 inComponent:0 animated:NO];
+//        [yearsLV setPicked:[NSString stringWithFormat:@"%ld", (long)[[[NSCalendar currentCalendar] components:NSCalendarUnitYear fromDate:[NSDate date]] year]]];
 //        [yearsLV setViewToAlertOfChanges:self];
 //        [bv addSubview:yearsLV];
         

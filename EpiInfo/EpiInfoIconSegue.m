@@ -35,7 +35,7 @@
                                                                   60, 60)];
     else
     {
-        if (UIInterfaceOrientationIsPortrait([srcViewController interfaceOrientation]))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             imageView = [[UIImageView alloc] initWithFrame:CGRectMake(srcViewController.buttonPressed.superview.superview.frame.origin.x + srcViewController.frameOfButtonPressed.origin.x,
                                                                       srcViewController.buttonPressed.superview.superview.frame.origin.y + srcViewController.frameOfButtonPressed.origin.y + srcViewController.navigationController.navigationBar.frame.size.height,

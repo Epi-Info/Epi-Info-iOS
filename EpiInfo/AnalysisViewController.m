@@ -39,7 +39,7 @@
 
 - (BOOL)portraitOrientation
 {
-    return UIInterfaceOrientationIsPortrait(self.interfaceOrientation);
+    return UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]);
 }
 
 - (void)viewDidLoad
@@ -459,7 +459,7 @@
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [UIView animateWithDuration:0.3 animations:^{
                 [setDataSource setFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
@@ -491,7 +491,7 @@
     }
     else
     {
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [UIView animateWithDuration:0.3 animations:^{
                 [setDataSource setFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
@@ -1083,7 +1083,7 @@
     [UIView animateWithDuration:0.5 animations:^{
         [fv setFrame:CGRectMake(0, 50, zoomingView.frame.size.width, zoomingView.frame.size.height - 50)];
         [chooseAnalysis setFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50)];
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [filterButton setFrame:CGRectMake(self.view.frame.size.width, 100, 50, self.view.frame.size.height - 200)];
             [newVariablesButton setFrame:CGRectMake(-50, 100, 50, self.view.frame.size.height - 200)];
@@ -1124,7 +1124,7 @@
     [UIView animateWithDuration:0.5 animations:^{
         [tv setFrame:CGRectMake(0, 50, zoomingView.frame.size.width, zoomingView.frame.size.height - 50)];
         [chooseAnalysis setFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50)];
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [filterButton setFrame:CGRectMake(self.view.frame.size.width, 100, 50, self.view.frame.size.height - 200)];
             [newVariablesButton setFrame:CGRectMake(-50, 100, 50, self.view.frame.size.height - 200)];
@@ -1164,7 +1164,7 @@
     [UIView animateWithDuration:0.5 animations:^{
         [mv setFrame:CGRectMake(0, 50, zoomingView.frame.size.width, zoomingView.frame.size.height - 50)];
         [chooseAnalysis setFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50)];
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [filterButton setFrame:CGRectMake(self.view.frame.size.width, 100, 50, self.view.frame.size.height - 200)];
             [newVariablesButton setFrame:CGRectMake(-50, 100, 50, self.view.frame.size.height - 200)];
@@ -1182,7 +1182,7 @@
     [UIView animateWithDuration:0.3 animations:^{
         [analyzeDataLabel setAlpha:0.0];
         [chooseAnalysis setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [filterButton setFrame:CGRectMake(self.view.frame.size.width - 50, 100, 50, self.view.frame.size.height - 200)];
             [newVariablesButton setFrame:CGRectMake(0, 100, 50, self.view.frame.size.height - 200)];
@@ -1233,7 +1233,7 @@
         [dataSourceList setFrame:CGRectMake(0, -50.0 * (numberOfFiles + 1), zoomingView.frame.size.width, 50.0 * (numberOfFiles + 1))];
         [analyzeDataLabel setAlpha:0.0];
         [chooseAnalysis setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [filterButton setFrame:CGRectMake(self.view.frame.size.width - 50, 100, 50, self.view.frame.size.height - 200)];
             [newVariablesButton setFrame:CGRectMake(0, 100, 50, self.view.frame.size.height - 200)];
@@ -1291,7 +1291,7 @@
 //            [UIView animateWithDuration:0.3 animations:^{
 //                [analyzeDataLabel setAlpha:0.0];
 //                [chooseAnalysis setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
-//                if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+//                if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
 //                {
 //                    [filterButton setFrame:CGRectMake(self.view.frame.size.width - 50, 100, 50, self.view.frame.size.height - 200)];
 //                    [newVariablesButton setFrame:CGRectMake(0, 100, 50, self.view.frame.size.height - 200)];
