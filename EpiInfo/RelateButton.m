@@ -1132,17 +1132,17 @@
     mailComposerShown = NO;
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch (buttonIndex) {
-        case 0:
-            break;
-            
-        case 1:
-            [self dismissForm];
-            break;
-    }
-}
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+//{
+//    switch (buttonIndex) {
+//        case 0:
+//            break;
+//
+//        case 1:
+//            [self dismissForm];
+//            break;
+//    }
+//}
 
 - (void)footerBarDelete
 {
