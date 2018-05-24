@@ -332,7 +332,7 @@
     [self.picker selectRow:nsui inComponent:0 animated:NO];
     [self.textFieldToUpdate setText:[NSString stringWithFormat:@"%ld", (long)nsui]];
     [self pickerView:self.picker didSelectRow:nsui inComponent:0];
-    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+    [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [self.tv setFrame:CGRectMake(topX, topY, self.valueButton.frame.size.width, 0)];
     } completion:^(BOOL finished){
         [self.tv setFrame:CGRectMake(self.valueButton.frame.origin.x, self.valueButton.frame.origin.y, self.valueButton.frame.size.width, 0)];
@@ -354,7 +354,7 @@
     [topView addSubview:self.tv];
     [topView bringSubviewToFront:self.tv];
     
-    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+    [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [self.tv setFrame:CGRectMake(topX, finalTopY, self.valueButton.frame.size.width, 180 - 16)];
     } completion:^(BOOL finished){
     }];
