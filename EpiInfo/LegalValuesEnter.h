@@ -17,6 +17,7 @@
     //    UIPickerView *picker;
     NSMutableArray *listOfValues;
     UIView *valueButtonView;
+    UIView *shield;
 }
 @property NSString *columnName;
 @property BOOL isReadOnly;

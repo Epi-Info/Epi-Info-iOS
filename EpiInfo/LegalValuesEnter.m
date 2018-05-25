@@ -106,6 +106,7 @@
         [self.tv setSeparatorColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
         [self.tv.layer setBorderWidth:1.0];
         [self.tv.layer setBorderColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0].CGColor];
+        [self.tv setTag:7593];
         
         [self addSubview:valueButtonView];
         [valueButtonView addSubview:self.valueButton];
@@ -398,6 +399,7 @@
         
         UIScrollView *uisv = (UIScrollView *)[[self superview] superview];
         [uisv setScrollEnabled:YES];
+        [shield removeFromSuperview];
     }];
 
     [self.valueButton setTitle:[[[self.tv cellForRowAtIndexPath:indexPath] textLabel] text] forState:UIControlStateNormal];
@@ -412,8 +414,9 @@
     if (topY < finalTopY)
         finalTopY = topY;
     [self.tv setFrame:CGRectMake(topX, topY, self.tv.frame.size.width, 0.0)];
-    [topView addSubview:self.tv];
-    [topView bringSubviewToFront:self.tv];
+    shield = [[UIView alloc] initWithFrame:CGRectMake(0, 0, topView.frame.size.width, topView.frame.size.height)];
+    [topView addSubview:shield];
+    [shield addSubview:self.tv];
     
     UIScrollView *uisv = (UIScrollView *)[[self superview] superview];
     [uisv setScrollEnabled:NO];
