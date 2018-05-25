@@ -55,7 +55,7 @@
         {
             [self.picker selectRow:i inComponent:0 animated:NO];
             [self.textFieldToUpdate setText:(NSString *)item];
-            NSIndexPath *nsip = [NSIndexPath indexPathForRow:[selectedLegalValue intValue] + 1 inSection:0];
+            NSIndexPath *nsip = [NSIndexPath indexPathForRow:i inSection:0];
             [self.tv selectRowAtIndexPath:nsip animated:NO scrollPosition:UITableViewScrollPositionMiddle];
             [self.valueButton setTitle:[[[self.tv cellForRowAtIndexPath:nsip] textLabel] text] forState:UIControlStateNormal];
             return;
