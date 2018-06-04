@@ -98,6 +98,7 @@
         [leftLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [leftLabel setBackgroundColor:[UIColor whiteColor]];
         [leftLabel setTag:34];
+        [leftLabel setAccessibilityLabel:@""];
         [cell.contentView addSubview:leftLabel];
     }
     else

@@ -401,6 +401,7 @@
         UIScrollView *uisv = (UIScrollView *)[[self superview] superview];
         [uisv setScrollEnabled:YES];
         [shield removeFromSuperview];
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.valueButton);
     }];
 
     [self.valueButton setTitle:[[[self.tv cellForRowAtIndexPath:indexPath] textLabel] text] forState:UIControlStateNormal];
