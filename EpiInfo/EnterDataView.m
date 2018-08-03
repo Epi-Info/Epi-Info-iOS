@@ -4288,7 +4288,7 @@
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
                     {
                         [cb setFrame:CGRectMake(40, cb.frame.origin.y, 30, 30)];
-                        [elementLabel setFrame:CGRectMake(80, contentSizeHeight, fieldWidth, 40)];
+                        [elementLabel setFrame:CGRectMake(80, contentSizeHeight - 20, fieldWidth, 80)];
                     }
                     
                     /*CHECK*/
