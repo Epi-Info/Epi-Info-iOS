@@ -143,7 +143,16 @@
     [(CheckCode *)checkcode ownerDidResign];
     BOOL retVal = [super resignFirstResponder];
     if ([[[self superview] superview] isKindOfClass:[EnterDataView class]])
-        [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+    {
+        @try {
+            [[(EnterDataView *)[[self superview] superview] fieldsAndStringValues] setObject:self.text forKey:[self.columnName lowercaseString]];
+            [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+        } @catch (NSException *exception) {
+            //
+        } @finally {
+            //
+        }
+    }
     
     return retVal;
 }
