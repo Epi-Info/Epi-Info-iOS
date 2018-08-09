@@ -177,7 +177,21 @@
                         continue;
                     }
                     else
-                        rowDisplay = [rowDisplay stringByAppendingString:[NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]]];
+                    {
+                        NSString *stringToAppend = [NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]];
+                        NSNumberFormatter *numFor = [[NSNumberFormatter alloc] init];
+                        if ([numFor numberFromString:stringToAppend])
+                        {
+                            if ([stringToAppend length] > 1)
+                            {
+                                if ([[stringToAppend substringFromIndex:[stringToAppend length] - 2] isEqualToString:@".0"])
+                                {
+                                    stringToAppend = [stringToAppend substringToIndex:[stringToAppend length] - 2];
+                                }
+                            }
+                        }
+                        rowDisplay = [rowDisplay stringByAppendingString:stringToAppend];
+                    }
                     i++;
                     j++;
                     if (j >= columsToDisplay)

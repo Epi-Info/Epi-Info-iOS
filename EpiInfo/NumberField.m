@@ -165,7 +165,16 @@
 - (void)assignValue:(NSString *)value
 {
     if (value != nil)
+    {
+        if ([value length] > 1)
+        {
+            if ([[value substringFromIndex:[value length] - 2] isEqualToString:@".0"])
+            {
+                value = [value substringToIndex:[value length] - 2];
+            }
+        }
         [[(EnterDataView *)[[self superview] superview] fieldsAndStringValues] setObject:value forKey:[self.columnName lowercaseString]];
+    }
     [self setText:value];
 }
 
