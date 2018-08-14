@@ -17,5 +17,6 @@ enum {
 }
 @property DictionaryOfFields *dictionaryOfFields;
 @property NSDictionary *dictionaryOfPages;
+@property UIViewController *rootViewController;
 @end
 

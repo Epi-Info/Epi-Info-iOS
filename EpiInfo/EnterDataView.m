@@ -305,6 +305,10 @@
         
         keywordsArray = [[NSMutableArray alloc]initWithObjects:@"enable",@"disable",@"highlight",@"unhighlight",@"set-required",@"set-not-required",@"assign",@"autosearch",@"call",@"clear",@"define",@"dialog",@"execute",@"geocode",@"goto",@"hide",@"unhide",@"if",@"newrecord",@"quit",@"gotoform", nil];
         firstParse = YES;
+        if (!((DataEntryViewController *)[self rootViewController]).arrayOfFieldsAllPages)
+        {
+            ((DataEntryViewController *)[self rootViewController]).arrayOfFieldsAllPages = [[NSMutableArray alloc] init];
+        }
         BOOL success = [xmlParser parse];
         
         if (success)
@@ -3095,6 +3099,10 @@
             if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"10"])
             {
                 [self.checkboxes setObject:@"A" forKey:[attributeDict objectForKey:@"Name"]];
+            }
+            if (![((DataEntryViewController *)[self rootViewController]).arrayOfFieldsAllPages containsObject:[[attributeDict objectForKey:@"Name"] lowercaseString]])
+            {
+                [((DataEntryViewController *)[self rootViewController]).arrayOfFieldsAllPages addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
             }
         }
         if ([elementName isEqualToString:@"SourceTable"])
@@ -6873,6 +6881,7 @@
                     [ifParser setDictionaryOfFields:self.dictionaryOfFields];
                     [ifParser setDictionaryOfPages:[self dictionaryOfPages]];
                     
+                    [ifParser setRootViewController:self.rootViewController];
                     PKAssembly *ifResult = [ifParser parseString:[ifElement stringValue] error:&err];
                     if (ifResult)
                     {
@@ -6906,6 +6915,7 @@
                     [ifParser setDictionaryOfFields:self.dictionaryOfFields];
                     [ifParser setDictionaryOfPages:[self dictionaryOfPages]];
 
+                    [ifParser setRootViewController:self.rootViewController];
                     PKAssembly *ifResult = [ifParser parseString:[ifElement stringValue] error:&err];
                     if (ifResult)
                     {

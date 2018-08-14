@@ -2,6 +2,7 @@
 #import "ExpressionActionParser.h"
 #import "FullAssignStatementParser.h"
 #import "AssignStatementParser.h"
+#import "DataEntryViewController.h"
 #import <PEGKit/PEGKit.h>
 
 #define LT(i) [self LT:(i)]
@@ -195,6 +196,8 @@
                         NSMutableArray *controlsToAlter = [NSMutableArray arrayWithArray:[statement componentsSeparatedByString:@" "]];
                         for (int cto = 1; cto < controlsToAlter.count; cto++)
                         {
+                            if (![((DataEntryViewController *)[self rootViewController]).arrayOfFieldsAllPages containsObject:[[controlsToAlter objectAtIndex:cto] lowercaseString]])
+                                continue;
                             BOOL pageAlreadyExists = NO;
                             int pageTurns = 0;
                             EnterDataView *edv0;
@@ -260,6 +263,8 @@
                         NSMutableArray *controlsToAlter = [NSMutableArray arrayWithArray:[statement componentsSeparatedByString:@" "]];
                         for (int cto = 1; cto < controlsToAlter.count; cto++)
                         {
+                            if (![((DataEntryViewController *)[self rootViewController]).arrayOfFieldsAllPages containsObject:[[controlsToAlter objectAtIndex:cto] lowercaseString]])
+                                continue;
                             BOOL pageAlreadyExists = NO;
                             int pageTurns = 0;
                             EnterDataView *edv0;
@@ -325,6 +330,8 @@
                         NSMutableArray *controlsToAlter = [NSMutableArray arrayWithArray:[statement componentsSeparatedByString:@" "]];
                         for (int cto = 1; cto < controlsToAlter.count; cto++)
                         {
+                            if (![((DataEntryViewController *)[self rootViewController]).arrayOfFieldsAllPages containsObject:[[controlsToAlter objectAtIndex:cto] lowercaseString]])
+                                continue;
                             BOOL pageAlreadyExists = NO;
                             int pageTurns = 0;
                             EnterDataView *edv0;
@@ -403,6 +410,8 @@
                         NSArray *controlsToAlter = [statement componentsSeparatedByString:@" "];
                         for (int cto = 1; cto < controlsToAlter.count; cto++)
                         {
+                            if (![((DataEntryViewController *)[self rootViewController]).arrayOfFieldsAllPages containsObject:[[controlsToAlter objectAtIndex:cto] lowercaseString]])
+                                continue;
                             BOOL pageAlreadyExists = NO;
                             int pageBeingDisplayed = 0;
                             int pageToWhichWeAreTurning = 0;

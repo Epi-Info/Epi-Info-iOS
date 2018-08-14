@@ -31,6 +31,7 @@
 @synthesize legalValuesDictionary = _legalValuesDictionary;
 @synthesize fieldsAndStringValues = _fieldsAndStringValues;
 @synthesize didShowProjectTemplateWarning = _didShowProjectTemplateWarning;
+@synthesize arrayOfFieldsAllPages = _arrayOfFieldsAllPages;
 
 - (NSMutableArray *)formNavigationItems
 {
