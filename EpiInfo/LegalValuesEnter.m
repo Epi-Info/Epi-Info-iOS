@@ -96,6 +96,8 @@
         self.valueButton = [[UIButton alloc] initWithFrame:CGRectMake(8, 8, valueButtonView.frame.size.width - 16, 48)];
         [self.valueButton setBackgroundColor:[UIColor whiteColor]];
         [self.valueButton setTitle:@"" forState:UIControlStateNormal];
+        [self.valueButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [self.valueButton setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
         [self.valueButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
         [self.valueButton.layer setBorderWidth:1.0];
         [self.valueButton.layer setBorderColor:[[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] CGColor]];
