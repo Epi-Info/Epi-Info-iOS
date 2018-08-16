@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "EpiInfoControlProtocol.h"
+#import "DownTriangle.h"
 
 @interface LegalValuesEnter : UIView <UIPickerViewDelegate, UIPickerViewDataSource, EpiInfoControlProtocol, UITableViewDelegate, UITableViewDataSource>
 {

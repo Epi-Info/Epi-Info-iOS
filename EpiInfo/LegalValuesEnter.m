@@ -100,7 +100,12 @@
         [self.valueButton.layer setBorderWidth:1.0];
         [self.valueButton.layer setBorderColor:[[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] CGColor]];
         [self.valueButton addTarget:self action:@selector(valueButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        
+        float triangleViewDimension = self.valueButton.frame.size.height - 16.0;
+        DownTriangle *dt = [[DownTriangle alloc] initWithFrame:CGRectMake(self.valueButton.frame.size.width - (8.0 + triangleViewDimension), 8.0, triangleViewDimension, triangleViewDimension)];
+        [dt setBackgroundColor:[UIColor whiteColor]];
+        [dt addTarget:self action:@selector(valueButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [self.valueButton addSubview:dt];
+
         self.tv = [[UITableView alloc] initWithFrame:CGRectMake(self.valueButton.frame.origin.x, self.valueButton.frame.origin.y, self.valueButton.frame.size.width, 0) style:UITableViewStylePlain];
         [self.tv setDelegate:self];
         [self.tv setDataSource:self];

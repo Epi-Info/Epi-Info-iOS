@@ -180,6 +180,7 @@
 		9247F20F181ADB4E00C96F94 /* BlurryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9247F20E181ADB4E00C96F94 /* BlurryView.m */; };
 		9248261D19CB40E300A0C1DD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9248261C19CB40E300A0C1DD /* Images.xcassets */; };
 		924A7D1419C21D2900F168A0 /* MeansCrosstabCompute.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A7D1319C21D2900F168A0 /* MeansCrosstabCompute.m */; };
+		924B5B812125F2DF00B519CE /* DownTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 924B5B802125F2DF00B519CE /* DownTriangle.m */; };
 		924D8AAA1AAE2BA1005A6253 /* CohortSimulationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924D8AA91AAE2BA1005A6253 /* CohortSimulationModel.swift */; };
 		9252017E17D0C89A0071C754 /* ShinyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9252017D17D0C89A0071C754 /* ShinyButton.m */; };
 		9252018017D0CC930071C754 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9252017F17D0CC930071C754 /* QuartzCore.framework */; };
@@ -683,6 +684,8 @@
 		9248261C19CB40E300A0C1DD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		924A7D1219C21D2900F168A0 /* MeansCrosstabCompute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeansCrosstabCompute.h; sourceTree = "<group>"; };
 		924A7D1319C21D2900F168A0 /* MeansCrosstabCompute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeansCrosstabCompute.m; sourceTree = "<group>"; };
+		924B5B7F2125F2DF00B519CE /* DownTriangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownTriangle.h; sourceTree = "<group>"; };
+		924B5B802125F2DF00B519CE /* DownTriangle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownTriangle.m; sourceTree = "<group>"; };
 		924D8AA91AAE2BA1005A6253 /* CohortSimulationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CohortSimulationModel.swift; sourceTree = "<group>"; };
 		9252017C17D0C89A0071C754 /* ShinyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShinyButton.h; sourceTree = "<group>"; };
 		9252017D17D0C89A0071C754 /* ShinyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShinyButton.m; sourceTree = "<group>"; };
@@ -1578,6 +1581,8 @@
 				928F8818200FEF85001F3E03 /* EpiInfoImageField.m */,
 				9266C5321846795000739AF2 /* YesNo.h */,
 				9266C5331846795000739AF2 /* YesNo.m */,
+				924B5B7F2125F2DF00B519CE /* DownTriangle.h */,
+				924B5B802125F2DF00B519CE /* DownTriangle.m */,
 				9266C5351846848800739AF2 /* NumberField.h */,
 				9266C5361846848800739AF2 /* NumberField.m */,
 				9266C538184684B200739AF2 /* PhoneNumberField.h */,
@@ -2213,6 +2218,7 @@
 				9265FF8D1CAEA7BF003AD6E0 /* CommentLegal.m in Sources */,
 				92955547192B963F008DEC5C /* ConverterMethods.m in Sources */,
 				92A25C0719391A97003225E1 /* EpiInfoCodesField.m in Sources */,
+				924B5B812125F2DF00B519CE /* DownTriangle.m in Sources */,
 				92A25BFB1938D8F9003225E1 /* DateTimeField.m in Sources */,
 				9284E8F017B94E8C00158139 /* SQLiteData.m in Sources */,
 				9270CA1917CBB0C100522D4F /* BigDouble.m in Sources */,
