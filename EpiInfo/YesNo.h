@@ -9,10 +9,15 @@
 #import <QuartzCore/QuartzCore.h>
 #import "EpiInfoControlProtocol.h"
 
-@interface YesNo : UIView <UIPickerViewDelegate, UIPickerViewDataSource, EpiInfoControlProtocol>
+@interface YesNo : UIView <UIPickerViewDelegate, UIPickerViewDataSource, EpiInfoControlProtocol, UITableViewDelegate, UITableViewDataSource>
 {
     UILabel *picked;
     UIPickerView *picker;
+    UIView *valueButtonView;
+    UIView *shield;
+    float topX;
+    float topY;
+    float finalTopY;
 }
 
 -(NSString *)picked;
@@ -22,4 +27,6 @@
 
 @property NSString *columnName;
 @property BOOL isReadOnly;
+@property UIButton *valueButton;
+@property UITableView *tv;
 @end
