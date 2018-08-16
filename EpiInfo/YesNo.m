@@ -36,6 +36,8 @@
         
         self.valueButton = [[UIButton alloc] initWithFrame:CGRectMake(8, 8, valueButtonView.frame.size.width - 16, 48)];
         [self.valueButton setBackgroundColor:[UIColor whiteColor]];
+        float fontSize = 16.0;
+        [self.valueButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:fontSize]];
         [self.valueButton setTitle:@"" forState:UIControlStateNormal];
         [self.valueButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [self.valueButton setContentEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
