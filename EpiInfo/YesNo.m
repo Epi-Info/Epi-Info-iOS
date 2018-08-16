@@ -15,7 +15,7 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, 300, 180)];
+    self = [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, 300, 80)];
     if (self) {
         // Initialization code
         //        [self setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
@@ -29,7 +29,8 @@
         [picker setShowsSelectionIndicator:YES];
         [picker setBackgroundColor:[UIColor clearColor]];
         [self addSubview:picker];
-        
+        [picker setAlpha:0.0];
+
         valueButtonView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         [valueButtonView setBackgroundColor:[UIColor whiteColor]];
         
@@ -134,6 +135,11 @@
         [self tableView:self.tv didSelectRowAtIndexPath:nsip];
     }
     [picked setText:[NSString stringWithFormat:@"%d", (int)yesNo]];
+}
+
+-(float)contentSizeHeightAdjustment
+{
+    return self.frame.size.height - 20.0;
 }
 
 - (void)setFormFieldValue:(NSString *)formFieldValue

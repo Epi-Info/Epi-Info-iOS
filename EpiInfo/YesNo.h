@@ -24,6 +24,8 @@
 -(void)reset;
 -(void)setYesNo:(NSInteger)yesNo;
 -(void)setFormFieldValue:(NSString *)formFieldValue;
+-(void)removeValueButtonViewFromSuperview;
+-(float)contentSizeHeightAdjustment;
 
 @property NSString *columnName;
 @property BOOL isReadOnly;

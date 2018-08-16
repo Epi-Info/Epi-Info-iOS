@@ -4476,7 +4476,7 @@
                     }
                     
                     [formCanvas addSubview:yn];
-                    contentSizeHeight += 160;
+                    contentSizeHeight += [yn contentSizeHeightAdjustment];
                     [alterTableElements setObject:@"integer" forKey:[attributeDict objectForKey:@"Name"]];
                     [yn setColumnName:[attributeDict objectForKey:@"Name"]];
                     [yn setAccessibilityLabel:[attributeDict objectForKey:@"Name"]];
