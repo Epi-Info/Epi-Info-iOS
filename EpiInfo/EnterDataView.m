@@ -6812,9 +6812,10 @@
                         if ([am.condition isEqualToString:@"assign"])
                         {
                             AssignmentModel *assignmentModel = [ParseAssignment parseAssign:am.assignment];
+                            NSArray *initialTextArray = [[[assignmentModel.initialText stringByReplacingOccurrencesOfString:@"(" withString:@""] stringByReplacingOccurrencesOfString:@")" withString:@""] componentsSeparatedByString:@" "];
                             for (id key in [self.fieldsAndStringValues nsmd])
                             {
-                                if ([assignmentModel.initialText containsString:(NSString *)key])
+                                if ([initialTextArray containsObject:(NSString *)key])
                                 {
                                     [assignmentModel setInitialText:[assignmentModel.initialText stringByReplacingOccurrencesOfString:(NSString *)key withString:[self.fieldsAndStringValues objectForKey:key]]];
                                 }
