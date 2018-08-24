@@ -584,6 +584,33 @@
                 if (field)
                 {
                     NSString *fieldsControlValue = [field epiInfoControlValue];
+                    //
+                    // For Leval Values and Comment Legal:
+                    // Check if the value begins with a numeral
+                    // If so, and it is not a date or entirely a number,
+                    // then it needs to be quoted or Check Code will fail
+                    if ([field isKindOfClass:[LegalValuesEnter class]])
+                    {
+                        if ([[NSScanner scannerWithString:[NSString stringWithFormat:@"%c", [fieldsControlValue characterAtIndex:0]]] scanFloat:nil] ||
+                            [[NSScanner scannerWithString:[NSString stringWithFormat:@"%c%c", [fieldsControlValue characterAtIndex:0], [fieldsControlValue characterAtIndex:1]]] scanFloat:nil])
+                        {
+                            bool canBeQuoted = false;
+                            NSCharacterSet *justNumbers = [NSCharacterSet characterSetWithCharactersInString:[NSString stringWithFormat:@"%@0123456789", [[[NSNumberFormatter alloc] init] decimalSeparator]]];
+                            NSCharacterSet *controlValueCharacterSet = [NSCharacterSet characterSetWithCharactersInString:fieldsControlValue];
+                            NSArray *decimalCounter = [fieldsControlValue componentsSeparatedByString:[[[NSNumberFormatter alloc] init] decimalSeparator]];
+                            if (![justNumbers isSupersetOfSet:controlValueCharacterSet] || decimalCounter.count > 2)
+                                canBeQuoted = true;
+                            NSError *dateCheckError = nil;
+                            NSDataDetector *dateDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeDate error:&dateCheckError];
+                            NSUInteger datesinstring = [dateDetector numberOfMatchesInString:fieldsControlValue options:0 range:NSMakeRange(0, [fieldsControlValue length])];
+                            if (datesinstring == 1)
+                                canBeQuoted = false;
+                            if (canBeQuoted)
+                                fieldsControlValue = [NSString stringWithFormat:@"%c%@%c", '"', fieldsControlValue, '"'];
+                        }
+                    }
+                    // End of Legal Values leading numeral check
+                    //
                     if ([field isKindOfClass:[EpiInfoOptionField class]])
                     {
                         fieldsControlValue = [NSString stringWithFormat:@"%d", [fieldsControlValue intValue] - 1];
