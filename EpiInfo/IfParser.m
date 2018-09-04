@@ -486,6 +486,15 @@
                             }
                         }
                     }
+                    else if ([[[[statement uppercaseString] componentsSeparatedByString:@" "] objectAtIndex:0] isEqualToString:@"DIALOG"])
+                    {
+                        NSArray *dialogArray = [statement componentsSeparatedByString:@"\""];
+                        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:[dialogArray objectAtIndex:3] message:[dialogArray objectAtIndex:1] preferredStyle:UIAlertControllerStyleAlert];
+                        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                        }];
+                        [alertC addAction:okAction];
+                        [self.rootViewController presentViewController:alertC animated:YES completion:nil];
+                    }
                 }
             }
             else
