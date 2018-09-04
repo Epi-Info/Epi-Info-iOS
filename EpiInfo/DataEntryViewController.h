@@ -29,7 +29,7 @@
     
     UIImageView *fadingColorView;
     UILabel *pickerLabel;
-    LegalValues *lv;
+    LegalValuesEnter *lv;
     UIButton *openButton;
     UIButton *manageButton;
     UITextField *lvSelected;

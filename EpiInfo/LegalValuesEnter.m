@@ -246,7 +246,8 @@
     {
         [self.viewToAlertOfChanges didChangeValueForKey:[NSString stringWithString:[listOfValues objectAtIndex:row]]];
     }
-    [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+    if ([[[self superview] superview] isKindOfClass:[EnterDataView class]])
+        [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
     
 }
 
@@ -408,7 +409,8 @@
         [self.valueButton addSubview:self.tv];
         
         UIScrollView *uisv = (UIScrollView *)[[self superview] superview];
-        [uisv setScrollEnabled:YES];
+        if ([uisv isKindOfClass:[UIScrollView class]])
+            [uisv setScrollEnabled:YES];
         [shield removeFromSuperview];
         UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.valueButton);
     }];
@@ -430,10 +432,13 @@
     [shield addSubview:self.tv];
     
     UIScrollView *uisv = (UIScrollView *)[[self superview] superview];
-    [uisv setScrollEnabled:NO];
+    if ([uisv isKindOfClass:[UIScrollView class]])
+        [uisv setScrollEnabled:NO];
     
     [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [self.tv setFrame:CGRectMake(topX, finalTopY, self.valueButton.frame.size.width, 180 - 16)];
+        if ([self tag] == 1957)
+            [self.tv setFrame:CGRectMake(topX, finalTopY, self.valueButton.frame.size.width, 360 - 16)];
     } completion:^(BOOL finished){
     }];
 }

@@ -175,7 +175,7 @@
             
             lvSelected = [[UITextField alloc] init];
             
-            lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, 40, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
+            lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(10, 40, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
             
             openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 207, 120, 40)];
             [openButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
@@ -237,7 +237,7 @@
             
             lvSelected = [[UITextField alloc] init];
             
-            lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, 40, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
+            lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(10, 40, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
             
             openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 207, 120, 40)];
             [openButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
@@ -303,7 +303,7 @@
             
             lvSelected = [[UITextField alloc] init];
             
-            lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, 40, 300, 180) AndListOfValues:pickerFiles AndTextFieldToUpdate:lvSelected];
+            lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(10, 40, 300, 180) AndListOfValues:pickerFiles AndTextFieldToUpdate:lvSelected];
             [lv.picker selectRow:selectedindex inComponent:0 animated:YES];
             [self.view addSubview:lv];
             
@@ -397,7 +397,7 @@
             
             lvSelected = [[UITextField alloc] init];
             
-            lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, 15 + 20, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
+            lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(10, 15 + 20, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
             
             openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 182 + 20, 120, 40)];
             [openButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
@@ -458,7 +458,7 @@
             
             lvSelected = [[UITextField alloc] init];
             
-            lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, 15 + 20, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
+            lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(10, 15 + 20, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
             
             openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 182 + 20, 120, 40)];
             [openButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
@@ -524,7 +524,7 @@
             
             lvSelected = [[UITextField alloc] init];
             
-            lv = [[LegalValues alloc] initWithFrame:CGRectMake(10, 15 + 20, 300, 180) AndListOfValues:pickerFiles AndTextFieldToUpdate:lvSelected];
+            lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(10, 15 + 20, 300, 180) AndListOfValues:pickerFiles AndTextFieldToUpdate:lvSelected];
             [lv.picker selectRow:selectedindex inComponent:0 animated:YES];
             [self.view addSubview:lv];
             
@@ -558,6 +558,7 @@
         }
     }
     mailComposerShown = NO;
+    [lv setTag:1957];
 }
 
 - (void)noFormsFound:(UILabel *)newLabel
