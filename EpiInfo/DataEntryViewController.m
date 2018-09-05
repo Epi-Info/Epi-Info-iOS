@@ -1025,7 +1025,7 @@
     
     // The smaller and less-transparent white view for the message and buttons.
     //    UIView *messageView = [[UIView alloc] initWithFrame:dismissImageView.frame];
-    UIView *messageView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 300, openButton.frame.origin.y + openButton.frame.size.height + 90.0)];
+    UIView *messageView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 300, openButton.frame.origin.y + openButton.frame.size.height + 145.0)];
     [messageView setBackgroundColor:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.7]];
 //    [messageView setAlpha:0.7];
     [messageView.layer setCornerRadius:8.0];
@@ -1094,7 +1094,7 @@
     [uiaiv setHidden:YES];
     [messageView addSubview:uiaiv];
     
-    UIButton *iTunesButton = [[UIButton alloc] initWithFrame:CGRectMake(1, openButton.frame.origin.y - openButton.frame.size.height, 298, 40)];
+    UIButton *iTunesButton = [[UIButton alloc] initWithFrame:CGRectMake(1, openButton.frame.origin.y - openButton.frame.size.height + 55, 298, 40)];
 //    [iTunesButton setImage:[UIImage imageNamed:@"PackageForiTunesButton.png"] forState:UIControlStateNormal];
     [iTunesButton setTitle:@"Package Data for Upload to iTunes" forState:UIControlStateNormal];
     [iTunesButton setAccessibilityLabel:@"Package for I tunes upload."];
@@ -1108,7 +1108,7 @@
     [iTunesButton addTarget:self action:@selector(prePackageData:) forControlEvents:UIControlEventTouchUpInside];
     [messageView addSubview:iTunesButton];
     
-    UIButton *emailButton = [[UIButton alloc] initWithFrame:CGRectMake(1, openButton.frame.origin.y - openButton.frame.size.height + 42.0, 298, 40)];
+    UIButton *emailButton = [[UIButton alloc] initWithFrame:CGRectMake(1, openButton.frame.origin.y - openButton.frame.size.height + 55 + 42.0, 298, 40)];
 //    [emailButton setImage:[UIImage imageNamed:@"PackageAndEmailDataButton.png"] forState:UIControlStateNormal];
     [emailButton setTitle:@"Package and Email Data" forState:UIControlStateNormal];
     [emailButton setAccessibilityLabel:@"Package and email"];
@@ -1123,7 +1123,7 @@
     [messageView addSubview:emailButton];
     
     //    UIButton *yesButton = [[UIButton alloc] initWithFrame:dismissImageView.frame];
-    UIButton *yesButton = [[UIButton alloc] initWithFrame:CGRectMake(1, openButton.frame.origin.y - openButton.frame.size.height + 84.0, 298, 40)];
+    UIButton *yesButton = [[UIButton alloc] initWithFrame:CGRectMake(1, openButton.frame.origin.y - openButton.frame.size.height + 55 + 84.0, 298, 40)];
 //    [yesButton setImage:[UIImage imageNamed:@"UploadDataToCloudButton.png"] forState:UIControlStateNormal];
     [yesButton setTitle:@"Upload Data to Cloud" forState:UIControlStateNormal];
     [yesButton setAccessibilityLabel:@"Upload to cloud"];
@@ -1142,7 +1142,7 @@
     }
     
     //    UIButton *noButton = [[UIButton alloc] initWithFrame:dismissImageView.frame];
-    UIButton *noButton = [[UIButton alloc] initWithFrame:CGRectMake(messageView.frame.size.width / 2.0 -  openButton.frame.size.width / 2.0, openButton.frame.origin.y + 88.0, openButton.frame.size.width, openButton.frame.size.height)];
+    UIButton *noButton = [[UIButton alloc] initWithFrame:CGRectMake(messageView.frame.size.width / 2.0 -  openButton.frame.size.width / 2.0, openButton.frame.origin.y + 55 + 88.0, openButton.frame.size.width, openButton.frame.size.height)];
 //    [noButton setImage:[UIImage imageNamed:@"CancelButton.png"] forState:UIControlStateNormal];
     [noButton setTitle:@"Cancel" forState:UIControlStateNormal];
     [noButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
