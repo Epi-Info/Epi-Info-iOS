@@ -417,7 +417,11 @@
             [formCanvas setFrame:CGRectMake(0, 0, frame.size.width, contentSizeHeight)];
             
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-                contentSizeHeight += 240.0;
+            {
+                contentSizeHeight += 264.0;
+                if ([self.pageName intValue] > 1)
+                    contentSizeHeight -= 228.0;
+            }
             
             [self setContentSize:CGSizeMake(frame.size.width, contentSizeHeight)];
         }
