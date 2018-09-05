@@ -1178,12 +1178,22 @@
     });
 }
 
-/*
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
     // Drawing code
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    
+    CGContextBeginPath(ctx);
+    CGContextSetLineWidth(ctx, 1.0);
+    CGContextMoveToPoint(ctx, 2.0, 2.0);
+    CGContextAddLineToPoint(ctx, rect.size.width - 2.0, 2.0);
+    CGContextAddLineToPoint(ctx, rect.size.width - 2.0, rect.size.height - 2.0);
+    CGContextAddLineToPoint(ctx, 2.0  , rect.size.height - 2.0);
+    CGContextClosePath(ctx);
+    CGContextSetRGBStrokeColor(ctx, 189/255.0, 190/255.0, 192/255.0, 1);
+    CGContextStrokePath(ctx);
 }
-*/
 
 @end
