@@ -91,6 +91,11 @@
         [cell setIndentationWidth:18];
         
         UILabel *leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, 0, 16, cell.frame.size.height)];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            [cell setIndentationWidth:20];
+            [leftLabel setFrame:CGRectMake(16, 0, 18, cell.frame.size.height)];
+        }
         if ([indexPath row] > 0)
              [leftLabel setText:@"\u25cb"];
         else
