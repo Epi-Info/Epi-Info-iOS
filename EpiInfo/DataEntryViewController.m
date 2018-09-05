@@ -159,7 +159,7 @@
             [enterDataLabel setTextAlignment:NSTextAlignmentCenter];
             [self.view addSubview:enterDataLabel];
             
-            pickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 40, 280, 28)];
+            pickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0 - 150.0, 40, 280, 28)];
             [pickerLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
             [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
             [pickerLabel setText:@"No forms found on this device."];
@@ -175,9 +175,9 @@
             
             lvSelected = [[UITextField alloc] init];
             
-            lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(10, 40, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
+            lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0 - 150.0, 68, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
             
-            openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 207, 120, 40)];
+            openButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0 - 130.0, 155, 120, 40)];
             [openButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [openButton.layer setCornerRadius:4.0];
             [openButton setTitle:@"Open" forState:UIControlStateNormal];
@@ -191,7 +191,7 @@
             [self.view addSubview:openButton];
             [openButton setEnabled:NO];
             
-            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 207, 120, 40)];
+            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0 + 10.0, 155, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
             [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
@@ -221,7 +221,7 @@
             [enterDataLabel setTextAlignment:NSTextAlignmentCenter];
             [self.view addSubview:enterDataLabel];
             
-            pickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 40, 280, 28)];
+            pickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0 - 150.0, 40, 280, 28)];
             [pickerLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
             [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
             [pickerLabel setText:@"No forms found on this device."];
@@ -237,9 +237,9 @@
             
             lvSelected = [[UITextField alloc] init];
             
-            lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(10, 40, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
+            lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0 - 150.0, 68, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
             
-            openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 207, 120, 40)];
+            openButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0 - 130.0, 155, 120, 40)];
             [openButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [openButton.layer setCornerRadius:4.0];
             [openButton setTitle:@"Open" forState:UIControlStateNormal];
@@ -253,7 +253,7 @@
             [self.view addSubview:openButton];
             [openButton setEnabled:NO];
             
-            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 207, 120, 40)];
+            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0 + 10.0, 155, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
             [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
@@ -294,20 +294,20 @@
             [enterDataLabel setTextAlignment:NSTextAlignmentCenter];
             [self.view addSubview:enterDataLabel];
             
-            pickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 40, 280, 28)];
+            pickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0 - 150.0, 40, 280, 28)];
             [pickerLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
-            [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0]];
+            [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
             [pickerLabel setText:@"Select a form:"];
             [pickerLabel setBackgroundColor:[UIColor clearColor]];
             [self.view addSubview:pickerLabel];
             
             lvSelected = [[UITextField alloc] init];
             
-            lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(10, 40, 300, 180) AndListOfValues:pickerFiles AndTextFieldToUpdate:lvSelected];
+            lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0 - 150.0, 68, 300, 180) AndListOfValues:pickerFiles AndTextFieldToUpdate:lvSelected];
             [lv.picker selectRow:selectedindex inComponent:0 animated:YES];
             [self.view addSubview:lv];
             
-            openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 207, 120, 40)];
+            openButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0 - 130.0, 155, 120, 40)];
             [openButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [openButton.layer setCornerRadius:4.0];
             [openButton setTitle:@"Open" forState:UIControlStateNormal];
@@ -320,7 +320,7 @@
             [openButton addTarget:self action:@selector(openButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
             
-            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 207, 120, 40)];
+            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0 + 10.0, 155, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
             [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
@@ -383,13 +383,13 @@
             
             pickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20 + 20, 280, 28)];
             [pickerLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
-            [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:20.0]];
+            [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
             [pickerLabel setText:@"No forms found on this device."];
             [pickerLabel setBackgroundColor:[UIColor clearColor]];
             [self.view addSubview:pickerLabel];
             UILabel *altPickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20 + 20, 280, 28)];
             [altPickerLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
-            [altPickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+            [altPickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
             [altPickerLabel setText:@"No forms found on this device."];
             [altPickerLabel setBackgroundColor:[UIColor clearColor]];
             [self.view addSubview:altPickerLabel];
@@ -397,9 +397,9 @@
             
             lvSelected = [[UITextField alloc] init];
             
-            lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(10, 15 + 20, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
+            lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(10, 68, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
             
-            openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 182 + 20, 120, 40)];
+            openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 155, 120, 40)];
             [openButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [openButton.layer setCornerRadius:4.0];
             [openButton setTitle:@"Open" forState:UIControlStateNormal];
@@ -412,7 +412,7 @@
             [openButton addTarget:self action:@selector(openButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
             
-            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182 + 20, 120, 40)];
+            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 155, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
             [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
@@ -444,13 +444,13 @@
             
             pickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20 + 20, 280, 28)];
             [pickerLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
-            [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:20.0]];
+            [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
             [pickerLabel setText:@"No forms found on this device."];
             [pickerLabel setBackgroundColor:[UIColor clearColor]];
             [self.view addSubview:pickerLabel];
             UILabel *altPickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20 + 20, 280, 28)];
             [altPickerLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
-            [altPickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+            [altPickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
             [altPickerLabel setText:@"No forms found on this device."];
             [altPickerLabel setBackgroundColor:[UIColor clearColor]];
             [self.view addSubview:altPickerLabel];
@@ -458,9 +458,9 @@
             
             lvSelected = [[UITextField alloc] init];
             
-            lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(10, 15 + 20, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
+            lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(10, 68, 300, 180) AndListOfValues:[[NSMutableArray alloc] init] AndTextFieldToUpdate:lvSelected];
             
-            openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 182 + 20, 120, 40)];
+            openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 155, 120, 40)];
             [openButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [openButton.layer setCornerRadius:4.0];
             [openButton setTitle:@"Open" forState:UIControlStateNormal];
@@ -473,7 +473,7 @@
             [openButton addTarget:self action:@selector(openButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
             
-            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182 + 20, 120, 40)];
+            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 155, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
             [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
@@ -516,19 +516,19 @@
             
             pickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20 + 20, 280, 28)];
             [pickerLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
-            [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:20.0]];
+            [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
             [pickerLabel setText:@"Select a form:"];
             [pickerLabel setBackgroundColor:[UIColor clearColor]];
-            [pickerLabel setTextAlignment:NSTextAlignmentCenter];
+            [pickerLabel setTextAlignment:NSTextAlignmentLeft];
             [self.view addSubview:pickerLabel];
             
             lvSelected = [[UITextField alloc] init];
             
-            lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(10, 15 + 20, 300, 180) AndListOfValues:pickerFiles AndTextFieldToUpdate:lvSelected];
+            lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(10, 68, 300, 180) AndListOfValues:pickerFiles AndTextFieldToUpdate:lvSelected];
             [lv.picker selectRow:selectedindex inComponent:0 animated:YES];
             [self.view addSubview:lv];
             
-            openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 182 + 20, 120, 40)];
+            openButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 155, 120, 40)];
             [openButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [openButton.layer setCornerRadius:4.0];
             [openButton setTitle:@"Open" forState:UIControlStateNormal];
@@ -541,7 +541,7 @@
             [openButton addTarget:self action:@selector(openButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
             
-            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 182 + 20, 120, 40)];
+            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 155, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
             [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
