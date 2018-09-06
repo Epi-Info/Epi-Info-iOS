@@ -55,7 +55,23 @@
 //    [self setImage:[UIImage imageNamed:@"PlainPurpleButton.png"] forState:UIControlStateNormal];
     [self setClipsToBounds:YES];
     [self addTarget:self action:@selector(selfPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self addTarget:self action:@selector(selfTouchedDown:) forControlEvents:UIControlEventTouchDown];
+    [self addTarget:self action:@selector(selfDraggedOutside:) forControlEvents:UIControlEventTouchDragOutside];
     [self setBackgroundColor:[UIColor colorWithRed:230/255.0 green:231/255.0 blue:232/255.0 alpha:1.0]];
+    
+    UIGraphicsBeginImageContext(self.frame.size);
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextBeginPath(ctx);
+    CGContextSetLineWidth(ctx, 1.0);
+    CGContextMoveToPoint(ctx, 3.0, 3.0);
+    CGContextAddLineToPoint(ctx, self.frame.size.width - 3.0, 3.0);
+    CGContextAddLineToPoint(ctx, self.frame.size.width - 3.0, self.frame.size.height - 3.0);
+    CGContextAddLineToPoint(ctx, 3.0  , self.frame.size.height - 3.0);
+    CGContextClosePath(ctx);
+    CGContextSetRGBStrokeColor(ctx, 189/255.0, 190/255.0, 192/255.0, 1);
+    CGContextStrokePath(ctx);
+    touchBorderImageView = [[UIImageView alloc] initWithImage:UIGraphicsGetImageFromCurrentImageContext()];
+    
     return self;
 }
 
@@ -87,9 +103,19 @@
     [self setHighlighted:NO];
 }
 
+- (void)selfTouchedDown:(UIButton *)sender
+{
+    [self addSubview:touchBorderImageView];
+}
+- (void)selfDraggedOutside:(UIButton *)sender
+{
+    [touchBorderImageView removeFromSuperview];
+}
+
 - (void)selfPressed:(UIButton *)sender
 {
 //    NSLog(@"Load table %@", relatedViewName);
+    [touchBorderImageView removeFromSuperview];
     if (!relatedViewName)
         return;
     

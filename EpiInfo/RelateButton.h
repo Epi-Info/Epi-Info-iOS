@@ -37,6 +37,8 @@
     UINavigationItem *formNavigationItem;
     UIBarButtonItem *closeFormBarButtonItem;
     UIBarButtonItem *deleteRecordBarButtonItem;
+    
+    UIImageView *touchBorderImageView;
 }
 -(void)setRelatedViewName:(NSString *)rvn;
 -(NSString *)relatedViewName;
