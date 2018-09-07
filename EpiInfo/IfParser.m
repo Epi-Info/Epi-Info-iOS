@@ -595,7 +595,7 @@
                 {
                     NSString *fieldsControlValue = [field epiInfoControlValue];
                     //
-                    // For Leval Values and Comment Legal:
+                    // For Legal Values and Comment Legal:
                     // Check if the value begins with a numeral
                     // If so, and it is not a date or entirely a number,
                     // then it needs to be quoted or Check Code will fail
@@ -680,6 +680,11 @@
 - (void)__ifWord {
     
     [self match:IFPARSER_TOKEN_KIND_IFWORD discard:NO]; 
+    [self execute:(id)^{
+        
+        elseing = NO;
+        
+    }];
 
     [self fireDelegateSelector:@selector(parser:didMatchIfWord:)];
 }
