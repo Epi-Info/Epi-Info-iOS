@@ -5372,6 +5372,8 @@
 
 - (void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID
 {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"executeGOTOs"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     updatevisibleScreenOnly = NO;
     if (guidBeingUpdated)
         updatevisibleScreenOnly = YES;
@@ -5511,6 +5513,8 @@
             [(EnterDataView *)[self.dictionaryOfPages objectForKey:pageskey] syncPageDots];
         }
     }
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"executeGOTOs"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)fieldBecameFirstResponder:(id)field

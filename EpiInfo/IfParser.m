@@ -405,7 +405,8 @@
                             }
                         }
                     }
-                    else if ([[[[statement uppercaseString] componentsSeparatedByString:@" "] objectAtIndex:0] isEqualToString:@"GOTO"])
+                    else if ([[[[statement uppercaseString] componentsSeparatedByString:@" "] objectAtIndex:0] isEqualToString:@"GOTO"]
+                             && [(NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:@"executeGOTOs"] boolValue])
                     {
                         NSArray *controlsToAlter = [statement componentsSeparatedByString:@" "];
                         for (int cto = 1; cto < controlsToAlter.count; cto++)

@@ -797,6 +797,8 @@
 {
     if (lv.selectedIndex.intValue == 0)
         return;
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"executeGOTOs"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     float viewWidth = self.view.frame.size.width;
     float viewHeight = self.view.frame.size.height;
     [[UIDevice currentDevice] playInputClick];
