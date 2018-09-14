@@ -726,6 +726,8 @@
     [lv setListOfValues:newArrayOfForms];
     [lv.picker selectRow:0 inComponent:0 animated:NO];
     [lv setSelectedIndex:0];
+    [lv.tv setDataSource:lv];
+    [lv.tv reloadData];
 
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *fileToRemove = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/"] stringByAppendingString:lvSelected.text] stringByAppendingString:@".xml"];
@@ -781,6 +783,7 @@
         [manageView setFrame:CGRectMake(0, -manageButton.frame.origin.y - manageButton.frame.size.height - 10.0, self.view.frame.size.width, manageButton.frame.origin.y + manageButton.frame.size.height + 10.0)];
     } completion:^(BOOL finished){
         [manageView removeFromSuperview];
+        [lv reset];
     }];
 }
 - (void)cancelDeleteFormPressed:(UIButton *)sender
@@ -3226,7 +3229,6 @@
     [arrayOfPageDots removeLastObject];
     [footerBar addSubview: (PageDots *)[arrayOfPageDots lastObject]];
 }
-
 //- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 //{
 //    switch (buttonIndex) {
@@ -3238,5 +3240,4 @@
 //            break;
 //    }
 //}
-
 @end
