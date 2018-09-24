@@ -22,6 +22,7 @@
 
 #import <Foundation/Foundation.h>
 #import <PEGKit/PKTypes.h>
+#import "PKToken.h"
 
 /*!
     @typedef    enum PKTokenType

@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import <PEGKit/PKAST.h>
+#import <PEGKit/PEGKit.h>
 
 @interface PKAST ()
 @end
