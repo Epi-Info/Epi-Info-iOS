@@ -307,14 +307,20 @@
         [self multExpr_];
         [self execute:(id)^{
             
-            double secondDouble = POP_DOUBLE();
+            NSString *secondDouble = POP_STR();
             char operator = [POP_STR() characterAtIndex:0];
-            double firstDouble = POP_DOUBLE();
+            NSString *firstDouble = POP_STR();
             
             if (operator == '+')
-                PUSH_DOUBLE(firstDouble + secondDouble);
+            {
+                PUSH([[NSDecimalNumber decimalNumberWithString:firstDouble] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithString:secondDouble]]);
+//                PUSH_DOUBLE(firstDouble + secondDouble);
+            }
             else
-                PUSH_DOUBLE(firstDouble - secondDouble);
+            {
+                PUSH([[NSDecimalNumber decimalNumberWithString:firstDouble] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:secondDouble]]);
+//                PUSH_DOUBLE(firstDouble - secondDouble);
+            }
             
         }];
     }
