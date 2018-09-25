@@ -348,16 +348,22 @@
         [self caretExpr_];
         [self execute:(id)^{
             
-            double secondDouble = POP_DOUBLE();
+            NSString *secondDouble = POP_STR();
             char operator = [POP_STR() characterAtIndex:0];
-            double firstDouble = POP_DOUBLE();
+            NSString *firstDouble = POP_STR();
             
             if (operator == '*')
-                PUSH_DOUBLE(firstDouble * secondDouble);
+            {
+                PUSH([[NSDecimalNumber decimalNumberWithString:firstDouble] decimalNumberByMultiplyingBy:[NSDecimalNumber decimalNumberWithString:secondDouble]]);
+//                PUSH_DOUBLE(firstDouble * secondDouble);
+            }
             else if (operator == '/')
-                PUSH_DOUBLE(firstDouble / secondDouble);
+            {
+                PUSH([[NSDecimalNumber decimalNumberWithString:firstDouble] decimalNumberByDividingBy:[NSDecimalNumber decimalNumberWithString:secondDouble]]);
+//                PUSH_DOUBLE(firstDouble / secondDouble);
+            }
             else
-                PUSH_DOUBLE((double)((int)firstDouble % (int)secondDouble));
+                PUSH_DOUBLE((double)((int)[firstDouble doubleValue] % (int)[secondDouble doubleValue]));
             
         }];
     }
