@@ -2177,6 +2177,17 @@
                             BOOL isOptionField = NO;
                             NSDictionary *nsdof = [edv.dictionaryOfFields nsmd];
                             id controlField = [nsdof objectForKey:[columnName lowercaseString]];
+                            if (controlField == nil)
+                            {
+                                for (id key in [edv dictionaryOfPages])
+                                {
+                                    EnterDataView *ev = (EnterDataView *)[[edv dictionaryOfPages] objectForKey:key];
+                                    nsdof = [ev.dictionaryOfFields nsmd];
+                                    controlField = [nsdof objectForKey:[columnName lowercaseString]];
+                                    if (controlField != nil)
+                                        break;
+                                }
+                            }
                             if ([controlField isKindOfClass:[EpiInfoOptionField class]])
                                 isOptionField = YES;
                             // Find the first page with data-containing controls
