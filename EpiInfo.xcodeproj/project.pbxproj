@@ -114,6 +114,7 @@
 		92095BE31835682400B7A0ED /* Default-1024h.png in Resources */ = {isa = PBXBuildFile; fileRef = 92095BE21835682400B7A0ED /* Default-1024h.png */; };
 		92095BE51835686200B7A0ED /* Default-1024h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92095BE41835686200B7A0ED /* Default-1024h@2x.png */; };
 		920AE61019C88D71001C96CE /* EpiInfoViewForRounding.m in Sources */ = {isa = PBXBuildFile; fileRef = 920AE60F19C88D71001C96CE /* EpiInfoViewForRounding.m */; };
+		920BCE3521760F6F00BF050A /* LogisticObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 920BCE3421760F6F00BF050A /* LogisticObject.m */; };
 		920CD0271EE4B30200415569 /* CheckButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 920CD0261EE4B30200415569 /* CheckButton.m */; };
 		92119A601923FBD3008155F7 /* EpiInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92119A5F1923FBD3008155F7 /* EpiInfoViewController.m */; };
 		9211F6EF1D53758F002583D4 /* AssignModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9211F6EE1D53758F002583D4 /* AssignModel.m */; };
@@ -574,6 +575,8 @@
 		92095BE41835686200B7A0ED /* Default-1024h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-1024h@2x.png"; sourceTree = "<group>"; };
 		920AE60E19C88D71001C96CE /* EpiInfoViewForRounding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpiInfoViewForRounding.h; sourceTree = "<group>"; };
 		920AE60F19C88D71001C96CE /* EpiInfoViewForRounding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpiInfoViewForRounding.m; sourceTree = "<group>"; };
+		920BCE3321760F6F00BF050A /* LogisticObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticObject.h; sourceTree = "<group>"; };
+		920BCE3421760F6F00BF050A /* LogisticObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticObject.m; sourceTree = "<group>"; };
 		920CD0251EE4B30200415569 /* CheckButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckButton.h; sourceTree = "<group>"; };
 		920CD0261EE4B30200415569 /* CheckButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckButton.m; sourceTree = "<group>"; };
 		92119A5F1923FBD3008155F7 /* EpiInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpiInfoViewController.m; sourceTree = "<group>"; };
@@ -1434,6 +1437,8 @@
 				92921B9519A63E0000AA9477 /* MeansObject.m */,
 				68DAD2B61781F35D00BD6947 /* TablesObject.h */,
 				68DAD2B71781F35D00BD6947 /* TablesObject.m */,
+				920BCE3321760F6F00BF050A /* LogisticObject.h */,
+				920BCE3421760F6F00BF050A /* LogisticObject.m */,
 				4AC04F47178B37610001F3DC /* FrequencyView.h */,
 				4AC04F48178B37610001F3DC /* FrequencyView.m */,
 				92921B9719A6427000AA9477 /* MeansView.h */,
@@ -2074,6 +2079,7 @@
 				92E1A83918730614003E58A5 /* EpiInfoTextField.m in Sources */,
 				924D8AAA1AAE2BA1005A6253 /* CohortSimulationModel.swift in Sources */,
 				922D49ED1D64F3D40090631E /* ParseAssignment.m in Sources */,
+				920BCE3521760F6F00BF050A /* LogisticObject.m in Sources */,
 				92921B9919A6427000AA9477 /* MeansView.m in Sources */,
 				847C97D71D427301001E47DD /* LegalValuesEnter.m in Sources */,
 				4AB23ED616288B9900AE47C0 /* ChiSquareCalculatorViewController.m in Sources */,
