@@ -7,6 +7,30 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class CaseControlSimulationsView: UIView, UITextFieldDelegate {
   
@@ -37,7 +61,7 @@ class CaseControlSimulationsView: UIView, UITextFieldDelegate {
     maxHeight = frame.height
     maxWidth = frame.width
     
-    if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+    if UIDevice.current.userInterfaceIdiom == .pad {
     } else {
       // Add background image
       fadingColorView = UIImageView(frame: frame)
@@ -48,160 +72,160 @@ class CaseControlSimulationsView: UIView, UITextFieldDelegate {
         fadingColorView.image = UIImage(named: "iPhone4Background.png")
       }
       self.addSubview(fadingColorView)
-      self.sendSubviewToBack(fadingColorView)
+      self.sendSubview(toBack: fadingColorView)
       
       //Add the screen-sized clear button to dismiss all keyboards
       resignAllButton = UIButton(frame: frame)
-      resignAllButton.backgroundColor = .clearColor()
-      resignAllButton.addTarget(self, action: "resignAll", forControlEvents: .TouchUpInside)
+      resignAllButton.backgroundColor = .clear
+      resignAllButton.addTarget(self, action: #selector(CaseControlSimulationsView.resignAll), for: .touchUpInside)
       self.addSubview(resignAllButton)
       
       //Screen header
-      header = UILabel(frame: CGRectMake(0, 4 * (frame.height / maxHeight), frame.width * (frame.width / maxWidth), 26 * (frame.height / maxHeight)))
-      header.backgroundColor = .clearColor()
-      header.textColor = .whiteColor()
-      header.textAlignment = .Center
+      header = UILabel(frame: CGRect(x: 0, y: 4 * (frame.height / maxHeight), width: frame.width * (frame.width / maxWidth), height: 26 * (frame.height / maxHeight)))
+      header.backgroundColor = .clear
+      header.textColor = .white
+      header.textAlignment = .center
       header.font = UIFont(name: "HelveticaNeue-Bold", size: 20.0)
       header.text = "Simulate Case Control Study"
       self.addSubview(header)
       
       //Add navy background for input fields
-      inputBackground = UIButton(frame: CGRectMake(4 * (frame.width / maxWidth), 40 * (frame.height / maxHeight), 312 * (frame.width / maxWidth), 170 * (frame.height / maxHeight)))
+      inputBackground = UIButton(frame: CGRect(x: 4 * (frame.width / maxWidth), y: 40 * (frame.height / maxHeight), width: 312 * (frame.width / maxWidth), height: 170 * (frame.height / maxHeight)))
       inputBackground.backgroundColor = UIColor(red: 3/255.0, green: 36/255.0, blue: 77/255.0, alpha: 1.0)
       inputBackground.layer.masksToBounds = true
       inputBackground.layer.cornerRadius = 8.0
-      inputBackground.addTarget(self, action: "resignAll", forControlEvents: .TouchUpInside)
+      inputBackground.addTarget(self, action: #selector(CaseControlSimulationsView.resignAll), for: .touchUpInside)
       self.addSubview(inputBackground)
       
       //Add the NumberField for number of cases
-      casesLabel = UIButton(frame: CGRectMake(4 * (frame.width / maxWidth), 2 * (frame.height / maxHeight), 148 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
-      casesLabel.backgroundColor = .clearColor()
+      casesLabel = UIButton(frame: CGRect(x: 4 * (frame.width / maxWidth), y: 2 * (frame.height / maxHeight), width: 148 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight)))
+      casesLabel.backgroundColor = .clear
       casesLabel.clipsToBounds = true
-      casesLabel.setTitle("Number of Cases", forState: .Normal)
-      casesLabel.contentHorizontalAlignment = .Left
-      casesLabel.titleLabel!.textAlignment = .Left
-      casesLabel.titleLabel!.textColor = .whiteColor()
+      casesLabel.setTitle("Number of Cases", for: UIControlState())
+      casesLabel.contentHorizontalAlignment = .left
+      casesLabel.titleLabel!.textAlignment = .left
+      casesLabel.titleLabel!.textColor = .white
       casesLabel.titleLabel!.font = UIFont(name: "HelveticaNeue-Bold", size: 14.0)
-      casesLabel.addTarget(self, action: "resignAll", forControlEvents: .TouchUpInside)
+      casesLabel.addTarget(self, action: #selector(CaseControlSimulationsView.resignAll), for: .touchUpInside)
       inputBackground.addSubview(casesLabel)
       
-      cases = NumberField(frame: CGRectMake(230 * (frame.width / maxWidth), 2 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
-      cases.borderStyle = .RoundedRect
-      cases.keyboardType = .NumberPad
+      cases = NumberField(frame: CGRect(x: 230 * (frame.width / maxWidth), y: 2 * (frame.height / maxHeight), width: 80 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight)))
+      cases.borderStyle = .roundedRect
+      cases.keyboardType = .numberPad
       cases.delegate = self
-      cases.returnKeyType = .Done
+      cases.returnKeyType = .done
       inputBackground.addSubview(cases)
       
       //Add the NumberField for number of controls
-      controlsLabel = UIButton(frame: CGRectMake(4 * (frame.width / maxWidth), 44 * (frame.height / maxHeight), 148 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
-      controlsLabel.backgroundColor = .clearColor()
+      controlsLabel = UIButton(frame: CGRect(x: 4 * (frame.width / maxWidth), y: 44 * (frame.height / maxHeight), width: 148 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight)))
+      controlsLabel.backgroundColor = .clear
       controlsLabel.clipsToBounds = true
-      controlsLabel.setTitle("Number of Controls", forState: .Normal)
-      controlsLabel.contentHorizontalAlignment = .Left
-      controlsLabel.titleLabel!.textAlignment = .Left
-      controlsLabel.titleLabel!.textColor = .whiteColor()
+      controlsLabel.setTitle("Number of Controls", for: UIControlState())
+      controlsLabel.contentHorizontalAlignment = .left
+      controlsLabel.titleLabel!.textAlignment = .left
+      controlsLabel.titleLabel!.textColor = .white
       controlsLabel.titleLabel!.font = UIFont(name: "HelveticaNeue-Bold", size: 14.0)
-      controlsLabel.addTarget(self, action: "resignAll", forControlEvents: .TouchUpInside)
+      controlsLabel.addTarget(self, action: #selector(CaseControlSimulationsView.resignAll), for: .touchUpInside)
       inputBackground.addSubview(controlsLabel)
       
-      controls = NumberField(frame: CGRectMake(230 * (frame.width / maxWidth), 44 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
-      controls.borderStyle = .RoundedRect
-      controls.keyboardType = .NumberPad
+      controls = NumberField(frame: CGRect(x: 230 * (frame.width / maxWidth), y: 44 * (frame.height / maxHeight), width: 80 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight)))
+      controls.borderStyle = .roundedRect
+      controls.keyboardType = .numberPad
       controls.delegate = self
-      controls.returnKeyType = .Done
+      controls.returnKeyType = .done
       inputBackground.addSubview(controls)
       
       //Add the NumberField for percent in cases
-      percentCasesExposedLabel = UIButton(frame: CGRectMake(4 * (frame.width / maxWidth), 86 * (frame.height / maxHeight), 224 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
-      percentCasesExposedLabel.backgroundColor = .clearColor()
+      percentCasesExposedLabel = UIButton(frame: CGRect(x: 4 * (frame.width / maxWidth), y: 86 * (frame.height / maxHeight), width: 224 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight)))
+      percentCasesExposedLabel.backgroundColor = .clear
       percentCasesExposedLabel.clipsToBounds = true
-      percentCasesExposedLabel.setTitle("Expected % Exposed in Cases", forState: .Normal)
-      percentCasesExposedLabel.contentHorizontalAlignment = .Left
-      percentCasesExposedLabel.titleLabel!.textAlignment = .Left
-      percentCasesExposedLabel.titleLabel!.textColor = .whiteColor()
+      percentCasesExposedLabel.setTitle("Expected % Exposed in Cases", for: UIControlState())
+      percentCasesExposedLabel.contentHorizontalAlignment = .left
+      percentCasesExposedLabel.titleLabel!.textAlignment = .left
+      percentCasesExposedLabel.titleLabel!.textColor = .white
       percentCasesExposedLabel.titleLabel!.font = UIFont(name: "HelveticaNeue-Bold", size: 14.0)
       percentCasesExposedLabel.titleLabel?.adjustsFontSizeToFitWidth = true
-      percentCasesExposedLabel.addTarget(self, action: "resignAll", forControlEvents: .TouchUpInside)
+      percentCasesExposedLabel.addTarget(self, action: #selector(CaseControlSimulationsView.resignAll), for: .touchUpInside)
       inputBackground.addSubview(percentCasesExposedLabel)
       
-      percentCasesExposed = NumberField(frame: CGRectMake(230 * (frame.width / maxWidth), 86 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
-      percentCasesExposed.borderStyle = .RoundedRect
-      percentCasesExposed.keyboardType = .DecimalPad
+      percentCasesExposed = NumberField(frame: CGRect(x: 230 * (frame.width / maxWidth), y: 86 * (frame.height / maxHeight), width: 80 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight)))
+      percentCasesExposed.borderStyle = .roundedRect
+      percentCasesExposed.keyboardType = .decimalPad
       percentCasesExposed.delegate = self
-      percentCasesExposed.returnKeyType = .Done
+      percentCasesExposed.returnKeyType = .done
       inputBackground.addSubview(percentCasesExposed)
       
       //Add the NumberField for percent in controls
-      percentControlsExposedLabel = UIButton(frame: CGRectMake(4 * (frame.width / maxWidth), 128 * (frame.height / maxHeight), 224 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
-      percentControlsExposedLabel.backgroundColor = .clearColor()
+      percentControlsExposedLabel = UIButton(frame: CGRect(x: 4 * (frame.width / maxWidth), y: 128 * (frame.height / maxHeight), width: 224 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight)))
+      percentControlsExposedLabel.backgroundColor = .clear
       percentControlsExposedLabel.clipsToBounds = true
-      percentControlsExposedLabel.setTitle("Expected % Exposed in Controls", forState: .Normal)
-      percentControlsExposedLabel.contentHorizontalAlignment = .Left
-      percentControlsExposedLabel.titleLabel!.textAlignment = .Left
-      percentControlsExposedLabel.titleLabel!.textColor = .whiteColor()
+      percentControlsExposedLabel.setTitle("Expected % Exposed in Controls", for: UIControlState())
+      percentControlsExposedLabel.contentHorizontalAlignment = .left
+      percentControlsExposedLabel.titleLabel!.textAlignment = .left
+      percentControlsExposedLabel.titleLabel!.textColor = .white
       percentControlsExposedLabel.titleLabel!.font = UIFont(name: "HelveticaNeue-Bold", size: 14.0)
       percentControlsExposedLabel.titleLabel?.adjustsFontSizeToFitWidth = true
-      percentControlsExposedLabel.addTarget(self, action: "resignAll", forControlEvents: .TouchUpInside)
+      percentControlsExposedLabel.addTarget(self, action: #selector(CaseControlSimulationsView.resignAll), for: .touchUpInside)
       inputBackground.addSubview(percentControlsExposedLabel)
       
-      percentControlsExposed = NumberField(frame: CGRectMake(230 * (frame.width / maxWidth), 128 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight)))
-      percentControlsExposed.borderStyle = .RoundedRect
-      percentControlsExposed.keyboardType = .DecimalPad
+      percentControlsExposed = NumberField(frame: CGRect(x: 230 * (frame.width / maxWidth), y: 128 * (frame.height / maxHeight), width: 80 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight)))
+      percentControlsExposed.borderStyle = .roundedRect
+      percentControlsExposed.keyboardType = .decimalPad
       percentControlsExposed.delegate = self
-      percentControlsExposed.returnKeyType = .Done
+      percentControlsExposed.returnKeyType = .done
       inputBackground.addSubview(percentControlsExposed)
       
       //Add the results label
-      resultsLabel = EpiInfoMultiLineIndentedUILabel(frame: CGRectMake(4, frame.height - 60, 312, 60))
+      resultsLabel = EpiInfoMultiLineIndentedUILabel(frame: CGRect(x: 4, y: frame.height - 60, width: 312, height: 60))
       resultsLabel.backgroundColor = UIColor(red: 3/255.0, green: 36/255.0, blue: 77/255.0, alpha: 1.0)
       resultsLabel.layer.masksToBounds = true
       resultsLabel.layer.cornerRadius = 8.0
-      resultsLabel.textColor = .whiteColor()
-      resultsLabel.textAlignment = .Left
+      resultsLabel.textColor = .white
+      resultsLabel.textAlignment = .left
       resultsLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18.0)
       resultsLabel.numberOfLines = 0
       resultsLabel.numLines = 2
-      resultsLabel.lineBreakMode = .ByWordWrapping
+      resultsLabel.lineBreakMode = .byWordWrapping
       self.addSubview(resultsLabel)
-      resultsLabel.hidden = true
+      resultsLabel.isHidden = true
     }
   }
   
-  func changeFrame(frame: CGRect) {
+  func changeFrame(_ frame: CGRect) {
     self.frame = frame
-    fadingColorView.frame = CGRectMake(0, 0, frame.width, frame.height)
+    fadingColorView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
     resignAllButton.frame = fadingColorView.frame
     if frame.width < maxWidth {
-      header.transform = CGAffineTransformScale(header.transform , 10 / maxWidth, 10 / maxHeight)
+      header.transform = header.transform.scaledBy(x: 10 / maxWidth, y: 10 / maxHeight)
     } else {
-      header.transform = CGAffineTransformScale(header.transform , maxWidth / 10, maxHeight / 10)
+      header.transform = header.transform.scaledBy(x: maxWidth / 10, y: maxHeight / 10)
     }
-    header.frame = CGRectMake(0, 4 * (frame.height / maxHeight), frame.width * (frame.width / maxWidth), 26 * (frame.height / maxHeight))
-    inputBackground.frame = CGRectMake(4 * (frame.width / maxWidth), 40 * (frame.height / maxHeight), 312 * (frame.width / maxWidth), 170 * (frame.height / maxHeight))
-    casesLabel.frame = CGRectMake(4 * (frame.width / maxWidth), 2 * (frame.height / maxHeight), 148 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
-    cases.frame = CGRectMake(230 * (frame.width / maxWidth), 2 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
-    controlsLabel.frame = CGRectMake(4 * (frame.width / maxWidth), 44 * (frame.height / maxHeight), 148 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
-    controls.frame = CGRectMake(230 * (frame.width / maxWidth), 44 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
-    percentCasesExposedLabel.frame = CGRectMake(4 * (frame.width / maxWidth), 86 * (frame.height / maxHeight), 224 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
-    percentCasesExposed.frame = CGRectMake(230 * (frame.width / maxWidth), 86 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
-    percentControlsExposedLabel.frame = CGRectMake(4 * (frame.width / maxWidth), 128 * (frame.height / maxHeight), 224 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
-    percentControlsExposed.frame = CGRectMake(230 * (frame.width / maxWidth), 128 * (frame.height / maxHeight), 80 * (frame.width / maxWidth), 40 * (frame.height / maxHeight))
-    if !resultsLabel.hidden {
-      resultsLabel.frame = CGRectMake(resultsLabel.frame.origin.x * (frame.width / maxWidth), resultsLabel.frame.origin.y * (frame.height / maxHeight), resultsLabel.frame.width * (frame.width / maxWidth), resultsLabel.frame.height * (frame.height / maxHeight))
+    header.frame = CGRect(x: 0, y: 4 * (frame.height / maxHeight), width: frame.width * (frame.width / maxWidth), height: 26 * (frame.height / maxHeight))
+    inputBackground.frame = CGRect(x: 4 * (frame.width / maxWidth), y: 40 * (frame.height / maxHeight), width: 312 * (frame.width / maxWidth), height: 170 * (frame.height / maxHeight))
+    casesLabel.frame = CGRect(x: 4 * (frame.width / maxWidth), y: 2 * (frame.height / maxHeight), width: 148 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight))
+    cases.frame = CGRect(x: 230 * (frame.width / maxWidth), y: 2 * (frame.height / maxHeight), width: 80 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight))
+    controlsLabel.frame = CGRect(x: 4 * (frame.width / maxWidth), y: 44 * (frame.height / maxHeight), width: 148 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight))
+    controls.frame = CGRect(x: 230 * (frame.width / maxWidth), y: 44 * (frame.height / maxHeight), width: 80 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight))
+    percentCasesExposedLabel.frame = CGRect(x: 4 * (frame.width / maxWidth), y: 86 * (frame.height / maxHeight), width: 224 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight))
+    percentCasesExposed.frame = CGRect(x: 230 * (frame.width / maxWidth), y: 86 * (frame.height / maxHeight), width: 80 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight))
+    percentControlsExposedLabel.frame = CGRect(x: 4 * (frame.width / maxWidth), y: 128 * (frame.height / maxHeight), width: 224 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight))
+    percentControlsExposed.frame = CGRect(x: 230 * (frame.width / maxWidth), y: 128 * (frame.height / maxHeight), width: 80 * (frame.width / maxWidth), height: 40 * (frame.height / maxHeight))
+    if !resultsLabel.isHidden {
+      resultsLabel.frame = CGRect(x: resultsLabel.frame.origin.x * (frame.width / maxWidth), y: resultsLabel.frame.origin.y * (frame.height / maxHeight), width: resultsLabel.frame.width * (frame.width / maxWidth), height: resultsLabel.frame.height * (frame.height / maxHeight))
     }
   }
   
-  func textFieldShouldReturn(textField: UITextField) -> Bool {
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     return textField.resignFirstResponder()
   }
   
-  func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
     killThread = true
-    UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveLinear, animations: {
-      self.resultsLabel.frame = CGRectMake(4, self.frame.height - 60, 312, 60)
+    UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions.curveLinear, animations: {
+      self.resultsLabel.frame = CGRect(x: 4, y: self.frame.height - 60, width: 312, height: 60)
       }, completion: {
         (value: Bool) in
-        self.resultsLabel.hidden = true
+        self.resultsLabel.isHidden = true
         self.resultsLabel.text = ""
     })
     return true
@@ -209,9 +233,9 @@ class CaseControlSimulationsView: UIView, UITextFieldDelegate {
   
   func resignAll() {
     var noFirstResponder = true
-    for v in inputBackground.subviews as! [UIView] {
+    for v in inputBackground.subviews {
       if let tf = v as? UITextField {
-        if tf.isFirstResponder() {
+        if tf.isFirstResponder {
           tf.resignFirstResponder()
           noFirstResponder = false
         }
@@ -238,23 +262,23 @@ class CaseControlSimulationsView: UIView, UITextFieldDelegate {
       }
       
       killThread = false
-      let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-      dispatch_async(queue) {
+      let queue = DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default)
+      queue.async {
         self.runComputer((numCases, numControls, pctCasesExposed, pctControlsExposed))
       }
-      resultsLabel.hidden = false
-      UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
-        self.resultsLabel.frame = CGRectMake(self.resultsLabel.frame.origin.x, self.inputBackground.frame.origin.y + self.inputBackground.frame.height + 8, self.resultsLabel.frame.width, self.resultsLabel.frame.height)
+      resultsLabel.isHidden = false
+      UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: {
+        self.resultsLabel.frame = CGRect(x: self.resultsLabel.frame.origin.x, y: self.inputBackground.frame.origin.y + self.inputBackground.frame.height + 8, width: self.resultsLabel.frame.width, height: self.resultsLabel.frame.height)
         }, completion: {
           (value: Bool) in
       })
     }
   }
   
-  func runComputer(inputs : (Float, Float, Float, Float)) {
+  func runComputer(_ inputs : (Float, Float, Float, Float)) {
     while !killThread {
       let rr = CaseControlSimulationModel.compute(inputs.0, b: inputs.1, c: inputs.2, d: inputs.3)
-      dispatch_async(dispatch_get_main_queue()) {
+      DispatchQueue.main.async {
         self.resultsLabel.text = "\(rr.0)% of simulations found a significant relative risk."
       }
       sleep(2)

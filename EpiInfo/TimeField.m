@@ -8,6 +8,7 @@
 
 #import "TimeField.h"
 #include "TimePicker.h"
+#import "EnterDataView.h"
 
 @implementation TimeField
 @synthesize columnName = _columnName;
@@ -42,16 +43,46 @@
         [tp setFrame:finalFrame];
     } completion:^(BOOL finished){
     }];
+    [(EnterDataView *)[[self superview] superview] fieldBecameFirstResponder:self];
+    
     return NO;
+}
+- (BOOL)resignFirstResponder
+{
+    NSLog(@"%@ resigning first responder", self.columnName);
+    [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+    
+    return [super resignFirstResponder];
+}
+
+- (NSString *)epiInfoControlValue
+{
+    return [self text];
+}
+
+- (void)assignValue:(NSString *)value
+{
+    [self setText:value];
+}
+
+- (void)reset
+{
+    [super setText:nil];
+    [self setIsEnabled:YES];
+}
+
+- (void)resetDoNotEnable
+{
+    [super setText:nil];
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 @end

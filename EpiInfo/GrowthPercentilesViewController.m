@@ -56,11 +56,11 @@
     
     self.epiInfoScrollView.contentSize = CGSizeMake(320, self.view.frame.size.height - 80.0);
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStyleBordered target: nil action: nil];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStylePlain target: nil action: nil];
     [self.navigationItem setBackBarButtonItem: backButton];
     
     // Set the title on the NavigationController
-    self.title = @"Epi Info StatCalc";
+    self.title = @"";
     // Deprecation replacement
     CGRect frame = CGRectMake(0, 0, [self.title sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:20.0]}].width, 44);
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
@@ -80,11 +80,17 @@
         [customBackButton.layer setMasksToBounds:YES];
         [customBackButton.layer setCornerRadius:8.0];
         [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+//        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
+        UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setAccessibilityLabel:@"Close"];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setRightBarButtonItem:backToMainMenu];
+        
         fadingColorView = [[UIImageView alloc] initWithFrame:self.view.frame];
-        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackground.png"]];
+        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackgroundWhite.png"]];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
         
@@ -97,7 +103,7 @@
         headerView = [[UIView alloc] initWithFrame:CGRectMake(10, 4, self.view.frame.size.width - 20.0, 70)];
         [headerView setClipsToBounds:YES];
         [headerView.layer setCornerRadius:10.0];
-        [headerView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [headerView setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.view addSubview:headerView];
         
         UILabel *headerLabel0 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, headerView.frame.size.width, 40)];
@@ -173,7 +179,7 @@
         lengthForAgeView = [[UIView alloc] initWithFrame:CGRectMake(30, 160, 300, 74)];
         [lengthForAgeView setClipsToBounds:YES];
         [lengthForAgeView.layer setCornerRadius:10.0];
-        [lengthForAgeView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [lengthForAgeView setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.view addSubview:lengthForAgeView];
         
         UILabel *lengthForAgeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 300, 24)];
@@ -216,7 +222,7 @@
         weightForAgeView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 330, 160, 300, 74)];
         [weightForAgeView setClipsToBounds:YES];
         [weightForAgeView.layer setCornerRadius:10.0];
-        [weightForAgeView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [weightForAgeView setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.view addSubview:weightForAgeView];
         
         UILabel *weightForAgeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 300, 24)];
@@ -259,7 +265,7 @@
         circumferenceForAgeView = [[UIView alloc] initWithFrame:CGRectMake(30, 304, 300, 74)];
         [circumferenceForAgeView setClipsToBounds:YES];
         [circumferenceForAgeView.layer setCornerRadius:10.0];
-        [circumferenceForAgeView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [circumferenceForAgeView setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.view addSubview:circumferenceForAgeView];
         
         UILabel *circumferenceForAgeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 300, 24)];
@@ -308,15 +314,21 @@
         [customBackButton.layer setMasksToBounds:YES];
         [customBackButton.layer setCornerRadius:8.0];
         [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+//        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
+        
+        UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setAccessibilityLabel:@"Close"];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
         // Set the background image
         fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height - self.navigationController.navigationBar.frame.size.height - [[UIApplication sharedApplication] statusBarFrame].size.height)];
         if (self.view.frame.size.height > 500)
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5BackgroundWhite.png"]];
         else
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4BackgroundWhite.png"]];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
         
@@ -326,7 +338,7 @@
         headerView = [[UIView alloc] initWithFrame:CGRectMake(10, 4, 300, 60)];
         [headerView setClipsToBounds:YES];
         [headerView.layer setCornerRadius:10.0];
-        [headerView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [headerView setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.view addSubview:headerView];
         
         UILabel *headerLabel0 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 40)];
@@ -402,7 +414,7 @@
         lengthForAgeView = [[UIView alloc] initWithFrame:CGRectMake(10, 160, 300, 64)];
         [lengthForAgeView setClipsToBounds:YES];
         [lengthForAgeView.layer setCornerRadius:10.0];
-        [lengthForAgeView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [lengthForAgeView setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.view addSubview:lengthForAgeView];
         
         UILabel *lengthForAgeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 300, 18)];
@@ -445,7 +457,7 @@
         weightForAgeView = [[UIView alloc] initWithFrame:CGRectMake(10, 232, 300, 64)];
         [weightForAgeView setClipsToBounds:YES];
         [weightForAgeView.layer setCornerRadius:10.0];
-        [weightForAgeView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [weightForAgeView setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.view addSubview:weightForAgeView];
         
         UILabel *weightForAgeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 300, 18)];
@@ -488,7 +500,7 @@
         circumferenceForAgeView = [[UIView alloc] initWithFrame:CGRectMake(10, 304, 300, 64)];
         [circumferenceForAgeView setClipsToBounds:YES];
         [circumferenceForAgeView.layer setCornerRadius:10.0];
-        [circumferenceForAgeView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [circumferenceForAgeView setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.view addSubview:circumferenceForAgeView];
         
         UILabel *circumferenceForAgeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, 300, 18)];

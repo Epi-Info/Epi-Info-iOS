@@ -43,7 +43,7 @@
     Vsum += (n1 * n2 * (n * T3 - (T2 * T2))) / (n * n * (n - 1));
     V1sum += T1 - ((n1 / n) * T2);
     
-    cspvv[0] = ((V1sum - 0.5) * (V1sum - 0.5)) / Vsum;
+    cspvv[0] = (V1sum * V1sum) / Vsum;
     cspvv[1] = [SharedResources PValFromChiSq:cspvv[0] PVFCSdf:1.0];
 }
 @end

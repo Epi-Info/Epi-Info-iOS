@@ -53,8 +53,14 @@
         [customBackButton.layer setMasksToBounds:YES];
         [customBackButton.layer setCornerRadius:8.0];
         [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:[[UIView alloc] init]]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
+        
+        UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setAccessibilityLabel:@"Close"];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
         button1Frame = CGRectMake(84, 210, 600, 48);
         button2Frame = CGRectMake(84, 266, 600, 48);
@@ -69,13 +75,20 @@
     {
         // Change the standard NavigationController "Back" button to an "X"
         customBackButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-        [customBackButton setImage:[UIImage imageNamed:@"StAndrewXButtonWhite.png"] forState:UIControlStateNormal];
-        [customBackButton addTarget:self action:@selector(popCurrentViewController) forControlEvents:UIControlEventTouchUpInside];
+        [customBackButton setBackgroundColor:[UIColor redColor]];
+//        [customBackButton setImage:[UIImage new] forState:UIControlStateNormal];
+//        [customBackButton addTarget:self action:@selector(popCurrentViewController) forControlEvents:UIControlEventTouchUpInside];
         [customBackButton.layer setMasksToBounds:YES];
         [customBackButton.layer setCornerRadius:8.0];
         [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:[[UIView alloc] init]]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
+        
+        UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setAccessibilityLabel:@"Close"];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
         button1Frame = CGRectMake(30, 65, 260, 44);
         button2Frame = CGRectMake(30, 116, 260, 44);
@@ -93,7 +106,7 @@
 //  Deprecation replacement
     [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0], NSForegroundColorAttributeName, nil]];
 
-    if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+    if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
     {
         headerFrame = CGRectMake(0, 0, [self.view frame].size.width, 100);
         subHeaderFrame = CGRectMake(0, 100, [self.view frame].size.width, 50);
@@ -105,14 +118,14 @@
     }
     headerLabel = [[UILabel alloc] initWithFrame:headerFrame];
     headerLabel.backgroundColor = [[UIColor alloc] initWithRed:99/255.0 green:166/255.0 blue:223/255.0 alpha:0.0];
-    [headerLabel setTextColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0]];
+    [headerLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
     [headerLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:56.0]];
     [headerLabel setTextAlignment:NSTextAlignmentCenter];
     [headerLabel setText:@"StatCalc"];
     
     subHeaderLabel = [[UILabel alloc] initWithFrame:subHeaderFrame];
     subHeaderLabel.backgroundColor = [UIColor colorWithRed:99/255.0 green:166/255.0 blue:223/255.0 alpha:0.0];
-    [subHeaderLabel setTextColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0]];
+    [subHeaderLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
     [subHeaderLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:28]];
     [subHeaderLabel setTextAlignment:NSTextAlignmentCenter];
     [subHeaderLabel setText:@"Statistical Calculators from Epi Info"];
@@ -194,7 +207,7 @@
         
         if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)
         {
-            if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+            if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
                 fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height - 600)];
             else
                 fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.height, [self.view frame].size.width - 300)];
@@ -202,11 +215,11 @@
         }
         else
         {
-            if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+            if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
                 fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height)];
             else
                 fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.height, [self.view frame].size.width)];
-            [fadingColorView setImage:[UIImage imageNamed:@"iPadBackground.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPadBackgroundWhite.png"]];
         }
         
         [self.view addSubview:fadingColorView];
@@ -307,27 +320,45 @@
             
             if ([[UIScreen mainScreen] scale] > 1.0)
             {
-                [self.button1 setBackgroundImage:[UIImage imageNamed:@"2x2.png"] forState:UIControlStateNormal];
-                [self.button2 setBackgroundImage:[UIImage imageNamed:@"PMCC.png"] forState:UIControlStateNormal];
-                [self.button3 setBackgroundImage:[UIImage imageNamed:@"ChiSquare.png"] forState:UIControlStateNormal];
-                [self.button4 setBackgroundImage:[UIImage imageNamed:@"Poisson.png"] forState:UIControlStateNormal];
-                [self.button5 setBackgroundImage:[UIImage imageNamed:@"Binomial.png"] forState:UIControlStateNormal];
-                [self.button8 setBackgroundImage:[UIImage imageNamed:@"PopulationSS.png"] forState:UIControlStateNormal];
-                [self.button7 setBackgroundImage:[UIImage imageNamed:@"Cohort.png"] forState:UIControlStateNormal];
-                [self.button6 setBackgroundImage:[UIImage imageNamed:@"CaseControl.png"] forState:UIControlStateNormal];
-                [self.button10 setBackgroundImage:[UIImage imageNamed:@"GrowthButton.png"] forState:UIControlStateNormal];
+//                [self.button1 setBackgroundImage:[UIImage imageNamed:@"2x2_icon.png"] forState:UIControlStateNormal];
+//                [self.button2 setBackgroundImage:[UIImage imageNamed:@"PMCC.png"] forState:UIControlStateNormal];
+//                [self.button3 setBackgroundImage:[UIImage imageNamed:@"ChiSquare.png"] forState:UIControlStateNormal];
+//                [self.button4 setBackgroundImage:[UIImage imageNamed:@"Poisson.png"] forState:UIControlStateNormal];
+//                [self.button5 setBackgroundImage:[UIImage imageNamed:@"Binomial.png"] forState:UIControlStateNormal];
+//                [self.button8 setBackgroundImage:[UIImage imageNamed:@"PopulationSS.png"] forState:UIControlStateNormal];
+//                [self.button7 setBackgroundImage:[UIImage imageNamed:@"Cohort.png"] forState:UIControlStateNormal];
+//                [self.button6 setBackgroundImage:[UIImage imageNamed:@"CaseControl.png"] forState:UIControlStateNormal];
+//                [self.button10 setBackgroundImage:[UIImage imageNamed:@"GrowthButton.png"] forState:UIControlStateNormal];
+                [self.button1 setBackgroundImage:[UIImage imageNamed:@"2x2_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button2 setBackgroundImage:[UIImage imageNamed:@"matched_pair_case_control_6+.png"] forState:UIControlStateNormal];
+                [self.button3 setBackgroundImage:[UIImage imageNamed:@"chi_squared_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button4 setBackgroundImage:[UIImage imageNamed:@"poisson_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button5 setBackgroundImage:[UIImage imageNamed:@"binomial_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button8 setBackgroundImage:[UIImage imageNamed:@"population_survey_icon_blue_6+.png"] forState:UIControlStateNormal];
+                [self.button7 setBackgroundImage:[UIImage imageNamed:@"cohort_icon_blue_6+.png"] forState:UIControlStateNormal];
+                [self.button6 setBackgroundImage:[UIImage imageNamed:@"case_control_icon_blue_6+.png"] forState:UIControlStateNormal];
+                [self.button10 setBackgroundImage:[UIImage imageNamed:@"growth_percentiles_icon_6+.png"] forState:UIControlStateNormal];
             }
             else
             {
-                [self.button1 setBackgroundImage:[UIImage imageNamed:@"2x2NR.png"] forState:UIControlStateNormal];
-                [self.button2 setBackgroundImage:[UIImage imageNamed:@"PMCCNR.png"] forState:UIControlStateNormal];
-                [self.button3 setBackgroundImage:[UIImage imageNamed:@"ChiSquareNR.png"] forState:UIControlStateNormal];
-                [self.button4 setBackgroundImage:[UIImage imageNamed:@"PoissonNR.png"] forState:UIControlStateNormal];
-                [self.button5 setBackgroundImage:[UIImage imageNamed:@"BinomialNR.png"] forState:UIControlStateNormal];
-                [self.button8 setBackgroundImage:[UIImage imageNamed:@"PopulationSSNR.png"] forState:UIControlStateNormal];
-                [self.button7 setBackgroundImage:[UIImage imageNamed:@"CohortNR.png"] forState:UIControlStateNormal];
-                [self.button6 setBackgroundImage:[UIImage imageNamed:@"CaseControlNR.png"] forState:UIControlStateNormal];
-                [self.button10 setBackgroundImage:[UIImage imageNamed:@"GrowthButtonNR.png"] forState:UIControlStateNormal];
+//                [self.button1 setBackgroundImage:[UIImage imageNamed:@"2x2NR.png"] forState:UIControlStateNormal];
+//                [self.button2 setBackgroundImage:[UIImage imageNamed:@"PMCCNR.png"] forState:UIControlStateNormal];
+//                [self.button3 setBackgroundImage:[UIImage imageNamed:@"ChiSquareNR.png"] forState:UIControlStateNormal];
+//                [self.button4 setBackgroundImage:[UIImage imageNamed:@"PoissonNR.png"] forState:UIControlStateNormal];
+//                [self.button5 setBackgroundImage:[UIImage imageNamed:@"BinomialNR.png"] forState:UIControlStateNormal];
+//                [self.button8 setBackgroundImage:[UIImage imageNamed:@"PopulationSSNR.png"] forState:UIControlStateNormal];
+//                [self.button7 setBackgroundImage:[UIImage imageNamed:@"CohortNR.png"] forState:UIControlStateNormal];
+//                [self.button6 setBackgroundImage:[UIImage imageNamed:@"CaseControlNR.png"] forState:UIControlStateNormal];
+//                [self.button10 setBackgroundImage:[UIImage imageNamed:@"GrowthButtonNR.png"] forState:UIControlStateNormal];
+                [self.button1 setBackgroundImage:[UIImage imageNamed:@"2x2_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button2 setBackgroundImage:[UIImage imageNamed:@"matched_pair_case_control_6+.png"] forState:UIControlStateNormal];
+                [self.button3 setBackgroundImage:[UIImage imageNamed:@"chi_squared_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button4 setBackgroundImage:[UIImage imageNamed:@"poisson_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button5 setBackgroundImage:[UIImage imageNamed:@"binomial_icon_6+.png"] forState:UIControlStateNormal];
+                [self.button8 setBackgroundImage:[UIImage imageNamed:@"population_survey_icon_blue_6+.png"] forState:UIControlStateNormal];
+                [self.button7 setBackgroundImage:[UIImage imageNamed:@"cohort_icon_blue_6+.png"] forState:UIControlStateNormal];
+                [self.button6 setBackgroundImage:[UIImage imageNamed:@"case_control_icon_blue_6+.png"] forState:UIControlStateNormal];
+                [self.button10 setBackgroundImage:[UIImage imageNamed:@"growth_percentiles_icon_6+.png"] forState:UIControlStateNormal];
             }
             
             [self.button1 setClipsToBounds:YES];
@@ -387,14 +418,14 @@
             UILabel *label3b = [[UILabel alloc] initWithFrame:CGRectMake(0, 96, 76, 16)];
             UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 76, 16)];
             UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 76, 16)];
-            UILabel *label6 = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 76, 16)];
+            UILabel *label6 = [[UILabel alloc] initWithFrame:CGRectMake(-4, 80, 84, 16)];
             UILabel *label6b = [[UILabel alloc] initWithFrame:CGRectMake(0, 96, 76, 16)];
             UILabel *label7 = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 76, 16)];
-            UILabel *label7b = [[UILabel alloc] initWithFrame:CGRectMake(-21, 96, 118, 16)];
-            UILabel *label8 = [[UILabel alloc] initWithFrame:CGRectMake(-5, 80, 86, 16)];
+            UILabel *label7b = [[UILabel alloc] initWithFrame:CGRectMake(-24, 96, 124, 16)];
+            UILabel *label8 = [[UILabel alloc] initWithFrame:CGRectMake(-8, 80, 92, 16)];
             UILabel *label8b = [[UILabel alloc] initWithFrame:CGRectMake(-12, 96, 100, 16)];
             UILabel *label10 = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 76, 16)];
-            UILabel *label10b = [[UILabel alloc] initWithFrame:CGRectMake(-4, 96, 84, 16)];
+            UILabel *label10b = [[UILabel alloc] initWithFrame:CGRectMake(-6, 96, 88, 16)];
             
             [label1 setBackgroundColor:[UIColor clearColor]];
             [label2 setBackgroundColor:[UIColor clearColor]];
@@ -525,9 +556,9 @@
     {
         fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height - self.navigationController.navigationBar.frame.size.height - [[UIApplication sharedApplication] statusBarFrame].size.height)];
         if (self.view.frame.size.height > 500)
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5BackgroundWhite.png"]];
         else
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4BackgroundWhite.png"]];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
         [self.view addSubview:cdcImageView];
@@ -650,28 +681,28 @@
             
             if ([[UIScreen mainScreen] scale] > 1.0)
             {
-                [self.button1 setBackgroundImage:[UIImage imageNamed:@"2x2.png"] forState:UIControlStateNormal];
-                [self.button2 setBackgroundImage:[UIImage imageNamed:@"PMCC.png"] forState:UIControlStateNormal];
+                [self.button1 setBackgroundImage:[UIImage imageNamed:@"2x2_icon.png"] forState:UIControlStateNormal];
+                [self.button2 setBackgroundImage:[UIImage imageNamed:@"matched_pair_case_control.png"] forState:UIControlStateNormal];
                 [self.button3 setBackgroundImage:[UIImage imageNamed:@"Power.png"] forState:UIControlStateNormal];
-                [self.button4 setBackgroundImage:[UIImage imageNamed:@"ChiSquare.png"] forState:UIControlStateNormal];
-                [self.button5 setBackgroundImage:[UIImage imageNamed:@"Poisson.png"] forState:UIControlStateNormal];
-                [self.button6 setBackgroundImage:[UIImage imageNamed:@"Binomial.png"] forState:UIControlStateNormal];
-                [self.button7 setBackgroundImage:[UIImage imageNamed:@"PopulationSS.png"] forState:UIControlStateNormal];
-                [self.button8 setBackgroundImage:[UIImage imageNamed:@"Cohort.png"] forState:UIControlStateNormal];
-                [self.button9 setBackgroundImage:[UIImage imageNamed:@"CaseControl.png"] forState:UIControlStateNormal];
-                [self.button10 setBackgroundImage:[UIImage imageNamed:@"GrowthButton.png"] forState:UIControlStateNormal];
+                [self.button4 setBackgroundImage:[UIImage imageNamed:@"chi_squared_icon.png"] forState:UIControlStateNormal];
+                [self.button5 setBackgroundImage:[UIImage imageNamed:@"poisson_icon.png"] forState:UIControlStateNormal];
+                [self.button6 setBackgroundImage:[UIImage imageNamed:@"binomial_icon.png"] forState:UIControlStateNormal];
+                [self.button7 setBackgroundImage:[UIImage imageNamed:@"population_survey_icon_blue.png"] forState:UIControlStateNormal];
+                [self.button8 setBackgroundImage:[UIImage imageNamed:@"cohort_icon_blue.png"] forState:UIControlStateNormal];
+                [self.button9 setBackgroundImage:[UIImage imageNamed:@"case_control_icon_blue.png"] forState:UIControlStateNormal];
+                [self.button10 setBackgroundImage:[UIImage imageNamed:@"growth_percentiles_icon.png"] forState:UIControlStateNormal];
             }
             else
             {
-                [self.button1 setBackgroundImage:[UIImage imageNamed:@"2x2NR.png"] forState:UIControlStateNormal];
-                [self.button2 setBackgroundImage:[UIImage imageNamed:@"PMCCNR.png"] forState:UIControlStateNormal];
+                [self.button1 setBackgroundImage:[UIImage imageNamed:@"2x2_icon.png"] forState:UIControlStateNormal];
+                [self.button2 setBackgroundImage:[UIImage imageNamed:@"matched_pair_case_control.png"] forState:UIControlStateNormal];
                 [self.button3 setBackgroundImage:[UIImage imageNamed:@"Power.png"] forState:UIControlStateNormal];
-                [self.button4 setBackgroundImage:[UIImage imageNamed:@"ChiSquareNR.png"] forState:UIControlStateNormal];
-                [self.button5 setBackgroundImage:[UIImage imageNamed:@"PoissonNR.png"] forState:UIControlStateNormal];
-                [self.button6 setBackgroundImage:[UIImage imageNamed:@"BinomialNR.png"] forState:UIControlStateNormal];
-                [self.button7 setBackgroundImage:[UIImage imageNamed:@"PopulationSSNR.png"] forState:UIControlStateNormal];
-                [self.button8 setBackgroundImage:[UIImage imageNamed:@"CohortNR.png"] forState:UIControlStateNormal];
-                [self.button9 setBackgroundImage:[UIImage imageNamed:@"CaseControlNR.png"] forState:UIControlStateNormal];
+                [self.button4 setBackgroundImage:[UIImage imageNamed:@"chi_squared_icon.png"] forState:UIControlStateNormal];
+                [self.button5 setBackgroundImage:[UIImage imageNamed:@"poisson_icon.png"] forState:UIControlStateNormal];
+                [self.button6 setBackgroundImage:[UIImage imageNamed:@"binomial_icon.png"] forState:UIControlStateNormal];
+                [self.button7 setBackgroundImage:[UIImage imageNamed:@"population_survey_icon_blue.png"] forState:UIControlStateNormal];
+                [self.button8 setBackgroundImage:[UIImage imageNamed:@"cohort_icon_blue.png"] forState:UIControlStateNormal];
+                [self.button9 setBackgroundImage:[UIImage imageNamed:@"case_control_icon_blue.png"] forState:UIControlStateNormal];
                 [self.button10 setBackgroundImage:[UIImage imageNamed:@"GrowthButtonNR.png"] forState:UIControlStateNormal];
             }
             
@@ -731,22 +762,22 @@
             [v10 addSubview:self.button10];
             
             UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, 60, 12)];
-            UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(-8, 64, 76, 12)];
-            UILabel *label2b = [[UILabel alloc] initWithFrame:CGRectMake(-6, 76, 72, 12)];
-            UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, 60, 12)];
+            UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(-10, 64, 80, 12)];
+            UILabel *label2b = [[UILabel alloc] initWithFrame:CGRectMake(-8, 76, 76, 12)];
+            UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(-4, 64, 68, 12)];
             UILabel *label3b = [[UILabel alloc] initWithFrame:CGRectMake(0, 76, 60, 12)];
-            UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, 60, 12)];
+            UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake(-4, 64, 68, 12)];
             UILabel *label4b = [[UILabel alloc] initWithFrame:CGRectMake(0, 76, 60, 12)];
             UILabel *label5 = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, 60, 12)];
             UILabel *label6 = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, 60, 12)];
-            UILabel *label7 = [[UILabel alloc] initWithFrame:CGRectMake(1, 64, 62, 12)];
+            UILabel *label7 = [[UILabel alloc] initWithFrame:CGRectMake(-4, 64, 68, 12)];
             UILabel *label7b = [[UILabel alloc] initWithFrame:CGRectMake(0, 76, 60, 12)];
             UILabel *label8 = [[UILabel alloc] initWithFrame:CGRectMake(-8, 64, 76, 12)];
-            UILabel *label8b = [[UILabel alloc] initWithFrame:CGRectMake(-13, 76, 86, 12)];
+            UILabel *label8b = [[UILabel alloc] initWithFrame:CGRectMake(-15, 76, 90, 12)];
             UILabel *label9 = [[UILabel alloc] initWithFrame:CGRectMake(-5, 64, 70, 12)];
-            UILabel *label9b = [[UILabel alloc] initWithFrame:CGRectMake(-6, 76, 72, 12)];
+            UILabel *label9b = [[UILabel alloc] initWithFrame:CGRectMake(-8, 76, 76, 12)];
             UILabel *label10 = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, 60, 12)];
-            UILabel *label10b = [[UILabel alloc] initWithFrame:CGRectMake(-2, 76, 64, 12)];
+            UILabel *label10b = [[UILabel alloc] initWithFrame:CGRectMake(-4, 76, 68, 12)];
             
             [label1 setBackgroundColor:[UIColor clearColor]];
             [label2 setBackgroundColor:[UIColor clearColor]];
@@ -784,23 +815,23 @@
             [label10 setText:@"Growth"];
             [label10b setText:@"Percentiles"];
             
-            [label1 setTextColor:[UIColor whiteColor]];
-            [label2 setTextColor:[UIColor whiteColor]];
-            [label2b setTextColor:[UIColor whiteColor]];
-            [label3 setTextColor:[UIColor whiteColor]];
-            [label3b setTextColor:[UIColor whiteColor]];
-            [label4 setTextColor:[UIColor whiteColor]];
-            [label4b setTextColor:[UIColor whiteColor]];
-            [label5 setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [label6 setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [label7 setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [label7b setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [label8 setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [label8b setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [label9 setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [label9b setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [label10 setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [label10b setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [label1 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label2 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label2b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label3 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label3b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label4 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label4b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label5 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label6 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label7 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label7b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label8 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label8b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label9 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label9b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label10 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [label10b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
             
             [label1 setTextAlignment:NSTextAlignmentCenter];
             [label2 setTextAlignment:NSTextAlignmentCenter];
@@ -857,7 +888,7 @@
             [v10 addSubview:label10b];
             
             [blurryView setFrame:CGRectMake(0, v6.frame.origin.y + v6.frame.size.height, unblurryView.frame.size.width, 2)];
-            [blurryView setBlurTintColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:0.6]];
+            [blurryView setBlurTintColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:0.6]];
             [blurryView.layer setCornerRadius:0.9];
             [unblurryView addSubview:blurryView];
             [unblurryView bringSubviewToFront:blurryView];
@@ -865,19 +896,22 @@
             UILabel *sampSizePow = [[UILabel alloc] initWithFrame:CGRectMake(0, blurryView.frame.origin.y + 8, blurryView.frame.size.width, 24)];
             [sampSizePow setTextAlignment:NSTextAlignmentCenter];
             [sampSizePow setFont:[UIFont boldSystemFontOfSize:16]];
-            [sampSizePow setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+            [sampSizePow setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
             [sampSizePow setText:@"Sample Size and Power"];
             [unblurryView addSubview:sampSizePow];
             
 //            [blurryView setFrame:CGRectMake(button1Frame.origin.x - 20, button1Frame.origin.y, button1Frame.size.width + 40, v8.frame.origin.y + v8.frame.size.height + sqrtf(800))];
             [unblurryView setFrame:CGRectMake(button1Frame.origin.x - 20, button1Frame.origin.y - 30, button1Frame.size.width + 40, v8.frame.origin.y + v8.frame.size.height + sqrtf(800))];
         }
+        [fadingColorView setFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height)];
+        [self.phoneHeaderLabel setCenter:CGPointMake([self.view frame].size.width / 2.0, 30.0)];
+        [self.phoneHeaderLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
     }
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStyleBordered target: nil action: nil];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStylePlain target: nil action: nil];
     [self.navigationItem setBackBarButtonItem: backButton];
     
-    self.title = @"Epi Info";
+    self.title = @"";
 //    CGRect frame = CGRectMake(0, 0, [self.title sizeWithFont:[UIFont boldSystemFontOfSize:20.0]].width, 44);
     // Deprecation replacement
     CGRect frame = CGRectMake(0, 0, [self.title sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:20.0]}].width, 44);
@@ -904,7 +938,7 @@
             [headerLabel setCenter:CGPointMake([self.view frame].size.width / 2.0, 50.0)];
             [subHeaderLabel setCenter:CGPointMake([self.view frame].size.width / 2.0, 125.0)];
         }];
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)
                 [fadingColorView setFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height - 600)];
@@ -986,10 +1020,11 @@
     
     else
     {
+        [self.phoneHeaderLabel setCenter:CGPointMake([self.view frame].size.width / 2.0, 30.0)];
         [UIView animateWithDuration:0.3 animations:^{
-            [self.phoneHeaderLabel setCenter:CGPointMake([self.view frame].size.width / 2.0, 30.0)];
+//            [self.phoneHeaderLabel setCenter:CGPointMake([self.view frame].size.width / 2.0, 30.0)];
         }];
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [UIView animateWithDuration:0.3 animations:^{
                 if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)
@@ -1011,7 +1046,7 @@
                 
                 [cdcImageView setFrame:CGRectMake(2, [self.view frame].size.height - 50, (450.0 / 272.0) * 50.0, 50.0)];
                 [hhsImageView setFrame:CGRectMake(-2.0 - (300.0 / 293.0) * 50.0 + [self.view frame].size.width, [self.view frame].size.height - 50, (300.0 / 293.0) * 50.0, 50.0)];
-                [fadingColorView setFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height)];
+//                [fadingColorView setFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height)];
             }];
         }
         else

@@ -65,11 +65,11 @@
 //    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"textured-Bar.png"] forBarMetrics:UIBarMetricsDefault];
 //    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:99/255.0 green:166/255.0 blue:223/255.0 alpha:1.0]];
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStyleBordered target: nil action: nil];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStylePlain target: nil action: nil];
     [self.navigationItem setBackBarButtonItem: backButton];
     
     // Set the title on the NavigationController
-    self.title = @"Epi Info StatCalc";
+    self.title = @"";
     // Deprecation replacement
     CGRect frame = CGRectMake(0, 0, [self.title sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:20.0]}].width, 44);
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
@@ -99,11 +99,17 @@
         [customBackButton.layer setMasksToBounds:YES];
         [customBackButton.layer setCornerRadius:8.0];
         [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+//        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
+        UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setAccessibilityLabel:@"Close"];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setRightBarButtonItem:backToMainMenu];
+        
         fadingColorView = [[UIImageView alloc] initWithFrame:self.view.frame];
-        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackground.png"]];
+        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackgroundWhite.png"]];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
         
@@ -111,7 +117,7 @@
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
         {
             [self.lowerNavigationBar setFrame:CGRectMake(0, -4, self.view.frame.size.width, 44)];
-            [self.lowerNavigationBar setBarTintColor:[UIColor colorWithRed:50/255.0 green:71/255.0 blue:92/255.0 alpha:1.0]];
+            [self.lowerNavigationBar setBarTintColor:[UIColor colorWithRed:0/255.0 green:130/255.0 blue:126/255.0 alpha:1.0]];
             [self.epiInfoScrollView0 setFrame:CGRectMake(scrollViewFrame.origin.x, scrollViewFrame.origin.y, scrollViewFrame.size.width, scrollViewFrame.size.height + 500)];
             [self.subView2 setFrame:CGRectMake(97, 306, 574, 470)];
         }
@@ -125,15 +131,21 @@
         [customBackButton.layer setMasksToBounds:YES];
         [customBackButton.layer setCornerRadius:8.0];
         [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+//        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
+        
+        UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setAccessibilityLabel:@"Close"];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
         // Set the background image
         fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height - self.navigationController.navigationBar.frame.size.height - [[UIApplication sharedApplication] statusBarFrame].size.height)];
         if (self.view.frame.size.height > 500)
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5BackgroundWhite.png"]];
         else
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4BackgroundWhite.png"]];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
 
@@ -173,7 +185,7 @@
         phoneResultsView = [[UIView alloc] initWithFrame:CGRectMake(18, 147, 277, 300)];
         [self.view addSubview:phoneResultsView];
 
-        [self.phoneSectionHeaderLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.phoneSectionHeaderLabel setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.phoneSectionHeaderLabel setFrame:CGRectMake(2, 2, self.phoneSectionHeaderLabel.frame.size.width, self.phoneSectionHeaderLabel.frame.size.height)];
         [self.phoneSectionHeaderLabel.layer setCornerRadius:10.0];
         [phoneResultsView addSubview:self.phoneSectionHeaderLabel];
@@ -191,7 +203,7 @@
         
         phonePValueView = [[UIView alloc] initWithFrame:CGRectMake(18, 348, 277, 28)];
         [self.view addSubview:phonePValueView];
-        [self.phonePValueLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.phonePValueLabel setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.phonePValueLabel setFrame:CGRectMake(2, 2, self.phonePValueLabel.frame.size.width, self.phonePValueLabel.frame.size.height)];
         [self.phonePValueLabel.layer setCornerRadius:10.0];
         [phonePValueView addSubview:self.phonePValueLabel];
@@ -199,7 +211,7 @@
         
         phoneCIView = [[UIView alloc] initWithFrame:CGRectMake(18, 376, 277, 28)];
         [self.view addSubview:phoneCIView];
-        [self.phoneCILabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.phoneCILabel setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.phoneCILabel setFrame:CGRectMake(2, 2, self.phoneCILabel.frame.size.width, self.phoneCILabel.frame.size.height)];
         [self.phoneCILabel.layer setCornerRadius:10.0];
         [phoneCIView addSubview:self.phoneCILabel];
@@ -211,7 +223,7 @@
         float H = self.ltLabel.frame.size.height;
         
         phoneColorBox = [[UIView alloc] initWithFrame:CGRectMake(X, Y, W, 200)];
-        [phoneColorBox setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phoneColorBox setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [phoneColorBox.layer setCornerRadius:10.0];
         
         [phoneResultsView addSubview:phoneColorBox];
@@ -292,7 +304,7 @@
         H = self.phonePValueLabel.frame.size.height;
         
         phonePValueColorBox = [[UIView alloc] initWithFrame:CGRectMake(X, Y, W, H)];
-        [phonePValueColorBox setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phonePValueColorBox setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [phonePValueColorBox.layer setCornerRadius:10.0];
         [phonePValueView addSubview:phonePValueColorBox];
         phonePValueWhiteBox = [[UIView alloc] initWithFrame:CGRectMake(X + 2.0, Y - 3.0, W - 3.0, H + 6.0)];
@@ -312,7 +324,7 @@
         H = self.phoneCILabel.frame.size.height;
         
         phoneCIColorBox = [[UIView alloc] initWithFrame:CGRectMake(X, Y, W, H)];
-        [phoneCIColorBox setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phoneCIColorBox setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [phoneCIColorBox.layer setCornerRadius:10.0];
         [phoneCIView addSubview:phoneCIColorBox];
         phoneCIWhiteBox = [[UIView alloc] initWithFrame:CGRectMake(X + 2.0, Y - 3.0, W - 3.0, H + 6.0)];
@@ -464,7 +476,7 @@
             [phoneCIExtraWhiteBox setFrame:CGRectMake(X + 4.0, Y + 1.5, W / 2.0, H - 3.0)];
             [self.computingCI setFrame:CGRectMake(self.ciValue.frame.origin.x, self.ciValue.center.y - self.computingCI.frame.size.height / 2.0, self.computingCI.frame.size.width, self.computingCI.frame.size.height)];
             
-            label.text = @"StatCalc Binomial";
+            label.text = @"";
 
             if (self.view.frame.size.height > 500)
             {
@@ -487,17 +499,19 @@
                 [self.phoneTotalObservationsLabel setFrame:CGRectMake(self.phoneTotalObservationsLabel.frame.origin.x, self.phoneTotalObservationsLabel.frame.origin.y + 10.0, self.phoneTotalObservationsLabel.frame.size.width, self.phoneTotalObservationsLabel.frame.size.height)];
                 [self.denominatorField setFrame:CGRectMake(self.denominatorField.frame.origin.x, self.denominatorField.frame.origin.y + 10.0, self.denominatorField.frame.size.width, self.denominatorField.frame.size.height)];
             }
-            [self.expectedPercentageField setTextColor:[UIColor whiteColor]];
-            [self.phonePercentSign setTextColor:[UIColor whiteColor]];
+            [self.expectedPercentageField setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+            [self.phonePercentSign setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [self.phonePercentSign setFont:[UIFont boldSystemFontOfSize:12.0]];
-            [self.phoneNumeratorLabel setTextColor:[UIColor whiteColor]];
+            [self.phoneNumeratorLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [self.phoneNumeratorLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
-            [self.phoneTotalObservationsLabel setTextColor:[UIColor whiteColor]];
+            [self.phoneTotalObservationsLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [self.phoneTotalObservationsLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
-            [self.phoneExpectedPercentageLabel setTextColor:[UIColor whiteColor]];
+            [self.phoneExpectedPercentageLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [self.phoneExpectedPercentageLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
-            [self.expectedPercentageSlider setMinimumTrackTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-            [self.expectedPercentageSlider setMaximumTrackTintColor:[UIColor whiteColor]];
+            [self.expectedPercentageSlider setMinimumTrackTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+            [self.expectedPercentageSlider setMaximumTrackTintColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+            
+            [self.phoneExpectedPercentageLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
         }
         
         [fadingColorView removeFromSuperview];
@@ -510,7 +524,7 @@
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [UIView animateWithDuration:0.3 animations:^{
                 [self.epiInfoScrollView0 setFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height)];
@@ -662,7 +676,7 @@
             [self.computingCI setFrame:CGRectMake(self.ciValue.frame.origin.x, self.ciValue.center.y - self.computingCI.frame.size.height / 2.0, self.computingCI.frame.size.width, self.computingCI.frame.size.height)];
         }
         
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0)
             {
@@ -799,14 +813,19 @@
         }
         
         self.ltLabel.text = [[NSString alloc] initWithFormat:@"< %d", numeratorValue];
+        self.ltLabel.accessibilityLabel = [NSString stringWithFormat:@"less than %d", numeratorValue];
         self.ltValue.text = [[NSString alloc] initWithFormat:@"%g", probs[0]];
         self.leLabel.text = [[NSString alloc] initWithFormat:@"<= %d", numeratorValue];
+        self.leLabel.accessibilityLabel = [NSString stringWithFormat:@"less than or equal to %d", numeratorValue];
         self.leValue.text = [[NSString alloc] initWithFormat:@"%g", probs[1]];
         self.eqLabel.text = [[NSString alloc] initWithFormat:@"= %d", numeratorValue];
+        self.eqLabel.accessibilityLabel = [NSString stringWithFormat:@"equal to %d", numeratorValue];
         self.eqValue.text = [[NSString alloc] initWithFormat:@"%g", probs[2]];
         self.geLabel.text = [[NSString alloc] initWithFormat:@">= %d", numeratorValue];
+        self.geLabel.accessibilityLabel = [NSString stringWithFormat:@"greater than or equal to %d", numeratorValue];
         self.geValue.text = [[NSString alloc] initWithFormat:@"%g", probs[3]];
         self.gtLabel.text = [[NSString alloc] initWithFormat:@"> %d", numeratorValue];
+        self.gtLabel.accessibilityLabel = [NSString stringWithFormat:@"greater than %d", numeratorValue];
         self.gtValue.text = [[NSString alloc] initWithFormat:@"%g", probs[4]];
         self.pValue.text = [[NSString alloc] initWithFormat:@"%g", probs[5]];
         if ([sender isKindOfClass:[UITextField class]])
@@ -886,6 +905,7 @@
 {
     //Avoid exceptions by having the main thread perform all writing to the ciValue field.
     self.ciValue.text = [[NSString alloc] initWithFormat:@"%@ - %@", ll, ul];
+    self.ciValue.accessibilityLabel = [[NSString alloc] initWithFormat:@"%@ to %@", ll, ul];
 }
 
 - (void)stopTheActivityIndicator
@@ -938,7 +958,7 @@
 
 - (IBAction)textFieldAction:(id)sender
 {
-    int cursorPosition = [sender offsetFromPosition:[sender endOfDocument] toPosition:[[sender selectedTextRange] start]];
+    int cursorPosition = (int)[sender offsetFromPosition:[sender endOfDocument] toPosition:[[sender selectedTextRange] start]];
 
     UITextField *theTextField = (UITextField *)sender;
     

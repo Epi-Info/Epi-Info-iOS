@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EpiInfoControlProtocol.h"
 
-@interface EpiInfoTextView : UITextView
+@interface EpiInfoTextView : UITextView <EpiInfoControlProtocol>
 @property NSString *columnName;
+@property BOOL isReadOnly;
 -(void)setFormFieldValue:(NSString *)formFieldValue;
+-(void)reset;
 @end

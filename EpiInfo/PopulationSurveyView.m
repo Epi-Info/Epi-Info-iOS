@@ -49,6 +49,7 @@
 -(void)awakeFromNib
 {
     [self setup];
+    [super awakeFromNib];
 }
 
 - (id)initWithFrame:(CGRect)frame

@@ -6,8 +6,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EpiInfoControlProtocol.h"
 
-@interface NumberField : UITextField <UITextFieldDelegate>
+@interface NumberField : UITextField <UITextFieldDelegate, EpiInfoControlProtocol>
 {
   NSObject *checkcode;
 }
@@ -15,6 +16,7 @@
 -(void)setFormFieldValue:(NSString *)formFieldValue;
 
 @property NSString *columnName;
+@property BOOL isReadOnly;
 @property BOOL nonNegative;
 @property BOOL hasMaximum;
 @property BOOL hasMinimum;
@@ -23,4 +25,5 @@
 
 -(void)setCheckcode:(id)ccode;
 -(id)checkcode;
+-(void)reset;
 @end

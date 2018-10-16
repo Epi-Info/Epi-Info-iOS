@@ -17,6 +17,8 @@
     UIView *msAzureCredsView;
     
     sqlite3 *epiinfoDB;
+    
+    UILabel *fakeNavBar;
 }
 @property NSURL *url;
 @property UIViewController *rootViewController;

@@ -41,12 +41,12 @@
     UILabel *lengthForAgePercent;
     
     UIView *weightForAgeView;
-    BOOL *kilograms;
+    BOOL kilograms;
     NumberField *weightField;
     UILabel *weightForAgePercent;
     
     UIView *circumferenceForAgeView;
-    BOOL *ccentimeters;
+    BOOL ccentimeters;
     NumberField *circumferenceField;
     UILabel *circumferenceForAgePercent;
 }

@@ -6,14 +6,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EpiInfoControlProtocol.h"
 
-@interface LegalValues : UIView <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface LegalValues : UIView <UIPickerViewDelegate, UIPickerViewDataSource, EpiInfoControlProtocol>
 {
     UILabel *picked;
 //    UIPickerView *picker;
     NSMutableArray *listOfValues;
 }
 @property NSString *columnName;
+@property BOOL isReadOnly;
 @property UIPickerView *picker;
 @property UITextField *textFieldToUpdate;
 @property UIView *viewToAlertOfChanges;

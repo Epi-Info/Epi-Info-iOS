@@ -568,7 +568,7 @@
     RRstats[7] = [SharedResources PValFromChiSq:RRstats[6] PVFCSdf:1.0];
     RRstats[8] = (n - 1) / h3 * pow(a * d - b * c, 2.0);
     RRstats[9] = [SharedResources PValFromChiSq:RRstats[8] PVFCSdf:1.0];
-    RRstats[10] = n / h3 * pow((double) abs((int) (a * d - b * c)) - n * 0.5, 2.0);
+    RRstats[10] = n / h3 * pow(MAX(0.0, (double) abs((int) (a * d - b * c)) - n * 0.5), 2.0);
     RRstats[11] = [SharedResources PValFromChiSq:RRstats[10] PVFCSdf:1.0];
 }
 

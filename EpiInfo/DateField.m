@@ -11,11 +11,16 @@
 
 @implementation DateField
 @synthesize columnName = _columnName;
+@synthesize isReadOnly = _isReadOnly;
 @synthesize mirroringMe = _mirroringMe;
 @synthesize templateFieldID = _templateFieldID;
+@synthesize fieldLabel = _fieldLabel;
 
 - (id)initWithFrame:(CGRect)frame
 {
+    float minWidth = 110.0;
+    if (frame.size.width < minWidth)
+        frame = CGRectMake(frame.origin.x, frame.origin.y, minWidth, frame.size.height);
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
@@ -46,7 +51,20 @@
 
 - (void)setText:(NSString *)text
 {
-    [super setText:text];
+    // First remove midnight if necessary
+    NSString *textToUse = [NSString stringWithString:text];
+    if (textToUse != nil && textToUse.length > 3)
+    {
+        NSRange ran = NSMakeRange(text.length - 4, 4);
+        if ([[text substringWithRange:ran] isEqualToString:@"0:00"])
+            textToUse = [[text componentsSeparatedByString:@" "] objectAtIndex:0];
+    }
+    
+    // Then set the string value in the FieldsAndStringValues object
+    if (textToUse != nil)
+        [[(EnterDataView *)[[self superview] superview] fieldsAndStringValues] setObject:textToUse forKey:[self.columnName lowercaseString]];
+    
+    [super setText:textToUse];
     
     [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
     
@@ -80,13 +98,66 @@
     return NO;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (NSString *)epiInfoControlValue
 {
-    // Drawing code
+    return [self text];
 }
-*/
+
+- (void)assignValue:(NSString *)value
+{
+    [self setText:value];
+}
+
+- (void)setIsEnabled:(BOOL)isEnabled
+{
+    [self setEnabled:isEnabled];
+    [self setAlpha:0.5 + 0.5 * (int)isEnabled];
+}
+
+- (void)selfFocus
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [NSThread sleepForTimeInterval:0.1f];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([self isEnabled])
+                [self becomeFirstResponder];
+            
+            float yForBottom = [(EnterDataView *)[[self superview] superview] contentSize].height - [(EnterDataView *)[[self superview] superview] bounds].size.height;
+            if (yForBottom < 0.0)
+                yForBottom = 0.0;
+            float selfY = self.frame.origin.y - 80.0f;
+            
+            CGPoint pt = CGPointMake(0.0f, selfY);
+            if (selfY > yForBottom)
+                pt = CGPointMake(0.0f, yForBottom);
+            
+            [(EnterDataView *)[[self superview] superview] setContentOffset:pt animated:YES];
+        });
+        [NSThread sleepForTimeInterval:0.3f];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [(EnterDataView *)[[self superview] superview] doResignAll];
+        });
+    });
+}
+
+- (void)reset
+{
+    [super setText:nil];
+    [self setIsEnabled:YES];
+}
+
+- (void)resetDoNotEnable
+{
+    [super setText:nil];
+}
+
+/*
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 @end

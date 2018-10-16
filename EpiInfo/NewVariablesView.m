@@ -273,7 +273,7 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     [chooseVariableTypeButton setTitle:[NSString stringWithFormat:@"Variable Type: %@", [[NSArray arrayWithObjects:@"Integer", @"Decimal", @"String", @"Yes/No", nil] objectAtIndex:row]] forState:UIControlStateNormal];
-    selectedVariableTypeNumber = row;
+    selectedVariableTypeNumber = (int)row;
 }
 
 /*

@@ -28,10 +28,14 @@
             [imageBackground setImage:[UIImage imageNamed:@"iPhone5Background.png"]];
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
             [imageBackground setImage:[UIImage imageNamed:@"iPadBackground.png"]];
-        [self addSubview:imageBackground];
+//        [self addSubview:imageBackground];
         
-        UILabel *fakeNavBar = [[UILabel alloc] initWithFrame:CGRectMake(0, -40, 320, 40)];
-        [fakeNavBar setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        UIView *nonImageBackground = [[UIView alloc] initWithFrame:imageBackground.frame];
+        [nonImageBackground setBackgroundColor:[UIColor whiteColor]];
+        [self addSubview:nonImageBackground];
+        
+        fakeNavBar = [[UILabel alloc] initWithFrame:CGRectMake(0, -40, frame.size.width, 40)];
+        [fakeNavBar setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
         [fakeNavBar setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:22.0]];
         [fakeNavBar setTextAlignment:NSTextAlignmentCenter];
         [fakeNavBar setTextColor:[UIColor whiteColor]];
@@ -52,19 +56,21 @@
         [self addSubview:typeFormName];
         
         UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(198, frame.size.height - 42, 120, 40)];
-        [saveButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-        [saveButton.layer setCornerRadius:4.0];
         [saveButton setTitle:@"Save" forState:UIControlStateNormal];
-        [saveButton setImage:[UIImage imageNamed:@"SaveButton.png"] forState:UIControlStateNormal];
+        [saveButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [saveButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [saveButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [saveButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [saveButton.layer setMasksToBounds:YES];
         [saveButton.layer setCornerRadius:4.0];
         [saveButton addTarget:self action:@selector(saveButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:saveButton];
         UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(2, frame.size.height - 42, 120, 40)];
-        [cancelButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-        [cancelButton.layer setCornerRadius:4.0];
         [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
-        [cancelButton setImage:[UIImage imageNamed:@"CancelButton.png"] forState:UIControlStateNormal];
+        [cancelButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [cancelButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [cancelButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [cancelButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [cancelButton.layer setMasksToBounds:YES];
         [cancelButton.layer setCornerRadius:4.0];
         [cancelButton addTarget:self action:@selector(cancelButtonPressed) forControlEvents:UIControlEventTouchUpInside];
@@ -115,38 +121,45 @@
             
             [self addSubview:pickerLabel];
         }
-        UILabel *repositoriesLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 260, 280, 28)];
-        [repositoriesLabel setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-        [repositoriesLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-        [repositoriesLabel setText:@"Cloud repositories:"];
+        UILabel *repositoriesLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 280, 280, 28)];
+        [repositoriesLabel setTextColor:[UIColor blackColor]];
+        [repositoriesLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+        [repositoriesLabel setText:@"Cloud database credentials (optional):"];
         [repositoriesLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:repositoriesLabel];
         
-        UIView *repositoryButtonsView0 = [[UIView alloc] initWithFrame:CGRectMake(0, 290, self.frame.size.width, 80)];
+        UIView *repositoryButtonsView0 = [[UIView alloc] initWithFrame:CGRectMake(0, 310, self.frame.size.width, 80)];
         [repositoryButtonsView0 setBackgroundColor:[UIColor clearColor]];
         [self addSubview:repositoryButtonsView0];
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         {
-            UIButton *msAzureButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, 60, 60)];
-            [msAzureButton setBackgroundImage:[UIImage imageNamed:@"MSAzureBluePhone.png"] forState:UIControlStateNormal];
-            [msAzureButton addTarget:self action:@selector(msButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [msAzureButton setClipsToBounds:YES];
-            [msAzureButton.layer setCornerRadius:10.0];
-            [repositoryButtonsView0 addSubview:msAzureButton];
+            UIButton *azureButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, repositoryButtonsView0.frame.size.width - 40, 40)];
+            [azureButton setTitle:@"MS Azure" forState:UIControlStateNormal];
+            [azureButton setAccessibilityLabel:@"Microsoft Azure Cloud Database"];
+            [azureButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+            [azureButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+            [azureButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+            [azureButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+            [azureButton.layer setMasksToBounds:YES];
+            [azureButton.layer setCornerRadius:4.0];
+            [azureButton addTarget:self action:@selector(msButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+            [repositoryButtonsView0 addSubview:azureButton];
         }
         else
         {
-            [repositoryButtonsView0 setFrame:CGRectMake(0, 290, self.frame.size.width, 96)];
-            UIButton *msAzureButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, 76, 76)];
-            if ([[UIScreen mainScreen] scale] > 1.0)
-                [msAzureButton setBackgroundImage:[UIImage imageNamed:@"MSAzureBlue.png"] forState:UIControlStateNormal];
-            else
-                [msAzureButton setBackgroundImage:[UIImage imageNamed:@"MSAzureBlueNR.png"] forState:UIControlStateNormal];
-            [msAzureButton addTarget:self action:@selector(msButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [msAzureButton setClipsToBounds:YES];
-            [msAzureButton.layer setCornerRadius:10.0];
-            [repositoryButtonsView0 addSubview:msAzureButton];
+            [repositoryButtonsView0 setFrame:CGRectMake(0, repositoriesLabel.frame.origin.y + 40, self.frame.size.width, 96)];
+            UIButton *azureButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, 280, 40)];
+            [azureButton setTitle:@"MS Azure" forState:UIControlStateNormal];
+            [azureButton setAccessibilityLabel:@"Microsoft Azure Cloud Database"];
+            [azureButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+            [azureButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+            [azureButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+            [azureButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+            [azureButton.layer setMasksToBounds:YES];
+            [azureButton.layer setCornerRadius:4.0];
+            [azureButton addTarget:self action:@selector(msButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+            [repositoryButtonsView0 addSubview:azureButton];
         }
     }
     return self;
@@ -156,20 +169,24 @@
 {
     [self setCloudDataType:@"MSAzure"];
     
-    float ratio = 60.0 / 320.0;
-    msAzureCredsView = [[UIView alloc] initWithFrame:CGRectMake(20, 290, 60, 60)];
+    float ratio = 280.0 / 320.0;
+    msAzureCredsView = [[UIView alloc] initWithFrame:CGRectMake(20, 290, 280, 40)];
     
-    UIImageView *msAzureCredsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
+    UIImageView *msAzureCredsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 280, 40)];
     if (self.frame.size.height < 500.0)
         [msAzureCredsImageView setImage:[UIImage imageNamed:@"iPhone4Background.png"]];
     else
         [msAzureCredsImageView setImage:[UIImage imageNamed:@"iPhone5Background.png"]];
-    [msAzureCredsView addSubview:msAzureCredsImageView];
+//    [msAzureCredsView addSubview:msAzureCredsImageView];
+    
+    UIView *nonImageBackground = [[UIView alloc] initWithFrame:msAzureCredsImageView.frame];
+    [nonImageBackground setBackgroundColor:[UIColor whiteColor]];
+    [msAzureCredsView addSubview:nonImageBackground];
     
     UILabel *applicationURLLabel = [[UILabel alloc] initWithFrame:CGRectMake(20 * ratio, 20 * ratio, 280 * ratio, 28 * ratio)];
-    [applicationURLLabel setTextColor:[UIColor whiteColor]];
+    [applicationURLLabel setTextColor:[UIColor blackColor]];
     [applicationURLLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-    [applicationURLLabel setText:@"Application URL:"];
+    [applicationURLLabel setText:@"Application Name:"];
     [applicationURLLabel setBackgroundColor:[UIColor clearColor]];
     [msAzureCredsView addSubview:applicationURLLabel];
     
@@ -178,12 +195,14 @@
     [applicationURL setReturnKeyType:UIReturnKeyDone];
     [applicationURL setDelegate:self];
     [applicationURL setColumnName:@"cloudDataBase"];
+    [applicationURL setAccessibilityLabel:@"Cloud application name"];
+    [applicationURL setAutocapitalizationType:UITextAutocapitalizationTypeNone];
     [msAzureCredsView addSubview:applicationURL];
     
     UILabel *applicationKeyLabel = [[UILabel alloc] initWithFrame:CGRectMake(20 * ratio, 90 * ratio, 280 * ratio, 28 * ratio)];
-    [applicationKeyLabel setTextColor:[UIColor whiteColor]];
+    [applicationKeyLabel setTextColor:[UIColor blackColor]];
     [applicationKeyLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-    [applicationKeyLabel setText:@"Application Key:"];
+    [applicationKeyLabel setText:@"Application Token:"];
     [applicationKeyLabel setBackgroundColor:[UIColor clearColor]];
     [msAzureCredsView addSubview:applicationKeyLabel];
     
@@ -192,6 +211,8 @@
     [applicationKey setReturnKeyType:UIReturnKeyDone];
     [applicationKey setDelegate:self];
     [applicationKey setColumnName:@"cloudDataKey"];
+    [applicationKey setAccessibilityLabel:@"Cloud application security token"];
+    [applicationKey setAutocapitalizationType:UITextAutocapitalizationTypeNone];
     [msAzureCredsView addSubview:applicationKey];
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -206,23 +227,29 @@
 
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [msAzureCredsView setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-        [msAzureCredsImageView setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        [nonImageBackground setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         [applicationURLLabel setFrame:CGRectMake(20, 20, 280, 28)];
         [applicationURL setFrame:CGRectMake(20, 48, 280, 40)];
         [applicationKeyLabel setFrame:CGRectMake(20, 90, 280, 28)];
         [applicationKey setFrame:CGRectMake(20, 118, 280, 40)];
     } completion:^(BOOL finished){
-        UIButton *xButton = [[UIButton alloc] initWithFrame:CGRectMake((self.frame.size.width - 32), 2, 30, 30)];
-        [xButton setImage:[UIImage imageNamed:@"StAndrewXButtonWhite.png"] forState:UIControlStateNormal];
-        [xButton addTarget:self action:@selector(msXButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [xButton.layer setMasksToBounds:YES];
-        [xButton.layer setCornerRadius:8.0];
-        [msAzureCredsView addSubview:xButton];
+        UINavigationBar *uinb = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 20, msAzureCredsView.frame.size.width, 20)];
+        [uinb setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+        [uinb setShadowImage:[UIImage new]];
+        [uinb setTranslucent:YES];
+        UINavigationItem *uini = [[UINavigationItem alloc] initWithTitle:@""];
+        UIBarButtonItem *xBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(msXButtonPressed:)];
+        [xBarButton setAccessibilityLabel:@"Close"];
+        [xBarButton setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [uini setRightBarButtonItem:xBarButton];
+        [uinb setItems:[NSArray arrayWithObject:uini]];
+        [msAzureCredsView addSubview:uinb];
     }];
 }
-- (void)msXButtonPressed:(UIButton *)button
+- (void)msXButtonPressed:(id)button
 {
-    [button removeFromSuperview];
+//    [button removeFromSuperview];
+    [(UIBarButtonItem *)button setTintColor:[UIColor clearColor]];
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         {
@@ -237,13 +264,13 @@
         }
         else
         {
-            [msAzureCredsView setFrame:CGRectMake(20, 290, 60, 60)];
+            [msAzureCredsView setFrame:CGRectMake(20, 290, 280, 40)];
             for (UIView *v in [msAzureCredsView subviews])
             {
                 if ([v isKindOfClass:[UIImageView class]])
-                    [v setFrame:CGRectMake(0, 0, 60, 60)];
+                    [v setFrame:CGRectMake(0, 0, 280, 40)];
                 else
-                    [v setFrame:CGRectMake(1, 30, 1, 1)];
+                    [v setFrame:CGRectMake(20 * 280 / 320.0, 90 * 280 / 320.0, 280 * 280 / 320.0, 1)];
             }
         }
     } completion:^(BOOL finished){
@@ -290,7 +317,7 @@
                 {
                     [[NSFileManager defaultManager] removeItemAtPath:filePathAndName error:nil];
                 }
-                NSString *xmlText = [NSString stringWithContentsOfFile:[NSString stringWithUTF8String:[self.url fileSystemRepresentation]] encoding:NSUTF8StringEncoding error:nil];
+                NSString *xmlText = [self fixPageIdValues:[NSMutableString stringWithString:[NSString stringWithContentsOfFile:[NSString stringWithUTF8String:[self.url fileSystemRepresentation]] encoding:NSUTF8StringEncoding error:nil]]];
                 [xmlText writeToFile:filePathAndName atomically:YES encoding:NSUTF8StringEncoding error:nil];
                 
                 // Write the cloud info to the cloud database
@@ -424,6 +451,7 @@
         rotate = CATransform3DRotate(rotate, M_PI * 1.5, 0.0, 1.0, 0.0);
         [self.rootViewController.view.layer setTransform:rotate];
     } completion:^(BOOL finished){
+        [self.formView setHidden:NO];
         [self removeFromSuperview];
         CATransform3D rotate = CATransform3DIdentity;
         rotate.m34 = 1.0 / -2000;
@@ -437,6 +465,28 @@
         } completion:^(BOOL finished){
         }];
     }];
+}
+
+- (NSString *)fixPageIdValues:(NSMutableString *)xmlText
+{
+    long substringStartPosition = 0;
+    int pageNumber = 1;
+    BOOL containsPage = [[xmlText substringFromIndex:substringStartPosition] containsString:@"<Page "];
+    while ([[xmlText substringFromIndex:substringStartPosition] containsString:@"<Page "])
+    {
+        containsPage = [[xmlText substringFromIndex:substringStartPosition] containsString:@"<Page "];
+        substringStartPosition += (long)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"<Page "].location;
+        substringStartPosition += (long)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"PageId=\""].location + 8;
+        NSString *pageNumberString = [NSString stringWithFormat:@"%d", pageNumber++];
+        long relativePositionOfSecondQuote = (long)[[xmlText substringFromIndex:substringStartPosition] rangeOfString:@"\""].location;
+        substringStartPosition += relativePositionOfSecondQuote + 1;
+        NSString *actualPageString = [NSString stringWithFormat:@" ActualPageNumber=\"%@\"", pageNumberString];
+        int actualPageStringLength = (int)[actualPageString length];
+        [xmlText insertString:actualPageString atIndex:substringStartPosition];
+        substringStartPosition += actualPageStringLength;
+        containsPage = [[xmlText substringFromIndex:substringStartPosition] containsString:@"<Page "];
+    }
+    return [NSString stringWithString:xmlText];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

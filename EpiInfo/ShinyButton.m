@@ -29,7 +29,7 @@
 {
 //    [super setBackgroundColor:backgroundColor];
     unpressedBackgroundColor = [UIColor colorWithCGColor:[backgroundColor CGColor]];
-    float bgHue, bgSaturation, bgBrightness, bgAlpha;
+    CGFloat bgHue, bgSaturation, bgBrightness, bgAlpha;
     [backgroundColor getHue:&bgHue saturation:&bgSaturation brightness:&bgBrightness alpha:&bgAlpha];
     UIColor *highColor = backgroundColor;
     UIColor *midColor = [UIColor colorWithHue:bgHue saturation:1.2 * bgSaturation brightness:1.5 * bgBrightness alpha:bgAlpha];
@@ -63,7 +63,7 @@
 
 -(void)hideTheShadow
 {
-    float bgHue, bgSaturation, bgBrightness, bgAlpha;
+    CGFloat bgHue, bgSaturation, bgBrightness, bgAlpha;
     [unpressedBackgroundColor getHue:&bgHue saturation:&bgSaturation brightness:&bgBrightness alpha:&bgAlpha];
     UIColor *highColor = unpressedBackgroundColor;
     UIColor *midColor = [UIColor colorWithHue:bgHue saturation:0.7 * bgSaturation brightness:0.7 * bgBrightness alpha:bgAlpha];
@@ -73,7 +73,7 @@
 }
 -(void)replaceTheShadow
 {
-    float bgHue, bgSaturation, bgBrightness, bgAlpha;
+    CGFloat bgHue, bgSaturation, bgBrightness, bgAlpha;
     [unpressedBackgroundColor getHue:&bgHue saturation:&bgSaturation brightness:&bgBrightness alpha:&bgAlpha];
     UIColor *highColor = unpressedBackgroundColor;
     UIColor *midColor = [UIColor colorWithHue:bgHue saturation:1.2 * bgSaturation brightness:1.5 * bgBrightness alpha:bgAlpha];

@@ -326,7 +326,7 @@
 
 - (void)setFrame:(CGRect)frame
 {
-    [super setFrame:frame];
+    [super setFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, 4.0 * frame.size.height)];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         if (frame.size.width > 0.0 && frame.size.height > 0.0)
@@ -335,7 +335,7 @@
             [gadgetTitle setFrame:CGRectMake(2, 116, 316 - 96, 44)];
             [xButton setFrame:CGRectMake(316 - 46, 116, 44, 44)];
             [gearButton setFrame:CGRectMake(316 - 92, 116, 44, 44)];
-            [outputView setFrame:CGRectMake(0, 46, frame.size.width, frame.size.height - 46)];
+            [outputView setFrame:CGRectMake(0, 46, frame.size.width, 4.0 * frame.size.height - 46)];
             if (inputViewDisplayed)
             {
                 if ([avc portraitOrientation])
@@ -404,7 +404,7 @@
             [gadgetTitle setFrame:CGRectMake(2, 116, frame.size.width - 4.0 - 96, 44)];
             [xButton setFrame:CGRectMake(frame.size.width - 4.0 - 46, 116, 44, 44)];
             [gearButton setFrame:CGRectMake(frame.size.width - 4.0 - 92, 116, 44, 44)];
-            [outputView setFrame:CGRectMake(0, 46, frame.size.width, frame.size.height - 46)];
+            [outputView setFrame:CGRectMake(0, 46, frame.size.width, 4.0 * frame.size.height - 46)];
             if (inputViewDisplayed)
             {
                 if ([avc portraitOrientation])
@@ -1135,6 +1135,7 @@
             [sectionLabel setTextAlignment:NSTextAlignmentCenter];
             [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
             [sectionLabel setText:@"Difference (Group 1 - Group 2)"];
+            [sectionLabel setAccessibilityLabel:@"Difference (Group 1 minus Group 2)"];
             [whiteBox addSubview:sectionLabel];
             [tTestView addSubview:whiteBox];
             
@@ -1193,6 +1194,7 @@
             [sectionLabel setTextAlignment:NSTextAlignmentRight];
             [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
             [sectionLabel setText:@"95% LCL"];
+            [sectionLabel setAccessibilityLabel:@"95% Lower Confidence Limit"];
             [whiteBox addSubview:sectionLabel];
             [tTestView addSubview:whiteBox];
             
@@ -1220,6 +1222,7 @@
             [sectionLabel setTextAlignment:NSTextAlignmentRight];
             [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
             [sectionLabel setText:@"UCL"];
+            [sectionLabel setAccessibilityLabel:@"Upper Confidence Limit"];
             [whiteBox addSubview:sectionLabel];
             [tTestView addSubview:whiteBox];
             
@@ -1247,6 +1250,7 @@
             [sectionLabel setTextAlignment:NSTextAlignmentRight];
             [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
             [sectionLabel setText:@"Std Dev"];
+            [sectionLabel setAccessibilityLabel:@"Standard Deviation"];
             [whiteBox addSubview:sectionLabel];
             [tTestView addSubview:whiteBox];
             
@@ -1300,6 +1304,7 @@
             [sectionLabel setTextAlignment:NSTextAlignmentRight];
             [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
             [sectionLabel setText:@"DF"];
+            [sectionLabel setAccessibilityLabel:@"Degrees of Freedom"];
             [whiteBox addSubview:sectionLabel];
             [tTestView addSubview:whiteBox];
             
@@ -1355,6 +1360,7 @@
             [sectionLabel setTextAlignment:NSTextAlignmentRight];
             [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
             [sectionLabel setText:@"P(>|t|)"];
+            [sectionLabel setAccessibilityLabel:@"Probability (greater than absolute value of t)"];
             [roundedBox addSubview:sectionLabel];
             [tTestView addSubview:roundedBox];
             
@@ -1435,6 +1441,7 @@
         [sectionLabel setTextAlignment:NSTextAlignmentRight];
         [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
         [sectionLabel setText:@"SS"];
+        [sectionLabel setAccessibilityLabel:@"Sum of Squares"];
         [whiteBox addSubview:sectionLabel];
         [anovaView addSubview:whiteBox];
         
@@ -1471,6 +1478,7 @@
         [sectionLabel setTextAlignment:NSTextAlignmentRight];
         [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
         [sectionLabel setText:@"df"];
+        [sectionLabel setAccessibilityLabel:@"Degrees of Freedom"];
         [whiteBox addSubview:sectionLabel];
         [anovaView addSubview:whiteBox];
         
@@ -1507,6 +1515,7 @@
         [sectionLabel setTextAlignment:NSTextAlignmentRight];
         [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
         [sectionLabel setText:@"MS"];
+        [sectionLabel setAccessibilityLabel:@"Mean Square"];
         [whiteBox addSubview:sectionLabel];
         [anovaView addSubview:whiteBox];
         
@@ -1538,6 +1547,7 @@
         [sectionLabel setTextAlignment:NSTextAlignmentRight];
         [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
         [sectionLabel setText:@"F"];
+        [sectionLabel setAccessibilityLabel:@"F Statistic"];
         [whiteBox addSubview:sectionLabel];
         [anovaView addSubview:whiteBox];
         
@@ -1592,6 +1602,7 @@
         [sectionLabel setTextAlignment:NSTextAlignmentCenter];
         [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
         [sectionLabel setText:[NSString stringWithFormat:@"Bartlett's X%@", @"\u00B2"]];
+        [sectionLabel setAccessibilityLabel:@"Bartlett's Ky Square"];
         [whiteBox addSubview:sectionLabel];
         [bartlettView addSubview:whiteBox];
         
@@ -1648,6 +1659,7 @@
         [sectionLabel setTextAlignment:NSTextAlignmentCenter];
         [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
         [sectionLabel setText:[NSString stringWithFormat:@"Kruskal-Wallis X%@", @"\u00B2"]];
+        [sectionLabel setAccessibilityLabel:@"Kruskal-Wallis Ky Square"];
         [whiteBox addSubview:sectionLabel];
         [wilcoxonView addSubview:whiteBox];
         

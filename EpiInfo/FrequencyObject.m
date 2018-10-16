@@ -203,7 +203,8 @@
                         [dataArray addObject:[NSNull null]];
                         continue;
                     }
-                    NSString *rslt = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 0)];
+                    NSString *rslt0 = [NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 0)] cStringUsingEncoding:NSMacOSRomanStringEncoding]];
+                    NSString *rslt = [NSString stringWithUTF8String:[rslt0 cStringUsingEncoding:NSMacOSRomanStringEncoding]];
                     [dataArray addObject:rslt];
                 }
             }
@@ -219,7 +220,7 @@
     //Boolean for whether variable has any null values
     BOOL hasANull = NO;
     //The variable's column number in the array of columns
-    int variableColumnNumber = [dataSet.columnNamesWorking indexOfObject:self.variableName];
+    int variableColumnNumber = (int)[dataSet.columnNamesWorking indexOfObject:self.variableName];
     //Integer case first
     if ([(NSNumber *)[dataSet.dataTypesWorking objectAtIndex:variableColumnNumber] intValue] == 0)
     {

@@ -99,10 +99,10 @@
     label.textColor = [UIColor whiteColor];
     label.shadowColor = [UIColor grayColor];
     self.navigationItem.titleView = label;
-    label.text = @"Epi Info StatCalc";
+    label.text = @"";
     self.navigationItem.titleView = label;
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStyleBordered target: nil action: nil];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStylePlain target: nil action: nil];
     [self.navigationItem setBackBarButtonItem: backButton];
     //
     
@@ -115,11 +115,17 @@
         [customBackButton.layer setMasksToBounds:YES];
         [customBackButton.layer setCornerRadius:8.0];
         [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+//        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
+        UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setAccessibilityLabel:@"Close"];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setRightBarButtonItem:backToMainMenu];
+        
         fadingColorView = [[UIImageView alloc] initWithFrame:self.view.frame];
-        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackground.png"]];
+        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackgroundWhite.png"]];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
         fadingColorView0 = [[UIImageView alloc] initWithFrame:CGRectMake(0, [self.view frame].size.height - 400.0, [self.view frame].size.width, 400.0)];
@@ -130,7 +136,7 @@
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
         {
             [self.lowerNavigationBar setFrame:CGRectMake(0, -4, self.view.frame.size.width, 44)];
-            [self.lowerNavigationBar setBarTintColor:[UIColor colorWithRed:50/255.0 green:71/255.0 blue:92/255.0 alpha:1.0]];
+            [self.lowerNavigationBar setBarTintColor:[UIColor colorWithRed:0/255.0 green:130/255.0 blue:126/255.0 alpha:1.0]];
         }
     }
     else
@@ -142,8 +148,14 @@
         [customBackButton.layer setMasksToBounds:YES];
         [customBackButton.layer setCornerRadius:8.0];
         [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+//        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
+        
+        UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setAccessibilityLabel:@"Close"];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
         fourInchPhone = (self.view.frame.size.height > 500);
         
@@ -179,7 +191,7 @@
         
         phoneInputsView = [[UIView alloc] initWithFrame:phoneInputsViewFrame];
         phoneInputsBlueBoxView = [[UIView alloc] initWithFrame:phoneInputsBlueBoxFrame];
-        [phoneInputsBlueBoxView setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phoneInputsBlueBoxView setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [phoneInputsBlueBoxView.layer setCornerRadius:10.0];
         [phoneInputsView addSubview:phoneInputsBlueBoxView];
         
@@ -207,12 +219,14 @@
         [phoneInputsView addSubview:secondLabelControl];
         
         [self.phonePopulationSizeLabel setFrame:phonePopulationSizeLabelFrame];
+        [self.phonePopulationSizeLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
         [phoneInputsView addSubview:self.phonePopulationSizeLabel];
         
         [self.populationSizeField setFrame:phonePopulationSizeFieldFrame];
         [phoneInputsView addSubview:self.populationSizeField];
         
         [self.phoneExpectedFrequencyLabel setFrame:phoneExpectedFrequencyLabelFrame];
+        [self.phoneExpectedFrequencyLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
         [phoneInputsView addSubview:self.phoneExpectedFrequencyLabel];
         
         [self.expectedFrequencyField setFrame:phoneExpectedFrequencyFieldFrame];
@@ -290,16 +304,20 @@
         [self.populationSurveyView addSubview:phoneResultsView];
         
         phoneResultsBlueBox = [[UIView alloc] initWithFrame:phoneResultsBlueBoxFrame];
-        [phoneResultsBlueBox setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phoneResultsBlueBox setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [phoneResultsBlueBox.layer setCornerRadius:10.0];
         [phoneResultsView addSubview:phoneResultsBlueBox];
         
         [self.phoneConfidenceLevelLabel setFrame:phoneConfidenceLevelLabelFrame];
         [self.phoneConfidenceLevelLabel setBackgroundColor:[UIColor clearColor]];
-        [self.phoneConfidenceLevelLabel setText:@"Power"];
+        [self.phoneConfidenceLevelLabel setLineBreakMode:NSLineBreakByWordWrapping];
+        [self.phoneConfidenceLevelLabel setText:@"Conf. Level"];
+        [self.phoneConfidenceLevelLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0]];
         [phoneResultsView addSubview:self.phoneConfidenceLevelLabel];
         [self.phoneClusterSizeLabel setFrame:phoneClusterSizeLabelFrame];
         [self.phoneClusterSizeLabel setBackgroundColor:[UIColor clearColor]];
+        [self.phoneClusterSizeLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:11.0]];
+        [self.phoneClusterSizeLabel setLineBreakMode:NSLineBreakByWordWrapping];
         [phoneResultsView addSubview:self.phoneClusterSizeLabel];
         [self.phoneTotalSampleLabel setFrame:phoneTotalSampleLabelFrame];
         [self.phoneTotalSampleLabel setLineBreakMode:NSLineBreakByWordWrapping];
@@ -479,16 +497,16 @@
         [self.populationSurveyView setShowsVerticalScrollIndicator:YES];
         [self.populationSurveyView setShowsHorizontalScrollIndicator:YES];
 
-        [self.phoneExpectedFrequencySlider setMinimumTrackTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-        [self.phoneExpectedFrequencySlider setMaximumTrackTintColor:[UIColor colorWithRed:251/255.0 green:251/255.0 blue:251/255.0 alpha:1.0]];
-        [self.phoneConfidenceLimitsSlider setMinimumTrackTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-        [self.phoneConfidenceLimitsSlider setMaximumTrackTintColor:[UIColor colorWithRed:251/255.0 green:251/255.0 blue:251/255.0 alpha:1.0]];
+        [self.phoneExpectedFrequencySlider setMinimumTrackTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [self.phoneExpectedFrequencySlider setMaximumTrackTintColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+        [self.phoneConfidenceLimitsSlider setMinimumTrackTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [self.phoneConfidenceLimitsSlider setMaximumTrackTintColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
 
         fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height - self.navigationController.navigationBar.frame.size.height - [[UIApplication sharedApplication] statusBarFrame].size.height)];
         if (self.view.frame.size.height > 500)
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5BackgroundWhite.png"]];
         else
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4BackgroundWhite.png"]];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
     }
@@ -498,7 +516,7 @@
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [UIView animateWithDuration:0.3 animations:^{
                 [self.epiInfoScrollView0 setFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height)];
@@ -523,7 +541,7 @@
     }
     else
     {
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
         {
             float viewLeftMargin = phoneResultsBlueBoxFrame.origin.x;
             [UIView animateWithDuration:0.3 animations:^{
@@ -572,7 +590,7 @@
         return;
     
     hasAFirstResponder = YES;
-    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
         [UIView animateWithDuration:0.3 animations:^{
             float zs = [self.populationSurveyView zoomScale];
             [self.populationSurveyView setZoomScale:1.0 animated:YES];
@@ -589,7 +607,7 @@
         if (textField != self.designEffectField)
         {
             hasAFirstResponder = NO;
-            if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+            if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
                 [UIView animateWithDuration:0.3 animations:^{
                     float zs = [self.populationSurveyView zoomScale];
                     [self.populationSurveyView setZoomScale:1.0 animated:YES];
@@ -612,7 +630,7 @@
 {
     [self.view endEditing:YES];
     hasAFirstResponder = NO;
-    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
         [UIView animateWithDuration:0.3 animations:^{
             float zs = [self.populationSurveyView zoomScale];
             [self.populationSurveyView setZoomScale:1.0 animated:YES];
@@ -682,7 +700,7 @@
     {
         [self.view endEditing:YES];
         hasAFirstResponder = NO;
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
             [UIView animateWithDuration:0.3 animations:^{
                 [self.populationSurveyView setContentSize:phoneLandscapeSize];
             }];
@@ -703,7 +721,7 @@
     {
         [self.view endEditing:YES];
         hasAFirstResponder = NO;
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
             [UIView animateWithDuration:0.3 animations:^{
                 [self.populationSurveyView setContentSize:phoneLandscapeSize];
             }];
@@ -739,7 +757,7 @@
 
 - (IBAction)textFieldAction:(id)sender
 {
-    int cursorPosition = [sender offsetFromPosition:[sender endOfDocument] toPosition:[[sender selectedTextRange] start]];
+    int cursorPosition = (int)[sender offsetFromPosition:[sender endOfDocument] toPosition:[[sender selectedTextRange] start]];
     
     UITextField *theTextField = (UITextField *)sender;
     
@@ -802,7 +820,7 @@
     {
         [self.view endEditing:YES];
         hasAFirstResponder = NO;
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
             [UIView animateWithDuration:0.3 animations:^{
                 float zs = [self.populationSurveyView zoomScale];
                 [self.populationSurveyView setZoomScale:1.0 animated:YES];

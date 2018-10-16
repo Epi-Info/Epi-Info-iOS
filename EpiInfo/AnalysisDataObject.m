@@ -98,7 +98,7 @@
 
     NSString *fileText = @"";
     NSString *rowText = @"";
-    unsigned numberOfLines, index, stringLength = [fileText length];
+    unsigned numberOfLines, index, stringLength = (unsigned int)[fileText length];
     numberOfLines = 0;
     
     NSMutableArray *mutableFullDataSet = [[NSMutableArray alloc] init];
@@ -110,14 +110,14 @@
     {
         //Read the filecontents into a string
         fileText = [NSString stringWithContentsOfFile:pathAndFileName encoding:NSStringEncodingConversionAllowLossy error:nil];
-        stringLength = [fileText length];
+        stringLength = (unsigned int)[fileText length];
         
         //Separate the data file into individual lines
         for (index = 0, numberOfLines = 0; index < stringLength; numberOfLines++)
         {
             rowText = [fileText substringFromIndex:index];
             int oldIndex = index;
-            index = NSMaxRange([fileText lineRangeForRange:NSMakeRange(index, 0)]);
+            index = (unsigned int)NSMaxRange([fileText lineRangeForRange:NSMakeRange(index, 0)]);
             rowText = [rowText substringToIndex:index - oldIndex];
             
             //If line-1, parse column names

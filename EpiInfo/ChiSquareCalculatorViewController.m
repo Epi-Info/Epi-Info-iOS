@@ -50,14 +50,20 @@
         [customBackButton.layer setMasksToBounds:YES];
         [customBackButton.layer setCornerRadius:8.0];
         [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+//        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
+        
+        UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setAccessibilityLabel:@"Close"];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
         fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height - self.navigationController.navigationBar.frame.size.height - [[UIApplication sharedApplication] statusBarFrame].size.height)];
         if (self.view.frame.size.height > 500)
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5BackgroundWhite.png"]];
         else
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4BackgroundWhite.png"]];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
 
@@ -123,16 +129,17 @@
         phonePValueResultFrame = CGRectMake(self.view.frame.size.width / 2.0 + 10, 48, self.view.frame.size.width / 2.0 - 20, 21);
         [self.phoneHeaderLabel setFrame:phoneHeaderLabelFrame];
         [self.phoneChiSquareLabel setFrame:phoneChiSquareLabelFrame];
-        [self.phoneChiSquareLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.phoneChiSquareLabel setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.phoneChiSquareLabel.layer setCornerRadius:10.0];
+        [self.phoneChiSquareLabel setAccessibilityLabel:@"Ky square"];
         [self.chiSquareResult setFrame:phoneChiSquareResultFrame];
         [self.phonePValueLabel setFrame:phonePValueLabelFrame];
-        [self.phonePValueLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.phonePValueLabel setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.phonePValueLabel.layer setCornerRadius:10.0];
         [self.pValueResult setFrame:phonePValueResultFrame];
-        [self.phoneHeaderLabel setTextColor:[UIColor whiteColor]];
-        [self.chiSquareResult setTextColor:[UIColor whiteColor]];
-        [self.pValueResult setTextColor:[UIColor whiteColor]];
+        [self.phoneHeaderLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [self.chiSquareResult setTextColor:[UIColor blackColor]];
+        [self.pValueResult setTextColor:[UIColor blackColor]];
         [self.view addSubview:self.phoneHeaderLabel];
         [self.view addSubview:self.phoneChiSquareLabel];
         [self.view addSubview:self.chiSquareResult];
@@ -140,11 +147,11 @@
         [self.view addSubview:self.pValueResult];
         
         // Set the background color for the column header labels
-        [self.phoneExposureScoreLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.phoneExposureScoreLabel setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.phoneExposureScoreLabel.layer setCornerRadius:10.0];
-        [self.phoneCasesLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-        [self.phoneControlsLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-        [self.phoneOddsRatioLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.phoneCasesLabel setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [self.phoneControlsLabel setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [self.phoneOddsRatioLabel setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [self.phoneOddsRatioLabel.layer setCornerRadius:10.0];
         
         // Postion the inputs, odds ratios, and column headers
@@ -244,7 +251,7 @@
         //Add the blue (?) box to the inputs and odds ratios section
         phoneLargeColorBoxFrame = CGRectMake(20, 0, 4 * columnWidth, 42 + 10 * rowPadding + 10 * rowHeight + 1);
         phoneLargeColorBox = [[UIView alloc] initWithFrame:phoneLargeColorBoxFrame];
-        [phoneLargeColorBox setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phoneLargeColorBox setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [phoneLargeColorBox.layer setCornerRadius:6.0];
         [self.epiInfoScrollView addSubview:phoneLargeColorBox];
         [self.epiInfoScrollView sendSubviewToBack:phoneLargeColorBox];
@@ -373,10 +380,10 @@
 //    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"textured-Bar.png"] forBarMetrics:UIBarMetricsDefault];
 //    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:124/255.0 green:177/255.0 blue:55/255.0 alpha:1.0]];
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStyleBordered target: nil action: nil];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStylePlain target: nil action: nil];
     [self.navigationItem setBackBarButtonItem: backButton];
     
-    self.title = @"Epi Info StatCalc";
+    self.title = @"";
     //
     
    // self.title = @"Chi-Square";
@@ -400,22 +407,43 @@
         [customBackButton.layer setMasksToBounds:YES];
         [customBackButton.layer setCornerRadius:8.0];
         [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+//        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
+        
+        UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setAccessibilityLabel:@"Close"];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
         fadingColorView0 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, 400.0)];
         [fadingColorView0 setImage:[UIImage imageNamed:@"FadeUpAndDown.png"]];
 //        [self.view addSubview:fadingColorView0];
 //        [self.view sendSubviewToBack:fadingColorView0];
         fadingColorView = [[UIImageView alloc] initWithFrame:self.view.frame];
-        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackground.png"]];
+        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackgroundWhite.png"]];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
         
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
         {
             [self.lowerNavigationBar setFrame:CGRectMake(0, -4, self.view.frame.size.width, 44)];
-            [self.lowerNavigationBar setBarTintColor:[UIColor colorWithRed:50/255.0 green:71/255.0 blue:92/255.0 alpha:1.0]];
+            [self.lowerNavigationBar setBarTintColor:[UIColor colorWithRed:0/255.0 green:130/255.0 blue:126/255.0 alpha:1.0]];
+        }
+        int i = 0;
+        for (UIView *v in [self.epiInfoScrollView subviews])
+        {
+            int j = 0;
+            for (UIView *vi in [v subviews])
+            {
+                j++;
+                if ([vi isKindOfClass:[UILabel class]])
+                {
+                    if ([[(UILabel *)vi text] isEqualToString:@"Chi Square"])
+                        [vi setAccessibilityLabel:@"Ky square"];
+                }
+            }
+            i++;
         }
     }
 }
@@ -424,7 +452,7 @@
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [UIView animateWithDuration:0.3 animations:^{
                 [self.epiInfoScrollView0 setFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height)];
@@ -452,7 +480,7 @@
         [self.epiInfoScrollView setFrame:CGRectMake(0, 70, self.view.frame.size.width, 840)];
         if (fourInchPhone)
             [self.epiInfoScrollView setFrame:CGRectMake(0, 70, self.view.frame.size.width, 920)];
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [UIView animateWithDuration:0.3 animations:^{
                 [selfViewControl setFrame:self.view.frame];
@@ -534,7 +562,7 @@
     float zs = [phoneScrollView zoomScale];
     [phoneScrollView setZoomScale:1.0 animated:YES];
     hasAFirstResponder = YES;
-    if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+    if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         [self.epiInfoScrollView setContentSize:responderSize];
     else
         [self.epiInfoScrollView setContentSize:landscapeResponderSize];
@@ -549,7 +577,7 @@
     [phoneScrollView setZoomScale:1.0 animated:YES];
     hasAFirstResponder = NO;
     [self.view endEditing:YES];
-    if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+    if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         [self.epiInfoScrollView setContentSize:noResponderSize];
     else
         [self.epiInfoScrollView setContentSize:landscapeNoResponderSize];
@@ -566,7 +594,7 @@
             float zs = [phoneScrollView zoomScale];
             [phoneScrollView setZoomScale:1.0 animated:YES];
             hasAFirstResponder = NO;
-            if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+            if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
                 [self.epiInfoScrollView setContentSize:noResponderSize];
             else
                 [self.epiInfoScrollView setContentSize:landscapeNoResponderSize];
@@ -980,7 +1008,7 @@
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && !hasAFirstResponder)
     {
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
             [self.epiInfoScrollView setContentSize:noResponderSize];
         else
             [self.epiInfoScrollView setContentSize:landscapeNoResponderSize];

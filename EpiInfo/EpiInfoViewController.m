@@ -18,6 +18,7 @@
 @implementation EpiInfoViewController
 @synthesize analyzeDataButton = _analyzeDataButton;
 @synthesize statCalcButton = _statCalcButton;
+@synthesize mainMenuMenu = _mainMenuMenu;
 
 - (CGRect)frameOfButtonPressed
 {
@@ -44,16 +45,27 @@
 - (void)viewDidLoad
 {
     // code here
+    // Create Activity_Log.txt and Error_Log.txt if they do not already exist
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"]])
+    {
+        [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] withIntermediateDirectories:NO attributes:nil error:nil];
+        NSString *errorLogFile = [[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] stringByAppendingPathComponent:@"Error_Log.txt"];
+        [[NSString stringWithFormat:@"Epi Info iOS App Error Log\n"] writeToFile:errorLogFile atomically:NO encoding:NSUTF8StringEncoding error:nil];
+        NSString *activityLogFile = [[[paths objectAtIndex:0] stringByAppendingString:@"/Logs"] stringByAppendingPathComponent:@"Activity_Log.txt"];
+        [[NSString stringWithFormat:@"Epi Info iOS App Activity Log\n"] writeToFile:activityLogFile atomically:NO encoding:NSUTF8StringEncoding error:nil];
+    }
+
     self.view.backgroundColor = [[UIColor alloc] initWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
 //    self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"background-1.png"]];
     [super viewDidLoad];
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:50/255.0 green:71/255.0 blue:92/255.0 alpha:1.0]];
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStyleBordered target: nil action: nil];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back" style: UIBarButtonItemStylePlain target: nil action: nil];
     [self.navigationItem setBackBarButtonItem: backButton];
     
     
-    self.title = @"Epi Info";
+    self.title = @"";
 //    CGRect frame = CGRectMake(0, 0, [self.title sizeWithFont:[UIFont boldSystemFontOfSize:20.0]].width, 44);
     // Deprecation replacement
     CGRect frame = CGRectMake(0, 0, [self.title sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:20.0]}].width, 44);
@@ -63,11 +75,17 @@
     {
 //        [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:50/255.0 green:71/255.0 blue:92/255.0 alpha:1.0]];
 //        [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:45/255.0 green:111/255.0 blue:14/255.0 alpha:1.0]];
-        [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+//        [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
         [self.navigationController.navigationBar setTranslucent:NO];
+        UIImageView *barImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0 - (277.0 / 4.0), 8, 277 / 2.0, 64 / 2.0)];
+        [barImageView setImage:[UIImage imageNamed:@"epi_info_logo_full.png"]];
+        [self.navigationController.navigationBar addSubview:barImageView];
 
         [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-        [self.navigationController.navigationBar setBarStyle:UIStatusBarStyleLightContent];
+        [self.navigationController.navigationBar setBarStyle:UIStatusBarStyleDefault];
+        [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+        [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
 
         if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
             [self setEdgesForExtendedLayout:UIRectEdgeNone];
@@ -103,6 +121,12 @@
     [hhsImageView setImage:hhsImage];
     [hhsImageView setAlpha:0.2];
     
+    self.mainMenuMenu = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"menu_lines20.png"] style:UIBarButtonItemStylePlain target:self action:@selector(mainMenuMenuButtonPressed:)];
+    [self.mainMenuMenu setAccessibilityLabel:@"Disclaimers and Privacy Policy"];
+    [self.mainMenuMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+    [self.mainMenuMenu setWidth:10.0];
+    [self.navigationItem setLeftBarButtonItem:self.mainMenuMenu];
+    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
 //        [self.statCalcButton sendActionsForControlEvents:UIControlEventTouchUpInside];
@@ -113,11 +137,11 @@
         button2LandscapeFrame = CGRectMake(self.view.frame.size.height / 2.0 - 140, 111, 280, 44);
         button3LandscapeFrame = CGRectMake(self.view.frame.size.height / 2.0 - 140, 162, 280, 44);
         
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
             fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height)];
         else
             fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.height, [self.view frame].size.width)];
-        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackground.png"]];
+        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackgroundWhite.png"]];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
         
@@ -125,22 +149,38 @@
         [unblurryView setBackgroundColor:[UIColor clearColor]];
         [self.view addSubview:unblurryView];
         
-        v1 = [[UIView alloc] initWithFrame:CGRectMake(sqrtf(800), sqrtf(800), 76, 106)];
-        v3 = [[UIView alloc] initWithFrame:CGRectMake(unblurryView.frame.size.width - sqrtf(800) - 76, sqrtf(800), 76, 106)];
-        v2 = [[UIView alloc] initWithFrame:CGRectMake(sqrtf(800) + 76 + (v3.frame.origin.x - (sqrtf(800) + 76)) / 2.0 - 76 / 2.0, sqrtf(800), 76, 106)];
+        // Added for new UI/UX
+        UIView *gravView = [[UIView alloc] initWithFrame:CGRectMake(0, 32, self.view.frame.size.width, 256)];
+        [gravView setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+        [self.view addSubview:gravView];
+        
+        // Changed vxs for use with new UI
+//        v1 = [[UIView alloc] initWithFrame:CGRectMake(sqrtf(800), sqrtf(800), 76, 106)];
+        v1 = [[UIView alloc] initWithFrame:CGRectMake(0, 1, gravView.frame.size.width, 84)];
+        [v1 setBackgroundColor:[UIColor whiteColor]];
+//        v3 = [[UIView alloc] initWithFrame:CGRectMake(unblurryView.frame.size.width - sqrtf(800) - 76, sqrtf(800), 76, 106)];
+//        v2 = [[UIView alloc] initWithFrame:CGRectMake(sqrtf(800) + 76 + (v3.frame.origin.x - (sqrtf(800) + 76)) / 2.0 - 76 / 2.0, sqrtf(800), 76, 106)];
+        v2 = [[UIView alloc] initWithFrame:CGRectMake(0, v1.frame.origin.y + v1.frame.size.height + 1, gravView.frame.size.width, 84)];
+        [v2 setBackgroundColor:[UIColor whiteColor]];
+        v3 = [[UIView alloc] initWithFrame:CGRectMake(0, v2.frame.origin.y + v2.frame.size.height + 1, gravView.frame.size.width, 84)];
+        [v3 setBackgroundColor:[UIColor whiteColor]];
         v4 = [[UIView alloc] initWithFrame:CGRectMake(v1.frame.origin.x, v1.frame.origin.y + v1.frame.size.height + 16, v1.frame.size.width, v1.frame.size.height)];
         
-        [unblurryView addSubview:v1];
-        [unblurryView addSubview:v2];
-        [unblurryView addSubview:v3];
-        [unblurryView addSubview:v4];
+//        [unblurryView addSubview:v1];
+//        [unblurryView addSubview:v2];
+//        [unblurryView addSubview:v3];
+//        [unblurryView addSubview:v4];
+        
+        [gravView addSubview:v1];
+        [gravView addSubview:v2];
+        [gravView addSubview:v3];
         
         // Make v4 appear in viewDidAppear, depending on presence of VHF data
         [v4 setHidden:YES];
         
-        [self.analyzeDataButton setFrame:CGRectMake(0, 0, 76, 76)];
-        [self.statCalcButton setFrame:CGRectMake(0, 0, 76, 76)];
-        [self.dataEntryButton setFrame:CGRectMake(0, 0, 76, 76)];
+        [self.analyzeDataButton setFrame:CGRectMake(8, 4, 76, 76)];
+        [self.statCalcButton setFrame:CGRectMake(8, 4, 76, 76)];
+        [self.dataEntryButton setFrame:CGRectMake(8, 4, 76, 76)];
         [self.vhfButton setFrame:CGRectMake(0, 0, 76, 76)];
         
         [self.analyzeDataButton.layer setCornerRadius:10.0];
@@ -219,11 +259,88 @@
         [label4 setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
         [label4b setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
         
-        [v1 addSubview:label1];
-        [v2 addSubview:label2];
-        [v3 addSubview:label3];
+        // Using different labels with new UI
+//        [v1 addSubview:label1];
+//        [v2 addSubview:label2];
+//        [v3 addSubview:label3];
         [v4 addSubview:label4];
         [v4 addSubview:label4b];
+        
+        // New, more verbose labels for new UI
+        float labelX = self.dataEntryButton.frame.origin.x + self.dataEntryButton.frame.size.width + 16;
+        float labelWidth = gravView.frame.size.width - labelX - 8;
+        l1a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, 8, labelWidth, v1.frame.size.height * 0.4 - 8)];
+        l1b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, 8 + l1a.frame.size.height, labelWidth, v1.frame.size.height - 8 - l1a.frame.size.height)];
+        l2a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1a.frame.origin.y, labelWidth, l1a.frame.size.height)];
+        l2b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1b.frame.origin.y, labelWidth, l1b.frame.size.height)];
+        l3a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1a.frame.origin.y, labelWidth, l1a.frame.size.height)];
+        l3b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1b.frame.origin.y, labelWidth, l1b.frame.size.height)];
+        
+        [l1a setText:@"ENTER DATA"];
+        [l1a setTextAlignment:NSTextAlignmentLeft];
+        [l1a setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [l1a setFont:[UIFont fontWithName:@"HelveticaNeue" size:24.0]];
+        [l1b setText:@"Enter data, browse records, and search the database."];
+        [l1b setTextAlignment:NSTextAlignmentLeft];
+        [l1b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [l1b setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [l1b setNumberOfLines:0];
+        [l1b setLineBreakMode:NSLineBreakByWordWrapping];
+        
+        [l2a setText:@"ANALYZE DATA"];
+        [l2a setTextAlignment:NSTextAlignmentLeft];
+        [l2a setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [l2a setFont:[UIFont fontWithName:@"HelveticaNeue" size:24.0]];
+        [l2b setText:@"Visualize analytic results with gadgets, tables, and SQL tools."];
+        [l2b setTextAlignment:NSTextAlignmentLeft];
+        [l2b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [l2b setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [l2b setNumberOfLines:0];
+        [l2b setLineBreakMode:NSLineBreakByWordWrapping];
+        
+        [l3a setText:@"STATCALC"];
+        [l3a setTextAlignment:NSTextAlignmentLeft];
+        [l3a setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [l3a setFont:[UIFont fontWithName:@"HelveticaNeue" size:24.0]];
+        [l3b setText:@"Statistical calculators for sample size, power, and more."];
+        [l3b setTextAlignment:NSTextAlignmentLeft];
+        [l3b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [l3b setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [l3b setNumberOfLines:0];
+        [l3b setLineBreakMode:NSLineBreakByWordWrapping];
+        
+        [v1 addSubview:l1a];
+        [v1 addSubview:l1b];
+        [v2 addSubview:l2a];
+        [v2 addSubview:l2b];
+        [v3 addSubview:l3a];
+        [v3 addSubview:l3b];
+        
+        // Clear buttons to go over labels
+        UIButton *clearButton1 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
+        [clearButton1 setBackgroundColor:[UIColor clearColor]];
+        [clearButton1 setTag:1];
+        [clearButton1 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
+        [clearButton1 addTarget:self action:@selector(clearButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
+        [clearButton1 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
+        [clearButton1 setAccessibilityLabel:@"Enter data. Enter data, browse records, and search the database."];
+        [v1 addSubview:clearButton1];
+        UIButton *clearButton2 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
+        [clearButton2 setBackgroundColor:[UIColor clearColor]];
+        [clearButton2 setTag:2];
+        [clearButton2 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
+        [clearButton2 addTarget:self action:@selector(clearButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
+        [clearButton2 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
+        [clearButton2 setAccessibilityLabel:@"Analyze data. Visualize analytic results with gadgets, tables, and SQL tools."];
+        [v2 addSubview:clearButton2];
+        UIButton *clearButton3 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
+        [clearButton3 setBackgroundColor:[UIColor clearColor]];
+        [clearButton3 setTag:3];
+        [clearButton3 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
+        [clearButton3 addTarget:self action:@selector(clearButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
+        [clearButton3 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
+        [clearButton3 setAccessibilityLabel:@"Stat calc. Statistical calculators for sample size, power, and more."];
+        [v3 addSubview:clearButton3];
        
         // Use a larger label than just the nav bar for the title in the iPad
         [self setTitle:@""];
@@ -231,11 +348,11 @@
         [self.navigationController.navigationBar setShadowImage:[UIImage new]];
         UILabel *padTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 150)];
         [padTitleLabel setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
-        [padTitleLabel setText:@"Epi Info"];
+        [padTitleLabel setText:@""];
         [padTitleLabel setTextColor:[UIColor whiteColor]];
         [padTitleLabel setTextAlignment:NSTextAlignmentCenter];
         [padTitleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:36.0]];
-        [self.view addSubview:padTitleLabel];
+//        [self.view addSubview:padTitleLabel];
     }
     else
     {
@@ -256,33 +373,48 @@
         if (self.view.frame.size.height > 500)
         {
             [fadingColorView setFrame:CGRectMake(0, 0, 320, 504)];
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5BackgroundWhite.png"]];
         }
         else
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4BackgroundWhite.png"]];
 
         UIView *unblurryView = [[UIView alloc] initWithFrame:CGRectMake(button1Frame.origin.x - 20, button1Frame.origin.y, button1Frame.size.width + 40, button3Frame.origin.y - button1Frame.origin.y + button3Frame.size.height + 120 + 40)];
         [unblurryView setBackgroundColor:[UIColor clearColor]];
         [self.view addSubview:unblurryView];
+        
+        // Added for new UI/UX
+        UIView *gravView = [[UIView alloc] initWithFrame:CGRectMake(0, 32, self.view.frame.size.width, 208)];
+        [gravView setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+        [self.view addSubview:gravView];
 
-        v1 = [[UIView alloc] initWithFrame:CGRectMake(sqrtf(800), sqrtf(800), 60, 90)];
-        v3 = [[UIView alloc] initWithFrame:CGRectMake(unblurryView.frame.size.width - sqrtf(800) - 60, sqrtf(800), 60, 90)];
-        v2 = [[UIView alloc] initWithFrame:CGRectMake(sqrtf(800) + 60 + (v3.frame.origin.x - (sqrtf(800) + 60)) / 2.0 - 60 / 2.0, sqrtf(800), 60, 90)];
+        // Changed vxs for use with new UI
+//        v1 = [[UIView alloc] initWithFrame:CGRectMake(sqrtf(800), sqrtf(800), 60, 90)];
+        v1 = [[UIView alloc] initWithFrame:CGRectMake(0, 1, gravView.frame.size.width, 68)];
+        [v1 setBackgroundColor:[UIColor whiteColor]];
+//        v3 = [[UIView alloc] initWithFrame:CGRectMake(unblurryView.frame.size.width - sqrtf(800) - 60, sqrtf(800), 60, 90)];
+ //       v2 = [[UIView alloc] initWithFrame:CGRectMake(sqrtf(800) + 60 + (v3.frame.origin.x - (sqrtf(800) + 60)) / 2.0 - 60 / 2.0, sqrtf(800), 60, 90)];
+        v2 = [[UIView alloc] initWithFrame:CGRectMake(0, v1.frame.origin.y + v1.frame.size.height + 1, gravView.frame.size.width, 68)];
+        [v2 setBackgroundColor:[UIColor whiteColor]];
+        v3 = [[UIView alloc] initWithFrame:CGRectMake(0, v2.frame.origin.y + v2.frame.size.height + 1, gravView.frame.size.width, 68)];
+        [v3 setBackgroundColor:[UIColor whiteColor]];
         v4 = [[UIView alloc] initWithFrame:CGRectMake(v1.frame.origin.x, v1.frame.origin.y + v1.frame.size.height + 32, v1.frame.size.width, v1.frame.size.height)];
         v5 = [[UIView alloc] initWithFrame:CGRectMake(v2.frame.origin.x, v1.frame.origin.y + v1.frame.size.height + 32, v1.frame.size.width, v1.frame.size.height)];
         
-        [unblurryView addSubview:v1];
-        [unblurryView addSubview:v2];
-        [unblurryView addSubview:v3];
+//        [unblurryView addSubview:v1];
+//        [unblurryView addSubview:v2];
+//        [unblurryView addSubview:v3];
+        [gravView addSubview:v1];
+        [gravView addSubview:v2];
+        [gravView addSubview:v3];
         [unblurryView addSubview:v4];
 //        [unblurryView addSubview:v5];
         
         // Make v4 appear in viewDidAppear, depending on presence of VHF data
         [v4 setHidden:YES];
 
-        [self.analyzeDataButton setFrame:CGRectMake(0, 0, 60, 60)];
-        [self.statCalcButton setFrame:CGRectMake(0, 0, 60, 60)];
-        [self.dataEntryButton setFrame:CGRectMake(0, 0, 60, 60)];
+        [self.analyzeDataButton setFrame:CGRectMake(4, 4, 60, 60)];
+        [self.statCalcButton setFrame:CGRectMake(4, 4, 60, 60)];
+        [self.dataEntryButton setFrame:CGRectMake(4, 4, 60, 60)];
         [self.vhfButton setFrame:CGRectMake(0, 0, 60, 60)];
         [self.simulationsButton setFrame:CGRectMake(0, 0, 60, 60)];
         
@@ -357,9 +489,9 @@
         [label5 setText:@"Simulations"];
         [label5b setText:@"Study"];
         
-        [label1 setTextColor:[UIColor whiteColor]];
-        [label2 setTextColor:[UIColor whiteColor]];
-        [label3 setTextColor:[UIColor whiteColor]];
+        [label1 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [label2 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [label3 setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [label4 setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [label4b setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [label5 setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
@@ -381,19 +513,159 @@
         [label5 setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
         [label5b setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
 
-        [v1 addSubview:label1];
-        [v2 addSubview:label2];
-        [v3 addSubview:label3];
+        // Using different labels with new UI
+//        [v1 addSubview:label1];
+//        [v2 addSubview:label2];
+//        [v3 addSubview:label3];
         [v4 addSubview:label4];
         [v4 addSubview:label4b];
         [v5 addSubview:label5];
 //        [v5 addSubview:label5b];
+        
+        // New, more verbose labels for new UI
+        float labelX = self.dataEntryButton.frame.origin.x + self.dataEntryButton.frame.size.width + 16;
+        float labelWidth = gravView.frame.size.width - labelX - 8;
+        l1a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, 8, labelWidth, v1.frame.size.height * 0.4 - 8)];
+        l1b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, 8 + l1a.frame.size.height, labelWidth, v1.frame.size.height - 8 - l1a.frame.size.height)];
+        l2a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1a.frame.origin.y, labelWidth, l1a.frame.size.height)];
+        l2b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1b.frame.origin.y, labelWidth, l1b.frame.size.height)];
+        l3a = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1a.frame.origin.y, labelWidth, l1a.frame.size.height)];
+        l3b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1b.frame.origin.y, labelWidth, l1b.frame.size.height)];
+        
+        [l1a setText:@"ENTER DATA"];
+        [l1a setTextAlignment:NSTextAlignmentLeft];
+        [l1a setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [l1a setFont:[UIFont fontWithName:@"HelveticaNeue" size:24.0]];
+        [l1b setText:@"Enter data, browse records, and search the database."];
+        [l1b setTextAlignment:NSTextAlignmentLeft];
+        [l1b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [l1b setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
+        [l1b setNumberOfLines:0];
+        [l1b setLineBreakMode:NSLineBreakByWordWrapping];
+        [l1a setHighlightedTextColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+        [l1b setHighlightedTextColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+        
+        [l2a setText:@"ANALYZE DATA"];
+        [l2a setTextAlignment:NSTextAlignmentLeft];
+        [l2a setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [l2a setFont:[UIFont fontWithName:@"HelveticaNeue" size:24.0]];
+        [l2b setText:@"Visualize analytic results with gadgets, tables, and SQL tools."];
+        [l2b setTextAlignment:NSTextAlignmentLeft];
+        [l2b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [l2b setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
+        [l2b setNumberOfLines:0];
+        [l2b setLineBreakMode:NSLineBreakByWordWrapping];
+        [l2a setHighlightedTextColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+        [l2b setHighlightedTextColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+        
+        [l3a setText:@"STATCALC"];
+        [l3a setTextAlignment:NSTextAlignmentLeft];
+        [l3a setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [l3a setFont:[UIFont fontWithName:@"HelveticaNeue" size:24.0]];
+        [l3b setText:@"Statistical calculators for sample size, power, and more."];
+        [l3b setTextAlignment:NSTextAlignmentLeft];
+        [l3b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [l3b setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
+        [l3b setNumberOfLines:0];
+        [l3b setLineBreakMode:NSLineBreakByWordWrapping];
+        [l3a setHighlightedTextColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+        [l3b setHighlightedTextColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+        
+        [v1 addSubview:l1a];
+        [v1 addSubview:l1b];
+        [v2 addSubview:l2a];
+        [v2 addSubview:l2b];
+        [v3 addSubview:l3a];
+        [v3 addSubview:l3b];
+        
+        // Clear buttons to go over labels
+        UIButton *clearButton1 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
+        [clearButton1 setBackgroundColor:[UIColor clearColor]];
+        [clearButton1 setTag:1];
+        [clearButton1 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
+        [clearButton1 addTarget:self action:@selector(clearButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
+        [clearButton1 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
+        [clearButton1 setAccessibilityLabel:@"Enter data. Enter data, browse records, and search the database."];
+        [v1 addSubview:clearButton1];
+        UIButton *clearButton2 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
+        [clearButton2 setBackgroundColor:[UIColor clearColor]];
+        [clearButton2 setTag:2];
+        [clearButton2 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
+        [clearButton2 addTarget:self action:@selector(clearButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
+        [clearButton2 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
+        [clearButton2 setAccessibilityLabel:@"Analyze data. Visualize analytic results with gadgets, tables, and SQL tools."];
+        [v2 addSubview:clearButton2];
+        UIButton *clearButton3 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
+        [clearButton3 setBackgroundColor:[UIColor clearColor]];
+        [clearButton3 setTag:3];
+        [clearButton3 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
+        [clearButton3 addTarget:self action:@selector(clearButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
+        [clearButton3 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
+        [clearButton3 setAccessibilityLabel:@"Stat calc. Statistical calculators for sample size, power, and more."];
+        [v3 addSubview:clearButton3];
     }
     // Remove this section when ready to add analysis
 //    [v2 setHidden:YES];
 //    [v1 setFrame:CGRectMake(v1.superview.frame.size.width / 3.0 - v1.frame.size.width, v1.frame.origin.y, v1.frame.size.width, v1.frame.size.height)];
 //    [v3 setFrame:CGRectMake(2.0 * v3.superview.frame.size.width / 3.0, v3.frame.origin.y, v3.frame.size.width, v3.frame.size.height)];
     // End of hide analysis section
+
+    [self loadSampleForm:@"Sample_Contact_Investigation"];
+    [self loadSampleForm:@"_ContactFollowup"];
+    [self loadSampleForm:@"Sample_EColiFoodHistory"];
+    
+    // Add footnote and link to tutorial
+    float bottomOfFadingColorView = fadingColorView.frame.origin.y + fadingColorView.frame.size.height;
+    UIFont *footnoteFont = [UIFont fontWithName:@"HelveticaNeue" size:14.0];
+    float footnoteLabelHeight = 54.0;
+    float footnoteLabelWidth = 262.0;
+    float footnoteLabelX = 48.0;
+    float questionMarkButtonX = 4.0;
+    float questionMarkButtonYPlus = 7.0;
+    UIImage *questionMarkImage = [UIImage imageNamed:@"QuestionMarkButtonForTutorial"];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        bottomOfFadingColorView -= 80;
+        footnoteFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0];
+        footnoteLabelHeight = 60.0;
+        footnoteLabelWidth = 480;
+        footnoteLabelX = 68;
+        questionMarkImage = [UIImage imageNamed:@"QuestionMarkBoldButton"];
+        questionMarkButtonX = 20;
+        questionMarkButtonYPlus = 10;
+    }
+    UIButton *footnoteLabel = [[UIButton alloc] initWithFrame:CGRectMake(footnoteLabelX, bottomOfFadingColorView - 60.0, footnoteLabelWidth, footnoteLabelHeight)];
+    [footnoteLabel setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [footnoteLabel.titleLabel setFont:footnoteFont];
+    [footnoteLabel setTitle:@"This app is a companion to Epi Info for Windows. For a tutorial on using this app, click here. (Opens in Web Browser)" forState:UIControlStateNormal];
+    [footnoteLabel setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [footnoteLabel setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [footnoteLabel addTarget:self action:@selector(tutorialButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [footnoteLabel.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
+    [self.view addSubview:footnoteLabel];
+    UIButton *questionMarkButton = [[UIButton alloc] initWithFrame:CGRectMake(questionMarkButtonX, footnoteLabel.frame.origin.y + questionMarkButtonYPlus, 40, 40)];
+    [questionMarkButton setImage:questionMarkImage forState:UIControlStateNormal];
+    [questionMarkButton addTarget:self action:@selector(tutorialButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:questionMarkButton];
+}
+
+-(void)loadSampleForm:(NSString*)resourceName
+{
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"SampleForms" ofType:@"bundle"];
+    NSString *formName = [[NSBundle bundleWithPath:bundlePath] pathForResource:resourceName ofType:@"xml"];
+    NSString *xmlContents = [NSString stringWithContentsOfFile:formName encoding:NSUTF8StringEncoding error:NULL];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
+    {
+        [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] withIntermediateDirectories:NO attributes:nil error:nil];
+    }
+    NSString *filePathAndName = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/"] stringByAppendingString:resourceName] stringByAppendingString:@".xml"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePathAndName])
+    {
+        [[NSFileManager defaultManager] removeItemAtPath:filePathAndName error:nil];
+    }
+    [xmlContents writeToFile:filePathAndName atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -454,7 +726,7 @@
         else
             [v4 setHidden:YES];
         
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
         }
         else
@@ -539,6 +811,85 @@
     }
 }
 
+- (void)clearButtonPressed:(UIButton *)sender
+{
+    switch ([sender tag]) {
+        case 1:
+            [self.dataEntryButton setHighlighted:YES];
+            [l1a setHighlighted:YES];
+            [l1b setHighlighted:YES];
+            break;
+            
+        case 2:
+            [self.analyzeDataButton setHighlighted:YES];
+            [l2a setHighlighted:YES];
+            [l2b setHighlighted:YES];
+            break;
+            
+        case 3:
+            [self.statCalcButton setHighlighted:YES];
+            [l3a setHighlighted:YES];
+            [l3b setHighlighted:YES];
+            break;
+            
+        default:
+            break;
+    }
+}
+- (void)clearButtonReleased:(UIButton *)sender
+{
+    switch ([sender tag]) {
+        case 1:
+            [self.dataEntryButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+            [self.dataEntryButton setHighlighted:NO];
+            [l1a setHighlighted:NO];
+            [l1b setHighlighted:NO];
+            break;
+            
+        case 2:
+            [self.analyzeDataButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+            [self.analyzeDataButton setHighlighted:NO];
+            [l2a setHighlighted:NO];
+            [l2b setHighlighted:NO];
+            break;
+            
+        case 3:
+            [self.statCalcButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+            [self.statCalcButton setHighlighted:NO];
+            [l3a setHighlighted:NO];
+            [l3b setHighlighted:NO];
+            break;
+            
+        default:
+            break;
+    }
+}
+- (void)clearButtonDragged:(UIButton *)sender
+{
+    switch ([sender tag]) {
+        case 1:
+            [self.dataEntryButton setHighlighted:NO];
+            [l1a setHighlighted:NO];
+            [l1b setHighlighted:NO];
+            break;
+            
+        case 2:
+            [self.analyzeDataButton setHighlighted:NO];
+            [l2a setHighlighted:NO];
+            [l2b setHighlighted:NO];
+            break;
+            
+        case 3:
+            [self.statCalcButton setHighlighted:NO];
+            [l3a setHighlighted:NO];
+            [l3b setHighlighted:NO];
+            break;
+            
+        default:
+            break;
+    }
+}
+
 -(BOOL)shouldAutorotate
 {
     return NO;
@@ -590,5 +941,23 @@
             }];
         }
     }
+}
+
+- (void)tutorialButtonPressed:(UIButton *)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/Epi-Info/Epi-Info-iOS/wiki"]];
+}
+
+- (void)mainMenuMenuButtonPressed:(UIBarButtonItem *)sender
+{
+    MainMenuMenu *mmm = [[MainMenuMenu alloc] initWithFrame:CGRectMake(-self.view.frame.size.width, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [mmm setEivc:self];
+    [self.view addSubview:mmm];
+    
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [mmm setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        [self.mainMenuMenu setEnabled:NO];
+    } completion:^(BOOL finished){
+    }];
 }
 @end

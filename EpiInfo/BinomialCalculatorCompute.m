@@ -37,9 +37,9 @@
     [thread3 start];
     [thread4 start];
     
-    while ([thread1 isExecuting] || [thread2 isExecuting] || [thread3 isExecuting] || [thread4 isExecuting])
+    while (![args4 objectForKey:@"ReturnV"])
     {
-
+        [NSThread sleepForTimeInterval:0.1f];
     }
 
     probabilitiesAndLimits[0] = [[args1 valueForKey:@"ReturnV"] doubleValue];

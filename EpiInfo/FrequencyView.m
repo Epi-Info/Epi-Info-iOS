@@ -254,7 +254,7 @@
 
 - (void)setFrame:(CGRect)frame
 {
-    [super setFrame:frame];
+    [super setFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, 10.0 * frame.size.height)];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         if (frame.size.width > 0.0 && frame.size.height > 0.0)
@@ -263,7 +263,7 @@
             [gadgetTitle setFrame:CGRectMake(2, 116, 316 - 96, 44)];
             [xButton setFrame:CGRectMake(316 - 46, 116, 44, 44)];
             [gearButton setFrame:CGRectMake(316 - 92, 116, 44, 44)];
-            [outputView setFrame:CGRectMake(0, 46, frame.size.width, frame.size.height - 46)];
+            [outputView setFrame:CGRectMake(0, 46, frame.size.width, 10.0 * frame.size.height - 46)];
             if (inputViewDisplayed)
             {
                 [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, frame.size.height - 50)];
@@ -296,7 +296,7 @@
             [gadgetTitle setFrame:CGRectMake(2, 8, 316 - 96, 44)];
             [xButton setFrame:CGRectMake(frame.size.width - 4.0 - 46, 2, 44, 44)];
             [gearButton setFrame:CGRectMake(frame.size.width - 4.0 - 92, 2, 44, 44)];
-            [outputView setFrame:CGRectMake(0, 46, frame.size.width, frame.size.height - 46)];
+            [outputView setFrame:CGRectMake(0, 46, frame.size.width, 10.0 * frame.size.height - 46)];
             if (inputViewDisplayed)
             {
                 [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, MIN(860.0, frame.size.height - 50))];

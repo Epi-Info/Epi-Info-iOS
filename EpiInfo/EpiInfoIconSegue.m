@@ -35,7 +35,7 @@
                                                                   60, 60)];
     else
     {
-        if (UIInterfaceOrientationIsPortrait([srcViewController interfaceOrientation]))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             imageView = [[UIImageView alloc] initWithFrame:CGRectMake(srcViewController.buttonPressed.superview.superview.frame.origin.x + srcViewController.frameOfButtonPressed.origin.x,
                                                                       srcViewController.buttonPressed.superview.superview.frame.origin.y + srcViewController.frameOfButtonPressed.origin.y + srcViewController.navigationController.navigationBar.frame.size.height,
@@ -52,27 +52,51 @@
 
     [imageView setClipsToBounds:YES];
     [imageView setImage:[UIImage imageNamed:[srcViewController imageFileToUseInSegue]]];
-    [mainWindow addSubview:imageView];
+//    [mainWindow addSubview:imageView];
+    
+    UIView *analysisSubViewToSave;
+    UIView *destinationView = [desViewController view];
+    for (UIView *v in [destinationView subviews])
+        if (v.frame.origin.y < 0.0 && [desViewController isKindOfClass:[AnalysisViewController class]])
+        {
+            analysisSubViewToSave = v;
+            [v removeFromSuperview];
+        }
+    UIView *desView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, destinationView.frame.size.width, destinationView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height)];
+    [desView setBackgroundColor:[UIColor clearColor]];
+    [destinationView setFrame:CGRectMake(0, srcViewController.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height, destinationView.frame.size.width, destinationView.frame.size.height)];
+    [desView addSubview:destinationView];
+//    [desView setFrame:[imageView frame]];
+    [desView  setTransform:CGAffineTransformMakeScale(0.2, 0.1)];
+    CGPoint centerPoint = [desView center];
+    [desView setCenter:imageView.center];
+    [mainWindow addSubview:desView];
     
     [UIView animateWithDuration:0.3
                      animations:^{
-                         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-                             [imageView setFrame:CGRectMake(0, srcView.frame.origin.y - srcViewController.navigationController.navigationBar.frame.size.height, srcView.frame.size.width, srcView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height)];
-                         else
-                         {
-                             if (UIInterfaceOrientationIsPortrait([srcViewController interfaceOrientation]))
-                             {
-                                 [imageView setFrame:CGRectMake(0, srcView.frame.origin.y - srcViewController.navigationController.navigationBar.frame.size.height, srcView.frame.size.width, srcView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height)];
-                             }
-                             else
-                             {
-                                 [imageView setFrame:CGRectMake(20, srcView.frame.size.width - srcView.frame.size.height - 44, srcView.frame.size.width, srcView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height)];
-                             }
-                         }
+                         [desView  setTransform:CGAffineTransformIdentity];
+                         [desView setCenter:centerPoint];
+//                         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+//                         {
+//                             [desView setFrame:CGRectMake(0, srcView.frame.origin.y - srcViewController.navigationController.navigationBar.frame.size.height, srcView.frame.size.width, srcView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height)];
+//                         }
+//                         else
+//                         {
+//                             if (UIInterfaceOrientationIsPortrait([srcViewController interfaceOrientation]))
+//                             {
+//                                 [desView setFrame:CGRectMake(0, srcView.frame.origin.y - srcViewController.navigationController.navigationBar.frame.size.height, srcView.frame.size.width, srcView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height)];
+//                             }
+//                             else
+//                             {
+//                                 [desView setFrame:CGRectMake(20, srcView.frame.size.width - srcView.frame.size.height - 44, srcView.frame.size.width, srcView.frame.size.height + srcViewController.navigationController.navigationBar.frame.size.height)];
+//                             }
+//                         }
                      }
                      completion:^(BOOL finished){
                          [srcViewController.navigationController pushViewController:desViewController animated:NO];
-                         [imageView removeFromSuperview];
+                         if (analysisSubViewToSave)
+                             [[desViewController view] addSubview:analysisSubViewToSave];
+                         [desView removeFromSuperview];
                      }];
 }
 @end

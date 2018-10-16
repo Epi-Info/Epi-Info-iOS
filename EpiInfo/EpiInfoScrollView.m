@@ -3,7 +3,6 @@
 //  EpiInfo
 //
 //  Created by John Copeland on 10/12/12.
-//  Copyright (c) 2012 John Copeland. All rights reserved.
 //
 
 #import "EpiInfoScrollView.h"
@@ -124,6 +123,7 @@
 -(void)awakeFromNib
 {
     [self setup];
+    [super awakeFromNib];
 }
 
 - (id)initWithFrame:(CGRect)frame

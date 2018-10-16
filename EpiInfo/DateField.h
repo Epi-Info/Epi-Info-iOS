@@ -6,10 +6,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EpiInfoControlProtocol.h"
 
-@interface DateField : UITextField
+@interface DateField : UITextField <EpiInfoControlProtocol>
 @property NSString *columnName;
+@property BOOL isReadOnly;
+@property NSString *fieldLabel;
 @property UITextField *mirroringMe;
 @property NSNumber *templateFieldID;
 -(void)setFormFieldValue:(NSString *)formFieldValue;
+-(void)reset;
 @end

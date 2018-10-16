@@ -6,9 +6,11 @@
 //
 
 #import "LegalValues.h"
+#import "EnterDataView.h"
 
 @implementation LegalValues
 @synthesize columnName = _columnName;
+@synthesize isReadOnly = _isReadOnly;
 @synthesize picker = _picker;
 @synthesize textFieldToUpdate = _textFieldToUpdate;
 @synthesize viewToAlertOfChanges = _viewToAlertOfChanges;
@@ -39,6 +41,11 @@
     self = [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, 300, 180)];
     if (self) {
         // Initialization code
+        if (@available(iOS 11.0, *)) {
+            [self.textFieldToUpdate setSmartQuotesType:UITextSmartQuotesTypeNo];
+        } else {
+            // Fallback on earlier versions
+        }
         [self setSelectedIndex:[NSNumber numberWithInt:0]];
     }
     return self;
@@ -172,6 +179,74 @@
     [picked setText:nil];
     [self setSelectedIndex:[NSNumber numberWithInt:0]];
     [self.picker selectRow:0 inComponent:0 animated:YES];
+    [self setIsEnabled:YES];
+}
+
+- (void)resetDoNotEnable
+{
+    [picked setText:nil];
+    [self setSelectedIndex:[NSNumber numberWithInt:0]];
+    [self.picker selectRow:0 inComponent:0 animated:YES];
+}
+
+- (NSString *)epiInfoControlValue
+{
+    return [self picked];
+}
+
+- (void)assignValue:(NSString *)value
+{
+    if ([value isEqualToString:@""] || [value isEqualToString:@"NULL"])
+    {
+        [self reset];
+        return;
+    }
+    // Code for correcting bad single and double quote characters already in SQLite
+    NSMutableArray *eightytwoeighteens = [[NSMutableArray alloc] init];
+    for (int i = 0; i < value.length; i++)
+    {
+        if ([value characterAtIndex:i] == 8218)
+            [eightytwoeighteens addObject:[NSNumber numberWithInteger:i]];
+    }
+    for (int i = (int)eightytwoeighteens.count - 1; i >= 0; i--)
+    {
+        NSNumber *num = [eightytwoeighteens objectAtIndex:i];
+        value = [value stringByReplacingCharactersInRange:NSMakeRange([num integerValue], 1) withString:@""];
+    }
+    if ([eightytwoeighteens count] > 0)
+    {
+        if ([value containsString:[NSString stringWithFormat:@"%c%c", '\304', '\364']])
+            value = [value stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%c%c", '\304', '\364'] withString:@"'"];
+        if ([value containsString:[NSString stringWithFormat:@"%c%c", '\304', '\371']])
+            value = [value stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%c%c", '\304', '\371'] withString:@"\""];
+    }
+    //
+    [self setPicked:value];
+}
+
+- (void)setIsEnabled:(BOOL)isEnabled
+{
+    [self.picker setUserInteractionEnabled:isEnabled];
+    [self setAlpha:0.5 + 0.5 * (int)isEnabled];
+}
+
+- (void)selfFocus
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [NSThread sleepForTimeInterval:0.1f];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            float yForBottom = [(EnterDataView *)[[self superview] superview] contentSize].height - [(EnterDataView *)[[self superview] superview] bounds].size.height;
+            if (yForBottom < 0.0)
+                yForBottom = 0.0;
+            float selfY = self.frame.origin.y - 80.0f;
+            
+            CGPoint pt = CGPointMake(0.0f, selfY);
+            if (selfY > yForBottom)
+                pt = CGPointMake(0.0f, yForBottom);
+            
+            [(EnterDataView *)[[self superview] superview] setContentOffset:pt animated:YES];
+        });
+    });
 }
 
 /*

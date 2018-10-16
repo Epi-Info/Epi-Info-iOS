@@ -39,13 +39,14 @@
 
 - (BOOL)portraitOrientation
 {
-    return UIInterfaceOrientationIsPortrait(self.interfaceOrientation);
+    return UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]);
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [self setTitle:@""];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         [self.epiInfoScrollView setFrame:CGRectMake(0, 0, 768, 1024)];
@@ -57,8 +58,14 @@
         [customBackButton.layer setMasksToBounds:YES];
         [customBackButton.layer setCornerRadius:8.0];
         [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+//        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
+        
+        UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setAccessibilityLabel:@"Close"];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
         //Set up the zoomingView
         zoomingView = [[ZoomView alloc] initWithFrame:CGRectMake(0, 0, self.epiInfoScrollView.frame.size.width, self.epiInfoScrollView.frame.size.height)];
@@ -243,8 +250,14 @@
         [customBackButton.layer setMasksToBounds:YES];
         [customBackButton.layer setCornerRadius:8.0];
         [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+//        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
+        
+        UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setAccessibilityLabel:@"Close"];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
         {
@@ -446,7 +459,7 @@
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [UIView animateWithDuration:0.3 animations:^{
                 [setDataSource setFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
@@ -465,7 +478,7 @@
                 [setDataSource setFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
                 [dataSourceLabel setFrame:CGRectMake(setDataSource.frame.size.width / 2.0, 0, setDataSource.frame.size.width / 2.0, 50)];
                 [dataSourceBorder setFrame:CGRectMake(0, 49, setDataSource.frame.size.width, 1)];
-                [analyzeDataLabel setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 100)];
+//                [analyzeDataLabel setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 100)];
                 [filterButton setFrame:CGRectMake(self.view.frame.size.width, 100, 50, self.view.frame.size.height - 200)];
                 [newVariablesButton setFrame:CGRectMake(-50, 100, 50, self.view.frame.size.height - 200)];
                 //newVariableButton starts out invisible until view is in place
@@ -478,7 +491,7 @@
     }
     else
     {
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [UIView animateWithDuration:0.3 animations:^{
                 [setDataSource setFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
@@ -497,7 +510,7 @@
                 [setDataSource setFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
                 [dataSourceLabel setFrame:CGRectMake(setDataSource.frame.size.width / 2.0, 0, setDataSource.frame.size.width / 2.0, 50)];
                 [dataSourceBorder setFrame:CGRectMake(0, 49, setDataSource.frame.size.width, 1)];
-                [analyzeDataLabel setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 100)];
+//                [analyzeDataLabel setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 100)];
                 [filterButton setFrame:CGRectMake(self.view.frame.size.width, 100, 50, self.view.frame.size.height - 200)];
                 [newVariablesButton setFrame:CGRectMake(-50, 100, 50, self.view.frame.size.height - 200)];
                 //newVariableButton starts out invisible until view is in place
@@ -582,7 +595,7 @@
         [tv xButtonPressed];
     
     //One data type plus a cancel button
-    numberOfDataTypes = 2.0;
+    numberOfDataTypes = 3.0;
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, zoomingView.frame.size.width, 50)];
     [button setTitle:@"  Table from Device" forState:UIControlStateNormal];
@@ -596,6 +609,17 @@
     [dataTypeList addSubview:button];
     
     button = [[UIButton alloc] initWithFrame:CGRectMake(0, 50, zoomingView.frame.size.width, 50)];
+    [button setTitle:@"  Use SQL Tool" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [button addTarget:self action:@selector(loadSqlTool:) forControlEvents:UIControlEventTouchUpInside];
+    bottomLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 49, button.frame.size.width, 1)];
+    [bottomLineView setBackgroundColor:[UIColor blackColor]];
+    [button addSubview:bottomLineView];
+    [dataTypeList addSubview:button];
+    
+    button = [[UIButton alloc] initWithFrame:CGRectMake(0, 50, zoomingView.frame.size.width, 50)];
     [button setTitle:@"  AWS SimpleDB Table" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
@@ -604,9 +628,9 @@
     bottomLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 49, button.frame.size.width, 1)];
     [bottomLineView setBackgroundColor:[UIColor blackColor]];
     [button addSubview:bottomLineView];
-//    [dataTypeList addSubview:button];
+    //    [dataTypeList addSubview:button];
     
-    button = [[UIButton alloc] initWithFrame:CGRectMake(0, 50, zoomingView.frame.size.width, 50)];
+    button = [[UIButton alloc] initWithFrame:CGRectMake(0, 100, zoomingView.frame.size.width, 50)];
     [button setTitle:@"  Cancel" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
@@ -732,6 +756,20 @@
     //Move the dataSourceList into view
     [UIView animateWithDuration:0.3 delay:0.3 options:nil animations:^{
         [dataSourceList setFrame:CGRectMake(0, 0, zoomingView.frame.size.width, 50.0 * (numberOfFiles + 1))];
+    }completion:nil];
+}
+
+- (void)loadSqlTool:(UIButton *)sender
+{
+    
+    //Move dataTypeList off of the screen
+    [self cancelDataTypeSelection];
+    
+    SQLTool *sqlTool = [[SQLTool alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height + 50)];
+    [self.view addSubview:sqlTool];
+    
+    [UIView animateWithDuration:0.3 delay:0.3 options:nil animations:^{
+        [sqlTool setFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y - 60, self.view.frame.size.width, self.view.frame.size.height + 60)];
     }completion:nil];
 }
 
@@ -1045,7 +1083,7 @@
     [UIView animateWithDuration:0.5 animations:^{
         [fv setFrame:CGRectMake(0, 50, zoomingView.frame.size.width, zoomingView.frame.size.height - 50)];
         [chooseAnalysis setFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50)];
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [filterButton setFrame:CGRectMake(self.view.frame.size.width, 100, 50, self.view.frame.size.height - 200)];
             [newVariablesButton setFrame:CGRectMake(-50, 100, 50, self.view.frame.size.height - 200)];
@@ -1086,7 +1124,7 @@
     [UIView animateWithDuration:0.5 animations:^{
         [tv setFrame:CGRectMake(0, 50, zoomingView.frame.size.width, zoomingView.frame.size.height - 50)];
         [chooseAnalysis setFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50)];
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [filterButton setFrame:CGRectMake(self.view.frame.size.width, 100, 50, self.view.frame.size.height - 200)];
             [newVariablesButton setFrame:CGRectMake(-50, 100, 50, self.view.frame.size.height - 200)];
@@ -1126,7 +1164,7 @@
     [UIView animateWithDuration:0.5 animations:^{
         [mv setFrame:CGRectMake(0, 50, zoomingView.frame.size.width, zoomingView.frame.size.height - 50)];
         [chooseAnalysis setFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50)];
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [filterButton setFrame:CGRectMake(self.view.frame.size.width, 100, 50, self.view.frame.size.height - 200)];
             [newVariablesButton setFrame:CGRectMake(-50, 100, 50, self.view.frame.size.height - 200)];
@@ -1144,7 +1182,7 @@
     [UIView animateWithDuration:0.3 animations:^{
         [analyzeDataLabel setAlpha:0.0];
         [chooseAnalysis setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [filterButton setFrame:CGRectMake(self.view.frame.size.width - 50, 100, 50, self.view.frame.size.height - 200)];
             [newVariablesButton setFrame:CGRectMake(0, 100, 50, self.view.frame.size.height - 200)];
@@ -1188,13 +1226,14 @@
     //Change the title of the setDataSource button itself (if necessary) to indicate
     //that a source has been selected
     [setDataSource setTitle:@"  Data Source" forState:UIControlStateNormal];
+    [setDataSource setAccessibilityLabel:[NSString stringWithFormat:@"Data Source:  %@ (%d) Records)", [b.titleLabel.text substringFromIndex:2], recordCount]];
     
     //Move the dataSourceList off the screen and move the chooseAnalysis button onto the screen
     [UIView animateWithDuration:0.3 animations:^{
         [dataSourceList setFrame:CGRectMake(0, -50.0 * (numberOfFiles + 1), zoomingView.frame.size.width, 50.0 * (numberOfFiles + 1))];
         [analyzeDataLabel setAlpha:0.0];
         [chooseAnalysis setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [filterButton setFrame:CGRectMake(self.view.frame.size.width - 50, 100, 50, self.view.frame.size.height - 200)];
             [newVariablesButton setFrame:CGRectMake(0, 100, 50, self.view.frame.size.height - 200)];
@@ -1252,7 +1291,7 @@
 //            [UIView animateWithDuration:0.3 animations:^{
 //                [analyzeDataLabel setAlpha:0.0];
 //                [chooseAnalysis setFrame:CGRectMake(0, self.view.frame.size.height - 50, self.view.frame.size.width, 50)];
-//                if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+//                if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
 //                {
 //                    [filterButton setFrame:CGRectMake(self.view.frame.size.width - 50, 100, 50, self.view.frame.size.height - 200)];
 //                    [newVariablesButton setFrame:CGRectMake(0, 100, 50, self.view.frame.size.height - 200)];

@@ -137,14 +137,20 @@
         [customBackButton.layer setMasksToBounds:YES];
         [customBackButton.layer setCornerRadius:8.0];
         [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+//        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
+        
+        UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setAccessibilityLabel:@"Close"];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
         {
             if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
                 [self setEdgesForExtendedLayout:UIRectEdgeNone];
-            [[self navigationController] setTitle:@"StatCalc 2x2xn"];
+            [[self navigationController] setTitle:@""];
         }
         fourInchPhone = (self.view.frame.size.height > 500);
         
@@ -239,6 +245,10 @@
     self.ynField.delegate = self;
     self.nyField.delegate = self;
     self.nnField.delegate = self;
+    [self.yyField setEnablesReturnKeyAutomatically:NO];
+    [self.ynField setEnablesReturnKeyAutomatically:NO];
+    [self.nyField setEnablesReturnKeyAutomatically:NO];
+    [self.nnField setEnablesReturnKeyAutomatically:NO];
     //iPad
     self.view.backgroundColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
 //    self.view.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"background-1.png"]];
@@ -254,7 +264,7 @@
     label.textColor = [UIColor whiteColor];
     label.shadowColor = [UIColor grayColor];
     self.navigationItem.titleView = label;
-    label.text = @"Epi Info StatCalc";
+    label.text = @"";
     self.navigationItem.titleView = label;
     //
     stratum = 0;
@@ -287,8 +297,14 @@
         [customBackButton.layer setMasksToBounds:YES];
         [customBackButton.layer setCornerRadius:8.0];
         [customBackButton setTitle:@"Back to previous screen" forState:UIControlStateNormal];
-        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
+//        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
+        
+        UIBarButtonItem *backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
+        [backToMainMenu setAccessibilityLabel:@"Close"];
+        [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [backToMainMenu setTitle:@"Back to previous screen"];
+        [self.navigationItem setRightBarButtonItem:backToMainMenu];
         
         if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [[UIScreen mainScreen] scale] != 2.0)
             for (UIView *v in self.subView1.subviews)
@@ -296,7 +312,7 @@
                     [(UIImageView *)v setImage:[UIImage imageNamed:@"2x2TSmall"]];
 
         fadingColorView = [[UIImageView alloc] initWithFrame:self.view.frame];
-        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackground.png"]];
+        [fadingColorView setImage:[UIImage imageNamed:@"iPadBackgroundWhite.png"]];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
         fadingColorView0 = [[UIImageView alloc] initWithFrame:CGRectMake(0, [self.view frame].size.height - 400.0, [self.view frame].size.width, 400.0)];
@@ -315,7 +331,7 @@
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
         {
             [self.lowerNavigationBar setFrame:CGRectMake(0, -4, self.view.frame.size.width, 44)];
-            [self.lowerNavigationBar setBarTintColor:[UIColor colorWithRed:50/255.0 green:71/255.0 blue:92/255.0 alpha:1.0]];
+            [self.lowerNavigationBar setBarTintColor:[UIColor colorWithRed:0/255.0 green:130/255.0 blue:126/255.0 alpha:1.0]];
         }
     }
     [segmentedControl addTarget:self action:@selector(makeSegmentSelection:) forControlEvents:UIControlEventValueChanged];
@@ -336,7 +352,7 @@
     adjustedMLELabel = [[UILabel alloc] initWithFrame:phoneAdjustedMLELabelFrame];
 //    [adjustedMLELabel setCenter:CGPointMake([self.mleORLabel center].x, [self.mleORLabel center].y + 1.5 * [self.mleORLabel bounds].size.height)];
     [adjustedMLELabel setText:@"Adjusted (MLE)"];
-    [adjustedMLELabel setFont:[self.mleORLabel font]];
+    [adjustedMLELabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
     [adjustedMLELabel setBackgroundColor:[UIColor clearColor]];
     [adjustedMLELabel setHidden:YES];
     [phoneOddsBasedParametersView addSubview:adjustedMLELabel];
@@ -419,9 +435,9 @@
         [blurryView setFrame:segmentedControl.frame];
         [self.view addSubview:blurryView];
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-            [blurryView setBlurTintColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:0.6]];
+            [blurryView setBlurTintColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:0.6]];
         else
-            [blurryView setBlurTintColor:[UIColor colorWithRed:99/255.0 green:166/255.0 blue:203/255.0 alpha:0.6]];
+            [blurryView setBlurTintColor:[UIColor colorWithRed:142/255.0 green:175/255.0 blue:213/255.0 alpha:0.6]];
         [blurryView.layer setCornerRadius:4.0];
         [self.view bringSubviewToFront:segmentedControl];
         [segmentedControl setBackgroundColor:[UIColor clearColor]];
@@ -448,7 +464,7 @@
                 UILabel *l = (UILabel*)[subarr objectAtIndex:j];
                 if ([l.text isEqualToString:@"Summary"])
                 {
-                    summaryTabLines = l.numberOfLines;
+                    summaryTabLines = (int)l.numberOfLines;
                     summaryTabMode = l.lineBreakMode;
                     summaryTabFrame = l.frame;
                 }
@@ -465,9 +481,9 @@
     {
         fadingColorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height - self.navigationController.navigationBar.frame.size.height - [[UIApplication sharedApplication] statusBarFrame].size.height)];
         if (self.view.frame.size.height > 500)
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone5BackgroundWhite.png"]];
         else
-            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4Background.png"]];
+            [fadingColorView setImage:[UIImage imageNamed:@"iPhone4BackgroundWhite.png"]];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
 
@@ -477,8 +493,8 @@
         self.phoneExposureLabel.transform = CGAffineTransformMakeRotation(-M_PI / 2.0);
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
         {
-            [self.phoneExposureLabel setTextColor:[UIColor whiteColor]];
-            [self.phoneOutcomeLabel setTextColor:[UIColor whiteColor]];
+            [self.phoneExposureLabel setTextColor:[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:1.0]];
+            [self.phoneOutcomeLabel setTextColor:[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:1.0]];
             [self.phoneExposureLabel setFont:[UIFont boldSystemFontOfSize:14.0]];
             [self.phoneOutcomeLabel setFont:[UIFont boldSystemFontOfSize:14.0]];
         }
@@ -494,7 +510,7 @@
         [phoneInputsView addSubview:self.nnField];
         phoneInputsColorBoxBorder = 2.0;
         phoneInputsColorBox = [[UIView alloc] initWithFrame:CGRectMake(self.yyField.frame.origin.x - phoneInputsColorBoxBorder, self.yyField.frame.origin.y - phoneInputsColorBoxBorder, self.ynField.frame.origin.x + self.ynField.frame.size.width + 2 * phoneInputsColorBoxBorder - self.yyField.frame.origin.x, self.nnField.frame.origin.y + self.nnField.frame.size.height + 2 * phoneInputsColorBoxBorder - self.yyField.frame.origin.y)];
-        [phoneInputsColorBox  setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phoneInputsColorBox  setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
 //        [phoneInputsColorBox  setBackgroundColor:[UIColor clearColor]];
         [phoneInputsColorBox.layer setCornerRadius:8.0];
         [phoneInputsView addSubview:phoneInputsColorBox];
@@ -502,7 +518,7 @@
         BlurryView *blurryInputsView = [BlurryView new];
         [blurryInputsView setFrame:CGRectMake(0, 0, phoneInputsColorBox.frame.size.width, phoneInputsColorBox.frame.size.height)];
 //        [phoneInputsColorBox addSubview:blurryInputsView];
-        [blurryInputsView setBlurTintColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [blurryInputsView setBlurTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [blurryInputsView.layer setCornerRadius:8.0];
         
         [self.phoneOddsBasedParametersLabel setTextColor:[UIColor whiteColor]];
@@ -529,6 +545,7 @@
         [phoneOddsBasedParametersView addSubview:self.orEstimate];
         [phoneOddsBasedParametersView addSubview:self.orLower];
         [phoneOddsBasedParametersView addSubview:self.orUpper];
+        [self.phoneMLEORLabel setAccessibilityLabel:@"M.L.E. Odds Ratio"];
         [phoneOddsBasedParametersView addSubview:self.phoneMLEORLabel];
         [phoneOddsBasedParametersView addSubview:self.mleOR];
         [phoneOddsBasedParametersView addSubview:self.mleLower];
@@ -537,7 +554,7 @@
         [phoneOddsBasedParametersView addSubview:self.fisherLower];
         [phoneOddsBasedParametersView addSubview:self.fisherUpper];
         phoneOddsBasedParametersColorBox = [[UIView alloc] initWithFrame:CGRectMake(17, 0, self.orUpper.frame.origin.x + self.orUpper.frame.size.width - 3, phoneOddsBasedParametersView.frame.size.height - 36)];
-        [phoneOddsBasedParametersColorBox setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phoneOddsBasedParametersColorBox setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [phoneOddsBasedParametersColorBox.layer setCornerRadius:10.0];
         [phoneOddsBasedParametersView addSubview:phoneOddsBasedParametersColorBox];
         
@@ -719,7 +736,7 @@
         [phoneRiskBasedParametersView addSubview:self.rdLower];
         [phoneRiskBasedParametersView addSubview:self.rdUpper];
         phoneRiskBasedParametersColorBox = [[UIView alloc] initWithFrame:CGRectMake(17, 0, self.rrUpper.frame.origin.x + self.rrUpper.frame.size.width - 3, phoneRiskBasedParametersView.frame.size.height - 3)];
-        [phoneRiskBasedParametersColorBox setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phoneRiskBasedParametersColorBox setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [phoneRiskBasedParametersColorBox.layer setCornerRadius:10.0];
         [phoneRiskBasedParametersView addSubview:phoneRiskBasedParametersColorBox];
         
@@ -824,6 +841,7 @@
         [self.fisherExact setFrame:phoneFisherExactFrame];
         [self.fisherExact2 setFrame:phoneFisherExact2Frame];
         [phoneStatisticalTestsView addSubview:self.phoneStatisticalTestsLabel];
+        [self.phoneX2Label setAccessibilityLabel:@"Ky square"];
         [phoneStatisticalTestsView addSubview:self.phoneX2Label];
         [phoneStatisticalTestsView addSubview:self.phoneX2PLabel];
         [phoneStatisticalTestsView addSubview:self.phoneUncorrectedLabel];
@@ -843,7 +861,7 @@
         [phoneStatisticalTestsView addSubview:self.fisherExact];
         [phoneStatisticalTestsView addSubview:self.fisherExact2];
         phoneStatisticalTestsColorBox = [[UIView alloc] initWithFrame:CGRectMake(17, 0, self.uX2P.frame.origin.x + self.uX2P.frame.size.width - 13, phoneStatisticalTestsView.frame.size.height)];
-        [phoneStatisticalTestsColorBox setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+        [phoneStatisticalTestsColorBox setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [phoneStatisticalTestsColorBox.layer setCornerRadius:10.0];
         [phoneStatisticalTestsView addSubview:phoneStatisticalTestsColorBox];
         
@@ -1002,9 +1020,40 @@
         
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
         {
-            label.text = @"StatCalc 2x2xn";
+            label.text = @"";
+        }
+        [self.yyField setAccessibilityLabel:@"Yes, yes"];
+        [self.ynField setAccessibilityLabel:@"Yes, no"];
+        [self.nyField setAccessibilityLabel:@"No, yes"];
+        [self.nnField setAccessibilityLabel:@"No, no"];
+    }
+    else
+    {
+        [self.yyField setAccessibilityLabel:@"Yes, yes"];
+        [self.ynField setAccessibilityLabel:@"Yes, no"];
+        [self.nyField setAccessibilityLabel:@"No, yes"];
+        [self.nnField setAccessibilityLabel:@"No, no"];
+        
+        int i = 0;
+        for (UIView *v in [self.twox2CalculatorView subviews])
+        {
+            int j = 0;
+            for (UIView *vi in [v subviews])
+            {
+                j++;
+                if ([vi isKindOfClass:[UILabel class]])
+                {
+                    if ([[(UILabel *)vi text] isEqualToString:@"X2"])
+                        [vi setAccessibilityLabel:@"Ky square"];
+                    if ([[(UILabel *)vi text] isEqualToString:@"MLE OR"])
+                        [vi setAccessibilityLabel:@"M.L.E. Odds Ratio"];
+                }
+            }
+            i++;
         }
     }
+    
+    [self.clearButton setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -1014,7 +1063,7 @@
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [UIView animateWithDuration:0.3 animations:^{
                 [self.epiInfoScrollView0 setFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height)];
@@ -1072,7 +1121,7 @@
     else
     {
         [self.twox2CalculatorView setZoomScale:1.0 animated:YES];
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
         {
             [UIView animateWithDuration:0.3 animations:^{
                 [segmentedControl setWidth:40.0 forSegmentAtIndex:0];
@@ -1259,6 +1308,7 @@
 //        [self.mhX2P setCenter:CGPointMake([self.mhX2P center].x, [self.mhX2P center].y - 2.0 * [self.mhX2P bounds].size.height)];
         [self.correctedLabel setHidden:NO];
         [self.correctedLabel setText:@"Corrected"];
+        [self.correctedLabel setAccessibilityLabel:@"Corrected"];
         [self.correctedLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
     }
     
@@ -1267,7 +1317,7 @@
     {
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         {
-            if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+            if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
             {
                 [UIView animateWithDuration:0.3 animations:^{
                     [phoneOddsBasedParametersColorBox setFrame:CGRectMake(phoneOddsBasedParametersColorBox.frame.origin.x, phoneOddsBasedParametersColorBox.frame.origin.y, phoneOddsBasedParametersColorBox.frame.size.width, 245 - (181 - 32))];
@@ -1313,7 +1363,7 @@
             }];
             [self.twox2CalculatorView setContentOffset:CGPointMake(0, 0) animated:YES];
         }
-        if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
             [self.twox2CalculatorView setScrollEnabled:YES];
         [self.computingAdjustedOR setHidden:YES];
         if ([self.computingAdjustedOR isAnimating])
@@ -1358,9 +1408,11 @@
             [self.twoTailedPForExactTestsLabel setHidden:NO];
             [self.midPExactLabel setHidden:NO];
             [self.midPExactLabel setText:@"Mid P Exact"];
+            [self.midPExactLabel setAccessibilityLabel:@"Mid P Exact"];
             [self.midPExactLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
             [self.fisherExactLabel setHidden:NO];
             [self.fisherExactLabel setText:@"Fisher Exact"];
+            [self.fisherExactLabel setAccessibilityLabel:@"Fisher Exact"];
             [self.fisherExactLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
             [self.phone2TailedPLabel setText:@"2 Tailed P"];
             [self.phone2TailedPLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
@@ -1373,7 +1425,7 @@
                 [self.phone2TailedPLabel setFrame:twoTailedPLabelFrame];
             }
             
-            stratum = [event selectedSegmentIndex];
+            stratum = (int)[event selectedSegmentIndex];
             
             if ([strataData[stratum] hasData])
             {
@@ -1423,7 +1475,7 @@
     {
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         {
-            if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+            if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
             {
                 [UIView animateWithDuration:0.3 animations:^{
                     [phoneOddsBasedParametersColorBox setFrame:CGRectMake(phoneOddsBasedParametersColorBox.frame.origin.x, phoneOddsBasedParametersColorBox.frame.origin.y, phoneOddsBasedParametersColorBox.frame.size.width, 245 - (181 - 34) + 34)];
@@ -1478,7 +1530,7 @@
             [self.ynView setHidden:YES];
             [self.subView4 setHidden:YES];
             //
-            stratum = [event selectedSegmentIndex];
+            stratum = (int)[event selectedSegmentIndex];
             [self.yyField setEnabled:NO];
             [self.ynField setEnabled:NO];
             [self.nyField setEnabled:NO];
@@ -1497,9 +1549,11 @@
 //            [self.twoTailedPForExactTestsLabel setHidden:YES];
 //            [self.midPExactLabel setHidden:YES];
             [self.midPExactLabel setText:@"Breslow-Day RR"];
+            [self.midPExactLabel setAccessibilityLabel:@"Breslow Day Risk Ratio"];
             [self.midPExactLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
 //            [self.fisherExactLabel setHidden:YES];
             [self.fisherExactLabel setText:@"Breslow-Day OR"];
+            [self.fisherExactLabel setAccessibilityLabel:@"Breslow Day Odds Ratio"];
             [self.fisherExactLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
             [self.fisherExactLabel setFrame:CGRectMake(self.fisherExactLabel.frame.origin.x, self.oneTailedPLabel.frame.origin.y, self.fisherExactLabel.frame.size.width, self.fisherExactLabel.frame.size.height)];
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
@@ -1557,6 +1611,7 @@
 //            [self.twoTailedPLabel setCenter:CGPointMake([self.twoTailedPLabel center].x, [self.twoTailedPLabel center].y + 2.0 * [self.twoTailedPLabel bounds].size.height)];
 //            [self.uncorrectedLabel setCenter:CGPointMake([self.uncorrectedLabel center].x, [self.uncorrectedLabel center].y + 2.0 * [self.uncorrectedLabel bounds].size.height)];
             [self.uncorrectedLabel setText:@"Uncorrected (MH)"];
+            [self.uncorrectedLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
 //            [self.uX2 setCenter:CGPointMake([self.uX2 center].x, [self.uX2 center].y + 2.0 * [self.uX2 bounds].size.height)];
 //            [self.uX2P setCenter:CGPointMake([self.uX2P center].x, [self.uX2P center].y + 2.0 * [self.uX2P bounds].size.height)];
 //            [self.mantelHaenszelLabel setCenter:CGPointMake([self.mantelHaenszelLabel center].x, [self.mantelHaenszelLabel center].y + 2.0 * [self.mantelHaenszelLabel bounds].size.height)];
@@ -1565,6 +1620,7 @@
 //            [self.mhX2P setCenter:CGPointMake([self.mhX2P center].x, [self.mhX2P center].y + 2.0 * [self.mhX2P bounds].size.height)];
 //            [self.correctedLabel setHidden:YES];
             [self.correctedLabel setText:@"Breslow-Day-Tarone"];
+            [self.correctedLabel setAccessibilityLabel:@"Breslow Day Tarone"];
             [self.correctedLabel setFont:[UIFont boldSystemFontOfSize:10.0]];
 
             if ([strataData[0] hasStatistics] || [strataData[1] hasStatistics] || [strataData[2] hasStatistics] || [strataData[3] hasStatistics] || [strataData[4] hasStatistics])
@@ -2125,7 +2181,7 @@
 
 - (IBAction)textFieldAction:(id)sender
 {
-    int cursorPosition = [sender offsetFromPosition:[sender endOfDocument] toPosition:[[sender selectedTextRange] start]];
+    int cursorPosition = (int)[sender offsetFromPosition:[sender endOfDocument] toPosition:[[sender selectedTextRange] start]];
     
     UITextField *theTextField = (UITextField *)sender;
     
