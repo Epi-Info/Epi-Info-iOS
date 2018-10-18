@@ -10,6 +10,7 @@
 #import "DataEntryViewController.h"
 #import "ConverterMethods.h"
 #import "EpiInfoLogManager.h"
+#import "FormFromGoogleSheetView.h"
 
 #pragma mark * Private Interface
 
@@ -557,6 +558,28 @@
             [self.view sendSubviewToBack:lv];
         }
     }
+    
+    // Button for creating a form template from a Google sheet
+    CGRect openButtonRect = CGRectMake(0, 0, 0, 0);
+    if (openButton != nil)
+    {
+        openButtonRect = [openButton frame];
+        CGRect googleSheetButtonFrame = CGRectMake(openButtonRect.origin.x,
+                                                   openButtonRect.origin.y + 1.2 * openButtonRect.size.height,
+                                                   2.0 * openButtonRect.size.width,
+                                                   openButtonRect.size.height);
+        UIButton *googleSheetButton = [[UIButton alloc] initWithFrame:googleSheetButtonFrame];
+        [googleSheetButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [googleSheetButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+        [googleSheetButton setTitle:@"Create form from Google sheet" forState:UIControlStateNormal];
+        [googleSheetButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [googleSheetButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [googleSheetButton addTarget:self action:@selector(googleSheetButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [googleSheetButton.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
+        [self.view addSubview:googleSheetButton];
+    }
+    //
+    
     mailComposerShown = NO;
     [lv setTag:1957];
 }
@@ -967,6 +990,20 @@
             if (![edv superview])
                 [edv restoreToViewController];
         }];
+    }];
+}
+
+- (void)googleSheetButtonPressed:(UIButton *)sender
+{
+    NSLog(@"Building form template from Google sheet.");
+    CGRect sheetViewFrame0 = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
+    FormFromGoogleSheetView *ffgsv = [[FormFromGoogleSheetView alloc] initWithFrame:sheetViewFrame0 andSender:sender];
+    [self.view addSubview:ffgsv];
+    
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        CGRect sheetViewFrame1 = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+        [ffgsv setFrame:sheetViewFrame1];
+    } completion:^(BOOL finished){
     }];
 }
 
