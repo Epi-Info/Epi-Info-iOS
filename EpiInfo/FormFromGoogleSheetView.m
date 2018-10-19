@@ -82,7 +82,7 @@
     [sender setBackgroundColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0]];
     if ([sender tag] == 1011)
     {
-        NSString *requestString = [@"https://functions-zfj4.azurewebsites.net/api/EpiFormMaker?name=" stringByAppendingString:[sheetURL text]];
+        NSString *requestString = [@"https://epiinfoformmaker.azurewebsites.net/api/EpiFormMaker?name=" stringByAppendingString:[sheetURL text]];
         NSURL *requestURL = [NSURL URLWithString:requestString];
         NSThread *generateFormThread = [[NSThread alloc] initWithTarget:self selector:@selector(tryToGenerateForm:) object:requestURL];
         [generateFormThread start];
