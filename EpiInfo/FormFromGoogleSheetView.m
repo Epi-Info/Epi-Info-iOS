@@ -82,9 +82,14 @@
     [sender setBackgroundColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0]];
     if ([sender tag] == 1011)
     {
+        NSString *requestString = [@"https://functions-zfj4.azurewebsites.net/api/EpiFormMaker?name=" stringByAppendingString:[sheetURL text]];
+        NSURL *requestURL = [NSURL URLWithString:requestString];
+        NSThread *generateFormThread = [[NSThread alloc] initWithTarget:self selector:@selector(tryToGenerateForm:) object:requestURL];
+        [generateFormThread start];
+        
         [sheetURL setTextColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
         [sheetURL setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-        [sheetURL setText:@"Form generated from Google sheet. Dismiss this screen and return to \"Enter Data\" to open the form."];
+        [sheetURL setText:@"Processing..."];
     }
     else if ([sender tag] == 1100)
     {
@@ -104,6 +109,34 @@
 - (void)buttonDragged:(UIButton *)sender
 {
     [sender setBackgroundColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0]];
+}
+
+- (void)tryToGenerateForm:(NSURL *)request
+{
+    NSString *resultsString = [NSString stringWithContentsOfURL:request encoding:NSUTF8StringEncoding error:nil];
+    NSLog(@"%@", resultsString);
+    
+    if (resultsString != nil && [[resultsString substringToIndex:9] isEqualToString:@"<Template"] && [resultsString containsString:@"<Field Name="])
+    {
+        int firstQuote = (int)[resultsString rangeOfString:@"Template Name=\""].length;
+        int secondQuote = (int)[resultsString rangeOfString:@"\" CreateDate="].location;
+        NSString *formName = [resultsString substringWithRange:NSMakeRange(firstQuote + 1, secondQuote - firstQuote - 1)];
+        NSLog(@"Form Name = %@", formName);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [sheetURL setTextColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+            [sheetURL setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [sheetURL setText:@"Form generated from Google sheet. Dismiss this screen and return to \"Enter Data\" to open the form."];
+        });
+    }
+    else
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [sheetURL setTextColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+            [sheetURL setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [sheetURL setText:@"Could not generate the form. Please check the Google sheet URL."];
+        });
+    }
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
