@@ -6,7 +6,6 @@
 //
 
 #import "FormFromGoogleSheetView.h"
-#import "LegalValuesEnter.h"
 
 @implementation FormFromGoogleSheetView
 
@@ -60,6 +59,7 @@
             {
                 textViewX = v.frame.origin.x;
                 textViewWidth = v.frame.size.width;
+                devclve = (LegalValuesEnter *)v;
             }
         }
         UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(textViewX, 4, textViewWidth, self.runButton.frame.origin.y - 8.0)];
@@ -96,7 +96,7 @@
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
             CGRect sheetViewFrame = CGRectMake(0, self.frame.size.height, self.frame.size.width, self.frame.size.height);
             [self setFrame:sheetViewFrame];
-        } completion:^(BOOL finished){
+        } completion:^(BOOL finished) {
             [self removeFromSuperview];
         }];
     }
@@ -114,19 +114,163 @@
 - (void)tryToGenerateForm:(NSURL *)request
 {
     NSString *resultsString = [NSString stringWithContentsOfURL:request encoding:NSUTF8StringEncoding error:nil];
-    NSLog(@"%@", resultsString);
     
     if (resultsString != nil && [[resultsString substringToIndex:9] isEqualToString:@"<Template"] && [resultsString containsString:@"<Field Name="])
     {
         int firstQuote = (int)[resultsString rangeOfString:@"Template Name=\""].length;
         int secondQuote = (int)[resultsString rangeOfString:@"\" CreateDate="].location;
         NSString *formName = [resultsString substringWithRange:NSMakeRange(firstQuote + 1, secondQuote - firstQuote - 1)];
-        NSLog(@"Form Name = %@", formName);
-        
+        {
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]] && formName.length > 0)
+            {
+                NSString *filePathAndName = [[[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] stringByAppendingString:@"/"] stringByAppendingString:formName] stringByAppendingString:@".xml"];
+                if ([[NSFileManager defaultManager] fileExistsAtPath:filePathAndName])
+                {
+                    [[NSFileManager defaultManager] removeItemAtPath:filePathAndName error:nil];
+                }
+                [resultsString writeToFile:filePathAndName atomically:YES encoding:NSUTF8StringEncoding error:nil];
+                
+                // Write the cloud info to the cloud database
+                // Create the database if it doesn't exist
+                if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/CloudDatabasesDatabase"]])
+                {
+                    [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/CloudDatabasesDatabase"] withIntermediateDirectories:NO attributes:nil error:nil];
+                }
+                if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/CloudDatabasesDatabase"]])
+                {
+                    NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/CloudDatabasesDatabase/Clouds.db"];
+                    
+                    //Create the new table if necessary
+                    int tableAlreadyExists = 0;
+                    if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+                    {
+                        NSString *selStmt = @"select count(name) as n from sqlite_master where name = 'Clouds'";
+                        const char *query_stmt = [selStmt UTF8String];
+                        sqlite3_stmt *statement;
+                        if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+                        {
+                            if (sqlite3_step(statement) == SQLITE_ROW)
+                                tableAlreadyExists = sqlite3_column_int(statement, 0);
+                        }
+                        sqlite3_finalize(statement);
+                    }
+                    sqlite3_close(epiinfoDB);
+                    if (tableAlreadyExists < 1)
+                    {
+                        //Convert the databasePath NSString to a char array
+                        const char *dbpath = [databasePath UTF8String];
+                        
+                        //Open sqlite3 analysisDB pointing to the databasePath
+                        if (sqlite3_open(dbpath, &epiinfoDB) == SQLITE_OK)
+                        {
+                            char *errMsg;
+                            //Build the CREATE TABLE statement
+                            //Convert the sqlStmt to char array
+                            NSString *createTableStatement = @"create table Clouds(FormName text, CloudDataType text, CloudDataBase text, CloudDataKey text)";
+                            const char *sql_stmt = [createTableStatement UTF8String];
+                            
+                            //Execute the CREATE TABLE statement
+                            if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                            {
+                                NSLog(@"Failed to create table: %s :::: %@", errMsg, createTableStatement);
+                            }
+                            else
+                            {
+                                NSLog(@"Table created");
+                            }
+                            //Close the sqlite connection
+                            sqlite3_close(epiinfoDB);
+                        }
+                        else
+                        {
+                            NSLog(@"Failed to open/create database");
+                        }
+                    }
+                    
+                    // Insert the row
+                    tableAlreadyExists = 0;
+                    if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+                    {
+                        NSString *selStmt = @"select count(name) as n from sqlite_master where name = 'Clouds'";
+                        const char *query_stmt = [selStmt UTF8String];
+                        sqlite3_stmt *statement;
+                        if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+                        {
+                            if (sqlite3_step(statement) == SQLITE_ROW)
+                                tableAlreadyExists = sqlite3_column_int(statement, 0);
+                        }
+                        sqlite3_finalize(statement);
+                    }
+                    sqlite3_close(epiinfoDB);
+                    if (tableAlreadyExists >= 1)
+                    {
+                        //Convert the databasePath NSString to a char array
+                        const char *dbpath = [databasePath UTF8String];
+                        
+                        //Open sqlite3 analysisDB pointing to the databasePath
+                        if (sqlite3_open(dbpath, &epiinfoDB) == SQLITE_OK)
+                        {
+                            char *errMsg;
+                            NSString *insertStatement = [NSString stringWithFormat:@"delete from Clouds where FormName = '%@'", formName];
+                            const char *sql_stmt = [insertStatement UTF8String];
+                            
+                            //Execute the CREATE TABLE statement
+                            if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                            {
+                                NSLog(@"Failed to remove row from table: %s :::: %@", errMsg, insertStatement);
+                            }
+                            else
+                            {
+                                NSLog(@"Row removed");
+                            }
+                            insertStatement = [NSString stringWithFormat:@"insert into Clouds values('%@', '%@', '%@', '%@')", formName, nil, nil, nil];
+                            sql_stmt = [insertStatement UTF8String];
+                            
+                            //Execute the CREATE TABLE statement
+                            if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                            {
+                                NSLog(@"Failed to insert row into table: %s :::: %@", errMsg, insertStatement);
+                            }
+                            else
+                            {
+                                NSLog(@"Row inserted");
+                            }
+                            //Close the sqlite connection
+                            sqlite3_close(epiinfoDB);
+                        }
+                        else
+                        {
+                            NSLog(@"Failed to open database or insert record");
+                        }
+                    }
+                    else
+                    {
+                        NSLog(@"Could not find table");
+                    }
+                }
+            }
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
             [sheetURL setTextColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
             [sheetURL setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-            [sheetURL setText:@"Form generated from Google sheet. Dismiss this screen and return to \"Enter Data\" to open the form."];
+            [sheetURL setText:[NSString stringWithFormat:@"%@ form generated from Google sheet. Dismiss this screen and return to \"Enter Data\" to open the form.", formName]];
+            
+            int selectedindex = 0;
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] error:nil];
+            NSMutableArray *pickerFiles = [[NSMutableArray alloc] init];
+            [pickerFiles addObject:@""];
+            int count = 0;
+            for (id i in files)
+            {
+                if ([(NSString *)i characterAtIndex:0] == '_')
+                    continue;
+                count++;
+                [pickerFiles addObject:[(NSString *)i substringToIndex:[(NSString *)i length] - 4]];
+            }
+            [devclve setListOfValues:pickerFiles];
+            [devclve.picker selectRow:selectedindex inComponent:0 animated:YES];
         });
     }
     else

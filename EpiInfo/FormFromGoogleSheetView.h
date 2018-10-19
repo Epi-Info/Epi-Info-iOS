@@ -6,12 +6,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "sqlite3.h"
+#import "LegalValuesEnter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FormFromGoogleSheetView : UIView <UITextViewDelegate>
 {
     UITextView *sheetURL;
+    sqlite3 *epiinfoDB;
+    LegalValuesEnter *devclve;
 }
 @property UIButton *runButton;
 @property UIButton *dismissButton;
