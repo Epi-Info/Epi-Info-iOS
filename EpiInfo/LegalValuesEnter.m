@@ -420,6 +420,7 @@
 
 - (void)valueButtonPressed:(id)sender
 {
+    [self.tv setHidden:NO];
     UIView *topView = [[UIApplication sharedApplication].keyWindow.rootViewController view];
     topX = [self.valueButton convertRect:self.valueButton.bounds toView:nil].origin.x;
     topY = [self.valueButton convertRect:self.valueButton.bounds toView:nil].origin.y;

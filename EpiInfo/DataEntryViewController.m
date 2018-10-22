@@ -823,6 +823,7 @@
 {
     if (lv.selectedIndex.intValue == 0)
         return;
+    [lv.tv setHidden:YES];
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"executeGOTOs"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     float viewWidth = self.view.frame.size.width;
