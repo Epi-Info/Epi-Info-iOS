@@ -819,10 +819,85 @@
     }];
 }
 
+- (NSString *)checkForGoogleSheetSource
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/GoogleSheetDatabase"]])
+    {
+        [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/GoogleSheetDatabase"] withIntermediateDirectories:NO attributes:nil error:nil];
+    }
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/GoogleSheetDatabase"]])
+    {
+        NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/GoogleSheetDatabase/GoogleSheetInfo.db"];
+        
+        //Create the new table if necessary
+        int tableAlreadyExists = 0;
+        if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+        {
+            NSString *selStmt = @"select count(name) as n from sqlite_master where name = 'GoogleSheets'";
+            const char *query_stmt = [selStmt UTF8String];
+            sqlite3_stmt *statement;
+            if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+            {
+                if (sqlite3_step(statement) == SQLITE_ROW)
+                    tableAlreadyExists = sqlite3_column_int(statement, 0);
+            }
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(epiinfoDB);
+        if (tableAlreadyExists >= 1)
+        {
+            //Convert the databasePath NSString to a char array
+            const char *dbpath = [databasePath UTF8String];
+            
+            //Open sqlite3 analysisDB pointing to the databasePath
+            if (sqlite3_open(dbpath, &epiinfoDB) == SQLITE_OK)
+            {
+                NSString *selStmt = [NSString stringWithFormat:@"select * from GoogleSheets where FormName = '%@'", lvSelected.text];
+                const char *query_stmt = [selStmt UTF8String];
+                sqlite3_stmt *statement;
+                if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+                {
+                    if (sqlite3_step(statement) == SQLITE_ROW)
+                    {
+                        NSString *returnNSString = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 1)];
+                        sqlite3_finalize(statement);
+                        sqlite3_close(epiinfoDB);
+                        return returnNSString;
+                    }
+                }
+                sqlite3_finalize(statement);
+            }
+            else
+            {
+                NSLog(@"Failed to open database or insert record");
+            }
+            //Close the sqlite connection
+            sqlite3_close(epiinfoDB);
+        }
+        else
+        {
+            NSLog(@"Could not find table");
+        }
+    }
+    return nil;
+}
+
 - (void)openButtonPressed:(UIButton *)sender
 {
     if (lv.selectedIndex.intValue == 0)
         return;
+    
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Re-generating form from Google sheet..." message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    NSString *googleSheetSource = [self checkForGoogleSheetSource];
+    if (googleSheetSource)
+    {
+//        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+//        }];
+//        [alertC addAction:okAction];
+        [self presentViewController:alertC animated:YES completion:nil];
+    }
+    
     [lv.tv setHidden:YES];
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"executeGOTOs"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -839,6 +914,29 @@
         rotate.m34 = 1.0 / -2000;
         rotate = CATransform3DRotate(rotate, M_PI * 0.5, 0.0, 1.0, 0.0);
         [self.view.layer setTransform:rotate];
+        if (googleSheetSource)
+        {
+            NSString *requestString = [@"https://epiinfoformmaker.azurewebsites.net/api/EpiFormMaker?name=" stringByAppendingString:googleSheetSource];
+            NSURL *requestURL = [NSURL URLWithString:requestString];
+            NSString *resultsString = [NSString stringWithContentsOfURL:requestURL encoding:NSUTF8StringEncoding error:nil];
+            
+            if (resultsString != nil && [[resultsString substringToIndex:9] isEqualToString:@"<Template"] && [resultsString containsString:@"<Field Name="])
+            {
+                NSString *formName = [lvSelected text];
+                {
+                    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                    if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]] && formName.length > 0)
+                    {
+                        NSString *filePathAndName = [[[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] stringByAppendingString:@"/"] stringByAppendingString:formName] stringByAppendingString:@".xml"];
+                        if ([[NSFileManager defaultManager] fileExistsAtPath:filePathAndName])
+                        {
+                            [[NSFileManager defaultManager] removeItemAtPath:filePathAndName error:nil];
+                        }
+                        [resultsString writeToFile:filePathAndName atomically:YES encoding:NSUTF8StringEncoding error:nil];
+                    }
+                }
+            }
+        }
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
         {
@@ -985,6 +1083,7 @@
             rotate = CATransform3DRotate(rotate, M_PI * 0.0, 0.0, 1.0, 0.0);
             [self.view.layer setTransform:rotate];
         } completion:^(BOOL finished){
+            [alertC dismissViewControllerAnimated:YES completion:nil];
             NSThread *initRemainingEDVsThread = [[NSThread alloc] initWithTarget:self selector:@selector(initRemainingEDVs) object:nil];
             [initRemainingEDVsThread start];
             [edv getMyLocation];

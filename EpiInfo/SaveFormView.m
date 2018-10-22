@@ -438,6 +438,114 @@
                         NSLog(@"Could not find table");
                     }
                 }
+                //
+                // Write the Google sheet info to the Google sheet database
+                // Create the database if it doesn't exist
+                if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/GoogleSheetDatabase"]])
+                {
+                    [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/GoogleSheetDatabase"] withIntermediateDirectories:NO attributes:nil error:nil];
+                }
+                if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/GoogleSheetDatabase"]])
+                {
+                    NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/GoogleSheetDatabase/GoogleSheetInfo.db"];
+                    
+                    //Create the new table if necessary
+                    int tableAlreadyExists = 0;
+                    if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+                    {
+                        NSString *selStmt = @"select count(name) as n from sqlite_master where name = 'GoogleSheets'";
+                        const char *query_stmt = [selStmt UTF8String];
+                        sqlite3_stmt *statement;
+                        if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+                        {
+                            if (sqlite3_step(statement) == SQLITE_ROW)
+                                tableAlreadyExists = sqlite3_column_int(statement, 0);
+                        }
+                        sqlite3_finalize(statement);
+                    }
+                    sqlite3_close(epiinfoDB);
+                    if (tableAlreadyExists < 1)
+                    {
+                        //Convert the databasePath NSString to a char array
+                        const char *dbpath = [databasePath UTF8String];
+                        
+                        //Open sqlite3 analysisDB pointing to the databasePath
+                        if (sqlite3_open(dbpath, &epiinfoDB) == SQLITE_OK)
+                        {
+                            char *errMsg;
+                            //Build the CREATE TABLE statement
+                            //Convert the sqlStmt to char array
+                            NSString *createTableStatement = @"create table GoogleSheets(FormName text, GoogleSheetURL text)";
+                            const char *sql_stmt = [createTableStatement UTF8String];
+                            
+                            //Execute the CREATE TABLE statement
+                            if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                            {
+                                NSLog(@"Failed to create table: %s :::: %@", errMsg, createTableStatement);
+                            }
+                            else
+                            {
+                                NSLog(@"Table created");
+                            }
+                            //Close the sqlite connection
+                            sqlite3_close(epiinfoDB);
+                        }
+                        else
+                        {
+                            NSLog(@"Failed to open/create database");
+                        }
+                    }
+                    
+                    // Insert the row
+                    tableAlreadyExists = 0;
+                    if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+                    {
+                        NSString *selStmt = @"select count(name) as n from sqlite_master where name = 'GoogleSheets'";
+                        const char *query_stmt = [selStmt UTF8String];
+                        sqlite3_stmt *statement;
+                        if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+                        {
+                            if (sqlite3_step(statement) == SQLITE_ROW)
+                                tableAlreadyExists = sqlite3_column_int(statement, 0);
+                        }
+                        sqlite3_finalize(statement);
+                    }
+                    sqlite3_close(epiinfoDB);
+                    if (tableAlreadyExists >= 1)
+                    {
+                        //Convert the databasePath NSString to a char array
+                        const char *dbpath = [databasePath UTF8String];
+                        
+                        //Open sqlite3 analysisDB pointing to the databasePath
+                        if (sqlite3_open(dbpath, &epiinfoDB) == SQLITE_OK)
+                        {
+                            char *errMsg;
+                            NSString *insertStatement = [NSString stringWithFormat:@"delete from GoogleSheets where FormName = '%@'", typeFormName.text];
+                            const char *sql_stmt = [insertStatement UTF8String];
+                            
+                            //Execute the CREATE TABLE statement
+                            if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                            {
+                                NSLog(@"Failed to remove row from table: %s :::: %@", errMsg, insertStatement);
+                            }
+                            else
+                            {
+                                NSLog(@"Row removed");
+                            }
+                            //Close the sqlite connection
+                            sqlite3_close(epiinfoDB);
+                        }
+                        else
+                        {
+                            NSLog(@"Failed to open database or insert record");
+                        }
+                    }
+                    else
+                    {
+                        NSLog(@"Could not find table");
+                    }
+                }
+                // Finished with the Google sheet database
             }
         }];
     }];
