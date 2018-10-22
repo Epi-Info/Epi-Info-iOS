@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface FormFromGoogleSheetView : UIView <UITextViewDelegate>
 {
     UITextView *sheetURL;
+    NSString *sheetURLString;
     sqlite3 *epiinfoDB;
     LegalValuesEnter *devclve;
 }
