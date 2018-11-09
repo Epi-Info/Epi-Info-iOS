@@ -227,7 +227,7 @@
         [doLogisticAnalysisButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [doLogisticAnalysisButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
         [doLogisticAnalysisButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        [doLogisticAnalysisButton addTarget:self action:@selector(tablesAnalysisSelected) forControlEvents:UIControlEventTouchUpInside];
+        [doLogisticAnalysisButton addTarget:self action:@selector(logisticAnalysisSelected) forControlEvents:UIControlEventTouchUpInside];
         topLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, doLogisticAnalysisButton.frame.size.width, 1)];
         [topLineView setBackgroundColor:[UIColor blackColor]];
         [doLogisticAnalysisButton addSubview:topLineView];
@@ -438,7 +438,7 @@
         [doLogisticAnalysisButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [doLogisticAnalysisButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
         [doLogisticAnalysisButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        [doLogisticAnalysisButton addTarget:self action:@selector(tablesAnalysisSelected) forControlEvents:UIControlEventTouchUpInside];
+        [doLogisticAnalysisButton addTarget:self action:@selector(logisticAnalysisSelected) forControlEvents:UIControlEventTouchUpInside];
         topLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, doLogisticAnalysisButton.frame.size.width, 1)];
         [topLineView setBackgroundColor:[UIColor blackColor]];
         [doLogisticAnalysisButton addSubview:topLineView];
@@ -1138,6 +1138,47 @@
     //TablesView is initially in the center of the screen and size 1 pixel by 1 pixel
     tv = [[TablesView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0, 1, 1) AndSQLiteData:sqlData AndViewController:self];
 //    tv = [[TablesView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0, 1, 1) AndDataSource:workingDataObject AndViewController:self];
+    [tv setBackgroundColor:[UIColor whiteColor]];
+    [zoomingView addSubview:tv];
+    
+    //Animate the TablesView to the proper size
+    //Move the chooseAnalysisButton off the bottom of the screen
+    [UIView animateWithDuration:0.5 animations:^{
+        [tv setFrame:CGRectMake(0, 50, zoomingView.frame.size.width, zoomingView.frame.size.height - 50)];
+        [chooseAnalysis setFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50)];
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
+        {
+            [filterButton setFrame:CGRectMake(self.view.frame.size.width, 100, 50, self.view.frame.size.height - 200)];
+            [newVariablesButton setFrame:CGRectMake(-50, 100, 50, self.view.frame.size.height - 200)];
+        }
+        else
+        {
+            [filterButton setFrame:CGRectMake(self.view.frame.size.width, 60, 50, self.view.frame.size.height - 120)];
+            [newVariablesButton setFrame:CGRectMake(-50, 60, 50, self.view.frame.size.height - 120)];
+        }
+    }];
+}
+
+- (void)logisticAnalysisSelected
+{
+    //User selected 2x2/MxN Table from analysisList
+    
+    //Enable the other three buttons
+    [setDataSource setEnabled:YES];
+    [filterButton setEnabled:YES];
+    [newVariablesButton setEnabled:YES];
+    
+    //Move analysisList below the bottom of the screen
+    [UIView animateWithDuration:0.3 animations:^{
+        [analysisList setFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50 * availableAnalyses)];
+    }];
+    //Wait 0.3 seconds and then set the analysisList to hidden
+    [self performSelector:@selector(hideAnalysisList) withObject:nil afterDelay:0.3];
+    
+    //Allocate and initialize the TablesView, color it white, and add it to the zoomingView
+    //TablesView is initially in the center of the screen and size 1 pixel by 1 pixel
+    tv = [[LogisticView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0, 1, 1) AndSQLiteData:sqlData AndViewController:self];
+    //    tv = [[TablesView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0, 1, 1) AndDataSource:workingDataObject AndViewController:self];
     [tv setBackgroundColor:[UIColor whiteColor]];
     [zoomingView addSubview:tv];
     
