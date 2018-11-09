@@ -172,7 +172,7 @@
         [filterButton.titleLabel removeFromSuperview];
         
         //initial set-up of analysis list
-        availableAnalyses = 4.0;
+        availableAnalyses = 5.0;
         analysisList = [[AnalysisList alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50 * availableAnalyses)];
         [analysisList setBackgroundColor:[UIColor whiteColor]];
         [self.view addSubview:analysisList];
@@ -221,6 +221,17 @@
         [topLineView setBackgroundColor:[UIColor blackColor]];
         [doMeansAnalysisButton addSubview:topLineView];
         [analysisList addSubview:doMeansAnalysisButton];
+        //Add the logistic button to the list
+        UIButton *doLogisticAnalysisButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 200, zoomingView.frame.size.width, 50)];
+        [doLogisticAnalysisButton setTitle:@"  Logistic Regression" forState:UIControlStateNormal];
+        [doLogisticAnalysisButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [doLogisticAnalysisButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [doLogisticAnalysisButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [doLogisticAnalysisButton addTarget:self action:@selector(tablesAnalysisSelected) forControlEvents:UIControlEventTouchUpInside];
+        topLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, doLogisticAnalysisButton.frame.size.width, 1)];
+        [topLineView setBackgroundColor:[UIColor blackColor]];
+        [doLogisticAnalysisButton addSubview:topLineView];
+        [analysisList addSubview:doLogisticAnalysisButton];
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
         {
             BlurryView *blurryView = [BlurryView new];
@@ -372,7 +383,7 @@
         [filterButton.titleLabel removeFromSuperview];
         
         //initial set-up of analysis list
-        availableAnalyses = 4.0;
+        availableAnalyses = 5.0;
         analysisList = [[AnalysisList alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50 * availableAnalyses)];
         [analysisList setBackgroundColor:[UIColor whiteColor]];
         [self.view addSubview:analysisList];
@@ -421,6 +432,17 @@
         [topLineView setBackgroundColor:[UIColor blackColor]];
         [doMeansAnalysisButton addSubview:topLineView];
         [analysisList addSubview:doMeansAnalysisButton];
+        //Add the logistic button to the list
+        UIButton *doLogisticAnalysisButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 200, zoomingView.frame.size.width, 50)];
+        [doLogisticAnalysisButton setTitle:@"  Logistic Regression" forState:UIControlStateNormal];
+        [doLogisticAnalysisButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [doLogisticAnalysisButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [doLogisticAnalysisButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [doLogisticAnalysisButton addTarget:self action:@selector(tablesAnalysisSelected) forControlEvents:UIControlEventTouchUpInside];
+        topLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, doLogisticAnalysisButton.frame.size.width, 1)];
+        [topLineView setBackgroundColor:[UIColor blackColor]];
+        [doLogisticAnalysisButton addSubview:topLineView];
+        [analysisList addSubview:doLogisticAnalysisButton];
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
         {
             BlurryView *blurryView = [BlurryView new];

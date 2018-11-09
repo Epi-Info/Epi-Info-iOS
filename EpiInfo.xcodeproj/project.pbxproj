@@ -182,6 +182,7 @@
 		9252017E17D0C89A0071C754 /* ShinyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9252017D17D0C89A0071C754 /* ShinyButton.m */; };
 		9252018017D0CC930071C754 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9252017F17D0CC930071C754 /* QuartzCore.framework */; };
 		92524A8C184E50BE003C820B /* SaveFormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92524A8B184E50BE003C820B /* SaveFormView.m */; };
+		9253C7762195F42400DC084B /* LogisticView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253C7752195F42400DC084B /* LogisticView.m */; };
 		9259D2E61C9327D200AE9181 /* ChildFormFieldAssignments.m in Sources */ = {isa = PBXBuildFile; fileRef = 9259D2E51C9327D200AE9181 /* ChildFormFieldAssignments.m */; };
 		925A5DAF1858C0E2000C2E9E /* PlainOrangeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 925A5DAD1858C0E2000C2E9E /* PlainOrangeButton.png */; };
 		925A5DB01858C0E2000C2E9E /* PlainOrangeButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 925A5DAE1858C0E2000C2E9E /* PlainOrangeButtonNR.png */; };
@@ -673,6 +674,8 @@
 		9252017F17D0CC930071C754 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		92524A8A184E50BE003C820B /* SaveFormView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveFormView.h; sourceTree = "<group>"; };
 		92524A8B184E50BE003C820B /* SaveFormView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveFormView.m; sourceTree = "<group>"; };
+		9253C7742195F42400DC084B /* LogisticView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticView.h; sourceTree = "<group>"; };
+		9253C7752195F42400DC084B /* LogisticView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticView.m; sourceTree = "<group>"; };
 		9259D2E41C9327D200AE9181 /* ChildFormFieldAssignments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildFormFieldAssignments.h; sourceTree = "<group>"; };
 		9259D2E51C9327D200AE9181 /* ChildFormFieldAssignments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildFormFieldAssignments.m; sourceTree = "<group>"; };
 		925A5DAD1858C0E2000C2E9E /* PlainOrangeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlainOrangeButton.png; sourceTree = "<group>"; };
@@ -1448,6 +1451,8 @@
 				92921B9819A6427000AA9477 /* MeansView.m */,
 				4A556865178DA09400B79542 /* TablesView.h */,
 				4A556866178DA09400B79542 /* TablesView.m */,
+				9253C7742195F42400DC084B /* LogisticView.h */,
+				9253C7752195F42400DC084B /* LogisticView.m */,
 			);
 			name = Analyses;
 			sourceTree = "<group>";
@@ -2034,6 +2039,7 @@
 			files = (
 				4AFD8536161F137B00FFBA65 /* main.m in Sources */,
 				92EB1ACF1DCA77B900694282 /* DictionaryOfFields.m in Sources */,
+				9253C7762195F42400DC084B /* LogisticView.m in Sources */,
 				4AFD853A161F137B00FFBA65 /* EpiInfoAppDelegate.m in Sources */,
 				9211F6F21D54C02F002583D4 /* AssignParse.c in Sources */,
 				4AFD854F161F142600FFBA65 /* StatCalcViewController.m in Sources */,
