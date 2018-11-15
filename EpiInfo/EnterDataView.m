@@ -1474,6 +1474,11 @@
                     }
                     NSLog(@"Failed to insert row into table: %s :::: %@", errMsg, insertStatement);
                     [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: SUBMIT: Failed to insert row into table: %s :::: %@\n", [NSDate date], errMsg, insertStatement]];
+                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Warning" message:@"Could not insert into local database." preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    }];
+                    [alertC addAction:okAction];
+                    [self.rootViewController presentViewController:alertC animated:YES completion:nil];
                 }
                 else
                 {
