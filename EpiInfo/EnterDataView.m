@@ -2063,7 +2063,7 @@
                             return;
                         }
                     }
-                    NSLog(@"Failed to insert row into table: %s :::: %@", errMsg, insertStatement);
+                    NSLog(@"Failed to update row in table: %s :::: %@", errMsg, insertStatement);
                     [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: UPDATE: Failed to update row in table: %s :::: %@\n", [NSDate date], errMsg, insertStatement]];
                     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Warning" message:@"Could not update row in table." preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
@@ -2379,6 +2379,11 @@
                 {
                     NSLog(@"Failed to delete row from table: %s :::: %@", errMsg, insertStatement);
                     [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: DELETE: Could not delete row from table: %s :::: %@\n", [NSDate date], errMsg, insertStatement]];
+                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Warning" message:@"Could not delete row from table." preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    }];
+                    [alertC addAction:okAction];
+                    [self.rootViewController presentViewController:alertC animated:YES completion:nil];
                 }
                 else
                 {
