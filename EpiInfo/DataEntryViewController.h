@@ -72,6 +72,7 @@
 @property FieldsAndStringValues *fieldsAndStringValues;
 @property BOOL didShowProjectTemplateWarning;
 @property NSMutableArray *arrayOfFieldsAllPages;
+@property NSMutableDictionary *alterTableElements;
 -(UIButton *)openButton;
 -(void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID;
 -(void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID OnEnterDataView:(UIView *)onEdv;

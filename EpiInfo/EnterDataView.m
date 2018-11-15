@@ -3143,7 +3143,9 @@
             //      [self.epiinfoService setTableName:formName];
             
             //      createTableStatement = [NSString stringWithFormat:@"create table %@(GlobalRecordID text", formName];
-            alterTableElements = [[NSMutableDictionary alloc] init];
+            if (!((DataEntryViewController *)self.rootViewController).alterTableElements)
+                ((DataEntryViewController *)self.rootViewController).alterTableElements = [[NSMutableDictionary alloc] init];
+            alterTableElements = ((DataEntryViewController *)self.rootViewController).alterTableElements;
             beginColumList = NO;
             
             if ([attributeDict objectForKey:@"CheckCode"])
