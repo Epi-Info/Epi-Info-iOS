@@ -58,7 +58,7 @@
     
     UIView *dataTypeList;
     
-    UIView *dataSourceList;
+    UIScrollView *dataSourceList;
     NSDirectoryEnumerator *directoryEnumerator;
     int numberOfFiles;
     float numberOfDataTypes;

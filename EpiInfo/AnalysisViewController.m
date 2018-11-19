@@ -692,7 +692,7 @@
     dataSourceList = nil;
     
     //Re-allocate and instantiate dataSourceList
-    dataSourceList = [[UIView alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 50)];
+    dataSourceList = [[UIScrollView alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 50)];
     [dataSourceList setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:dataSourceList];
 
@@ -777,8 +777,11 @@
     
     //Move the dataSourceList into view
     [UIView animateWithDuration:0.3 delay:0.3 options:nil animations:^{
-        [dataSourceList setFrame:CGRectMake(0, 0, zoomingView.frame.size.width, 50.0 * (numberOfFiles + 1))];
-    }completion:nil];
+        float menuheight = self.view.frame.size.height;
+        [dataSourceList setFrame:CGRectMake(0, 0, zoomingView.frame.size.width, menuheight)];
+    } completion:^(BOOL finished){
+        [dataSourceList setContentSize:CGSizeMake(zoomingView.frame.size.width, 50.0 * (numberOfFiles + 1))];
+    }];
 }
 
 - (void)loadSqlTool:(UIButton *)sender
