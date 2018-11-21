@@ -280,6 +280,9 @@
 		9295FFF91CEE07B00022B75C /* 2x2BN.png in Resources */ = {isa = PBXBuildFile; fileRef = 9295FFE71CEE07B00022B75C /* 2x2BN.png */; };
 		9296747C19E5CC3B0040CB9D /* VHF.png in Resources */ = {isa = PBXBuildFile; fileRef = 9296747B19E5CC3B0040CB9D /* VHF.png */; };
 		9296747E19E5CCCB0040CB9D /* VHF4.png in Resources */ = {isa = PBXBuildFile; fileRef = 9296747D19E5CCCB0040CB9D /* VHF4.png */; };
+		929E47AF21A5D16900D88EF0 /* LogisticRegressionResults.m in Sources */ = {isa = PBXBuildFile; fileRef = 929E47AE21A5D16900D88EF0 /* LogisticRegressionResults.m */; };
+		929E47B721A5DA3900D88EF0 /* VariableRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 929E47B621A5DA3900D88EF0 /* VariableRow.m */; };
+		929E47BA21A5DA6200D88EF0 /* InteractionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 929E47B921A5DA6200D88EF0 /* InteractionRow.m */; };
 		92A192501C690DD40095E69F /* NextPage.png in Resources */ = {isa = PBXBuildFile; fileRef = 92A1924E1C690DD40095E69F /* NextPage.png */; };
 		92A192511C690DD40095E69F /* PreviousPage.png in Resources */ = {isa = PBXBuildFile; fileRef = 92A1924F1C690DD40095E69F /* PreviousPage.png */; };
 		92A1F68F1B03E9A4004654B8 /* CheckCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A1F68E1B03E9A4004654B8 /* CheckCode.swift */; };
@@ -804,6 +807,12 @@
 		9295FFE71CEE07B00022B75C /* 2x2BN.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2x2BN.png; sourceTree = "<group>"; };
 		9296747B19E5CC3B0040CB9D /* VHF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VHF.png; sourceTree = "<group>"; };
 		9296747D19E5CCCB0040CB9D /* VHF4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VHF4.png; sourceTree = "<group>"; };
+		929E47AD21A5D16900D88EF0 /* LogisticRegressionResults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticRegressionResults.h; sourceTree = "<group>"; };
+		929E47AE21A5D16900D88EF0 /* LogisticRegressionResults.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticRegressionResults.m; sourceTree = "<group>"; };
+		929E47B521A5DA3900D88EF0 /* VariableRow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VariableRow.h; sourceTree = "<group>"; };
+		929E47B621A5DA3900D88EF0 /* VariableRow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VariableRow.m; sourceTree = "<group>"; };
+		929E47B821A5DA6200D88EF0 /* InteractionRow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InteractionRow.h; sourceTree = "<group>"; };
+		929E47B921A5DA6200D88EF0 /* InteractionRow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InteractionRow.m; sourceTree = "<group>"; };
 		92A1924E1C690DD40095E69F /* NextPage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NextPage.png; sourceTree = "<group>"; };
 		92A1924F1C690DD40095E69F /* PreviousPage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PreviousPage.png; sourceTree = "<group>"; };
 		92A1F68E1B03E9A4004654B8 /* CheckCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckCode.swift; sourceTree = "<group>"; };
@@ -1453,6 +1462,12 @@
 				4A556866178DA09400B79542 /* TablesView.m */,
 				9253C7742195F42400DC084B /* LogisticView.h */,
 				9253C7752195F42400DC084B /* LogisticView.m */,
+				929E47AD21A5D16900D88EF0 /* LogisticRegressionResults.h */,
+				929E47AE21A5D16900D88EF0 /* LogisticRegressionResults.m */,
+				929E47B521A5DA3900D88EF0 /* VariableRow.h */,
+				929E47B621A5DA3900D88EF0 /* VariableRow.m */,
+				929E47B821A5DA6200D88EF0 /* InteractionRow.h */,
+				929E47B921A5DA6200D88EF0 /* InteractionRow.m */,
 			);
 			name = Analyses;
 			sourceTree = "<group>";
@@ -2078,6 +2093,7 @@
 				92ABAA1D1D22F727000C5B60 /* PageDots.m in Sources */,
 				92F25A3C1ECB558400638DF9 /* EpiInfoLogManager.m in Sources */,
 				4AC7D6301625C0C80056A8AC /* UnmatchedCaseControlSampleSizeViewController.m in Sources */,
+				929E47AF21A5D16900D88EF0 /* LogisticRegressionResults.m in Sources */,
 				923226771E53825E0099439F /* ExpressionActionParser.m in Sources */,
 				921500821EA92A2100E2CF9A /* MainMenuMenu.m in Sources */,
 				92A25C011938E0AC003225E1 /* TimeField.m in Sources */,
@@ -2090,6 +2106,7 @@
 				92E1A83918730614003E58A5 /* EpiInfoTextField.m in Sources */,
 				924D8AAA1AAE2BA1005A6253 /* CohortSimulationModel.swift in Sources */,
 				922D49ED1D64F3D40090631E /* ParseAssignment.m in Sources */,
+				929E47B721A5DA3900D88EF0 /* VariableRow.m in Sources */,
 				920BCE3521760F6F00BF050A /* LogisticObject.m in Sources */,
 				92921B9919A6427000AA9477 /* MeansView.m in Sources */,
 				847C97D71D427301001E47DD /* LegalValuesEnter.m in Sources */,
@@ -2140,6 +2157,7 @@
 				9276EEB917B028AE0050858B /* ChooseAnalysisButton.m in Sources */,
 				920BCE3D2178F0AA00BF050A /* FormFromGoogleSheetView.m in Sources */,
 				9276EEBC17B029E60050858B /* AnalysisList.m in Sources */,
+				929E47BA21A5DA6200D88EF0 /* InteractionRow.m in Sources */,
 				9266C52B1846613000739AF2 /* FormView.m in Sources */,
 				923A263817B41BCE00DCBCD5 /* AnalysisFilterView.m in Sources */,
 				92B3A7FD1EDDEA9700234CB1 /* EICalendar.m in Sources */,

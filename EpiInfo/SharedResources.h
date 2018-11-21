@@ -13,6 +13,7 @@
 +(double)chooseyforbeta:(double)chooa chooseK:(double)choob P:(double)p J:(int)j;
 +(double)chooseyforlep:(double)chooa chooseK:(double)choob VariablePPP:(double)ppp;
 +(double)pFromZ:(double)_z;
++(double)zFromP:(double)_p;
 +(double)pFromT:(double)_t DegreesOfFreedom:(int)_df;
 +(double)pFromF:(double)F DegreesOfFreedom1:(double)df1 DegreesOfFreedom2:(double)df2;
 +(double)PValFromChiSq:(double)x PVFCSdf:(double)df;

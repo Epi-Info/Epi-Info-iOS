@@ -88,7 +88,7 @@
                   moduleName = "EpiInfo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/EnterDataView.m"
-                  timestampString = "564334645.427797"
+                  timestampString = "564522064.762176"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1627"
@@ -103,7 +103,7 @@
                   moduleName = "EpiInfo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/EnterDataView.m"
-                  timestampString = "564334645.429533"
+                  timestampString = "564522064.764944"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1618"
@@ -498,6 +498,22 @@
             startingLineNumber = "1455"
             endingLineNumber = "1455"
             landmarkName = "-submitButtonPressed"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/LogisticView.m"
+            timestampString = "564522064.1863019"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "4717"
+            endingLineNumber = "4717"
+            landmarkName = "-doLogistic:OnOutputView:StratificationVariable:StratificationValue:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

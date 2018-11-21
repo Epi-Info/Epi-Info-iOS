@@ -39,6 +39,46 @@
     return chooseyforlep;
 }
 
++(double)zFromP:(double)_p
+{
+    double ZFP = NAN;
+    
+    const double P0 = -0.322232431088;
+    const double P2 = -0.342242088547;
+    const double P3 = -0.0204231210245;
+    const double P4 = -4.53642210148E-05;
+    const double Q0 = 0.099348462606;
+    const double Q1 = 0.588581570495;
+    const double Q2 = 0.531103462366;
+    const double Q3 = 0.10353775285;
+    const double Q4 = 0.0038560700634;
+    
+    double F, T;
+    
+    F = _p;
+    ZFP = 0.0;
+    
+    if (F >= 1)
+        return ZFP;
+    
+    if (F > 0.5)
+    {
+        F = 1.0 - F;
+    }
+    if (F == 0.5)
+        return ZFP;
+    
+    T = sqrt(log(1 / pow(F, 2.0)));
+    T = T + ((((T * P4 + P3) * T + P2) * T - 1) * T + P0) / ((((T * Q4 + Q3) * T+ Q2) * T + Q1) * T + Q0);
+    
+    if (_p > 0.5)
+        ZFP = -T;
+    else
+        ZFP = T;
+    
+    return ZFP;
+}
+
 +(double)pFromZ:(double)_z
 {
     double PFZ = NAN;

@@ -779,6 +779,15 @@
         stratum = 0;
         TablesObject *to = [[TablesObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:selectedOutcomeVariableNumber.integerValue] AndExposureVariable:[availableExposureVariables objectAtIndex:selectedExposureVariableNumber.integerValue] AndIncludeMissing:includeMissing];
         
+        if (to.outcomeValues.count == 2 && to.exposureValues.count > 1)
+        {
+            [self doLogistic:to OnOutputView:outputView StratificationVariable:nil StratificationValue:nil];
+        }
+        else
+        {
+            return;
+        }
+        
         if (to.exposureValues.count == 2 && to.outcomeValues.count == 2)
         {
             [self doTwoByTwo:to OnOutputView:outputView StratificationVariable:nil StratificationValue:nil];
@@ -4620,6 +4629,99 @@
         [homogeneityTestsView addSubview:ew];
         [homogeneityTestsView sendSubviewToBack:ew];
     }
+}
+
+- (void)createSettings:(NSDictionary *)inputVariableList outcomesAndValues:(NSArray *)outcomeValues
+{
+    mstrC = @"95";
+    mdblC = 0.05;
+    mdblP = [SharedResources zFromP:mdblC * 0.5];
+    mlngIter = 15;
+    mdblConv = 0.00001;
+    mdblToler = 0.000001;
+    mboolIntercept = NO;
+    mstraBoolean = @[@"No", @"Yes", @"Missing"];
+    mstrMatchVar = @"";
+    mstrWeightVar = @"";
+    mstrDependVar = @"";
+    mstraTerms = [[NSMutableArray alloc] init];
+    mStrADiscrete = [[NSMutableArray alloc] init];
+    terms = 0, discrete = 0;
+    
+    for (id key in inputVariableList)
+    {
+        if ([[(NSString *)[inputVariableList objectForKey:key] lowercaseString] isEqualToString:@"term"])
+        {
+            [mstraTerms setObject:(NSString *)key atIndexedSubscript:terms];
+            terms++;
+        }
+        if ([[(NSString *)[inputVariableList objectForKey:key] lowercaseString] isEqualToString:@"discrete"])
+        {
+            [mStrADiscrete setObject:(NSString *)key atIndexedSubscript:discrete];
+            discrete++;
+            
+            [mstraTerms setObject:(NSString *)key atIndexedSubscript:terms];
+            terms++;
+        }
+        if ([[(NSString *)[inputVariableList objectForKey:key] lowercaseString] isEqualToString:@"matchvar"])
+        {
+            mstrMatchVar = (NSString *)key;
+        }
+        if ([[(NSString *)[inputVariableList objectForKey:key] lowercaseString] isEqualToString:@"weightvar"])
+        {
+            mstrWeightVar = (NSString *)key;
+        }
+        if ([[(NSString *)[inputVariableList objectForKey:key] lowercaseString] isEqualToString:@"dependvar"])
+        {
+            mstrDependVar = (NSString *)key;
+        }
+        if ([[(NSString *)key lowercaseString] isEqualToString:@"intercept"])
+        {
+            mboolIntercept = [(NSString *)[inputVariableList objectForKey:key] boolValue];
+        }
+        if ([[(NSString *)key lowercaseString] isEqualToString:@"p"])
+        {
+            mdblP = [(NSString *)[inputVariableList objectForKey:key] doubleValue];
+            mdblC = 1.0 - mdblP;
+            mstrC = [NSString stringWithFormat:@"%f", mdblP * 100.0];
+            mdblP = [SharedResources zFromP:mdblC * 0.5];
+        }
+        if ([[(NSString *)[inputVariableList objectForKey:key] lowercaseString] isEqualToString:@"unsorted"])
+        {
+            if (YES) // check for not more than 2 values
+            {
+                [mStrADiscrete setObject:key atIndexedSubscript:discrete];
+                discrete++;
+            }
+            [mstraTerms setObject:key atIndexedSubscript:terms];
+            terms++;
+        }
+    }
+}
+
+- (void)getRawData
+{
+    if ([mstrMatchVar length] > 0)
+        mboolIntercept = NO;
+}
+
+- (void)doLogistic:(TablesObject *)to OnOutputView:(UIView *)outputV StratificationVariable:(NSString *)stratVar StratificationValue:(NSString *)stratValue
+{
+    NSLog(@"Beginning Logistic method");
+    NSMutableDictionary *inputVariableList = [[NSMutableDictionary alloc] init];
+    [inputVariableList setObject:@"dependvar" forKey:to.outcomeVariable];
+    [inputVariableList setObject:@"YES" forKey:@"intercept"];
+    [inputVariableList setObject:@"false" forKey:@"includemissing"];
+    [inputVariableList setObject:@"0.95" forKey:@"P"];
+    [inputVariableList setObject:@"unsorted" forKey:to.exposureVariable];
+    [self createSettings:[NSDictionary dictionaryWithDictionary:inputVariableList] outcomesAndValues:to.outcomeValues];
+    
+    NSString *logistic = [[NSString alloc] init];
+    
+    LogisticRegressionResults *regressionResults = [[LogisticRegressionResults alloc] init];
+    
+    [self getRawData];
+    NSLog(@"Ending Logistic method");
 }
 
 /*
