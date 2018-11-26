@@ -10,11 +10,14 @@
 #import "LogisticRegressionResults.h"
 #import "VariableRow.h"
 #import "InteractionRow.h"
+#import "sqlite3.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LogisticView : TablesView
 {
+    sqlite3 *analysisDB;
+    NSArray *currentTable;
     NSString *mstrC;
     double mdblC;
     double mdblP;
@@ -29,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *mstraTerms;
     NSMutableArray *mStrADiscrete;
     int terms, discrete;
+    int lintIntercept, lintweight, NumRows;
 }
 @end
 

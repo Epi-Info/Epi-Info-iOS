@@ -4699,10 +4699,83 @@
     }
 }
 
+- (NSArray *)getCurrentTableOfOutcomeVariable:(NSString *)outcomeVariable AndIndependentVariables:(NSArray *)independentVariables
+{
+    NSMutableArray *mutableCurrentTable = [[NSMutableArray alloc] init];
+    
+    int columnsQueried = 1 + (int)[independentVariables count] + 1;
+    
+    //Get the path to the sqlite database
+    NSString *databasePath = [[NSString alloc] initWithString:[NSTemporaryDirectory() stringByAppendingString:@"EpiInfo.db"]];
+    
+    //If the database exists, query the WORKING_DATASET
+    if ([[NSFileManager defaultManager] fileExistsAtPath:databasePath])
+    {
+        //Convert the databasePath to a char array
+        const char *dbpath = [databasePath UTF8String];
+        sqlite3_stmt *statement;
+        
+        //Open the database
+        if (sqlite3_open(dbpath, &analysisDB) == SQLITE_OK)
+        {
+            //Build the SELECT statement
+            NSMutableString *selectStatement = [[NSMutableString alloc] initWithString:
+                                                [NSString stringWithFormat:@"SELECT %@, %@", outcomeVariable, [independentVariables objectAtIndex:0]]];
+            for (int i = 1; i < independentVariables.count; i++)
+                [selectStatement appendString:[NSString stringWithFormat:@", %@", [independentVariables objectAtIndex:i]]];
+            [selectStatement appendFormat:@", 1 as RecStatus FROM WORKING_DATASET"];
+            //Convert the SELECT statement to a char array
+            const char *query_stmt = [selectStatement UTF8String];
+            //Execute the SELECT statement
+            if (sqlite3_prepare_v2(analysisDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+            {
+                //While the statement returns rows, read the column queried and put the values in the outcomeArray and exposureArray
+                while (sqlite3_step(statement) == SQLITE_ROW)
+                {
+                    NSMutableArray *outcomeArray = [[NSMutableArray alloc] init];
+                    for (int i = 0; i < columnsQueried; i++)
+                    {
+                        if (!sqlite3_column_text(statement, i))
+                        {
+                            [outcomeArray addObject:[NSNull null]];
+                        }
+                        else
+                        {
+                            NSString *rslt0 = [NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]];
+                            NSString *rslt = [NSString stringWithUTF8String:[rslt0 cStringUsingEncoding:NSMacOSRomanStringEncoding]];
+                            [outcomeArray addObject:rslt];
+                        }
+                    }
+                    [mutableCurrentTable addObject:[NSArray arrayWithArray:outcomeArray]];
+                }
+            }
+        }
+    }
+    
+    return [NSArray arrayWithArray:mutableCurrentTable];
+}
+
 - (void)getRawData
 {
     if ([mstrMatchVar length] > 0)
         mboolIntercept = NO;
+    if (mboolIntercept == YES)
+        lintIntercept = 1;
+    else
+        lintIntercept = 0;
+    if ([mstrWeightVar length] > 0)
+        lintweight = 1;
+    else
+        lintweight = 0;
+    
+    int k = 0;
+    NSDate *d = [NSDate date];
+    NumRows = 0;
+    
+    while (NumRows == 0)
+    {
+        NumRows = (int)[currentTable count];
+    }
 }
 
 - (void)doLogistic:(TablesObject *)to OnOutputView:(UIView *)outputV StratificationVariable:(NSString *)stratVar StratificationValue:(NSString *)stratValue
@@ -4720,6 +4793,7 @@
     
     LogisticRegressionResults *regressionResults = [[LogisticRegressionResults alloc] init];
     
+    currentTable = [self getCurrentTableOfOutcomeVariable:to.outcomeVariable AndIndependentVariables:@[to.exposureVariable]];
     [self getRawData];
     NSLog(@"Ending Logistic method");
 }
