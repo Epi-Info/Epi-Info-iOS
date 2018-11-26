@@ -4703,6 +4703,8 @@
 {
     NSMutableArray *mutableCurrentTable = [[NSMutableArray alloc] init];
     
+    lStrAVarNames = [NSArray arrayWithArray:independentVariables];
+    
     int columnsQueried = 1 + (int)[independentVariables count] + 1;
     
     //Get the path to the sqlite database
@@ -4770,11 +4772,23 @@
     
     int k = 0;
     NSDate *d = [NSDate date];
-    NumRows = 0;
+    NumRows = (int)[currentTable count];
+    NumColumns = (int)[(NSArray *)[currentTable firstObject] count];
     
-    while (NumRows == 0)
+    if (NumRows == 0)
+        return;
+    
+    int lIntIsMatch = 0;
+    
+    if ([mstrMatchVar length] > 0)
     {
-        NumRows = (int)[currentTable count];
+        // Match Variable Matching write this later
+    }
+    
+    NSMutableArray *mVarArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [lStrAVarNames count]; i++)
+    {
+        [mVarArray setObject:@"" atIndexedSubscript:i];
     }
 }
 
@@ -4795,6 +4809,14 @@
     
     currentTable = [self getCurrentTableOfOutcomeVariable:to.outcomeVariable AndIndependentVariables:@[to.exposureVariable]];
     [self getRawData];
+    
+    int lintConditional = 0;
+    int lintweight = 0;
+    double ldblFirstLikelihood = 0.0;
+    double ldblScore = 0.0;
+    
+    mMatrixLikelihood = [[EIMatrix alloc] init];
+    [mMatrixLikelihood MaximizeLikelihood:NumRows NCols:NumColumns DataArray:currentTable LintOffset:lintweight + lintConditional + 1 LintMatrixSize:NumColumns - (lintweight + lintConditional + 1) LlngIters:mlngIter LdblToler:mdblToler LdblConv:mdblConv BooStartAtZero:NO];
     NSLog(@"Ending Logistic method");
 }
 

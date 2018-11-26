@@ -11,13 +11,16 @@
 #import "VariableRow.h"
 #import "InteractionRow.h"
 #import "sqlite3.h"
+#import "EIMatrix.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LogisticView : TablesView
 {
+    EIMatrix *mMatrixLikelihood;
     sqlite3 *analysisDB;
     NSArray *currentTable;
+    NSArray *lStrAVarNames;
     NSString *mstrC;
     double mdblC;
     double mdblP;
@@ -32,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *mstraTerms;
     NSMutableArray *mStrADiscrete;
     int terms, discrete;
-    int lintIntercept, lintweight, NumRows;
+    int lintIntercept, lintweight, NumRows, NumColumns;
 }
 @end
 
