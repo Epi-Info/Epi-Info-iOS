@@ -4815,8 +4815,9 @@
     double ldblFirstLikelihood = 0.0;
     double ldblScore = 0.0;
     
-    mMatrixLikelihood = [[EIMatrix alloc] init];
-    [mMatrixLikelihood MaximizeLikelihood:NumRows NCols:NumColumns DataArray:currentTable LintOffset:lintweight + lintConditional + 1 LintMatrixSize:NumColumns - (lintweight + lintConditional + 1) LlngIters:mlngIter LdblToler:mdblToler LdblConv:mdblConv BooStartAtZero:NO];
+    mboolFirst = YES;
+    mMatrixLikelihood = [[EIMatrix alloc] initWithFirst:mboolFirst AndIntercept:mboolIntercept];
+    [mMatrixLikelihood MaximizeLikelihood:&(NumRows) NCols:NumColumns DataArray:currentTable LintOffset:lintweight + lintConditional + 1 LintMatrixSize:NumColumns - (lintweight + lintConditional + 1) LlngIters:&(mlngIter) LdblToler:&(mdblToler) LdblConv:&(mdblConv) BooStartAtZero:NO];
     NSLog(@"Ending Logistic method");
 }
 

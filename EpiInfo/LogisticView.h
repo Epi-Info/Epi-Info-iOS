@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
     int mlngIter;
     double mdblConv;
     double mdblToler;
+    BOOL mboolFirst;
     BOOL mboolIntercept;
     NSArray *mstraBoolean;
     NSString *mstrMatchVar;
