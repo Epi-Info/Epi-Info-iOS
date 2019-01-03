@@ -88,7 +88,7 @@
                   moduleName = "EpiInfo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/EnterDataView.m"
-                  timestampString = "565041479.381182"
+                  timestampString = "568238810.1007611"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1627"
@@ -103,7 +103,7 @@
                   moduleName = "EpiInfo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/EnterDataView.m"
-                  timestampString = "565041479.38368"
+                  timestampString = "568238810.103978"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1618"
@@ -379,22 +379,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EpiInfo/EpiInfoOptionField.m"
-            timestampString = "558038617.252508"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "EpiInfo/IfParser.m"
             timestampString = "561924487.46884"
             startingColumnNumber = "9223372036854775807"
@@ -507,13 +491,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EpiInfo/LogisticView.m"
-            timestampString = "565041479.1600651"
+            filePath = "EpiInfo/EIMatrix.m"
+            timestampString = "568238809.7725689"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4820"
-            endingLineNumber = "4820"
-            landmarkName = "-doLogistic:OnOutputView:StratificationVariable:StratificationValue:"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
+            landmarkName = "-MaximizeLikelihood:NCols:DataArray:LintOffset:LintMatrixSize:LlngIters:LdblToler:LdblConv:BooStartAtZero:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
