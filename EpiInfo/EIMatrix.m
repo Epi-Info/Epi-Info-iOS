@@ -30,6 +30,41 @@
     return self;
 }
 
+- (void)lubksb:(NSMutableArray *)a N:(int)n Indx:(int[])indx B:(double[])B
+{
+    int ii = 0;
+    int ip = 0;
+    double sum = 0.0;
+    
+    for (int i = 0; i < n; i++)
+    {
+        ip = indx[i + 1];
+        sum = B[ip];
+        B[ip] = B[i + 1];
+        if (ii > 0)
+        {
+            for (int j = ii; j <= i; j++)
+            {
+                sum = sum - [[(NSArray *)[a objectAtIndex:i] objectAtIndex:j - 1] doubleValue] * B[j];
+            }
+        }
+        else if (sum != 0.0)
+        {
+            ii = i + 1;
+        }
+        B[i + 1] = sum;
+    }
+    for (int i = n - 1; i >= 0; i--)
+    {
+        sum = B[i + 1];
+        for (int j = i + 1; j < n; j++)
+        {
+            sum = sum - [[(NSArray *)[a objectAtIndex:i] objectAtIndex:j] doubleValue] * B[j + 1];
+        }
+        B[i + 1] = sum / [[(NSArray *)[a objectAtIndex:i] objectAtIndex:i] doubleValue];
+    }
+}
+
 - (int)ludcmp:(NSMutableArray *)a N:(int)n Indx:(int[])indx D:(double *)d
 {
     *d = 44.5;
@@ -125,6 +160,32 @@
     double col[n + 2];
     double d = 0.0;
     [self ludcmp:a N:n Indx:indx D:&d];
+    
+    for (int j = 0; j < n; j++)
+    {
+        for (int i = 0; i < n; i++)
+        {
+            col[i] = 0.0;
+        }
+        col[j] = 1.0;
+        
+        int indxShifted[n + 3];
+        double colShifted[n + 3];
+        indxShifted[0] = 0;
+        colShifted[0] = 0.0;
+        
+        for (int k = 0; k < n + 2; k++)
+        {
+            indxShifted[k + 1] = indx[k];
+            colShifted[k + 1] = col[k];
+        }
+        
+        [self lubksb:a N:n Indx:indxShifted B:colShifted];
+        for (int i = 0; i < n; i++)
+        {
+            [(NSMutableArray *)[invA objectAtIndex:i] setObject:[NSNumber numberWithDouble:colShifted[i + 1]] atIndexedSubscript:j];
+        }
+    }
 }
 
 - (double)UnConditional:(int)lintOffset LdblaDataArray:(NSArray *)ldblaDataArray LdblaJacobian:(NSMutableArray *)ldblaJacobian LdblB:(NSMutableArray *)ldblB LdblaF:(NSMutableArray *)ldblaF NRows:(int)nRows
