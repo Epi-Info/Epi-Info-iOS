@@ -30,6 +30,103 @@
     return self;
 }
 
+- (int)ludcmp:(NSMutableArray *)a N:(int)n Indx:(int[])indx D:(double *)d
+{
+    *d = 44.5;
+    const double TINY = 1.0e-20;
+    
+    int imax = 0;
+    double dum = 0.0;
+    double big = 0.0;
+    double sum = 0.0;
+    double vv[n];
+    
+    *d = 1.0;
+    for (int i = 0; i < n; i++)
+    {
+        big = 0.0;
+        for (int j = 0; j < n; j++)
+        {
+            double absaij = fabs([[(NSArray *)[a objectAtIndex:i] objectAtIndex:j] doubleValue]);
+            if (absaij > big)
+            {
+                big = absaij;
+            }
+        }
+        if (big == 0.0)
+        {
+            return -1;
+        }
+        vv[i] = 1.0 / big;
+    }
+    for (int j = 0; j < n; j++)
+    {
+        for (int i = 0; i < j; i++)
+        {
+            sum = [[(NSArray *)[a objectAtIndex:i] objectAtIndex:j] doubleValue];
+            for (int k = 0; k < i; k++)
+            {
+                sum = sum - [[(NSArray *)[a objectAtIndex:i] objectAtIndex:k] doubleValue] * [[(NSArray *)[a objectAtIndex:k] objectAtIndex:j] doubleValue];
+            }
+            [(NSMutableArray *)[a objectAtIndex:i] setObject:[NSNumber numberWithDouble:sum] atIndexedSubscript:j];
+        }
+        big = 0.0;
+        for (int i = j; i < n; i++)
+        {
+            sum = [[(NSArray *)[a objectAtIndex:i] objectAtIndex:j] doubleValue];
+            for (int k = 0; k < j; k++)
+            {
+                sum = sum - [[(NSArray *)[a objectAtIndex:i] objectAtIndex:k] doubleValue] * [[(NSArray *)[a objectAtIndex:k] objectAtIndex:j] doubleValue];
+            }
+            [(NSMutableArray *)[a objectAtIndex:i] setObject:[NSNumber numberWithDouble:sum] atIndexedSubscript:j];
+            dum = vv[i] * fabs(sum);
+            if (dum >= big)
+            {
+                big = dum;
+                imax = i;
+            }
+        }
+        if (j != imax)
+        {
+            for (int k = 0; k < n; k++)
+            {
+                dum = [[(NSArray *)[a objectAtIndex:imax] objectAtIndex:k] doubleValue];
+                [(NSMutableArray *)[a objectAtIndex:imax] setObject:[NSNumber numberWithDouble:[[(NSArray *)[a objectAtIndex:j] objectAtIndex:k] doubleValue]] atIndexedSubscript:k];
+                [(NSMutableArray *)[a objectAtIndex:j] setObject:[NSNumber numberWithDouble:dum] atIndexedSubscript:k];
+            }
+            *d = -1.0 * *d;
+            vv[imax] = vv[j];
+        }
+        indx[j] = imax + 1;
+        if ([[(NSArray *)[a objectAtIndex:j] objectAtIndex:j] doubleValue] == 0.0)
+        {
+            [(NSMutableArray *)[a objectAtIndex:j] setObject:[NSNumber numberWithDouble:TINY] atIndexedSubscript:j];
+        }
+        if (j != n)
+        {
+            dum = 1.0 / [[(NSArray *)[a objectAtIndex:j] objectAtIndex:j] doubleValue];
+            for (int i = j + 1; i < n; i++)
+            {
+                double oldvalue = [[(NSArray *)[a objectAtIndex:i] objectAtIndex:j] doubleValue];
+                double newvalue = oldvalue * dum;
+                [(NSMutableArray *)[a objectAtIndex:i] setObject:[NSNumber numberWithDouble:newvalue] atIndexedSubscript:j];
+            }
+        }
+    }
+    return 1;
+}
+
+- (void)inv:(NSMutableArray *)a InvA:(NSMutableArray *)invA
+{
+    int n = (int)[(NSArray *)[a objectAtIndex:0] count];
+    int indx[n + 2];
+    for (int i = 0; i < n + 2; i++)
+        indx[i] = 0;
+    double col[n + 2];
+    double d = 0.0;
+    [self ludcmp:a N:n Indx:indx D:&d];
+}
+
 - (double)UnConditional:(int)lintOffset LdblaDataArray:(NSArray *)ldblaDataArray LdblaJacobian:(NSMutableArray *)ldblaJacobian LdblB:(NSMutableArray *)ldblB LdblaF:(NSMutableArray *)ldblaF NRows:(int)nRows
 {
     double unconditional = 0.0;
@@ -179,19 +276,30 @@
     
     for (int i = 0; i < [self.mdblaB count]; i++)
     {
+        NSMutableArray *forInv = [[NSMutableArray alloc] init];
         for (int j = 0; j < [self.mdblaB count]; j++)
         {
+            [forInv addObject:[NSNumber numberWithDouble:0.0]];
             oldmdblaJacobian[i][j] = [[(NSArray *)[self.mdblaJacobian objectAtIndex:i] objectAtIndex:j] doubleValue];
         }
+        [self.mdblaInv addObject:forInv];
         oldmdblaF[i] = [[self.mdblaF objectAtIndex:i] doubleValue];
     }
-    for (int i = 0; i < [self.mdblaB count]; i++)
+    
+    if ([strCalcLikelihoodError length] > 0)
     {
-        for (int j = 0; j < [self.mdblaB count]; j++)
-        {
-            NSLog(@"%f", oldmdblaJacobian[i][j]);
-        }
-        NSLog(@"\t\t%.6e", oldmdblaF[i]);
+        // Do something to display the error
+        return;
     }
+    
+    self.mintIterations = 1;
+    double ldbloldll = ldbllfst;
+    double ldbll = ldbllfst;
+    if (ldbllfst > 0)
+    {
+        // Message Positive Log-Likelihood, regression is diverging
+        return;
+    }
+    [self inv:self.mdblaJacobian InvA:self.mdblaInv];
 }
 @end
