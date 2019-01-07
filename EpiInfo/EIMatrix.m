@@ -317,7 +317,6 @@
 {
     NSString *strCalcLikelihoodError = @"";
     double ldbllfst = 0.0;
-    double ldblaScore[lintMatrixSize - 1];
     [self setMdblScore:0.0];
     double oldmdblScore = 0.0;
     [self setMboolConverge:YES];
@@ -328,13 +327,13 @@
     self.mdblaInv = [[NSMutableArray alloc] init];
     self.mdblaF = [[NSMutableArray alloc] init];
     double oldmdblaF[lintMatrixSize - 1];
-    
+
     self.mdblaB = [[NSMutableArray alloc] init];
     for (int i = 0; i < lintMatrixSize; i++)
         [self.mdblaB addObject:[NSNumber numberWithDouble:0.0]];
     
     [self CalcLikelihood:lintOffset LdblA:dataArray LdblB:self.mdblaB LdblaJacobian:self.mdblaJacobian LdblaF:self.mdblaF NRows:nRows Likelihood:&ldbllfst StrError:&strCalcLikelihoodError BooStartAtZero:booStartAtZero];
-    
+
     for (int i = 0; i < [self.mdblaB count]; i++)
     {
         NSMutableArray *forInv = [[NSMutableArray alloc] init];
@@ -346,7 +345,7 @@
         [self.mdblaInv addObject:forInv];
         oldmdblaF[i] = [[self.mdblaF objectAtIndex:i] doubleValue];
     }
-    
+
     if ([strCalcLikelihoodError length] > 0)
     {
         // Do something to display the error
@@ -362,5 +361,59 @@
         return;
     }
     [self inv:self.mdblaJacobian InvA:self.mdblaInv];
+
+    NSArray *oldmdblaB = [NSArray arrayWithArray:self.mdblaB];
+    NSArray *oldmdblaInv = [NSArray arrayWithArray:self.mdblaInv];
+    double ldblDet = 1.0;
+    for (int i = 0; i < [self.mdblaB count]; i++)
+    {
+        ldblDet *= [[(NSArray *)[self.mdblaJacobian objectAtIndex:i] objectAtIndex:i] doubleValue];
+    }
+    
+    if (fabs(ldblDet) < *ldblToler)
+    {
+        strCalcLikelihoodError = @"Matrix Tolerance Exceeded";
+        return;
+    }
+    
+    double ldblaScore[lintMatrixSize - 1];
+    for (int i = 0; i < lintMatrixSize - 1; i++)
+        ldblaScore[i] = 0.0;
+    // Now find the delta coefficients for this iteration and clear the arrays at the same time
+    for (int i = 0; i < [self.mdblaB count]; i++)
+    {
+        for (int k = 0; k < [self.mdblaB count]; k++)
+        {
+            ldblaScore[i] = ldblaScore[i] + [[self.mdblaF objectAtIndex:k] doubleValue] * [[(NSArray *)[self.mdblaInv objectAtIndex:i] objectAtIndex:k] doubleValue];
+            [(NSMutableArray *)[self.mdblaJacobian objectAtIndex:i] setObject:[NSNumber numberWithDouble:0.0] atIndexedSubscript:k];
+        }
+        [self.mdblaB setObject:[NSNumber numberWithDouble:[[self.mdblaB objectAtIndex:i] doubleValue] + ldblaScore[i]] atIndexedSubscript:i];
+        self.mdblScore = self.mdblScore + ldblaScore[i] * [[self.mdblaF objectAtIndex:i] doubleValue];
+    }
+    
+    double ridge = 0.0;
+    for (self.mintIterations = 2; self.mintIterations < *llngIters; self.mintIterations++)
+    {
+        for (int i = 0; i < [self.mdblaF count]; i++)
+        {
+            [self.mdblaF setObject:[NSNumber numberWithDouble:0.0] atIndexedSubscript:i];
+        }
+           [self CalcLikelihood:lintOffset LdblA:dataArray LdblB:self.mdblaB LdblaJacobian:self.mdblaJacobian LdblaF:self.mdblaF NRows:nRows Likelihood:&ldbll StrError:&strCalcLikelihoodError BooStartAtZero:booStartAtZero];
+        if (ldbloldll - ldbll > *ldblConv)
+        {
+            // Do this later
+        }
+        
+        oldmdblaInv = [NSArray arrayWithArray:self.mdblaInv];
+        oldmdblaB = [NSArray arrayWithArray:self.mdblaB];
+        for (int i = 0; i < [self.mdblaB count]; i++)
+        {
+            for (int j = 0; j < [self.mdblaB count]; j++)
+            {
+                oldmdblaJacobian[i][j] = [(NSNumber *)[(NSArray *)[self.mdblaJacobian objectAtIndex:i] objectAtIndex:j] doubleValue];
+            }
+            oldmdblaF[i] = [(NSNumber *)[self.mdblaF objectAtIndex:i] doubleValue];
+        }
+    }
 }
 @end
