@@ -88,7 +88,7 @@
                   moduleName = "EpiInfo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/EnterDataView.m"
-                  timestampString = "568651430.6261671"
+                  timestampString = "568667826.568256"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1627"
@@ -103,7 +103,7 @@
                   moduleName = "EpiInfo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/EnterDataView.m"
-                  timestampString = "568651430.6305799"
+                  timestampString = "568667826.570895"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1618"
@@ -492,11 +492,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EIMatrix.m"
-            timestampString = "568651430.159415"
+            timestampString = "568667826.288517"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "396"
-            endingLineNumber = "396"
+            startingLineNumber = "461"
+            endingLineNumber = "461"
             landmarkName = "-MaximizeLikelihood:NCols:DataArray:LintOffset:LintMatrixSize:LlngIters:LdblToler:LdblConv:BooStartAtZero:"
             landmarkType = "7">
          </BreakpointContent>
@@ -507,45 +507,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EpiInfo/EIMatrix.m"
-            timestampString = "568651430.161528"
+            filePath = "EpiInfo/LogisticView.m"
+            timestampString = "568667826.288583"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "459"
-            endingLineNumber = "459"
-            landmarkName = "-MaximizeLikelihood:NCols:DataArray:LintOffset:LintMatrixSize:LlngIters:LdblToler:LdblConv:BooStartAtZero:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EpiInfo/EIMatrix.m"
-            timestampString = "568651430.163658"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "399"
-            endingLineNumber = "399"
-            landmarkName = "-MaximizeLikelihood:NCols:DataArray:LintOffset:LintMatrixSize:LlngIters:LdblToler:LdblConv:BooStartAtZero:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EpiInfo/EIMatrix.m"
-            timestampString = "568651430.1664619"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "412"
-            endingLineNumber = "412"
-            landmarkName = "-MaximizeLikelihood:NCols:DataArray:LintOffset:LintMatrixSize:LlngIters:LdblToler:LdblConv:BooStartAtZero:"
+            startingLineNumber = "4860"
+            endingLineNumber = "4860"
+            landmarkName = "-doLogistic:OnOutputView:StratificationVariable:StratificationValue:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

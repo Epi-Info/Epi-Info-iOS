@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property double mdbllllast;
 @property double mdblScore;
 @property int mintIterations;
+@property NSString *lstrError;
 
 -(id)initWithFirst:(BOOL)mbf AndIntercept:(BOOL)mbi;
 -(void)MaximizeLikelihood:(int*)nRows NCols:(int*)nCols DataArray:(NSArray *)dataArray LintOffset:(int*)lintOffset LintMatrixSize:(int*)lintMatrixSize LlngIters:(int*)llngIters LdblToler:(double*)ldblToler LdblConv:(double*)ldblConv BooStartAtZero:(BOOL)booStartAtZero;

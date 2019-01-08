@@ -4803,8 +4803,6 @@
     [inputVariableList setObject:@"unsorted" forKey:to.exposureVariable];
     [self createSettings:[NSDictionary dictionaryWithDictionary:inputVariableList] outcomesAndValues:to.outcomeValues];
     
-    NSString *logistic = [[NSString alloc] init];
-    
     LogisticRegressionResults *regressionResults = [[LogisticRegressionResults alloc] init];
     
     currentTable = [self getCurrentTableOfOutcomeVariable:to.outcomeVariable AndIndependentVariables:@[to.exposureVariable]];
@@ -4818,6 +4816,47 @@
     mboolFirst = YES;
     mMatrixLikelihood = [[EIMatrix alloc] initWithFirst:mboolFirst AndIntercept:mboolIntercept];
     [mMatrixLikelihood MaximizeLikelihood:NumRows NCols:NumColumns DataArray:currentTable LintOffset:lintweight + lintConditional + 1 LintMatrixSize:NumColumns - (lintweight + lintConditional + 1) LlngIters:&(mlngIter) LdblToler:&(mdblToler) LdblConv:&(mdblConv) BooStartAtZero:NO];
+    
+    // Beta coefficients are in mMatixLikelihood.mdblaB
+    // Beta variances are in mMatrixLikelihood.mdblaInv
+    
+    if (!mMatrixLikelihood.mboolConverge)
+    {
+        regressionResults.errorMessage = mMatrixLikelihood.lstrError;
+        return;
+    }
+    
+    // Compute SEs and MoEs and ORs and LCLs and UCLs and Zs and Ps
+    double mdblP = [SharedResources zFromP:0.025];
+    NSMutableArray *seArray = [[NSMutableArray alloc] init];
+    NSMutableArray *moeArray = [[NSMutableArray alloc] init];
+    NSMutableArray *orArray = [[NSMutableArray alloc] init];
+    NSMutableArray *lclArray = [[NSMutableArray alloc] init];
+    NSMutableArray *uclArray = [[NSMutableArray alloc] init];
+    NSMutableArray *zArray = [[NSMutableArray alloc] init];
+    NSMutableArray *pArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [mMatrixLikelihood.mdblaB count]; i++)
+    {
+        [orArray setObject:[NSNumber numberWithDouble:exp([(NSNumber *)[mMatrixLikelihood.mdblaB objectAtIndex:i] doubleValue])] atIndexedSubscript:i];
+        [seArray setObject:[NSNumber numberWithDouble:sqrt(fabs([(NSNumber *)[(NSArray *)[mMatrixLikelihood.mdblaInv objectAtIndex:i] objectAtIndex:i] doubleValue]))] atIndexedSubscript:i];
+        [moeArray setObject:[NSNumber numberWithDouble:mdblP * [(NSNumber *)[seArray objectAtIndex:i] doubleValue]] atIndexedSubscript:i];
+        [lclArray setObject:[NSNumber numberWithDouble:exp([(NSNumber *)[mMatrixLikelihood.mdblaB objectAtIndex:i] doubleValue] - [(NSNumber *)[moeArray objectAtIndex:i] doubleValue])] atIndexedSubscript:i];
+        [uclArray setObject:[NSNumber numberWithDouble:exp([(NSNumber *)[mMatrixLikelihood.mdblaB objectAtIndex:i] doubleValue] + [(NSNumber *)[moeArray objectAtIndex:i] doubleValue])] atIndexedSubscript:i];
+        [zArray setObject:[NSNumber numberWithDouble:[(NSNumber *)[mMatrixLikelihood.mdblaB objectAtIndex:i] doubleValue] / [(NSNumber *)[seArray objectAtIndex:i] doubleValue]] atIndexedSubscript:i];
+        [pArray setObject:[NSNumber numberWithDouble:2.0 * [SharedResources pFromZ:fabs([(NSNumber *)[zArray objectAtIndex:i] doubleValue])]] atIndexedSubscript:i];
+    }
+    
+    ldblScore = mMatrixLikelihood.mdblScore;
+    double lldblDF = [mMatrixLikelihood.mdblaB count];
+    if (mboolIntercept)
+        lldblDF--;
+    double scoreP = [SharedResources PValFromChiSq:ldblScore PVFCSdf:lldblDF];
+    
+    double lllr = 2.0 * (mMatrixLikelihood.mdbllllast - mMatrixLikelihood.mdblllfst);
+    double lrP = [SharedResources PValFromChiSq:lllr PVFCSdf:lldblDF];
+    
+    double minusTwoLogLikelihood = -2.0 * mMatrixLikelihood.mdbllllast;
+    
     NSLog(@"Ending Logistic method");
 }
 
