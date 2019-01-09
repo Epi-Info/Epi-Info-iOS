@@ -322,6 +322,23 @@
 {
     self = [self initWithFrame:frame];
     sqliteData = dataSource;
+    
+    outcomeVariableString = [[UITextField alloc] init];
+    exposureVariableString = [[UITextField alloc] init];
+    NSMutableArray *outcomeNSMA = [[NSMutableArray alloc] init];
+    for (NSString *variable in sqliteData.columnNamesWorking)
+    {
+        [outcomeNSMA addObject:variable];
+    }
+    [outcomeNSMA sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    outcomeLVE = [[LegalValuesEnter alloc] initWithFrame:chosenOutcomeVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:outcomeVariableString];
+    [outcomeLVE.picker selectRow:0 inComponent:0 animated:YES];
+    [inputView addSubview:outcomeLVE];
+    exposureLVE = [[LegalValuesEnter alloc] initWithFrame:chosenExposureVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:exposureVariableString];
+    [exposureLVE.picker selectRow:0 inComponent:0 animated:YES];
+    [inputView addSubview:exposureLVE];
+    [chosenOutcomeVariable setTitle:[outcomeVariableString text] forState:UIControlStateNormal];
+
     avc = (AnalysisViewController *)vc;
     return self;
 }
@@ -342,9 +359,11 @@
             {
                 if ([avc portraitOrientation])
                 {
-                    [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, 204)];
+                    [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, frame.size.height - 52)];
                     [chosenOutcomeVariable setFrame:CGRectMake(20, 8, 276, 44)];
+                    [outcomeLVE setFrame:CGRectMake(10, 8, 276, 44)];
                     [chosenExposureVariable setFrame:CGRectMake(20, 56, 276, 44)];
+                    [exposureLVE setFrame:CGRectMake(10, 72, 276, 44)];
                     [chosenStratificationVariable setFrame:CGRectMake(20, 135, 276, 44)];
                     [chooseOutcomeVariable setFrame:CGRectMake(10, 1000, 296, 162)];
                     [chooseExposureVariable setFrame:CGRectMake(10, 1000, 296, 162)];
@@ -574,6 +593,8 @@
             [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
                 [chosenOutcomeVariable setFrame:CGRectMake(20, chosenOutcomeVariable.frame.origin.y - 170, chosenOutcomeVariable.frame.size.width, 44)];
                 [chosenExposureVariable setFrame:CGRectMake(20, chosenExposureVariable.frame.origin.y - 170, chosenExposureVariable.frame.size.width, 44)];
+                [outcomeLVE setFrame:CGRectMake(10, chosenOutcomeVariable.frame.origin.y - 170, chosenOutcomeVariable.frame.size.width, 44)];
+                [exposureLVE setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y - 170, chosenExposureVariable.frame.size.width, 44)];
                 [chosenStratificationVariable setFrame:CGRectMake(20, chosenExposureVariable.frame.origin.y - 170, chosenExposureVariable.frame.size.width, 44)];
                 //Move the pickers up if they are in view, otherwise they need to be hidden in case the
                 //ContentSize increases to >1000
@@ -665,7 +686,7 @@
             [avc setDataSourceEnabled:YES];
         }
         [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
-            [self setFrame:CGRectMake(0, 50, avc.view.frame.size.width, avc.view.frame.size.height)];
+            [self setFrame:CGRectMake(0, 50, avc.view.frame.size.width, avc.view.frame.size.height - 52)];
         }completion:nil];
     }
     else
@@ -773,11 +794,13 @@
     leftSide = 1.0;
     float rightSide = 0.0;
     
-    if (outcomeVariableChosen && exposureVariableChosen && !stratificationVariableChosen)
+    if ((outcomeVariableChosen || outcomeLVE.selectedIndex > 0) && (exposureVariableChosen || exposureLVE.selectedIndex > 0) && !stratificationVariableChosen)
     {
         outputViewDisplayed = YES;
         stratum = 0;
-        TablesObject *to = [[TablesObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:selectedOutcomeVariableNumber.integerValue] AndExposureVariable:[availableExposureVariables objectAtIndex:selectedExposureVariableNumber.integerValue] AndIncludeMissing:includeMissing];
+        int outcomeSelectedIndex = [outcomeLVE.selectedIndex intValue];
+        int exposureSelectedIndex = [exposureLVE.selectedIndex intValue];
+        TablesObject *to = [[TablesObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:outcomeSelectedIndex] AndExposureVariable:[availableExposureVariables objectAtIndex:exposureSelectedIndex] AndIncludeMissing:includeMissing];
         
         if (to.outcomeValues.count == 2 && to.exposureValues.count > 1)
         {

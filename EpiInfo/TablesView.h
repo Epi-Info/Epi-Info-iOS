@@ -13,6 +13,7 @@
 #import "ShinyButton.h"
 #import "EpiInfoUILabel.h"
 #import "UIPickerViewWithBlurryBackground.h"
+#import "LegalValuesEnter.h"
 
 @interface TablesView : UIView <UIPickerViewDelegate, UIPickerViewDataSource>
 {

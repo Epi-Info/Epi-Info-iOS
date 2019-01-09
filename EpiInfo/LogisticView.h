@@ -37,6 +37,11 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *mStrADiscrete;
     int terms, discrete;
     int lintIntercept, lintweight, NumRows, NumColumns;
+    
+    UITextField *outcomeVariableString;
+    LegalValuesEnter *outcomeLVE;
+    UITextField *exposureVariableString;
+    LegalValuesEnter *exposureLVE;
 }
 @end
 
