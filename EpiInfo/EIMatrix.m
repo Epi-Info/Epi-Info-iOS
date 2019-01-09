@@ -406,7 +406,30 @@
         BOOL doThisStuff = YES;
         if (ldbloldll - ldbll > *ldblConv)
         {
-            // Do this later
+            if (ridge > 0.0 && ridge < 1000.0)
+            {
+                self.mintIterations--;
+                ridge *= 4.0;
+                for (int i = 0; i < [self.mdblaB count]; i++)
+                {
+                    for (int j = 0; j < [self.mdblaB count]; j++)
+                    {
+                        double iequalsj = 0.0;
+                        if (i == j)
+                            iequalsj = 1.0;
+                        [(NSMutableArray *)[self.mdblaJacobian objectAtIndex:i] setObject:[NSNumber numberWithDouble:oldmdblaJacobian[i][j] *(1 + iequalsj * ridge)] atIndexedSubscript:j];
+                    }
+                    [self.mdblaB setObject:[NSNumber numberWithDouble:[(NSNumber *)[oldmdblaB objectAtIndex:i] doubleValue]] atIndexedSubscript:i];
+                    [self.mdblaF setObject:[NSNumber numberWithDouble:oldmdblaF[i]] atIndexedSubscript:i];
+                }
+                doThisStuff = NO;
+            }
+            if (doThisStuff)
+            {
+                self.mboolConverge = NO;
+                self.mdblllfst = ldbllfst;
+                strCalcLikelihoodError = @"Regression not converging";
+            }
         }
         else if (ldbll - ldbloldll < *ldblConv)
         {
