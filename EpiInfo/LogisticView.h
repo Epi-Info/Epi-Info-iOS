@@ -16,7 +16,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LogisticView : TablesView <UITextFieldDelegate>
+@interface LogisticView : TablesView <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 {
     EIMatrix *mMatrixLikelihood;
     sqlite3 *analysisDB;
@@ -45,6 +45,9 @@ NS_ASSUME_NONNULL_BEGIN
     UILabel *exposureVariableLabel;
     EpiInfoTextField *exposureVariableString;
     LegalValuesEnter *exposureLVE;
+    
+    NSMutableArray *exposuresNSMA;
+    UITableView *exposuresUITV;
 }
 @end
 

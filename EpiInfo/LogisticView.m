@@ -353,6 +353,12 @@
     [chosenOutcomeVariable setTitle:[outcomeVariableString text] forState:UIControlStateNormal];
     [inputView addSubview:outcomeVariableLabel];
     [inputView addSubview:exposureVariableLabel];
+    
+    exposuresNSMA = [[NSMutableArray alloc] init];
+    exposuresUITV = [[UITableView alloc] initWithFrame:exposureLVE.frame style:UITableViewStylePlain];
+    [exposuresUITV setDelegate:self];
+    [exposuresUITV setDataSource:self];
+    [inputView addSubview:exposuresUITV];
 
     avc = (AnalysisViewController *)vc;
     return self;
@@ -381,6 +387,7 @@
                     [chosenExposureVariable setFrame:CGRectMake(20, 56, 276, 44)];
                     [exposureVariableLabel setFrame:CGRectMake(16, 92, 284, 20)];
                     [exposureLVE setFrame:CGRectMake(10, 112, 276, 44)];
+                    [exposuresUITV setFrame:CGRectMake(12, 168, 276, 132)];
                     [chosenStratificationVariable setFrame:CGRectMake(20, 135, 276, 44)];
                     [chooseOutcomeVariable setFrame:CGRectMake(10, 1000, 296, 162)];
                     [chooseExposureVariable setFrame:CGRectMake(10, 1000, 296, 162)];
@@ -508,6 +515,54 @@
 - (void)textFieldAction
 {
     NSLog(@"exposureVariableString field value set to %@.", exposureVariableString.text);
+    if ([exposureVariableString.text length] > 0 && ![exposuresNSMA containsObject:exposureVariableString.text])
+    {
+        [exposuresNSMA addObject:exposureVariableString.text];
+        [exposuresUITV reloadData];
+    }
+}
+- (void)doubleTapAction:(UITapGestureRecognizer *)tap
+{
+    UITableViewCell *sender = (UITableViewCell *)[tap view];
+    [exposuresNSMA removeObjectAtIndex:[exposuresNSMA indexOfObject:sender.textLabel.text]];
+    [exposuresUITV reloadData];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *TableIdentifier = @"dataline";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TableIdentifier];
+    
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TableIdentifier];
+        [cell setFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, tableView.frame.size.width, cell.frame.size.height)];
+        [cell setIndentationLevel:1];
+        [cell setIndentationWidth:4];
+    }
+    
+    [cell.textLabel setText:[NSString stringWithFormat:@"%@", [exposuresNSMA objectAtIndex:indexPath.row]]];
+    [cell.textLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+    [cell.textLabel setNumberOfLines:0];
+    
+    float fontSize = 16.0;
+    [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:fontSize]];
+    
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)];
+    [doubleTap setNumberOfTapsRequired:2];
+    [doubleTap setNumberOfTouchesRequired:1];
+    [cell addGestureRecognizer:doubleTap];
+    
+    return cell;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [exposuresNSMA count];
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
 }
 
 - (void)chosenOutcomeVariableButtonPressed
@@ -619,6 +674,7 @@
                 [exposureLVE setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y - 170, chosenExposureVariable.frame.size.width, 44)];
                 [outcomeVariableLabel setFrame:CGRectMake(10, chosenOutcomeVariable.frame.origin.y - 190, chosenOutcomeVariable.frame.size.width, 44)];
                 [exposureVariableLabel setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y - 190, chosenExposureVariable.frame.size.width, 44)];
+                [exposuresUITV setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y - 140, chosenExposureVariable.frame.size.width, 44)];
                 [chosenStratificationVariable setFrame:CGRectMake(20, chosenExposureVariable.frame.origin.y - 170, chosenExposureVariable.frame.size.width, 44)];
                 //Move the pickers up if they are in view, otherwise they need to be hidden in case the
                 //ContentSize increases to >1000
