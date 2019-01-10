@@ -323,8 +323,20 @@
     self = [self initWithFrame:frame];
     sqliteData = dataSource;
     
+    outcomeVariableLabel = [[UILabel alloc] initWithFrame:chosenOutcomeVariable.frame];
+    [outcomeVariableLabel setBackgroundColor:[UIColor whiteColor]];
+    [outcomeVariableLabel setTextColor:epiInfoLightBlue];
+    [outcomeVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [outcomeVariableLabel setText:@"Outcome Variable"];
     outcomeVariableString = [[UITextField alloc] init];
-    exposureVariableString = [[UITextField alloc] init];
+    exposureVariableLabel = [[UILabel alloc] initWithFrame:chosenExposureVariable.frame];
+    [exposureVariableLabel setBackgroundColor:[UIColor whiteColor]];
+    [exposureVariableLabel setTextColor:epiInfoLightBlue];
+    [exposureVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [exposureVariableLabel setText:@"Exposure Variable(s)"];
+    exposureVariableString = [[EpiInfoTextField alloc] init];
+    [exposureVariableString setDelegate:self];
+    [exposureVariableString addTarget:self action:@selector(textFieldAction) forControlEvents:UIControlEventValueChanged];
     NSMutableArray *outcomeNSMA = [[NSMutableArray alloc] init];
     for (NSString *variable in sqliteData.columnNamesWorking)
     {
@@ -336,8 +348,11 @@
     [inputView addSubview:outcomeLVE];
     exposureLVE = [[LegalValuesEnter alloc] initWithFrame:chosenExposureVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:exposureVariableString];
     [exposureLVE.picker selectRow:0 inComponent:0 animated:YES];
+    
     [inputView addSubview:exposureLVE];
     [chosenOutcomeVariable setTitle:[outcomeVariableString text] forState:UIControlStateNormal];
+    [inputView addSubview:outcomeVariableLabel];
+    [inputView addSubview:exposureVariableLabel];
 
     avc = (AnalysisViewController *)vc;
     return self;
@@ -361,9 +376,11 @@
                 {
                     [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, frame.size.height - 52)];
                     [chosenOutcomeVariable setFrame:CGRectMake(20, 8, 276, 44)];
-                    [outcomeLVE setFrame:CGRectMake(10, 8, 276, 44)];
+                    [outcomeVariableLabel setFrame:CGRectMake(16, 8, 284, 20)];
+                    [outcomeLVE setFrame:CGRectMake(10, 28, 276, 44)];
                     [chosenExposureVariable setFrame:CGRectMake(20, 56, 276, 44)];
-                    [exposureLVE setFrame:CGRectMake(10, 72, 276, 44)];
+                    [exposureVariableLabel setFrame:CGRectMake(16, 92, 284, 20)];
+                    [exposureLVE setFrame:CGRectMake(10, 112, 276, 44)];
                     [chosenStratificationVariable setFrame:CGRectMake(20, 135, 276, 44)];
                     [chooseOutcomeVariable setFrame:CGRectMake(10, 1000, 296, 162)];
                     [chooseExposureVariable setFrame:CGRectMake(10, 1000, 296, 162)];
@@ -488,6 +505,11 @@
     }
 }
 
+- (void)textFieldAction
+{
+    NSLog(@"exposureVariableString field value set to %@.", exposureVariableString.text);
+}
+
 - (void)chosenOutcomeVariableButtonPressed
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -595,6 +617,8 @@
                 [chosenExposureVariable setFrame:CGRectMake(20, chosenExposureVariable.frame.origin.y - 170, chosenExposureVariable.frame.size.width, 44)];
                 [outcomeLVE setFrame:CGRectMake(10, chosenOutcomeVariable.frame.origin.y - 170, chosenOutcomeVariable.frame.size.width, 44)];
                 [exposureLVE setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y - 170, chosenExposureVariable.frame.size.width, 44)];
+                [outcomeVariableLabel setFrame:CGRectMake(10, chosenOutcomeVariable.frame.origin.y - 190, chosenOutcomeVariable.frame.size.width, 44)];
+                [exposureVariableLabel setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y - 190, chosenExposureVariable.frame.size.width, 44)];
                 [chosenStratificationVariable setFrame:CGRectMake(20, chosenExposureVariable.frame.origin.y - 170, chosenExposureVariable.frame.size.width, 44)];
                 //Move the pickers up if they are in view, otherwise they need to be hidden in case the
                 //ContentSize increases to >1000

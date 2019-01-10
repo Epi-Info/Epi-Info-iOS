@@ -400,7 +400,7 @@
 {
     NSUInteger nsui = [indexPath item];
     [self.picker selectRow:nsui inComponent:0 animated:NO];
-    [self.textFieldToUpdate setText:[NSString stringWithFormat:@"%ld", (long)nsui]];
+//    [self.textFieldToUpdate setText:[NSString stringWithFormat:@"%ld", (long)nsui]];
     [self pickerView:self.picker didSelectRow:nsui inComponent:0];
     [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [self.tv setFrame:CGRectMake(topX, topY, self.valueButton.frame.size.width, 0)];

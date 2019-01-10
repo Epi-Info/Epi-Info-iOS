@@ -12,10 +12,11 @@
 #import "InteractionRow.h"
 #import "sqlite3.h"
 #import "EIMatrix.h"
+#import "EpiInfoTextField.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LogisticView : TablesView
+@interface LogisticView : TablesView <UITextFieldDelegate>
 {
     EIMatrix *mMatrixLikelihood;
     sqlite3 *analysisDB;
@@ -38,9 +39,11 @@ NS_ASSUME_NONNULL_BEGIN
     int terms, discrete;
     int lintIntercept, lintweight, NumRows, NumColumns;
     
+    UILabel *outcomeVariableLabel;
     UITextField *outcomeVariableString;
     LegalValuesEnter *outcomeLVE;
-    UITextField *exposureVariableString;
+    UILabel *exposureVariableLabel;
+    EpiInfoTextField *exposureVariableString;
     LegalValuesEnter *exposureLVE;
 }
 @end
