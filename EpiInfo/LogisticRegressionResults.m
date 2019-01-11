@@ -9,6 +9,13 @@
 
 @implementation LogisticRegressionResults
 @synthesize variables = _variables;
+@synthesize betas = _betas;
+@synthesize standardErrors = _standardErrors;
+@synthesize oddsRatios = _oddsRatios;
+@synthesize lcls = _lcls;
+@synthesize ucls = _ucls;
+@synthesize zStatistics = _zStatistics;
+@synthesize pValues = _pValues;
 @synthesize interactionOddsRatios = _interactionOddsRatios;
 @synthesize convergence = _convergence;
 @synthesize iterations = _iterations;
