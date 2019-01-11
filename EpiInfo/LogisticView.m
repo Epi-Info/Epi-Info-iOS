@@ -874,15 +874,14 @@
     leftSide = 1.0;
     float rightSide = 0.0;
     
-    if ((outcomeVariableChosen || outcomeLVE.selectedIndex > 0) && (exposureVariableChosen || exposureLVE.selectedIndex > 0) && !stratificationVariableChosen)
+    if ((outcomeVariableChosen || outcomeLVE.selectedIndex > 0) && [exposuresNSMA count] > 0 && !stratificationVariableChosen)
     {
         outputViewDisplayed = YES;
         stratum = 0;
         int outcomeSelectedIndex = [outcomeLVE.selectedIndex intValue];
-        int exposureSelectedIndex = [exposureLVE.selectedIndex intValue];
-        TablesObject *to = [[TablesObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:outcomeSelectedIndex] AndExposureVariable:[availableExposureVariables objectAtIndex:exposureSelectedIndex] AndIncludeMissing:includeMissing];
+        LogisticObject *to = [[LogisticObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:outcomeSelectedIndex] AndExposureVariables:exposuresNSMA AndIncludeMissing:includeMissing];
         
-        if (to.outcomeValues.count == 2 && to.exposureValues.count > 1)
+        if (to.outcomeValues.count == 2)
         {
             [self doLogistic:to OnOutputView:outputView StratificationVariable:nil StratificationValue:nil];
         }
@@ -4895,7 +4894,7 @@
     }
 }
 
-- (void)doLogistic:(TablesObject *)to OnOutputView:(UIView *)outputV StratificationVariable:(NSString *)stratVar StratificationValue:(NSString *)stratValue
+- (void)doLogistic:(LogisticObject *)to OnOutputView:(UIView *)outputV StratificationVariable:(NSString *)stratVar StratificationValue:(NSString *)stratValue
 {
     NSLog(@"Beginning Logistic method");
     NSMutableDictionary *inputVariableList = [[NSMutableDictionary alloc] init];
@@ -4908,7 +4907,7 @@
     
     LogisticRegressionResults *regressionResults = [[LogisticRegressionResults alloc] init];
     
-    currentTable = [self getCurrentTableOfOutcomeVariable:to.outcomeVariable AndIndependentVariables:@[to.exposureVariable]];
+    currentTable = [self getCurrentTableOfOutcomeVariable:to.outcomeVariable AndIndependentVariables:to.exposureVariables];
     [self getRawData];
     
     int lintConditional = 0;

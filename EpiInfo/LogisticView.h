@@ -7,6 +7,7 @@
 //
 
 #import "TablesView.h"
+#import "LogisticObject.h"
 #import "LogisticRegressionResults.h"
 #import "VariableRow.h"
 #import "InteractionRow.h"

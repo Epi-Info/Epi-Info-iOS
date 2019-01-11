@@ -361,6 +361,8 @@
     if (ldbllfst > 0)
     {
         // Message Positive Log-Likelihood, regression is diverging
+        self.mboolConverge = NO;
+        strCalcLikelihoodError = @"Positive Log-Likelihood, regression is diverging";
         return;
     }
     [self inv:self.mdblaJacobian InvA:self.mdblaInv];
@@ -380,15 +382,18 @@
         return;
     }
     
-    double ldblaScore[lintMatrixSize - 1];
-    for (int i = 0; i < lintMatrixSize - 1; i++)
+    double ldblaScore[lintMatrixSize];
+    for (int i = 0; i < lintMatrixSize; i++)
         ldblaScore[i] = 0.0;
     // Now find the delta coefficients for this iteration and clear the arrays at the same time
     for (int i = 0; i < [self.mdblaB count]; i++)
     {
         for (int k = 0; k < [self.mdblaB count]; k++)
         {
-            ldblaScore[i] = ldblaScore[i] + [[self.mdblaF objectAtIndex:k] doubleValue] * [[(NSArray *)[self.mdblaInv objectAtIndex:i] objectAtIndex:k] doubleValue];
+            double mdblainfik = [[(NSArray *)[self.mdblaInv objectAtIndex:i] objectAtIndex:k] doubleValue];
+            double mdblafk = [[self.mdblaF objectAtIndex:k] doubleValue];
+            double onetimestheother = mdblafk * mdblainfik;
+            ldblaScore[i] = ldblaScore[i] + onetimestheother;
             [(NSMutableArray *)[self.mdblaJacobian objectAtIndex:i] setObject:[NSNumber numberWithDouble:0.0] atIndexedSubscript:k];
         }
         [self.mdblaB setObject:[NSNumber numberWithDouble:[[self.mdblaB objectAtIndex:i] doubleValue] + ldblaScore[i]] atIndexedSubscript:i];
