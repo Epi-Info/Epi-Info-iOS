@@ -4851,6 +4851,8 @@
         }
     }
     
+    [self outcomeOneZero:mutableCurrentTable];
+    
     return [NSArray arrayWithArray:mutableCurrentTable];
 }
 
@@ -4887,6 +4889,62 @@
     {
         [mVarArray setObject:@"" atIndexedSubscript:i];
     }
+}
+
+- (BOOL)outcomeOneZero:(NSMutableArray *)currentTableMA
+{
+    BOOL isOneZero = YES;
+    BOOL isYesNo = YES;
+    BOOL isOneTwo = YES;
+    for (int i = 0; i < [currentTableMA count]; i++)
+    {
+        NSArray *lnsa = (NSArray *)[currentTableMA objectAtIndex:i];
+        NSString *loutcome = (NSString *)[lnsa objectAtIndex:0];
+        if (isOneZero)
+            if (!([loutcome isEqualToString:@"1"] || [loutcome isEqualToString:@"0"]))
+                isOneZero = NO;
+        if (isOneTwo)
+            if (!([loutcome isEqualToString:@"1"] || [loutcome isEqualToString:@"2"]))
+                isOneTwo = NO;
+        if (isYesNo)
+            if (!([loutcome caseInsensitiveCompare:@"yes"] == NSOrderedSame || [loutcome caseInsensitiveCompare:@"no"] == NSOrderedSame))
+                isYesNo = NO;
+        if (!(isOneZero || isOneTwo || isYesNo))
+            return NO;
+    }
+    if (isOneTwo)
+    {
+        for (int i = 0; i < [currentTableMA count]; i++)
+        {
+            if ([(NSString *)[(NSArray *)[currentTableMA objectAtIndex:i] objectAtIndex:0] isEqualToString:@"2"])
+            {
+                NSMutableArray *lnsmai = [NSMutableArray arrayWithArray:[currentTableMA objectAtIndex:i]];
+                [lnsmai setObject:@"0" atIndexedSubscript:0];
+                [currentTableMA setObject:[NSArray arrayWithArray:lnsmai] atIndexedSubscript:i];
+            }
+            
+        }
+    }
+    if (isYesNo)
+    {
+        for (int i = 0; i < [currentTableMA count]; i++)
+        {
+            if ([(NSString *)[(NSArray *)[currentTableMA objectAtIndex:i] objectAtIndex:0] caseInsensitiveCompare:@"yes"] == NSOrderedSame)
+            {
+                NSMutableArray *lnsmai = [NSMutableArray arrayWithArray:[currentTableMA objectAtIndex:i]];
+                [lnsmai setObject:@"1" atIndexedSubscript:0];
+                [currentTableMA setObject:[NSArray arrayWithArray:lnsmai] atIndexedSubscript:i];
+            }
+            else if ([(NSString *)[(NSArray *)[currentTableMA objectAtIndex:i] objectAtIndex:0] caseInsensitiveCompare:@"no"] == NSOrderedSame)
+            {
+                NSMutableArray *lnsmai = [NSMutableArray arrayWithArray:[currentTableMA objectAtIndex:i]];
+                [lnsmai setObject:@"0" atIndexedSubscript:0];
+                [currentTableMA setObject:[NSArray arrayWithArray:lnsmai] atIndexedSubscript:i];
+            }
+
+        }
+    }
+    return YES;
 }
 
 - (void)doLogistic:(LogisticObject *)to OnOutputView:(UIView *)outputV StratificationVariable:(NSString *)stratVar StratificationValue:(NSString *)stratValue
