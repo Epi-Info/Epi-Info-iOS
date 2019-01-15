@@ -4796,7 +4796,7 @@
     }
 }
 
-- (NSArray *)getCurrentTableOfOutcomeVariable:(NSString *)outcomeVariable AndIndependentVariables:(NSArray *)independentVariables
+- (BOOL)getCurrentTableOfOutcomeVariable:(NSString *)outcomeVariable AndIndependentVariables:(NSArray *)independentVariables
 {
     NSMutableArray *mutableCurrentTable = [[NSMutableArray alloc] init];
     
@@ -4851,9 +4851,12 @@
         }
     }
     
-    [self outcomeOneZero:mutableCurrentTable];
+    if (![self outcomeOneZero:mutableCurrentTable])
+        return NO;
+    [self checkIndependentVariables:mutableCurrentTable];
+    currentTable = [NSArray arrayWithArray:mutableCurrentTable];
     
-    return [NSArray arrayWithArray:mutableCurrentTable];
+    return YES;
 }
 
 - (void)getRawData
@@ -4946,6 +4949,62 @@
     }
     return YES;
 }
+- (void)checkIndependentVariables:(NSMutableArray *)currentTableMA
+{
+    NSArray *rowOne = (NSArray *)[currentTableMA objectAtIndex:0];
+    for (int j = 1; j < [rowOne count] - 1; j++)
+    {
+        BOOL isOneZero = YES;
+        BOOL isYesNo = YES;
+        BOOL isOneTwo = YES;
+        for (int i = 0; i < [currentTableMA count]; i++)
+        {
+            NSArray *lnsa = (NSArray *)[currentTableMA objectAtIndex:i];
+            NSString *loutcome = (NSString *)[lnsa objectAtIndex:j];
+            if (isOneZero)
+                if (!([loutcome isEqualToString:@"1"] || [loutcome isEqualToString:@"0"]))
+                    isOneZero = NO;
+            if (isOneTwo)
+                if (!([loutcome isEqualToString:@"1"] || [loutcome isEqualToString:@"2"]))
+                    isOneTwo = NO;
+            if (isYesNo)
+                if (!([loutcome caseInsensitiveCompare:@"yes"] == NSOrderedSame || [loutcome caseInsensitiveCompare:@"no"] == NSOrderedSame))
+                    isYesNo = NO;
+        }
+        if (isOneTwo)
+        {
+            for (int i = 0; i < [currentTableMA count]; i++)
+            {
+                if ([(NSString *)[(NSArray *)[currentTableMA objectAtIndex:i] objectAtIndex:j] isEqualToString:@"2"])
+                {
+                    NSMutableArray *lnsmai = [NSMutableArray arrayWithArray:[currentTableMA objectAtIndex:i]];
+                    [lnsmai setObject:@"0" atIndexedSubscript:j];
+                    [currentTableMA setObject:[NSArray arrayWithArray:lnsmai] atIndexedSubscript:i];
+                }
+                
+            }
+        }
+        if (isYesNo)
+        {
+            for (int i = 0; i < [currentTableMA count]; i++)
+            {
+                if ([(NSString *)[(NSArray *)[currentTableMA objectAtIndex:i] objectAtIndex:j] caseInsensitiveCompare:@"yes"] == NSOrderedSame)
+                {
+                    NSMutableArray *lnsmai = [NSMutableArray arrayWithArray:[currentTableMA objectAtIndex:i]];
+                    [lnsmai setObject:@"1" atIndexedSubscript:j];
+                    [currentTableMA setObject:[NSArray arrayWithArray:lnsmai] atIndexedSubscript:i];
+                }
+                else if ([(NSString *)[(NSArray *)[currentTableMA objectAtIndex:i] objectAtIndex:j] caseInsensitiveCompare:@"no"] == NSOrderedSame)
+                {
+                    NSMutableArray *lnsmai = [NSMutableArray arrayWithArray:[currentTableMA objectAtIndex:i]];
+                    [lnsmai setObject:@"0" atIndexedSubscript:j];
+                    [currentTableMA setObject:[NSArray arrayWithArray:lnsmai] atIndexedSubscript:i];
+                }
+                
+            }
+        }
+    }
+}
 
 - (void)doLogistic:(LogisticObject *)to OnOutputView:(UIView *)outputV StratificationVariable:(NSString *)stratVar StratificationValue:(NSString *)stratValue
 {
@@ -4960,7 +5019,8 @@
     
     LogisticRegressionResults *regressionResults = [[LogisticRegressionResults alloc] init];
     
-    currentTable = [self getCurrentTableOfOutcomeVariable:to.outcomeVariable AndIndependentVariables:to.exposureVariables];
+    if (![self getCurrentTableOfOutcomeVariable:to.outcomeVariable AndIndependentVariables:to.exposureVariables])
+        return;
     [self getRawData];
     
     int lintConditional = 0;
