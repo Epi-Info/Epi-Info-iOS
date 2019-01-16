@@ -4851,6 +4851,7 @@
         }
     }
     
+    [self removeRecordsWithNulls:mutableCurrentTable];
     if (![self outcomeOneZero:mutableCurrentTable])
         return NO;
     [self checkIndependentVariables:mutableCurrentTable VariableNames:independentVariables];
@@ -4894,6 +4895,22 @@
     }
 }
 
+- (void)removeRecordsWithNulls:(NSMutableArray *)currentTableMA
+{
+    for (int i = (int)[currentTableMA count] - 1; i >= 0; i--)
+    {
+        NSArray *rowArrayCopy = [NSArray arrayWithArray:(NSArray*)[currentTableMA objectAtIndex:i]];
+        for (int j = 0; j < [rowArrayCopy count]; j++)
+        {
+            NSString *cellvalue = (NSString *)[rowArrayCopy objectAtIndex:j];
+            if ([cellvalue isEqualToString:@"(null)"])
+            {
+                [currentTableMA removeObjectAtIndex:i];
+                break;
+            }
+        }
+    }
+}
 - (BOOL)outcomeOneZero:(NSMutableArray *)currentTableMA
 {
     BOOL isOneZero = YES;
