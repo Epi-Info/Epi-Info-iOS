@@ -49,6 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
     
     NSMutableArray *exposuresNSMA;
     UITableView *exposuresUITV;
+    
+    LogisticObject *to;
 }
 @end
 

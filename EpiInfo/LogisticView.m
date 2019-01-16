@@ -879,7 +879,7 @@
         outputViewDisplayed = YES;
         stratum = 0;
         int outcomeSelectedIndex = [outcomeLVE.selectedIndex intValue];
-        LogisticObject *to = [[LogisticObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:outcomeSelectedIndex] AndExposureVariables:exposuresNSMA AndIncludeMissing:includeMissing];
+        to = [[LogisticObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:outcomeSelectedIndex] AndExposureVariables:exposuresNSMA AndIncludeMissing:includeMissing];
         
         if (to.outcomeValues.count == 2)
         {
@@ -4853,7 +4853,7 @@
     
     if (![self outcomeOneZero:mutableCurrentTable])
         return NO;
-    [self checkIndependentVariables:mutableCurrentTable];
+    [self checkIndependentVariables:mutableCurrentTable VariableNames:independentVariables];
     currentTable = [NSArray arrayWithArray:mutableCurrentTable];
     
     return YES;
@@ -4949,14 +4949,18 @@
     }
     return YES;
 }
-- (void)checkIndependentVariables:(NSMutableArray *)currentTableMA
+- (void)checkIndependentVariables:(NSMutableArray *)currentTableMA VariableNames:(NSMutableArray *)independentVariables
 {
+    NSMutableArray *variablesNeedingDummies = [[NSMutableArray alloc] init];
+    NSMutableArray *valuesForDummies = [[NSMutableArray alloc] init];
     NSArray *rowOne = (NSArray *)[currentTableMA objectAtIndex:0];
     for (int j = 1; j < [rowOne count] - 1; j++)
     {
         BOOL isOneZero = YES;
         BOOL isYesNo = YES;
         BOOL isOneTwo = YES;
+        BOOL isNumeric = YES;
+        NSCharacterSet *numberSet = [NSCharacterSet decimalDigitCharacterSet];
         for (int i = 0; i < [currentTableMA count]; i++)
         {
             NSArray *lnsa = (NSArray *)[currentTableMA objectAtIndex:i];
@@ -4970,6 +4974,9 @@
             if (isYesNo)
                 if (!([loutcome caseInsensitiveCompare:@"yes"] == NSOrderedSame || [loutcome caseInsensitiveCompare:@"no"] == NSOrderedSame))
                     isYesNo = NO;
+            if (isNumeric)
+                if ([[loutcome stringByTrimmingCharactersInSet:numberSet] length] > 0)
+                    isNumeric = NO;
         }
         if (isOneTwo)
         {
@@ -5003,7 +5010,63 @@
                 
             }
         }
+        else if (!isNumeric)
+        {
+            [variablesNeedingDummies addObject:[NSNumber numberWithInt:j]];
+            NSMutableArray *valuesForThisJ = [[NSMutableArray alloc] init];
+            for (int i = 0; i < [currentTableMA count]; i++)
+            {
+                NSMutableArray *lnsmai = [NSMutableArray arrayWithArray:[currentTableMA objectAtIndex:i]];
+                NSString *lnsmaij = (NSString *)[lnsmai objectAtIndex:j];
+                if (![valuesForThisJ containsObject:lnsmaij])
+                    [valuesForThisJ addObject:lnsmaij];
+            }
+            [valuesForThisJ sortUsingSelector:@selector(localizedStandardCompare:)];
+            [valuesForThisJ removeObjectAtIndex:0];
+            [valuesForDummies addObject:valuesForThisJ];
+        }
     }
+    if ([variablesNeedingDummies count] > 0)
+    {
+        [self makeDummies:currentTableMA OfVariableIndexes:variablesNeedingDummies ForValues:valuesForDummies VariableNames:independentVariables];
+    }
+}
+-(void)makeDummies:(NSMutableArray *)currentTableMA OfVariableIndexes:(NSMutableArray *)variablesNeedingDummies ForValues:(NSArray *)valuesForDummies VariableNames:(NSArray *)independentVariables
+{
+    if ([variablesNeedingDummies count] != [valuesForDummies count])
+        return;
+    NSMutableArray *newIndependentVariables = [NSMutableArray arrayWithArray:to.exposureVariables];
+    for (int i = 0; i < [variablesNeedingDummies count]; i++)
+    {
+        int indexOfVariable = [(NSNumber *)[variablesNeedingDummies objectAtIndex:i] intValue];
+        NSArray *valuesi = (NSArray *)[valuesForDummies objectAtIndex:i];
+        for (int j = 0; j < [currentTableMA count]; j++)
+        {
+            NSMutableArray *nsmaij = [NSMutableArray arrayWithArray:[currentTableMA objectAtIndex:j]];
+            for (int k = (int)[valuesi count] - 1; k > 0; k--)
+            {
+                [nsmaij insertObject:@"" atIndex:indexOfVariable + 1];
+                if (j == 0)
+                {
+                    if (indexOfVariable - 1 < [newIndependentVariables count])
+                        [newIndependentVariables insertObject:@"" atIndex:indexOfVariable];
+                    else
+                        [newIndependentVariables addObject:@""];
+                }
+            }
+            for (int k = (int)[valuesi count] - 1; k >= 0; k--)
+            {
+                if ([(NSString *)[nsmaij objectAtIndex:indexOfVariable] isEqualToString:[valuesi objectAtIndex:k]])
+                    [nsmaij setObject:@"1" atIndexedSubscript:indexOfVariable + k];
+                else
+                    [nsmaij setObject:@"0" atIndexedSubscript:indexOfVariable + k];
+                if (j == 0)
+                    [newIndependentVariables setObject:[valuesi objectAtIndex:k] atIndexedSubscript:indexOfVariable - 1 + k];
+            }
+            [currentTableMA replaceObjectAtIndex:j withObject:nsmaij];
+        }
+    }
+    [to setExposureVariables:[NSArray arrayWithArray:newIndependentVariables]];
 }
 
 - (void)doLogistic:(LogisticObject *)to OnOutputView:(UIView *)outputV StratificationVariable:(NSString *)stratVar StratificationValue:(NSString *)stratValue
