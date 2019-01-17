@@ -338,6 +338,7 @@
     [exposureVariableString setDelegate:self];
     [exposureVariableString addTarget:self action:@selector(textFieldAction) forControlEvents:UIControlEventValueChanged];
     NSMutableArray *outcomeNSMA = [[NSMutableArray alloc] init];
+    [outcomeNSMA addObject:@""];
     for (NSString *variable in sqliteData.columnNamesWorking)
     {
         [outcomeNSMA addObject:variable];
@@ -879,7 +880,7 @@
         outputViewDisplayed = YES;
         stratum = 0;
         int outcomeSelectedIndex = [outcomeLVE.selectedIndex intValue];
-        to = [[LogisticObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:outcomeSelectedIndex] AndExposureVariables:exposuresNSMA AndIncludeMissing:includeMissing];
+        to = [[LogisticObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:outcomeSelectedIndex - 1] AndExposureVariables:exposuresNSMA AndIncludeMissing:includeMissing];
         
         if (to.outcomeValues.count == 2)
         {
