@@ -360,8 +360,16 @@
     [exposuresUITV setDelegate:self];
     [exposuresUITV setDataSource:self];
     [inputView addSubview:exposuresUITV];
+    
+    makeDummyButton = [[UIButton alloc] initWithFrame:CGRectMake(exposureLVE.frame.origin.x, exposuresUITV.frame.origin.y + exposuresUITV.frame.size.height + 4.0, exposureLVE.frame.size.width, exposureLVE.frame.size.height)];
+    [makeDummyButton setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+    [makeDummyButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [makeDummyButton setTitle:@"Make Dummy" forState:UIControlStateNormal];
+    [makeDummyButton addTarget:self action:@selector(makeDummyButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [inputView addSubview:makeDummyButton];
 
     avc = (AnalysisViewController *)vc;
+    avDefaultContentSize = [avc getInitialContentSize];
     return self;
 }
 
@@ -382,6 +390,7 @@
                 if ([avc portraitOrientation])
                 {
                     [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, frame.size.height - 52)];
+                    [avc setInitialContentSize:CGSizeMake(320, self.frame.origin.y + 2.0 + inputView.frame.origin.y + inputView.frame.size.height)];
                     [chosenOutcomeVariable setFrame:CGRectMake(20, 8, 276, 44)];
                     [outcomeVariableLabel setFrame:CGRectMake(16, 8, 284, 20)];
                     [outcomeLVE setFrame:CGRectMake(10, 28, 276, 44)];
@@ -389,6 +398,8 @@
                     [exposureVariableLabel setFrame:CGRectMake(16, 92, 284, 20)];
                     [exposureLVE setFrame:CGRectMake(10, 112, 276, 44)];
                     [exposuresUITV setFrame:CGRectMake(12, 168, 276, 132)];
+                    [makeDummyButton setFrame:CGRectMake(14, exposuresUITV.frame.origin.y + exposuresUITV.frame.size.height + 4.0, inputView.frame.size.width - 28.0, exposureLVE.frame.size.height)];
+                    [self setMakeDummyButtonEnabled:NO];
                     [chosenStratificationVariable setFrame:CGRectMake(20, 135, 276, 44)];
                     [chooseOutcomeVariable setFrame:CGRectMake(10, 1000, 296, 162)];
                     [chooseExposureVariable setFrame:CGRectMake(10, 1000, 296, 162)];
@@ -513,6 +524,21 @@
     }
 }
 
+- (void)setMakeDummyButtonEnabled:(BOOL)isEnabled
+{
+    [makeDummyButton setEnabled:isEnabled];
+    if (isEnabled)
+    {
+        [makeDummyButton setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+        [makeDummyButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [makeDummyButton setBackgroundColor:[UIColor colorWithRed:248/255.0 green:249/255.0 blue:251/255.0 alpha:1.0]];
+        [makeDummyButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateNormal];
+    }
+}
+
 - (void)textFieldAction
 {
     NSLog(@"exposureVariableString field value set to %@.", exposureVariableString.text);
@@ -521,12 +547,29 @@
         [exposuresNSMA addObject:exposureVariableString.text];
         [exposuresUITV reloadData];
     }
+    [self setMakeDummyButtonEnabled:NO];
 }
 - (void)doubleTapAction:(UITapGestureRecognizer *)tap
 {
     UITableViewCell *sender = (UITableViewCell *)[tap view];
     [exposuresNSMA removeObjectAtIndex:[exposuresNSMA indexOfObject:sender.textLabel.text]];
     [exposuresUITV reloadData];
+    [self setMakeDummyButtonEnabled:NO];
+}
+- (void)singleTapAction:(UITapGestureRecognizer *)tap
+{
+    UITableViewCell *sender = (UITableViewCell *)[tap view];
+    [self setMakeDummyButtonEnabled:YES];
+}
+
+- (void)makeDummyButtonPressed
+{
+    for (int i = 0; i < [exposuresUITV numberOfRowsInSection:0]; i++)
+    {
+        if ([(UITableViewCell *)[exposuresUITV cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]] isSelected])
+            [(UITableViewCell *)[exposuresUITV cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]] setSelected:NO];
+    }
+    [self setMakeDummyButtonEnabled:NO];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -552,9 +595,13 @@
     
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)];
     [doubleTap setNumberOfTapsRequired:2];
-    [doubleTap setNumberOfTouchesRequired:1];
+//    [doubleTap setNumberOfTouchesRequired:1];
     [cell addGestureRecognizer:doubleTap];
-    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)];
+    [singleTap setNumberOfTapsRequired:1];
+    [singleTap setNumberOfTouchesRequired:1];
+    [cell addGestureRecognizer:singleTap];
+    [singleTap requireGestureRecognizerToFail:doubleTap];
     return cell;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -631,6 +678,7 @@
 
 - (void)xButtonPressed
 {
+    [avc setInitialContentSize:avDefaultContentSize];
     [UIView animateWithDuration:0.3 animations:^{
         for (UIView *v in [self subviews])
         {
@@ -676,6 +724,7 @@
                 [outcomeVariableLabel setFrame:CGRectMake(10, chosenOutcomeVariable.frame.origin.y - 190, chosenOutcomeVariable.frame.size.width, 44)];
                 [exposureVariableLabel setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y - 190, chosenExposureVariable.frame.size.width, 44)];
                 [exposuresUITV setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y - 140, chosenExposureVariable.frame.size.width, 44)];
+                [makeDummyButton setFrame:CGRectMake(exposureLVE.frame.origin.x, exposuresUITV.frame.origin.y + exposuresUITV.frame.size.height, exposureLVE.frame.size.width, exposureLVE.frame.size.height)];
                 [chosenStratificationVariable setFrame:CGRectMake(20, chosenExposureVariable.frame.origin.y - 170, chosenExposureVariable.frame.size.width, 44)];
                 //Move the pickers up if they are in view, otherwise they need to be hidden in case the
                 //ContentSize increases to >1000

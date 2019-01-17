@@ -1509,6 +1509,15 @@
     [zoomingView setFrame:CGRectMake(0, 0, self.epiInfoScrollView.frame.size.width, self.epiInfoScrollView.frame.size.height)];
 }
 
+- (void)setInitialContentSize:(CGSize)ics
+{
+    initialContentSize = ics;
+}
+- (CGSize)getInitialContentSize
+{
+    return initialContentSize;
+}
+
 - (void)setContentSize:(CGSize)size
 {
     [zoomingView setFrame:CGRectMake(0, 0, size.width, size.height)];

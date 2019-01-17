@@ -50,7 +50,11 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *exposuresNSMA;
     UITableView *exposuresUITV;
     
+    UIButton *makeDummyButton;
+    
     LogisticObject *to;
+    
+    CGSize avDefaultContentSize;
 }
 @end
 

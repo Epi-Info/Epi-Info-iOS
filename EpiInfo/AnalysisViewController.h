@@ -101,4 +101,6 @@
 - (CGRect)getZoomingViewFrame;
 //- (void)lookupSimpleDBSources;
 - (void)setDataSourceEnabled:(BOOL)isEnabled;
+-(void)setInitialContentSize:(CGSize)ics;
+-(CGSize)getInitialContentSize;
 @end
