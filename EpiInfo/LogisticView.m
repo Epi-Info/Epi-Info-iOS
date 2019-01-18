@@ -186,7 +186,7 @@
             [chosenOutcomeVariable.titleLabel setTextAlignment:NSTextAlignmentLeft];
             [chosenOutcomeVariable setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
             [chosenOutcomeVariable addTarget:self action:@selector(chosenOutcomeVariableButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [inputView addSubview:chosenOutcomeVariable];
+//            [inputView addSubview:chosenOutcomeVariable];
             chooseOutcomeVariable = [[UIPickerViewWithBlurryBackground alloc] initWithFrame:CGRectMake(10, 1000, 296, 162)];
             [chooseOutcomeVariable.layer setCornerRadius:10.0];
             [chooseOutcomeVariable setTag:0];
@@ -205,7 +205,7 @@
             [chosenExposureVariable.titleLabel setTextAlignment:NSTextAlignmentLeft];
             [chosenExposureVariable setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
             [chosenExposureVariable addTarget:self action:@selector(chosenExposureVariableButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [inputView addSubview:chosenExposureVariable];
+//            [inputView addSubview:chosenExposureVariable];
             chooseExposureVariable = [[UIPickerViewWithBlurryBackground alloc] initWithFrame:CGRectMake(10, 1000, 296, 162)];
             [chooseExposureVariable setTag:1];
             exposureVariableChosen = NO;
@@ -222,15 +222,15 @@
             [includeMissingButton.layer setBorderColor:epiInfoLightBlue.CGColor];
             [includeMissingButton.layer setBorderWidth:2.0];
             [includeMissingButton addTarget:self action:@selector(includeMissingButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [inputView addSubview:includeMissingButton];
-            [inputView sendSubviewToBack:includeMissingButton];
+//            [inputView addSubview:includeMissingButton];
+//            [inputView sendSubviewToBack:includeMissingButton];
             includeMissingLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(20, 104, frame.size.width / 2.0 - 22, 22)];
             [includeMissingLabel setTextAlignment:NSTextAlignmentLeft];
             [includeMissingLabel setTextColor:epiInfoLightBlue];
             [includeMissingLabel setText:@"Include missing"];
             [includeMissingLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-            [inputView addSubview:includeMissingLabel];
-            [inputView sendSubviewToBack:includeMissingLabel];
+//            [inputView addSubview:includeMissingLabel];
+//            [inputView sendSubviewToBack:includeMissingLabel];
             
             //Add Stratification Variable button and picker
             chosenStratificationVariable = [[ShinyButton alloc] initWithFrame:CGRectMake(20, 135, frame.size.width - 40, 44)];
@@ -240,9 +240,9 @@
             [chosenStratificationVariable.titleLabel setTextAlignment:NSTextAlignmentLeft];
             [chosenStratificationVariable setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
             [chosenStratificationVariable addTarget:self action:@selector(chosenStratificationVariableButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [inputView addSubview:chosenStratificationVariable];
-            [inputView bringSubviewToFront:chooseOutcomeVariable];
-            [inputView bringSubviewToFront:chooseExposureVariable];
+//            [inputView addSubview:chosenStratificationVariable];
+//            [inputView bringSubviewToFront:chooseOutcomeVariable];
+//            [inputView bringSubviewToFront:chooseExposureVariable];
             chooseStratificationVariable = [[UIPickerViewWithBlurryBackground alloc] initWithFrame:CGRectMake(10, 1000, 296, 162)];
             [chooseStratificationVariable setTag:2];
             stratificationVariableChosen = NO;
@@ -251,9 +251,9 @@
             [chooseStratificationVariable setDataSource:self];
             [chooseStratificationVariable setShowsSelectionIndicator:YES];
             [chooseStratificationVariable addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(chooseStratificationVariableTapped:)]];
-            [inputView addSubview:chooseOutcomeVariable];
-            [inputView addSubview:chooseExposureVariable];
-            [inputView addSubview:chooseStratificationVariable];
+//            [inputView addSubview:chooseOutcomeVariable];
+//            [inputView addSubview:chooseExposureVariable];
+//            [inputView addSubview:chooseStratificationVariable];
             
             //Add the white box
             inputViewWhiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 2, inputView.frame.size.width - 4, inputView.frame.size.height - 4)];
@@ -477,7 +477,15 @@
                 {
                     [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, 432)];
                     [chosenOutcomeVariable setFrame:CGRectMake(20, 8, 276, 44)];
+                    [outcomeVariableLabel setFrame:CGRectMake(16, 8, 284, 20)];
+                    [outcomeLVE setFrame:CGRectMake(10, 28, 276, 44)];
                     [chosenExposureVariable setFrame:CGRectMake(frame.size.width - 296.0, 8, 276, 44)];
+                    [exposureVariableLabel setFrame:CGRectMake(frame.size.width - 300.0, 8, 284, 20)];
+                    [exposureLVE setFrame:CGRectMake(frame.size.width - 306.0, 28, 276, 44)];
+                    [exposuresUITV setFrame:CGRectMake(frame.size.width - 304.0, 84, 276, 132)];
+                    [makeDummyButton setFrame:CGRectMake(frame.size.width - 300.0, exposuresUITV.frame.origin.y + exposuresUITV.frame.size.height + 4.0, exposureLVE.frame.size.width, exposureLVE.frame.size.height)];
+                    [self setMakeDummyButtonEnabled:NO];
+                    [dummiesUITV setFrame:CGRectMake(frame.size.width - 300.0, makeDummyButton.frame.origin.y + makeDummyButton.frame.size.height + 4.0, 276, 132)];
                     [chosenStratificationVariable setFrame:CGRectMake(20, 220, 276, 44)];
                     [chooseOutcomeVariable setFrame:CGRectMake(10, 54, 296, 162)];
                     [chooseExposureVariable setFrame:CGRectMake(chosenExposureVariable.frame.origin.x - 10.0, 54, 296, 162)];
@@ -562,8 +570,11 @@
 - (void)doubleTapAction:(UITapGestureRecognizer *)tap
 {
     UITableViewCell *sender = (UITableViewCell *)[tap view];
-    UITableView *senderTV = (UITableView *)[sender superview];
-    
+    id superview = [sender superview];
+    while (superview && [superview isKindOfClass:[UITableView class]] == NO)
+        superview = [superview superview];
+    UITableView *senderTV = (UITableView *)superview;
+
     if ([senderTV tag] == 11000)
     {
         [exposuresNSMA removeObjectAtIndex:[exposuresNSMA indexOfObject:sender.textLabel.text]];
@@ -581,7 +592,10 @@
 - (void)singleTapAction:(UITapGestureRecognizer *)tap
 {
     UITableViewCell *sender = (UITableViewCell *)[tap view];
-    UITableView *senderTV = (UITableView *)[sender superview];
+    id superview = [sender superview];
+    while (superview && [superview isKindOfClass:[UITableView class]] == NO)
+        superview = [superview superview];
+    UITableView *senderTV = (UITableView *)superview;
     
     if ([senderTV tag] == 11000)
     {
@@ -1175,7 +1189,7 @@
     if ([pickerView tag] == 0)
     {
         availableOutcomeVariables = [[NSMutableArray alloc] init];
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        if (NO) // Don't do this anymore
             [availableOutcomeVariables addObject:@""];
         for (NSString *variable in sqliteData.columnNamesWorking)
         {
@@ -5282,7 +5296,7 @@
     [regressionResults setIterations:mMatrixLikelihood.mintIterations];
     NSLog(@"Ending Logistic method");
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone || UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         twoByTwoDisplayed = YES;
         

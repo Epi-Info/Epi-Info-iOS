@@ -172,7 +172,7 @@
         [filterButton.titleLabel removeFromSuperview];
         
         //initial set-up of analysis list
-        availableAnalyses = 4.0;
+        availableAnalyses = 5.0;
         analysisList = [[AnalysisList alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50 * availableAnalyses)];
         [analysisList setBackgroundColor:[UIColor whiteColor]];
         [self.view addSubview:analysisList];
