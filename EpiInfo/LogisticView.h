@@ -51,6 +51,10 @@ NS_ASSUME_NONNULL_BEGIN
     UITableView *exposuresUITV;
     
     UIButton *makeDummyButton;
+    NSString *exposureVariableSelected;
+    
+    NSMutableArray *dummiesNSMA;
+    UITableView *dummiesUITV;
     
     LogisticObject *to;
     

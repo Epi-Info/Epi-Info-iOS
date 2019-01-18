@@ -359,6 +359,7 @@
     exposuresUITV = [[UITableView alloc] initWithFrame:exposureLVE.frame style:UITableViewStylePlain];
     [exposuresUITV setDelegate:self];
     [exposuresUITV setDataSource:self];
+    [exposuresUITV setTag:11000];
     [inputView addSubview:exposuresUITV];
     
     makeDummyButton = [[UIButton alloc] initWithFrame:CGRectMake(exposureLVE.frame.origin.x, exposuresUITV.frame.origin.y + exposuresUITV.frame.size.height + 4.0, exposureLVE.frame.size.width, exposureLVE.frame.size.height)];
@@ -368,6 +369,13 @@
     [makeDummyButton addTarget:self action:@selector(makeDummyButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [inputView addSubview:makeDummyButton];
 
+    dummiesNSMA = [[NSMutableArray alloc] init];
+    dummiesUITV = [[UITableView alloc] initWithFrame:makeDummyButton.frame style:UITableViewStylePlain];
+    [dummiesUITV setDelegate:self];
+    [dummiesUITV setDataSource:self];
+    [dummiesUITV setTag:11001];
+    [inputView addSubview:dummiesUITV];
+    
     avc = (AnalysisViewController *)vc;
     avDefaultContentSize = [avc getInitialContentSize];
     return self;
@@ -389,7 +397,7 @@
             {
                 if ([avc portraitOrientation])
                 {
-                    [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, frame.size.height - 52)];
+                    [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, frame.size.height + 52)];
                     [avc setInitialContentSize:CGSizeMake(320, self.frame.origin.y + 2.0 + inputView.frame.origin.y + inputView.frame.size.height)];
                     [chosenOutcomeVariable setFrame:CGRectMake(20, 8, 276, 44)];
                     [outcomeVariableLabel setFrame:CGRectMake(16, 8, 284, 20)];
@@ -400,6 +408,7 @@
                     [exposuresUITV setFrame:CGRectMake(12, 168, 276, 132)];
                     [makeDummyButton setFrame:CGRectMake(14, exposuresUITV.frame.origin.y + exposuresUITV.frame.size.height + 4.0, inputView.frame.size.width - 28.0, exposureLVE.frame.size.height)];
                     [self setMakeDummyButtonEnabled:NO];
+                    [dummiesUITV setFrame:CGRectMake(12, makeDummyButton.frame.origin.y + makeDummyButton.frame.size.height + 4.0, 276, 132)];
                     [chosenStratificationVariable setFrame:CGRectMake(20, 135, 276, 44)];
                     [chooseOutcomeVariable setFrame:CGRectMake(10, 1000, 296, 162)];
                     [chooseExposureVariable setFrame:CGRectMake(10, 1000, 296, 162)];
@@ -536,6 +545,7 @@
     {
         [makeDummyButton setBackgroundColor:[UIColor colorWithRed:248/255.0 green:249/255.0 blue:251/255.0 alpha:1.0]];
         [makeDummyButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateNormal];
+        exposureVariableSelected = nil;
     }
 }
 
@@ -552,14 +562,40 @@
 - (void)doubleTapAction:(UITapGestureRecognizer *)tap
 {
     UITableViewCell *sender = (UITableViewCell *)[tap view];
-    [exposuresNSMA removeObjectAtIndex:[exposuresNSMA indexOfObject:sender.textLabel.text]];
-    [exposuresUITV reloadData];
-    [self setMakeDummyButtonEnabled:NO];
+    UITableView *senderTV = (UITableView *)[sender superview];
+    
+    if ([senderTV tag] == 11000)
+    {
+        [exposuresNSMA removeObjectAtIndex:[exposuresNSMA indexOfObject:sender.textLabel.text]];
+        [exposuresUITV reloadData];
+        [self setMakeDummyButtonEnabled:NO];
+    }
+    else if ([senderTV tag] == 11001)
+    {
+        [exposuresNSMA addObject:sender.textLabel.text];
+        [exposuresUITV reloadData];
+        [dummiesNSMA removeObjectAtIndex:[dummiesNSMA indexOfObject:sender.textLabel.text]];
+        [dummiesUITV reloadData];
+    }
 }
 - (void)singleTapAction:(UITapGestureRecognizer *)tap
 {
     UITableViewCell *sender = (UITableViewCell *)[tap view];
-    [self setMakeDummyButtonEnabled:YES];
+    UITableView *senderTV = (UITableView *)[sender superview];
+    
+    if ([senderTV tag] == 11000)
+    {
+        if ([sender.textLabel.text isEqualToString:exposureVariableSelected])
+        {
+            [sender setSelected:NO];
+            [self setMakeDummyButtonEnabled:NO];
+        }
+        else
+        {
+            [self setMakeDummyButtonEnabled:YES];
+            exposureVariableSelected = [NSString stringWithString:sender.textLabel.text];
+        }
+    }
 }
 
 - (void)makeDummyButtonPressed
@@ -567,7 +603,12 @@
     for (int i = 0; i < [exposuresUITV numberOfRowsInSection:0]; i++)
     {
         if ([(UITableViewCell *)[exposuresUITV cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]] isSelected])
-            [(UITableViewCell *)[exposuresUITV cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]] setSelected:NO];
+        {
+            [dummiesNSMA addObject:[exposuresNSMA objectAtIndex:i]];
+            [dummiesUITV reloadData];
+            [exposuresNSMA removeObjectAtIndex:i];
+            [exposuresUITV reloadData];
+        }
     }
     [self setMakeDummyButtonEnabled:NO];
 }
@@ -586,7 +627,10 @@
         [cell setIndentationWidth:4];
     }
     
-    [cell.textLabel setText:[NSString stringWithFormat:@"%@", [exposuresNSMA objectAtIndex:indexPath.row]]];
+    if ([tableView tag] == 11000)
+        [cell.textLabel setText:[NSString stringWithFormat:@"%@", [exposuresNSMA objectAtIndex:indexPath.row]]];
+    else if ([tableView tag] == 11001)
+        [cell.textLabel setText:[NSString stringWithFormat:@"%@", [dummiesNSMA objectAtIndex:indexPath.row]]];
     [cell.textLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
     [cell.textLabel setNumberOfLines:0];
     
@@ -606,7 +650,12 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [exposuresNSMA count];
+    unsigned long returnvalue = 0;
+    if ([tableView tag] == 11000)
+        returnvalue = [exposuresNSMA count];
+    else if ([tableView tag] == 11001)
+        returnvalue = [dummiesNSMA count];
+    return returnvalue;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -725,6 +774,7 @@
                 [exposureVariableLabel setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y - 190, chosenExposureVariable.frame.size.width, 44)];
                 [exposuresUITV setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y - 140, chosenExposureVariable.frame.size.width, 44)];
                 [makeDummyButton setFrame:CGRectMake(exposureLVE.frame.origin.x, exposuresUITV.frame.origin.y + exposuresUITV.frame.size.height, exposureLVE.frame.size.width, exposureLVE.frame.size.height)];
+                [dummiesUITV setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y - 100, chosenExposureVariable.frame.size.width, 44)];
                 [chosenStratificationVariable setFrame:CGRectMake(20, chosenExposureVariable.frame.origin.y - 170, chosenExposureVariable.frame.size.width, 44)];
                 //Move the pickers up if they are in view, otherwise they need to be hidden in case the
                 //ContentSize increases to >1000
@@ -924,12 +974,15 @@
     leftSide = 1.0;
     float rightSide = 0.0;
     
-    if ((outcomeVariableChosen || outcomeLVE.selectedIndex > 0) && [exposuresNSMA count] > 0 && !stratificationVariableChosen)
+    if ((outcomeVariableChosen || outcomeLVE.selectedIndex > 0) && ([exposuresNSMA count] > 0 || [dummiesNSMA count] > 0) && !stratificationVariableChosen)
     {
         outputViewDisplayed = YES;
         stratum = 0;
         int outcomeSelectedIndex = [outcomeLVE.selectedIndex intValue];
-        to = [[LogisticObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:outcomeSelectedIndex - 1] AndExposureVariables:exposuresNSMA AndIncludeMissing:includeMissing];
+        NSMutableArray *allExposures = [NSMutableArray arrayWithArray:exposuresNSMA];
+        for (int i = 0; i < [dummiesNSMA count]; i++)
+            [allExposures addObject:[dummiesNSMA objectAtIndex:i]];
+        to = [[LogisticObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:outcomeSelectedIndex - 1] AndExposureVariables:allExposures AndIncludeMissing:includeMissing];
         
         if (to.outcomeValues.count == 2)
         {
@@ -5077,7 +5130,7 @@
                 
             }
         }
-        else if (!isNumeric)
+        else if (!isNumeric || [dummiesNSMA containsObject:[independentVariables objectAtIndex:j - 1]])
         {
             [variablesNeedingDummies addObject:[NSNumber numberWithInt:j]];
             NSMutableArray *valuesForThisJ = [[NSMutableArray alloc] init];
