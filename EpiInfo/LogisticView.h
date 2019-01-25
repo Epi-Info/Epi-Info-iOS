@@ -47,6 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
     EpiInfoTextField *exposureVariableString;
     LegalValuesEnter *exposureLVE;
     
+    UILabel *groupVariableLabel;
+    LegalValuesEnter *groupVariableLVE;
+    
     NSMutableArray *exposuresNSMA;
     UITableView *exposuresUITV;
     

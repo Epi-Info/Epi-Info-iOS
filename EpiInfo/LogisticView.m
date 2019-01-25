@@ -376,6 +376,16 @@
     [dummiesUITV setTag:11001];
     [inputView addSubview:dummiesUITV];
     
+    groupVariableLabel = [[UILabel alloc] initWithFrame:dummiesUITV.frame];
+    [groupVariableLabel setBackgroundColor:[UIColor whiteColor]];
+    [groupVariableLabel setTextColor:epiInfoLightBlue];
+    [groupVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [groupVariableLabel setText:@"Match Variable"];
+    groupVariableLVE = [[LegalValuesEnter alloc] initWithFrame:dummiesUITV.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:outcomeVariableString];
+    [groupVariableLVE.picker selectRow:0 inComponent:0 animated:YES];
+    [inputView addSubview:groupVariableLabel];
+    [inputView addSubview:groupVariableLVE];
+
     avc = (AnalysisViewController *)vc;
     avDefaultContentSize = [avc getInitialContentSize];
     return self;
@@ -383,7 +393,7 @@
 
 - (void)setFrame:(CGRect)frame
 {
-    [super setFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, 10.0 * frame.size.height)];
+    [super setFrame:frame];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         if (frame.size.width > 0.0 && frame.size.height > 0.0)
@@ -397,7 +407,7 @@
             {
                 if ([avc portraitOrientation])
                 {
-                    [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, frame.size.height + 52)];
+                    [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, frame.size.height + 168)];
                     [avc setInitialContentSize:CGSizeMake(320, self.frame.origin.y + 2.0 + inputView.frame.origin.y + inputView.frame.size.height)];
                     [chosenOutcomeVariable setFrame:CGRectMake(20, 8, 276, 44)];
                     [outcomeVariableLabel setFrame:CGRectMake(16, 8, 284, 20)];
@@ -409,6 +419,13 @@
                     [makeDummyButton setFrame:CGRectMake(14, exposuresUITV.frame.origin.y + exposuresUITV.frame.size.height + 4.0, inputView.frame.size.width - 28.0, exposureLVE.frame.size.height)];
                     [self setMakeDummyButtonEnabled:NO];
                     [dummiesUITV setFrame:CGRectMake(12, makeDummyButton.frame.origin.y + makeDummyButton.frame.size.height + 4.0, 276, 132)];
+                    [groupVariableLabel setFrame:CGRectMake(15, dummiesUITV.frame.origin.y + dummiesUITV.frame.size.height + 4.0, 284, 20)];
+                    [groupVariableLVE setFrame:CGRectMake(10, groupVariableLabel.frame.origin.y + 20 - 0, 276, 44)];
+                    NSLog(@"%f x %f x %f x %f", groupVariableLVE.frame.origin.x, groupVariableLVE.frame.origin.y, groupVariableLVE.frame.size.width, groupVariableLVE.frame.size.height);
+                    NSLog(@"%f x %f x %f x %f", [groupVariableLVE superview].frame.origin.x, [groupVariableLVE superview].frame.origin.y, [groupVariableLVE superview].frame.size.width, [groupVariableLVE superview].frame.size.height);
+                    NSLog(@"%f x %f x %f x %f", [[groupVariableLVE superview] superview].frame.origin.x, [[groupVariableLVE superview] superview].frame.origin.y, [[groupVariableLVE superview] superview].frame.size.width, [[groupVariableLVE superview] superview].frame.size.height);
+                    NSLog(@"%f x %f x %f x %f", [[[groupVariableLVE superview] superview] superview].frame.origin.x, [[[groupVariableLVE superview] superview] superview].frame.origin.y, [[[groupVariableLVE superview] superview] superview].frame.size.width, [[[groupVariableLVE superview] superview] superview].frame.size.height);
+                    NSLog(@"%f x %f x %f x %f", [[[[groupVariableLVE superview] superview] superview] superview].frame.origin.x, [[[[groupVariableLVE superview] superview] superview] superview].frame.origin.y, [[[[groupVariableLVE superview] superview] superview] superview].frame.size.width, [[[[groupVariableLVE superview] superview] superview] superview].frame.size.height);
                     [chosenStratificationVariable setFrame:CGRectMake(20, 135, 276, 44)];
                     [chooseOutcomeVariable setFrame:CGRectMake(10, 1000, 296, 162)];
                     [chooseExposureVariable setFrame:CGRectMake(10, 1000, 296, 162)];
@@ -779,6 +796,7 @@
         [gearButton setEnabled:NO];
         [xButton setEnabled:NO];
         [avc setDataSourceEnabled:NO];
+        [avc putViewOnZoomingView:self];
         if (inputView.frame.size.height > 0)
         {
             inputViewDisplayed = NO;
@@ -792,6 +810,8 @@
                 [exposuresUITV setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y - 140, chosenExposureVariable.frame.size.width, 44)];
                 [makeDummyButton setFrame:CGRectMake(exposureLVE.frame.origin.x, exposuresUITV.frame.origin.y + exposuresUITV.frame.size.height, exposureLVE.frame.size.width, exposureLVE.frame.size.height)];
                 [dummiesUITV setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y - 100, chosenExposureVariable.frame.size.width, 44)];
+                [groupVariableLabel setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y - 80, chosenExposureVariable.frame.size.width, 20)];
+                [groupVariableLVE setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y - 80, chosenExposureVariable.frame.size.width, 44)];
                 [chosenStratificationVariable setFrame:CGRectMake(20, chosenExposureVariable.frame.origin.y - 170, chosenExposureVariable.frame.size.width, 44)];
                 //Move the pickers up if they are in view, otherwise they need to be hidden in case the
                 //ContentSize increases to >1000
@@ -881,6 +901,8 @@
             [gearButton setEnabled:YES];
             [xButton setEnabled:YES];
             [avc setDataSourceEnabled:YES];
+            
+            [avc putViewOnEpiInfoScrollView:self];
         }
         [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
             [self setFrame:CGRectMake(0, 50, avc.view.frame.size.width, avc.view.frame.size.height - 52)];

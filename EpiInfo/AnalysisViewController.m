@@ -1183,7 +1183,7 @@
     tv = [[LogisticView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0, 1, 1) AndSQLiteData:sqlData AndViewController:self];
     //    tv = [[TablesView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0, 1, 1) AndDataSource:workingDataObject AndViewController:self];
     [tv setBackgroundColor:[UIColor whiteColor]];
-    [zoomingView addSubview:tv];
+    [self.epiInfoScrollView addSubview:tv];
     
     //Animate the TablesView to the proper size
     //Move the chooseAnalysisButton off the bottom of the screen
@@ -1503,7 +1503,9 @@
 - (void)resetContentSize
 {
     if ([self portraitOrientation])
+    {
         [self.epiInfoScrollView setContentSize:initialContentSize];
+    }
     else
         [self.epiInfoScrollView setContentSize:initialLandscapeContentSize];
     [zoomingView setFrame:CGRectMake(0, 0, self.epiInfoScrollView.frame.size.width, self.epiInfoScrollView.frame.size.height)];
@@ -1768,6 +1770,15 @@
             NSLog(@"Failed to open/create database");
         }
     }
+}
+
+- (void)putViewOnZoomingView:(UIView *)viewToMove
+{
+    [zoomingView addSubview:viewToMove];
+}
+- (void)putViewOnEpiInfoScrollView:(UIView *)viewToMove
+{
+    [self.epiInfoScrollView addSubview:viewToMove];
 }
 
 - (void)popCurrentViewController

@@ -103,4 +103,6 @@
 - (void)setDataSourceEnabled:(BOOL)isEnabled;
 -(void)setInitialContentSize:(CGSize)ics;
 -(CGSize)getInitialContentSize;
+-(void)putViewOnZoomingView:(UIView *)viewToMove;
+-(void)putViewOnEpiInfoScrollView:(UIView *)viewToMove;
 @end
