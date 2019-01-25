@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
     BOOL mboolFirst, mboolIntercept;
 }
+@property NSString *mstrMatchVar;
 @property NSMutableArray *mdblaJacobian;
 @property NSMutableArray *mdblaInv;
 @property NSMutableArray *mdblaB;

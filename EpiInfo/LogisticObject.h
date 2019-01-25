@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LogisticObject : TablesObject
 @property (nonatomic, strong) NSArray *exposureVariables;
+@property (nonatomic, strong) NSString *matchVariable;
 -(id)initWithSQLiteData:(SQLiteData *)dataSet AndWhereClause:(NSString *)whereClause AndOutcomeVariable:(NSString *)outcomeVariable AndExposureVariables:(NSArray *)exposureVariables AndIncludeMissing:(BOOL)includeMissing;
 @end
 

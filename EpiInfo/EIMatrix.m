@@ -304,9 +304,10 @@
             return;
         }
     }
-    if (NO)
+    NSLog(@"lintoffset = %d", lintOffset);
+    if ([self.mstrMatchVar length] > 0)
     {
-        //
+        *likelihood = [self UnConditional:lintOffset LdblaDataArray:ldblA LdblaJacobian:ldblaJacobian LdblB:ldblB LdblaF:ldblaF NRows:nRows];
     }
     else
     {

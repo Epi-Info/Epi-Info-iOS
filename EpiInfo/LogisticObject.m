@@ -9,6 +9,7 @@
 
 @implementation LogisticObject
 @synthesize exposureVariables = _exposureVariables;
+@synthesize matchVariable = _matchVariable;
 
 - (id)initWithSQLiteData:(SQLiteData *)dataSet AndWhereClause:(NSString *)whereClause AndOutcomeVariable:(NSString *)outcomeVariable AndExposureVariables:(NSArray *)exposureVariables AndIncludeMissing:(BOOL)includeMissing
 {

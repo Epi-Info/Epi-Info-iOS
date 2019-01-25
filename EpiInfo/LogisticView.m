@@ -1021,8 +1021,12 @@
         NSMutableArray *allExposures = [NSMutableArray arrayWithArray:exposuresNSMA];
         for (int i = 0; i < [dummiesNSMA count]; i++)
             [allExposures addObject:[dummiesNSMA objectAtIndex:i]];
+        if ([[groupVariableLVE selectedIndex] intValue] > 0)
+            [allExposures insertObject:[availableOutcomeVariables objectAtIndex:[[groupVariableLVE selectedIndex] intValue] - 1] atIndex:0];
         to = [[LogisticObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:outcomeSelectedIndex - 1] AndExposureVariables:allExposures AndIncludeMissing:includeMissing];
-        
+        if ([[groupVariableLVE selectedIndex] intValue] > 0)
+            [to setMatchVariable:[availableOutcomeVariables objectAtIndex:[[groupVariableLVE selectedIndex] intValue] - 1]];
+
         if (to.outcomeValues.count == 2)
         {
             [self doLogistic:to OnOutputView:outputView StratificationVariable:nil StratificationValue:nil];
@@ -5028,6 +5032,8 @@
     if ([mstrMatchVar length] > 0)
     {
         // Match Variable Matching write this later
+        int i = 0;
+        int lintnull = 0;
     }
     
     NSMutableArray *mVarArray = [[NSMutableArray alloc] init];
@@ -5237,6 +5243,8 @@
     [inputVariableList setObject:@"false" forKey:@"includemissing"];
     [inputVariableList setObject:@"0.95" forKey:@"P"];
     [inputVariableList setObject:@"unsorted" forKey:to.exposureVariable];
+    if ([groupVariableLVE.selectedIndex intValue] > 0)
+        [inputVariableList setObject:@"matchvar" forKey:[availableOutcomeVariables objectAtIndex:[groupVariableLVE.selectedIndex intValue] - 1]];
     [self createSettings:[NSDictionary dictionaryWithDictionary:inputVariableList] outcomesAndValues:to.outcomeValues];
     
     LogisticRegressionResults *regressionResults = [[LogisticRegressionResults alloc] init];
@@ -5252,6 +5260,13 @@
     
     mboolFirst = YES;
     mMatrixLikelihood = [[EIMatrix alloc] initWithFirst:mboolFirst AndIntercept:mboolIntercept];
+    if ([groupVariableLVE.selectedIndex intValue] > 0)
+    {
+        [mMatrixLikelihood setMstrMatchVar:[availableOutcomeVariables objectAtIndex:[groupVariableLVE.selectedIndex intValue] - 1]];
+        lintConditional = 1;
+    }
+    else
+        [mMatrixLikelihood setMstrMatchVar:@""];
     [mMatrixLikelihood MaximizeLikelihood:NumRows NCols:NumColumns DataArray:currentTable LintOffset:lintweight + lintConditional + 1 LintMatrixSize:NumColumns - (lintweight + lintConditional + 1) LlngIters:&(mlngIter) LdblToler:&(mdblToler) LdblConv:&(mdblConv) BooStartAtZero:NO];
     
     // Beta coefficients are in mMatixLikelihood.mdblaB
