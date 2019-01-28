@@ -3313,9 +3313,9 @@
                 
                 [formCanvas addSubview:elementLabel];
                 
-                if ([elementLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]}].width > self.frame.size.width - 40.0)
+                if ([elementLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]}].width > self.frame.size.width - 80.0)
                 {
-                    elementLabelHeight = 20.0 * (fontsize / 14.0) * ((float)((int)([elementLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]}].width / (self.frame.size.width - 40.0))) + 1.0);
+                    elementLabelHeight = 20.0 * (fontsize / 14.0) * ((float)((int)([elementLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]}].width / (self.frame.size.width - 80.0))) + 1.0);
                     [elementLabel setFrame:CGRectMake(20, contentSizeHeight, self.frame.size.width - 40.0, elementLabelHeight)];
                     contentSizeHeight += (elementLabelHeight - 40.0);
                 }
