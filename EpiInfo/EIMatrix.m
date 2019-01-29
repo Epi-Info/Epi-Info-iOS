@@ -19,6 +19,8 @@
 @synthesize mdblScore = _mdblScore;
 @synthesize mintIterations = _mintIterations;
 @synthesize lstrError = _lstrError;
+@synthesize mstrMatchVar = _mstrMatchVar;
+@synthesize matchGroupValues = _matchGroupValues;
 
 - (id)initWithFirst:(BOOL)mbf AndIntercept:(BOOL)mbi
 {
@@ -189,6 +191,142 @@
     }
 }
 
+- (double)Conditional:(int)lintOffset LdblaDataArray:(NSArray *)ldblaDataArray LdblaJacobian:(NSMutableArray *)ldblaJacobian LdblB:(NSMutableArray *)ldblB LdblaF:(NSMutableArray *)ldblaF NRows:(int)nRows
+{
+    double conditional = 0.0;
+    
+    double x[[ldblB count]];
+    double lDblAParamSum[[ldblB count]];
+    double t[[ldblB count]];
+    double c[[ldblB count]][[ldblB count]];
+    for (int i = 0; i < [ldblB count]; i++)
+    {
+        x[i] = 0.0;
+        lDblAParamSum[i] = 0.0;
+        t[i] = 0.0;
+        for (int j = 0; j < [ldblB count]; j++)
+        {
+            c[i][j] = 0.0;
+        }
+    }
+    double IthLikelihood = 0.0;
+    double LogLikelihood = 0.0;
+    double likelihood = 1.0;
+    double ldblweight = 1.0;
+    
+    int lIntRow = 1;
+    int lLevels = 0;
+    double lLeveldata = 0.0;
+    double lDblT0 = 0.0;
+    
+    int cases = 0;
+    int count = 0;
+    
+    for (int s = 0; s < self.matchGroupValues; s++)
+    {
+        lIntRow += lLevels;
+        lLevels = 1;
+        lLeveldata = [(NSNumber *)[(NSArray *)[ldblaDataArray objectAtIndex:lIntRow] objectAtIndex:1] doubleValue];
+        
+        if (s + 1 == self.matchGroupValues)
+        {
+            lLevels = nRows - lIntRow + 1;
+        }
+        else
+        {
+            while (lLeveldata == [(NSNumber *)[(NSArray *)[ldblaDataArray objectAtIndex:(lIntRow + lLevels - 1)] objectAtIndex:1] doubleValue])
+            {
+                lLevels++;
+            }
+        }
+        
+        lDblT0 = 0.0;
+        cases = 0;
+        count = 0;
+        for (int i = lIntRow - 1; i < lLevels + lIntRow - 1; i++)
+        {
+            if (lintOffset == 3)
+            {
+                ldblweight = [(NSNumber *)[(NSArray *)[ldblaDataArray objectAtIndex:i] objectAtIndex:lintOffset] doubleValue];
+            }
+            count += ldblweight;
+            for (int j = 0; j < [ldblB count]; j++)
+            {
+                x[j] = [(NSNumber *)[(NSArray *)[ldblaDataArray objectAtIndex:i] objectAtIndex:j + lintOffset] doubleValue];
+            }
+            
+            if ([(NSNumber *)[(NSArray *)[ldblaDataArray objectAtIndex:i] objectAtIndex:0] doubleValue] > 0)
+            {
+                for (int j = 0; j < [ldblB count]; j++)
+                {
+                    lDblAParamSum[j] += x[j];
+                }
+                cases += ldblweight;
+            }
+            
+            IthLikelihood = 0.0;
+            for (int j = 0; j < [ldblB count]; j++)
+            {
+                IthLikelihood += (x[j] * [(NSNumber *)[ldblB objectAtIndex:j] doubleValue]);
+            }
+            IthLikelihood = exp(IthLikelihood);
+            IthLikelihood *= ldblweight;
+            
+            lDblT0 += IthLikelihood;
+            for (int k = 0; k < [ldblB count]; k++)
+            {
+                t[k] += (IthLikelihood * x[k]);
+            }
+            for (int k = 0; k < [ldblB count]; k++)
+            {
+                for (int j = 0; j < [ldblB count]; j++)
+                {
+                    c[j][k] += (x[j] * x[k] * IthLikelihood);
+                }
+           }
+        }
+        
+        IthLikelihood = 0.0;
+        for (int i = 0; i < [ldblB count]; i++)
+        {
+            IthLikelihood += (lDblAParamSum[i] * [(NSNumber *)[ldblB objectAtIndex:i] doubleValue]);
+        }
+        
+        BOOL contrast = YES;
+        if (cases == count || cases == 0)
+            contrast = NO;
+        if (contrast)
+        {
+            conditional += (IthLikelihood - log(lDblT0));
+            for (int i = 0; i < [ldblB count]; i++)
+            {
+                double ldblaFi = [(NSNumber *)[ldblaF objectAtIndex:i] doubleValue];
+                ldblaFi += (lDblAParamSum[i] - (t[i] / lDblT0));
+                [ldblaF setObject:[NSNumber numberWithDouble:ldblaFi] atIndexedSubscript:i];
+            }
+            for (int i = 0; i < [ldblB count]; i++)
+            {
+                for (int k = 0; k < [ldblB count]; k++)
+                {
+                    double ldblaJacobianik = [(NSNumber *)[(NSArray *)[ldblaJacobian objectAtIndex:i] objectAtIndex:k] doubleValue];
+                    ldblaJacobianik = ldblaJacobianik + c[i][k] / lDblT0 - t[i] * t[k] / (lDblT0 * lDblT0);
+                    [(NSMutableArray *)[ldblaJacobian objectAtIndex:i] setObject:[NSNumber numberWithDouble:ldblaJacobianik] atIndexedSubscript:k];
+                }
+            }
+        }
+        for (int i = 0; i < [ldblB count]; i++)
+        {
+            lDblAParamSum[i] = 0.0;
+            t[i] = 0.0;
+            for (int k = 0; k < [ldblB count]; k++)
+            {
+                c[i][k] = 0.0;
+            }
+        }
+    }
+    
+    return conditional;
+}
 - (double)UnConditional:(int)lintOffset LdblaDataArray:(NSArray *)ldblaDataArray LdblaJacobian:(NSMutableArray *)ldblaJacobian LdblB:(NSMutableArray *)ldblB LdblaF:(NSMutableArray *)ldblaF NRows:(int)nRows
 {
     double unconditional = 0.0;
@@ -196,7 +334,6 @@
     double x[[ldblB count]];
     double ldblIthLikelihood = 0.0;
     double ldblIthContribution = 0.0;
-    double ithcontribution = 0.0;
     double ldblweight = 1.0;
     
     for (int i = 0; i < nRows; i++)
@@ -304,10 +441,19 @@
             return;
         }
     }
-    NSLog(@"lintoffset = %d", lintOffset);
     if ([self.mstrMatchVar length] > 0)
     {
-        *likelihood = [self UnConditional:lintOffset LdblaDataArray:ldblA LdblaJacobian:ldblaJacobian LdblB:ldblB LdblaF:ldblaF NRows:nRows];
+        for (int i = 0; i < [ldblB count]; i++)
+        {
+            [ldblaF addObject:[NSNumber numberWithDouble:0.0]];
+            NSMutableArray *arrayfori = [[NSMutableArray alloc] init];
+            for (int j = 0; j < [ldblB count]; j++)
+            {
+                [arrayfori addObject:[NSNumber numberWithDouble:0.0]];
+            }
+            [ldblaJacobian addObject:arrayfori];
+        }
+        *likelihood = [self Conditional:lintOffset LdblaDataArray:ldblA LdblaJacobian:ldblaJacobian LdblB:ldblB LdblaF:ldblaF NRows:nRows];
     }
     else
     {

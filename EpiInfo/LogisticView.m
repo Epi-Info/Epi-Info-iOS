@@ -5264,6 +5264,16 @@
     {
         [mMatrixLikelihood setMstrMatchVar:[availableOutcomeVariables objectAtIndex:[groupVariableLVE.selectedIndex intValue] - 1]];
         lintConditional = 1;
+        NumColumns--;
+        // Count the number of groups
+        NSMutableArray *groupValues = [[NSMutableArray alloc] init];
+        for (int i = 0; i < [currentTable count]; i++)
+        {
+            NSString *groupValue = [(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:1];
+            if (![groupValues containsObject:groupValue])
+                [groupValues addObject:groupValue];
+        }
+        [mMatrixLikelihood setMatchGroupValues:(int)[groupValues count]];
     }
     else
         [mMatrixLikelihood setMstrMatchVar:@""];
@@ -5315,7 +5325,16 @@
     double minusTwoLogLikelihood = -2.0 * mMatrixLikelihood.mdbllllast;
     
     [regressionResults setVariables:[NSMutableArray arrayWithArray:to.exposureVariables]];
-    [regressionResults.variables addObject:@"CONSTANT"];
+    int ismatchedanalysis = 0;
+    if ([groupVariableLVE.selectedIndex intValue] == 0)
+    {
+        [regressionResults.variables addObject:@"CONSTANT"];
+    }
+    else
+    {
+        [regressionResults.variables removeObjectAtIndex:0];
+        ismatchedanalysis = 1;
+    }
     [regressionResults setBetas:[NSArray arrayWithArray:mMatrixLikelihood.mdblaB]];
     [regressionResults setStandardErrors:[NSArray arrayWithArray:seArray]];
     [regressionResults setOddsRatios:[NSArray arrayWithArray:orArray]];
@@ -5638,7 +5657,7 @@
         [computer RRStats:yy RRSb:yn RRSc:ny RRSd:nn RRSstats:RRstats];
         
         //Add the views for each section of statistics
-        oddsBasedParametersView = [[UIView alloc] initWithFrame:CGRectMake(2, 2 + stratificationOffset, 313, 44 + 22.0 * (double)([regressionResults.variables count] - 1))];
+        oddsBasedParametersView = [[UIView alloc] initWithFrame:CGRectMake(2, 2 + stratificationOffset, 313, 44 + 22.0 * (double)([regressionResults.variables count] - 1 + ismatchedanalysis))];
         [oddsBasedParametersView setBackgroundColor:epiInfoLightBlue];
         [outputV addSubview:oddsBasedParametersView];
         
@@ -5691,7 +5710,7 @@
         [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
         [gridBox setText:@"Upper"];
         [oddsBasedParametersView addSubview:gridBox];
-        for (int i = 0; i < [regressionResults.variables count] - 1; i++)
+        for (int i = 0; i < [regressionResults.variables count] - 1 + ismatchedanalysis; i++)
         {
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(2, 44 + 22.0 * i, fourWidth0, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
