@@ -14,6 +14,7 @@
 #import "EpiInfoUILabel.h"
 #import "UIPickerViewWithBlurryBackground.h"
 #import "LegalValuesEnter.h"
+#import "EpiInfoTextField.h"
 
 @interface TablesView : UIView <UIPickerViewDelegate, UIPickerViewDataSource>
 {
@@ -46,6 +47,16 @@
     ShinyButton *chosenExposureVariable;
     ShinyButton *chosenStratificationVariable;
     
+    UILabel *outcomeVariableLabel;
+    UITextField *outcomeVariableString;
+    LegalValuesEnter *outcomeLVE;
+    UILabel *exposureVariableLabel;
+    EpiInfoTextField *exposureVariableString;
+    LegalValuesEnter *exposureLVE;
+    UILabel *stratificationVariableLabel;
+    UITextField *stratificationVariableString;
+    LegalValuesEnter *stratificationLVE;
+
     UIView *outputView;
     
     AnalysisDataObject *dataObject;

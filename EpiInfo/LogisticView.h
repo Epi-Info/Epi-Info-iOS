@@ -13,7 +13,6 @@
 #import "InteractionRow.h"
 #import "sqlite3.h"
 #import "EIMatrix.h"
-#import "EpiInfoTextField.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -39,13 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *mStrADiscrete;
     int terms, discrete;
     int lintIntercept, lintweight, NumRows, NumColumns;
-    
-    UILabel *outcomeVariableLabel;
-    UITextField *outcomeVariableString;
-    LegalValuesEnter *outcomeLVE;
-    UILabel *exposureVariableLabel;
-    EpiInfoTextField *exposureVariableString;
-    LegalValuesEnter *exposureLVE;
     
     UILabel *groupVariableLabel;
     LegalValuesEnter *groupVariableLVE;

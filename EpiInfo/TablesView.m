@@ -46,7 +46,7 @@
             [chosenOutcomeVariable.titleLabel setTextAlignment:NSTextAlignmentLeft];
             [chosenOutcomeVariable setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
             [chosenOutcomeVariable addTarget:self action:@selector(chosenOutcomeVariableButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [inputView addSubview:chosenOutcomeVariable];
+//            [inputView addSubview:chosenOutcomeVariable];
             chooseOutcomeVariable = [[UIPickerViewWithBlurryBackground alloc] initWithFrame:CGRectMake(10, 1000, 296, 162)];
             [chooseOutcomeVariable.layer setCornerRadius:10.0];
             [chooseOutcomeVariable setTag:0];
@@ -65,7 +65,7 @@
             [chosenExposureVariable.titleLabel setTextAlignment:NSTextAlignmentLeft];
             [chosenExposureVariable setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
             [chosenExposureVariable addTarget:self action:@selector(chosenExposureVariableButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [inputView addSubview:chosenExposureVariable];
+//            [inputView addSubview:chosenExposureVariable];
             chooseExposureVariable = [[UIPickerViewWithBlurryBackground alloc] initWithFrame:CGRectMake(10, 1000, 296, 162)];
             [chooseExposureVariable setTag:1];
             exposureVariableChosen = NO;
@@ -100,9 +100,9 @@
             [chosenStratificationVariable.titleLabel setTextAlignment:NSTextAlignmentLeft];
             [chosenStratificationVariable setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
             [chosenStratificationVariable addTarget:self action:@selector(chosenStratificationVariableButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [inputView addSubview:chosenStratificationVariable];
-            [inputView bringSubviewToFront:chooseOutcomeVariable];
-            [inputView bringSubviewToFront:chooseExposureVariable];
+//            [inputView addSubview:chosenStratificationVariable];
+//            [inputView bringSubviewToFront:chooseOutcomeVariable];
+//            [inputView bringSubviewToFront:chooseExposureVariable];
             chooseStratificationVariable = [[UIPickerViewWithBlurryBackground alloc] initWithFrame:CGRectMake(10, 1000, 296, 162)];
             [chooseStratificationVariable setTag:2];
             stratificationVariableChosen = NO;
@@ -111,9 +111,9 @@
             [chooseStratificationVariable setDataSource:self];
             [chooseStratificationVariable setShowsSelectionIndicator:YES];
             [chooseStratificationVariable addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(chooseStratificationVariableTapped:)]];
-            [inputView addSubview:chooseOutcomeVariable];
-            [inputView addSubview:chooseExposureVariable];
-            [inputView addSubview:chooseStratificationVariable];
+//            [inputView addSubview:chooseOutcomeVariable];
+//            [inputView addSubview:chooseExposureVariable];
+//            [inputView addSubview:chooseStratificationVariable];
             
             //Add the white box
             inputViewWhiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 2, inputView.frame.size.width - 4, inputView.frame.size.height - 4)];
@@ -186,7 +186,7 @@
             [chosenOutcomeVariable.titleLabel setTextAlignment:NSTextAlignmentLeft];
             [chosenOutcomeVariable setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
             [chosenOutcomeVariable addTarget:self action:@selector(chosenOutcomeVariableButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [inputView addSubview:chosenOutcomeVariable];
+//            [inputView addSubview:chosenOutcomeVariable];
             chooseOutcomeVariable = [[UIPickerViewWithBlurryBackground alloc] initWithFrame:CGRectMake(10, 1000, 296, 162)];
             [chooseOutcomeVariable.layer setCornerRadius:10.0];
             [chooseOutcomeVariable setTag:0];
@@ -205,7 +205,7 @@
             [chosenExposureVariable.titleLabel setTextAlignment:NSTextAlignmentLeft];
             [chosenExposureVariable setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
             [chosenExposureVariable addTarget:self action:@selector(chosenExposureVariableButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [inputView addSubview:chosenExposureVariable];
+//            [inputView addSubview:chosenExposureVariable];
             chooseExposureVariable = [[UIPickerViewWithBlurryBackground alloc] initWithFrame:CGRectMake(10, 1000, 296, 162)];
             [chooseExposureVariable setTag:1];
             exposureVariableChosen = NO;
@@ -240,9 +240,9 @@
             [chosenStratificationVariable.titleLabel setTextAlignment:NSTextAlignmentLeft];
             [chosenStratificationVariable setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
             [chosenStratificationVariable addTarget:self action:@selector(chosenStratificationVariableButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [inputView addSubview:chosenStratificationVariable];
-            [inputView bringSubviewToFront:chooseOutcomeVariable];
-            [inputView bringSubviewToFront:chooseExposureVariable];
+//            [inputView addSubview:chosenStratificationVariable];
+//            [inputView bringSubviewToFront:chooseOutcomeVariable];
+//            [inputView bringSubviewToFront:chooseExposureVariable];
             chooseStratificationVariable = [[UIPickerViewWithBlurryBackground alloc] initWithFrame:CGRectMake(10, 1000, 296, 162)];
             [chooseStratificationVariable setTag:2];
             stratificationVariableChosen = NO;
@@ -251,9 +251,9 @@
             [chooseStratificationVariable setDataSource:self];
             [chooseStratificationVariable setShowsSelectionIndicator:YES];
             [chooseStratificationVariable addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(chooseStratificationVariableTapped:)]];
-            [inputView addSubview:chooseOutcomeVariable];
-            [inputView addSubview:chooseExposureVariable];
-            [inputView addSubview:chooseStratificationVariable];
+//            [inputView addSubview:chooseOutcomeVariable];
+//            [inputView addSubview:chooseExposureVariable];
+//            [inputView addSubview:chooseStratificationVariable];
             
             //Add the white box
             inputViewWhiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 2, inputView.frame.size.width - 4, inputView.frame.size.height - 4)];
@@ -322,6 +322,46 @@
 {
     self = [self initWithFrame:frame];
     sqliteData = dataSource;
+    outcomeVariableLabel = [[UILabel alloc] initWithFrame:chosenOutcomeVariable.frame];
+    [outcomeVariableLabel setBackgroundColor:[UIColor whiteColor]];
+    [outcomeVariableLabel setTextColor:epiInfoLightBlue];
+    [outcomeVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [outcomeVariableLabel setText:@"Outcome Variable"];
+    outcomeVariableString = [[UITextField alloc] init];
+    exposureVariableLabel = [[UILabel alloc] initWithFrame:chosenExposureVariable.frame];
+    [exposureVariableLabel setBackgroundColor:[UIColor whiteColor]];
+    [exposureVariableLabel setTextColor:epiInfoLightBlue];
+    [exposureVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [exposureVariableLabel setText:@"Exposure Variable(s)"];
+    exposureVariableString = [[EpiInfoTextField alloc] init];
+    stratificationVariableLabel = [[UILabel alloc] initWithFrame:chosenStratificationVariable.frame];
+    [stratificationVariableLabel setBackgroundColor:[UIColor whiteColor]];
+    [stratificationVariableLabel setTextColor:epiInfoLightBlue];
+    [stratificationVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [stratificationVariableLabel setText:@"Stratification Variable"];
+    stratificationVariableString = [[UITextField alloc] init];
+    NSMutableArray *outcomeNSMA = [[NSMutableArray alloc] init];
+    [outcomeNSMA addObject:@""];
+    for (NSString *variable in sqliteData.columnNamesWorking)
+    {
+        [outcomeNSMA addObject:variable];
+    }
+    [outcomeNSMA sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    availableOutcomeVariables = [NSMutableArray arrayWithArray:outcomeNSMA];
+    outcomeLVE = [[LegalValuesEnter alloc] initWithFrame:chosenOutcomeVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:outcomeVariableString];
+    [outcomeLVE.picker selectRow:0 inComponent:0 animated:YES];
+    [inputView addSubview:outcomeLVE];
+    exposureLVE = [[LegalValuesEnter alloc] initWithFrame:chosenExposureVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:exposureVariableString];
+    [exposureLVE.picker selectRow:0 inComponent:0 animated:YES];
+    stratificationLVE = [[LegalValuesEnter alloc] initWithFrame:chosenStratificationVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:stratificationVariableString];
+    [stratificationLVE.picker selectRow:0 inComponent:0 animated:YES];
+
+    [inputView addSubview:exposureLVE];
+    [inputView addSubview:stratificationLVE];
+    [chosenOutcomeVariable setTitle:[outcomeVariableString text] forState:UIControlStateNormal];
+    [inputView addSubview:outcomeVariableLabel];
+    [inputView addSubview:exposureVariableLabel];
+    [inputView addSubview:stratificationVariableLabel];
     avc = (AnalysisViewController *)vc;
     return self;
 }
@@ -342,16 +382,22 @@
             {
                 if ([avc portraitOrientation])
                 {
-                    [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, 204)];
+                    [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, 342)];
                     [chosenOutcomeVariable setFrame:CGRectMake(20, 8, 276, 44)];
+                    [outcomeVariableLabel setFrame:CGRectMake(16, 8, 284, 20)];
+                    [outcomeLVE setFrame:CGRectMake(10, 28, 276, 44)];
                     [chosenExposureVariable setFrame:CGRectMake(20, 56, 276, 44)];
+                    [exposureVariableLabel setFrame:CGRectMake(16, 92, 284, 20)];
+                    [exposureLVE setFrame:CGRectMake(10, 112, 276, 44)];
+                    [includeMissingButton setFrame:CGRectMake(170, exposureLVE.frame.origin.y + exposureLVE.frame.size.height + 40, 22, 22)];
+                    [includeMissingLabel setFrame:CGRectMake(20, includeMissingButton.frame.origin.y, 140, 22)];
+                    [stratificationVariableLabel setFrame:CGRectMake(16, includeMissingLabel.frame.origin.y + includeMissingLabel.frame.size.height + 16, 284, 20)];
+                    [stratificationLVE setFrame:CGRectMake(10, stratificationVariableLabel.frame.origin.y + stratificationVariableLabel.frame.size.height, 276, 44)];
                     [chosenStratificationVariable setFrame:CGRectMake(20, 135, 276, 44)];
                     [chooseOutcomeVariable setFrame:CGRectMake(10, 1000, 296, 162)];
                     [chooseExposureVariable setFrame:CGRectMake(10, 1000, 296, 162)];
                     [chooseStratificationVariable setFrame:CGRectMake(10, 1000, 296, 162)];
                     [inputViewWhiteBox setFrame:CGRectMake(2, 2, inputView.frame.size.width - 4, inputView.frame.size.height - 4)];
-                    [includeMissingButton setFrame:CGRectMake(170, 104, 22, 22)];
-                    [includeMissingLabel setFrame:CGRectMake(20, 104, 140, 22)];
                     [spinner setFrame:CGRectMake(frame.size.width / 2.0 - 20, 118, 40, 40)];
                 }
                 else
@@ -575,6 +621,12 @@
                 [chosenOutcomeVariable setFrame:CGRectMake(20, chosenOutcomeVariable.frame.origin.y - 170, chosenOutcomeVariable.frame.size.width, 44)];
                 [chosenExposureVariable setFrame:CGRectMake(20, chosenExposureVariable.frame.origin.y - 170, chosenExposureVariable.frame.size.width, 44)];
                 [chosenStratificationVariable setFrame:CGRectMake(20, chosenExposureVariable.frame.origin.y - 170, chosenExposureVariable.frame.size.width, 44)];
+                [outcomeLVE setFrame:CGRectMake(10, chosenOutcomeVariable.frame.origin.y, chosenOutcomeVariable.frame.size.width, 44)];
+                [exposureLVE setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y, chosenExposureVariable.frame.size.width, 44)];
+                [stratificationLVE setFrame:CGRectMake(10, chosenStratificationVariable.frame.origin.y, chosenExposureVariable.frame.size.width, 44)];
+                [outcomeVariableLabel setFrame:CGRectMake(10, chosenOutcomeVariable.frame.origin.y - 20, chosenOutcomeVariable.frame.size.width, 44)];
+                [exposureVariableLabel setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y - 20, chosenExposureVariable.frame.size.width, 44)];
+                [stratificationVariableLabel setFrame:CGRectMake(10, chosenStratificationVariable.frame.origin.y - 20, chosenExposureVariable.frame.size.width, 44)];
                 //Move the pickers up if they are in view, otherwise they need to be hidden in case the
                 //ContentSize increases to >1000
                 if (chooseOutcomeVariable.frame.origin.y < 500)
@@ -773,11 +825,11 @@
     leftSide = 1.0;
     float rightSide = 0.0;
 
-    if (outcomeVariableChosen && exposureVariableChosen && !stratificationVariableChosen)
+    if ([[outcomeLVE selectedIndex] intValue] > 0 && [[exposureLVE selectedIndex] intValue] > 0 && [[stratificationLVE selectedIndex] intValue] == 0)
     {
         outputViewDisplayed = YES;
         stratum = 0;
-        TablesObject *to = [[TablesObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:selectedOutcomeVariableNumber.integerValue] AndExposureVariable:[availableExposureVariables objectAtIndex:selectedExposureVariableNumber.integerValue] AndIncludeMissing:includeMissing];
+        TablesObject *to = [[TablesObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:[outcomeLVE selectedIndex].intValue] AndExposureVariable:[availableOutcomeVariables objectAtIndex:[exposureLVE selectedIndex].intValue] AndIncludeMissing:includeMissing];
         
         if (to.exposureValues.count == 2 && to.outcomeValues.count == 2)
         {
@@ -790,11 +842,11 @@
         }
         to = nil;
     }
-    if (outcomeVariableChosen && exposureVariableChosen && stratificationVariableChosen)
+    if ([[outcomeLVE selectedIndex] intValue] > 0 && [[exposureLVE selectedIndex] intValue] > 0 && [[stratificationLVE selectedIndex] intValue] > 0)
     {
-        NSString *stratificationVariableName = [availableStratificationVariables objectAtIndex:[selectedStratificationVariableNumber intValue] + 1];
-        NSString *outcomeVariableName = [availableOutcomeVariables objectAtIndex:selectedOutcomeVariableNumber.integerValue];
-        NSString *exposureVariableName = [availableExposureVariables objectAtIndex:selectedExposureVariableNumber.integerValue];
+        NSString *stratificationVariableName = [availableOutcomeVariables objectAtIndex:[[stratificationLVE selectedIndex] intValue]];
+        NSString *outcomeVariableName = [availableOutcomeVariables objectAtIndex:[outcomeLVE selectedIndex].integerValue];
+        NSString *exposureVariableName = [availableOutcomeVariables objectAtIndex:[exposureLVE selectedIndex].integerValue];
         FrequencyObject *fo = [[FrequencyObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndVariable:stratificationVariableName AndIncludeMissing:includeMissing];
         
         outputViewDisplayed = YES;
