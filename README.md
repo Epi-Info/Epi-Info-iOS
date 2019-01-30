@@ -1,6 +1,6 @@
-## Epi Info Companion App for iOS
+## Epi Info™ Companion App for iOS
 ### Project Description
-The Epi Info app features Data Entry, Data Analysis, and StatCalc.
+The Epi Info™ app features Data Entry, Data Analysis, and StatCalc.
 
 ### Data Entry
 Allows the user to collect data on the mobile device using a form created with Epi Info 7 on a desktop PC. Features include:
@@ -22,7 +22,7 @@ Allows the user to read and analyze locally-stored datasets. Features include:
 * Executing SQL statements such as SELECT, UPDATE, and DELETE
 
 ### StatCalc
-StatCalc statistical calculators have long been a feature of CDC’s Epi info desktop software. Each calculator has been adapted for iOS and is included in this app. The app controls and facilitates user inputs by taking advantage of the iPad’s touchscreen interface and using input devices such as sliders and steppers.
+StatCalc statistical calculators have long been a feature of CDC’s Epi info™ desktop software. Each calculator has been adapted for iOS and is included in this app. The app controls and facilitates user inputs by taking advantage of the iPad’s touchscreen interface and using input devices such as sliders and steppers.
 
 Included calculators are:
 
