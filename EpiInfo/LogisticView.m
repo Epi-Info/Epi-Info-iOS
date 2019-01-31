@@ -344,6 +344,7 @@
         [outcomeNSMA addObject:variable];
     }
     [outcomeNSMA sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    availableOutcomeVariables = [NSMutableArray arrayWithArray:outcomeNSMA];
     outcomeLVE = [[LegalValuesEnter alloc] initWithFrame:chosenOutcomeVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:outcomeVariableString];
     [outcomeLVE.picker selectRow:0 inComponent:0 animated:YES];
     [inputView addSubview:outcomeLVE];
@@ -1019,8 +1020,8 @@
         for (int i = 0; i < [dummiesNSMA count]; i++)
             [allExposures addObject:[dummiesNSMA objectAtIndex:i]];
         if ([[groupVariableLVE selectedIndex] intValue] > 0)
-            [allExposures insertObject:[availableOutcomeVariables objectAtIndex:[[groupVariableLVE selectedIndex] intValue] - 1] atIndex:0];
-        to = [[LogisticObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:outcomeSelectedIndex - 1] AndExposureVariables:allExposures AndIncludeMissing:includeMissing];
+            [allExposures insertObject:[availableOutcomeVariables objectAtIndex:[[groupVariableLVE selectedIndex] intValue]] atIndex:0];
+        to = [[LogisticObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:outcomeSelectedIndex] AndExposureVariables:allExposures AndIncludeMissing:includeMissing];
         if ([[groupVariableLVE selectedIndex] intValue] > 0)
             [to setMatchVariable:[availableOutcomeVariables objectAtIndex:[[groupVariableLVE selectedIndex] intValue] - 1]];
 
