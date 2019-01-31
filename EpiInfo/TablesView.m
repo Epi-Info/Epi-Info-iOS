@@ -467,6 +467,12 @@
                     [inputViewWhiteBox setFrame:CGRectMake(2, 2, inputView.frame.size.width - 4, inputView.frame.size.height - 4)];
                     [includeMissingLabel setFrame:CGRectMake(chosenExposureVariable.frame.origin.x, 231, 140, 22)];
                     [includeMissingButton setFrame:CGRectMake(includeMissingLabel.frame.origin.x + 150, 231, 22, 22)];
+                    [outcomeVariableLabel setFrame:CGRectMake(chosenOutcomeVariable.frame.origin.x, chosenOutcomeVariable.frame.origin.y, 284, 20)];
+                    [outcomeLVE setFrame:CGRectMake(outcomeVariableLabel.frame.origin.x -6 , outcomeVariableLabel.frame.origin.y + 20, 276, 44)];
+                    [exposureVariableLabel setFrame:CGRectMake(chosenExposureVariable.frame.origin.x, chosenExposureVariable.frame.origin.y, 284, 20)];
+                    [exposureLVE setFrame:CGRectMake(exposureVariableLabel.frame.origin.x - 6, exposureVariableLabel.frame.origin.y + 20, 276, 44)];
+                    [stratificationVariableLabel setFrame:CGRectMake(chosenStratificationVariable.frame.origin.x, chosenStratificationVariable.frame.origin.y, 284, 20)];
+                    [stratificationLVE setFrame:CGRectMake(stratificationVariableLabel.frame.origin.x - 6, stratificationVariableLabel.frame.origin.y + 20, 276, 44)];
                     [spinner setFrame:CGRectMake(frame.size.width / 2.0 - 20, 118, 40, 40)];
                 }
                 else

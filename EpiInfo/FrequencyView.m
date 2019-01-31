@@ -341,6 +341,10 @@
                 [inputViewWhiteBox setFrame:CGRectMake(2, 2, inputView.frame.size.width - 4, inputView.frame.size.height - 4)];
                 [includeMissingButton setFrame:CGRectMake(170, 228, 22, 22)];
                 [includeMissingLabel setFrame:CGRectMake(20, 228, 140, 22)];
+                [frequencyVariableLabel setFrame:CGRectMake(chosenFrequencyVariable.frame.origin.x, chosenFrequencyVariable.frame.origin.y, 284, 20)];
+                [frequencyLVE setFrame:CGRectMake(frequencyVariableLabel.frame.origin.x - 6, frequencyVariableLabel.frame.origin.y + 20, 276, 44)];
+                [stratificationVariableLabel setFrame:CGRectMake(chosenStratificationVariable.frame.origin.x, chosenStratificationVariable.frame.origin.y, 284, 20)];
+                [stratificationLVE setFrame:CGRectMake(stratificationVariableLabel.frame.origin.x - 6, stratificationVariableLabel.frame.origin.y + 20, 276, 44)];
             }
             else
             {
@@ -500,7 +504,7 @@
             if ([[stratificationLVE selectedIndex] intValue] > 0)
             {
                 int sfoNumber = [[stratificationLVE selectedIndex] intValue];
-                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                if (NO) // Not after changing to Legal Values controls (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
                     sfoNumber++;
                 sfo = [[FrequencyObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndVariable:[availableVariables objectAtIndex:sfoNumber] AndIncludeMissing:includeMissing];
                 strata = (int)sfo.variableValues.count;
