@@ -15,6 +15,7 @@
 #import "EpiInfoUILabel.h"
 #import "EpiInfoViewForRounding.h"
 #import "UIPickerViewWithBlurryBackground.h"
+#import "LegalValuesEnter.h"
 
 @interface MeansView : UIView <UIPickerViewDelegate, UIPickerViewDataSource>
 {
@@ -47,6 +48,13 @@
     ShinyButton *chosenCrosstabVariable;
     ShinyButton *chosenStratificationVariable;
     
+    UILabel *meansVariableLabel;
+    UITextField *meansVariableString;
+    LegalValuesEnter *meansLVE;
+    UILabel *crosstabVariableLabel;
+    UITextField *crosstabVariableString;
+    LegalValuesEnter *crosstabLVE;
+
     UIView *outputView;
     
     AnalysisDataObject *dataObject;

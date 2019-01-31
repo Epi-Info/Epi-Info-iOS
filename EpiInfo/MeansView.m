@@ -320,6 +320,36 @@
 {
     self = [self initWithFrame:frame];
     sqliteData = dataSource;
+    meansVariableLabel = [[UILabel alloc] initWithFrame:chosenMeansVariable.frame];
+    [meansVariableLabel setBackgroundColor:[UIColor whiteColor]];
+    [meansVariableLabel setTextColor:epiInfoLightBlue];
+    [meansVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [meansVariableLabel setText:@"Means Variable"];
+    meansVariableString = [[UITextField alloc] init];
+    crosstabVariableLabel = [[UILabel alloc] initWithFrame:chosenCrosstabVariable.frame];
+    [crosstabVariableLabel setBackgroundColor:[UIColor whiteColor]];
+    [crosstabVariableLabel setTextColor:epiInfoLightBlue];
+    [crosstabVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [crosstabVariableLabel setText:@"Crosstab Variable"];
+    crosstabVariableString = [[UITextField alloc] init];
+    NSMutableArray *outcomeNSMA = [[NSMutableArray alloc] init];
+    [outcomeNSMA addObject:@""];
+    for (NSString *variable in sqliteData.columnNamesWorking)
+    {
+        [outcomeNSMA addObject:variable];
+    }
+    [outcomeNSMA sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    availableOutcomeVariables = [NSMutableArray arrayWithArray:outcomeNSMA];
+    meansLVE = [[LegalValuesEnter alloc] initWithFrame:chosenMeansVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:meansVariableString];
+    [meansLVE.picker selectRow:0 inComponent:0 animated:YES];
+    [inputView addSubview:meansLVE];
+    crosstabLVE = [[LegalValuesEnter alloc] initWithFrame:chosenCrosstabVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:crosstabVariableString];
+    [crosstabLVE.picker selectRow:0 inComponent:0 animated:YES];
+    
+    [inputView addSubview:crosstabLVE];
+    [chosenMeansVariable setTitle:[meansVariableString text] forState:UIControlStateNormal];
+    [inputView addSubview:meansVariableLabel];
+    [inputView addSubview:crosstabVariableLabel];
     avc = (AnalysisViewController *)vc;
     return self;
 }
@@ -348,8 +378,12 @@
                     [chooseCrosstabVariable setFrame:CGRectMake(10, 1000, 296, 162)];
                     [chooseStratificationVariable setFrame:CGRectMake(10, 1000, 296, 162)];
                     [inputViewWhiteBox setFrame:CGRectMake(2, 2, inputView.frame.size.width - 4, inputView.frame.size.height - 4)];
-                    [includeMissingButton setFrame:CGRectMake(170, 104, 22, 22)];
-                    [includeMissingLabel setFrame:CGRectMake(20, 104, 140, 22)];
+                    [meansVariableLabel setFrame:CGRectMake(16, 8, 284, 20)];
+                    [meansLVE setFrame:CGRectMake(10, 28, 276, 44)];
+                    [includeMissingButton setFrame:CGRectMake(170, 124, 22, 22)];
+                    [includeMissingLabel setFrame:CGRectMake(20, 124, 140, 22)];
+                    [crosstabVariableLabel setFrame:CGRectMake(16, 94, 284, 20)];
+                    [crosstabLVE setFrame:CGRectMake(10, 114, 276, 44)];
                     [spinner setFrame:CGRectMake(frame.size.width / 2.0 - 20, 118, 40, 40)];
                 }
                 else
@@ -578,6 +612,10 @@
                 [chosenMeansVariable setFrame:CGRectMake(20, chosenMeansVariable.frame.origin.y - 170, chosenMeansVariable.frame.size.width, 44)];
                 [chosenCrosstabVariable setFrame:CGRectMake(20, chosenCrosstabVariable.frame.origin.y - 170, chosenCrosstabVariable.frame.size.width, 44)];
                 [chosenStratificationVariable setFrame:CGRectMake(20, chosenCrosstabVariable.frame.origin.y - 170, chosenCrosstabVariable.frame.size.width, 44)];
+                [meansLVE setFrame:CGRectMake(10, chosenMeansVariable.frame.origin.y, chosenMeansVariable.frame.size.width, 44)];
+                [crosstabLVE setFrame:CGRectMake(10, chosenCrosstabVariable.frame.origin.y, chosenCrosstabVariable.frame.size.width, 44)];
+                [meansVariableLabel setFrame:CGRectMake(10, chosenMeansVariable.frame.origin.y - 20, chosenMeansVariable.frame.size.width, 44)];
+                [crosstabVariableLabel setFrame:CGRectMake(10, chosenCrosstabVariable.frame.origin.y - 20, chosenCrosstabVariable.frame.size.width, 44)];
                 //Move the pickers up if they are in view, otherwise they need to be hidden in case the
                 //ContentSize increases to >1000
                 if (chooseMeansVariable.frame.origin.y < 500)
@@ -784,11 +822,11 @@
     
     // Do calculations and display results
     // No crosstabulation or stratification
-    if (meansVariableChosen && !crosstabVariableChosen && !stratificationVariableChosen)
+    if ([[meansLVE selectedIndex] intValue] > 0 && [[crosstabLVE selectedIndex] intValue] == 0)
     {
         outputViewDisplayed = YES;
         stratum = 0;
-        MeansObject *mo = [[MeansObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndMeansVariable:[availableOutcomeVariables objectAtIndex:selectedMeansVariableNumber.integerValue] AndIncludeMissing:includeMissing];
+        MeansObject *mo = [[MeansObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndMeansVariable:[availableOutcomeVariables objectAtIndex:[[meansLVE selectedIndex] intValue] - 1] AndIncludeMissing:includeMissing];
         
         outputTableView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, outputView.frame.size.width - 4.0, outputView.frame.size.height - 4.0)];
         [outputTableView setBackgroundColor:epiInfoLightBlue];
@@ -862,11 +900,11 @@
         mo = nil;
     }
     // With crosstabulation without stratification
-    if (meansVariableChosen && crosstabVariableChosen && !stratificationVariableChosen)
+    if ([[meansLVE selectedIndex] intValue] > 0 && [[crosstabLVE selectedIndex] intValue] > 0)
     {
         NSMutableArray *statisticsInputsArray = [[NSMutableArray alloc] init];
 
-        NSString *crosstabVariableName = [availableOutcomeVariables objectAtIndex:[selectedCrosstabVariableNumber intValue]];
+        NSString *crosstabVariableName = [availableOutcomeVariables objectAtIndex:[[crosstabLVE selectedIndex] intValue] - 1];
         FrequencyObject *fo = [[FrequencyObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndVariable:crosstabVariableName AndIncludeMissing:includeMissing];
         
         outputViewDisplayed = YES;
@@ -892,7 +930,7 @@
             else
                 whereClause = [NSString stringWithFormat:@"WHERE %@ = %@", crosstabVariableName, [fo.variableValues objectAtIndex:i]];
             
-            MeansObject *mo = [[MeansObject alloc] initWithSQLiteData:sqliteData AndWhereClause:whereClause AndMeansVariable:[availableOutcomeVariables objectAtIndex:selectedMeansVariableNumber.integerValue] AndIncludeMissing:includeMissing];
+            MeansObject *mo = [[MeansObject alloc] initWithSQLiteData:sqliteData AndWhereClause:whereClause AndMeansVariable:[availableOutcomeVariables objectAtIndex:[[meansLVE selectedIndex] intValue] - 1] AndIncludeMissing:includeMissing];
             
             if (i == 0)
             {
@@ -1701,7 +1739,7 @@
         allLocalFrequencies = nil;
         recordCount = 0.0;
     }
-    if (meansVariableChosen && crosstabVariableChosen && stratificationVariableChosen)
+    if (NO) // No stratification available (yet?) (meansVariableChosen && crosstabVariableChosen && stratificationVariableChosen)
     {
         NSString *stratificationVariableName = [availableStratificationVariables objectAtIndex:[selectedStratificationVariableNumber intValue] + 1];
         NSString *outcomeVariableName = [availableOutcomeVariables objectAtIndex:selectedMeansVariableNumber.integerValue];
