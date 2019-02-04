@@ -253,6 +253,9 @@
 		92921B9919A6427000AA9477 /* MeansView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92921B9819A6427000AA9477 /* MeansView.m */; };
 		929230151EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 929230141EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework */; };
 		9292301B1EC4F3EE0078D9C2 /* WindowsAzureMobileServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921974961880583D007F6DFA /* WindowsAzureMobileServices.framework */; };
+		9294A5CD2208CD1B008695AD /* LinearObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9294A5CC2208CD1B008695AD /* LinearObject.m */; };
+		9294A5D52208CD6F008695AD /* LinearView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9294A5D42208CD6F008695AD /* LinearView.m */; };
+		9294A5D82208CDD3008695AD /* LinearRegressionResults.m in Sources */ = {isa = PBXBuildFile; fileRef = 9294A5D72208CDD3008695AD /* LinearRegressionResults.m */; };
 		92955547192B963F008DEC5C /* ConverterMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 92955546192B963F008DEC5C /* ConverterMethods.m */; };
 		9295554A192BC8C5008DEC5C /* DatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 92955549192BC8C5008DEC5C /* DatePicker.m */; };
 		9295FFCF1CEB8F4B0022B75C /* ArrowFull.png in Resources */ = {isa = PBXBuildFile; fileRef = 9295FFCC1CEB8F4B0022B75C /* ArrowFull.png */; };
@@ -779,6 +782,12 @@
 		92921B9719A6427000AA9477 /* MeansView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeansView.h; sourceTree = "<group>"; };
 		92921B9819A6427000AA9477 /* MeansView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeansView.m; sourceTree = "<group>"; };
 		929230141EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MicrosoftAzureMobile.framework; sourceTree = "<group>"; };
+		9294A5CB2208CD1B008695AD /* LinearObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinearObject.h; sourceTree = "<group>"; };
+		9294A5CC2208CD1B008695AD /* LinearObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinearObject.m; sourceTree = "<group>"; };
+		9294A5D32208CD6F008695AD /* LinearView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinearView.h; sourceTree = "<group>"; };
+		9294A5D42208CD6F008695AD /* LinearView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinearView.m; sourceTree = "<group>"; };
+		9294A5D62208CDD3008695AD /* LinearRegressionResults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinearRegressionResults.h; sourceTree = "<group>"; };
+		9294A5D72208CDD3008695AD /* LinearRegressionResults.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinearRegressionResults.m; sourceTree = "<group>"; };
 		92955545192B963F008DEC5C /* ConverterMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConverterMethods.h; sourceTree = "<group>"; };
 		92955546192B963F008DEC5C /* ConverterMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConverterMethods.m; sourceTree = "<group>"; };
 		92955548192BC8C5008DEC5C /* DatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePicker.h; sourceTree = "<group>"; };
@@ -1457,6 +1466,8 @@
 				68DAD2B71781F35D00BD6947 /* TablesObject.m */,
 				920BCE3321760F6F00BF050A /* LogisticObject.h */,
 				920BCE3421760F6F00BF050A /* LogisticObject.m */,
+				9294A5CB2208CD1B008695AD /* LinearObject.h */,
+				9294A5CC2208CD1B008695AD /* LinearObject.m */,
 				4AC04F47178B37610001F3DC /* FrequencyView.h */,
 				4AC04F48178B37610001F3DC /* FrequencyView.m */,
 				92921B9719A6427000AA9477 /* MeansView.h */,
@@ -1465,8 +1476,12 @@
 				4A556866178DA09400B79542 /* TablesView.m */,
 				9253C7742195F42400DC084B /* LogisticView.h */,
 				9253C7752195F42400DC084B /* LogisticView.m */,
+				9294A5D32208CD6F008695AD /* LinearView.h */,
+				9294A5D42208CD6F008695AD /* LinearView.m */,
 				929E47AD21A5D16900D88EF0 /* LogisticRegressionResults.h */,
 				929E47AE21A5D16900D88EF0 /* LogisticRegressionResults.m */,
+				9294A5D62208CDD3008695AD /* LinearRegressionResults.h */,
+				9294A5D72208CDD3008695AD /* LinearRegressionResults.m */,
 				92BB3C3421AC79BC00D785CD /* EIMatrix.h */,
 				92BB3C3521AC79BC00D785CD /* EIMatrix.m */,
 				929E47B521A5DA3900D88EF0 /* VariableRow.h */,
@@ -2078,6 +2093,7 @@
 				4AFD8563161F17D900FFBA65 /* MatchedPairCompute.m in Sources */,
 				9291F43E1AA779C60041DE6E /* SimulationsViewControllerSwift.swift in Sources */,
 				9247F20F181ADB4E00C96F94 /* BlurryView.m in Sources */,
+				9294A5D82208CDD3008695AD /* LinearRegressionResults.m in Sources */,
 				92DBD603193CC57100A40691 /* EpiInfoOptionField.m in Sources */,
 				4AFD8564161F17D900FFBA65 /* Twox2Compute.m in Sources */,
 				4AFD8567161F413B00FFBA65 /* SharedResources.m in Sources */,
@@ -2096,6 +2112,7 @@
 				4A409A6D161F6CFB0038F572 /* PopulationSurveySampleSizeCompute.m in Sources */,
 				4AC7D6241625BD640056A8AC /* CohortSampleSizeViewController.m in Sources */,
 				9266C53D184684CA00739AF2 /* DateField.m in Sources */,
+				9294A5D52208CD6F008695AD /* LinearView.m in Sources */,
 				92ABAA1D1D22F727000C5B60 /* PageDots.m in Sources */,
 				92F25A3C1ECB558400638DF9 /* EpiInfoLogManager.m in Sources */,
 				4AC7D6301625C0C80056A8AC /* UnmatchedCaseControlSampleSizeViewController.m in Sources */,
@@ -2162,6 +2179,7 @@
 				4A556867178DA09400B79542 /* TablesView.m in Sources */,
 				9276EEB917B028AE0050858B /* ChooseAnalysisButton.m in Sources */,
 				920BCE3D2178F0AA00BF050A /* FormFromGoogleSheetView.m in Sources */,
+				9294A5CD2208CD1B008695AD /* LinearObject.m in Sources */,
 				9276EEBC17B029E60050858B /* AnalysisList.m in Sources */,
 				929E47BA21A5DA6200D88EF0 /* InteractionRow.m in Sources */,
 				9266C52B1846613000739AF2 /* FormView.m in Sources */,

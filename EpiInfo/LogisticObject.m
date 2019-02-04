@@ -11,7 +11,7 @@
 @synthesize exposureVariables = _exposureVariables;
 @synthesize matchVariable = _matchVariable;
 
-- (id)initWithSQLiteData:(SQLiteData *)dataSet AndWhereClause:(NSString *)whereClause AndOutcomeVariable:(NSString *)outcomeVariable AndExposureVariables:(NSArray *)exposureVariables AndIncludeMissing:(BOOL)includeMissing
+- (id)initWithSQLiteData:(SQLiteData *)dataSet AndWhereClause:(NSString * _Nullable)whereClause AndOutcomeVariable:(NSString *)outcomeVariable AndExposureVariables:(NSArray *)exposureVariables AndIncludeMissing:(BOOL)includeMissing
 {
     self = [super init];
     
