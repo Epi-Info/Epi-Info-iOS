@@ -126,7 +126,7 @@
             
             //Add the gadget title
             gadgetTitle = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 44)];
-            [gadgetTitle setText:@"Logistic Regression"];
+            [gadgetTitle setText:@"Linear Regression"];
             [gadgetTitle setTextColor:epiInfoLightBlue];
             [gadgetTitle setFont:[UIFont boldSystemFontOfSize:18.0]];
             [titleBar addSubview:gadgetTitle];
@@ -266,7 +266,7 @@
             
             //Add the gadget title
             gadgetTitle = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 44)];
-            [gadgetTitle setText:@"Logistic Regression"];
+            [gadgetTitle setText:@"Linear Regression"];
             [gadgetTitle setTextColor:epiInfoLightBlue];
             [gadgetTitle setFont:[UIFont boldSystemFontOfSize:18.0]];
             [titleBar addSubview:gadgetTitle];
@@ -960,8 +960,367 @@
     [avc setDataSourceEnabled:YES];
 }
 
+- (void)createSettings:(NSDictionary *)inputVariableList outcomesAndValues:(NSArray *)outcomeValues
+{
+    mstrC = @"95";
+    mdblC = 0.05;
+    mdblP = [SharedResources zFromP:mdblC * 0.5];
+    mlngIter = 15;
+    mdblConv = 0.00001;
+    mdblToler = 0.000001;
+    mboolIntercept = NO;
+    mstraBoolean = @[@"No", @"Yes", @"Missing"];
+    mstrWeightVar = @"";
+    mstrDependVar = @"";
+    mstraTerms = [[NSMutableArray alloc] init];
+    mStrADiscrete = [[NSMutableArray alloc] init];
+    terms = 0, discrete = 0;
+    
+    for (id key in inputVariableList)
+    {
+        if ([[(NSString *)[inputVariableList objectForKey:key] lowercaseString] isEqualToString:@"term"])
+        {
+            [mstraTerms setObject:(NSString *)key atIndexedSubscript:terms];
+            terms++;
+        }
+        if ([[(NSString *)[inputVariableList objectForKey:key] lowercaseString] isEqualToString:@"discrete"])
+        {
+            [mStrADiscrete setObject:(NSString *)key atIndexedSubscript:discrete];
+            discrete++;
+            
+            [mstraTerms setObject:(NSString *)key atIndexedSubscript:terms];
+            terms++;
+        }
+        if ([[(NSString *)[inputVariableList objectForKey:key] lowercaseString] isEqualToString:@"weightvar"])
+        {
+            mstrWeightVar = (NSString *)key;
+        }
+        if ([[(NSString *)[inputVariableList objectForKey:key] lowercaseString] isEqualToString:@"dependvar"])
+        {
+            mstrDependVar = (NSString *)key;
+        }
+        if ([[(NSString *)key lowercaseString] isEqualToString:@"intercept"])
+        {
+            mboolIntercept = [(NSString *)[inputVariableList objectForKey:key] boolValue];
+        }
+        if ([[(NSString *)key lowercaseString] isEqualToString:@"p"])
+        {
+            mdblP = [(NSString *)[inputVariableList objectForKey:key] doubleValue];
+            mdblC = 1.0 - mdblP;
+            mstrC = [NSString stringWithFormat:@"%f", mdblP * 100.0];
+            mdblP = [SharedResources zFromP:mdblC * 0.5];
+        }
+        if ([[(NSString *)[inputVariableList objectForKey:key] lowercaseString] isEqualToString:@"unsorted"])
+        {
+            if (YES) // check for not more than 2 values
+            {
+                [mStrADiscrete setObject:key atIndexedSubscript:discrete];
+                discrete++;
+            }
+            [mstraTerms setObject:key atIndexedSubscript:terms];
+            terms++;
+        }
+    }
+}
+
+- (BOOL)getCurrentTableOfOutcomeVariable:(NSString *)outcomeVariable AndIndependentVariables:(NSArray *)independentVariables
+{
+    NSMutableArray *mutableCurrentTable = [[NSMutableArray alloc] init];
+    
+    lStrAVarNames = [NSArray arrayWithArray:independentVariables];
+    
+//    int columnsQueried = 1 + (int)[independentVariables count] + 1;
+    int columnsQueried = 1 + (int)[independentVariables count];
+
+    //Get the path to the sqlite database
+    NSString *databasePath = [[NSString alloc] initWithString:[NSTemporaryDirectory() stringByAppendingString:@"EpiInfo.db"]];
+    
+    //If the database exists, query the WORKING_DATASET
+    if ([[NSFileManager defaultManager] fileExistsAtPath:databasePath])
+    {
+        //Convert the databasePath to a char array
+        const char *dbpath = [databasePath UTF8String];
+        sqlite3_stmt *statement;
+        
+        //Open the database
+        if (sqlite3_open(dbpath, &analysisDB) == SQLITE_OK)
+        {
+            //Build the SELECT statement
+            NSMutableString *selectStatement = [[NSMutableString alloc] initWithString:
+                                                [NSString stringWithFormat:@"SELECT %@, %@", outcomeVariable, [independentVariables objectAtIndex:0]]];
+            for (int i = 1; i < independentVariables.count; i++)
+                [selectStatement appendString:[NSString stringWithFormat:@", %@", [independentVariables objectAtIndex:i]]];
+//            [selectStatement appendFormat:@", 1 as RecStatus FROM WORKING_DATASET"];
+            [selectStatement appendFormat:@" FROM WORKING_DATASET"];
+            //Convert the SELECT statement to a char array
+            const char *query_stmt = [selectStatement UTF8String];
+            //Execute the SELECT statement
+            if (sqlite3_prepare_v2(analysisDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+            {
+                //While the statement returns rows, read the column queried and put the values in the outcomeArray and exposureArray
+                while (sqlite3_step(statement) == SQLITE_ROW)
+                {
+                    NSMutableArray *outcomeArray = [[NSMutableArray alloc] init];
+                    for (int i = 0; i < columnsQueried; i++)
+                    {
+                        if (!sqlite3_column_text(statement, i))
+                        {
+                            [outcomeArray addObject:[NSNull null]];
+                        }
+                        else
+                        {
+                            NSString *rslt0 = [NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]];
+                            NSString *rslt = [NSString stringWithUTF8String:[rslt0 cStringUsingEncoding:NSMacOSRomanStringEncoding]];
+                            [outcomeArray addObject:rslt];
+                        }
+                    }
+                    [mutableCurrentTable addObject:[NSArray arrayWithArray:outcomeArray]];
+                }
+            }
+        }
+    }
+    
+    [self removeRecordsWithNulls:mutableCurrentTable];
+    if (![self outcomeOneZero:mutableCurrentTable])
+        return NO;
+    [self checkIndependentVariables:mutableCurrentTable VariableNames:independentVariables];
+    currentTable = [NSArray arrayWithArray:mutableCurrentTable];
+    
+    return YES;
+}
+
+- (void)getRawData
+{
+    if (mboolIntercept == YES)
+        lintIntercept = 1;
+    else
+        lintIntercept = 0;
+    if ([mstrWeightVar length] > 0)
+        lintweight = 1;
+    else
+        lintweight = 0;
+    
+    NumRows = (int)[currentTable count];
+    NumColumns = (int)[(NSArray *)[currentTable firstObject] count];
+    
+    if (NumRows == 0)
+        return;
+    
+    NSMutableArray *mVarArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [lStrAVarNames count]; i++)
+    {
+        [mVarArray setObject:@"" atIndexedSubscript:i];
+    }
+}
+
+- (void)removeRecordsWithNulls:(NSMutableArray *)currentTableMA
+{
+    for (int i = (int)[currentTableMA count] - 1; i >= 0; i--)
+    {
+        NSArray *rowArrayCopy = [NSArray arrayWithArray:(NSArray*)[currentTableMA objectAtIndex:i]];
+        for (int j = 0; j < [rowArrayCopy count]; j++)
+        {
+            NSString *cellvalue = (NSString *)[rowArrayCopy objectAtIndex:j];
+            if ([cellvalue isEqualToString:@"(null)"])
+            {
+                [currentTableMA removeObjectAtIndex:i];
+                break;
+            }
+        }
+    }
+}
+- (BOOL)outcomeOneZero:(NSMutableArray *)currentTableMA
+{
+    BOOL isOneZero = YES;
+    BOOL isYesNo = YES;
+    BOOL isOneTwo = YES;
+    for (int i = 0; i < [currentTableMA count]; i++)
+    {
+        NSArray *lnsa = (NSArray *)[currentTableMA objectAtIndex:i];
+        NSString *loutcome = (NSString *)[lnsa objectAtIndex:0];
+        if (isOneZero)
+            if (!([loutcome isEqualToString:@"1"] || [loutcome isEqualToString:@"0"]))
+                isOneZero = NO;
+        if (isOneTwo)
+            if (!([loutcome isEqualToString:@"1"] || [loutcome isEqualToString:@"2"]))
+                isOneTwo = NO;
+        if (isYesNo)
+            if (!([loutcome caseInsensitiveCompare:@"yes"] == NSOrderedSame || [loutcome caseInsensitiveCompare:@"no"] == NSOrderedSame))
+                isYesNo = NO;
+        if (!(isOneZero || isOneTwo || isYesNo))
+            return NO;
+    }
+    if (isOneTwo)
+    {
+        for (int i = 0; i < [currentTableMA count]; i++)
+        {
+            if ([(NSString *)[(NSArray *)[currentTableMA objectAtIndex:i] objectAtIndex:0] isEqualToString:@"2"])
+            {
+                NSMutableArray *lnsmai = [NSMutableArray arrayWithArray:[currentTableMA objectAtIndex:i]];
+                [lnsmai setObject:@"0" atIndexedSubscript:0];
+                [currentTableMA setObject:[NSArray arrayWithArray:lnsmai] atIndexedSubscript:i];
+            }
+            
+        }
+    }
+    if (isYesNo)
+    {
+        for (int i = 0; i < [currentTableMA count]; i++)
+        {
+            if ([(NSString *)[(NSArray *)[currentTableMA objectAtIndex:i] objectAtIndex:0] caseInsensitiveCompare:@"yes"] == NSOrderedSame)
+            {
+                NSMutableArray *lnsmai = [NSMutableArray arrayWithArray:[currentTableMA objectAtIndex:i]];
+                [lnsmai setObject:@"1" atIndexedSubscript:0];
+                [currentTableMA setObject:[NSArray arrayWithArray:lnsmai] atIndexedSubscript:i];
+            }
+            else if ([(NSString *)[(NSArray *)[currentTableMA objectAtIndex:i] objectAtIndex:0] caseInsensitiveCompare:@"no"] == NSOrderedSame)
+            {
+                NSMutableArray *lnsmai = [NSMutableArray arrayWithArray:[currentTableMA objectAtIndex:i]];
+                [lnsmai setObject:@"0" atIndexedSubscript:0];
+                [currentTableMA setObject:[NSArray arrayWithArray:lnsmai] atIndexedSubscript:i];
+            }
+            
+        }
+    }
+    return YES;
+}
+- (void)checkIndependentVariables:(NSMutableArray *)currentTableMA VariableNames:(NSArray *)independentVariables
+{
+    NSMutableArray *variablesNeedingDummies = [[NSMutableArray alloc] init];
+    NSMutableArray *valuesForDummies = [[NSMutableArray alloc] init];
+    NSArray *rowOne = (NSArray *)[currentTableMA objectAtIndex:0];
+    for (int j = 1; j < [rowOne count] - 1; j++)
+    {
+        BOOL isOneZero = YES;
+        BOOL isYesNo = YES;
+        BOOL isOneTwo = YES;
+        BOOL isNumeric = YES;
+        NSCharacterSet *numberSet = [NSCharacterSet decimalDigitCharacterSet];
+        for (int i = 0; i < [currentTableMA count]; i++)
+        {
+            NSArray *lnsa = (NSArray *)[currentTableMA objectAtIndex:i];
+            NSString *loutcome = (NSString *)[lnsa objectAtIndex:j];
+            if (isOneZero)
+                if (!([loutcome isEqualToString:@"1"] || [loutcome isEqualToString:@"0"]))
+                    isOneZero = NO;
+            if (isOneTwo)
+                if (!([loutcome isEqualToString:@"1"] || [loutcome isEqualToString:@"2"]))
+                    isOneTwo = NO;
+            if (isYesNo)
+                if (!([loutcome caseInsensitiveCompare:@"yes"] == NSOrderedSame || [loutcome caseInsensitiveCompare:@"no"] == NSOrderedSame))
+                    isYesNo = NO;
+            if (isNumeric)
+                if ([[loutcome stringByTrimmingCharactersInSet:numberSet] length] > 0)
+                    isNumeric = NO;
+        }
+        if (isOneTwo)
+        {
+            for (int i = 0; i < [currentTableMA count]; i++)
+            {
+                if ([(NSString *)[(NSArray *)[currentTableMA objectAtIndex:i] objectAtIndex:j] isEqualToString:@"2"])
+                {
+                    NSMutableArray *lnsmai = [NSMutableArray arrayWithArray:[currentTableMA objectAtIndex:i]];
+                    [lnsmai setObject:@"0" atIndexedSubscript:j];
+                    [currentTableMA setObject:[NSArray arrayWithArray:lnsmai] atIndexedSubscript:i];
+                }
+                
+            }
+        }
+        if (isYesNo)
+        {
+            for (int i = 0; i < [currentTableMA count]; i++)
+            {
+                if ([(NSString *)[(NSArray *)[currentTableMA objectAtIndex:i] objectAtIndex:j] caseInsensitiveCompare:@"yes"] == NSOrderedSame)
+                {
+                    NSMutableArray *lnsmai = [NSMutableArray arrayWithArray:[currentTableMA objectAtIndex:i]];
+                    [lnsmai setObject:@"1" atIndexedSubscript:j];
+                    [currentTableMA setObject:[NSArray arrayWithArray:lnsmai] atIndexedSubscript:i];
+                }
+                else if ([(NSString *)[(NSArray *)[currentTableMA objectAtIndex:i] objectAtIndex:j] caseInsensitiveCompare:@"no"] == NSOrderedSame)
+                {
+                    NSMutableArray *lnsmai = [NSMutableArray arrayWithArray:[currentTableMA objectAtIndex:i]];
+                    [lnsmai setObject:@"0" atIndexedSubscript:j];
+                    [currentTableMA setObject:[NSArray arrayWithArray:lnsmai] atIndexedSubscript:i];
+                }
+                
+            }
+        }
+        else if (!isNumeric || [dummiesNSMA containsObject:[independentVariables objectAtIndex:j - 1]])
+        {
+            [variablesNeedingDummies addObject:[NSNumber numberWithInt:j]];
+            NSMutableArray *valuesForThisJ = [[NSMutableArray alloc] init];
+            for (int i = 0; i < [currentTableMA count]; i++)
+            {
+                NSMutableArray *lnsmai = [NSMutableArray arrayWithArray:[currentTableMA objectAtIndex:i]];
+                NSString *lnsmaij = (NSString *)[lnsmai objectAtIndex:j];
+                if (![valuesForThisJ containsObject:lnsmaij])
+                    [valuesForThisJ addObject:lnsmaij];
+            }
+            [valuesForThisJ sortUsingSelector:@selector(localizedStandardCompare:)];
+            [valuesForThisJ removeObjectAtIndex:0];
+            [valuesForDummies addObject:valuesForThisJ];
+        }
+    }
+    if ([variablesNeedingDummies count] > 0)
+    {
+        [self makeDummies:currentTableMA OfVariableIndexes:variablesNeedingDummies ForValues:valuesForDummies VariableNames:independentVariables];
+    }
+}
+-(void)makeDummies:(NSMutableArray *)currentTableMA OfVariableIndexes:(NSMutableArray *)variablesNeedingDummies ForValues:(NSArray *)valuesForDummies VariableNames:(NSArray *)independentVariables
+{
+    if ([variablesNeedingDummies count] != [valuesForDummies count])
+        return;
+    NSMutableArray *newIndependentVariables = [NSMutableArray arrayWithArray:to.exposureVariables];
+    for (int i = 0; i < [variablesNeedingDummies count]; i++)
+    {
+        int indexOfVariable = [(NSNumber *)[variablesNeedingDummies objectAtIndex:i] intValue];
+        NSArray *valuesi = (NSArray *)[valuesForDummies objectAtIndex:i];
+        for (int j = 0; j < [currentTableMA count]; j++)
+        {
+            NSMutableArray *nsmaij = [NSMutableArray arrayWithArray:[currentTableMA objectAtIndex:j]];
+            for (int k = (int)[valuesi count] - 1; k > 0; k--)
+            {
+                [nsmaij insertObject:@"" atIndex:indexOfVariable + 1];
+                if (j == 0)
+                {
+                    if (indexOfVariable - 1 < [newIndependentVariables count])
+                        [newIndependentVariables insertObject:@"" atIndex:indexOfVariable];
+                    else
+                        [newIndependentVariables addObject:@""];
+                }
+            }
+            for (int k = (int)[valuesi count] - 1; k >= 0; k--)
+            {
+                if ([(NSString *)[nsmaij objectAtIndex:indexOfVariable] isEqualToString:[valuesi objectAtIndex:k]])
+                    [nsmaij setObject:@"1" atIndexedSubscript:indexOfVariable + k];
+                else
+                    [nsmaij setObject:@"0" atIndexedSubscript:indexOfVariable + k];
+                if (j == 0)
+                    [newIndependentVariables setObject:[valuesi objectAtIndex:k] atIndexedSubscript:indexOfVariable - 1 + k];
+            }
+            [currentTableMA replaceObjectAtIndex:j withObject:nsmaij];
+        }
+    }
+    [to setExposureVariables:[NSArray arrayWithArray:newIndependentVariables]];
+}
+
 - (void)doLinear:(LinearObject *)to OnOutputView:(UIView *)outputV StratificationVariable:(NSString *)stratVar StratificationValue:(NSString *)stratValue
 {
+    NSLog(@"Beginning Linear method");
+    NSMutableDictionary *inputVariableList = [[NSMutableDictionary alloc] init];
+    [inputVariableList setObject:@"dependvar" forKey:to.outcomeVariable];
+    [inputVariableList setObject:@"YES" forKey:@"intercept"];
+    [inputVariableList setObject:@"false" forKey:@"includemissing"];
+    [inputVariableList setObject:@"0.95" forKey:@"P"];
+    [inputVariableList setObject:@"unsorted" forKey:to.exposureVariable];
+    [self createSettings:[NSDictionary dictionaryWithDictionary:inputVariableList] outcomesAndValues:to.outcomeValues];
+    
+    LinearRegressionResults *regressionResults = [[LinearRegressionResults alloc] init];
+    
+    if (![self getCurrentTableOfOutcomeVariable:to.outcomeVariable AndIndependentVariables:to.exposureVariables])
+        return;
+    [self getRawData];
+    NSLog(@"Ending Linear method");
 }
 
 /*

@@ -172,7 +172,7 @@
         [filterButton.titleLabel removeFromSuperview];
         
         //initial set-up of analysis list
-        availableAnalyses = 5.0;
+        availableAnalyses = 6.0;
         analysisList = [[AnalysisList alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50 * availableAnalyses)];
         [analysisList setBackgroundColor:[UIColor whiteColor]];
         [self.view addSubview:analysisList];
@@ -221,8 +221,19 @@
         [topLineView setBackgroundColor:[UIColor blackColor]];
         [doMeansAnalysisButton addSubview:topLineView];
         [analysisList addSubview:doMeansAnalysisButton];
+        //Add the linear button to the list
+        UIButton *doLinearAnalysisButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 200, zoomingView.frame.size.width, 50)];
+        [doLinearAnalysisButton setTitle:@"  Logistic Regression" forState:UIControlStateNormal];
+        [doLinearAnalysisButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [doLinearAnalysisButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [doLinearAnalysisButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [doLinearAnalysisButton addTarget:self action:@selector(linearAnalysisSelected) forControlEvents:UIControlEventTouchUpInside];
+        topLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, doLinearAnalysisButton.frame.size.width, 1)];
+        [topLineView setBackgroundColor:[UIColor blackColor]];
+        [doLinearAnalysisButton addSubview:topLineView];
+        [analysisList addSubview:doLinearAnalysisButton];
         //Add the logistic button to the list
-        UIButton *doLogisticAnalysisButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 200, zoomingView.frame.size.width, 50)];
+        UIButton *doLogisticAnalysisButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 250, zoomingView.frame.size.width, 50)];
         [doLogisticAnalysisButton setTitle:@"  Logistic Regression" forState:UIControlStateNormal];
         [doLogisticAnalysisButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [doLogisticAnalysisButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
@@ -383,7 +394,7 @@
         [filterButton.titleLabel removeFromSuperview];
         
         //initial set-up of analysis list
-        availableAnalyses = 5.0;
+        availableAnalyses = 6.0;
         analysisList = [[AnalysisList alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50 * availableAnalyses)];
         [analysisList setBackgroundColor:[UIColor whiteColor]];
         [self.view addSubview:analysisList];
@@ -432,8 +443,19 @@
         [topLineView setBackgroundColor:[UIColor blackColor]];
         [doMeansAnalysisButton addSubview:topLineView];
         [analysisList addSubview:doMeansAnalysisButton];
+        //Add the linear button to the list
+        UIButton *doLinearAnalysisButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 200, zoomingView.frame.size.width, 50)];
+        [doLinearAnalysisButton setTitle:@"  Linear Regression" forState:UIControlStateNormal];
+        [doLinearAnalysisButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [doLinearAnalysisButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [doLinearAnalysisButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [doLinearAnalysisButton addTarget:self action:@selector(linearAnalysisSelected) forControlEvents:UIControlEventTouchUpInside];
+        topLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, doLinearAnalysisButton.frame.size.width, 1)];
+        [topLineView setBackgroundColor:[UIColor blackColor]];
+        [doLinearAnalysisButton addSubview:topLineView];
+        [analysisList addSubview:doLinearAnalysisButton];
         //Add the logistic button to the list
-        UIButton *doLogisticAnalysisButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 200, zoomingView.frame.size.width, 50)];
+        UIButton *doLogisticAnalysisButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 250, zoomingView.frame.size.width, 50)];
         [doLogisticAnalysisButton setTitle:@"  Logistic Regression" forState:UIControlStateNormal];
         [doLogisticAnalysisButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [doLogisticAnalysisButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
@@ -1162,9 +1184,50 @@
     }];
 }
 
+- (void)linearAnalysisSelected
+{
+    //User selected Linear from analysisList
+    
+    //Enable the other three buttons
+    [setDataSource setEnabled:YES];
+    [filterButton setEnabled:YES];
+    [newVariablesButton setEnabled:YES];
+    
+    //Move analysisList below the bottom of the screen
+    [UIView animateWithDuration:0.3 animations:^{
+        [analysisList setFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50 * availableAnalyses)];
+    }];
+    //Wait 0.3 seconds and then set the analysisList to hidden
+    [self performSelector:@selector(hideAnalysisList) withObject:nil afterDelay:0.3];
+    
+    //Allocate and initialize the TablesView, color it white, and add it to the zoomingView
+    //TablesView is initially in the center of the screen and size 1 pixel by 1 pixel
+    tv = [[LinearView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0, 1, 1) AndSQLiteData:sqlData AndViewController:self];
+    //    tv = [[TablesView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0, 1, 1) AndDataSource:workingDataObject AndViewController:self];
+    [tv setBackgroundColor:[UIColor whiteColor]];
+    [self.epiInfoScrollView addSubview:tv];
+    
+    //Animate the TablesView to the proper size
+    //Move the chooseAnalysisButton off the bottom of the screen
+    [UIView animateWithDuration:0.5 animations:^{
+        [tv setFrame:CGRectMake(0, 50, zoomingView.frame.size.width, zoomingView.frame.size.height - 50)];
+        [chooseAnalysis setFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50)];
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
+        {
+            [filterButton setFrame:CGRectMake(self.view.frame.size.width, 100, 50, self.view.frame.size.height - 200)];
+            [newVariablesButton setFrame:CGRectMake(-50, 100, 50, self.view.frame.size.height - 200)];
+        }
+        else
+        {
+            [filterButton setFrame:CGRectMake(self.view.frame.size.width, 60, 50, self.view.frame.size.height - 120)];
+            [newVariablesButton setFrame:CGRectMake(-50, 60, 50, self.view.frame.size.height - 120)];
+        }
+    }];
+}
+
 - (void)logisticAnalysisSelected
 {
-    //User selected 2x2/MxN Table from analysisList
+    //User selected Logistic from analysisList
     
     //Enable the other three buttons
     [setDataSource setEnabled:YES];

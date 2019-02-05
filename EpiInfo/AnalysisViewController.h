@@ -19,6 +19,7 @@
 #import "MeansView.h"
 #import "LogisticObject.h"
 #import "LogisticView.h"
+#import "LinearView.h"
 //#import "AWSSimpleDBConnectionInfo.h"
 #import "ChooseAnalysisButton.h"
 #import "AnalysisList.h"
