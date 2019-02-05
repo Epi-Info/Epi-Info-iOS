@@ -11,6 +11,7 @@
 @synthesize variables = _variables;
 @synthesize betas = _betas;
 @synthesize standardErrors = _standardErrors;
+@synthesize errorMessage = _errorMessage;
 
 - (id)init
 {

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSMutableArray *variables;
 @property NSArray *betas;
 @property NSArray *standardErrors;
+@property NSString *errorMessage;
 @end
 
 NS_ASSUME_NONNULL_END

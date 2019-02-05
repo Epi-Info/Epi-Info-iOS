@@ -1315,11 +1315,49 @@
     [inputVariableList setObject:@"unsorted" forKey:to.exposureVariable];
     [self createSettings:[NSDictionary dictionaryWithDictionary:inputVariableList] outcomesAndValues:to.outcomeValues];
     
+    NSString *errorMessage = @"";
     LinearRegressionResults *regressionResults = [[LinearRegressionResults alloc] init];
+    [regressionResults setErrorMessage:@""];
     
     if (![self getCurrentTableOfOutcomeVariable:to.outcomeVariable AndIndependentVariables:to.exposureVariables])
         return;
     [self getRawData];
+    [regressionResults setErrorMessage:errorMessage];
+    
+    double y[NumRows];
+    double x[NumRows][NumColumns - 1 - lintweight];
+    double xx[NumColumns - 1 - lintweight][NumColumns - 1 - lintweight];
+    double invxx;
+    double xy;
+    double tx;
+    double B;
+    double yhat;
+    double resid;
+    int j, i, df = 0;
+    double sse, mse = 0.0;
+    double rmse = 0;
+    int indx;
+    double d;
+    double fvalue;
+    double covb;
+    double probf;
+    double stdb;
+    double coeff;
+    double meanY = 0.0;
+    double ra2 = 0.0;
+    double r2 = 0.0;
+    double ssy = 0.0;
+    double ftest = 0.0;
+    int lintWRows = 0;
+    int p = 0;
+    int k = 0;
+
+    int lintweight = 0;
+    BOOL ldblweight = NO;
+    int lintrowCount = 0;
+    double ldblMagic = 0.0;
+    if (NO) // Change this to [mstrWeightVar length] if weighted analysis added later
+        lintweight = 1;
     NSLog(@"Ending Linear method");
 }
 
