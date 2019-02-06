@@ -1308,6 +1308,17 @@
     [to setExposureVariables:[NSArray arrayWithArray:newIndependentVariables]];
 }
 
+void trans(int aRows, int aCols, double a[aRows][aCols], double b[aCols][aRows])
+{
+    for (int i = 0; i < aRows; i++)
+    {
+        for (int j = 0; j < aCols; j++)
+        {
+            b[j][i] = a[i][j];
+        }
+    }
+}
+
 - (void)doLinear:(LinearObject *)to OnOutputView:(UIView *)outputV StratificationVariable:(NSString *)stratVar StratificationValue:(NSString *)stratValue
 {
     NSLog(@"Beginning Linear method");
@@ -1361,7 +1372,7 @@
     double resid[NumRows];
     double sse, mse = 0.0;
     double rmse = 0;
-    int indx;
+    int indx[NumColumns - 2 - lintweight];
     double d;
     double fvalue[NumColumns - 2 - lintweight];
     double covb[NumColumns - 2 - lintweight][NumColumns - 2 - lintweight];
@@ -1397,6 +1408,11 @@
             k++;
         }
     }
+    
+    mboolFirst = YES;
+    mboolIntercept = YES;
+    Matrix1 = [[EIMatrix alloc] initWithFirst:mboolFirst AndIntercept:mboolIntercept];
+    trans(NumRows, NumColumns - 2 - lintweight, x, tx);
     NSLog(@"Ending Linear method");
 }
 
