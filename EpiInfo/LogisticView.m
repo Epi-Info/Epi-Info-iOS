@@ -1481,8 +1481,16 @@
                 if (!([loutcome caseInsensitiveCompare:@"yes"] == NSOrderedSame || [loutcome caseInsensitiveCompare:@"no"] == NSOrderedSame))
                     isYesNo = NO;
             if (isNumeric)
+            {
+                if ([loutcome characterAtIndex:0] == '-')
+                    loutcome = [loutcome substringFromIndex:1];
                 if ([[loutcome stringByTrimmingCharactersInSet:numberSet] length] > 0)
-                    isNumeric = NO;
+                {
+                    loutcome = [loutcome stringByTrimmingCharactersInSet:numberSet];
+                    if (![loutcome isEqualToString:@"."])
+                        isNumeric = NO;
+                }
+            }
         }
         if (isOneTwo)
         {

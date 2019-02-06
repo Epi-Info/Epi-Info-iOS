@@ -9,6 +9,7 @@
 #import "LinearObject.h"
 #import "LinearRegressionResults.h"
 #import "sqlite3.h"
+#import "EIMatrix.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

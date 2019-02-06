@@ -1029,8 +1029,7 @@
     
     lStrAVarNames = [NSArray arrayWithArray:independentVariables];
     
-//    int columnsQueried = 1 + (int)[independentVariables count] + 1;
-    int columnsQueried = 1 + (int)[independentVariables count];
+    int columnsQueried = 1 + (int)[independentVariables count] + 1;
 
     //Get the path to the sqlite database
     NSString *databasePath = [[NSString alloc] initWithString:[NSTemporaryDirectory() stringByAppendingString:@"EpiInfo.db"]];
@@ -1050,8 +1049,7 @@
                                                 [NSString stringWithFormat:@"SELECT %@, %@", outcomeVariable, [independentVariables objectAtIndex:0]]];
             for (int i = 1; i < independentVariables.count; i++)
                 [selectStatement appendString:[NSString stringWithFormat:@", %@", [independentVariables objectAtIndex:i]]];
-//            [selectStatement appendFormat:@", 1 as RecStatus FROM WORKING_DATASET"];
-            [selectStatement appendFormat:@" FROM WORKING_DATASET"];
+            [selectStatement appendFormat:@", 1 as RecStatus FROM WORKING_DATASET"];
             //Convert the SELECT statement to a char array
             const char *query_stmt = [selectStatement UTF8String];
             //Execute the SELECT statement
@@ -1081,8 +1079,6 @@
     }
     
     [self removeRecordsWithNulls:mutableCurrentTable];
-    if (![self outcomeOneZero:mutableCurrentTable])
-        return NO;
     [self checkIndependentVariables:mutableCurrentTable VariableNames:independentVariables];
     currentTable = [NSArray arrayWithArray:mutableCurrentTable];
     
@@ -1210,8 +1206,16 @@
                 if (!([loutcome caseInsensitiveCompare:@"yes"] == NSOrderedSame || [loutcome caseInsensitiveCompare:@"no"] == NSOrderedSame))
                     isYesNo = NO;
             if (isNumeric)
+            {
+                if ([loutcome characterAtIndex:0] == '-')
+                    loutcome = [loutcome substringFromIndex:1];
                 if ([[loutcome stringByTrimmingCharactersInSet:numberSet] length] > 0)
-                    isNumeric = NO;
+                {
+                    loutcome = [loutcome stringByTrimmingCharactersInSet:numberSet];
+                    if (![loutcome isEqualToString:@"."])
+                        isNumeric = NO;
+                }
+            }
         }
         if (isOneTwo)
         {
@@ -1323,41 +1327,76 @@
         return;
     [self getRawData];
     [regressionResults setErrorMessage:errorMessage];
-    
-    double y[NumRows];
-    double x[NumRows][NumColumns - 1 - lintweight];
-    double xx[NumColumns - 1 - lintweight][NumColumns - 1 - lintweight];
-    double invxx;
-    double xy;
-    double tx;
-    double B;
-    double yhat;
-    double resid;
-    int j, i, df = 0;
-    double sse, mse = 0.0;
-    double rmse = 0;
-    int indx;
-    double d;
-    double fvalue;
-    double covb;
-    double probf;
-    double stdb;
-    double coeff;
-    double meanY = 0.0;
-    double ra2 = 0.0;
-    double r2 = 0.0;
-    double ssy = 0.0;
-    double ftest = 0.0;
-    int lintWRows = 0;
-    int p = 0;
-    int k = 0;
 
+    int j, i, df = 0;
+    int lintWRows = 0;
     int lintweight = 0;
     BOOL ldblweight = NO;
     int lintrowCount = 0;
     double ldblMagic = 0.0;
     if (NO) // Change this to [mstrWeightVar length] if weighted analysis added later
         lintweight = 1;
+    for (i = 0; i < NumRows; i++)
+    {
+        if (lintweight == 1)
+        {
+            lintWRows++;
+            lintrowCount += [(NSNumber *)[(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:1] doubleValue];
+        }
+        else
+        {
+            lintWRows++;
+            lintrowCount = lintWRows;
+        }
+    }
+
+    double y[NumRows];
+    double x[NumRows][NumColumns - 2 - lintweight];
+    double xx[NumColumns - 2 - lintweight][NumColumns - 2 - lintweight];
+    double invxx[NumColumns - 2 - lintweight][NumColumns - 2 - lintweight];
+    double xy[NumColumns - 2 - lintweight];
+    double tx[NumColumns - 2 - lintweight][NumRows];
+    double B[NumColumns - 2 - lintweight];
+    double yhat[NumRows];
+    double resid[NumRows];
+    double sse, mse = 0.0;
+    double rmse = 0;
+    int indx;
+    double d;
+    double fvalue[NumColumns - 2 - lintweight];
+    double covb[NumColumns - 2 - lintweight][NumColumns - 2 - lintweight];
+    double probf[NumColumns - 2 - lintweight];
+    double stdb[NumColumns - 2 - lintweight];
+    double coeff[4][NumColumns - 2 - lintweight];
+    double meanY = 0.0;
+    double ra2 = 0.0;
+    double r2 = 0.0;
+    double ssy = 0.0;
+    double ftest = 0.0;
+    int p = 0;
+    int k = 0;
+    
+    for (i = 0; i < NumRows; i++)
+    {
+        if (lintweight == 1)
+        {
+            y[k] = [(NSNumber *)[(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:0] doubleValue] * sqrt([(NSNumber *)[(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:1] doubleValue]);
+            for (j = 1 + lintweight; j < NumColumns; j++)
+            {
+                x[k][j - 1 - lintweight] = [(NSNumber *)[(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:j] doubleValue] * sqrt([(NSNumber *)[(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:1] doubleValue]);
+            }
+            k++;
+        }
+        else
+        {
+            y[k] = [(NSNumber *)[(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:0] doubleValue];
+            for (j = lintweight; j < NumColumns - 1; j++)
+            {
+                x[k][j - lintweight] = [(NSNumber *)[(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:j + 1] doubleValue] ;
+            }
+            k++;
+        }
+    }
     NSLog(@"Ending Linear method");
 }
 
