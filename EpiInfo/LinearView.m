@@ -1318,6 +1318,22 @@ void trans(int aRows, int aCols, double a[aRows][aCols], double b[aCols][aRows])
         }
     }
 }
+void mul(int rowA, int colA, int rowB, int colB, double a[rowA][rowB], double b[rowB][colB], double c[rowA][colB])
+{
+    if (colA != rowB)
+        return;
+    for (int i = 0; i < rowA; i++)
+    {
+        for (int k = 0; k < colB; k++)
+        {
+            c[i][k] = 0;
+            for (int j = 0; j < colA; j++)
+            {
+                c[i][k] = c[i][k] + a[i][j] * b[j][k];
+            }
+        }
+    }
+}
 
 - (void)doLinear:(LinearObject *)to OnOutputView:(UIView *)outputV StratificationVariable:(NSString *)stratVar StratificationValue:(NSString *)stratValue
 {
@@ -1413,6 +1429,7 @@ void trans(int aRows, int aCols, double a[aRows][aCols], double b[aCols][aRows])
     mboolIntercept = YES;
     Matrix1 = [[EIMatrix alloc] initWithFirst:mboolFirst AndIntercept:mboolIntercept];
     trans(NumRows, NumColumns - 2 - lintweight, x, tx);
+    mul(NumColumns - 2 - lintweight, NumRows, NumRows, NumColumns - 2 - lintweight, tx, x, xx);
     NSLog(@"Ending Linear method");
 }
 
