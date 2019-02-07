@@ -1406,6 +1406,35 @@ void ludcmp(int n, double d, double a[n][n], int indx[n])
 }
 void lubksb(int n, double a[n][n], int indx[n + 2], double B[n + 2])
 {
+    int ii = 0, ip = 0;
+    double sum = 0.0;
+    for (int i = 0; i < n; i++)
+    {
+        ip = indx[i + 1];
+        sum = B[ip];
+        B[ip] = B[i + 1];
+        if (ii > 0)
+        {
+            for (int j = ii; j <= i; j++)
+            {
+                sum = sum - a[i][j - 1] * B[j];
+            }
+        }
+        else if (sum != 0.0)
+        {
+            ii = i + 1;
+        }
+        B[i + 1] = sum;
+    }
+    for (int i = n - 1; i >= 0; i--)
+    {
+        sum = B[i + 1];
+        for (int j = i + 1; j < n; j++)
+        {
+            sum = sum - a[i][j] * B[j + 1];
+        }
+        B[i + 1] = sum / a[i][i];
+    }
 }
 void inv(int n, double a[n][n], double invA[n][n])
 {
@@ -1550,7 +1579,11 @@ void inv(int n, double a[n][n], double invA[n][n])
         [regressionResults setErrorMessage:@"Error: Matrix Tolerance Exceeded"];
         return;
     }
-    
+    inv(NumColumns - 1 - lintweight, xx, invxx);
+    mul(NumColumns - 1 - lintweight, NumColumns - 1 - lintweight, NumColumns - 1 - lintweight, 1, invxx,xy, B);
+    mul(NumRows, NumColumns - 1 - lintweight, NumColumns - 1 - lintweight, 1, x, B, yhat);
+    sse = 0.0;
+    meanY = 0.0;
     NSLog(@"Ending Linear method");
 }
 
