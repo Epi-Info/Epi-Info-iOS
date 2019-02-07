@@ -394,7 +394,7 @@
             {
                 if ([avc portraitOrientation])
                 {
-                    [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, frame.size.height + 168)];
+                    [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, frame.size.height + 108)];
                     [avc setInitialContentSize:CGSizeMake(320, self.frame.origin.y + 2.0 + inputView.frame.origin.y + inputView.frame.size.height)];
                     [chosenOutcomeVariable setFrame:CGRectMake(20, 8, 276, 44)];
                     [outcomeVariableLabel setFrame:CGRectMake(16, 8, 284, 20)];
@@ -1377,24 +1377,24 @@ void mul(int rowA, int colA, int rowB, int colB, double a[rowA][rowB], double b[
         }
     }
 
-    double y[NumRows];
-    double x[NumRows][NumColumns - 2 - lintweight];
-    double xx[NumColumns - 2 - lintweight][NumColumns - 2 - lintweight];
-    double invxx[NumColumns - 2 - lintweight][NumColumns - 2 - lintweight];
-    double xy[NumColumns - 2 - lintweight];
-    double tx[NumColumns - 2 - lintweight][NumRows];
-    double B[NumColumns - 2 - lintweight];
-    double yhat[NumRows];
+    double y[NumRows][1];
+    double x[NumRows][NumColumns - 1 - lintweight];
+    double xx[NumColumns - 1 - lintweight][NumColumns - 1 - lintweight];
+    double invxx[NumColumns - 1 - lintweight][NumColumns - 1 - lintweight];
+    double xy[NumColumns - 1 - lintweight][1];
+    double tx[NumColumns - 1 - lintweight][NumRows];
+    double B[NumColumns - 1 - lintweight][1];
+    double yhat[NumRows][1];
     double resid[NumRows];
     double sse, mse = 0.0;
     double rmse = 0;
-    int indx[NumColumns - 2 - lintweight];
+    int indx[NumColumns - 1 - lintweight];
     double d;
-    double fvalue[NumColumns - 2 - lintweight];
-    double covb[NumColumns - 2 - lintweight][NumColumns - 2 - lintweight];
-    double probf[NumColumns - 2 - lintweight];
-    double stdb[NumColumns - 2 - lintweight];
-    double coeff[4][NumColumns - 2 - lintweight];
+    double fvalue[NumColumns - 1 - lintweight];
+    double covb[NumColumns - 1 - lintweight][NumColumns - 1 - lintweight];
+    double probf[NumColumns - 1 - lintweight];
+    double stdb[NumColumns - 1 - lintweight];
+    double coeff[4][NumColumns - 1 - lintweight];
     double meanY = 0.0;
     double ra2 = 0.0;
     double r2 = 0.0;
@@ -1407,7 +1407,7 @@ void mul(int rowA, int colA, int rowB, int colB, double a[rowA][rowB], double b[
     {
         if (lintweight == 1)
         {
-            y[k] = [(NSNumber *)[(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:0] doubleValue] * sqrt([(NSNumber *)[(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:1] doubleValue]);
+            y[k][0] = [(NSNumber *)[(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:0] doubleValue] * sqrt([(NSNumber *)[(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:1] doubleValue]);
             for (j = 1 + lintweight; j < NumColumns; j++)
             {
                 x[k][j - 1 - lintweight] = [(NSNumber *)[(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:j] doubleValue] * sqrt([(NSNumber *)[(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:1] doubleValue]);
@@ -1416,7 +1416,7 @@ void mul(int rowA, int colA, int rowB, int colB, double a[rowA][rowB], double b[
         }
         else
         {
-            y[k] = [(NSNumber *)[(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:0] doubleValue];
+            y[k][0] = [(NSNumber *)[(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:0] doubleValue];
             for (j = lintweight; j < NumColumns - 1; j++)
             {
                 x[k][j - lintweight] = [(NSNumber *)[(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:j + 1] doubleValue] ;
@@ -1427,9 +1427,9 @@ void mul(int rowA, int colA, int rowB, int colB, double a[rowA][rowB], double b[
     
     mboolFirst = YES;
     mboolIntercept = YES;
-    Matrix1 = [[EIMatrix alloc] initWithFirst:mboolFirst AndIntercept:mboolIntercept];
-    trans(NumRows, NumColumns - 2 - lintweight, x, tx);
-    mul(NumColumns - 2 - lintweight, NumRows, NumRows, NumColumns - 2 - lintweight, tx, x, xx);
+    trans(NumRows, NumColumns - 1 - lintweight, x, tx);
+    mul(NumColumns - 1 - lintweight, NumRows, NumRows, NumColumns - 1 - lintweight, tx, x, xx);
+    mul(NumColumns - 1 - lintweight, NumRows, NumRows, 1, tx, y, xy);
     NSLog(@"Ending Linear method");
 }
 

@@ -9,13 +9,11 @@
 #import "LinearObject.h"
 #import "LinearRegressionResults.h"
 #import "sqlite3.h"
-#import "EIMatrix.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LinearView : TablesView <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 {
-    EIMatrix *Matrix1;
     sqlite3 *analysisDB;
     NSArray *currentTable;
     NSArray *lStrAVarNames;
