@@ -1334,6 +1334,106 @@ void mul(int rowA, int colA, int rowB, int colB, double a[rowA][rowB], double b[
         }
     }
 }
+void ludcmp(int n, double d, double a[n][n], int indx[n])
+{
+    int imax = 0;
+    double dum = 0.0, big = 0.0, sum = 0.0;
+    double vv[n + 2];
+    
+    d = 1.0;
+    for (int i = 0; i < n; i++)
+    {
+        big = 0.0;
+        for (int j = 0; j < n; j++)
+        {
+            if (fabs(a[i][j]) > big)
+                big = fabs(a[i][j]);
+        }
+        if (big == 0.0)
+            return;
+        vv[i] = 1.0 / big;
+    }
+    for (int j = 0; j < n; j++)
+    {
+        for (int i = 0; i < j; i++)
+        {
+            sum = a[i][j];
+            for (int k = 0; k < i; k++)
+            {
+                sum = sum - a[i][k] * a[k][j];
+            }
+            a[i][j] = sum;
+        }
+        big = 0.0;
+        for (int i = j; i < n; i++)
+        {
+            sum = a[i][j];
+            for (int k = 0; k < j; k++)
+            {
+                sum = sum - a[i][k] * a[k][j];
+            }
+            a[i][j] = sum;
+            dum = vv[i] * fabs(sum);
+            if (dum >= big)
+            {
+                big = dum;
+                imax = i;
+            }
+        }
+        if (j != imax)
+        {
+            for (int k = 0; k < n; k++)
+            {
+                dum = a[imax][k];
+                a[imax][k] = a[j][k];
+                a[j][k] = dum;
+            }
+            d *= -1.0;
+            vv[imax] = vv[j];
+        }
+        indx[j] = imax + 1;
+        if (a[j][j] == 0.0)
+            a[j][j] = 1.0e-20;
+        if (j != n)
+        {
+            dum = 1.0 / a[j][j];
+            for (int i = j + 1; i < n; i++)
+            {
+                a[i][j] *= dum;
+            }
+        }
+    }
+}
+void lubksb(int n, double a[n][n], int indx[n + 2], double B[n + 2])
+{
+}
+void inv(int n, double a[n][n], double invA[n][n])
+{
+    int indx[n + 2];
+    double col[n + 2];
+    double d = 0.0;
+    ludcmp(n, d, a, indx);
+    
+    for (int j = 0; j < n; j++)
+    {
+        for (int i = 0; i < n; i++)
+            col[i] = 0;
+        col[j] = 1;
+        
+        int indxShifted[n + 2];
+        double colShifted[n + 2];
+        
+        for (int k = 0; k < n + 1; k++)
+        {
+            indxShifted[k + 1] = indx[k];
+            colShifted[k + 1] = col[k];
+        }
+        
+        lubksb(n, a, indxShifted, colShifted);
+        for (int i = 0; i < n; i++)
+            invA[i][j] = colShifted[i + 1];
+    }
+}
 
 - (void)doLinear:(LinearObject *)to OnOutputView:(UIView *)outputV StratificationVariable:(NSString *)stratVar StratificationValue:(NSString *)stratValue
 {
@@ -1389,7 +1489,7 @@ void mul(int rowA, int colA, int rowB, int colB, double a[rowA][rowB], double b[
     double sse, mse = 0.0;
     double rmse = 0;
     int indx[NumColumns - 1 - lintweight];
-    double d;
+    double d = 0.0;
     double fvalue[NumColumns - 1 - lintweight];
     double covb[NumColumns - 1 - lintweight][NumColumns - 1 - lintweight];
     double probf[NumColumns - 1 - lintweight];
@@ -1430,6 +1530,27 @@ void mul(int rowA, int colA, int rowB, int colB, double a[rowA][rowB], double b[
     trans(NumRows, NumColumns - 1 - lintweight, x, tx);
     mul(NumColumns - 1 - lintweight, NumRows, NumRows, NumColumns - 1 - lintweight, tx, x, xx);
     mul(NumColumns - 1 - lintweight, NumRows, NumRows, 1, tx, y, xy);
+    
+    for (int e = 0; e < NumColumns - 1 - lintweight; e++)
+        for (int c = 0; c < NumColumns - 1 - lintweight; c++)
+            invxx[e][c] = xx[e][c];
+    ludcmp(NumColumns - 1 - lintweight, d, invxx, indx);
+    d = 1;
+    for (i = 0; i < NumColumns - 1 - lintweight; i++)
+    {
+        d *= invxx[i][i];
+        if (d == 0)
+        {
+            [regressionResults setErrorMessage:@"Error: Colinear Data"];
+            return;
+        }
+    }
+    if (fabs(d) < mdblToler)
+    {
+        [regressionResults setErrorMessage:@"Error: Matrix Tolerance Exceeded"];
+        return;
+    }
+    
     NSLog(@"Ending Linear method");
 }
 
