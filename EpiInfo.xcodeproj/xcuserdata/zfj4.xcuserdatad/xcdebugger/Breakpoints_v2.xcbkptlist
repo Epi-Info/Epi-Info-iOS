@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/LinearView.m"
-            timestampString = "571262733.125663"
+            timestampString = "571262993.045185"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1588"
-            endingLineNumber = "1588"
+            startingLineNumber = "1592"
+            endingLineNumber = "1592"
             landmarkName = "-doLinear:OnOutputView:StratificationVariable:StratificationValue:"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,13 +122,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/LinearView.m"
-            timestampString = "571262733.1301121"
+            timestampString = "571262993.045969"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1461"
-            endingLineNumber = "1461"
-            landmarkName = "inv"
-            landmarkType = "9">
+            startingLineNumber = "1587"
+            endingLineNumber = "1587"
+            landmarkName = "-doLinear:OnOutputView:StratificationVariable:StratificationValue:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/LinearView.m"
+            timestampString = "571263202.582176"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1584"
+            endingLineNumber = "1584"
+            landmarkName = "-doLinear:OnOutputView:StratificationVariable:StratificationValue:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

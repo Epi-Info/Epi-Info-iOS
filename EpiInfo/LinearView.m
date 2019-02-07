@@ -1580,8 +1580,12 @@ void inv(int n, double a[n][n], double invA[n][n])
         return;
     }
     inv(NumColumns - 1 - lintweight, xx, invxx);
-    mul(NumColumns - 1 - lintweight, NumColumns - 1 - lintweight, NumColumns - 1 - lintweight, 1, invxx,xy, B);
+    mul(NumColumns - 1 - lintweight, NumColumns - 1 - lintweight, NumColumns - 1 - lintweight, 1, invxx, xy, B);
     mul(NumRows, NumColumns - 1 - lintweight, NumColumns - 1 - lintweight, 1, x, B, yhat);
+    for (int e = 0; e < NumColumns - 1 - lintweight; e++)
+        NSLog(@"B[%d][0] = %f", e, B[e][0]);
+    for (int e = 0; e < NumRows; e++)
+        NSLog(@"yhat[%d][0] = %f", e, yhat[e][0]);
     sse = 0.0;
     meanY = 0.0;
     NSLog(@"Ending Linear method");
