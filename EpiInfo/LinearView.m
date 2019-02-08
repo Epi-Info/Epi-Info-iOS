@@ -1582,12 +1582,62 @@ void inv(int n, double a[n][n], double invA[n][n])
     inv(NumColumns - 1 - lintweight, xx, invxx);
     mul(NumColumns - 1 - lintweight, NumColumns - 1 - lintweight, NumColumns - 1 - lintweight, 1, invxx, xy, B);
     mul(NumRows, NumColumns - 1 - lintweight, NumColumns - 1 - lintweight, 1, x, B, yhat);
-    for (int e = 0; e < NumColumns - 1 - lintweight; e++)
-        NSLog(@"B[%d][0] = %f", e, B[e][0]);
-    for (int e = 0; e < NumRows; e++)
-        NSLog(@"yhat[%d][0] = %f", e, yhat[e][0]);
     sse = 0.0;
     meanY = 0.0;
+    for (i = 0; i < lintWRows; i++)
+    {
+        if (lintweight > 0)
+        {
+            ldblMagic = sqrt([(NSNumber *)[(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:1] doubleValue]);
+            resid[i] = y[i][0] - yhat[i][0];
+            meanY = meanY + y[i][0] * ldblMagic;
+            sse = sse + resid[i] * resid[i];
+        }
+        else
+        {
+            resid[i] = y[i][0] - yhat[i][0];
+            meanY = meanY + y[i][0];
+            sse = sse + resid[i] * resid[i];
+        }
+    }
+    meanY = meanY / lintrowCount;
+    ssy = 0.0;
+    for (i = 0; i < lintWRows; i++)
+    {
+        if (lintweight > 0)
+        {
+            if ([(NSNumber *)[(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:1] doubleValue] != 0)
+            {
+                ssy = ssy + pow(y[i][0] * sqrt([(NSNumber *)[(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:1] doubleValue]) - meanY * abs((int)mboolIntercept), 2.0) * [(NSNumber *)[(NSArray *)[currentTable objectAtIndex:i] objectAtIndex:1] doubleValue];
+            }
+        }
+        else
+        {
+            ssy = ssy + pow(y[i][0]  - meanY * abs((int)mboolIntercept), 2.0);
+        }
+    }
+    r2 = (ssy - sse) / ssy;
+    
+    df = lintWRows - (NumColumns - lintweight - (int)mboolIntercept * 0 - 1);
+    ra2 = 1 - (int)(lintrowCount - (int)mboolIntercept) * sse / (df * ssy);
+    mse = sse / df;
+    
+    ftest = (ssy - sse) / (NumColumns - lintweight - 1 - (int)mboolIntercept);
+    ftest = ftest / mse;
+    rmse = sqrt(mse);
+    for (i = 0; i < NumColumns - lintweight - 1; i++)
+    {
+        for (j = 0; j < NumColumns - lintweight - 1; j++)
+        {
+            covb[i][j] = invxx[i][j] * mse;
+        }
+        stdb[i] = sqrt(fabs(covb[i][i]));
+        fvalue[i] = pow(B[i][0] / stdb[i], 2.0);
+        probf[i] = 0.0;
+        probf[i] = [SharedResources pFromF:fvalue[i] DegreesOfFreedom1:1 DegreesOfFreedom2:df];
+    }
+    for (i = 0; i < NumColumns - lintweight - 1; i++)
+        NSLog(@"stdb[%d] = %f\tfvalue[%d] = %f\tprobf[%d] = %f", i, stdb[i], i, fvalue[i], i, probf[i]);
     NSLog(@"Ending Linear method");
 }
 
