@@ -1636,8 +1636,52 @@ void inv(int n, double a[n][n], double invA[n][n])
         probf[i] = 0.0;
         probf[i] = [SharedResources pFromF:fvalue[i] DegreesOfFreedom1:1 DegreesOfFreedom2:df];
     }
-    for (i = 0; i < NumColumns - lintweight - 1; i++)
-        NSLog(@"stdb[%d] = %f\tfvalue[%d] = %f\tprobf[%d] = %f", i, stdb[i], i, fvalue[i], i, probf[i]);
+    
+    [regressionResults setCorrelationCoefficient:r2];
+    [regressionResults setRegressionDf:(int)(lintWRows - (int)mboolIntercept) - df];
+    [regressionResults setRegressionSumOfSquares:ssy - sse];
+    [regressionResults setRegressionMeanSquare:(ssy - sse) / (int)(NumColumns - lintweight - 1 - (int)mboolIntercept)];
+    [regressionResults setRegressionF:ftest];
+    [regressionResults setResidualsDf:df];
+    [regressionResults setResidualsSumOfSquares:sse];
+    [regressionResults setResidualsMeanSquare:mse];
+    [regressionResults setTotalDf:lintrowCount - (int)mboolIntercept];
+    [regressionResults setTotalSumOfSquares:ssy];
+    [regressionResults setRegressionFP:[SharedResources pFromF:regressionResults.regressionF DegreesOfFreedom1:regressionResults.regressionDf DegreesOfFreedom2:regressionResults.residualsDf]];
+    
+    [regressionResults setVariables:[NSMutableArray arrayWithArray:to.exposureVariables]];
+    [regressionResults.variables addObject:@"CONSTANT"];
+    
+    NSMutableArray *betas = [[NSMutableArray alloc] init];
+    NSMutableArray *betases = [[NSMutableArray alloc] init];
+    NSMutableArray *betafs = [[NSMutableArray alloc] init];
+    NSMutableArray *betafps = [[NSMutableArray alloc] init];
+    for (i = 0; i < NumColumns - 1 - lintweight; i++)
+    {
+        [betas addObject:[NSNumber numberWithDouble:B[i][0]]];
+        [betases addObject:[NSNumber numberWithDouble:stdb[i]]];
+        [betafs addObject:[NSNumber numberWithDouble:fvalue[i]]];
+        [betafps addObject:[NSNumber numberWithDouble:probf[i]]];
+    }
+    [regressionResults setBetas:[NSArray arrayWithArray:betas]];
+    [regressionResults setStandardErrors:[NSArray arrayWithArray:betases]];
+    [regressionResults setBetaFs:[NSArray arrayWithArray:betafs]];
+    [regressionResults setBetaFPs:[NSArray arrayWithArray:betafps]];
+    
+    NSMutableArray *betalcls = [[NSMutableArray alloc] init];
+    NSMutableArray *betaucls = [[NSMutableArray alloc] init];
+    double tscore = 1.9;
+    while ([SharedResources pFromT:tscore DegreesOfFreedom:regressionResults.residualsDf] > 0.025)
+    {
+        tscore += 0.000001;
+    }
+    for (i = 0; i < [regressionResults.betas count]; i++)
+    {
+        [betalcls addObject:[NSNumber numberWithDouble:B[i][0] - tscore * stdb[i]]];
+        [betaucls addObject:[NSNumber numberWithDouble:B[i][0] + tscore * stdb[i]]];
+    }
+    [regressionResults setBetaLCLs:[NSArray arrayWithArray:betalcls]];
+    [regressionResults setBetaUCLs:[NSArray arrayWithArray:betaucls]];
     NSLog(@"Ending Linear method");
 }
 

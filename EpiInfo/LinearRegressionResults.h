@@ -14,7 +14,24 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSMutableArray *variables;
 @property NSArray *betas;
 @property NSArray *standardErrors;
+@property NSArray *betaLCLs;
+@property NSArray *betaUCLs;
+@property NSArray *betaFs;
+@property NSArray *betaFPs;
+
 @property NSString *errorMessage;
+
+@property double correlationCoefficient;
+@property int regressionDf;
+@property double regressionSumOfSquares;
+@property double regressionMeanSquare;
+@property double regressionF;
+@property double regressionFP;
+@property int residualsDf;
+@property double residualsSumOfSquares;
+@property double residualsMeanSquare;
+@property int totalDf;
+@property double totalSumOfSquares;
 @end
 
 NS_ASSUME_NONNULL_END
