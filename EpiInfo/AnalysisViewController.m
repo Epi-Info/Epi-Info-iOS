@@ -223,7 +223,7 @@
         [analysisList addSubview:doMeansAnalysisButton];
         //Add the linear button to the list
         UIButton *doLinearAnalysisButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 200, zoomingView.frame.size.width, 50)];
-        [doLinearAnalysisButton setTitle:@"  Logistic Regression" forState:UIControlStateNormal];
+        [doLinearAnalysisButton setTitle:@"  Linear Regression" forState:UIControlStateNormal];
         [doLinearAnalysisButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [doLinearAnalysisButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
         [doLinearAnalysisButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
