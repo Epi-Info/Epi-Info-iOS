@@ -9,38 +9,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "570722099.832445"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4627"
-            endingLineNumber = "4627"
-            landmarkName = "-parser:didStartElement:namespaceURI:qualifiedName:attributes:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "570722099.83254"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3288"
-            endingLineNumber = "3288"
-            landmarkName = "-parser:didStartElement:namespaceURI:qualifiedName:attributes:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "EpiInfo/PopulationSurveyViewController.m"
             timestampString = "570977048.070814"
             startingColumnNumber = "9223372036854775807"

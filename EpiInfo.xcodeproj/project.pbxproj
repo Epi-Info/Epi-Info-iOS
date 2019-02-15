@@ -183,6 +183,7 @@
 		9252018017D0CC930071C754 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9252017F17D0CC930071C754 /* QuartzCore.framework */; };
 		92524A8C184E50BE003C820B /* SaveFormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92524A8B184E50BE003C820B /* SaveFormView.m */; };
 		9253C7762195F42400DC084B /* LogisticView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253C7752195F42400DC084B /* LogisticView.m */; };
+		9258D1A122148EF1000376E7 /* FormDesigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 9258D1A022148EF1000376E7 /* FormDesigner.m */; };
 		9259D2E61C9327D200AE9181 /* ChildFormFieldAssignments.m in Sources */ = {isa = PBXBuildFile; fileRef = 9259D2E51C9327D200AE9181 /* ChildFormFieldAssignments.m */; };
 		925A5DAF1858C0E2000C2E9E /* PlainOrangeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 925A5DAD1858C0E2000C2E9E /* PlainOrangeButton.png */; };
 		925A5DB01858C0E2000C2E9E /* PlainOrangeButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 925A5DAE1858C0E2000C2E9E /* PlainOrangeButtonNR.png */; };
@@ -683,6 +684,8 @@
 		92524A8B184E50BE003C820B /* SaveFormView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveFormView.m; sourceTree = "<group>"; };
 		9253C7742195F42400DC084B /* LogisticView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticView.h; sourceTree = "<group>"; };
 		9253C7752195F42400DC084B /* LogisticView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticView.m; sourceTree = "<group>"; };
+		9258D19F22148EF1000376E7 /* FormDesigner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormDesigner.h; sourceTree = "<group>"; };
+		9258D1A022148EF1000376E7 /* FormDesigner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormDesigner.m; sourceTree = "<group>"; };
 		9259D2E41C9327D200AE9181 /* ChildFormFieldAssignments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildFormFieldAssignments.h; sourceTree = "<group>"; };
 		9259D2E51C9327D200AE9181 /* ChildFormFieldAssignments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildFormFieldAssignments.m; sourceTree = "<group>"; };
 		925A5DAD1858C0E2000C2E9E /* PlainOrangeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlainOrangeButton.png; sourceTree = "<group>"; };
@@ -1557,6 +1560,8 @@
 				9266C52A1846613000739AF2 /* FormView.m */,
 				920BCE3B2178F0AA00BF050A /* FormFromGoogleSheetView.h */,
 				920BCE3C2178F0AA00BF050A /* FormFromGoogleSheetView.m */,
+				9258D19F22148EF1000376E7 /* FormDesigner.h */,
+				9258D1A022148EF1000376E7 /* FormDesigner.m */,
 				92524A8A184E50BE003C820B /* SaveFormView.h */,
 				92524A8B184E50BE003C820B /* SaveFormView.m */,
 				92E1A83718730614003E58A5 /* EpiInfoTextField.h */,
@@ -2102,6 +2107,7 @@
 				84C816841CE22D8D00F408D2 /* CheckCodeParser.m in Sources */,
 				922920851AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift in Sources */,
 				926F55041AC5CDF200790628 /* CaseControlSimulationModel.swift in Sources */,
+				9258D1A122148EF1000376E7 /* FormDesigner.m in Sources */,
 				928FCEF219E5692000641A95 /* VHFViewController.m in Sources */,
 				4AFD8571161F524E00FFBA65 /* PopulationSurveyViewController.m in Sources */,
 				4AFD8574161F531400FFBA65 /* PopulationSurveyView.m in Sources */,

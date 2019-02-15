@@ -11,6 +11,7 @@
 #import "ConverterMethods.h"
 #import "EpiInfoLogManager.h"
 #import "FormFromGoogleSheetView.h"
+#import "FormDesigner.h"
 
 #pragma mark * Private Interface
 
@@ -578,6 +579,20 @@
         [googleSheetButton addTarget:self action:@selector(googleSheetButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [googleSheetButton.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
         [self.view addSubview:googleSheetButton];
+        
+        CGRect formDesignerButtonFrame = CGRectMake(googleSheetButtonFrame.origin.x,
+                                                   googleSheetButtonFrame.origin.y + 1.2 * googleSheetButtonFrame.size.height,
+                                                   googleSheetButtonFrame.size.width,
+                                                   googleSheetButtonFrame.size.height);
+        UIButton *formDesignerButton = [[UIButton alloc] initWithFrame:formDesignerButtonFrame];
+        [formDesignerButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [formDesignerButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+        [formDesignerButton setTitle:@"Create form with Form Designer" forState:UIControlStateNormal];
+        [formDesignerButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [formDesignerButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [formDesignerButton addTarget:self action:@selector(formDesignerButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [formDesignerButton.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
+        [self.view addSubview:formDesignerButton];
     }
     //
     
@@ -1091,6 +1106,19 @@
             if (![edv superview])
                 [edv restoreToViewController];
         }];
+    }];
+}
+
+- (void)formDesignerButtonPressed:(UIButton *)sender
+{
+    CGRect formDesignerFrame0 = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
+    FormDesigner *fd = [[FormDesigner alloc] initWithFrame:formDesignerFrame0 andSender:sender];
+    [self.view addSubview:fd];
+    
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        CGRect formDesignerFrame1 = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+        [fd setFrame:formDesignerFrame1];
+    } completion:^(BOOL finished){
     }];
 }
 
