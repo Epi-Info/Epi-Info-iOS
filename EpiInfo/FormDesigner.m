@@ -276,14 +276,20 @@
 
 - (void)menuButtonPressed:(UIButton *)sender
 {
-    NSLog(@"%@ button pressed", [sender titleLabel].text);
+    int buttonTag = ((int)(((float)((int)[sender tag])) / 1000000));
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [menu setFrame:CGRectMake(menu.frame.origin.x, self.frame.size.height, menu.frame.size.width, menu.frame.size.height)];
     } completion:^(BOOL finished){
         [menu removeFromSuperview];
         [canvasTapGesture setEnabled:YES];
         [canvasSV setScrollEnabled:YES];
+        if (buttonTag == 1)
+            [self presentNewFormView];
     }];
+}
+
+- (void)presentNewFormView
+{
 }
 
 - (void)footerBarClose
