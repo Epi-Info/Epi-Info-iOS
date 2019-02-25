@@ -14,6 +14,8 @@
     self = [super initWithFrame:frame];
     if (self)
     {
+        [self getExistingForms];
+        
         [self setBackgroundColor:[UIColor whiteColor]];
         
         float formDesignerLabelY = 0.0;
@@ -54,6 +56,27 @@
         formNamed = NO;
     }
     return self;
+}
+
+- (void)getExistingForms
+{
+    existingForms = [[NSMutableArray alloc] init];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
+    {
+        [[NSFileManager defaultManager] createDirectoryAtPath:[paths objectAtIndex:0] withIntermediateDirectories:NO attributes:nil error:nil];
+    }
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
+    {
+        NSString *epiInfoForms = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"];
+        NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:epiInfoForms error:nil];
+        for (int i = 0; i < [contents count]; i++)
+        {
+            NSString *formlc = [(NSString *)[contents objectAtIndex:i] lowercaseString];
+            NSRange dotxmlrange = [formlc rangeOfString:@".xml"];
+            [existingForms addObject:(NSString *)[formlc substringToIndex:dotxmlrange.location]];
+        }
+    }
 }
 
 - (void)canvasTap:(UITapGestureRecognizer *)tapRecognizer
@@ -343,6 +366,8 @@
 - (void)newFormSaveOrCancelPressed:(UIButton *)sender
 {
     NSString *newFormName = @"";
+    BOOL saveButtonPressed = ([[[sender titleLabel] text] isEqualToString:@"Save"]);
+    
     for (UIView *vv in [newFormViewGrayBackground subviews])
     {
         if ([vv isKindOfClass:[UITextField class]])
@@ -350,6 +375,10 @@
             newFormName = [[(UITextField *)vv text] stringByReplacingOccurrencesOfString:@" " withString:@""];
             break;
         }
+    }
+    if (saveButtonPressed && [existingForms containsObject:[newFormName lowercaseString]])
+    {
+        return;
     }
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [newFormViewGrayBackground setFrame:CGRectMake(newFormViewGrayBackground.frame.origin.x, formDesignerLabel.frame.origin.y + formDesignerLabel.frame.size.height, 0.84 * self.frame.size.width, 0)];
@@ -359,7 +388,7 @@
         }
     } completion:^(BOOL finished){
         [newFormViewGrayBackground removeFromSuperview];
-        if ([[[sender titleLabel] text] isEqualToString:@"Save"])
+        if (saveButtonPressed)
         {
             NSLog(@"Save button pressed. Form name = %@.", newFormName);
             if ([newFormName length] > 0)
