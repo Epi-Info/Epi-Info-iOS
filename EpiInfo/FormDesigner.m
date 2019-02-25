@@ -19,7 +19,7 @@
         float formDesignerLabelY = 0.0;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
             formDesignerLabelY = 8.0;
-        UILabel *formDesignerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, formDesignerLabelY, self.frame.size.width, 32)];
+        formDesignerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, formDesignerLabelY, self.frame.size.width, 32)];
         [formDesignerLabel setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:0.95]];
         [formDesignerLabel setText:@"Form Designer"];
         [formDesignerLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
@@ -75,7 +75,7 @@
         UIButton *newFormButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 1, menu.frame.size.width - 2, initialButtonHeight)];
         [newFormButton setBackgroundColor:[UIColor whiteColor]];
         [newFormButton setTitle:@"\tNew Form" forState:UIControlStateNormal];
-        [newFormButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:90/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [newFormButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
         [newFormButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [newFormButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
         [newFormButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -86,7 +86,7 @@
         UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 3.0 * initialButtonHeight, menu.frame.size.width - 2, initialButtonHeight)];
         [cancelButton setBackgroundColor:[UIColor whiteColor]];
         [cancelButton setTitle:@"\tCancel" forState:UIControlStateNormal];
-        [cancelButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:90/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [cancelButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
         [cancelButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [cancelButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
         [cancelButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -97,7 +97,7 @@
         UIButton *labelButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 1.0 * initialButtonHeight, menu.frame.size.width - 2, initialButtonHeight)];
         [labelButton setBackgroundColor:[UIColor whiteColor]];
         [labelButton setTitle:@"\tLabel/Title" forState:UIControlStateNormal];
-        [labelButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:90/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [labelButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
         [labelButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [labelButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
         [labelButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -110,7 +110,7 @@
         UIButton *textButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 2.0 * initialButtonHeight, menu.frame.size.width - 2, initialButtonHeight)];
         [textButton setBackgroundColor:[UIColor whiteColor]];
         [textButton setTitle:@"\tText" forState:UIControlStateNormal];
-        [textButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:90/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [textButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
         [textButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [textButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
         [textButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -123,7 +123,7 @@
         UIButton *uppercasetextButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 2.0 * initialButtonHeight, menu.frame.size.width - 2, initialButtonHeight)];
         [uppercasetextButton setBackgroundColor:[UIColor whiteColor]];
         [uppercasetextButton setTitle:@"\tText (Uppercase)" forState:UIControlStateNormal];
-        [uppercasetextButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:90/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [uppercasetextButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
         [uppercasetextButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [uppercasetextButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
         [uppercasetextButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -136,7 +136,7 @@
         UIButton *multilineButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 2.0 * initialButtonHeight, menu.frame.size.width - 2, initialButtonHeight)];
         [multilineButton setBackgroundColor:[UIColor whiteColor]];
         [multilineButton setTitle:@"\tMultiline" forState:UIControlStateNormal];
-        [multilineButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:90/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [multilineButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
         [multilineButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [multilineButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
         [multilineButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -149,7 +149,7 @@
         UIButton *numberButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 2.0 * initialButtonHeight, menu.frame.size.width - 2, initialButtonHeight)];
         [numberButton setBackgroundColor:[UIColor whiteColor]];
         [numberButton setTitle:@"\tNumber" forState:UIControlStateNormal];
-        [numberButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:90/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [numberButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
         [numberButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [numberButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
         [numberButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -162,7 +162,7 @@
         UIButton *phonenumberButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 2.0 * initialButtonHeight, menu.frame.size.width - 2, initialButtonHeight)];
         [phonenumberButton setBackgroundColor:[UIColor whiteColor]];
         [phonenumberButton setTitle:@"\tPhone Number" forState:UIControlStateNormal];
-        [phonenumberButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:90/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [phonenumberButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
         [phonenumberButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [phonenumberButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
         [phonenumberButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -175,7 +175,7 @@
         UIButton *dateButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 2.0 * initialButtonHeight, menu.frame.size.width - 2, initialButtonHeight)];
         [dateButton setBackgroundColor:[UIColor whiteColor]];
         [dateButton setTitle:@"\tDate" forState:UIControlStateNormal];
-        [dateButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:90/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [dateButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
         [dateButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [dateButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
         [dateButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -188,7 +188,7 @@
         UIButton *checkboxButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 2.0 * initialButtonHeight, menu.frame.size.width - 2, initialButtonHeight)];
         [checkboxButton setBackgroundColor:[UIColor whiteColor]];
         [checkboxButton setTitle:@"\tCheckbox" forState:UIControlStateNormal];
-        [checkboxButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:90/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [checkboxButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
         [checkboxButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [checkboxButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
         [checkboxButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -201,7 +201,7 @@
         UIButton *yesnoButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 2.0 * initialButtonHeight, menu.frame.size.width - 2, initialButtonHeight)];
         [yesnoButton setBackgroundColor:[UIColor whiteColor]];
         [yesnoButton setTitle:@"\tYes/No" forState:UIControlStateNormal];
-        [yesnoButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:90/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [yesnoButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
         [yesnoButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [yesnoButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
         [yesnoButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -214,7 +214,7 @@
         UIButton *optionButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 2.0 * initialButtonHeight, menu.frame.size.width - 2, initialButtonHeight)];
         [optionButton setBackgroundColor:[UIColor whiteColor]];
         [optionButton setTitle:@"\tOption" forState:UIControlStateNormal];
-        [optionButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:90/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [optionButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
         [optionButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [optionButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
         [optionButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -227,7 +227,7 @@
         UIButton *imagefieldButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 2.0 * initialButtonHeight, menu.frame.size.width - 2, initialButtonHeight)];
         [imagefieldButton setBackgroundColor:[UIColor whiteColor]];
         [imagefieldButton setTitle:@"\tImage" forState:UIControlStateNormal];
-        [imagefieldButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:90/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [imagefieldButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
         [imagefieldButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [imagefieldButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
         [imagefieldButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -240,7 +240,7 @@
         UIButton *legalvaluesButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 2.0 * initialButtonHeight, menu.frame.size.width - 2, initialButtonHeight)];
         [legalvaluesButton setBackgroundColor:[UIColor whiteColor]];
         [legalvaluesButton setTitle:@"\tLegal Values" forState:UIControlStateNormal];
-        [legalvaluesButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:90/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [legalvaluesButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
         [legalvaluesButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [legalvaluesButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
         [legalvaluesButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -253,7 +253,7 @@
         UIButton *commentlegalButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 2.0 * initialButtonHeight, menu.frame.size.width - 2, initialButtonHeight)];
         [commentlegalButton setBackgroundColor:[UIColor whiteColor]];
         [commentlegalButton setTitle:@"\tComment Legal" forState:UIControlStateNormal];
-        [commentlegalButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:90/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [commentlegalButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
         [commentlegalButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [commentlegalButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
         [commentlegalButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -290,6 +290,85 @@
 
 - (void)presentNewFormView
 {
+    newFormViewGrayBackground = [[UIView alloc] initWithFrame:CGRectMake(0.08 * self.frame.size.width, formDesignerLabel.frame.origin.y + formDesignerLabel.frame.size.height, 0.84 * self.frame.size.width, 0)];
+    [newFormViewGrayBackground setBackgroundColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+    [self addSubview:newFormViewGrayBackground];
+    
+    UILabel *newFormViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(1, 0, newFormViewGrayBackground.frame.size.width - 2, 0)];
+    [newFormViewLabel setBackgroundColor:[UIColor whiteColor]];
+    [newFormViewLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+    [newFormViewLabel setText:@"\tForm Name:"];
+    [newFormViewLabel setTextAlignment:NSTextAlignmentLeft];
+    [newFormViewLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+    [newFormViewGrayBackground addSubview:newFormViewLabel];
+    
+    UITextField *newFormViewText = [[UITextField alloc] initWithFrame:CGRectMake(1, 0, newFormViewGrayBackground.frame.size.width - 2, 0)];
+    [newFormViewText setBackgroundColor:[UIColor whiteColor]];
+    UIView *spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 8)];
+    [newFormViewText setLeftViewMode:UITextFieldViewModeAlways];
+    [newFormViewText setLeftView:spacerView];
+    [newFormViewText setPlaceholder:@"Enter form name."];
+    [newFormViewText setDelegate:self];
+    [newFormViewText setReturnKeyType:UIReturnKeyDone];
+    [newFormViewGrayBackground addSubview:newFormViewText];
+    
+    UIButton *newFormViewCancelButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, newFormViewGrayBackground.frame.size.width / 2 - 1, 0)];
+    [newFormViewCancelButton setBackgroundColor:[UIColor whiteColor]];
+    [newFormViewCancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+    [newFormViewCancelButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [newFormViewCancelButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [newFormViewCancelButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+    [newFormViewCancelButton addTarget:self action:@selector(newFormSaveOrCancelPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [newFormViewGrayBackground addSubview:newFormViewCancelButton];
+    
+    UIButton *newFormViewSaveButton = [[UIButton alloc] initWithFrame:CGRectMake(newFormViewGrayBackground.frame.size.width / 2, 0, newFormViewGrayBackground.frame.size.width / 2 - 1, 0)];
+    [newFormViewSaveButton setBackgroundColor:[UIColor whiteColor]];
+    [newFormViewSaveButton setTitle:@"Save" forState:UIControlStateNormal];
+    [newFormViewSaveButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [newFormViewSaveButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [newFormViewSaveButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+    [newFormViewSaveButton addTarget:self action:@selector(newFormSaveOrCancelPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [newFormViewGrayBackground addSubview:newFormViewSaveButton];
+
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [newFormViewGrayBackground setFrame:CGRectMake(newFormViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 122)];
+        [newFormViewLabel setFrame:CGRectMake(1, 1, newFormViewGrayBackground.frame.size.width - 2, 40)];
+        [newFormViewText setFrame:CGRectMake(1, 41, newFormViewGrayBackground.frame.size.width - 2, 40)];
+        [newFormViewCancelButton setFrame:CGRectMake(1, 81, newFormViewGrayBackground.frame.size.width / 2 - 1, 40)];
+        [newFormViewSaveButton setFrame:CGRectMake(newFormViewGrayBackground.frame.size.width / 2, 81, newFormViewGrayBackground.frame.size.width / 2 - 1, 40)];
+    } completion:^(BOOL finished){
+    }];
+}
+
+- (void)newFormSaveOrCancelPressed:(UIButton *)sender
+{
+    NSString *newFormName = @"";
+    for (UIView *vv in [newFormViewGrayBackground subviews])
+    {
+        if ([vv isKindOfClass:[UITextField class]])
+        {
+            newFormName = [[(UITextField *)vv text] stringByReplacingOccurrencesOfString:@" " withString:@""];
+            break;
+        }
+    }
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [newFormViewGrayBackground setFrame:CGRectMake(newFormViewGrayBackground.frame.origin.x, formDesignerLabel.frame.origin.y + formDesignerLabel.frame.size.height, 0.84 * self.frame.size.width, 0)];
+        for (UIView *vv in [newFormViewGrayBackground subviews])
+        {
+            [vv setFrame:CGRectMake(vv.frame.origin.x, 0, vv.frame.size.width, 0)];
+        }
+    } completion:^(BOOL finished){
+        [newFormViewGrayBackground removeFromSuperview];
+        if ([[[sender titleLabel] text] isEqualToString:@"Save"])
+        {
+            NSLog(@"Save button pressed. Form name = %@.", newFormName);
+            if ([newFormName length] > 0)
+            {
+                [formDesignerLabel setText:[NSString stringWithFormat:@"Form Designer: %@", newFormName]];
+                formNamed = YES;
+            }
+        }
+    }];
 }
 
 - (void)footerBarClose
@@ -300,6 +379,12 @@
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
     }];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 /*

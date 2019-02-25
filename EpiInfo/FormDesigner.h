@@ -9,9 +9,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FormDesigner : UIView
+@interface FormDesigner : UIView <UITextFieldDelegate>
 {
     UIScrollView *canvasSV;
+    UILabel *formDesignerLabel;
     UIView *canvas;
     UIView *canvasCover;
     UITapGestureRecognizer *canvasTapGesture;
@@ -19,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
     BOOL formNamed;
     
     UIScrollView *menu;
+    
+    UIView *newFormViewGrayBackground;
 }
 -(id)initWithFrame:(CGRect)frame andSender:(UIButton *)sender;
 @end
