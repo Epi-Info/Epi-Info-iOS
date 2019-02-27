@@ -1113,6 +1113,7 @@
 {
     CGRect formDesignerFrame0 = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
     FormDesigner *fd = [[FormDesigner alloc] initWithFrame:formDesignerFrame0 andSender:sender];
+    [fd setRootViewController:self];
     [self.view addSubview:fd];
     
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{

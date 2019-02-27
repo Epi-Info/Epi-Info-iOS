@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
     
     UIView *newFormViewGrayBackground;
 }
+@property UIViewController *rootViewController;
 -(id)initWithFrame:(CGRect)frame andSender:(UIButton *)sender;
 @end
 

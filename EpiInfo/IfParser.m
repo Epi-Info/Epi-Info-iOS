@@ -196,7 +196,7 @@
                         NSMutableArray *controlsToAlter = [NSMutableArray arrayWithArray:[statement componentsSeparatedByString:@" "]];
                         for (int cto = 1; cto < controlsToAlter.count; cto++)
                         {
-                            if (![((DataEntryViewController *)[self rootViewController]).arrayOfFieldsAllPages containsObject:[[controlsToAlter objectAtIndex:cto] lowercaseString]])
+                            if (!(([((DataEntryViewController *)[self rootViewController]).arrayOfFieldsAllPages containsObject:[[controlsToAlter objectAtIndex:cto] lowercaseString]]) || ([(NSDictionary *)[(EnterDataView *)[self.dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", 1]] dictionaryOfGroupsAndLists] objectForKey:[controlsToAlter objectAtIndex:cto]])))
                                 continue;
                             BOOL pageAlreadyExists = NO;
                             int pageTurns = 0;
@@ -263,7 +263,7 @@
                         NSMutableArray *controlsToAlter = [NSMutableArray arrayWithArray:[statement componentsSeparatedByString:@" "]];
                         for (int cto = 1; cto < controlsToAlter.count; cto++)
                         {
-                            if (![((DataEntryViewController *)[self rootViewController]).arrayOfFieldsAllPages containsObject:[[controlsToAlter objectAtIndex:cto] lowercaseString]])
+                            if (!(([((DataEntryViewController *)[self rootViewController]).arrayOfFieldsAllPages containsObject:[[controlsToAlter objectAtIndex:cto] lowercaseString]]) || ([(NSDictionary *)[(EnterDataView *)[self.dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", 1]] dictionaryOfGroupsAndLists] objectForKey:[controlsToAlter objectAtIndex:cto]])))
                                 continue;
                             BOOL pageAlreadyExists = NO;
                             int pageTurns = 0;
@@ -330,7 +330,7 @@
                         NSMutableArray *controlsToAlter = [NSMutableArray arrayWithArray:[statement componentsSeparatedByString:@" "]];
                         for (int cto = 1; cto < controlsToAlter.count; cto++)
                         {
-                            if (![((DataEntryViewController *)[self rootViewController]).arrayOfFieldsAllPages containsObject:[[controlsToAlter objectAtIndex:cto] lowercaseString]])
+                            if (!(([((DataEntryViewController *)[self rootViewController]).arrayOfFieldsAllPages containsObject:[[controlsToAlter objectAtIndex:cto] lowercaseString]]) || ([(NSDictionary *)[(EnterDataView *)[self.dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", 1]] dictionaryOfGroupsAndLists] objectForKey:[controlsToAlter objectAtIndex:cto]])))
                                 continue;
                             BOOL pageAlreadyExists = NO;
                             int pageTurns = 0;

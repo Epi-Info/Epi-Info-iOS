@@ -8,6 +8,7 @@
 #import "FormDesigner.h"
 
 @implementation FormDesigner
+@synthesize rootViewController = _rootViewController;
 
 - (id)initWithFrame:(CGRect)frame andSender:(nonnull UIButton *)sender
 {
@@ -378,6 +379,11 @@
     }
     if (saveButtonPressed && [existingForms containsObject:[newFormName lowercaseString]])
     {
+        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"" message:@"A form with that name is already on this device." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        }];
+        [alertC addAction:okAction];
+        [self.rootViewController presentViewController:alertC animated:YES completion:nil];
         return;
     }
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -395,9 +401,15 @@
             {
                 [formDesignerLabel setText:[NSString stringWithFormat:@"Form Designer: %@", newFormName]];
                 formNamed = YES;
+                formElements = [[NSMutableArray alloc] init];
+                [formElements addObject:[NSString stringWithString:newFormName]];
             }
         }
     }];
+}
+
+- (void)buildTheXMLFile
+{
 }
 
 - (void)footerBarClose

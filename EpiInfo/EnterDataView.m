@@ -6527,7 +6527,7 @@
         {
             if([cpm.beforeAfter isEqualToString:@"before"])//check CM cond
             {
-                if (([cpm.element caseInsensitiveCompare:name] == NSOrderedSame)) //check for element match
+                if (([cpm.name caseInsensitiveCompare:name] == NSOrderedSame)) //check for element match
                 {
                     if ([elmArray containsObject:cpm.element]) //check for elements list todo check elm array
                     {
