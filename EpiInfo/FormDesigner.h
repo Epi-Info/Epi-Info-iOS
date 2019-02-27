@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
     UIScrollView *menu;
     
     UIView *newFormViewGrayBackground;
+    UIView *controlViewGrayBackground;
 }
 @property UIViewController *rootViewController;
 -(id)initWithFrame:(CGRect)frame andSender:(UIButton *)sender;

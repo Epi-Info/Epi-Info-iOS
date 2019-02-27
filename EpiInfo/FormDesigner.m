@@ -309,8 +309,12 @@
         [canvasSV setScrollEnabled:YES];
         if (buttonTag == 1)
             [self presentNewFormView];
+        else if (buttonTag == 3)
+            [self presentLabelTitleView];
     }];
 }
+
+#pragma mark Present Views for Controls
 
 - (void)presentNewFormView
 {
@@ -364,6 +368,121 @@
     }];
 }
 
+- (void)presentLabelTitleView
+{
+    controlViewGrayBackground = [[UIView alloc] initWithFrame:CGRectMake(0.08 * self.frame.size.width, formDesignerLabel.frame.origin.y + formDesignerLabel.frame.size.height, 0.84 * self.frame.size.width, 0)];
+    [controlViewGrayBackground setBackgroundColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+    [self addSubview:controlViewGrayBackground];
+    
+    UILabel *controlViewViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width - 2, 0)];
+    [controlViewViewLabel setBackgroundColor:[UIColor whiteColor]];
+    [controlViewViewLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+    [controlViewViewLabel setText:@"\tLabel/Title"];
+    [controlViewViewLabel setTextAlignment:NSTextAlignmentLeft];
+    [controlViewViewLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+    [controlViewGrayBackground addSubview:controlViewViewLabel];
+    
+    UITextField *controlViewPromptText = [[UITextField alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width - 2, 0)];
+    [controlViewPromptText setBackgroundColor:[UIColor whiteColor]];
+    UIView *spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 8)];
+    [controlViewPromptText setLeftViewMode:UITextFieldViewModeAlways];
+    [controlViewPromptText setLeftView:spacerView];
+    [controlViewPromptText setPlaceholder:@"Label/Title text"];
+    [controlViewPromptText setDelegate:self];
+    [controlViewPromptText setReturnKeyType:UIReturnKeyDone];
+    [controlViewPromptText setTag:1001001];
+    [controlViewGrayBackground addSubview:controlViewPromptText];
+    
+    UITextField *controlViewFieldNameText = [[UITextField alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width - 2, 0)];
+    [controlViewFieldNameText setBackgroundColor:[UIColor whiteColor]];
+    UIView *spacerView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 8)];
+    [controlViewFieldNameText setLeftViewMode:UITextFieldViewModeAlways];
+    [controlViewFieldNameText setLeftView:spacerView2];
+    [controlViewFieldNameText setPlaceholder:@"Field Name"];
+    [controlViewFieldNameText setDelegate:self];
+    [controlViewFieldNameText setReturnKeyType:UIReturnKeyDone];
+    [controlViewFieldNameText setTag:1001002];
+    [controlViewGrayBackground addSubview:controlViewFieldNameText];
+
+    UIButton *controlViewCancelButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 2 - 1, 0)];
+    [controlViewCancelButton setBackgroundColor:[UIColor whiteColor]];
+    [controlViewCancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+    [controlViewCancelButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [controlViewCancelButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [controlViewCancelButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+    [controlViewCancelButton addTarget:self action:@selector(labelTitleSaveOrCancelPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [controlViewGrayBackground addSubview:controlViewCancelButton];
+    
+    UIButton *controlViewSaveButton = [[UIButton alloc] initWithFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 2, 0, controlViewGrayBackground.frame.size.width / 2 - 1, 0)];
+    [controlViewSaveButton setBackgroundColor:[UIColor whiteColor]];
+    [controlViewSaveButton setTitle:@"Save" forState:UIControlStateNormal];
+    [controlViewSaveButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [controlViewSaveButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [controlViewSaveButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+    [controlViewSaveButton addTarget:self action:@selector(labelTitleSaveOrCancelPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [controlViewGrayBackground addSubview:controlViewSaveButton];
+    
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 162)];
+        [controlViewViewLabel setFrame:CGRectMake(1, 1, controlViewGrayBackground.frame.size.width - 2, 40)];
+        [controlViewPromptText setFrame:CGRectMake(1, 41, controlViewGrayBackground.frame.size.width - 2, 40)];
+        [controlViewFieldNameText setFrame:CGRectMake(1, 81, controlViewGrayBackground.frame.size.width - 2, 40)];
+        [controlViewCancelButton setFrame:CGRectMake(1, 121, controlViewGrayBackground.frame.size.width / 2 - 1, 40)];
+        [controlViewSaveButton setFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 2, 121, controlViewGrayBackground.frame.size.width / 2 - 1, 40)];
+    } completion:^(BOOL finished){
+    }];
+}
+
+- (void)presentTextView
+{
+}
+
+- (void)presentTextUppercaseView
+{
+}
+
+- (void)presentMultilineView
+{
+}
+
+- (void)presentNumberView
+{
+}
+
+- (void)presentPhoneNumberView
+{
+}
+
+- (void)presentDateView
+{
+}
+
+- (void)presentCheckboxView
+{
+}
+
+- (void)presentYesNoView
+{
+}
+
+- (void)presentOptionView
+{
+}
+
+- (void)presentImageView
+{
+}
+
+- (void)presentLegalValuesView
+{
+}
+
+- (void)presentCommentLegalView
+{
+}
+
+#pragma mark Control View Buttons Touched
+
 - (void)newFormSaveOrCancelPressed:(UIButton *)sender
 {
     NSString *newFormName = @"";
@@ -403,6 +522,41 @@
                 formNamed = YES;
                 formElements = [[NSMutableArray alloc] init];
                 [formElements addObject:[NSString stringWithString:newFormName]];
+                [self buildTheXMLFile];
+                [self getExistingForms];
+            }
+        }
+    }];
+}
+
+- (void)labelTitleSaveOrCancelPressed:(UIButton *)sender
+{
+    NSString *promptText = @"";
+    NSString *fieldName = @"";
+    BOOL saveButtonPressed = ([[[sender titleLabel] text] isEqualToString:@"Save"]);
+    
+    UIView *vv = [controlViewGrayBackground viewWithTag:1001001];
+    promptText = [(UITextField *)vv text];
+    if ([promptText characterAtIndex:[promptText length] - 1])
+        promptText = [promptText substringToIndex:[promptText length] - 1];
+    vv = [controlViewGrayBackground viewWithTag:1001002];
+    fieldName = [(UITextField *)vv text];
+
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, formDesignerLabel.frame.origin.y + formDesignerLabel.frame.size.height, 0.84 * self.frame.size.width, 0)];
+        for (UIView *vv in [controlViewGrayBackground subviews])
+        {
+            [vv setFrame:CGRectMake(vv.frame.origin.x, 0, vv.frame.size.width, 0)];
+        }
+    } completion:^(BOOL finished){
+        [controlViewGrayBackground removeFromSuperview];
+        if (saveButtonPressed)
+        {
+            NSLog(@"Save button pressed. Prompt Text = %@. Field Name = %@.", promptText, fieldName);
+            if ([promptText length] > 0)
+            {
+                [formElements addObject:[NSString stringWithString:fieldName]];
+                [self buildTheXMLFile];
             }
         }
     }];
@@ -410,6 +564,36 @@
 
 - (void)buildTheXMLFile
 {
+    NSMutableString *xmlMS = [[NSMutableString alloc] init];
+    [xmlMS appendString:@"<?xml version=\"1.0\"?>\n"];
+    [xmlMS appendString:[NSString stringWithFormat:@"<Template Level=\"View\" Name=\"%@\">\n", (NSString *)[formElements objectAtIndex:0]]];
+    [xmlMS appendString:@"<Project>\n"];
+    [xmlMS appendString:[NSString stringWithFormat:@"<View Name=\"%@\" ", (NSString *)[formElements objectAtIndex:0]]];
+    [xmlMS appendString:@"LabelAlign=\"Vertical\" Orientation=\"Portrait\" Height=\"1016\" Width=\"780\" CheckCode=\""];
+    [xmlMS appendString:@"\" IsRelatedView=\"False\" ViewId=\"1\">\n"];
+    [xmlMS appendString:@"<Page Name=\"Page 1\" ViewId=\"1\" BackgroundId=\"0\" Position=\"0\" PageId=\"1\">\n"];
+    [xmlMS appendString:@"</Page>\n"];
+    [xmlMS appendString:@"</View>\n"];
+    [xmlMS appendString:@"</Project>\n"];
+    [xmlMS appendString:@"</Template>"];
+    NSString *xmlS = [NSString stringWithString:xmlMS];
+    NSLog(@"%@", xmlS);
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
+    {
+        [[NSFileManager defaultManager] createDirectoryAtPath:[paths objectAtIndex:0] withIntermediateDirectories:NO attributes:nil error:nil];
+    }
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
+    {
+        NSString *filePathAndName = [[[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] stringByAppendingString:@"/"] stringByAppendingString:(NSString *)[formElements objectAtIndex:0]] stringByAppendingString:@".xml"];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:filePathAndName])
+        {
+            [[NSFileManager defaultManager] removeItemAtPath:filePathAndName error:nil];
+        }
+        NSLog(@"%@", filePathAndName);
+        [xmlS writeToFile:filePathAndName atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    }
 }
 
 - (void)footerBarClose
