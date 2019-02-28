@@ -3140,7 +3140,7 @@
         [lv setHidden:NO];
         [openButton setHidden:NO];
         [manageButton setHidden:NO];
-        [googleSheetButton setHidden:YES];
+        [googleSheetButton setHidden:NO];
         [formDesignerButton setHidden:NO];
         
         for (UIView *v in [dismissView subviews])
