@@ -56,9 +56,9 @@
 	<key>NSHumanReadableCopyright</key>
 	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This is to help capture the location of questionnaire events when forms contain Latitude and Longitude fields. This information is collected only upon user request. It is saved only in Epi Info questionnaire data and will never be transmitted or stored elsewhere without the user&apos;s knowledge.</string>
+	<string>Epi Info would like to use your location to assist you in populating Latitude and Longitude fields in questionnaire forms that include location. This information is collected only upon your request. It is saved only in Epi Info questionnaire data and will never be transmitted or stored elsewhere unless you follow the app&apos;s procedure for encrypting and transferring data.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME) To allow Epi Info questionnaire forms to contain Image Fields. Image capturing by Image Fields is executed by the user. Images are stored only in Epi Info data and are not stored in the device camera&apos;s storage location and are never transmitted ore stored elsewhere without the user&apos;s knowledge.</string>
+	<string>Epi Info would like to access your camera to capture images for questionnaire Image Fields. Image capturing by Image Fields will be executed only by you. Images will be stored only in Epi Info data and will not be stored in the device camera&apos;s storage location and will never be shared, transmitted, or stored elsewhere unless you follow the app&apos;s procedure for encrypting and transferring data.</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UIMainStoryboardFile</key>
