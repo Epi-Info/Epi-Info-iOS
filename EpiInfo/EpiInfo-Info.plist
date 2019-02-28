@@ -42,7 +42,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationCategoryType</key>
@@ -56,9 +56,9 @@
 	<key>NSHumanReadableCopyright</key>
 	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>To populate Latitude and Longitude fields.</string>
+	<string>This is to help capture the location of questionnaire events when forms contain Latitude and Longitude fields. This information is collected only upon user request. It is saved only in Epi Info questionnaire data and will never be transmitted or stored elsewhere without the user&apos;s knowledge.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME) To associate photos with an Image Field</string>
+	<string>$(PRODUCT_NAME) To allow Epi Info questionnaire forms to contain Image Fields. Image capturing by Image Fields is executed by the user. Images are stored only in Epi Info data and are not stored in the device camera&apos;s storage location and are never transmitted ore stored elsewhere without the user&apos;s knowledge.</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UIMainStoryboardFile</key>
