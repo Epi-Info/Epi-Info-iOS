@@ -33,6 +33,8 @@
     UIButton *openButton;
     UIButton *manageButton;
     UITextField *lvSelected;
+    UIButton *googleSheetButton;
+    UIButton *formDesignerButton;
     
     EnterDataView *edv;
     UIView *orangeBanner;

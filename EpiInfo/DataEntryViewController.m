@@ -570,7 +570,7 @@
                                                    openButtonRect.origin.y + 1.2 * openButtonRect.size.height,
                                                    2.0 * openButtonRect.size.width,
                                                    openButtonRect.size.height);
-        UIButton *googleSheetButton = [[UIButton alloc] initWithFrame:googleSheetButtonFrame];
+        googleSheetButton = [[UIButton alloc] initWithFrame:googleSheetButtonFrame];
         [googleSheetButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [googleSheetButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
         [googleSheetButton setTitle:@"Create form from Google sheet" forState:UIControlStateNormal];
@@ -584,7 +584,7 @@
                                                    googleSheetButtonFrame.origin.y + 1.2 * googleSheetButtonFrame.size.height,
                                                    googleSheetButtonFrame.size.width,
                                                    googleSheetButtonFrame.size.height);
-        UIButton *formDesignerButton = [[UIButton alloc] initWithFrame:formDesignerButtonFrame];
+        formDesignerButton = [[UIButton alloc] initWithFrame:formDesignerButtonFrame];
         [formDesignerButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [formDesignerButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
         [formDesignerButton setTitle:@"Create form with Form Designer" forState:UIControlStateNormal];
@@ -961,6 +961,8 @@
             [lv setHidden:YES];
             [openButton setHidden:YES];
             [manageButton setHidden:YES];
+            [googleSheetButton setHidden:YES];
+            [formDesignerButton setHidden:YES];
 
             orangeBannerBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 36)];
             [orangeBannerBackground setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
@@ -3138,6 +3140,8 @@
         [lv setHidden:NO];
         [openButton setHidden:NO];
         [manageButton setHidden:NO];
+        [googleSheetButton setHidden:YES];
+        [formDesignerButton setHidden:NO];
         
         for (UIView *v in [dismissView subviews])
         {
