@@ -288,6 +288,7 @@
         [commentlegalButton setEnabled:formNamed];
 
         [self addSubview:menu];
+        
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
             [menu setFrame:CGRectMake(0.08 * self.frame.size.width, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, fmin(0.84 * self.frame.size.height, (tagIncrementer - 1) * (finalButtonHeight + 1.0) + 1.0))];
             [menu setContentSize:CGSizeMake(menu.frame.size.width, (tagIncrementer - 1) * (finalButtonHeight + 1.0) + 1.0)];
@@ -305,10 +306,11 @@
         [menu setFrame:CGRectMake(menu.frame.origin.x, self.frame.size.height, menu.frame.size.width, menu.frame.size.height)];
     } completion:^(BOOL finished){
         [menu removeFromSuperview];
-        [canvasTapGesture setEnabled:YES];
         [canvasSV setScrollEnabled:YES];
         if (buttonTag == 1)
             [self presentNewFormView];
+        else if (buttonTag == 2)
+            [canvasTapGesture setEnabled:YES];
         else if (buttonTag == 3)
             [self presentLabelTitleView];
     }];
@@ -389,6 +391,7 @@
     [controlViewPromptText setLeftView:spacerView];
     [controlViewPromptText setPlaceholder:@"Label/Title text"];
     [controlViewPromptText setDelegate:self];
+    [controlViewPromptText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
     [controlViewPromptText setReturnKeyType:UIReturnKeyDone];
     [controlViewPromptText setTag:1001001];
     [controlViewGrayBackground addSubview:controlViewPromptText];
@@ -400,6 +403,7 @@
     [controlViewFieldNameText setLeftView:spacerView2];
     [controlViewFieldNameText setPlaceholder:@"Field Name"];
     [controlViewFieldNameText setDelegate:self];
+    [controlViewFieldNameText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
     [controlViewFieldNameText setReturnKeyType:UIReturnKeyDone];
     [controlViewFieldNameText setTag:1001002];
     [controlViewGrayBackground addSubview:controlViewFieldNameText];
@@ -418,8 +422,11 @@
     [controlViewSaveButton setTitle:@"Save" forState:UIControlStateNormal];
     [controlViewSaveButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
     [controlViewSaveButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [controlViewSaveButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
     [controlViewSaveButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
     [controlViewSaveButton addTarget:self action:@selector(labelTitleSaveOrCancelPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [controlViewSaveButton setEnabled:NO];
+    [controlViewSaveButton setTag:1001003];
     [controlViewGrayBackground addSubview:controlViewSaveButton];
     
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -513,6 +520,7 @@
         }
     } completion:^(BOOL finished){
         [newFormViewGrayBackground removeFromSuperview];
+        [canvasTapGesture setEnabled:YES];
         if (saveButtonPressed)
         {
             NSLog(@"Save button pressed. Form name = %@.", newFormName);
@@ -550,12 +558,13 @@
         }
     } completion:^(BOOL finished){
         [controlViewGrayBackground removeFromSuperview];
+        [canvasTapGesture setEnabled:YES];
         if (saveButtonPressed)
         {
             NSLog(@"Save button pressed. Prompt Text = %@. Field Name = %@.", promptText, fieldName);
             if ([promptText length] > 0)
             {
-                [formElements addObject:[NSString stringWithString:fieldName]];
+                [formElements addObject:[[NSString stringWithString:fieldName] lowercaseString]];
                 [self buildTheXMLFile];
             }
         }
@@ -606,10 +615,49 @@
     }];
 }
 
+#pragma mark UITextFieldDelegate Methods
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
     return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    if ([textField tag] == 1001001)
+    {
+        if ([[(UITextField *)[[textField superview] viewWithTag:1001002] text] length] > 0)
+            return YES;
+        NSString *compressedText = [[textField text] stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSString *incrementedText = [NSString stringWithString:compressedText];
+        int increment = 0;
+        while ([formElements containsObject:[incrementedText lowercaseString]])
+            incrementedText = [compressedText stringByAppendingString:[NSString stringWithFormat:@"%d", increment++]];
+        UITextField *variableNameField = [[textField superview] viewWithTag:1001002];
+        [variableNameField setText:incrementedText];
+        [self textFieldChanged:textField];
+    }
+    return YES;
+}
+
+- (void)textFieldChanged:(UITextField *)textField
+{
+    if ([[(UITextField *)[[textField superview] viewWithTag:1001001] text] length] > 0 && [[(UITextField *)[[textField superview] viewWithTag:1001002] text] length] > 0)
+        [(UIButton *)[[textField superview] viewWithTag:1001003] setEnabled:YES];
+    else
+    {
+        [(UIButton *)[[textField superview] viewWithTag:1001003] setEnabled:NO];
+        if ([textField tag] == 1001001)
+            return;
+    }
+    if ([formElements containsObject:[[(UITextField *)[[textField superview] viewWithTag:1001002] text] lowercaseString]])
+    {
+        [(UIButton *)[[textField superview] viewWithTag:1001003] setEnabled:NO];
+        [(UITextField *)[[textField superview] viewWithTag:1001002] setTextColor:[UIColor redColor]];
+    }
+    else
+        [(UITextField *)[[textField superview] viewWithTag:1001002] setTextColor:[UIColor blackColor]];
 }
 
 /*
