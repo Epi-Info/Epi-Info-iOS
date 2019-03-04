@@ -11,8 +11,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FormDesigner : UIView <UITextFieldDelegate>
 {
+    float nextY;
+    
     NSMutableArray *existingForms;
+    NSString *formName;
     NSMutableArray *formElements;
+    NSMutableArray *formElementObjects;
     
     UIScrollView *canvasSV;
     UILabel *formDesignerLabel;

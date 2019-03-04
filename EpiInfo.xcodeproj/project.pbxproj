@@ -184,6 +184,7 @@
 		92524A8C184E50BE003C820B /* SaveFormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92524A8B184E50BE003C820B /* SaveFormView.m */; };
 		9253C7762195F42400DC084B /* LogisticView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253C7752195F42400DC084B /* LogisticView.m */; };
 		9258D1A122148EF1000376E7 /* FormDesigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 9258D1A022148EF1000376E7 /* FormDesigner.m */; };
+		9258D1A9222D8833000376E7 /* FormElementObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9258D1A8222D8833000376E7 /* FormElementObject.m */; };
 		9259D2E61C9327D200AE9181 /* ChildFormFieldAssignments.m in Sources */ = {isa = PBXBuildFile; fileRef = 9259D2E51C9327D200AE9181 /* ChildFormFieldAssignments.m */; };
 		925A5DAF1858C0E2000C2E9E /* PlainOrangeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 925A5DAD1858C0E2000C2E9E /* PlainOrangeButton.png */; };
 		925A5DB01858C0E2000C2E9E /* PlainOrangeButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 925A5DAE1858C0E2000C2E9E /* PlainOrangeButtonNR.png */; };
@@ -686,6 +687,8 @@
 		9253C7752195F42400DC084B /* LogisticView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticView.m; sourceTree = "<group>"; };
 		9258D19F22148EF1000376E7 /* FormDesigner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormDesigner.h; sourceTree = "<group>"; };
 		9258D1A022148EF1000376E7 /* FormDesigner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormDesigner.m; sourceTree = "<group>"; };
+		9258D1A7222D8833000376E7 /* FormElementObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormElementObject.h; sourceTree = "<group>"; };
+		9258D1A8222D8833000376E7 /* FormElementObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormElementObject.m; sourceTree = "<group>"; };
 		9259D2E41C9327D200AE9181 /* ChildFormFieldAssignments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildFormFieldAssignments.h; sourceTree = "<group>"; };
 		9259D2E51C9327D200AE9181 /* ChildFormFieldAssignments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildFormFieldAssignments.m; sourceTree = "<group>"; };
 		925A5DAD1858C0E2000C2E9E /* PlainOrangeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlainOrangeButton.png; sourceTree = "<group>"; };
@@ -1562,6 +1565,8 @@
 				920BCE3C2178F0AA00BF050A /* FormFromGoogleSheetView.m */,
 				9258D19F22148EF1000376E7 /* FormDesigner.h */,
 				9258D1A022148EF1000376E7 /* FormDesigner.m */,
+				9258D1A7222D8833000376E7 /* FormElementObject.h */,
+				9258D1A8222D8833000376E7 /* FormElementObject.m */,
 				92524A8A184E50BE003C820B /* SaveFormView.h */,
 				92524A8B184E50BE003C820B /* SaveFormView.m */,
 				92E1A83718730614003E58A5 /* EpiInfoTextField.h */,
@@ -2179,6 +2184,7 @@
 				84C816881CE22D8D00F408D2 /* ElementsModel.m in Sources */,
 				9266C53A184684B200739AF2 /* PhoneNumberField.m in Sources */,
 				925C895519535B9700F3DCE7 /* GrowthPercentilesViewController.m in Sources */,
+				9258D1A9222D8833000376E7 /* FormElementObject.m in Sources */,
 				92AAC01C1C208917005D77F3 /* FeedbackView.m in Sources */,
 				92DBD606193CDAFA00A40691 /* EpiInfoUniqueIDField.m in Sources */,
 				927B555F18B6533B000AB7B1 /* Reachability.m in Sources */,

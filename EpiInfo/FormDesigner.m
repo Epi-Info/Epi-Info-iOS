@@ -6,6 +6,7 @@
 //
 
 #import "FormDesigner.h"
+#import "FormElementObject.h"
 
 @implementation FormDesigner
 @synthesize rootViewController = _rootViewController;
@@ -29,6 +30,8 @@
         [formDesignerLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [formDesignerLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:formDesignerLabel];
+        
+        nextY = formDesignerLabelY + formDesignerLabel.frame.size.height;
         
         UINavigationBar *footerBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, frame.size.height - 32.0, frame.size.width, 32)];
         UINavigationItem *footerBarNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
@@ -84,7 +87,7 @@
 {
     CGPoint touchPoint = [tapRecognizer locationInView:self];
     
-    if (YES)
+    if (touchPoint.y > nextY)
     {
         [canvasTapGesture setEnabled:NO];
         [canvasSV setScrollEnabled:NO];
@@ -529,7 +532,8 @@
                 [formDesignerLabel setText:[NSString stringWithFormat:@"Form Designer: %@", newFormName]];
                 formNamed = YES;
                 formElements = [[NSMutableArray alloc] init];
-                [formElements addObject:[NSString stringWithString:newFormName]];
+                formElementObjects = [[NSMutableArray alloc] init];
+                formName = [NSString stringWithString:newFormName];
                 [self buildTheXMLFile];
                 [self getExistingForms];
             }
@@ -545,7 +549,7 @@
     
     UIView *vv = [controlViewGrayBackground viewWithTag:1001001];
     promptText = [(UITextField *)vv text];
-    if ([promptText characterAtIndex:[promptText length] - 1])
+    if ([promptText characterAtIndex:[promptText length] - 1] == ' ')
         promptText = [promptText substringToIndex:[promptText length] - 1];
     vv = [controlViewGrayBackground viewWithTag:1001002];
     fieldName = [(UITextField *)vv text];
@@ -565,6 +569,35 @@
             if ([promptText length] > 0)
             {
                 [formElements addObject:[[NSString stringWithString:fieldName] lowercaseString]];
+                
+                UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, nextY, canvasSV.frame.size.width - 32, 40)];
+                [titleLabel setBackgroundColor:[UIColor clearColor]];
+                [titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+                [titleLabel setText:promptText];
+                [canvas addSubview:titleLabel];
+                [canvas sendSubviewToBack:titleLabel];
+                nextY += 40;
+                
+                FormElementObject *feo = [[FormElementObject alloc] init];
+                feo.FieldTagElements = [[NSMutableArray alloc] init];
+                feo.FieldTagValues = [[NSMutableArray alloc] init];
+                [feo.FieldTagElements addObject:@"Name"];
+                [feo.FieldTagValues addObject:fieldName];
+                [feo.FieldTagElements addObject:@"PageId"];
+                [feo.FieldTagValues addObject:@"1"];
+                [feo.FieldTagElements addObject:@"IsReadOnly"];
+                [feo.FieldTagValues addObject:@"False"];
+                [feo.FieldTagElements addObject:@"IsRequired"];
+                [feo.FieldTagValues addObject:@"False"];
+                [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+                [feo.FieldTagValues addObject:@"0.24853"];
+                [feo.FieldTagElements addObject:@"PromptText"];
+                [feo.FieldTagValues addObject:promptText];
+                [feo.FieldTagElements addObject:@"FieldTypeId"];
+                [feo.FieldTagValues addObject:@"2"];
+
+                [formElementObjects addObject:feo];
+                
                 [self buildTheXMLFile];
             }
         }
@@ -575,12 +608,22 @@
 {
     NSMutableString *xmlMS = [[NSMutableString alloc] init];
     [xmlMS appendString:@"<?xml version=\"1.0\"?>\n"];
-    [xmlMS appendString:[NSString stringWithFormat:@"<Template Level=\"View\" Name=\"%@\">\n", (NSString *)[formElements objectAtIndex:0]]];
+    [xmlMS appendString:[NSString stringWithFormat:@"<Template Level=\"View\" Name=\"%@\">\n", formName]];
     [xmlMS appendString:@"<Project>\n"];
-    [xmlMS appendString:[NSString stringWithFormat:@"<View Name=\"%@\" ", (NSString *)[formElements objectAtIndex:0]]];
+    [xmlMS appendString:[NSString stringWithFormat:@"<View Name=\"%@\" ", formName]];
     [xmlMS appendString:@"LabelAlign=\"Vertical\" Orientation=\"Portrait\" Height=\"1016\" Width=\"780\" CheckCode=\""];
     [xmlMS appendString:@"\" IsRelatedView=\"False\" ViewId=\"1\">\n"];
     [xmlMS appendString:@"<Page Name=\"Page 1\" ViewId=\"1\" BackgroundId=\"0\" Position=\"0\" PageId=\"1\">\n"];
+    for (int i = 0; i < [formElementObjects count]; i++)
+    {
+        FormElementObject *feo = (FormElementObject *)[formElementObjects objectAtIndex:i];
+        [xmlMS appendFormat:@"<Field"];
+        for (int j = 0; j < [feo.FieldTagElements count]; j++)
+        {
+            [xmlMS appendString:[NSString stringWithFormat:@" %@=\"%@\"", (NSString *)[feo.FieldTagElements objectAtIndex:j], (NSString *)[feo.FieldTagValues objectAtIndex:j]]];
+        }
+        [xmlMS appendFormat:@"/>"];
+    }
     [xmlMS appendString:@"</Page>\n"];
     [xmlMS appendString:@"</View>\n"];
     [xmlMS appendString:@"</Project>\n"];
@@ -595,7 +638,7 @@
     }
     if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
     {
-        NSString *filePathAndName = [[[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] stringByAppendingString:@"/"] stringByAppendingString:(NSString *)[formElements objectAtIndex:0]] stringByAppendingString:@".xml"];
+        NSString *filePathAndName = [[[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] stringByAppendingString:@"/"] stringByAppendingString:formName] stringByAppendingString:@".xml"];
         if ([[NSFileManager defaultManager] fileExistsAtPath:filePathAndName])
         {
             [[NSFileManager defaultManager] removeItemAtPath:filePathAndName error:nil];
