@@ -10,4 +10,5 @@
 @implementation FormElementObject
 @synthesize FieldTagElements = _FieldTagElements;
 @synthesize FieldTagValues = _FieldTagValues;
+@synthesize nextY = _nextY;
 @end

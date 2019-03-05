@@ -6,7 +6,7 @@
 //
 
 #import "FormDesigner.h"
-#import "FormElementObject.h"
+#import "DataEntryViewController.h"
 
 @implementation FormDesigner
 @synthesize rootViewController = _rootViewController;
@@ -16,6 +16,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
+        yTouched = -99.9;
         [self getExistingForms];
         
         [self setBackgroundColor:[UIColor whiteColor]];
@@ -58,6 +59,40 @@
         [canvas addSubview:canvasCover];
         
         formNamed = NO;
+        
+        NSArray *senderTitleArray = [[[sender titleLabel] text] componentsSeparatedByString:@" "];
+        if ([(NSString *)[senderTitleArray objectAtIndex:0] isEqualToString:@"Edit"])
+        {
+            formName = [NSString stringWithString:[senderTitleArray objectAtIndex:1]];
+            [formDesignerLabel setText:[NSString stringWithFormat:@"Form Designer: %@", formName]];
+            formNamed = YES;
+            formElements = [[NSMutableArray alloc] init];
+            formElementObjects = [[NSMutableArray alloc] init];
+            
+            NSURL *templateFile = [[NSURL alloc] initWithString:[@"file://" stringByAppendingString:[[[epiInfoForms stringByAppendingString:@"/"] stringByAppendingString:formName] stringByAppendingString:@".xml"]]];
+            NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:templateFile];
+            [parser setDelegate:self];
+            [parser setShouldResolveExternalEntities:YES];
+            BOOL success = [parser parse];
+            if (success)
+            {
+                for (int i = 0; i < [formElementObjects count]; i++)
+                {
+                    FormElementObject *feo = [formElementObjects objectAtIndex:i];
+                    if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"2"])
+                    {
+                        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, nextY, canvasSV.frame.size.width - 32, 40)];
+                        [titleLabel setBackgroundColor:[UIColor clearColor]];
+                        [titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+                        [titleLabel setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                        [canvas addSubview:titleLabel];
+                        [canvas sendSubviewToBack:titleLabel];
+                        nextY += 40;
+                        [feo setNextY:nextY];
+                    }
+                }
+            }
+        }
     }
     return self;
 }
@@ -72,7 +107,7 @@
     }
     if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
     {
-        NSString *epiInfoForms = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"];
+        epiInfoForms = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"];
         NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:epiInfoForms error:nil];
         for (int i = 0; i < [contents count]; i++)
         {
@@ -300,6 +335,23 @@
         } completion:^(BOOL finished){
         }];
     }
+    else
+    {
+        yTouched = touchPoint.y;
+        for (int i = 0; i < [formElementObjects count]; i++)
+        {
+            FormElementObject *feo = [formElementObjects objectAtIndex:i];
+            if (touchPoint.y < [feo nextY])
+            {
+                if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"2"])
+                {
+                    feoUnderEdit = feo;
+                    [self presentLabelTitleView];
+                }
+                break;
+            }
+        }
+    }
 }
 
 - (void)menuButtonPressed:(UIButton *)sender
@@ -431,6 +483,14 @@
     [controlViewSaveButton setEnabled:NO];
     [controlViewSaveButton setTag:1001003];
     [controlViewGrayBackground addSubview:controlViewSaveButton];
+    
+    if (feoUnderEdit != nil)
+    {
+        [controlViewPromptText setText:[feoUnderEdit.FieldTagValues objectAtIndex:[feoUnderEdit.FieldTagElements indexOfObject:@"PromptText"]]];
+        [controlViewFieldNameText setText:[feoUnderEdit.FieldTagValues objectAtIndex:[feoUnderEdit.FieldTagElements indexOfObject:@"Name"]]];
+        [controlViewFieldNameText setEnabled:NO];
+        [controlViewSaveButton setEnabled:YES];
+    }
     
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 162)];
@@ -570,15 +630,34 @@
             {
                 [formElements addObject:[[NSString stringWithString:fieldName] lowercaseString]];
                 
-                UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, nextY, canvasSV.frame.size.width - 32, 40)];
-                [titleLabel setBackgroundColor:[UIColor clearColor]];
-                [titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-                [titleLabel setText:promptText];
-                [canvas addSubview:titleLabel];
-                [canvas sendSubviewToBack:titleLabel];
-                nextY += 40;
+                if (feoUnderEdit == nil)
+                {
+                    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, nextY, canvasSV.frame.size.width - 32, 40)];
+                    [titleLabel setBackgroundColor:[UIColor clearColor]];
+                    [titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+                    [titleLabel setText:promptText];
+                    [canvas addSubview:titleLabel];
+                    [canvas sendSubviewToBack:titleLabel];
+                    nextY += 40;
+                }
+                else
+                {
+                    for (UIView *v in [canvas subviews])
+                    {
+                        if (yTouched > v.frame.origin.y && yTouched < (v.frame.origin.y + v.frame.size.height))
+                        {
+                            if ([v isKindOfClass:[UILabel class]])
+                            {
+                                [(UILabel *)v setText:promptText];
+                            }
+                            break;
+                        }
+                    }
+                }
                 
                 FormElementObject *feo = [[FormElementObject alloc] init];
+                if (feoUnderEdit != nil)
+                    feo = feoUnderEdit;
                 feo.FieldTagElements = [[NSMutableArray alloc] init];
                 feo.FieldTagValues = [[NSMutableArray alloc] init];
                 [feo.FieldTagElements addObject:@"Name"];
@@ -595,10 +674,14 @@
                 [feo.FieldTagValues addObject:promptText];
                 [feo.FieldTagElements addObject:@"FieldTypeId"];
                 [feo.FieldTagValues addObject:@"2"];
+                [feo setNextY:nextY];
 
-                [formElementObjects addObject:feo];
+                if (feoUnderEdit == nil)
+                    [formElementObjects addObject:feo];
                 
                 [self buildTheXMLFile];
+                feoUnderEdit = nil;
+                yTouched = -99.9;
             }
         }
     }];
@@ -622,7 +705,7 @@
         {
             [xmlMS appendString:[NSString stringWithFormat:@" %@=\"%@\"", (NSString *)[feo.FieldTagElements objectAtIndex:j], (NSString *)[feo.FieldTagValues objectAtIndex:j]]];
         }
-        [xmlMS appendFormat:@"/>"];
+        [xmlMS appendFormat:@"/>\n"];
     }
     [xmlMS appendString:@"</Page>\n"];
     [xmlMS appendString:@"</View>\n"];
@@ -654,6 +737,8 @@
         CGRect formDesignerFrame = CGRectMake(0, self.frame.size.height, self.frame.size.width, self.frame.size.height);
         [self setFrame:formDesignerFrame];
     } completion:^(BOOL finished) {
+        if ([self.rootViewController isKindOfClass:[DataEntryViewController class]])
+            [(DataEntryViewController *)self.rootViewController lvReset:formName];
         [self removeFromSuperview];
     }];
 }
@@ -686,6 +771,8 @@
 
 - (void)textFieldChanged:(UITextField *)textField
 {
+    if (![(UITextField *)[[textField superview] viewWithTag:1001002] isEnabled])
+        return;
     if ([[(UITextField *)[[textField superview] viewWithTag:1001001] text] length] > 0 && [[(UITextField *)[[textField superview] viewWithTag:1001002] text] length] > 0)
         [(UIButton *)[[textField superview] viewWithTag:1001003] setEnabled:YES];
     else
@@ -703,6 +790,41 @@
         [(UITextField *)[[textField superview] viewWithTag:1001002] setTextColor:[UIColor blackColor]];
 }
 
+#pragma mark XML Parsing Methods
+
+- (void)parserDidStartDocument:(NSXMLParser *)parser
+{
+}
+
+- (void)parserDidEndDocument:(NSXMLParser *)parser
+{
+}
+
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
+{
+    if ([elementName isEqualToString:@"Field"])
+    {
+        [formElements addObject:[[NSString stringWithString:[attributeDict objectForKey:@"Name"]] lowercaseString]];
+        FormElementObject *feo = [[FormElementObject alloc] init];
+        feo.FieldTagElements = [[NSMutableArray alloc] init];
+        feo.FieldTagValues = [[NSMutableArray alloc] init];
+        [feo.FieldTagElements addObject:@"Name"];
+        [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"Name"]]];
+        [feo.FieldTagElements addObject:@"PageId"];
+        [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"PageId"]]];
+        [feo.FieldTagElements addObject:@"IsReadOnly"];
+        [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"IsReadOnly"]]];
+        [feo.FieldTagElements addObject:@"IsRequired"];
+        [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"IsRequired"]]];
+        [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+        [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"ControlWidthPercentage"]]];
+        [feo.FieldTagElements addObject:@"PromptText"];
+        [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"PromptText"]]];
+        [feo.FieldTagElements addObject:@"FieldTypeId"];
+        [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"FieldTypeId"]]];
+        [formElementObjects addObject:feo];
+    }
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

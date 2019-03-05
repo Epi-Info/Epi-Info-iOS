@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface FormElementObject : NSObject
 @property NSMutableArray *FieldTagElements;
 @property NSMutableArray *FieldTagValues;
+@property float nextY;
 @end
 
 NS_ASSUME_NONNULL_END

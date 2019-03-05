@@ -94,4 +94,5 @@
 -(void)addNewSetOfPageDots:(EnterDataView *)newedv;
 -(void)popPageDots;
 -(void)setPageDotsPage:(int)pg;
+-(void)lvReset:(NSString *)newForm;
 @end

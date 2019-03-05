@@ -6,13 +6,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FormElementObject.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FormDesigner : UIView <UITextFieldDelegate>
+@interface FormDesigner : UIView <UITextFieldDelegate, NSXMLParserDelegate>
 {
     float nextY;
+    float yTouched;
     
+    NSString *epiInfoForms;
     NSMutableArray *existingForms;
     NSString *formName;
     NSMutableArray *formElements;
@@ -30,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
     
     UIView *newFormViewGrayBackground;
     UIView *controlViewGrayBackground;
+    
+    FormElementObject *feoUnderEdit;
 }
 @property UIViewController *rootViewController;
 -(id)initWithFrame:(CGRect)frame andSender:(UIButton *)sender;

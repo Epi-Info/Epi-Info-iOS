@@ -707,7 +707,8 @@
     if (lv.selectedIndex.intValue == 0)
         return;
     NSString *message = [NSString stringWithFormat:@"Delete table %@ and all of its data? (Double-tap \"Yes\" to delete.)", lvSelected.text];
-    
+    NSString *editMessage = [NSString stringWithFormat:@"Edit %@ Form", lvSelected.text];
+
     BlurryView *manageView = [[BlurryView alloc] initWithFrame:CGRectMake(0, -manageButton.frame.origin.y - manageButton.frame.size.height - 10.0, self.view.frame.size.width, manageButton.frame.origin.y + manageButton.frame.size.height + 10.0)];
     [manageView setBackgroundColor:[UIColor whiteColor]];
     [manageView setAlpha:0.96];
@@ -749,8 +750,24 @@
     [cancleDeleteForm addTarget:self action:@selector(cancelDeleteFormPressed:) forControlEvents:UIControlEventTouchUpInside];
     [manageView addSubview:cancleDeleteForm];
     
+    [manageView setFrame:CGRectMake(0, -manageButton.frame.origin.y - manageButton.frame.size.height - 128.0, self.view.frame.size.width, manageButton.frame.origin.y + manageButton.frame.size.height + 128.0)];
+
+    CGRect editFormButtonFrame = CGRectMake(confirmDeleteForm.frame.origin.x,
+                                                confirmDeleteForm.frame.origin.y + confirmDeleteForm.frame.size.height + 32,
+                                                cancleDeleteForm.frame.origin.x + cancleDeleteForm.frame.size.width - confirmDeleteForm.frame.origin.x,
+                                                40);
+    UIButton *editFormButton = [[UIButton alloc] initWithFrame:editFormButtonFrame];
+    [editFormButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [editFormButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [editFormButton setTitle:editMessage forState:UIControlStateNormal];
+    [editFormButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [editFormButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [editFormButton addTarget:self action:@selector(cancelDeleteFormPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [editFormButton addTarget:self action:@selector(formDesignerButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [editFormButton.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
+    [manageView addSubview:editFormButton];
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [manageView setFrame:CGRectMake(0, 0, self.view.frame.size.width, manageButton.frame.origin.y + manageButton.frame.size.height + 10.0)];
+        [manageView setFrame:CGRectMake(0, 0, self.view.frame.size.width, manageButton.frame.origin.y + manageButton.frame.size.height + 128.0)];
     } completion:^(BOOL finished){
     }];
 }
@@ -833,6 +850,29 @@
     } completion:^(BOOL finished){
         [manageView removeFromSuperview];
     }];
+}
+- (void)lvReset:(NSString *)newForm
+{
+    NSMutableArray *newArrayOfForms = [NSMutableArray arrayWithArray:[lv listOfValues]];
+    if ([newArrayOfForms containsObject:newForm])
+        return;
+    for (int i = 0; i < [newArrayOfForms count]; i++)
+    {
+        NSString *naof = [newArrayOfForms objectAtIndex:i];
+        if ([naof compare:newForm] == NSOrderedDescending)
+        {
+            [newArrayOfForms insertObject:newForm atIndex:i];
+            break;
+        }
+        if (i == [newArrayOfForms count] - 1)
+            [newArrayOfForms addObject:newForm];
+    }
+    [lv setListOfValues:newArrayOfForms];
+    [lv.picker selectRow:0 inComponent:0 animated:NO];
+    [lv setSelectedIndex:0];
+    [lv.tv setDataSource:lv];
+    [lv.tv reloadData];
+    [lv reset];
 }
 
 - (NSString *)checkForGoogleSheetSource
