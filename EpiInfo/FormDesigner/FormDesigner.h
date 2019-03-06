@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface FormDesigner : UIView <UITextFieldDelegate, NSXMLParserDelegate>
 {
     float nextY;
+    float nextYReset;
     float yTouched;
     
     NSString *epiInfoForms;
