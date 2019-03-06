@@ -185,6 +185,7 @@
 		9253C7762195F42400DC084B /* LogisticView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253C7752195F42400DC084B /* LogisticView.m */; };
 		9258D1A122148EF1000376E7 /* FormDesigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 9258D1A022148EF1000376E7 /* FormDesigner.m */; };
 		9258D1A9222D8833000376E7 /* FormElementObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9258D1A8222D8833000376E7 /* FormElementObject.m */; };
+		9258D1AD222FF10F000376E7 /* TextFieldDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 9258D1AC222FF10F000376E7 /* TextFieldDisplay.m */; };
 		9259D2E61C9327D200AE9181 /* ChildFormFieldAssignments.m in Sources */ = {isa = PBXBuildFile; fileRef = 9259D2E51C9327D200AE9181 /* ChildFormFieldAssignments.m */; };
 		925A5DAF1858C0E2000C2E9E /* PlainOrangeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 925A5DAD1858C0E2000C2E9E /* PlainOrangeButton.png */; };
 		925A5DB01858C0E2000C2E9E /* PlainOrangeButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 925A5DAE1858C0E2000C2E9E /* PlainOrangeButtonNR.png */; };
@@ -689,6 +690,8 @@
 		9258D1A022148EF1000376E7 /* FormDesigner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormDesigner.m; sourceTree = "<group>"; };
 		9258D1A7222D8833000376E7 /* FormElementObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormElementObject.h; sourceTree = "<group>"; };
 		9258D1A8222D8833000376E7 /* FormElementObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormElementObject.m; sourceTree = "<group>"; };
+		9258D1AB222FF10F000376E7 /* TextFieldDisplay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextFieldDisplay.h; sourceTree = "<group>"; };
+		9258D1AC222FF10F000376E7 /* TextFieldDisplay.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextFieldDisplay.m; sourceTree = "<group>"; };
 		9259D2E41C9327D200AE9181 /* ChildFormFieldAssignments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildFormFieldAssignments.h; sourceTree = "<group>"; };
 		9259D2E51C9327D200AE9181 /* ChildFormFieldAssignments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildFormFieldAssignments.m; sourceTree = "<group>"; };
 		925A5DAD1858C0E2000C2E9E /* PlainOrangeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlainOrangeButton.png; sourceTree = "<group>"; };
@@ -1521,6 +1524,19 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		9258D1AA222FE8E3000376E7 /* FormDesigner */ = {
+			isa = PBXGroup;
+			children = (
+				9258D19F22148EF1000376E7 /* FormDesigner.h */,
+				9258D1A022148EF1000376E7 /* FormDesigner.m */,
+				9258D1A7222D8833000376E7 /* FormElementObject.h */,
+				9258D1A8222D8833000376E7 /* FormElementObject.m */,
+				9258D1AB222FF10F000376E7 /* TextFieldDisplay.h */,
+				9258D1AC222FF10F000376E7 /* TextFieldDisplay.m */,
+			);
+			path = FormDesigner;
+			sourceTree = "<group>";
+		};
 		925C894B19535A8900F3DCE7 /* Growth Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -1549,6 +1565,7 @@
 		9266C5251846571B00739AF2 /* Entry */ = {
 			isa = PBXGroup;
 			children = (
+				9258D1AA222FE8E3000376E7 /* FormDesigner */,
 				84C816791CE22D7800F408D2 /* CheckCode */,
 				92E9801218A538B40011CC8B /* ButtonImages */,
 				9266C526184657E900739AF2 /* DataEntryViewController.h */,
@@ -1563,10 +1580,6 @@
 				9266C52A1846613000739AF2 /* FormView.m */,
 				920BCE3B2178F0AA00BF050A /* FormFromGoogleSheetView.h */,
 				920BCE3C2178F0AA00BF050A /* FormFromGoogleSheetView.m */,
-				9258D19F22148EF1000376E7 /* FormDesigner.h */,
-				9258D1A022148EF1000376E7 /* FormDesigner.m */,
-				9258D1A7222D8833000376E7 /* FormElementObject.h */,
-				9258D1A8222D8833000376E7 /* FormElementObject.m */,
 				92524A8A184E50BE003C820B /* SaveFormView.h */,
 				92524A8B184E50BE003C820B /* SaveFormView.m */,
 				92E1A83718730614003E58A5 /* EpiInfoTextField.h */,
@@ -2100,6 +2113,7 @@
 				9240E96219548243006345FE /* GrowthPercentilesCompute.m in Sources */,
 				84C816871CE22D8D00F408D2 /* ElementPairsCheck.m in Sources */,
 				92921B9619A63E0000AA9477 /* MeansObject.m in Sources */,
+				9258D1AD222FF10F000376E7 /* TextFieldDisplay.m in Sources */,
 				4AFD8563161F17D900FFBA65 /* MatchedPairCompute.m in Sources */,
 				9291F43E1AA779C60041DE6E /* SimulationsViewControllerSwift.swift in Sources */,
 				9247F20F181ADB4E00C96F94 /* BlurryView.m in Sources */,

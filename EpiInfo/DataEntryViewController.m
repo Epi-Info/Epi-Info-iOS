@@ -853,6 +853,8 @@
 }
 - (void)lvReset:(NSString *)newForm
 {
+    if (newForm == nil)
+        return;
     NSMutableArray *newArrayOfForms = [NSMutableArray arrayWithArray:[lv listOfValues]];
     if ([newArrayOfForms containsObject:newForm])
         return;
