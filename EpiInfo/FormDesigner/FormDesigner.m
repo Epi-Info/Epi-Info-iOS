@@ -348,6 +348,7 @@
     }
     else
     {
+        [canvasTapGesture setEnabled:NO];
         yTouched = touchPoint.y;
         for (int i = 0; i < [formElementObjects count]; i++)
         {
@@ -765,16 +766,18 @@
                 [feo.FieldTagValues addObject:promptText];
                 [feo.FieldTagElements addObject:@"FieldTypeId"];
                 [feo.FieldTagValues addObject:@"2"];
-                [feo setNextY:nextY];
 
                 if (feoUnderEdit == nil)
+                {
+                    [feo setNextY:nextY];
                     [formElementObjects addObject:feo];
+                }
                 
                 [self buildTheXMLFile];
-                feoUnderEdit = nil;
                 yTouched = -99.9;
             }
         }
+        feoUnderEdit = nil;
     }];
 }
 
@@ -849,16 +852,18 @@
                 [feo.FieldTagValues addObject:promptText];
                 [feo.FieldTagElements addObject:@"FieldTypeId"];
                 [feo.FieldTagValues addObject:@"1"];
-                [feo setNextY:nextY];
                 
                 if (feoUnderEdit == nil)
+                {
+                    [feo setNextY:nextY];
                     [formElementObjects addObject:feo];
-                
+                }
+
                 [self buildTheXMLFile];
-                feoUnderEdit = nil;
                 yTouched = -99.9;
             }
         }
+        feoUnderEdit = nil;
     }];
 }
 - (void)buildTheXMLFile
