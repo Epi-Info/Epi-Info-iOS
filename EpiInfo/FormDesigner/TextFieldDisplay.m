@@ -19,7 +19,7 @@
         self.prompt = [[UILabel alloc] initWithFrame:CGRectMake(8, 0, frame.size.width - 16, 20)];
         [self.prompt setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
         [self addSubview:self.prompt];
-        self.field = [[UITextField alloc] initWithFrame:CGRectMake(8, 20, self.prompt.frame.size.width, 20)];
+        self.field = [[UITextField alloc] initWithFrame:CGRectMake(8, 20, self.prompt.frame.size.width, frame.size.height - 20)];
         [self.field setBorderStyle:UITextBorderStyleLine];
         [self.field setEnabled:NO];
         [self addSubview:self.field];
