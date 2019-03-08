@@ -38,6 +38,31 @@
     [fmtr setDateFormat:@"MM/dd/yyyy"];
     [self.field setText:[fmtr stringFromDate:today]];
 }
+- (void)displayYesNo
+{
+    [self.field setFrame:CGRectMake(self.field.frame.origin.x, self.field.frame.origin.y, self.frame.size.width / 2 - 4, 20)];
+    UITextField *yesField = [[UITextField alloc] initWithFrame:CGRectMake(self.field.frame.origin.x, self.field.frame.origin.y + 20, self.field.frame.size.width, 20)];
+    [yesField setBorderStyle:UITextBorderStyleLine];
+    [yesField setEnabled:NO];
+    [yesField setText:@"Yes"];
+    [self addSubview:yesField];
+    UITextField *noField = [[UITextField alloc] initWithFrame:CGRectMake(yesField.frame.origin.x, yesField.frame.origin.y + 20, self.field.frame.size.width, 20)];
+    [noField setBorderStyle:UITextBorderStyleLine];
+    [noField setEnabled:NO];
+    [noField setText:@"No"];
+    [self addSubview:noField];
+}
+- (void)displayOption
+{
+}
+- (void)displayImage
+{
+    UIButton *imageButton = [[UIButton alloc] initWithFrame:CGRectMake(self.field.frame.origin.x, self.field.frame.origin.y, self.field.frame.size.height, self.field.frame.size.height)];
+    [imageButton setEnabled:NO];
+    [imageButton setBackgroundImage:[UIImage imageNamed:@"iconCDC_for_image_field"] forState:UIControlStateDisabled];
+    [self addSubview:imageButton];
+    [self.field removeFromSuperview];
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

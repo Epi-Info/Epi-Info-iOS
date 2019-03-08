@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property UITextField *field;
 -(void)checkTheBox;
 -(void)displayDate;
+-(void)displayYesNo;
+-(void)displayOption;
+-(void)displayImage;
 @end
 
 NS_ASSUME_NONNULL_END
