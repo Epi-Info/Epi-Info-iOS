@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "573665069.178372"
+            timestampString = "573756140.966574"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6631"
-            endingLineNumber = "6631"
+            startingLineNumber = "6634"
+            endingLineNumber = "6634"
             landmarkName = "-checkElements:from:page:"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,12 +74,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "573665069.178467"
+            timestampString = "573756140.967268"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6532"
-            endingLineNumber = "6532"
+            startingLineNumber = "6535"
+            endingLineNumber = "6535"
             landmarkName = "-checkElements:from:page:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/DataEntryViewController.m"
+            timestampString = "573756140.967839"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2718"
+            endingLineNumber = "2718"
+            landmarkName = "-packageAndEmailData:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/DataEntryViewController.m"
+            timestampString = "573756140.9679739"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3252"
+            endingLineNumber = "3252"
+            landmarkName = "-populateFieldsWithRecord:OnEnterDataView:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

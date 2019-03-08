@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface TextFieldDisplay : UIView
 @property UILabel *prompt;
 @property UITextField *field;
+-(void)checkTheBox;
+-(void)displayDate;
 @end
 
 NS_ASSUME_NONNULL_END

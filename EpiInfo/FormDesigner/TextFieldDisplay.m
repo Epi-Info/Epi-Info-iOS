@@ -26,6 +26,18 @@
     }
     return self;
 }
+- (void)checkTheBox
+{
+    [self.field setText:@"\u2713"];
+    [self.field setFrame:CGRectMake(self.field.frame.origin.x, self.field.frame.origin.y, self.field.frame.size.height, self.field.frame.size.height)];
+}
+- (void)displayDate
+{
+    NSDate *today = [NSDate date];
+    NSDateFormatter *fmtr = [[NSDateFormatter alloc] init];
+    [fmtr setDateFormat:@"MM/dd/yyyy"];
+    [self.field setText:[fmtr stringFromDate:today]];
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

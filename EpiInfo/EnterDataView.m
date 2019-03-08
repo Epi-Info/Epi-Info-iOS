@@ -5461,6 +5461,9 @@
         EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
         for (UIView *v in [[tempedv formCanvas] subviews])
         {
+            if ([v conformsToProtocol:@protocol(EpiInfoControlProtocol)])
+                if (![queriedColumnsAndValues objectForKey:[[(id<EpiInfoControlProtocol>)v columnName] lowercaseString]])
+                    continue;
             if ([v isKindOfClass:[EpiInfoTextField class]])
                 [(EpiInfoTextField *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(EpiInfoTextField *)v columnName] lowercaseString]]];
             else if ([v isKindOfClass:[EpiInfoTextView class]])
