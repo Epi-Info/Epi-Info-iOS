@@ -22,6 +22,7 @@
         self.field = [[UITextField alloc] initWithFrame:CGRectMake(8, 20, self.prompt.frame.size.width, frame.size.height - 20)];
         [self.field setBorderStyle:UITextBorderStyleLine];
         [self.field setEnabled:NO];
+        [self.field setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
         [self addSubview:self.field];
     }
     return self;
@@ -45,15 +46,30 @@
     [yesField setBorderStyle:UITextBorderStyleLine];
     [yesField setEnabled:NO];
     [yesField setText:@"Yes"];
+    [yesField setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
     [self addSubview:yesField];
     UITextField *noField = [[UITextField alloc] initWithFrame:CGRectMake(yesField.frame.origin.x, yesField.frame.origin.y + 20, self.field.frame.size.width, 20)];
     [noField setBorderStyle:UITextBorderStyleLine];
     [noField setEnabled:NO];
     [noField setText:@"No"];
+    [noField setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
     [self addSubview:noField];
 }
 - (void)displayOption
 {
+    [self.field setFrame:CGRectMake(self.field.frame.origin.x, self.field.frame.origin.y, self.frame.size.width / 2 - 4, 20)];
+    UITextField *yesField = [[UITextField alloc] initWithFrame:CGRectMake(self.field.frame.origin.x, self.field.frame.origin.y + 20, self.field.frame.size.width, 20)];
+    [yesField setBorderStyle:UITextBorderStyleLine];
+    [yesField setEnabled:NO];
+    [yesField setText:@"\u25c9 Option"];
+    [yesField setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [self addSubview:yesField];
+    UITextField *noField = [[UITextField alloc] initWithFrame:CGRectMake(yesField.frame.origin.x, yesField.frame.origin.y + 20, self.field.frame.size.width, 20)];
+    [noField setBorderStyle:UITextBorderStyleLine];
+    [noField setEnabled:NO];
+    [noField setText:@"\u25cb Option"];
+    [noField setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [self addSubview:noField];
 }
 - (void)displayImage
 {
