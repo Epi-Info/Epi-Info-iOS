@@ -3374,6 +3374,27 @@
         {
             [xmlMS appendString:[NSString stringWithFormat:@" %@=\"%@\"", (NSString *)[feo.FieldTagElements objectAtIndex:j], (NSString *)[feo.FieldTagValues objectAtIndex:j]]];
         }
+        if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"12"] && feo.values != nil)
+        {
+            if ([feo.values count] > 0)
+            {
+                [xmlMS appendString:@" List=\""];
+                NSMutableString *coordinates = [[NSMutableString alloc] init];
+                for (int j = 0; j < [feo.values count] - 1; j++)
+                {
+                    if (j > 0)
+                    {
+                        [xmlMS appendString:@","];
+                        [coordinates appendString:@":"];
+                    }
+                    [xmlMS appendString:[feo.values objectAtIndex:j]];
+                    [coordinates appendString:[NSString stringWithFormat:@"%f:.01538", 0.02854 * (1.0 + j)]];
+                }
+                [xmlMS appendString:@"||"];
+                [xmlMS appendString:coordinates];
+                [xmlMS appendString:@"\""];
+            }
+        }
         [xmlMS appendFormat:@"/>\n"];
     }
     [xmlMS appendString:@"</Page>\n"];
