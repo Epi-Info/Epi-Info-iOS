@@ -11,4 +11,5 @@
 @synthesize FieldTagElements = _FieldTagElements;
 @synthesize FieldTagValues = _FieldTagValues;
 @synthesize nextY = _nextY;
+@synthesize values = _values;
 @end

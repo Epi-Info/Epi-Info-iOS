@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSMutableArray *FieldTagElements;
 @property NSMutableArray *FieldTagValues;
 @property float nextY;
+@property NSMutableArray *values;
 @end
 
 NS_ASSUME_NONNULL_END

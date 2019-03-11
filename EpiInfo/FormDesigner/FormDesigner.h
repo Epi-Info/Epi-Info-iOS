@@ -34,7 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
     
     UIView *newFormViewGrayBackground;
     UIView *controlViewGrayBackground;
-    
+    UIView *valuesGrayBackground;
+    NSMutableArray *valuesFields;
+
     FormElementObject *feoUnderEdit;
 }
 @property UIViewController *rootViewController;
