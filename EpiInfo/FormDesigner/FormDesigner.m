@@ -17,6 +17,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
+        checkCodeString = @"";
         yTouched = -99.9;
         [self getExistingForms];
         
@@ -3958,7 +3959,7 @@
     [xmlMS appendString:[NSString stringWithFormat:@"<Template Level=\"View\" Name=\"%@\">\n", formName]];
     [xmlMS appendString:@"<Project>\n"];
     [xmlMS appendString:[NSString stringWithFormat:@"<View Name=\"%@\" ", formName]];
-    [xmlMS appendString:@"LabelAlign=\"Vertical\" Orientation=\"Portrait\" Height=\"1016\" Width=\"780\" CheckCode=\""];
+    [xmlMS appendString:[NSString stringWithFormat:@"LabelAlign=\"Vertical\" Orientation=\"Portrait\" Height=\"1016\" Width=\"780\" CheckCode=\"%@", checkCodeString]];
     [xmlMS appendString:@"\" IsRelatedView=\"False\" ViewId=\"1\">\n"];
     [xmlMS appendString:@"<Page Name=\"Page 1\" ViewId=\"1\" BackgroundId=\"0\" Position=\"0\" PageId=\"1\">\n"];
     for (int i = 0; i < [formElementObjects count]; i++)
@@ -3969,6 +3970,7 @@
         {
             [xmlMS appendString:[NSString stringWithFormat:@" %@=\"%@\"", (NSString *)[feo.FieldTagElements objectAtIndex:j], (NSString *)[feo.FieldTagValues objectAtIndex:j]]];
         }
+        [xmlMS appendString:[NSString stringWithFormat:@" TabIndex=\"%d\"", i]];
         if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"12"] && feo.values != nil)
         {
             if ([feo.values count] > 0)
@@ -4210,6 +4212,13 @@
                     break;
                 }
             }
+        }
+    }
+    else if ([elementName isEqualToString:@"View"])
+    {
+        if ([attributeDict objectForKey:@"CheckCode"] != nil)
+        {
+            checkCodeString = [NSString stringWithString:[attributeDict objectForKey:@"CheckCode"]];
         }
     }
 }

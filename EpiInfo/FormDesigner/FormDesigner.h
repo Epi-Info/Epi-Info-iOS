@@ -38,6 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *valuesFields;
 
     FormElementObject *feoUnderEdit;
+    
+    NSString *checkCodeString;
 }
 @property UIViewController *rootViewController;
 -(id)initWithFrame:(CGRect)frame andSender:(UIButton *)sender;
