@@ -3091,7 +3091,12 @@
                     NSMutableArray *values = [[NSMutableArray alloc] init];
                     for (int i = 0; i < [valuesFields count]; i++)
                     {
-                        [values addObject:[(UITextField *)[valuesFields objectAtIndex:i] text]];
+                        NSString *valueString = [(UITextField *)[valuesFields objectAtIndex:i] text];
+                        if ([valueString characterAtIndex:[valueString length] - 1] == ' ')
+                            valueString = [valueString substringToIndex:[valueString length] - 1];
+                        if ([valueString containsString:@","])
+                            valueString = [valueString stringByReplacingOccurrencesOfString:@"," withString:@";"];
+                        [values addObject:valueString];
                     }
                     [feo setValues:values];
                 }
@@ -3555,6 +3560,16 @@
         [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"PromptText"]]];
         [feo.FieldTagElements addObject:@"FieldTypeId"];
         [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"FieldTypeId"]]];
+        if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"12"])
+        {
+            if ([attributeDict objectForKey:@"List"] != nil)
+            {
+                NSString *valuesString = [[[attributeDict objectForKey:@"List"] componentsSeparatedByString:@"||"] objectAtIndex:0];
+                NSMutableArray *valuesArray = [NSMutableArray arrayWithArray:[valuesString componentsSeparatedByString:@","]];
+                [valuesArray addObject:@""];
+                [feo setValues:[NSMutableArray arrayWithArray:valuesArray]];
+            }
+        }
         [formElementObjects addObject:feo];
     }
 }
