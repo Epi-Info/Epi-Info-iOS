@@ -199,6 +199,28 @@
                         nextY += 80;
                         [feo setNextY:nextY];
                     }
+                    else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"17"])
+                    {
+                        TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
+                        [controlRendering setBackgroundColor:[UIColor clearColor]];
+                        [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                        [controlRendering displayLegalValues];
+                        [canvas addSubview:controlRendering];
+                        [canvas sendSubviewToBack:controlRendering];
+                        nextY += 40;
+                        [feo setNextY:nextY];
+                    }
+                    else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"19"])
+                    {
+                        TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
+                        [controlRendering setBackgroundColor:[UIColor clearColor]];
+                        [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                        [controlRendering displayLegalValues];
+                        [canvas addSubview:controlRendering];
+                        [canvas sendSubviewToBack:controlRendering];
+                        nextY += 40;
+                        [feo setNextY:nextY];
+                    }
                 }
             }
         }
@@ -329,6 +351,28 @@
                 [canvas addSubview:controlRendering];
                 [canvas sendSubviewToBack:controlRendering];
                 nextY += 80;
+                [feo setNextY:nextY];
+            }
+            else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"17"])
+            {
+                TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
+                [controlRendering setBackgroundColor:[UIColor clearColor]];
+                [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                [controlRendering displayLegalValues];
+                [canvas addSubview:controlRendering];
+                [canvas sendSubviewToBack:controlRendering];
+                nextY += 40;
+                [feo setNextY:nextY];
+            }
+            else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"19"])
+            {
+                TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
+                [controlRendering setBackgroundColor:[UIColor clearColor]];
+                [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                [controlRendering displayLegalValues];
+                [canvas addSubview:controlRendering];
+                [canvas sendSubviewToBack:controlRendering];
+                nextY += 40;
                 [feo setNextY:nextY];
             }
         }
@@ -638,6 +682,16 @@
                     feoUnderEdit = feo;
                     [self presentImageView];
                 }
+                if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"17"])
+                {
+                    feoUnderEdit = feo;
+                    [self presentLegalValuesView];
+                }
+                if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"19"])
+                {
+                    feoUnderEdit = feo;
+                    [self presentCommentLegalView];
+                }
                 break;
             }
         }
@@ -678,6 +732,10 @@
             [self presentOptionView];
         else if (buttonTag == 13)
             [self presentImageView];
+        else if (buttonTag == 14)
+            [self presentLegalValuesView];
+        else if (buttonTag == 15)
+            [self presentCommentLegalView];
     }];
 }
 
@@ -2026,7 +2084,8 @@
                     [valueText addTarget:self action:@selector(valueFieldChanged:) forControlEvents:UIControlEventEditingChanged];
                     [valueText setReturnKeyType:UIReturnKeyDone];
                     [valueText setText:(NSString *)[feoUnderEdit.values objectAtIndex:i]];
-                    [valuesFields addObject:valueText];                }
+                    [valuesFields addObject:valueText];
+                }
             }
         }
     }
@@ -2178,10 +2237,334 @@
 
 - (void)presentLegalValuesView
 {
+    controlViewGrayBackground = [[UIView alloc] initWithFrame:CGRectMake(0.08 * self.frame.size.width, formDesignerLabel.frame.origin.y + formDesignerLabel.frame.size.height, 0.84 * self.frame.size.width, 0)];
+    [controlViewGrayBackground setBackgroundColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+    [self addSubview:controlViewGrayBackground];
+    
+    UILabel *controlViewViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width - 2, 0)];
+    [controlViewViewLabel setBackgroundColor:[UIColor whiteColor]];
+    [controlViewViewLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+    [controlViewViewLabel setText:@"\tLegal Values Field"];
+    [controlViewViewLabel setTextAlignment:NSTextAlignmentLeft];
+    [controlViewViewLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+    [controlViewGrayBackground addSubview:controlViewViewLabel];
+    
+    UITextField *controlViewPromptText = [[UITextField alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width - 2, 0)];
+    [controlViewPromptText setBackgroundColor:[UIColor whiteColor]];
+    UIView *spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 8)];
+    [controlViewPromptText setLeftViewMode:UITextFieldViewModeAlways];
+    [controlViewPromptText setLeftView:spacerView];
+    [controlViewPromptText setPlaceholder:@"Field Prompt"];
+    [controlViewPromptText setDelegate:self];
+    [controlViewPromptText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
+    [controlViewPromptText setReturnKeyType:UIReturnKeyDone];
+    [controlViewPromptText setTag:1001001];
+    [controlViewGrayBackground addSubview:controlViewPromptText];
+    
+    UITextField *controlViewFieldNameText = [[UITextField alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width - 2, 0)];
+    [controlViewFieldNameText setBackgroundColor:[UIColor whiteColor]];
+    UIView *spacerView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 8)];
+    [controlViewFieldNameText setLeftViewMode:UITextFieldViewModeAlways];
+    [controlViewFieldNameText setLeftView:spacerView2];
+    [controlViewFieldNameText setPlaceholder:@"Field Name"];
+    [controlViewFieldNameText setDelegate:self];
+    [controlViewFieldNameText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
+    [controlViewFieldNameText setReturnKeyType:UIReturnKeyDone];
+    [controlViewFieldNameText setTag:1001002];
+    [controlViewGrayBackground addSubview:controlViewFieldNameText];
+    
+    UIButton *controlViewMoveUpButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 3 - 1, 0)];
+    [controlViewMoveUpButton setBackgroundColor:[UIColor whiteColor]];
+    [controlViewMoveUpButton setTitle:@"Move Up" forState:UIControlStateNormal];
+    [controlViewMoveUpButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [controlViewMoveUpButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [controlViewMoveUpButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+    [controlViewMoveUpButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [controlViewMoveUpButton addTarget:self action:@selector(upDownDeletePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [controlViewMoveUpButton setEnabled:NO];
+    [controlViewGrayBackground addSubview:controlViewMoveUpButton];
+    
+    UIButton *controlViewMoveDnButton = [[UIButton alloc] initWithFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 3, 0, controlViewGrayBackground.frame.size.width / 3, 0)];
+    [controlViewMoveDnButton setBackgroundColor:[UIColor whiteColor]];
+    [controlViewMoveDnButton setTitle:@"Move Down" forState:UIControlStateNormal];
+    [controlViewMoveDnButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [controlViewMoveDnButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [controlViewMoveDnButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+    [controlViewMoveDnButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [controlViewMoveDnButton addTarget:self action:@selector(upDownDeletePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [controlViewMoveDnButton setEnabled:NO];
+    [controlViewGrayBackground addSubview:controlViewMoveDnButton];
+    
+    UIButton *controlViewDeleteButton = [[UIButton alloc] initWithFrame:CGRectMake(2.0 * controlViewGrayBackground.frame.size.width / 3, 0, controlViewGrayBackground.frame.size.width / 3 - 1, 0)];
+    [controlViewDeleteButton setBackgroundColor:[UIColor whiteColor]];
+    [controlViewDeleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+    [controlViewDeleteButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [controlViewDeleteButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [controlViewDeleteButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+    [controlViewDeleteButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [controlViewDeleteButton addTarget:self action:@selector(upDownDeletePressed:) forControlEvents:UIControlEventTouchDownRepeat];
+    [controlViewDeleteButton setEnabled:NO];
+    [controlViewGrayBackground addSubview:controlViewDeleteButton];
+    
+    UIButton *checkCodeButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 2 - 1, 0)];
+    [checkCodeButton setBackgroundColor:[UIColor whiteColor]];
+    [checkCodeButton setTitle:@"Field Check Code" forState:UIControlStateNormal];
+    [checkCodeButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [checkCodeButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [checkCodeButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+    [checkCodeButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [checkCodeButton addTarget:self action:@selector(checkCodePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [checkCodeButton setEnabled:NO];
+    [controlViewGrayBackground addSubview:checkCodeButton];
+    
+    UIButton *valuesButton = [[UIButton alloc] initWithFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 2, 0, controlViewGrayBackground.frame.size.width / 2 - 1, 0)];
+    [valuesButton setBackgroundColor:[UIColor whiteColor]];
+    [valuesButton setTitle:@"Values" forState:UIControlStateNormal];
+    [valuesButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [valuesButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [valuesButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+    [valuesButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [valuesButton addTarget:self action:@selector(valuesPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [valuesButton setEnabled:NO];
+    [valuesButton setTag:1001004];
+    [controlViewGrayBackground addSubview:valuesButton];
+    
+    UIButton *controlViewCancelButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 2 - 1, 0)];
+    [controlViewCancelButton setBackgroundColor:[UIColor whiteColor]];
+    [controlViewCancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+    [controlViewCancelButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [controlViewCancelButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [controlViewCancelButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+    [controlViewCancelButton addTarget:self action:@selector(legalValuesSaveOrCancelPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [controlViewGrayBackground addSubview:controlViewCancelButton];
+    
+    UIButton *controlViewSaveButton = [[UIButton alloc] initWithFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 2, 0, controlViewGrayBackground.frame.size.width / 2 - 1, 0)];
+    [controlViewSaveButton setBackgroundColor:[UIColor whiteColor]];
+    [controlViewSaveButton setTitle:@"Save" forState:UIControlStateNormal];
+    [controlViewSaveButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [controlViewSaveButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [controlViewSaveButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+    [controlViewSaveButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+    [controlViewSaveButton addTarget:self action:@selector(legalValuesSaveOrCancelPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [controlViewSaveButton setEnabled:NO];
+    [controlViewSaveButton setTag:1001003];
+    [controlViewGrayBackground addSubview:controlViewSaveButton];
+    
+    if (feoUnderEdit != nil)
+    {
+        [controlViewPromptText setText:[feoUnderEdit.FieldTagValues objectAtIndex:[feoUnderEdit.FieldTagElements indexOfObject:@"PromptText"]]];
+        [controlViewFieldNameText setText:[feoUnderEdit.FieldTagValues objectAtIndex:[feoUnderEdit.FieldTagElements indexOfObject:@"Name"]]];
+        [controlViewFieldNameText setEnabled:NO];
+        [controlViewMoveUpButton setEnabled:YES];
+        [controlViewMoveDnButton setEnabled:YES];
+        [controlViewDeleteButton setEnabled:YES];
+        [controlViewSaveButton setEnabled:YES];
+        [valuesButton setEnabled:YES];
+        if (feoUnderEdit.values != nil)
+        {
+            if ([feoUnderEdit.values count] > 0)
+            {
+                if ([(NSString *)[feoUnderEdit.values lastObject] length] > 0)
+                    [feoUnderEdit.values addObject:@""];
+                valuesFields = [[NSMutableArray alloc] init];
+                for (int i = 0; i < [feoUnderEdit.values count]; i++)
+                {
+                    UITextField *valueText = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, controlViewGrayBackground.frame.size.width - 2, 0)];
+                    [valueText setBackgroundColor:[UIColor whiteColor]];
+                    UIView *spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 8)];
+                    [valueText setLeftViewMode:UITextFieldViewModeAlways];
+                    [valueText setLeftView:spacerView];
+                    [valueText setPlaceholder:@"Value"];
+                    [valueText setDelegate:self];
+                    [valueText addTarget:self action:@selector(valueFieldChanged:) forControlEvents:UIControlEventEditingChanged];
+                    [valueText setReturnKeyType:UIReturnKeyDone];
+                    [valueText setText:(NSString *)[feoUnderEdit.values objectAtIndex:i]];
+                    [valuesFields addObject:valueText];
+                }
+            }
+        }
+    }
+    
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 242)];
+        [controlViewViewLabel setFrame:CGRectMake(1, 1, controlViewGrayBackground.frame.size.width - 2, 40)];
+        [controlViewPromptText setFrame:CGRectMake(1, 41, controlViewGrayBackground.frame.size.width - 2, 40)];
+        [controlViewFieldNameText setFrame:CGRectMake(1, 81, controlViewGrayBackground.frame.size.width - 2, 40)];
+        [controlViewMoveUpButton setFrame:CGRectMake(1, 121, controlViewGrayBackground.frame.size.width / 3 - 1, 40)];
+        [controlViewMoveDnButton setFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 3, 121, controlViewGrayBackground.frame.size.width / 3, 40)];
+        [controlViewDeleteButton setFrame:CGRectMake(2.0 * controlViewGrayBackground.frame.size.width / 3, 121, controlViewGrayBackground.frame.size.width / 3 - 1, 40)];
+        [checkCodeButton setFrame:CGRectMake(1, 161, controlViewGrayBackground.frame.size.width / 2 - 1, 40)];
+        [valuesButton setFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 2, 161, controlViewGrayBackground.frame.size.width / 2 - 1, 40)];
+        [controlViewCancelButton setFrame:CGRectMake(1, 201, controlViewGrayBackground.frame.size.width / 2 - 1, 40)];
+        [controlViewSaveButton setFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 2, 201, controlViewGrayBackground.frame.size.width / 2 - 1, 40)];
+    } completion:^(BOOL finished){
+    }];
 }
 
 - (void)presentCommentLegalView
 {
+    controlViewGrayBackground = [[UIView alloc] initWithFrame:CGRectMake(0.08 * self.frame.size.width, formDesignerLabel.frame.origin.y + formDesignerLabel.frame.size.height, 0.84 * self.frame.size.width, 0)];
+    [controlViewGrayBackground setBackgroundColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+    [self addSubview:controlViewGrayBackground];
+    
+    UILabel *controlViewViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width - 2, 0)];
+    [controlViewViewLabel setBackgroundColor:[UIColor whiteColor]];
+    [controlViewViewLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+    [controlViewViewLabel setText:@"\tComment Legal Field"];
+    [controlViewViewLabel setTextAlignment:NSTextAlignmentLeft];
+    [controlViewViewLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+    [controlViewGrayBackground addSubview:controlViewViewLabel];
+    
+    UITextField *controlViewPromptText = [[UITextField alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width - 2, 0)];
+    [controlViewPromptText setBackgroundColor:[UIColor whiteColor]];
+    UIView *spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 8)];
+    [controlViewPromptText setLeftViewMode:UITextFieldViewModeAlways];
+    [controlViewPromptText setLeftView:spacerView];
+    [controlViewPromptText setPlaceholder:@"Field Prompt"];
+    [controlViewPromptText setDelegate:self];
+    [controlViewPromptText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
+    [controlViewPromptText setReturnKeyType:UIReturnKeyDone];
+    [controlViewPromptText setTag:1001001];
+    [controlViewGrayBackground addSubview:controlViewPromptText];
+    
+    UITextField *controlViewFieldNameText = [[UITextField alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width - 2, 0)];
+    [controlViewFieldNameText setBackgroundColor:[UIColor whiteColor]];
+    UIView *spacerView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 8)];
+    [controlViewFieldNameText setLeftViewMode:UITextFieldViewModeAlways];
+    [controlViewFieldNameText setLeftView:spacerView2];
+    [controlViewFieldNameText setPlaceholder:@"Field Name"];
+    [controlViewFieldNameText setDelegate:self];
+    [controlViewFieldNameText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
+    [controlViewFieldNameText setReturnKeyType:UIReturnKeyDone];
+    [controlViewFieldNameText setTag:1001002];
+    [controlViewGrayBackground addSubview:controlViewFieldNameText];
+    
+    UIButton *controlViewMoveUpButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 3 - 1, 0)];
+    [controlViewMoveUpButton setBackgroundColor:[UIColor whiteColor]];
+    [controlViewMoveUpButton setTitle:@"Move Up" forState:UIControlStateNormal];
+    [controlViewMoveUpButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [controlViewMoveUpButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [controlViewMoveUpButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+    [controlViewMoveUpButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [controlViewMoveUpButton addTarget:self action:@selector(upDownDeletePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [controlViewMoveUpButton setEnabled:NO];
+    [controlViewGrayBackground addSubview:controlViewMoveUpButton];
+    
+    UIButton *controlViewMoveDnButton = [[UIButton alloc] initWithFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 3, 0, controlViewGrayBackground.frame.size.width / 3, 0)];
+    [controlViewMoveDnButton setBackgroundColor:[UIColor whiteColor]];
+    [controlViewMoveDnButton setTitle:@"Move Down" forState:UIControlStateNormal];
+    [controlViewMoveDnButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [controlViewMoveDnButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [controlViewMoveDnButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+    [controlViewMoveDnButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [controlViewMoveDnButton addTarget:self action:@selector(upDownDeletePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [controlViewMoveDnButton setEnabled:NO];
+    [controlViewGrayBackground addSubview:controlViewMoveDnButton];
+    
+    UIButton *controlViewDeleteButton = [[UIButton alloc] initWithFrame:CGRectMake(2.0 * controlViewGrayBackground.frame.size.width / 3, 0, controlViewGrayBackground.frame.size.width / 3 - 1, 0)];
+    [controlViewDeleteButton setBackgroundColor:[UIColor whiteColor]];
+    [controlViewDeleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+    [controlViewDeleteButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [controlViewDeleteButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [controlViewDeleteButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+    [controlViewDeleteButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [controlViewDeleteButton addTarget:self action:@selector(upDownDeletePressed:) forControlEvents:UIControlEventTouchDownRepeat];
+    [controlViewDeleteButton setEnabled:NO];
+    [controlViewGrayBackground addSubview:controlViewDeleteButton];
+    
+    UIButton *checkCodeButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 2 - 1, 0)];
+    [checkCodeButton setBackgroundColor:[UIColor whiteColor]];
+    [checkCodeButton setTitle:@"Field Check Code" forState:UIControlStateNormal];
+    [checkCodeButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [checkCodeButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [checkCodeButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+    [checkCodeButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [checkCodeButton addTarget:self action:@selector(checkCodePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [checkCodeButton setEnabled:NO];
+    [controlViewGrayBackground addSubview:checkCodeButton];
+    
+    UIButton *valuesButton = [[UIButton alloc] initWithFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 2, 0, controlViewGrayBackground.frame.size.width / 2 - 1, 0)];
+    [valuesButton setBackgroundColor:[UIColor whiteColor]];
+    [valuesButton setTitle:@"Values" forState:UIControlStateNormal];
+    [valuesButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [valuesButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [valuesButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+    [valuesButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [valuesButton addTarget:self action:@selector(valuesPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [valuesButton setEnabled:NO];
+    [valuesButton setTag:1001004];
+    [controlViewGrayBackground addSubview:valuesButton];
+    
+    UIButton *controlViewCancelButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 2 - 1, 0)];
+    [controlViewCancelButton setBackgroundColor:[UIColor whiteColor]];
+    [controlViewCancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+    [controlViewCancelButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [controlViewCancelButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [controlViewCancelButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+    [controlViewCancelButton addTarget:self action:@selector(commentLegalSaveOrCancelPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [controlViewGrayBackground addSubview:controlViewCancelButton];
+    
+    UIButton *controlViewSaveButton = [[UIButton alloc] initWithFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 2, 0, controlViewGrayBackground.frame.size.width / 2 - 1, 0)];
+    [controlViewSaveButton setBackgroundColor:[UIColor whiteColor]];
+    [controlViewSaveButton setTitle:@"Save" forState:UIControlStateNormal];
+    [controlViewSaveButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [controlViewSaveButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+    [controlViewSaveButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+    [controlViewSaveButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+    [controlViewSaveButton addTarget:self action:@selector(commentLegalSaveOrCancelPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [controlViewSaveButton setEnabled:NO];
+    [controlViewSaveButton setTag:1001003];
+    [controlViewGrayBackground addSubview:controlViewSaveButton];
+    
+    if (feoUnderEdit != nil)
+    {
+        [controlViewPromptText setText:[feoUnderEdit.FieldTagValues objectAtIndex:[feoUnderEdit.FieldTagElements indexOfObject:@"PromptText"]]];
+        [controlViewFieldNameText setText:[feoUnderEdit.FieldTagValues objectAtIndex:[feoUnderEdit.FieldTagElements indexOfObject:@"Name"]]];
+        [controlViewFieldNameText setEnabled:NO];
+        [controlViewMoveUpButton setEnabled:YES];
+        [controlViewMoveDnButton setEnabled:YES];
+        [controlViewDeleteButton setEnabled:YES];
+        [controlViewSaveButton setEnabled:YES];
+        [valuesButton setEnabled:YES];
+        if (feoUnderEdit.values != nil)
+        {
+            if ([feoUnderEdit.values count] > 0)
+            {
+                if ([(NSString *)[feoUnderEdit.values lastObject] length] > 0)
+                    [feoUnderEdit.values addObject:@""];
+                valuesFields = [[NSMutableArray alloc] init];
+                for (int i = 0; i < [feoUnderEdit.values count]; i++)
+                {
+                    UITextField *valueText = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, controlViewGrayBackground.frame.size.width - 2, 0)];
+                    [valueText setBackgroundColor:[UIColor whiteColor]];
+                    UIView *spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 8)];
+                    [valueText setLeftViewMode:UITextFieldViewModeAlways];
+                    [valueText setLeftView:spacerView];
+                    [valueText setPlaceholder:@"Value"];
+                    [valueText setDelegate:self];
+                    [valueText addTarget:self action:@selector(valueFieldChanged:) forControlEvents:UIControlEventEditingChanged];
+                    [valueText setReturnKeyType:UIReturnKeyDone];
+                    [valueText setText:(NSString *)[feoUnderEdit.values objectAtIndex:i]];
+                    [valuesFields addObject:valueText];
+                }
+            }
+        }
+    }
+    
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 242)];
+        [controlViewViewLabel setFrame:CGRectMake(1, 1, controlViewGrayBackground.frame.size.width - 2, 40)];
+        [controlViewPromptText setFrame:CGRectMake(1, 41, controlViewGrayBackground.frame.size.width - 2, 40)];
+        [controlViewFieldNameText setFrame:CGRectMake(1, 81, controlViewGrayBackground.frame.size.width - 2, 40)];
+        [controlViewMoveUpButton setFrame:CGRectMake(1, 121, controlViewGrayBackground.frame.size.width / 3 - 1, 40)];
+        [controlViewMoveDnButton setFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 3, 121, controlViewGrayBackground.frame.size.width / 3, 40)];
+        [controlViewDeleteButton setFrame:CGRectMake(2.0 * controlViewGrayBackground.frame.size.width / 3, 121, controlViewGrayBackground.frame.size.width / 3 - 1, 40)];
+        [checkCodeButton setFrame:CGRectMake(1, 161, controlViewGrayBackground.frame.size.width / 2 - 1, 40)];
+        [valuesButton setFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 2, 161, controlViewGrayBackground.frame.size.width / 2 - 1, 40)];
+        [controlViewCancelButton setFrame:CGRectMake(1, 201, controlViewGrayBackground.frame.size.width / 2 - 1, 40)];
+        [controlViewSaveButton setFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 2, 201, controlViewGrayBackground.frame.size.width / 2 - 1, 40)];
+    } completion:^(BOOL finished){
+    }];
 }
 
 #pragma mark Control View Buttons Touched
@@ -3205,6 +3588,212 @@
     }];
 }
 
+- (void)legalValuesSaveOrCancelPressed:(UIButton *)sender
+{
+    NSString *promptText = @"";
+    NSString *fieldName = @"";
+    BOOL saveButtonPressed = ([[[sender titleLabel] text] isEqualToString:@"Save"]);
+    
+    UIView *vv = [controlViewGrayBackground viewWithTag:1001001];
+    promptText = [(UITextField *)vv text];
+    if ([promptText characterAtIndex:[promptText length] - 1] == ' ')
+        promptText = [promptText substringToIndex:[promptText length] - 1];
+    vv = [controlViewGrayBackground viewWithTag:1001002];
+    fieldName = [(UITextField *)vv text];
+    
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, formDesignerLabel.frame.origin.y + formDesignerLabel.frame.size.height, 0.84 * self.frame.size.width, 0)];
+        for (UIView *vv in [controlViewGrayBackground subviews])
+        {
+            [vv setFrame:CGRectMake(vv.frame.origin.x, 0, vv.frame.size.width, 0)];
+        }
+    } completion:^(BOOL finished){
+        [controlViewGrayBackground removeFromSuperview];
+        [canvasTapGesture setEnabled:YES];
+        if (saveButtonPressed)
+        {
+            if ([promptText length] > 0)
+            {
+                [formElements addObject:[[NSString stringWithString:fieldName] lowercaseString]];
+                
+                if (feoUnderEdit == nil)
+                {
+                    TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
+                    [controlRendering setBackgroundColor:[UIColor clearColor]];
+                    [controlRendering.prompt setText:promptText];
+                    [controlRendering displayLegalValues];
+                    [canvas addSubview:controlRendering];
+                    [canvas sendSubviewToBack:controlRendering];
+                    nextY += 40;
+                }
+                else
+                {
+                    for (UIView *v in [canvas subviews])
+                    {
+                        if (yTouched > v.frame.origin.y && yTouched < (v.frame.origin.y + v.frame.size.height))
+                        {
+                            if ([v isKindOfClass:[TextFieldDisplay class]])
+                            {
+                                [((TextFieldDisplay *)v).prompt setText:promptText];
+                            }
+                            break;
+                        }
+                    }
+                }
+                
+                FormElementObject *feo = [[FormElementObject alloc] init];
+                if (feoUnderEdit != nil)
+                    feo = feoUnderEdit;
+                feo.FieldTagElements = [[NSMutableArray alloc] init];
+                feo.FieldTagValues = [[NSMutableArray alloc] init];
+                [feo.FieldTagElements addObject:@"Name"];
+                [feo.FieldTagValues addObject:fieldName];
+                [feo.FieldTagElements addObject:@"PageId"];
+                [feo.FieldTagValues addObject:@"1"];
+                [feo.FieldTagElements addObject:@"IsReadOnly"];
+                [feo.FieldTagValues addObject:@"False"];
+                [feo.FieldTagElements addObject:@"IsRequired"];
+                [feo.FieldTagValues addObject:@"False"];
+                [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+                [feo.FieldTagValues addObject:@"0.19853"];
+                [feo.FieldTagElements addObject:@"PromptText"];
+                [feo.FieldTagValues addObject:promptText];
+                [feo.FieldTagElements addObject:@"FieldTypeId"];
+                [feo.FieldTagValues addObject:@"17"];
+                
+                if (valuesFields != nil)
+                {
+                    NSMutableArray *values = [[NSMutableArray alloc] init];
+                    for (int i = 0; i < [valuesFields count]; i++)
+                    {
+                        NSString *valueString = [(UITextField *)[valuesFields objectAtIndex:i] text];
+                        if ([valueString characterAtIndex:[valueString length] - 1] == ' ')
+                            valueString = [valueString substringToIndex:[valueString length] - 1];
+                        [values addObject:valueString];
+                    }
+                    [feo setValues:values];
+                }
+                else
+                    [feo setValues:[[NSMutableArray alloc] init]];
+                
+                if (feoUnderEdit == nil)
+                {
+                    [feo setNextY:nextY];
+                    [formElementObjects addObject:feo];
+                }
+                
+                [self buildTheXMLFile];
+                yTouched = -99.9;
+            }
+        }
+        valuesFields = nil;
+        feoUnderEdit = nil;
+    }];
+}
+
+- (void)commentLegalSaveOrCancelPressed:(UIButton *)sender
+{
+    NSString *promptText = @"";
+    NSString *fieldName = @"";
+    BOOL saveButtonPressed = ([[[sender titleLabel] text] isEqualToString:@"Save"]);
+    
+    UIView *vv = [controlViewGrayBackground viewWithTag:1001001];
+    promptText = [(UITextField *)vv text];
+    if ([promptText characterAtIndex:[promptText length] - 1] == ' ')
+        promptText = [promptText substringToIndex:[promptText length] - 1];
+    vv = [controlViewGrayBackground viewWithTag:1001002];
+    fieldName = [(UITextField *)vv text];
+    
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, formDesignerLabel.frame.origin.y + formDesignerLabel.frame.size.height, 0.84 * self.frame.size.width, 0)];
+        for (UIView *vv in [controlViewGrayBackground subviews])
+        {
+            [vv setFrame:CGRectMake(vv.frame.origin.x, 0, vv.frame.size.width, 0)];
+        }
+    } completion:^(BOOL finished){
+        [controlViewGrayBackground removeFromSuperview];
+        [canvasTapGesture setEnabled:YES];
+        if (saveButtonPressed)
+        {
+            if ([promptText length] > 0)
+            {
+                [formElements addObject:[[NSString stringWithString:fieldName] lowercaseString]];
+                
+                if (feoUnderEdit == nil)
+                {
+                    TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
+                    [controlRendering setBackgroundColor:[UIColor clearColor]];
+                    [controlRendering.prompt setText:promptText];
+                    [controlRendering displayLegalValues];
+                    [canvas addSubview:controlRendering];
+                    [canvas sendSubviewToBack:controlRendering];
+                    nextY += 40;
+                }
+                else
+                {
+                    for (UIView *v in [canvas subviews])
+                    {
+                        if (yTouched > v.frame.origin.y && yTouched < (v.frame.origin.y + v.frame.size.height))
+                        {
+                            if ([v isKindOfClass:[TextFieldDisplay class]])
+                            {
+                                [((TextFieldDisplay *)v).prompt setText:promptText];
+                            }
+                            break;
+                        }
+                    }
+                }
+                
+                FormElementObject *feo = [[FormElementObject alloc] init];
+                if (feoUnderEdit != nil)
+                    feo = feoUnderEdit;
+                feo.FieldTagElements = [[NSMutableArray alloc] init];
+                feo.FieldTagValues = [[NSMutableArray alloc] init];
+                [feo.FieldTagElements addObject:@"Name"];
+                [feo.FieldTagValues addObject:fieldName];
+                [feo.FieldTagElements addObject:@"PageId"];
+                [feo.FieldTagValues addObject:@"1"];
+                [feo.FieldTagElements addObject:@"IsReadOnly"];
+                [feo.FieldTagValues addObject:@"False"];
+                [feo.FieldTagElements addObject:@"IsRequired"];
+                [feo.FieldTagValues addObject:@"False"];
+                [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+                [feo.FieldTagValues addObject:@"0.19853"];
+                [feo.FieldTagElements addObject:@"PromptText"];
+                [feo.FieldTagValues addObject:promptText];
+                [feo.FieldTagElements addObject:@"FieldTypeId"];
+                [feo.FieldTagValues addObject:@"19"];
+                
+                if (valuesFields != nil)
+                {
+                    NSMutableArray *values = [[NSMutableArray alloc] init];
+                    for (int i = 0; i < [valuesFields count]; i++)
+                    {
+                        NSString *valueString = [(UITextField *)[valuesFields objectAtIndex:i] text];
+                        if ([valueString characterAtIndex:[valueString length] - 1] == ' ')
+                            valueString = [valueString substringToIndex:[valueString length] - 1];
+                        [values addObject:valueString];
+                    }
+                    [feo setValues:values];
+                }
+                else
+                    [feo setValues:[[NSMutableArray alloc] init]];
+                
+                if (feoUnderEdit == nil)
+                {
+                    [feo setNextY:nextY];
+                    [formElementObjects addObject:feo];
+                }
+                
+                [self buildTheXMLFile];
+                yTouched = -99.9;
+            }
+        }
+        valuesFields = nil;
+        feoUnderEdit = nil;
+    }];
+}
+
 - (void)upDownDeletePressed:(UIButton *)sender
 {
     NSArray *buttonWords = [[[sender titleLabel] text] componentsSeparatedByString:@" "];
@@ -3364,6 +3953,7 @@
 - (void)buildTheXMLFile
 {
     NSMutableString *xmlMS = [[NSMutableString alloc] init];
+    NSMutableString *sourceTables = [[NSMutableString alloc] init];
     [xmlMS appendString:@"<?xml version=\"1.0\"?>\n"];
     [xmlMS appendString:[NSString stringWithFormat:@"<Template Level=\"View\" Name=\"%@\">\n", formName]];
     [xmlMS appendString:@"<Project>\n"];
@@ -3400,11 +3990,44 @@
                 [xmlMS appendString:@"\""];
             }
         }
+        if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"17"] && feo.values != nil)
+        {
+            if ([feo.values count] > 0)
+            {
+                NSString *itemString = [[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"Name"]] lowercaseString];
+                [xmlMS appendString:@" SourceTableName=\""];
+                [xmlMS appendString:[NSString stringWithFormat:@"code%@1", itemString]];
+                [xmlMS appendString:@"\""];
+                [sourceTables appendString:[NSString stringWithFormat:@"<SourceTable TableName=\"code%@1\">\n", itemString]];
+                for (int j = 0; j < [feo.values count] - 1; j++)
+                {
+                    [sourceTables appendString:[NSString stringWithFormat:@"<Item %@=\"%@\"/>\n", itemString, [feo.values objectAtIndex:j]]];
+                }
+                [sourceTables appendFormat:@"</SourceTable>\n"];
+            }
+        }
+        if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"19"] && feo.values != nil)
+        {
+            if ([feo.values count] > 0)
+            {
+                NSString *itemString = [[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"Name"]] lowercaseString];
+                [xmlMS appendString:@" SourceTableName=\""];
+                [xmlMS appendString:[NSString stringWithFormat:@"code%@1", itemString]];
+                [xmlMS appendString:@"\""];
+                [sourceTables appendString:[NSString stringWithFormat:@"<SourceTable TableName=\"code%@1\">\n", itemString]];
+                for (int j = 0; j < [feo.values count] - 1; j++)
+                {
+                    [sourceTables appendString:[NSString stringWithFormat:@"<Item %@=\"%@\"/>\n", itemString, [feo.values objectAtIndex:j]]];
+                }
+                [sourceTables appendFormat:@"</SourceTable>\n"];
+            }
+        }
         [xmlMS appendFormat:@"/>\n"];
     }
     [xmlMS appendString:@"</Page>\n"];
     [xmlMS appendString:@"</View>\n"];
     [xmlMS appendString:@"</Project>\n"];
+    [xmlMS appendString:sourceTables];
     [xmlMS appendString:@"</Template>"];
     NSString *xmlS = [NSString stringWithString:xmlMS];
     NSLog(@"%@", xmlS);
@@ -3571,6 +4194,23 @@
             }
         }
         [formElementObjects addObject:feo];
+    }
+    else if ([elementName isEqualToString:@"Item"])
+    {
+        for (NSString *s in attributeDict)
+        {
+            NSString *val = [attributeDict objectForKey:s];
+            for (FormElementObject *feo in formElementObjects)
+            {
+                if ([[[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"Name"]] lowercaseString] isEqualToString:s])
+                {
+                    if (feo.values == nil)
+                        feo.values = [[NSMutableArray alloc] init];
+                    [feo.values addObject:val];
+                    break;
+                }
+            }
+        }
     }
 }
 /*

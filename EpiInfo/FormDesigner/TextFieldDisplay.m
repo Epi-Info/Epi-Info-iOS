@@ -6,6 +6,7 @@
 //
 
 #import "TextFieldDisplay.h"
+#import "DownTriangle.h"
 
 @implementation TextFieldDisplay
 @synthesize prompt = _prompt;
@@ -78,6 +79,13 @@
     [imageButton setBackgroundImage:[UIImage imageNamed:@"iconCDC_for_image_field"] forState:UIControlStateDisabled];
     [self addSubview:imageButton];
     [self.field removeFromSuperview];
+}
+- (void)displayLegalValues
+{
+    [self.field setFrame:CGRectMake(self.field.frame.origin.x, self.field.frame.origin.y, 0.75 * self.field.frame.size.width, self.field.frame.size.height)];
+    DownTriangle *dt = [[DownTriangle alloc] initWithFrame:CGRectMake(self.field.frame.origin.x + self.field.frame.size.width - self.field.frame.size.height, self.field.frame.origin.y, self.field.frame.size.height, self.field.frame.size.height)];
+    [dt setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+    [self addSubview:dt];
 }
 /*
 // Only override drawRect: if you perform custom drawing.
