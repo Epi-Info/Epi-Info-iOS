@@ -77,6 +77,7 @@
             NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:templateFile];
             [parser setDelegate:self];
             [parser setShouldResolveExternalEntities:YES];
+            NSLog(@"CONSUMING XML: %@", [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:[@"file://" stringByAppendingString:[[[epiInfoForms stringByAppendingString:@"/"] stringByAppendingString:formName] stringByAppendingString:@".xml"]]] encoding:NSUTF8StringEncoding error:nil]);
             BOOL success = [parser parse];
             if (success)
             {
@@ -223,6 +224,9 @@
                         [feo setNextY:nextY];
                     }
                 }
+                [canvasSV setContentSize:CGSizeMake(canvasSV.contentSize.width, nextY + self.frame.size.height)];
+                [canvas setFrame:CGRectMake(canvas.frame.origin.x, canvas.frame.origin.y, canvas.frame.size.width, canvasSV.contentSize.height)];
+                [canvasCover setFrame:CGRectMake(canvasCover.frame.origin.x, canvasCover.frame.origin.y, canvasCover.frame.size.width, canvas.frame.size.height)];
             }
         }
     }
@@ -377,6 +381,9 @@
                 [feo setNextY:nextY];
             }
         }
+        [canvasSV setContentSize:CGSizeMake(canvasSV.contentSize.width, nextY + self.frame.size.height)];
+        [canvas setFrame:CGRectMake(canvas.frame.origin.x, canvas.frame.origin.y, canvas.frame.size.width, canvasSV.contentSize.height)];
+        [canvasCover setFrame:CGRectMake(canvasCover.frame.origin.x, canvasCover.frame.origin.y, canvasCover.frame.size.width, canvas.frame.size.height)];
     }
 }
 
@@ -2699,6 +2706,9 @@
                 
                 [self buildTheXMLFile];
                 yTouched = -99.9;
+                [canvasSV setContentSize:CGSizeMake(canvasSV.contentSize.width, nextY + self.frame.size.height)];
+                [canvas setFrame:CGRectMake(canvas.frame.origin.x, canvas.frame.origin.y, canvas.frame.size.width, canvasSV.contentSize.height)];
+                [canvasCover setFrame:CGRectMake(canvasCover.frame.origin.x, canvasCover.frame.origin.y, canvasCover.frame.size.width, canvas.frame.size.height)];
             }
         }
         feoUnderEdit = nil;
@@ -2785,6 +2795,9 @@
 
                 [self buildTheXMLFile];
                 yTouched = -99.9;
+                [canvasSV setContentSize:CGSizeMake(canvasSV.contentSize.width, nextY + self.frame.size.height)];
+                [canvas setFrame:CGRectMake(canvas.frame.origin.x, canvas.frame.origin.y, canvas.frame.size.width, canvasSV.contentSize.height)];
+                [canvasCover setFrame:CGRectMake(canvasCover.frame.origin.x, canvasCover.frame.origin.y, canvasCover.frame.size.width, canvas.frame.size.height)];
             }
         }
         feoUnderEdit = nil;
@@ -2871,6 +2884,9 @@
                 
                 [self buildTheXMLFile];
                 yTouched = -99.9;
+                [canvasSV setContentSize:CGSizeMake(canvasSV.contentSize.width, nextY + self.frame.size.height)];
+                [canvas setFrame:CGRectMake(canvas.frame.origin.x, canvas.frame.origin.y, canvas.frame.size.width, canvasSV.contentSize.height)];
+                [canvasCover setFrame:CGRectMake(canvasCover.frame.origin.x, canvasCover.frame.origin.y, canvasCover.frame.size.width, canvas.frame.size.height)];
             }
         }
         feoUnderEdit = nil;
@@ -2957,6 +2973,9 @@
                 
                 [self buildTheXMLFile];
                 yTouched = -99.9;
+                [canvasSV setContentSize:CGSizeMake(canvasSV.contentSize.width, nextY + self.frame.size.height)];
+                [canvas setFrame:CGRectMake(canvas.frame.origin.x, canvas.frame.origin.y, canvas.frame.size.width, canvasSV.contentSize.height)];
+                [canvasCover setFrame:CGRectMake(canvasCover.frame.origin.x, canvasCover.frame.origin.y, canvasCover.frame.size.width, canvas.frame.size.height)];
             }
         }
         feoUnderEdit = nil;
@@ -3043,6 +3062,9 @@
                 
                 [self buildTheXMLFile];
                 yTouched = -99.9;
+                [canvasSV setContentSize:CGSizeMake(canvasSV.contentSize.width, nextY + self.frame.size.height)];
+                [canvas setFrame:CGRectMake(canvas.frame.origin.x, canvas.frame.origin.y, canvas.frame.size.width, canvasSV.contentSize.height)];
+                [canvasCover setFrame:CGRectMake(canvasCover.frame.origin.x, canvasCover.frame.origin.y, canvasCover.frame.size.width, canvas.frame.size.height)];
             }
         }
         feoUnderEdit = nil;
@@ -3130,6 +3152,9 @@
                 
                 [self buildTheXMLFile];
                 yTouched = -99.9;
+                [canvasSV setContentSize:CGSizeMake(canvasSV.contentSize.width, nextY + self.frame.size.height)];
+                [canvas setFrame:CGRectMake(canvas.frame.origin.x, canvas.frame.origin.y, canvas.frame.size.width, canvasSV.contentSize.height)];
+                [canvasCover setFrame:CGRectMake(canvasCover.frame.origin.x, canvasCover.frame.origin.y, canvasCover.frame.size.width, canvas.frame.size.height)];
             }
         }
         feoUnderEdit = nil;
@@ -3217,6 +3242,9 @@
                 
                 [self buildTheXMLFile];
                 yTouched = -99.9;
+                [canvasSV setContentSize:CGSizeMake(canvasSV.contentSize.width, nextY + self.frame.size.height)];
+                [canvas setFrame:CGRectMake(canvas.frame.origin.x, canvas.frame.origin.y, canvas.frame.size.width, canvasSV.contentSize.height)];
+                [canvasCover setFrame:CGRectMake(canvasCover.frame.origin.x, canvasCover.frame.origin.y, canvasCover.frame.size.width, canvas.frame.size.height)];
             }
         }
         feoUnderEdit = nil;
@@ -3304,6 +3332,9 @@
                 
                 [self buildTheXMLFile];
                 yTouched = -99.9;
+                [canvasSV setContentSize:CGSizeMake(canvasSV.contentSize.width, nextY + self.frame.size.height)];
+                [canvas setFrame:CGRectMake(canvas.frame.origin.x, canvas.frame.origin.y, canvas.frame.size.width, canvasSV.contentSize.height)];
+                [canvasCover setFrame:CGRectMake(canvasCover.frame.origin.x, canvasCover.frame.origin.y, canvasCover.frame.size.width, canvas.frame.size.height)];
             }
         }
         feoUnderEdit = nil;
@@ -3391,6 +3422,9 @@
                 
                 [self buildTheXMLFile];
                 yTouched = -99.9;
+                [canvasSV setContentSize:CGSizeMake(canvasSV.contentSize.width, nextY + self.frame.size.height)];
+                [canvas setFrame:CGRectMake(canvas.frame.origin.x, canvas.frame.origin.y, canvas.frame.size.width, canvasSV.contentSize.height)];
+                [canvasCover setFrame:CGRectMake(canvasCover.frame.origin.x, canvasCover.frame.origin.y, canvasCover.frame.size.width, canvas.frame.size.height)];
             }
         }
         feoUnderEdit = nil;
@@ -3495,6 +3529,9 @@
                 
                 [self buildTheXMLFile];
                 yTouched = -99.9;
+                [canvasSV setContentSize:CGSizeMake(canvasSV.contentSize.width, nextY + self.frame.size.height)];
+                [canvas setFrame:CGRectMake(canvas.frame.origin.x, canvas.frame.origin.y, canvas.frame.size.width, canvasSV.contentSize.height)];
+                [canvasCover setFrame:CGRectMake(canvasCover.frame.origin.x, canvasCover.frame.origin.y, canvasCover.frame.size.width, canvas.frame.size.height)];
             }
         }
         valuesFields = nil;
@@ -3583,6 +3620,9 @@
                 
                 [self buildTheXMLFile];
                 yTouched = -99.9;
+                [canvasSV setContentSize:CGSizeMake(canvasSV.contentSize.width, nextY + self.frame.size.height)];
+                [canvas setFrame:CGRectMake(canvas.frame.origin.x, canvas.frame.origin.y, canvas.frame.size.width, canvasSV.contentSize.height)];
+                [canvasCover setFrame:CGRectMake(canvasCover.frame.origin.x, canvasCover.frame.origin.y, canvasCover.frame.size.width, canvas.frame.size.height)];
             }
         }
         feoUnderEdit = nil;
@@ -3685,6 +3725,9 @@
                 
                 [self buildTheXMLFile];
                 yTouched = -99.9;
+                [canvasSV setContentSize:CGSizeMake(canvasSV.contentSize.width, nextY + self.frame.size.height)];
+                [canvas setFrame:CGRectMake(canvas.frame.origin.x, canvas.frame.origin.y, canvas.frame.size.width, canvasSV.contentSize.height)];
+                [canvasCover setFrame:CGRectMake(canvasCover.frame.origin.x, canvasCover.frame.origin.y, canvasCover.frame.size.width, canvas.frame.size.height)];
             }
         }
         valuesFields = nil;
@@ -3788,6 +3831,9 @@
                 
                 [self buildTheXMLFile];
                 yTouched = -99.9;
+                [canvasSV setContentSize:CGSizeMake(canvasSV.contentSize.width, nextY + self.frame.size.height)];
+                [canvas setFrame:CGRectMake(canvas.frame.origin.x, canvas.frame.origin.y, canvas.frame.size.width, canvasSV.contentSize.height)];
+                [canvasCover setFrame:CGRectMake(canvasCover.frame.origin.x, canvasCover.frame.origin.y, canvasCover.frame.size.width, canvas.frame.size.height)];
             }
         }
         valuesFields = nil;
@@ -4195,6 +4241,11 @@
                 [feo setValues:[NSMutableArray arrayWithArray:valuesArray]];
             }
         }
+        if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"21"])
+        {
+            [feo.FieldTagElements addObject:@"List"];
+            [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"List"]]];
+        }
         [formElementObjects addObject:feo];
     }
     else if ([elementName isEqualToString:@"Item"])
@@ -4218,7 +4269,7 @@
     {
         if ([attributeDict objectForKey:@"CheckCode"] != nil)
         {
-            checkCodeString = [NSString stringWithString:[attributeDict objectForKey:@"CheckCode"]];
+            checkCodeString = [[[[[[NSString stringWithString:[attributeDict objectForKey:@"CheckCode"]] stringByReplacingOccurrencesOfString:@"\n" withString:@"&#xA;"] stringByReplacingOccurrencesOfString:@"\t" withString:@"&#x9;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"]stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"];
         }
     }
 }
