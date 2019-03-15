@@ -21,6 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
     NSString *formName;
     NSMutableArray *formElements;
     NSMutableArray *formElementObjects;
+    NSMutableArray *pages;
+    NSMutableArray *pageNames;
+    NSMutableArray *pageNumbers;
+    NSMutableArray *actualPageNumbers;
+    int lastPage;
     
     UIScrollView *canvasSV;
     UILabel *formDesignerLabel;

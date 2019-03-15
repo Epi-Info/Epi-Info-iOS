@@ -17,6 +17,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
+        lastPage = 1;
         checkCodeString = @"";
         yTouched = -99.9;
         [self getExistingForms];
@@ -72,7 +73,12 @@
             formNamed = YES;
             formElements = [[NSMutableArray alloc] init];
             formElementObjects = [[NSMutableArray alloc] init];
-            
+            pages = [[NSMutableArray alloc] init];
+            [pages addObject:[[NSMutableArray alloc] init]];
+            pageNames = [[NSMutableArray alloc] init];
+            pageNumbers = [[NSMutableArray alloc] init];
+            actualPageNumbers = [[NSMutableArray alloc] init];
+
             NSURL *templateFile = [[NSURL alloc] initWithString:[@"file://" stringByAppendingString:[[[epiInfoForms stringByAppendingString:@"/"] stringByAppendingString:formName] stringByAppendingString:@".xml"]]];
             NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:templateFile];
             [parser setDelegate:self];
@@ -2617,6 +2623,15 @@
                 formNamed = YES;
                 formElements = [[NSMutableArray alloc] init];
                 formElementObjects = [[NSMutableArray alloc] init];
+                pages = [[NSMutableArray alloc] init];
+                [pages addObject:[[NSMutableArray alloc] init]];
+                lastPage = 1;
+                pageNames = [[NSMutableArray alloc] init];
+                pageNumbers = [[NSMutableArray alloc] init];
+                actualPageNumbers = [[NSMutableArray alloc] init];
+                [pageNames addObject:[NSString stringWithFormat:@"Page %d", lastPage]];
+                [pageNumbers addObject:[NSString stringWithFormat:@"%d", lastPage]];
+                [actualPageNumbers addObject:[NSString stringWithFormat:@"%d", lastPage]];
                 formName = [NSString stringWithString:newFormName];
                 [self buildTheXMLFile];
                 [self getExistingForms];
@@ -2680,28 +2695,35 @@
                 
                 FormElementObject *feo = [[FormElementObject alloc] init];
                 if (feoUnderEdit != nil)
+                {
                     feo = feoUnderEdit;
-                feo.FieldTagElements = [[NSMutableArray alloc] init];
-                feo.FieldTagValues = [[NSMutableArray alloc] init];
-                [feo.FieldTagElements addObject:@"Name"];
-                [feo.FieldTagValues addObject:fieldName];
-                [feo.FieldTagElements addObject:@"PageId"];
-                [feo.FieldTagValues addObject:@"1"];
-                [feo.FieldTagElements addObject:@"IsReadOnly"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"IsRequired"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
-                [feo.FieldTagValues addObject:@"0.24853"];
-                [feo.FieldTagElements addObject:@"PromptText"];
-                [feo.FieldTagValues addObject:promptText];
-                [feo.FieldTagElements addObject:@"FieldTypeId"];
-                [feo.FieldTagValues addObject:@"2"];
+                    [feo.FieldTagValues setObject:promptText atIndexedSubscript:[feo.FieldTagElements indexOfObject:@"PromptText"]];
+                }
+                else
+                {
+                    feo.FieldTagElements = [[NSMutableArray alloc] init];
+                    feo.FieldTagValues = [[NSMutableArray alloc] init];
+                    [feo.FieldTagElements addObject:@"Name"];
+                    [feo.FieldTagValues addObject:fieldName];
+                    [feo.FieldTagElements addObject:@"PageId"];
+                    [feo.FieldTagValues addObject:[NSString stringWithFormat:@"%d", lastPage]];
+                    [feo.FieldTagElements addObject:@"IsReadOnly"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"IsRequired"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+                    [feo.FieldTagValues addObject:@"0.24853"];
+                    [feo.FieldTagElements addObject:@"PromptText"];
+                    [feo.FieldTagValues addObject:promptText];
+                    [feo.FieldTagElements addObject:@"FieldTypeId"];
+                    [feo.FieldTagValues addObject:@"2"];
+                }
 
                 if (feoUnderEdit == nil)
                 {
                     [feo setNextY:nextY];
                     [formElementObjects addObject:feo];
+                    [(NSMutableArray *)[pages objectAtIndex:[(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue] - 1] addObject:feo];
                 }
                 
                 [self buildTheXMLFile];
@@ -2769,28 +2791,35 @@
                 
                 FormElementObject *feo = [[FormElementObject alloc] init];
                 if (feoUnderEdit != nil)
+                {
                     feo = feoUnderEdit;
-                feo.FieldTagElements = [[NSMutableArray alloc] init];
-                feo.FieldTagValues = [[NSMutableArray alloc] init];
-                [feo.FieldTagElements addObject:@"Name"];
-                [feo.FieldTagValues addObject:fieldName];
-                [feo.FieldTagElements addObject:@"PageId"];
-                [feo.FieldTagValues addObject:@"1"];
-                [feo.FieldTagElements addObject:@"IsReadOnly"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"IsRequired"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
-                [feo.FieldTagValues addObject:@"0.4853"];
-                [feo.FieldTagElements addObject:@"PromptText"];
-                [feo.FieldTagValues addObject:promptText];
-                [feo.FieldTagElements addObject:@"FieldTypeId"];
-                [feo.FieldTagValues addObject:@"1"];
+                    [feo.FieldTagValues setObject:promptText atIndexedSubscript:[feo.FieldTagElements indexOfObject:@"PromptText"]];
+                }
+                else
+                {
+                    feo.FieldTagElements = [[NSMutableArray alloc] init];
+                    feo.FieldTagValues = [[NSMutableArray alloc] init];
+                    [feo.FieldTagElements addObject:@"Name"];
+                    [feo.FieldTagValues addObject:fieldName];
+                    [feo.FieldTagElements addObject:@"PageId"];
+                    [feo.FieldTagValues addObject:[NSString stringWithFormat:@"%d", lastPage]];
+                    [feo.FieldTagElements addObject:@"IsReadOnly"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"IsRequired"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+                    [feo.FieldTagValues addObject:@"0.4853"];
+                    [feo.FieldTagElements addObject:@"PromptText"];
+                    [feo.FieldTagValues addObject:promptText];
+                    [feo.FieldTagElements addObject:@"FieldTypeId"];
+                    [feo.FieldTagValues addObject:@"1"];
+                }
                 
                 if (feoUnderEdit == nil)
                 {
                     [feo setNextY:nextY];
                     [formElementObjects addObject:feo];
+                    [(NSMutableArray *)[pages objectAtIndex:[(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue] - 1] addObject:feo];
                 }
 
                 [self buildTheXMLFile];
@@ -2858,28 +2887,35 @@
                 
                 FormElementObject *feo = [[FormElementObject alloc] init];
                 if (feoUnderEdit != nil)
+                {
                     feo = feoUnderEdit;
-                feo.FieldTagElements = [[NSMutableArray alloc] init];
-                feo.FieldTagValues = [[NSMutableArray alloc] init];
-                [feo.FieldTagElements addObject:@"Name"];
-                [feo.FieldTagValues addObject:fieldName];
-                [feo.FieldTagElements addObject:@"PageId"];
-                [feo.FieldTagValues addObject:@"1"];
-                [feo.FieldTagElements addObject:@"IsReadOnly"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"IsRequired"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
-                [feo.FieldTagValues addObject:@"0.4853"];
-                [feo.FieldTagElements addObject:@"PromptText"];
-                [feo.FieldTagValues addObject:promptText];
-                [feo.FieldTagElements addObject:@"FieldTypeId"];
-                [feo.FieldTagValues addObject:@"3"];
+                    [feo.FieldTagValues setObject:promptText atIndexedSubscript:[feo.FieldTagElements indexOfObject:@"PromptText"]];
+                }
+                else
+                {
+                    feo.FieldTagElements = [[NSMutableArray alloc] init];
+                    feo.FieldTagValues = [[NSMutableArray alloc] init];
+                    [feo.FieldTagElements addObject:@"Name"];
+                    [feo.FieldTagValues addObject:fieldName];
+                    [feo.FieldTagElements addObject:@"PageId"];
+                    [feo.FieldTagValues addObject:[NSString stringWithFormat:@"%d", lastPage]];
+                    [feo.FieldTagElements addObject:@"IsReadOnly"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"IsRequired"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+                    [feo.FieldTagValues addObject:@"0.4853"];
+                    [feo.FieldTagElements addObject:@"PromptText"];
+                    [feo.FieldTagValues addObject:promptText];
+                    [feo.FieldTagElements addObject:@"FieldTypeId"];
+                    [feo.FieldTagValues addObject:@"3"];
+                }
                 
                 if (feoUnderEdit == nil)
                 {
                     [feo setNextY:nextY];
                     [formElementObjects addObject:feo];
+                    [(NSMutableArray *)[pages objectAtIndex:[(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue] - 1] addObject:feo];
                 }
                 
                 [self buildTheXMLFile];
@@ -2947,28 +2983,35 @@
                 
                 FormElementObject *feo = [[FormElementObject alloc] init];
                 if (feoUnderEdit != nil)
+                {
                     feo = feoUnderEdit;
-                feo.FieldTagElements = [[NSMutableArray alloc] init];
-                feo.FieldTagValues = [[NSMutableArray alloc] init];
-                [feo.FieldTagElements addObject:@"Name"];
-                [feo.FieldTagValues addObject:fieldName];
-                [feo.FieldTagElements addObject:@"PageId"];
-                [feo.FieldTagValues addObject:@"1"];
-                [feo.FieldTagElements addObject:@"IsReadOnly"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"IsRequired"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
-                [feo.FieldTagValues addObject:@"0.4853"];
-                [feo.FieldTagElements addObject:@"PromptText"];
-                [feo.FieldTagValues addObject:promptText];
-                [feo.FieldTagElements addObject:@"FieldTypeId"];
-                [feo.FieldTagValues addObject:@"4"];
+                    [feo.FieldTagValues setObject:promptText atIndexedSubscript:[feo.FieldTagElements indexOfObject:@"PromptText"]];
+                }
+                else
+                {
+                    feo.FieldTagElements = [[NSMutableArray alloc] init];
+                    feo.FieldTagValues = [[NSMutableArray alloc] init];
+                    [feo.FieldTagElements addObject:@"Name"];
+                    [feo.FieldTagValues addObject:fieldName];
+                    [feo.FieldTagElements addObject:@"PageId"];
+                    [feo.FieldTagValues addObject:[NSString stringWithFormat:@"%d", lastPage]];
+                    [feo.FieldTagElements addObject:@"IsReadOnly"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"IsRequired"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+                    [feo.FieldTagValues addObject:@"0.4853"];
+                    [feo.FieldTagElements addObject:@"PromptText"];
+                    [feo.FieldTagValues addObject:promptText];
+                    [feo.FieldTagElements addObject:@"FieldTypeId"];
+                    [feo.FieldTagValues addObject:@"4"];
+                }
                 
                 if (feoUnderEdit == nil)
                 {
                     [feo setNextY:nextY];
                     [formElementObjects addObject:feo];
+                    [(NSMutableArray *)[pages objectAtIndex:[(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue] - 1] addObject:feo];
                 }
                 
                 [self buildTheXMLFile];
@@ -3036,28 +3079,35 @@
                 
                 FormElementObject *feo = [[FormElementObject alloc] init];
                 if (feoUnderEdit != nil)
+                {
                     feo = feoUnderEdit;
-                feo.FieldTagElements = [[NSMutableArray alloc] init];
-                feo.FieldTagValues = [[NSMutableArray alloc] init];
-                [feo.FieldTagElements addObject:@"Name"];
-                [feo.FieldTagValues addObject:fieldName];
-                [feo.FieldTagElements addObject:@"PageId"];
-                [feo.FieldTagValues addObject:@"1"];
-                [feo.FieldTagElements addObject:@"IsReadOnly"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"IsRequired"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
-                [feo.FieldTagValues addObject:@"0.19853"];
-                [feo.FieldTagElements addObject:@"PromptText"];
-                [feo.FieldTagValues addObject:promptText];
-                [feo.FieldTagElements addObject:@"FieldTypeId"];
-                [feo.FieldTagValues addObject:@"5"];
+                    [feo.FieldTagValues setObject:promptText atIndexedSubscript:[feo.FieldTagElements indexOfObject:@"PromptText"]];
+                }
+                else
+                {
+                    feo.FieldTagElements = [[NSMutableArray alloc] init];
+                    feo.FieldTagValues = [[NSMutableArray alloc] init];
+                    [feo.FieldTagElements addObject:@"Name"];
+                    [feo.FieldTagValues addObject:fieldName];
+                    [feo.FieldTagElements addObject:@"PageId"];
+                    [feo.FieldTagValues addObject:[NSString stringWithFormat:@"%d", lastPage]];
+                    [feo.FieldTagElements addObject:@"IsReadOnly"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"IsRequired"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+                    [feo.FieldTagValues addObject:@"0.19853"];
+                    [feo.FieldTagElements addObject:@"PromptText"];
+                    [feo.FieldTagValues addObject:promptText];
+                    [feo.FieldTagElements addObject:@"FieldTypeId"];
+                    [feo.FieldTagValues addObject:@"5"];
+                }
                 
                 if (feoUnderEdit == nil)
                 {
                     [feo setNextY:nextY];
                     [formElementObjects addObject:feo];
+                    [(NSMutableArray *)[pages objectAtIndex:[(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue] - 1] addObject:feo];
                 }
                 
                 [self buildTheXMLFile];
@@ -3126,28 +3176,35 @@
                 
                 FormElementObject *feo = [[FormElementObject alloc] init];
                 if (feoUnderEdit != nil)
+                {
                     feo = feoUnderEdit;
-                feo.FieldTagElements = [[NSMutableArray alloc] init];
-                feo.FieldTagValues = [[NSMutableArray alloc] init];
-                [feo.FieldTagElements addObject:@"Name"];
-                [feo.FieldTagValues addObject:fieldName];
-                [feo.FieldTagElements addObject:@"PageId"];
-                [feo.FieldTagValues addObject:@"1"];
-                [feo.FieldTagElements addObject:@"IsReadOnly"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"IsRequired"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
-                [feo.FieldTagValues addObject:@"0.19853"];
-                [feo.FieldTagElements addObject:@"PromptText"];
-                [feo.FieldTagValues addObject:promptText];
-                [feo.FieldTagElements addObject:@"FieldTypeId"];
-                [feo.FieldTagValues addObject:@"6"];
+                    [feo.FieldTagValues setObject:promptText atIndexedSubscript:[feo.FieldTagElements indexOfObject:@"PromptText"]];
+                }
+                else
+                {
+                    feo.FieldTagElements = [[NSMutableArray alloc] init];
+                    feo.FieldTagValues = [[NSMutableArray alloc] init];
+                    [feo.FieldTagElements addObject:@"Name"];
+                    [feo.FieldTagValues addObject:fieldName];
+                    [feo.FieldTagElements addObject:@"PageId"];
+                    [feo.FieldTagValues addObject:[NSString stringWithFormat:@"%d", lastPage]];
+                    [feo.FieldTagElements addObject:@"IsReadOnly"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"IsRequired"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+                    [feo.FieldTagValues addObject:@"0.19853"];
+                    [feo.FieldTagElements addObject:@"PromptText"];
+                    [feo.FieldTagValues addObject:promptText];
+                    [feo.FieldTagElements addObject:@"FieldTypeId"];
+                    [feo.FieldTagValues addObject:@"6"];
+                }
                 
                 if (feoUnderEdit == nil)
                 {
                     [feo setNextY:nextY];
                     [formElementObjects addObject:feo];
+                    [(NSMutableArray *)[pages objectAtIndex:[(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue] - 1] addObject:feo];
                 }
                 
                 [self buildTheXMLFile];
@@ -3216,28 +3273,35 @@
                 
                 FormElementObject *feo = [[FormElementObject alloc] init];
                 if (feoUnderEdit != nil)
+                {
                     feo = feoUnderEdit;
-                feo.FieldTagElements = [[NSMutableArray alloc] init];
-                feo.FieldTagValues = [[NSMutableArray alloc] init];
-                [feo.FieldTagElements addObject:@"Name"];
-                [feo.FieldTagValues addObject:fieldName];
-                [feo.FieldTagElements addObject:@"PageId"];
-                [feo.FieldTagValues addObject:@"1"];
-                [feo.FieldTagElements addObject:@"IsReadOnly"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"IsRequired"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
-                [feo.FieldTagValues addObject:@"0.19853"];
-                [feo.FieldTagElements addObject:@"PromptText"];
-                [feo.FieldTagValues addObject:promptText];
-                [feo.FieldTagElements addObject:@"FieldTypeId"];
-                [feo.FieldTagValues addObject:@"7"];
+                    [feo.FieldTagValues setObject:promptText atIndexedSubscript:[feo.FieldTagElements indexOfObject:@"PromptText"]];
+                }
+                else
+                {
+                    feo.FieldTagElements = [[NSMutableArray alloc] init];
+                    feo.FieldTagValues = [[NSMutableArray alloc] init];
+                    [feo.FieldTagElements addObject:@"Name"];
+                    [feo.FieldTagValues addObject:fieldName];
+                    [feo.FieldTagElements addObject:@"PageId"];
+                    [feo.FieldTagValues addObject:[NSString stringWithFormat:@"%d", lastPage]];
+                    [feo.FieldTagElements addObject:@"IsReadOnly"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"IsRequired"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+                    [feo.FieldTagValues addObject:@"0.19853"];
+                    [feo.FieldTagElements addObject:@"PromptText"];
+                    [feo.FieldTagValues addObject:promptText];
+                    [feo.FieldTagElements addObject:@"FieldTypeId"];
+                    [feo.FieldTagValues addObject:@"7"];
+                }
                 
                 if (feoUnderEdit == nil)
                 {
                     [feo setNextY:nextY];
                     [formElementObjects addObject:feo];
+                    [(NSMutableArray *)[pages objectAtIndex:[(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue] - 1] addObject:feo];
                 }
                 
                 [self buildTheXMLFile];
@@ -3306,28 +3370,35 @@
                 
                 FormElementObject *feo = [[FormElementObject alloc] init];
                 if (feoUnderEdit != nil)
+                {
                     feo = feoUnderEdit;
-                feo.FieldTagElements = [[NSMutableArray alloc] init];
-                feo.FieldTagValues = [[NSMutableArray alloc] init];
-                [feo.FieldTagElements addObject:@"Name"];
-                [feo.FieldTagValues addObject:fieldName];
-                [feo.FieldTagElements addObject:@"PageId"];
-                [feo.FieldTagValues addObject:@"1"];
-                [feo.FieldTagElements addObject:@"IsReadOnly"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"IsRequired"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
-                [feo.FieldTagValues addObject:@"0.19853"];
-                [feo.FieldTagElements addObject:@"PromptText"];
-                [feo.FieldTagValues addObject:promptText];
-                [feo.FieldTagElements addObject:@"FieldTypeId"];
-                [feo.FieldTagValues addObject:@"10"];
+                    [feo.FieldTagValues setObject:promptText atIndexedSubscript:[feo.FieldTagElements indexOfObject:@"PromptText"]];
+                }
+                else
+                {
+                    feo.FieldTagElements = [[NSMutableArray alloc] init];
+                    feo.FieldTagValues = [[NSMutableArray alloc] init];
+                    [feo.FieldTagElements addObject:@"Name"];
+                    [feo.FieldTagValues addObject:fieldName];
+                    [feo.FieldTagElements addObject:@"PageId"];
+                    [feo.FieldTagValues addObject:[NSString stringWithFormat:@"%d", lastPage]];
+                    [feo.FieldTagElements addObject:@"IsReadOnly"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"IsRequired"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+                    [feo.FieldTagValues addObject:@"0.19853"];
+                    [feo.FieldTagElements addObject:@"PromptText"];
+                    [feo.FieldTagValues addObject:promptText];
+                    [feo.FieldTagElements addObject:@"FieldTypeId"];
+                    [feo.FieldTagValues addObject:@"10"];
+                }
                 
                 if (feoUnderEdit == nil)
                 {
                     [feo setNextY:nextY];
                     [formElementObjects addObject:feo];
+                    [(NSMutableArray *)[pages objectAtIndex:[(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue] - 1] addObject:feo];
                 }
                 
                 [self buildTheXMLFile];
@@ -3396,28 +3467,35 @@
                 
                 FormElementObject *feo = [[FormElementObject alloc] init];
                 if (feoUnderEdit != nil)
+                {
                     feo = feoUnderEdit;
-                feo.FieldTagElements = [[NSMutableArray alloc] init];
-                feo.FieldTagValues = [[NSMutableArray alloc] init];
-                [feo.FieldTagElements addObject:@"Name"];
-                [feo.FieldTagValues addObject:fieldName];
-                [feo.FieldTagElements addObject:@"PageId"];
-                [feo.FieldTagValues addObject:@"1"];
-                [feo.FieldTagElements addObject:@"IsReadOnly"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"IsRequired"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
-                [feo.FieldTagValues addObject:@"0.19853"];
-                [feo.FieldTagElements addObject:@"PromptText"];
-                [feo.FieldTagValues addObject:promptText];
-                [feo.FieldTagElements addObject:@"FieldTypeId"];
-                [feo.FieldTagValues addObject:@"11"];
+                    [feo.FieldTagValues setObject:promptText atIndexedSubscript:[feo.FieldTagElements indexOfObject:@"PromptText"]];
+                }
+                else
+                {
+                    feo.FieldTagElements = [[NSMutableArray alloc] init];
+                    feo.FieldTagValues = [[NSMutableArray alloc] init];
+                    [feo.FieldTagElements addObject:@"Name"];
+                    [feo.FieldTagValues addObject:fieldName];
+                    [feo.FieldTagElements addObject:@"PageId"];
+                    [feo.FieldTagValues addObject:[NSString stringWithFormat:@"%d", lastPage]];
+                    [feo.FieldTagElements addObject:@"IsReadOnly"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"IsRequired"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+                    [feo.FieldTagValues addObject:@"0.19853"];
+                    [feo.FieldTagElements addObject:@"PromptText"];
+                    [feo.FieldTagValues addObject:promptText];
+                    [feo.FieldTagElements addObject:@"FieldTypeId"];
+                    [feo.FieldTagValues addObject:@"11"];
+                }
                 
                 if (feoUnderEdit == nil)
                 {
                     [feo setNextY:nextY];
                     [formElementObjects addObject:feo];
+                    [(NSMutableArray *)[pages objectAtIndex:[(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue] - 1] addObject:feo];
                 }
                 
                 [self buildTheXMLFile];
@@ -3486,23 +3564,29 @@
                 
                 FormElementObject *feo = [[FormElementObject alloc] init];
                 if (feoUnderEdit != nil)
+                {
                     feo = feoUnderEdit;
-                feo.FieldTagElements = [[NSMutableArray alloc] init];
-                feo.FieldTagValues = [[NSMutableArray alloc] init];
-                [feo.FieldTagElements addObject:@"Name"];
-                [feo.FieldTagValues addObject:fieldName];
-                [feo.FieldTagElements addObject:@"PageId"];
-                [feo.FieldTagValues addObject:@"1"];
-                [feo.FieldTagElements addObject:@"IsReadOnly"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"IsRequired"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
-                [feo.FieldTagValues addObject:@"0.19853"];
-                [feo.FieldTagElements addObject:@"PromptText"];
-                [feo.FieldTagValues addObject:promptText];
-                [feo.FieldTagElements addObject:@"FieldTypeId"];
-                [feo.FieldTagValues addObject:@"12"];
+                    [feo.FieldTagValues setObject:promptText atIndexedSubscript:[feo.FieldTagElements indexOfObject:@"PromptText"]];
+                }
+                else
+                {
+                    feo.FieldTagElements = [[NSMutableArray alloc] init];
+                    feo.FieldTagValues = [[NSMutableArray alloc] init];
+                    [feo.FieldTagElements addObject:@"Name"];
+                    [feo.FieldTagValues addObject:fieldName];
+                    [feo.FieldTagElements addObject:@"PageId"];
+                    [feo.FieldTagValues addObject:[NSString stringWithFormat:@"%d", lastPage]];
+                    [feo.FieldTagElements addObject:@"IsReadOnly"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"IsRequired"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+                    [feo.FieldTagValues addObject:@"0.19853"];
+                    [feo.FieldTagElements addObject:@"PromptText"];
+                    [feo.FieldTagValues addObject:promptText];
+                    [feo.FieldTagElements addObject:@"FieldTypeId"];
+                    [feo.FieldTagValues addObject:@"12"];
+                }
                 
                 if (valuesFields != nil)
                 {
@@ -3525,6 +3609,7 @@
                 {
                     [feo setNextY:nextY];
                     [formElementObjects addObject:feo];
+                    [(NSMutableArray *)[pages objectAtIndex:[(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue] - 1] addObject:feo];
                 }
                 
                 [self buildTheXMLFile];
@@ -3594,28 +3679,35 @@
                 
                 FormElementObject *feo = [[FormElementObject alloc] init];
                 if (feoUnderEdit != nil)
+                {
                     feo = feoUnderEdit;
-                feo.FieldTagElements = [[NSMutableArray alloc] init];
-                feo.FieldTagValues = [[NSMutableArray alloc] init];
-                [feo.FieldTagElements addObject:@"Name"];
-                [feo.FieldTagValues addObject:fieldName];
-                [feo.FieldTagElements addObject:@"PageId"];
-                [feo.FieldTagValues addObject:@"1"];
-                [feo.FieldTagElements addObject:@"IsReadOnly"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"IsRequired"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
-                [feo.FieldTagValues addObject:@"0.19853"];
-                [feo.FieldTagElements addObject:@"PromptText"];
-                [feo.FieldTagValues addObject:promptText];
-                [feo.FieldTagElements addObject:@"FieldTypeId"];
-                [feo.FieldTagValues addObject:@"14"];
+                    [feo.FieldTagValues setObject:promptText atIndexedSubscript:[feo.FieldTagElements indexOfObject:@"PromptText"]];
+                }
+                else
+                {
+                    feo.FieldTagElements = [[NSMutableArray alloc] init];
+                    feo.FieldTagValues = [[NSMutableArray alloc] init];
+                    [feo.FieldTagElements addObject:@"Name"];
+                    [feo.FieldTagValues addObject:fieldName];
+                    [feo.FieldTagElements addObject:@"PageId"];
+                    [feo.FieldTagValues addObject:[NSString stringWithFormat:@"%d", lastPage]];
+                    [feo.FieldTagElements addObject:@"IsReadOnly"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"IsRequired"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+                    [feo.FieldTagValues addObject:@"0.19853"];
+                    [feo.FieldTagElements addObject:@"PromptText"];
+                    [feo.FieldTagValues addObject:promptText];
+                    [feo.FieldTagElements addObject:@"FieldTypeId"];
+                    [feo.FieldTagValues addObject:@"14"];
+                }
                 
                 if (feoUnderEdit == nil)
                 {
                     [feo setNextY:nextY];
                     [formElementObjects addObject:feo];
+                    [(NSMutableArray *)[pages objectAtIndex:[(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue] - 1] addObject:feo];
                 }
                 
                 [self buildTheXMLFile];
@@ -3684,23 +3776,29 @@
                 
                 FormElementObject *feo = [[FormElementObject alloc] init];
                 if (feoUnderEdit != nil)
+                {
                     feo = feoUnderEdit;
-                feo.FieldTagElements = [[NSMutableArray alloc] init];
-                feo.FieldTagValues = [[NSMutableArray alloc] init];
-                [feo.FieldTagElements addObject:@"Name"];
-                [feo.FieldTagValues addObject:fieldName];
-                [feo.FieldTagElements addObject:@"PageId"];
-                [feo.FieldTagValues addObject:@"1"];
-                [feo.FieldTagElements addObject:@"IsReadOnly"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"IsRequired"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
-                [feo.FieldTagValues addObject:@"0.19853"];
-                [feo.FieldTagElements addObject:@"PromptText"];
-                [feo.FieldTagValues addObject:promptText];
-                [feo.FieldTagElements addObject:@"FieldTypeId"];
-                [feo.FieldTagValues addObject:@"17"];
+                    [feo.FieldTagValues setObject:promptText atIndexedSubscript:[feo.FieldTagElements indexOfObject:@"PromptText"]];
+                }
+                else
+                {
+                    feo.FieldTagElements = [[NSMutableArray alloc] init];
+                    feo.FieldTagValues = [[NSMutableArray alloc] init];
+                    [feo.FieldTagElements addObject:@"Name"];
+                    [feo.FieldTagValues addObject:fieldName];
+                    [feo.FieldTagElements addObject:@"PageId"];
+                    [feo.FieldTagValues addObject:[NSString stringWithFormat:@"%d", lastPage]];
+                    [feo.FieldTagElements addObject:@"IsReadOnly"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"IsRequired"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+                    [feo.FieldTagValues addObject:@"0.19853"];
+                    [feo.FieldTagElements addObject:@"PromptText"];
+                    [feo.FieldTagValues addObject:promptText];
+                    [feo.FieldTagElements addObject:@"FieldTypeId"];
+                    [feo.FieldTagValues addObject:@"17"];
+                }
                 
                 if (valuesFields != nil)
                 {
@@ -3721,6 +3819,7 @@
                 {
                     [feo setNextY:nextY];
                     [formElementObjects addObject:feo];
+                    [(NSMutableArray *)[pages objectAtIndex:[(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue] - 1] addObject:feo];
                 }
                 
                 [self buildTheXMLFile];
@@ -3790,23 +3889,29 @@
                 
                 FormElementObject *feo = [[FormElementObject alloc] init];
                 if (feoUnderEdit != nil)
+                {
                     feo = feoUnderEdit;
-                feo.FieldTagElements = [[NSMutableArray alloc] init];
-                feo.FieldTagValues = [[NSMutableArray alloc] init];
-                [feo.FieldTagElements addObject:@"Name"];
-                [feo.FieldTagValues addObject:fieldName];
-                [feo.FieldTagElements addObject:@"PageId"];
-                [feo.FieldTagValues addObject:@"1"];
-                [feo.FieldTagElements addObject:@"IsReadOnly"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"IsRequired"];
-                [feo.FieldTagValues addObject:@"False"];
-                [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
-                [feo.FieldTagValues addObject:@"0.19853"];
-                [feo.FieldTagElements addObject:@"PromptText"];
-                [feo.FieldTagValues addObject:promptText];
-                [feo.FieldTagElements addObject:@"FieldTypeId"];
-                [feo.FieldTagValues addObject:@"19"];
+                    [feo.FieldTagValues setObject:promptText atIndexedSubscript:[feo.FieldTagElements indexOfObject:@"PromptText"]];
+                }
+                else
+                {
+                    feo.FieldTagElements = [[NSMutableArray alloc] init];
+                    feo.FieldTagValues = [[NSMutableArray alloc] init];
+                    [feo.FieldTagElements addObject:@"Name"];
+                    [feo.FieldTagValues addObject:fieldName];
+                    [feo.FieldTagElements addObject:@"PageId"];
+                    [feo.FieldTagValues addObject:[NSString stringWithFormat:@"%d", lastPage]];
+                    [feo.FieldTagElements addObject:@"IsReadOnly"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"IsRequired"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+                    [feo.FieldTagValues addObject:@"0.19853"];
+                    [feo.FieldTagElements addObject:@"PromptText"];
+                    [feo.FieldTagValues addObject:promptText];
+                    [feo.FieldTagElements addObject:@"FieldTypeId"];
+                    [feo.FieldTagValues addObject:@"19"];
+                }
                 
                 if (valuesFields != nil)
                 {
@@ -3827,6 +3932,7 @@
                 {
                     [feo setNextY:nextY];
                     [formElementObjects addObject:feo];
+                    [(NSMutableArray *)[pages objectAtIndex:[(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue] - 1] addObject:feo];
                 }
                 
                 [self buildTheXMLFile];
@@ -3850,6 +3956,13 @@
         delete = YES;
     else if ([(NSString *)[buttonWords objectAtIndex:1] isEqualToString:@"Up"])
         moveUp = YES;
+    
+    for (id f in pages)
+    {
+        formElementObjects = (NSMutableArray *)f;
+        if ([formElementObjects containsObject:feoUnderEdit])
+            break;
+    }
     
     if (delete)
     {
@@ -4007,72 +4120,87 @@
     [xmlMS appendString:[NSString stringWithFormat:@"<View Name=\"%@\" ", formName]];
     [xmlMS appendString:[NSString stringWithFormat:@"LabelAlign=\"Vertical\" Orientation=\"Portrait\" Height=\"1016\" Width=\"780\" CheckCode=\"%@", checkCodeString]];
     [xmlMS appendString:@"\" IsRelatedView=\"False\" ViewId=\"1\">\n"];
-    [xmlMS appendString:@"<Page Name=\"Page 1\" ViewId=\"1\" BackgroundId=\"0\" Position=\"0\" PageId=\"1\">\n"];
-    for (int i = 0; i < [formElementObjects count]; i++)
+    for (int h = 0; h < [pages count]; h++)
     {
-        FormElementObject *feo = (FormElementObject *)[formElementObjects objectAtIndex:i];
-        [xmlMS appendFormat:@"<Field"];
-        for (int j = 0; j < [feo.FieldTagElements count]; j++)
+        NSMutableArray *arrayH = (NSMutableArray *)[pages objectAtIndex:h];
+        if ([arrayH count] == 0)
+            continue;
+        if ([pageNumbers containsObject:[NSString stringWithFormat:@"%d", h + 1]])
         {
-            [xmlMS appendString:[NSString stringWithFormat:@" %@=\"%@\"", (NSString *)[feo.FieldTagElements objectAtIndex:j], (NSString *)[feo.FieldTagValues objectAtIndex:j]]];
+            unsigned long indexOfPageId = [pageNumbers indexOfObject:[NSString stringWithFormat:@"%d", h + 1]];
+            [xmlMS appendString:[NSString stringWithFormat:@"<Page PageId=\"%d\" ActualPageNumber=\"%@\" Name=\"%@\" ViewId=\"1\" BackgroundId=\"0\" Position=\"0\">\n", h + 1, [actualPageNumbers objectAtIndex:indexOfPageId], [pageNames objectAtIndex:indexOfPageId]]];
         }
-        [xmlMS appendString:[NSString stringWithFormat:@" TabIndex=\"%d\"", i]];
-        if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"12"] && feo.values != nil)
+        else
         {
-            if ([feo.values count] > 0)
+            continue;
+        }
+        // Replaced formElemtntObjects with arrahY in this loop when implemented multiple pages
+        for (int i = 0; i < [arrayH count]; i++)
+        {
+            FormElementObject *feo = (FormElementObject *)[arrayH objectAtIndex:i];
+            [xmlMS appendFormat:@"<Field"];
+            for (int j = 0; j < [feo.FieldTagElements count]; j++)
             {
-                [xmlMS appendString:@" List=\""];
-                NSMutableString *coordinates = [[NSMutableString alloc] init];
-                for (int j = 0; j < [feo.values count] - 1; j++)
+                [xmlMS appendString:[NSString stringWithFormat:@" %@=\"%@\"", (NSString *)[feo.FieldTagElements objectAtIndex:j], (NSString *)[feo.FieldTagValues objectAtIndex:j]]];
+            }
+            [xmlMS appendString:[NSString stringWithFormat:@" TabIndex=\"%d\"", i]];
+            if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"12"] && feo.values != nil)
+            {
+                if ([feo.values count] > 0)
                 {
-                    if (j > 0)
+                    [xmlMS appendString:@" List=\""];
+                    NSMutableString *coordinates = [[NSMutableString alloc] init];
+                    for (int j = 0; j < [feo.values count] - 1; j++)
                     {
-                        [xmlMS appendString:@","];
-                        [coordinates appendString:@":"];
+                        if (j > 0)
+                        {
+                            [xmlMS appendString:@","];
+                            [coordinates appendString:@":"];
+                        }
+                        [xmlMS appendString:[feo.values objectAtIndex:j]];
+                        [coordinates appendString:[NSString stringWithFormat:@"%f:.01538", 0.02854 * (1.0 + j)]];
                     }
-                    [xmlMS appendString:[feo.values objectAtIndex:j]];
-                    [coordinates appendString:[NSString stringWithFormat:@"%f:.01538", 0.02854 * (1.0 + j)]];
+                    [xmlMS appendString:@"||"];
+                    [xmlMS appendString:coordinates];
+                    [xmlMS appendString:@"\""];
                 }
-                [xmlMS appendString:@"||"];
-                [xmlMS appendString:coordinates];
-                [xmlMS appendString:@"\""];
             }
-        }
-        if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"17"] && feo.values != nil)
-        {
-            if ([feo.values count] > 0)
+            if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"17"] && feo.values != nil)
             {
-                NSString *itemString = [[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"Name"]] lowercaseString];
-                [xmlMS appendString:@" SourceTableName=\""];
-                [xmlMS appendString:[NSString stringWithFormat:@"code%@1", itemString]];
-                [xmlMS appendString:@"\""];
-                [sourceTables appendString:[NSString stringWithFormat:@"<SourceTable TableName=\"code%@1\">\n", itemString]];
-                for (int j = 0; j < [feo.values count] - 1; j++)
+                if ([feo.values count] > 0)
                 {
-                    [sourceTables appendString:[NSString stringWithFormat:@"<Item %@=\"%@\"/>\n", itemString, [feo.values objectAtIndex:j]]];
+                    NSString *itemString = [[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"Name"]] lowercaseString];
+                    [xmlMS appendString:@" SourceTableName=\""];
+                    [xmlMS appendString:[NSString stringWithFormat:@"code%@1", itemString]];
+                    [xmlMS appendString:@"\""];
+                    [sourceTables appendString:[NSString stringWithFormat:@"<SourceTable TableName=\"code%@1\">\n", itemString]];
+                    for (int j = 0; j < [feo.values count] - 1; j++)
+                    {
+                        [sourceTables appendString:[NSString stringWithFormat:@"<Item %@=\"%@\"/>\n", itemString, [feo.values objectAtIndex:j]]];
+                    }
+                    [sourceTables appendFormat:@"</SourceTable>\n"];
                 }
-                [sourceTables appendFormat:@"</SourceTable>\n"];
             }
-        }
-        if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"19"] && feo.values != nil)
-        {
-            if ([feo.values count] > 0)
+            if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"19"] && feo.values != nil)
             {
-                NSString *itemString = [[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"Name"]] lowercaseString];
-                [xmlMS appendString:@" SourceTableName=\""];
-                [xmlMS appendString:[NSString stringWithFormat:@"code%@1", itemString]];
-                [xmlMS appendString:@"\""];
-                [sourceTables appendString:[NSString stringWithFormat:@"<SourceTable TableName=\"code%@1\">\n", itemString]];
-                for (int j = 0; j < [feo.values count] - 1; j++)
+                if ([feo.values count] > 0)
                 {
-                    [sourceTables appendString:[NSString stringWithFormat:@"<Item %@=\"%@\"/>\n", itemString, [feo.values objectAtIndex:j]]];
+                    NSString *itemString = [[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"Name"]] lowercaseString];
+                    [xmlMS appendString:@" SourceTableName=\""];
+                    [xmlMS appendString:[NSString stringWithFormat:@"code%@1", itemString]];
+                    [xmlMS appendString:@"\""];
+                    [sourceTables appendString:[NSString stringWithFormat:@"<SourceTable TableName=\"code%@1\">\n", itemString]];
+                    for (int j = 0; j < [feo.values count] - 1; j++)
+                    {
+                        [sourceTables appendString:[NSString stringWithFormat:@"<Item %@=\"%@\"/>\n", itemString, [feo.values objectAtIndex:j]]];
+                    }
+                    [sourceTables appendFormat:@"</SourceTable>\n"];
                 }
-                [sourceTables appendFormat:@"</SourceTable>\n"];
             }
+            [xmlMS appendFormat:@"/>\n"];
         }
-        [xmlMS appendFormat:@"/>\n"];
+        [xmlMS appendString:@"</Page>\n"];
     }
-    [xmlMS appendString:@"</Page>\n"];
     [xmlMS appendString:@"</View>\n"];
     [xmlMS appendString:@"</Project>\n"];
     [xmlMS appendString:sourceTables];
@@ -4247,6 +4375,9 @@
             [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"List"]]];
         }
         [formElementObjects addObject:feo];
+        while ([pages count] < [(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue])
+            [pages addObject:[[NSMutableArray alloc] init]];
+        [(NSMutableArray *)[pages objectAtIndex:[(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue] - 1] addObject:feo];
     }
     else if ([elementName isEqualToString:@"Item"])
     {
@@ -4270,6 +4401,23 @@
         if ([attributeDict objectForKey:@"CheckCode"] != nil)
         {
             checkCodeString = [[[[[[NSString stringWithString:[attributeDict objectForKey:@"CheckCode"]] stringByReplacingOccurrencesOfString:@"\n" withString:@"&#xA;"] stringByReplacingOccurrencesOfString:@"\t" withString:@"&#x9;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"]stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"];
+        }
+    }
+    else if ([elementName isEqualToString:@"Page"])
+    {
+        if ([attributeDict objectForKey:@"PageId"] != nil)
+        {
+            [pageNumbers addObject:[attributeDict objectForKey:@"PageId"]];
+            if ([attributeDict objectForKey:@"Name"] != nil)
+            {
+                [pageNames addObject:[attributeDict objectForKey:@"Name"]];
+            }
+            if ([attributeDict objectForKey:@"ActualPageNumber"] != nil)
+            {
+                [actualPageNumbers addObject:[attributeDict objectForKey:@"ActualPageNumber"]];
+            }
+            else
+                [actualPageNumbers addObject:@""];
         }
     }
 }
