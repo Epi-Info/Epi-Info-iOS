@@ -83,7 +83,7 @@
             NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:templateFile];
             [parser setDelegate:self];
             [parser setShouldResolveExternalEntities:YES];
-            NSLog(@"CONSUMING XML: %@", [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:[@"file://" stringByAppendingString:[[[epiInfoForms stringByAppendingString:@"/"] stringByAppendingString:formName] stringByAppendingString:@".xml"]]] encoding:NSUTF8StringEncoding error:nil]);
+//            NSLog(@"CONSUMING XML: %@", [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:[@"file://" stringByAppendingString:[[[epiInfoForms stringByAppendingString:@"/"] stringByAppendingString:formName] stringByAppendingString:@".xml"]]] encoding:NSUTF8StringEncoding error:nil]);
             BOOL success = [parser parse];
             if (success)
             {
@@ -2616,7 +2616,7 @@
         [canvasTapGesture setEnabled:YES];
         if (saveButtonPressed)
         {
-            NSLog(@"Save button pressed. Form name = %@.", newFormName);
+//            NSLog(@"Save button pressed. Form name = %@.", newFormName);
             if ([newFormName length] > 0)
             {
                 [formDesignerLabel setText:[NSString stringWithFormat:@"Form Designer: %@", newFormName]];
@@ -4174,8 +4174,11 @@
                     [xmlMS appendString:[NSString stringWithFormat:@"code%@1", itemString]];
                     [xmlMS appendString:@"\""];
                     [sourceTables appendString:[NSString stringWithFormat:@"<SourceTable TableName=\"code%@1\">\n", itemString]];
-                    for (int j = 0; j < [feo.values count] - 1; j++)
+                    for (int j = 0; j < [feo.values count]; j++)
                     {
+                        if (j == [feo.values count] - 1)
+                            if ([(NSString *)[feo.values objectAtIndex:j] length] == 0)
+                                continue;
                         [sourceTables appendString:[NSString stringWithFormat:@"<Item %@=\"%@\"/>\n", itemString, [feo.values objectAtIndex:j]]];
                     }
                     [sourceTables appendFormat:@"</SourceTable>\n"];
@@ -4190,8 +4193,11 @@
                     [xmlMS appendString:[NSString stringWithFormat:@"code%@1", itemString]];
                     [xmlMS appendString:@"\""];
                     [sourceTables appendString:[NSString stringWithFormat:@"<SourceTable TableName=\"code%@1\">\n", itemString]];
-                    for (int j = 0; j < [feo.values count] - 1; j++)
+                    for (int j = 0; j < [feo.values count]; j++)
                     {
+                        if (j == [feo.values count] - 1)
+                            if ([(NSString *)[feo.values objectAtIndex:j] length] == 0)
+                                continue;
                         [sourceTables appendString:[NSString stringWithFormat:@"<Item %@=\"%@\"/>\n", itemString, [feo.values objectAtIndex:j]]];
                     }
                     [sourceTables appendFormat:@"</SourceTable>\n"];
@@ -4206,7 +4212,7 @@
     [xmlMS appendString:sourceTables];
     [xmlMS appendString:@"</Template>"];
     NSString *xmlS = [NSString stringWithString:xmlMS];
-    NSLog(@"%@", xmlS);
+//    NSLog(@"%@", xmlS);
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
@@ -4220,7 +4226,7 @@
         {
             [[NSFileManager defaultManager] removeItemAtPath:filePathAndName error:nil];
         }
-        NSLog(@"%@", filePathAndName);
+//        NSLog(@"%@", filePathAndName);
         [xmlS writeToFile:filePathAndName atomically:YES encoding:NSUTF8StringEncoding error:nil];
     }
 }
