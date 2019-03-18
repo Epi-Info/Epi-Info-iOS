@@ -229,6 +229,17 @@
                         nextY += 40;
                         [feo setNextY:nextY];
                     }
+                    else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"99"])
+                    {
+                        TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
+                        [controlRendering setBackgroundColor:[UIColor clearColor]];
+                        [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                        [controlRendering displayPageBreak];
+                        [canvas addSubview:controlRendering];
+                        [canvas sendSubviewToBack:controlRendering];
+                        nextY += 40;
+                        [feo setNextY:nextY];
+                    }
                 }
                 [canvasSV setContentSize:CGSizeMake(canvasSV.contentSize.width, nextY + self.frame.size.height)];
                 [canvas setFrame:CGRectMake(canvas.frame.origin.x, canvas.frame.origin.y, canvas.frame.size.width, canvasSV.contentSize.height)];
@@ -244,147 +255,164 @@
     nextY = nextYReset;
     if (YES)
     {
-        for (int i = 0; i < [formElementObjects count]; i++)
+        for (int h = 0; h < [pages count]; h++)
         {
-            FormElementObject *feo = [formElementObjects objectAtIndex:i];
-            if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"1"])
+            NSMutableArray *arrayH = (NSMutableArray *)[pages objectAtIndex:h];
+            if ([arrayH count] == 0)
+                continue;
+            for (int i = 0; i < [arrayH count]; i++)
             {
-                TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
-                [controlRendering setBackgroundColor:[UIColor clearColor]];
-                [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
-                [canvas addSubview:controlRendering];
-                [canvas sendSubviewToBack:controlRendering];
-                nextY += 40;
-                [feo setNextY:nextY];
-            }
-            else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"2"])
-            {
-                UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, nextY, canvasSV.frame.size.width - 32, 40)];
-                [titleLabel setBackgroundColor:[UIColor clearColor]];
-                [titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-                [titleLabel setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
-                [canvas addSubview:titleLabel];
-                [canvas sendSubviewToBack:titleLabel];
-                nextY += 40;
-                [feo setNextY:nextY];
-            }
-            else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"3"])
-            {
-                TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
-                [controlRendering setBackgroundColor:[UIColor clearColor]];
-                [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
-                [canvas addSubview:controlRendering];
-                [canvas sendSubviewToBack:controlRendering];
-                nextY += 40;
-                [feo setNextY:nextY];
-            }
-            else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"4"])
-            {
-                TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 80)];
-                [controlRendering setBackgroundColor:[UIColor clearColor]];
-                [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
-                [canvas addSubview:controlRendering];
-                [canvas sendSubviewToBack:controlRendering];
-                nextY += 80;
-                [feo setNextY:nextY];
-            }
-            else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"5"])
-            {
-                TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width / 2, 40)];
-                [controlRendering setBackgroundColor:[UIColor clearColor]];
-                [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
-                [canvas addSubview:controlRendering];
-                [canvas sendSubviewToBack:controlRendering];
-                nextY += 40;
-                [feo setNextY:nextY];
-            }
-            else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"6"])
-            {
-                TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width / 2, 40)];
-                [controlRendering setBackgroundColor:[UIColor clearColor]];
-                [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
-                [controlRendering.field setText:@"555-555-5555"];
-                [canvas addSubview:controlRendering];
-                [canvas sendSubviewToBack:controlRendering];
-                nextY += 40;
-                [feo setNextY:nextY];
-            }
-            else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"7"])
-            {
-                TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width / 2, 40)];
-                [controlRendering setBackgroundColor:[UIColor clearColor]];
-                [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
-                [controlRendering displayDate];
-                [canvas addSubview:controlRendering];
-                [canvas sendSubviewToBack:controlRendering];
-                nextY += 40;
-                [feo setNextY:nextY];
-            }
-            else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"10"])
-            {
-                TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
-                [controlRendering setBackgroundColor:[UIColor clearColor]];
-                [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
-                [controlRendering checkTheBox];
-                [canvas addSubview:controlRendering];
-                [canvas sendSubviewToBack:controlRendering];
-                nextY += 40;
-                [feo setNextY:nextY];
-            }
-            else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"11"])
-            {
-                TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 80)];
-                [controlRendering setBackgroundColor:[UIColor clearColor]];
-                [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
-                [controlRendering displayYesNo];
-                [canvas addSubview:controlRendering];
-                [canvas sendSubviewToBack:controlRendering];
-                nextY += 80;
-                [feo setNextY:nextY];
-            }
-            else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"12"])
-            {
-                TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 80)];
-                [controlRendering setBackgroundColor:[UIColor clearColor]];
-                [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
-                [controlRendering displayOption];
-                [canvas addSubview:controlRendering];
-                [canvas sendSubviewToBack:controlRendering];
-                nextY += 80;
-                [feo setNextY:nextY];
-            }
-            else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"14"])
-            {
-                TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 80)];
-                [controlRendering setBackgroundColor:[UIColor clearColor]];
-                [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
-                [controlRendering displayImage];
-                [canvas addSubview:controlRendering];
-                [canvas sendSubviewToBack:controlRendering];
-                nextY += 80;
-                [feo setNextY:nextY];
-            }
-            else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"17"])
-            {
-                TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
-                [controlRendering setBackgroundColor:[UIColor clearColor]];
-                [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
-                [controlRendering displayLegalValues];
-                [canvas addSubview:controlRendering];
-                [canvas sendSubviewToBack:controlRendering];
-                nextY += 40;
-                [feo setNextY:nextY];
-            }
-            else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"19"])
-            {
-                TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
-                [controlRendering setBackgroundColor:[UIColor clearColor]];
-                [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
-                [controlRendering displayLegalValues];
-                [canvas addSubview:controlRendering];
-                [canvas sendSubviewToBack:controlRendering];
-                nextY += 40;
-                [feo setNextY:nextY];
+                FormElementObject *feo = [arrayH objectAtIndex:i];
+                if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"1"])
+                {
+                    TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
+                    [controlRendering setBackgroundColor:[UIColor clearColor]];
+                    [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                    [canvas addSubview:controlRendering];
+                    [canvas sendSubviewToBack:controlRendering];
+                    nextY += 40;
+                    [feo setNextY:nextY];
+                }
+                else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"2"])
+                {
+                    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, nextY, canvasSV.frame.size.width - 32, 40)];
+                    [titleLabel setBackgroundColor:[UIColor clearColor]];
+                    [titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+                    [titleLabel setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                    [canvas addSubview:titleLabel];
+                    [canvas sendSubviewToBack:titleLabel];
+                    nextY += 40;
+                    [feo setNextY:nextY];
+                }
+                else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"3"])
+                {
+                    TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
+                    [controlRendering setBackgroundColor:[UIColor clearColor]];
+                    [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                    [canvas addSubview:controlRendering];
+                    [canvas sendSubviewToBack:controlRendering];
+                    nextY += 40;
+                    [feo setNextY:nextY];
+                }
+                else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"4"])
+                {
+                    TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 80)];
+                    [controlRendering setBackgroundColor:[UIColor clearColor]];
+                    [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                    [canvas addSubview:controlRendering];
+                    [canvas sendSubviewToBack:controlRendering];
+                    nextY += 80;
+                    [feo setNextY:nextY];
+                }
+                else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"5"])
+                {
+                    TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width / 2, 40)];
+                    [controlRendering setBackgroundColor:[UIColor clearColor]];
+                    [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                    [canvas addSubview:controlRendering];
+                    [canvas sendSubviewToBack:controlRendering];
+                    nextY += 40;
+                    [feo setNextY:nextY];
+                }
+                else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"6"])
+                {
+                    TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width / 2, 40)];
+                    [controlRendering setBackgroundColor:[UIColor clearColor]];
+                    [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                    [controlRendering.field setText:@"555-555-5555"];
+                    [canvas addSubview:controlRendering];
+                    [canvas sendSubviewToBack:controlRendering];
+                    nextY += 40;
+                    [feo setNextY:nextY];
+                }
+                else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"7"])
+                {
+                    TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width / 2, 40)];
+                    [controlRendering setBackgroundColor:[UIColor clearColor]];
+                    [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                    [controlRendering displayDate];
+                    [canvas addSubview:controlRendering];
+                    [canvas sendSubviewToBack:controlRendering];
+                    nextY += 40;
+                    [feo setNextY:nextY];
+                }
+                else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"10"])
+                {
+                    TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
+                    [controlRendering setBackgroundColor:[UIColor clearColor]];
+                    [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                    [controlRendering checkTheBox];
+                    [canvas addSubview:controlRendering];
+                    [canvas sendSubviewToBack:controlRendering];
+                    nextY += 40;
+                    [feo setNextY:nextY];
+                }
+                else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"11"])
+                {
+                    TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 80)];
+                    [controlRendering setBackgroundColor:[UIColor clearColor]];
+                    [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                    [controlRendering displayYesNo];
+                    [canvas addSubview:controlRendering];
+                    [canvas sendSubviewToBack:controlRendering];
+                    nextY += 80;
+                    [feo setNextY:nextY];
+                }
+                else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"12"])
+                {
+                    TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 80)];
+                    [controlRendering setBackgroundColor:[UIColor clearColor]];
+                    [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                    [controlRendering displayOption];
+                    [canvas addSubview:controlRendering];
+                    [canvas sendSubviewToBack:controlRendering];
+                    nextY += 80;
+                    [feo setNextY:nextY];
+                }
+                else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"14"])
+                {
+                    TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 80)];
+                    [controlRendering setBackgroundColor:[UIColor clearColor]];
+                    [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                    [controlRendering displayImage];
+                    [canvas addSubview:controlRendering];
+                    [canvas sendSubviewToBack:controlRendering];
+                    nextY += 80;
+                    [feo setNextY:nextY];
+                }
+                else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"17"])
+                {
+                    TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
+                    [controlRendering setBackgroundColor:[UIColor clearColor]];
+                    [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                    [controlRendering displayLegalValues];
+                    [canvas addSubview:controlRendering];
+                    [canvas sendSubviewToBack:controlRendering];
+                    nextY += 40;
+                    [feo setNextY:nextY];
+                }
+                else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"19"])
+                {
+                    TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
+                    [controlRendering setBackgroundColor:[UIColor clearColor]];
+                    [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                    [controlRendering displayLegalValues];
+                    [canvas addSubview:controlRendering];
+                    [canvas sendSubviewToBack:controlRendering];
+                    nextY += 40;
+                    [feo setNextY:nextY];
+                }
+                else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"99"])
+                {
+                    TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
+                    [controlRendering setBackgroundColor:[UIColor clearColor]];
+                    [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                    [controlRendering displayPageBreak];
+                    [canvas addSubview:controlRendering];
+                    [canvas sendSubviewToBack:controlRendering];
+                    nextY += 40;
+                    [feo setNextY:nextY];
+                }
             }
         }
         [canvasSV setContentSize:CGSizeMake(canvasSV.contentSize.width, nextY + self.frame.size.height)];
@@ -622,6 +650,19 @@
         [menu addSubview:commentlegalButton];
         [commentlegalButton setEnabled:formNamed];
 
+        UIButton *pageBreakButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 2.0 * initialButtonHeight, menu.frame.size.width - 2, initialButtonHeight)];
+        [pageBreakButton setBackgroundColor:[UIColor whiteColor]];
+        [pageBreakButton setTitle:@"\tInsert Page Break" forState:UIControlStateNormal];
+        [pageBreakButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [pageBreakButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [pageBreakButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [pageBreakButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [pageBreakButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [pageBreakButton addTarget:self action:@selector(menuButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [pageBreakButton setTag:tagIncrementer++ * 1000000 + 1957];
+        [menu addSubview:pageBreakButton];
+        [pageBreakButton setEnabled:formNamed];
+
         [self addSubview:menu];
         
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -636,77 +677,88 @@
     {
         [canvasTapGesture setEnabled:NO];
         yTouched = touchPoint.y + svOffset.y;
-        for (int i = 0; i < [formElementObjects count]; i++)
+        for (int h = 0; h < [pages count]; h++)
         {
-            FormElementObject *feo = [formElementObjects objectAtIndex:i];
-            if (touchPoint.y + svOffset.y < [feo nextY])
+            NSMutableArray *arrayH = (NSMutableArray *)[pages objectAtIndex:h];
+            if ([arrayH count] == 0)
+                continue;
+            for (int i = 0; i < [arrayH count]; i++)
             {
-                if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"1"])
+                FormElementObject *feo = [arrayH objectAtIndex:i];
+                if (touchPoint.y + svOffset.y < [feo nextY])
                 {
-                    feoUnderEdit = feo;
-                    [self presentTextView];
+                    if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"1"])
+                    {
+                        feoUnderEdit = feo;
+                        [self presentTextView];
+                    }
+                    if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"2"])
+                    {
+                        feoUnderEdit = feo;
+                        [self presentLabelTitleView];
+                    }
+                    if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"3"])
+                    {
+                        feoUnderEdit = feo;
+                        [self presentTextUppercaseView];
+                    }
+                    if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"4"])
+                    {
+                        feoUnderEdit = feo;
+                        [self presentMultilineView];
+                    }
+                    if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"5"])
+                    {
+                        feoUnderEdit = feo;
+                        [self presentNumberView];
+                    }
+                    if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"6"])
+                    {
+                        feoUnderEdit = feo;
+                        [self presentPhoneNumberView];
+                    }
+                    if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"7"])
+                    {
+                        feoUnderEdit = feo;
+                        [self presentDateView];
+                    }
+                    if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"10"])
+                    {
+                        feoUnderEdit = feo;
+                        [self presentCheckboxView];
+                    }
+                    if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"11"])
+                    {
+                        feoUnderEdit = feo;
+                        [self presentYesNoView];
+                    }
+                    if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"12"])
+                    {
+                        feoUnderEdit = feo;
+                        [self presentOptionView];
+                    }
+                    if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"14"])
+                    {
+                        feoUnderEdit = feo;
+                        [self presentImageView];
+                    }
+                    if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"17"])
+                    {
+                        feoUnderEdit = feo;
+                        [self presentLegalValuesView];
+                    }
+                    if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"19"])
+                    {
+                        feoUnderEdit = feo;
+                        [self presentCommentLegalView];
+                    }
+                    if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"99"])
+                    {
+                        NSLog(@"Page Break Pressed");
+                        [canvasTapGesture setEnabled:YES];
+                    }
+                    return;
                 }
-                if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"2"])
-                {
-                    feoUnderEdit = feo;
-                    [self presentLabelTitleView];
-                }
-                if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"3"])
-                {
-                    feoUnderEdit = feo;
-                    [self presentTextUppercaseView];
-                }
-                if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"4"])
-                {
-                    feoUnderEdit = feo;
-                    [self presentMultilineView];
-                }
-                if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"5"])
-                {
-                    feoUnderEdit = feo;
-                    [self presentNumberView];
-                }
-                if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"6"])
-                {
-                    feoUnderEdit = feo;
-                    [self presentPhoneNumberView];
-                }
-                if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"7"])
-                {
-                    feoUnderEdit = feo;
-                    [self presentDateView];
-                }
-                if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"10"])
-                {
-                    feoUnderEdit = feo;
-                    [self presentCheckboxView];
-                }
-                if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"11"])
-                {
-                    feoUnderEdit = feo;
-                    [self presentYesNoView];
-                }
-                if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"12"])
-                {
-                    feoUnderEdit = feo;
-                    [self presentOptionView];
-                }
-                if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"14"])
-                {
-                    feoUnderEdit = feo;
-                    [self presentImageView];
-                }
-                if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"17"])
-                {
-                    feoUnderEdit = feo;
-                    [self presentLegalValuesView];
-                }
-                if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"19"])
-                {
-                    feoUnderEdit = feo;
-                    [self presentCommentLegalView];
-                }
-                break;
             }
         }
     }
@@ -750,6 +802,8 @@
             [self presentLegalValuesView];
         else if (buttonTag == 15)
             [self presentCommentLegalView];
+        else if (buttonTag == 16)
+            [self insertPageBreakPressed:sender];
     }];
 }
 
@@ -3947,6 +4001,99 @@
     }];
 }
 
+- (void)insertPageBreakPressed:(UIButton *)sender
+{
+    NSString *promptText = @"Page Break";
+    NSString *fieldName = @"_pageBreak";
+    
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+    } completion:^(BOOL finished){
+        [controlViewGrayBackground removeFromSuperview];
+        [canvasTapGesture setEnabled:YES];
+        if (YES)
+        {
+            if ([promptText length] > 0)
+            {
+                [formElements addObject:[[NSString stringWithString:fieldName] lowercaseString]];
+                
+                if (feoUnderEdit == nil)
+                {
+                    TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
+                    [controlRendering setBackgroundColor:[UIColor clearColor]];
+                    [controlRendering.prompt setText:promptText];
+                    [controlRendering displayPageBreak];
+                    [canvas addSubview:controlRendering];
+                    [canvas sendSubviewToBack:controlRendering];
+                    nextY += 40;
+                }
+                else
+                {
+                    for (UIView *v in [canvas subviews])
+                    {
+                        if (yTouched > v.frame.origin.y && yTouched < (v.frame.origin.y + v.frame.size.height))
+                        {
+                            if ([v isKindOfClass:[TextFieldDisplay class]])
+                            {
+                                [((TextFieldDisplay *)v).prompt setText:promptText];
+                            }
+                            break;
+                        }
+                    }
+                }
+                
+                FormElementObject *feo = [[FormElementObject alloc] init];
+                if (feoUnderEdit != nil)
+                {
+                    feo = feoUnderEdit;
+                    [feo.FieldTagValues setObject:promptText atIndexedSubscript:[feo.FieldTagElements indexOfObject:@"PromptText"]];
+                }
+                else
+                {
+                    lastPage++;
+                    feo.FieldTagElements = [[NSMutableArray alloc] init];
+                    feo.FieldTagValues = [[NSMutableArray alloc] init];
+                    [feo.FieldTagElements addObject:@"Name"];
+                    [feo.FieldTagValues addObject:fieldName];
+                    [feo.FieldTagElements addObject:@"PageId"];
+                    [feo.FieldTagValues addObject:[NSString stringWithFormat:@"%d", lastPage]];
+                    [feo.FieldTagElements addObject:@"IsReadOnly"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"IsRequired"];
+                    [feo.FieldTagValues addObject:@"False"];
+                    [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+                    [feo.FieldTagValues addObject:@"0.19853"];
+                    [feo.FieldTagElements addObject:@"PromptText"];
+                    [feo.FieldTagValues addObject:promptText];
+                    [feo.FieldTagElements addObject:@"FieldTypeId"];
+                    [feo.FieldTagValues addObject:@"99"];
+                }
+                
+                if (feoUnderEdit == nil)
+                {
+                    [feo setNextY:nextY];
+                    [formElementObjects addObject:feo];
+                    while ([pages count] < [(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue])
+                    {
+                        [pages addObject:[[NSMutableArray alloc] init]];
+                        [pageNumbers addObject:[NSString stringWithFormat:@"%d", lastPage]];
+                        [actualPageNumbers addObject:[NSString stringWithFormat:@"%d", lastPage]];
+                        [pageNames addObject:[NSString stringWithFormat:@"Page %d", lastPage]];
+                    }
+                    [(NSMutableArray *)[pages objectAtIndex:[(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue] - 1] addObject:feo];
+                }
+                
+                [self buildTheXMLFile];
+                yTouched = -99.9;
+                [canvasSV setContentSize:CGSizeMake(canvasSV.contentSize.width, nextY + self.frame.size.height)];
+                [canvas setFrame:CGRectMake(canvas.frame.origin.x, canvas.frame.origin.y, canvas.frame.size.width, canvasSV.contentSize.height)];
+                [canvasCover setFrame:CGRectMake(canvasCover.frame.origin.x, canvasCover.frame.origin.y, canvasCover.frame.size.width, canvas.frame.size.height)];
+            }
+        }
+        valuesFields = nil;
+        feoUnderEdit = nil;
+    }];
+}
+
 - (void)upDownDeletePressed:(UIButton *)sender
 {
     NSArray *buttonWords = [[[sender titleLabel] text] componentsSeparatedByString:@" "];
@@ -4138,6 +4285,8 @@
         for (int i = 0; i < [arrayH count]; i++)
         {
             FormElementObject *feo = (FormElementObject *)[arrayH objectAtIndex:i];
+            if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"99"])
+                continue;
             [xmlMS appendFormat:@"<Field"];
             for (int j = 0; j < [feo.FieldTagElements count]; j++)
             {
@@ -4424,6 +4573,31 @@
             }
             else
                 [actualPageNumbers addObject:@""];
+            if ([pageNumbers count] > 1)
+            {
+                lastPage = (int)[pageNumbers count];
+                FormElementObject *feo = [[FormElementObject alloc] init];
+                feo.FieldTagElements = [[NSMutableArray alloc] init];
+                feo.FieldTagValues = [[NSMutableArray alloc] init];
+                [feo.FieldTagElements addObject:@"Name"];
+                [feo.FieldTagValues addObject:@"_pageBreak"];
+                [feo.FieldTagElements addObject:@"PageId"];
+                [feo.FieldTagValues addObject:[NSString stringWithFormat:@"%d", lastPage]];
+                [feo.FieldTagElements addObject:@"IsReadOnly"];
+                [feo.FieldTagValues addObject:@"False"];
+                [feo.FieldTagElements addObject:@"IsRequired"];
+                [feo.FieldTagValues addObject:@"False"];
+                [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+                [feo.FieldTagValues addObject:@"0.19853"];
+                [feo.FieldTagElements addObject:@"PromptText"];
+                [feo.FieldTagValues addObject:@"Page Break"];
+                [feo.FieldTagElements addObject:@"FieldTypeId"];
+                [feo.FieldTagValues addObject:@"99"];
+                [formElementObjects addObject:feo];
+                while ([pages count] < [(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue])
+                    [pages addObject:[[NSMutableArray alloc] init]];
+                [(NSMutableArray *)[pages objectAtIndex:[(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue] - 1] addObject:feo];
+            }
         }
     }
 }

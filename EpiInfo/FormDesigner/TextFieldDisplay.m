@@ -87,6 +87,14 @@
     [dt setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
     [self addSubview:dt];
 }
+- (void)displayPageBreak
+{
+    [self.field setFrame:CGRectMake(8, 0, self.frame.size.width - 16.0, self.frame.size.height)];
+    [self.prompt setFrame:CGRectMake(16, 4, self.frame.size.width - 32.0, self.frame.size.height - 8)];
+    [self bringSubviewToFront:self.prompt];
+    [self.prompt setText:@"Page Break"];
+    [self.prompt setTextAlignment:NSTextAlignmentCenter];
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
