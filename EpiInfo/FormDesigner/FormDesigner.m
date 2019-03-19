@@ -83,7 +83,7 @@
             NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:templateFile];
             [parser setDelegate:self];
             [parser setShouldResolveExternalEntities:YES];
-//            NSLog(@"CONSUMING XML: %@", [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:[@"file://" stringByAppendingString:[[[epiInfoForms stringByAppendingString:@"/"] stringByAppendingString:formName] stringByAppendingString:@".xml"]]] encoding:NSUTF8StringEncoding error:nil]);
+            NSLog(@"CONSUMING XML: %@", [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:[@"file://" stringByAppendingString:[[[epiInfoForms stringByAppendingString:@"/"] stringByAppendingString:formName] stringByAppendingString:@".xml"]]] encoding:NSUTF8StringEncoding error:nil]);
             BOOL success = [parser parse];
             if (success)
             {
@@ -4113,6 +4113,14 @@
     
     if (delete)
     {
+        for (NSMutableArray *nsma in pages)
+        {
+            if ([nsma containsObject:feoUnderEdit])
+            {
+                formElementObjects = nsma;
+                break;
+            }
+        }
         [formElementObjects removeObject:feoUnderEdit];
         [formElements removeObject:[[(UITextField *)[[sender superview] viewWithTag:1001002] text] lowercaseString]];
         [self buildTheXMLFile];
@@ -4122,11 +4130,32 @@
     }
     else if (moveUp)
     {
-        if ([formElementObjects firstObject] == feoUnderEdit)
+        if ([(NSMutableArray *)[pages firstObject] firstObject] == feoUnderEdit)
             return;
-        int idx = (int)[formElementObjects indexOfObject:feoUnderEdit];
-        [formElementObjects removeObjectAtIndex:idx];
-        [formElementObjects insertObject:feoUnderEdit atIndex:idx - 1];
+        int pagesIndex = 0;
+        for (pagesIndex = 0; pagesIndex < [pages count]; pagesIndex++)
+        {
+            NSMutableArray *nsma = [pages objectAtIndex:pagesIndex];
+            if ([nsma containsObject:feoUnderEdit])
+            {
+                formElementObjects = nsma;
+                break;
+            }
+        }
+        if (pagesIndex == 0 || [formElementObjects indexOfObject:feoUnderEdit] > 1)
+        {
+            int idx = (int)[formElementObjects indexOfObject:feoUnderEdit];
+            [formElementObjects removeObjectAtIndex:idx];
+            [formElementObjects insertObject:feoUnderEdit atIndex:idx - 1];
+        }
+        else
+        {
+            int idx = (int)[formElementObjects indexOfObject:feoUnderEdit];
+            [formElementObjects removeObjectAtIndex:idx];
+            formElementObjects = [pages objectAtIndex:pagesIndex - 1];
+            [feoUnderEdit.FieldTagValues setObject:[NSString stringWithFormat:@"%d", pagesIndex - 1] atIndexedSubscript:[feoUnderEdit.FieldTagElements indexOfObject:@"PageId"]];
+            [formElementObjects addObject:feoUnderEdit];
+        }
         [self buildTheXMLFile];
         for (UIView *v in [canvas subviews])
             if ([v tag] != 19572010)
@@ -4134,11 +4163,32 @@
     }
     else
     {
-        if ([formElementObjects lastObject] == feoUnderEdit)
+        if ([(NSMutableArray *)[pages lastObject] lastObject] == feoUnderEdit)
             return;
-        int idx = (int)[formElementObjects indexOfObject:feoUnderEdit];
-        [formElementObjects removeObjectAtIndex:idx];
-        [formElementObjects insertObject:feoUnderEdit atIndex:idx + 1];
+        int pagesIndex = 0;
+        for (pagesIndex = 0; pagesIndex < [pages count]; pagesIndex++)
+        {
+            NSMutableArray *nsma = [pages objectAtIndex:pagesIndex];
+            if ([nsma containsObject:feoUnderEdit])
+            {
+                formElementObjects = nsma;
+                break;
+            }
+        }
+        if ([formElementObjects lastObject] == feoUnderEdit)
+        {
+            int idx = (int)[formElementObjects indexOfObject:feoUnderEdit];
+            [formElementObjects removeObjectAtIndex:idx];
+            formElementObjects = [pages objectAtIndex:pagesIndex + 1];
+            [feoUnderEdit.FieldTagValues setObject:[NSString stringWithFormat:@"%d", pagesIndex + 1] atIndexedSubscript:[feoUnderEdit.FieldTagElements indexOfObject:@"PageId"]];
+            [formElementObjects insertObject:feoUnderEdit atIndex:1];
+        }
+        else
+        {
+            int idx = (int)[formElementObjects indexOfObject:feoUnderEdit];
+            [formElementObjects removeObjectAtIndex:idx];
+            [formElementObjects insertObject:feoUnderEdit atIndex:idx + 1];
+        }
         [self buildTheXMLFile];
         for (UIView *v in [canvas subviews])
             if ([v tag] != 19572010)
