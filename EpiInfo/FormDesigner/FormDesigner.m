@@ -756,6 +756,13 @@
                     {
                         NSLog(@"Page Break Pressed");
                         [canvasTapGesture setEnabled:YES];
+                        if ([(NSMutableArray *)[pages lastObject] lastObject] == feo)
+                        {
+                            feoUnderEdit = feo;
+                            UIButton *tempButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 40)];
+                            [tempButton setTitle:@"PageBreak" forState:UIControlStateNormal];
+                            [self upDownDeletePressed:tempButton];
+                        }
                     }
                     return;
                 }
@@ -4153,7 +4160,7 @@
             int idx = (int)[formElementObjects indexOfObject:feoUnderEdit];
             [formElementObjects removeObjectAtIndex:idx];
             formElementObjects = [pages objectAtIndex:pagesIndex - 1];
-            [feoUnderEdit.FieldTagValues setObject:[NSString stringWithFormat:@"%d", pagesIndex - 1] atIndexedSubscript:[feoUnderEdit.FieldTagElements indexOfObject:@"PageId"]];
+            [feoUnderEdit.FieldTagValues setObject:[NSString stringWithFormat:@"%d", pagesIndex] atIndexedSubscript:[feoUnderEdit.FieldTagElements indexOfObject:@"PageId"]];
             [formElementObjects addObject:feoUnderEdit];
         }
         [self buildTheXMLFile];
@@ -4180,7 +4187,7 @@
             int idx = (int)[formElementObjects indexOfObject:feoUnderEdit];
             [formElementObjects removeObjectAtIndex:idx];
             formElementObjects = [pages objectAtIndex:pagesIndex + 1];
-            [feoUnderEdit.FieldTagValues setObject:[NSString stringWithFormat:@"%d", pagesIndex + 1] atIndexedSubscript:[feoUnderEdit.FieldTagElements indexOfObject:@"PageId"]];
+            [feoUnderEdit.FieldTagValues setObject:[NSString stringWithFormat:@"%d", pagesIndex + 2] atIndexedSubscript:[feoUnderEdit.FieldTagElements indexOfObject:@"PageId"]];
             [formElementObjects insertObject:feoUnderEdit atIndex:1];
         }
         else
@@ -4411,7 +4418,7 @@
     [xmlMS appendString:sourceTables];
     [xmlMS appendString:@"</Template>"];
     NSString *xmlS = [NSString stringWithString:xmlMS];
-//    NSLog(@"%@", xmlS);
+    NSLog(@"%@", xmlS);
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
