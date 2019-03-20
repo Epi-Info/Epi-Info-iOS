@@ -60,6 +60,40 @@
         [uini setLeftBarButtonItem:saveBarButton];
         [uinb setItems:[NSArray arrayWithObject:uini]];
         [self.fakeNavBar addSubview:uinb];
+        
+        NSString *encryptedString = [NSString stringWithContentsOfURL:self.url encoding:NSUTF8StringEncoding error:nil];
+        if ([[encryptedString substringWithRange:NSMakeRange(0, 5)] isEqualToString:@"APPLE"])
+        {
+            encryptedString = [encryptedString substringFromIndex:5];
+            NSData *encryptedData = [encryptedString dataUsingEncoding:NSUTF8StringEncoding];
+            CCCryptorRef thisEncipher = NULL;
+            NSData *cipherOrPlainText = nil;
+            uint8_t *bufferPtr = NULL;
+            size_t bufferPtrSize = 0;
+            size_t remainingBytes = 0;
+            size_t movedBytes = 0;
+            size_t plainTextBufferSize = 0;
+            size_t totalBytesWritten = 0;
+            uint8_t *ptr;
+
+            NSString *password = @"qwerty";
+            float passwordLength = (float)password.length;
+            float sixteens = 16.0 / passwordLength;
+            if (sixteens > 1.0)
+                for (int i = 0; i < (int)sixteens; i++)
+                    password = [password stringByAppendingString:password];
+            password = [password substringToIndex:16];
+            
+            CCCryptorStatus result = CCCryptorCreate(kCCDecrypt,
+                                                     kCCAlgorithmAES128,
+                                                     kCCOptionPKCS7Padding, // 0x0000 or kCCOptionPKCS7Padding
+                                                     (const void *)[password dataUsingEncoding:NSUTF8StringEncoding].bytes,
+                                                     [password dataUsingEncoding:NSUTF8StringEncoding].length,
+                                                     (const void *)[@"0000000000000000" dataUsingEncoding:NSUTF8StringEncoding].bytes,
+                                                     &thisEncipher
+                                                     );
+        }
+        NSLog(@"%@", encryptedString);
     }
     return self;
 }

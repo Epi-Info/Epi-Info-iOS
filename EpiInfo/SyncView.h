@@ -6,6 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CommonCrypto/CommonCrypto.h>
+#import <CommonCrypto/CommonKeyDerivation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
