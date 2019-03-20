@@ -9,6 +9,7 @@
 #import "EpiInfoAppDelegate.h"
 #import "FormView.h"
 #import "ImportCSV.h"
+#import "SyncView.h"
 
 @implementation EpiInfoAppDelegate
 
@@ -79,7 +80,22 @@
         [[[UIApplication sharedApplication].keyWindow.rootViewController view] addSubview:newCSV];
         [[[UIApplication sharedApplication].keyWindow.rootViewController view] bringSubviewToFront:fakeNavBar];
     }
-    
+    else if ([[url.pathExtension lowercaseString] isEqualToString:@"epi7"])
+    {
+        UIView *fakeNavBar = [[UIView alloc] initWithFrame:CGRectMake(0, 20, [[UIApplication sharedApplication].keyWindow.rootViewController view].frame.size.width, 40)];
+        UILabel *fakeNavBarLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, [[UIApplication sharedApplication].keyWindow.rootViewController view].frame.size.width, 40)];
+        [fakeNavBar setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+        [fakeNavBarLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:22.0]];
+        [fakeNavBarLabel setTextAlignment:NSTextAlignmentCenter];
+        [fakeNavBarLabel setTextColor:[UIColor whiteColor]];
+        [fakeNavBarLabel setText:@"Import Sync File"];
+        [fakeNavBar addSubview:fakeNavBarLabel];
+        [[[UIApplication sharedApplication].keyWindow.rootViewController view] addSubview:fakeNavBar];
+        SyncView *newSync = [[SyncView alloc] initWithFrame:CGRectMake(0, 60, [[UIApplication sharedApplication].keyWindow.rootViewController view].frame.size.width, [[UIApplication sharedApplication].keyWindow.rootViewController view].frame.size.height - 60.0) AndURL:url AndRootViewController:self.window.rootViewController AndFakeNavBar:fakeNavBar];
+        [[[UIApplication sharedApplication].keyWindow.rootViewController view] addSubview:newSync];
+        [[[UIApplication sharedApplication].keyWindow.rootViewController view] bringSubviewToFront:fakeNavBar];
+    }
+
     return YES;
 }
 
