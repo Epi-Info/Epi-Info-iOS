@@ -83,7 +83,7 @@
             NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:templateFile];
             [parser setDelegate:self];
             [parser setShouldResolveExternalEntities:YES];
-            NSLog(@"CONSUMING XML: %@", [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:[@"file://" stringByAppendingString:[[[epiInfoForms stringByAppendingString:@"/"] stringByAppendingString:formName] stringByAppendingString:@".xml"]]] encoding:NSUTF8StringEncoding error:nil]);
+//            NSLog(@"CONSUMING XML: %@", [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:[@"file://" stringByAppendingString:[[[epiInfoForms stringByAppendingString:@"/"] stringByAppendingString:formName] stringByAppendingString:@".xml"]]] encoding:NSUTF8StringEncoding error:nil]);
             BOOL success = [parser parse];
             if (success)
             {
@@ -663,6 +663,19 @@
         [menu addSubview:pageBreakButton];
         [pageBreakButton setEnabled:formNamed];
 
+        UIButton *distributeFormButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 2.0 * initialButtonHeight, menu.frame.size.width - 2, initialButtonHeight)];
+        [distributeFormButton setBackgroundColor:[UIColor whiteColor]];
+        [distributeFormButton setTitle:@"\tDistribute Form Template" forState:UIControlStateNormal];
+        [distributeFormButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [distributeFormButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [distributeFormButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [distributeFormButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [distributeFormButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [distributeFormButton addTarget:self action:@selector(menuButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [distributeFormButton setTag:tagIncrementer++ * 1000000 + 1957];
+        [menu addSubview:distributeFormButton];
+        [distributeFormButton setEnabled:formNamed];
+
         [self addSubview:menu];
         
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -811,6 +824,8 @@
             [self presentCommentLegalView];
         else if (buttonTag == 16)
             [self insertPageBreakPressed:sender];
+        else if (buttonTag == 17)
+            [self distributeFormPressed:sender];
     }];
 }
 
@@ -4101,6 +4116,29 @@
     }];
 }
 
+- (void)distributeFormPressed:(UIButton *)sender
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
+    {
+        return;
+    }
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
+    {
+        NSString *filePathAndName = [[[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] stringByAppendingString:@"/"] stringByAppendingString:formName] stringByAppendingString:@".xml"];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:filePathAndName])
+        {
+            MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
+            [composer setMailComposeDelegate:self];
+            [composer addAttachmentData:[NSData dataWithContentsOfFile:filePathAndName] mimeType:@"text/plain" fileName:[formName stringByAppendingString:@".xml"]];
+            [composer setSubject:@"Epi Info Form"];
+            [composer setMessageBody:@"Here is an Epi Info form template." isHTML:NO];
+            [self.rootViewController presentViewController:composer animated:YES completion:^(void){
+            }];
+        }
+    }
+}
+
 - (void)upDownDeletePressed:(UIButton *)sender
 {
     NSArray *buttonWords = [[[sender titleLabel] text] componentsSeparatedByString:@" "];
@@ -4418,7 +4456,7 @@
     [xmlMS appendString:sourceTables];
     [xmlMS appendString:@"</Template>"];
     NSString *xmlS = [NSString stringWithString:xmlMS];
-    NSLog(@"%@", xmlS);
+//    NSLog(@"%@", xmlS);
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
@@ -4537,6 +4575,35 @@
         if (valueText.frame.origin.y + valueText.frame.size.height > uisv.contentSize.height)
             [uisv setContentSize:CGSizeMake(uisv.contentSize.width, valueText.frame.origin.y + valueText.frame.size.height)];
     }
+}
+
+#pragma mark MFMailComposeViewControllerDelegate Method
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+    // Notifies users about errors associated with the interface
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            //            NSLog(@"Result: canceled");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Result: saved");
+            break;
+        case MFMailComposeResultSent:
+            //            NSLog(@"Result: sent");
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Result: failed");
+            break;
+        default:
+            NSLog(@"Result: not sent");
+            break;
+    }
+    [self.rootViewController dismissViewControllerAnimated:YES completion:^{
+        [self.rootViewController.view bringSubviewToFront:self];
+        [canvasTapGesture setEnabled:YES];
+    }];
 }
 
 #pragma mark XML Parsing Methods

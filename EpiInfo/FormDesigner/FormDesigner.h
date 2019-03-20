@@ -6,11 +6,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MFMailComposeViewController.h>
 #import "FormElementObject.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FormDesigner : UIView <UITextFieldDelegate, NSXMLParserDelegate>
+@interface FormDesigner : UIView <MFMailComposeViewControllerDelegate, UITextFieldDelegate, NSXMLParserDelegate>
 {
     float nextY;
     float nextYReset;
