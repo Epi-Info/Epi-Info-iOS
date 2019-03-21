@@ -61,11 +61,12 @@
         [uinb setItems:[NSArray arrayWithObject:uini]];
         [self.fakeNavBar addSubview:uinb];
         
-        NSString *encryptedString = [NSString stringWithContentsOfURL:self.url encoding:NSUTF8StringEncoding error:nil];
-        if ([[encryptedString substringWithRange:NSMakeRange(0, 5)] isEqualToString:@"APPLE"])
+        NSString *encryptedString0 = [NSString stringWithContentsOfURL:self.url encoding:NSUTF8StringEncoding error:nil];
+        if ([[encryptedString0 substringWithRange:NSMakeRange(0, 5)] isEqualToString:@"APPLE"])
         {
-            encryptedString = [encryptedString substringFromIndex:5];
-            NSData *encryptedData = [encryptedString dataUsingEncoding:NSUTF8StringEncoding];
+            NSString *encryptedString = [NSString stringWithString:[encryptedString0 substringFromIndex:5]];
+            NSData *encryptedData = [[NSData alloc] initWithBase64EncodedString:encryptedString options:NSDataBase64EncodingEndLineWithCarriageReturn];
+            CCCryptorStatus ccStatus = kCCSuccess;
             CCCryptorRef thisEncipher = NULL;
             NSData *cipherOrPlainText = nil;
             uint8_t *bufferPtr = NULL;
@@ -84,16 +85,66 @@
                     password = [password stringByAppendingString:password];
             password = [password substringToIndex:16];
             
-            CCCryptorStatus result = CCCryptorCreate(kCCDecrypt,
-                                                     kCCAlgorithmAES128,
-                                                     kCCOptionPKCS7Padding, // 0x0000 or kCCOptionPKCS7Padding
-                                                     (const void *)[password dataUsingEncoding:NSUTF8StringEncoding].bytes,
-                                                     [password dataUsingEncoding:NSUTF8StringEncoding].length,
-                                                     (const void *)[@"0000000000000000" dataUsingEncoding:NSUTF8StringEncoding].bytes,
-                                                     &thisEncipher
-                                                     );
+            size_t retSize = 0;
+            ccStatus = CCCrypt(kCCDecrypt,
+                               kCCAlgorithmAES128,
+                               kCCOptionPKCS7Padding,
+                               (const void *)[password dataUsingEncoding:NSUTF8StringEncoding].bytes,
+                               [password dataUsingEncoding:NSUTF8StringEncoding].length,
+                               (const void *)[@"0000000000000000" dataUsingEncoding:NSUTF8StringEncoding].bytes,
+                               (const void *)[encryptedData bytes],
+                               [encryptedData length],
+                               NULL,
+                               0,
+                               &retSize
+                               );
+
+            void * retPtr = malloc(retSize + kCCBlockSizeAES128);
+            
+            ccStatus = CCCrypt(kCCDecrypt,
+                               kCCAlgorithmAES128,
+                               kCCOptionPKCS7Padding,
+                               (const void *)[password dataUsingEncoding:NSUTF8StringEncoding].bytes,
+                               [password dataUsingEncoding:NSUTF8StringEncoding].length,
+                               (const void *)[@"0000000000000000" dataUsingEncoding:NSUTF8StringEncoding].bytes,
+                               (const void *)[encryptedData bytes],
+                               [encryptedData length],
+                               retPtr,
+                               retSize,
+                               &retSize
+                               );
+            NSData *plainData = [NSData dataWithBytesNoCopy:retPtr length:retSize];
+            dataText = [[NSString alloc] initWithData:plainData encoding:NSUTF8StringEncoding];
+
+            ccStatus = CCCryptorCreate(kCCDecrypt,
+                                       kCCAlgorithmAES128,
+                                       kCCOptionPKCS7Padding, // 0x0000 or kCCOptionPKCS7Padding
+                                       (const void *)[password dataUsingEncoding:NSUTF8StringEncoding].bytes,
+                                       [password dataUsingEncoding:NSUTF8StringEncoding].length,
+                                       (const void *)[@"0000000000000000" dataUsingEncoding:NSUTF8StringEncoding].bytes,
+                                       &thisEncipher
+                                       );
+            plainTextBufferSize = [encryptedData length];
+            bufferPtrSize = CCCryptorGetOutputLength(thisEncipher, plainTextBufferSize, true);
+            bufferPtr = malloc( bufferPtrSize * sizeof(uint8_t) );
+            memset((void *)bufferPtr, 0x0, bufferPtrSize);
+            ptr = bufferPtr;
+            remainingBytes = bufferPtrSize;
+            ccStatus = CCCryptorUpdate(thisEncipher, (const void *) [encryptedData bytes], plainTextBufferSize, ptr, remainingBytes, &movedBytes);
+            ptr += movedBytes;
+            remainingBytes -= movedBytes;
+            totalBytesWritten += movedBytes;
+            ccStatus = CCCryptorFinal(thisEncipher, ptr, remainingBytes, &movedBytes);
+            totalBytesWritten += movedBytes;
+            cipherOrPlainText = [NSData dataWithBytes:(const void *)bufferPtr length:(NSUInteger)totalBytesWritten];
+            CCCryptorRelease(thisEncipher);
+            thisEncipher = NULL;
+            if(bufferPtr) free(bufferPtr);
+            dataText = [[NSString alloc] initWithData:cipherOrPlainText encoding:NSUTF8StringEncoding];
+            encryptedString = [[NSString alloc] initWithData:encryptedData encoding:NSUTF8StringEncoding];
+            NSLog(@"%@", encryptedString);
+            NSLog(@"%@", dataText);
         }
-        NSLog(@"%@", encryptedString);
     }
     return self;
 }
