@@ -4382,7 +4382,7 @@
             FormElementObject *feo = (FormElementObject *)[arrayH objectAtIndex:i];
             if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"99"])
                 continue;
-            [xmlMS appendFormat:@"<Field"];
+            [xmlMS appendString:@"<Field"];
             for (int j = 0; j < [feo.FieldTagElements count]; j++)
             {
                 [xmlMS appendString:[NSString stringWithFormat:@" %@=\"%@\"", (NSString *)[feo.FieldTagElements objectAtIndex:j], (NSString *)[feo.FieldTagValues objectAtIndex:j]]];
@@ -4425,7 +4425,7 @@
                                 continue;
                         [sourceTables appendString:[NSString stringWithFormat:@"<Item %@=\"%@\"/>\n", itemString, [feo.values objectAtIndex:j]]];
                     }
-                    [sourceTables appendFormat:@"</SourceTable>\n"];
+                    [sourceTables appendString:@"</SourceTable>\n"];
                 }
             }
             if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"19"] && feo.values != nil)
@@ -4444,10 +4444,12 @@
                                 continue;
                         [sourceTables appendString:[NSString stringWithFormat:@"<Item %@=\"%@\"/>\n", itemString, [feo.values objectAtIndex:j]]];
                     }
-                    [sourceTables appendFormat:@"</SourceTable>\n"];
+                    [sourceTables appendString:@"</SourceTable>\n"];
                 }
             }
-            [xmlMS appendFormat:@"/>\n"];
+            [xmlMS appendString:[NSString stringWithFormat:@" ControlLeftPositionPercentage=\"0.1153846\" ControlTopPositionPercentage=\"%f\"", 0.0531496 * 2.0 * (i + 1)]];
+            [xmlMS appendString:[NSString stringWithFormat:@" UniqueId=\"%@\"", [CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]]];
+            [xmlMS appendString:@"/>\n"];
         }
         [xmlMS appendString:@"</Page>\n"];
     }
