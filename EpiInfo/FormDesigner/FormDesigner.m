@@ -2789,10 +2789,14 @@
                     [feo.FieldTagValues addObject:@"False"];
                     [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
                     [feo.FieldTagValues addObject:@"0.24853"];
+                    [feo.FieldTagElements addObject:@"ControlHeightPercentage"];
+                    [feo.FieldTagValues addObject:@"0.019853"];
                     [feo.FieldTagElements addObject:@"PromptText"];
                     [feo.FieldTagValues addObject:promptText];
                     [feo.FieldTagElements addObject:@"FieldTypeId"];
                     [feo.FieldTagValues addObject:@"2"];
+                    [feo.FieldTagElements addObject:@"UniqueId"];
+                    [feo.FieldTagValues addObject:[CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]];
                 }
 
                 if (feoUnderEdit == nil)
@@ -2885,10 +2889,14 @@
                     [feo.FieldTagValues addObject:@"False"];
                     [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
                     [feo.FieldTagValues addObject:@"0.4853"];
+                    [feo.FieldTagElements addObject:@"ControlHeightPercentage"];
+                    [feo.FieldTagValues addObject:@"0.019853"];
                     [feo.FieldTagElements addObject:@"PromptText"];
                     [feo.FieldTagValues addObject:promptText];
                     [feo.FieldTagElements addObject:@"FieldTypeId"];
                     [feo.FieldTagValues addObject:@"1"];
+                    [feo.FieldTagElements addObject:@"UniqueId"];
+                    [feo.FieldTagValues addObject:[CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]];
                 }
                 
                 if (feoUnderEdit == nil)
@@ -4388,6 +4396,7 @@
                 [xmlMS appendString:[NSString stringWithFormat:@" %@=\"%@\"", (NSString *)[feo.FieldTagElements objectAtIndex:j], (NSString *)[feo.FieldTagValues objectAtIndex:j]]];
             }
             [xmlMS appendString:[NSString stringWithFormat:@" TabIndex=\"%d\"", i]];
+            [xmlMS appendString:[NSString stringWithFormat:@" FieldId=\"%d\"", i]];
             if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"12"] && feo.values != nil)
             {
                 if ([feo.values count] > 0)
@@ -4448,7 +4457,13 @@
                 }
             }
             [xmlMS appendString:[NSString stringWithFormat:@" ControlLeftPositionPercentage=\"0.1153846\" ControlTopPositionPercentage=\"%f\"", 0.0531496 * 2.0 * (i + 1)]];
-            [xmlMS appendString:[NSString stringWithFormat:@" UniqueId=\"%@\"", [CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]]];
+            [xmlMS appendString:@" Position=\"0\" SourceFieldId=\"\" HasTabStop=\"False\" IsExclusiveTable=\"False\" Sort=\"False\" TextColumnName=\"\" CodeColumnName=\"\""];
+            [xmlMS appendString:@" RelatedViewId=\"\" ShouldReturnToParent=\"False\" RelateCondition=\"\" Upper=\"\" Lower=\"\" ShowTextOnRight=\"False\" MaxLength=\"\""];
+            [xmlMS appendString:@" Pattern=\"\" ShouldRetainImageSize=\"False\" IsEncrypted=\"False\" ShouldRepeatLast=\"False\""];
+            [xmlMS appendString:@" PromptScriptName=\"\" ControlFontStyle=\"Regular\" ControlFontSize=\"14.0\" ControlFontFamily=\"Arial\" PromptFontStyle=\"Regular\""];
+            [xmlMS appendString:@" PromptFontSize=\"14.0\" PromptFontFamily=\"Arial\" PromptLeftPositionPercentage=\"0.188\" PromptTopPositionPercentage=\"0.099\""];
+            [xmlMS appendString:@" ControlScriptName=\"\" Expr1017=\"Regular\" Expr1016=\"14.0\" Expr1015=\"Arial\""];
+//            [xmlMS appendString:[NSString stringWithFormat:@" UniqueId=\"%@\"", [CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]]];
             [xmlMS appendString:@"/>\n"];
         }
         [xmlMS appendString:@"</Page>\n"];
@@ -4635,11 +4650,15 @@
         [feo.FieldTagElements addObject:@"IsRequired"];
         [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"IsRequired"]]];
         [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+        [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"ControlHeightPercentage"]]];
+        [feo.FieldTagElements addObject:@"ControlHeightPercentage"];
         [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"ControlWidthPercentage"]]];
         [feo.FieldTagElements addObject:@"PromptText"];
         [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"PromptText"]]];
         [feo.FieldTagElements addObject:@"FieldTypeId"];
         [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"FieldTypeId"]]];
+        [feo.FieldTagElements addObject:@"UniqueId"];
+        [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"UniqueId"]]];
         if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"12"])
         {
             if ([attributeDict objectForKey:@"List"] != nil)
