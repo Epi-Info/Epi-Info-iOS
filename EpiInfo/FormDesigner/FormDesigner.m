@@ -2989,10 +2989,14 @@
                     [feo.FieldTagValues addObject:@"False"];
                     [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
                     [feo.FieldTagValues addObject:@"0.4853"];
+                    [feo.FieldTagElements addObject:@"ControlHeightPercentage"];
+                    [feo.FieldTagValues addObject:@"0.019853"];
                     [feo.FieldTagElements addObject:@"PromptText"];
                     [feo.FieldTagValues addObject:promptText];
                     [feo.FieldTagElements addObject:@"FieldTypeId"];
                     [feo.FieldTagValues addObject:@"3"];
+                    [feo.FieldTagElements addObject:@"UniqueId"];
+                    [feo.FieldTagValues addObject:[CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]];
                 }
                 
                 if (feoUnderEdit == nil)
@@ -3085,10 +3089,14 @@
                     [feo.FieldTagValues addObject:@"False"];
                     [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
                     [feo.FieldTagValues addObject:@"0.4853"];
+                    [feo.FieldTagElements addObject:@"ControlHeightPercentage"];
+                    [feo.FieldTagValues addObject:@"0.019853"];
                     [feo.FieldTagElements addObject:@"PromptText"];
                     [feo.FieldTagValues addObject:promptText];
                     [feo.FieldTagElements addObject:@"FieldTypeId"];
                     [feo.FieldTagValues addObject:@"4"];
+                    [feo.FieldTagElements addObject:@"UniqueId"];
+                    [feo.FieldTagValues addObject:[CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]];
                 }
                 
                 if (feoUnderEdit == nil)
@@ -3181,10 +3189,14 @@
                     [feo.FieldTagValues addObject:@"False"];
                     [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
                     [feo.FieldTagValues addObject:@"0.19853"];
+                    [feo.FieldTagElements addObject:@"ControlHeightPercentage"];
+                    [feo.FieldTagValues addObject:@"0.019853"];
                     [feo.FieldTagElements addObject:@"PromptText"];
                     [feo.FieldTagValues addObject:promptText];
                     [feo.FieldTagElements addObject:@"FieldTypeId"];
                     [feo.FieldTagValues addObject:@"5"];
+                    [feo.FieldTagElements addObject:@"UniqueId"];
+                    [feo.FieldTagValues addObject:[CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]];
                 }
                 
                 if (feoUnderEdit == nil)
@@ -3278,10 +3290,14 @@
                     [feo.FieldTagValues addObject:@"False"];
                     [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
                     [feo.FieldTagValues addObject:@"0.19853"];
+                    [feo.FieldTagElements addObject:@"ControlHeightPercentage"];
+                    [feo.FieldTagValues addObject:@"0.019853"];
                     [feo.FieldTagElements addObject:@"PromptText"];
                     [feo.FieldTagValues addObject:promptText];
                     [feo.FieldTagElements addObject:@"FieldTypeId"];
                     [feo.FieldTagValues addObject:@"6"];
+                    [feo.FieldTagElements addObject:@"UniqueId"];
+                    [feo.FieldTagValues addObject:[CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]];
                 }
                 
                 if (feoUnderEdit == nil)
@@ -3375,10 +3391,14 @@
                     [feo.FieldTagValues addObject:@"False"];
                     [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
                     [feo.FieldTagValues addObject:@"0.19853"];
+                    [feo.FieldTagElements addObject:@"ControlHeightPercentage"];
+                    [feo.FieldTagValues addObject:@"0.019853"];
                     [feo.FieldTagElements addObject:@"PromptText"];
                     [feo.FieldTagValues addObject:promptText];
                     [feo.FieldTagElements addObject:@"FieldTypeId"];
                     [feo.FieldTagValues addObject:@"7"];
+                    [feo.FieldTagElements addObject:@"UniqueId"];
+                    [feo.FieldTagValues addObject:[CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]];
                 }
                 
                 if (feoUnderEdit == nil)
@@ -3472,10 +3492,14 @@
                     [feo.FieldTagValues addObject:@"False"];
                     [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
                     [feo.FieldTagValues addObject:@"0.19853"];
+                    [feo.FieldTagElements addObject:@"ControlHeightPercentage"];
+                    [feo.FieldTagValues addObject:@"0.019853"];
                     [feo.FieldTagElements addObject:@"PromptText"];
                     [feo.FieldTagValues addObject:promptText];
                     [feo.FieldTagElements addObject:@"FieldTypeId"];
                     [feo.FieldTagValues addObject:@"10"];
+                    [feo.FieldTagElements addObject:@"UniqueId"];
+                    [feo.FieldTagValues addObject:[CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]];
                 }
                 
                 if (feoUnderEdit == nil)
@@ -3569,10 +3593,14 @@
                     [feo.FieldTagValues addObject:@"False"];
                     [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
                     [feo.FieldTagValues addObject:@"0.19853"];
+                    [feo.FieldTagElements addObject:@"ControlHeightPercentage"];
+                    [feo.FieldTagValues addObject:@"0.019853"];
                     [feo.FieldTagElements addObject:@"PromptText"];
                     [feo.FieldTagValues addObject:promptText];
                     [feo.FieldTagElements addObject:@"FieldTypeId"];
                     [feo.FieldTagValues addObject:@"11"];
+                    [feo.FieldTagElements addObject:@"UniqueId"];
+                    [feo.FieldTagValues addObject:[CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]];
                 }
                 
                 if (feoUnderEdit == nil)
@@ -3666,10 +3694,14 @@
                     [feo.FieldTagValues addObject:@"False"];
                     [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
                     [feo.FieldTagValues addObject:@"0.19853"];
+                    [feo.FieldTagElements addObject:@"ControlHeightPercentage"];
+                    [feo.FieldTagValues addObject:@"0.019853"];
                     [feo.FieldTagElements addObject:@"PromptText"];
                     [feo.FieldTagValues addObject:promptText];
                     [feo.FieldTagElements addObject:@"FieldTypeId"];
                     [feo.FieldTagValues addObject:@"12"];
+                    [feo.FieldTagElements addObject:@"UniqueId"];
+                    [feo.FieldTagValues addObject:[CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]];
                 }
                 
                 if (valuesFields != nil)
@@ -3781,10 +3813,14 @@
                     [feo.FieldTagValues addObject:@"False"];
                     [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
                     [feo.FieldTagValues addObject:@"0.19853"];
+                    [feo.FieldTagElements addObject:@"ControlHeightPercentage"];
+                    [feo.FieldTagValues addObject:@"0.019853"];
                     [feo.FieldTagElements addObject:@"PromptText"];
                     [feo.FieldTagValues addObject:promptText];
                     [feo.FieldTagElements addObject:@"FieldTypeId"];
                     [feo.FieldTagValues addObject:@"14"];
+                    [feo.FieldTagElements addObject:@"UniqueId"];
+                    [feo.FieldTagValues addObject:[CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]];
                 }
                 
                 if (feoUnderEdit == nil)
@@ -3878,10 +3914,14 @@
                     [feo.FieldTagValues addObject:@"False"];
                     [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
                     [feo.FieldTagValues addObject:@"0.19853"];
+                    [feo.FieldTagElements addObject:@"ControlHeightPercentage"];
+                    [feo.FieldTagValues addObject:@"0.019853"];
                     [feo.FieldTagElements addObject:@"PromptText"];
                     [feo.FieldTagValues addObject:promptText];
                     [feo.FieldTagElements addObject:@"FieldTypeId"];
                     [feo.FieldTagValues addObject:@"17"];
+                    [feo.FieldTagElements addObject:@"UniqueId"];
+                    [feo.FieldTagValues addObject:[CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]];
                 }
                 
                 if (valuesFields != nil)
@@ -3991,10 +4031,14 @@
                     [feo.FieldTagValues addObject:@"False"];
                     [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
                     [feo.FieldTagValues addObject:@"0.19853"];
+                    [feo.FieldTagElements addObject:@"ControlHeightPercentage"];
+                    [feo.FieldTagValues addObject:@"0.019853"];
                     [feo.FieldTagElements addObject:@"PromptText"];
                     [feo.FieldTagValues addObject:promptText];
                     [feo.FieldTagElements addObject:@"FieldTypeId"];
                     [feo.FieldTagValues addObject:@"19"];
+                    [feo.FieldTagElements addObject:@"UniqueId"];
+                    [feo.FieldTagValues addObject:[CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]];
                 }
                 
                 if (valuesFields != nil)
@@ -4092,10 +4136,14 @@
                     [feo.FieldTagValues addObject:@"False"];
                     [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
                     [feo.FieldTagValues addObject:@"0.19853"];
+                    [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
+                    [feo.FieldTagValues addObject:@"0.19853"];
                     [feo.FieldTagElements addObject:@"PromptText"];
                     [feo.FieldTagValues addObject:promptText];
                     [feo.FieldTagElements addObject:@"FieldTypeId"];
                     [feo.FieldTagValues addObject:@"99"];
+                    [feo.FieldTagElements addObject:@"UniqueId"];
+                    [feo.FieldTagValues addObject:[CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]];
                 }
                 
                 if (feoUnderEdit == nil)
@@ -4461,7 +4509,7 @@
             [xmlMS appendString:@" RelatedViewId=\"\" ShouldReturnToParent=\"False\" RelateCondition=\"\" Upper=\"\" Lower=\"\" ShowTextOnRight=\"False\" MaxLength=\"\""];
             [xmlMS appendString:@" Pattern=\"\" ShouldRetainImageSize=\"False\" IsEncrypted=\"False\" ShouldRepeatLast=\"False\""];
             [xmlMS appendString:@" PromptScriptName=\"\" ControlFontStyle=\"Regular\" ControlFontSize=\"14.0\" ControlFontFamily=\"Arial\" PromptFontStyle=\"Regular\""];
-            [xmlMS appendString:@" PromptFontSize=\"14.0\" PromptFontFamily=\"Arial\" PromptLeftPositionPercentage=\"0.188\" PromptTopPositionPercentage=\"0.099\""];
+            [xmlMS appendString:@" PromptFontSize=\"14.25\" PromptFontFamily=\"Arial\" PromptLeftPositionPercentage=\"0.188\" PromptTopPositionPercentage=\"0.099\""];
             [xmlMS appendString:@" ControlScriptName=\"\" Expr1017=\"Regular\" Expr1016=\"14.0\" Expr1015=\"Arial\""];
 //            [xmlMS appendString:[NSString stringWithFormat:@" UniqueId=\"%@\"", [CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]]];
             [xmlMS appendString:@"/>\n"];
@@ -4650,9 +4698,9 @@
         [feo.FieldTagElements addObject:@"IsRequired"];
         [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"IsRequired"]]];
         [feo.FieldTagElements addObject:@"ControlWidthPercentage"];
-        [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"ControlHeightPercentage"]]];
-        [feo.FieldTagElements addObject:@"ControlHeightPercentage"];
         [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"ControlWidthPercentage"]]];
+        [feo.FieldTagElements addObject:@"ControlHeightPercentage"];
+        [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"ControlHeightPercentage"]]];
         [feo.FieldTagElements addObject:@"PromptText"];
         [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"PromptText"]]];
         [feo.FieldTagElements addObject:@"FieldTypeId"];
@@ -4738,6 +4786,8 @@
                 [feo.FieldTagValues addObject:@"Page Break"];
                 [feo.FieldTagElements addObject:@"FieldTypeId"];
                 [feo.FieldTagValues addObject:@"99"];
+                [feo.FieldTagElements addObject:@"UniqueId"];
+                [feo.FieldTagValues addObject:[CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]];
                 [formElementObjects addObject:feo];
                 while ([pages count] < [(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue])
                     [pages addObject:[[NSMutableArray alloc] init]];
