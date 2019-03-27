@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import <CommonCrypto/CommonCrypto.h>
 #import <CommonCrypto/CommonKeyDerivation.h>
+#import "LegalValuesEnter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,6 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
     
     UIBarButtonItem *xBarButton;
     UIBarButtonItem *saveBarButton;
+
+    LegalValuesEnter *lv;
+    UITextField *lvSelected;
 }
 
 @property NSURL *url;
