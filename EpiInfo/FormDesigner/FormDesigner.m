@@ -4474,6 +4474,9 @@
                     [xmlMS appendString:@" SourceTableName=\""];
                     [xmlMS appendString:[NSString stringWithFormat:@"code%@1", itemString]];
                     [xmlMS appendString:@"\""];
+                    [xmlMS appendString:@" TextColumnName=\""];
+                    [xmlMS appendString:[NSString stringWithFormat:@"%@", itemString]];
+                    [xmlMS appendString:@"\""];
                     [sourceTables appendString:[NSString stringWithFormat:@"<SourceTable TableName=\"code%@1\">\n", itemString]];
                     for (int j = 0; j < [feo.values count]; j++)
                     {
@@ -4493,6 +4496,9 @@
                     [xmlMS appendString:@" SourceTableName=\""];
                     [xmlMS appendString:[NSString stringWithFormat:@"code%@1", itemString]];
                     [xmlMS appendString:@"\""];
+                    [xmlMS appendString:@" TextColumnName=\""];
+                    [xmlMS appendString:[NSString stringWithFormat:@"%@", itemString]];
+                    [xmlMS appendString:@"\""];
                     [sourceTables appendString:[NSString stringWithFormat:@"<SourceTable TableName=\"code%@1\">\n", itemString]];
                     for (int j = 0; j < [feo.values count]; j++)
                     {
@@ -4504,12 +4510,12 @@
                     [sourceTables appendString:@"</SourceTable>\n"];
                 }
             }
-            [xmlMS appendString:[NSString stringWithFormat:@" ControlLeftPositionPercentage=\"0.1153846\" ControlTopPositionPercentage=\"%f\"", 0.0531496 * 2.0 * (i + 1)]];
-            [xmlMS appendString:@" Position=\"0\" SourceFieldId=\"\" HasTabStop=\"False\" IsExclusiveTable=\"False\" Sort=\"False\" TextColumnName=\"\" CodeColumnName=\"\""];
+            [xmlMS appendString:[NSString stringWithFormat:@" ControlLeftPositionPercentage=\"0.1953846\" ControlTopPositionPercentage=\"%f\"", 0.0531496 + (0.9 / [arrayH count]) * i]];
+            [xmlMS appendString:@" Position=\"0\" SourceFieldId=\"\" HasTabStop=\"False\" IsExclusiveTable=\"False\" Sort=\"False\" CodeColumnName=\"\""];
             [xmlMS appendString:@" RelatedViewId=\"\" ShouldReturnToParent=\"False\" RelateCondition=\"\" Upper=\"\" Lower=\"\" ShowTextOnRight=\"False\" MaxLength=\"\""];
             [xmlMS appendString:@" Pattern=\"\" ShouldRetainImageSize=\"False\" IsEncrypted=\"False\" ShouldRepeatLast=\"False\""];
             [xmlMS appendString:@" PromptScriptName=\"\" ControlFontStyle=\"Regular\" ControlFontSize=\"14.0\" ControlFontFamily=\"Arial\" PromptFontStyle=\"Regular\""];
-            [xmlMS appendString:@" PromptFontSize=\"14.25\" PromptFontFamily=\"Arial\" PromptLeftPositionPercentage=\"0.188\" PromptTopPositionPercentage=\"0.099\""];
+            [xmlMS appendString:[NSString stringWithFormat:@" PromptFontSize=\"14.25\" PromptFontFamily=\"Arial\" PromptLeftPositionPercentage=\"0.118\" PromptTopPositionPercentage=\"%f\"", 0.0531496 + (0.9 / [arrayH count]) * i]];
             [xmlMS appendString:@" ControlScriptName=\"\" Expr1017=\"Regular\" Expr1016=\"14.0\" Expr1015=\"Arial\""];
 //            [xmlMS appendString:[NSString stringWithFormat:@" UniqueId=\"%@\"", [CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]]];
             [xmlMS appendString:@"/>\n"];
