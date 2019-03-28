@@ -41,8 +41,6 @@
     {
         [self setRootViewController:rvc];
         [self setFakeNavBar:fnb];
-        [self decryptSyncFile];
-        NSLog(@"%@", dataText);
 
         float uinbY = 0.0;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -82,20 +80,35 @@
             int count = 0;
             for (id i in files)
             {
-                if ([(NSString *)i characterAtIndex:0] == '_')
-                    continue;
                 count++;
                 [pickerFiles addObject:[(NSString *)i substringToIndex:[(NSString *)i length] - 4]];
             }
             lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0 - 150.0, 68, 300, 180) AndListOfValues:pickerFiles AndTextFieldToUpdate:lvSelected];
             [lv.picker selectRow:selectedindex inComponent:0 animated:YES];
+            [lv setTag:1957];
             [self addSubview:lv];
+            
+            UILabel *passwordLabel = [[UILabel alloc] initWithFrame:CGRectMake(lv.frame.origin.x, lv.frame.origin.y + lv.frame.size.height, 280, 28)];
+            [passwordLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [passwordLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [passwordLabel setText:@"Password:"];
+            [passwordLabel setBackgroundColor:[UIColor clearColor]];
+            [self addSubview:passwordLabel];
+            
+            passwordField = [[UITextField alloc] initWithFrame:CGRectMake(passwordLabel.frame.origin.x, passwordLabel.frame.origin.y + passwordLabel.frame.size.height, 280, 40)];
+            [passwordField setDelegate:self];
+            [passwordField setBorderStyle:UITextBorderStyleRoundedRect];
+            [passwordField setReturnKeyType:UIReturnKeyDone];
+            [passwordField setSecureTextEntry:YES];
+            [self addSubview:passwordField];
         }
+        else
+            [pickerLabel setText:@"No forms found on this device."];
     }
     return self;
 }
 
-- (void)decryptSyncFile
+- (BOOL)decryptSyncFile
 {
     NSString *encryptedString0 = [NSString stringWithContentsOfURL:self.url encoding:NSUTF8StringEncoding error:nil];
     if ([[encryptedString0 substringWithRange:NSMakeRange(0, 5)] isEqualToString:@"APPLE"])
@@ -113,7 +126,7 @@
         size_t totalBytesWritten = 0;
         uint8_t *ptr;
         
-        NSString *password = @"qwerty";
+        NSString *password = [NSString stringWithString:[passwordField text]];
         float passwordLength = (float)password.length;
         float sixteens = 16.0 / passwordLength;
         if (sixteens > 1.0)
@@ -146,17 +159,39 @@
         thisEncipher = NULL;
         if(bufferPtr) free(bufferPtr);
         dataText = [[NSString alloc] initWithData:cipherOrPlainText encoding:NSUTF8StringEncoding];
+        if (!dataText)
+            return NO;
     }
+    return YES;
+}
+
+- (BOOL)updateAppendData
+{
+    NSLog(@"%@", dataText);
+    arrayOfGUIDs = [[NSMutableArray alloc] init];
+    arrayOfColumns = [[NSMutableArray alloc] init];
+    arrayOfValues = [[NSMutableArray alloc] init];
+    doingResponseDetail = NO;
+    NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[dataText dataUsingEncoding:NSUTF8StringEncoding]];
+    [parser setDelegate:self];
+    [parser setShouldResolveExternalEntities:YES];
+    BOOL rc = [parser parse];
+    return rc;
 }
 
 - (void)saveTheForm
 {
+    if ([[passwordField text] length] == 0 || [[lvSelected text] length] == 0)
+        return;
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         CATransform3D rotate = CATransform3DIdentity;
         rotate.m34 = 1.0 / -2000;
         rotate = CATransform3DRotate(rotate, M_PI * 0.5, 0.0, 1.0, 0.0);
         [self.rootViewController.view.layer setTransform:rotate];
     } completion:^(BOOL finished){
+        BOOL rc = [self decryptSyncFile];
+        if (rc)
+            rc = [self updateAppendData];
         [self removeFromSuperview];
         CATransform3D rotate = CATransform3DIdentity;
         rotate.m34 = 1.0 / -2000;
@@ -211,6 +246,44 @@
     [super removeFromSuperview];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+#pragma mark XML Parsing Methods
+
+- (void)parserDidStartDocument:(NSXMLParser *)parser
+{
+}
+
+- (void)parserDidEndDocument:(NSXMLParser *)parser
+{
+}
+
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
+{
+    if ([elementName isEqualToString:@"SurveyResponse"])
+    {
+        NSString *guidString = [attributeDict objectForKey:@"SurveyResponseID"];
+        [arrayOfGUIDs addObject:guidString];
+    }
+    else if ([elementName isEqualToString:@"ResponseDetail"])
+    {
+        doingResponseDetail = YES;
+        NSString *columnName = [attributeDict objectForKey:@"QuestionName"];
+        if (![arrayOfColumns containsObject:columnName])
+            [arrayOfColumns addObject:columnName];
+    }
+}
+- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+{
+    if (!doingResponseDetail)
+        return;
+    [arrayOfValues addObject:string];
+    doingResponseDetail = NO;
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

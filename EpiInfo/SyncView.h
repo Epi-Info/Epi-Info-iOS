@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SyncView : UIView <NSXMLParserDelegate>
+@interface SyncView : UIView <NSXMLParserDelegate, UITextFieldDelegate>
 {
     BOOL firstParse;
     
@@ -28,6 +28,13 @@ NS_ASSUME_NONNULL_BEGIN
 
     LegalValuesEnter *lv;
     UITextField *lvSelected;
+    UITextField *passwordField;
+    
+    NSMutableArray *arrayOfGUIDs;
+    NSMutableArray *arrayOfColumns;
+    NSMutableArray *arrayOfValues;
+    
+    BOOL doingResponseDetail;
 }
 
 @property NSURL *url;
