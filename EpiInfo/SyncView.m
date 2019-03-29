@@ -233,30 +233,71 @@
     [insertString appendString:@")"];
     for (int i = 0; i < rows; i++)
     {
-        NSMutableString *valuesClause = [NSMutableString stringWithString:[NSString stringWithFormat:@"values(\"%@\"", [arrayOfGUIDs objectAtIndex:i]]];
+        NSMutableString *valuesClause = [NSMutableString stringWithString:[NSString stringWithFormat:@"values('%@'", [arrayOfGUIDs objectAtIndex:i]]];
         for (int j = 0; j < columns; j++)
         {
             int indx = i * columns + j;
             [valuesClause appendString:@", "];
             if ([(NSNumber *)[[ado dataTypes] objectForKey:[[ado columnNames] objectForKey:[arrayOfColumns objectAtIndex:j]]] intValue] > 1)
             {
-                [valuesClause appendString:@"\""];
+                [valuesClause appendString:@"'"];
             }
             [valuesClause appendString:[arrayOfValues objectAtIndex:indx]];
             if ([(NSNumber *)[[ado dataTypes] objectForKey:[[ado columnNames] objectForKey:[arrayOfColumns objectAtIndex:j]]] intValue] > 1)
             {
-                [valuesClause appendString:@"\""];
+                [valuesClause appendString:@"'"];
             }
         }
         [valuesClause appendString:@")"];
         NSString *sqlStatement = [NSString stringWithFormat:@"%@ %@", insertString, valuesClause];
         NSLog(@"%@", sqlStatement);
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
+        {
+            NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+            
+            if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+            {
+                char *errMsg;
+                const char *query_stmt = [sqlStatement UTF8String];
+                if (sqlite3_exec(epiinfoDB, query_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                {
+                    NSLog(@"Failed to insert row into table.");
+                    return NO;
+                }
+            }
+        }
+        sqlite3_close(epiinfoDB);
     }
     return YES;
 }
 
 - (BOOL)deleteRowsWithGUIDs:(NSArray *)existingGuids
 {
+    NSMutableString *guidList = [NSMutableString stringWithString:[NSString stringWithFormat:@"'%@'", [arrayOfGUIDs objectAtIndex:0]]];
+    for (int i = 1; i < [arrayOfGUIDs count]; i++)
+    {
+        [guidList appendString:[NSString stringWithFormat:@", '%@'", [arrayOfGUIDs objectAtIndex:i]]];
+    }
+    NSString *sqlStatement = [NSString stringWithFormat:@"delete from %@ where GlobalRecordId in (%@)", [lvSelected text], guidList];
+    NSLog(@"%@", sqlStatement);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
+    {
+        NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+        
+        if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+        {
+            char *errMsg;
+            const char *query_stmt = [sqlStatement UTF8String];
+            if (sqlite3_exec(epiinfoDB, query_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+            {
+                NSLog(@"Failed to delete row from table.");
+                return NO;
+            }
+        }
+    }
+    sqlite3_close(epiinfoDB);
     return YES;
 }
 
