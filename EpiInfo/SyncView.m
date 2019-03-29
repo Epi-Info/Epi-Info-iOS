@@ -176,7 +176,153 @@
     [parser setDelegate:self];
     [parser setShouldResolveExternalEntities:YES];
     BOOL rc = [parser parse];
+    if (rc)
+    {
+        if ([arrayOfGUIDs count] * [arrayOfColumns count] == [arrayOfValues count])
+        {
+            NSLog(@"%lu rows * %lu columns = %lu values.", (unsigned long)[arrayOfGUIDs count], (unsigned long)[arrayOfColumns count], (unsigned long)[arrayOfValues count]);
+            NSArray *existingColumns = [self getExistingColumns];
+            for (NSString *st in arrayOfColumns)
+            {
+                if (![existingColumns containsObject:st])
+                {
+                    NSLog(@"Column %@ not found in %@.", st, [lvSelected text]);
+                    return NO;
+                }
+            }
+            NSArray *existingGUIDs = [self getExistingGUIDs];
+            NSMutableArray *guidsToReplace = [[NSMutableArray alloc] init];
+            for (NSString *st in arrayOfGUIDs)
+            {
+                if ([existingGUIDs containsObject:st])
+                    [guidsToReplace addObject:st];
+            }
+            if ([guidsToReplace count] > 0)
+            {
+                if (![self deleteRowsWithGUIDs:guidsToReplace])
+                {
+                    NSLog(@"Could not delete rows to be updated.");
+                    return NO;
+                }
+            }
+            if (![self insertRows])
+            {
+                NSLog(@"Could not insert rows.");
+                return NO;
+            }
+        }
+        else
+        {
+            NSLog(@"Colums:Values mismatch");
+        }
+    }
     return rc;
+}
+
+- (BOOL)insertRows
+{
+    int rows = (int)[arrayOfGUIDs count];
+    int columns = (int)[arrayOfColumns count];
+    AnalysisDataObject *ado = [[AnalysisDataObject alloc] initWithStoredDataTable:[lvSelected text]];
+    NSMutableString *insertString = [NSMutableString stringWithString:[NSString stringWithFormat:@"insert into %@(GlobalRecordId", [lvSelected text]]];
+    for (int i = 0; i < columns; i++)
+    {
+        [insertString appendString:@", "];
+        [insertString appendString:[arrayOfColumns objectAtIndex:i]];
+    }
+    [insertString appendString:@")"];
+    for (int i = 0; i < rows; i++)
+    {
+        NSMutableString *valuesClause = [NSMutableString stringWithString:[NSString stringWithFormat:@"values(\"%@\"", [arrayOfGUIDs objectAtIndex:i]]];
+        for (int j = 0; j < columns; j++)
+        {
+            int indx = i * columns + j;
+            [valuesClause appendString:@", "];
+            if ([(NSNumber *)[[ado dataTypes] objectForKey:[[ado columnNames] objectForKey:[arrayOfColumns objectAtIndex:j]]] intValue] > 1)
+            {
+                [valuesClause appendString:@"\""];
+            }
+            [valuesClause appendString:[arrayOfValues objectAtIndex:indx]];
+            if ([(NSNumber *)[[ado dataTypes] objectForKey:[[ado columnNames] objectForKey:[arrayOfColumns objectAtIndex:j]]] intValue] > 1)
+            {
+                [valuesClause appendString:@"\""];
+            }
+        }
+        [valuesClause appendString:@")"];
+        NSString *sqlStatement = [NSString stringWithFormat:@"%@ %@", insertString, valuesClause];
+        NSLog(@"%@", sqlStatement);
+    }
+    return YES;
+}
+
+- (BOOL)deleteRowsWithGUIDs:(NSArray *)existingGuids
+{
+    return YES;
+}
+
+- (NSArray *)getExistingGUIDs
+{
+    NSMutableArray *nsma = [[NSMutableArray alloc] init];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
+    {
+        NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+        
+        if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+        {
+            NSString *selStmt = [NSString stringWithFormat:@"select GlobalRecordId from %@", [lvSelected text]];
+            const char *query_stmt = [selStmt UTF8String];
+            sqlite3_stmt *statement;
+            if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+            {
+                while (sqlite3_step(statement) == SQLITE_ROW)
+                {
+                    int i = 0;
+                    while (sqlite3_column_name(statement, i))
+                    {
+                        [nsma addObject:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)]];
+                        i++;
+                    }
+                }
+            }
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(epiinfoDB);
+    }
+    return [NSArray arrayWithArray:nsma];
+}
+
+- (NSArray *)getExistingColumns
+{
+    NSMutableArray *nsma = [[NSMutableArray alloc] init];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
+    {
+        NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+        
+        if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+        {
+            NSString *selStmt = [NSString stringWithFormat:@"select * from %@", [lvSelected text]];
+            const char *query_stmt = [selStmt UTF8String];
+            sqlite3_stmt *statement;
+            if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+            {
+                while (sqlite3_step(statement) == SQLITE_ROW)
+                {
+                    int i = 0;
+                    while (sqlite3_column_name(statement, i))
+                    {
+                        [nsma addObject:[[NSString alloc] initWithUTF8String:sqlite3_column_name(statement, i)]];
+                        i++;
+                    }
+                    break;
+                }
+            }
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(epiinfoDB);
+    }
+    return [NSArray arrayWithArray:nsma];
 }
 
 - (void)saveTheForm

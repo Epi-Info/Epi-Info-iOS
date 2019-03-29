@@ -8,7 +8,9 @@
 #import <UIKit/UIKit.h>
 #import <CommonCrypto/CommonCrypto.h>
 #import <CommonCrypto/CommonKeyDerivation.h>
+#import "SQLiteData.h"
 #import "LegalValuesEnter.h"
+#import "AnalysisDataObject.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -35,6 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *arrayOfValues;
     
     BOOL doingResponseDetail;
+    
+    sqlite3 *epiinfoDB;
 }
 
 @property NSURL *url;
