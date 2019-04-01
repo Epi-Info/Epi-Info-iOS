@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "575579554.173948"
+            timestampString = "575822392.610014"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "6634"
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "575579554.1740561"
+            timestampString = "575822392.610195"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "6535"
@@ -122,28 +122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/SyncView.m"
-            timestampString = "575579554.17417"
+            timestampString = "575822392.6104029"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "216"
             endingLineNumber = "216"
             landmarkName = "-updateAppendData"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EpiInfo/SyncView.m"
-            timestampString = "575579554.174232"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "284"
-            endingLineNumber = "284"
-            landmarkName = "-deleteRowsWithGUIDs:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

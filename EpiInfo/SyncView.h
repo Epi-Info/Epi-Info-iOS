@@ -39,6 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
     BOOL doingResponseDetail;
     
     sqlite3 *epiinfoDB;
+    
+    NSString *createTableStatement;
+    NSMutableDictionary *dictionaryOfColumnsAndTypes;
 }
 
 @property NSURL *url;

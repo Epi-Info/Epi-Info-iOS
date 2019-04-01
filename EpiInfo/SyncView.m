@@ -223,7 +223,30 @@
 {
     int rows = (int)[arrayOfGUIDs count];
     int columns = (int)[arrayOfColumns count];
-    AnalysisDataObject *ado = [[AnalysisDataObject alloc] initWithStoredDataTable:[lvSelected text]];
+    
+    createTableStatement = @"";
+    dictionaryOfColumnsAndTypes = [[NSMutableDictionary alloc] init];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
+    {
+        NSString *epiInfoForms = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"];
+        NSURL *templateFile = [[NSURL alloc] initWithString:[@"file://" stringByAppendingString:[[[epiInfoForms stringByAppendingString:@"/"] stringByAppendingString:[lvSelected text]] stringByAppendingString:@".xml"]]];
+        NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:templateFile];
+        [parser setDelegate:self];
+        [parser setShouldResolveExternalEntities:YES];
+        BOOL rc = [parser parse];
+        if (!rc)
+        {
+            NSLog(@"Could not parse form template.");
+            return NO;
+        }
+    }
+    else
+    {
+        NSLog(@"No forms on this device.");
+        return NO;
+    }
+
     NSMutableString *insertString = [NSMutableString stringWithString:[NSString stringWithFormat:@"insert into %@(GlobalRecordId", [lvSelected text]]];
     for (int i = 0; i < columns; i++)
     {
@@ -238,12 +261,26 @@
         {
             int indx = i * columns + j;
             [valuesClause appendString:@", "];
-            if ([(NSNumber *)[[ado dataTypes] objectForKey:[[ado columnNames] objectForKey:[arrayOfColumns objectAtIndex:j]]] intValue] > 1)
+            if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] > 1)
             {
                 [valuesClause appendString:@"'"];
             }
-            [valuesClause appendString:[arrayOfValues objectAtIndex:indx]];
-            if ([(NSNumber *)[[ado dataTypes] objectForKey:[[ado columnNames] objectForKey:[arrayOfColumns objectAtIndex:j]]] intValue] > 1)
+            if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] == 3)
+            {
+                NSString *syncDate = [arrayOfValues objectAtIndex:indx];
+                NSArray *dateParts = [syncDate componentsSeparatedByString:@"-"];
+                NSString *mmddyyyy = @"";
+                if ([dateParts count] != 3)
+                {
+                    mmddyyyy = [[syncDate stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+                }
+                else
+                    mmddyyyy = [NSString stringWithFormat:@"%@/%@/%@", [dateParts objectAtIndex:1], [dateParts objectAtIndex:2], [dateParts objectAtIndex:0]];
+                [valuesClause appendString:mmddyyyy];
+            }
+            else
+                [valuesClause appendString:[arrayOfValues objectAtIndex:indx]];
+            if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] > 1)
             {
                 [valuesClause appendString:@"'"];
             }
@@ -462,6 +499,109 @@
         NSString *columnName = [attributeDict objectForKey:@"QuestionName"];
         if (![arrayOfColumns containsObject:columnName])
             [arrayOfColumns addObject:columnName];
+    }
+    else if ([elementName isEqualToString:@"Field"])
+    {
+        if (createTableStatement == nil)
+        {
+            createTableStatement = @"";
+        }
+        if (dictionaryOfColumnsAndTypes == nil)
+        {
+            dictionaryOfColumnsAndTypes = [[NSMutableDictionary alloc] init];
+        }
+        if ([createTableStatement length] == 0)
+        {
+            createTableStatement = [NSString stringWithFormat:@"create table %@(GlobalRecordID text", [lvSelected text]];
+        }
+        if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"1"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"2"])
+        {
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"3"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"4"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"5"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ real", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:1] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"6"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"7"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:3] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"8"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"9"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"10"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ integer", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:0] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"11"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ integer", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:0] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"15"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"17"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"18"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"19"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"14"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"12"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"25"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
     }
 }
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
