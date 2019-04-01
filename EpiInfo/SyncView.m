@@ -191,24 +191,45 @@
                 }
             }
             NSArray *existingGUIDs = [self getExistingGUIDs];
-            NSMutableArray *guidsToReplace = [[NSMutableArray alloc] init];
-            for (NSString *st in arrayOfGUIDs)
+            NSMutableArray *guidsToUpdate = [[NSMutableArray alloc] init];
+            NSMutableArray *guidsToAdd = [[NSMutableArray alloc] init];
+            NSMutableArray *valuesToUpdate = [[NSMutableArray alloc] init];
+            NSMutableArray *valuesToAdd = [[NSMutableArray alloc] init];
+            for (int i = 0; i < [arrayOfGUIDs count]; i++)
             {
+                NSString *st = [arrayOfGUIDs objectAtIndex:i];
                 if ([existingGUIDs containsObject:st])
-                    [guidsToReplace addObject:st];
-            }
-            if ([guidsToReplace count] > 0)
-            {
-                if (![self deleteRowsWithGUIDs:guidsToReplace])
                 {
-                    NSLog(@"Could not delete rows to be updated.");
+                    [guidsToUpdate addObject:st];
+                    for (int j = 0; j < [arrayOfColumns count]; j++)
+                    {
+                        [valuesToUpdate addObject:[arrayOfValues objectAtIndex:i * [arrayOfColumns count] + j]];
+                    }
+                }
+                else
+                {
+                    [guidsToAdd addObject:st];
+                    for (int j = 0; j < [arrayOfColumns count]; j++)
+                    {
+                        [valuesToAdd addObject:[arrayOfValues objectAtIndex:i * [arrayOfColumns count] + j]];
+                    }
+                }
+            }
+            if ([guidsToUpdate count] > 0)
+            {
+                if (![self updateRowsWithGUIDs:guidsToUpdate AndValues:valuesToUpdate])
+                {
+                    NSLog(@"Could not update rows to be updated.");
                     return NO;
                 }
             }
-            if (![self insertRows])
+            if ([guidsToAdd count] > 0)
             {
-                NSLog(@"Could not insert rows.");
-                return NO;
+                if (![self insertRowsWithGUIDs:guidsToAdd AndValues:valuesToAdd])
+                {
+                    NSLog(@"Could not insert rows.");
+                    return NO;
+                }
             }
         }
         else
@@ -219,9 +240,9 @@
     return rc;
 }
 
-- (BOOL)insertRows
+- (BOOL)insertRowsWithGUIDs:(NSArray *)newGUIDs AndValues:(NSArray *)newValues
 {
-    int rows = (int)[arrayOfGUIDs count];
+    int rows = (int)[newGUIDs count];
     int columns = (int)[arrayOfColumns count];
     
     createTableStatement = @"";
@@ -256,7 +277,7 @@
     [insertString appendString:@")"];
     for (int i = 0; i < rows; i++)
     {
-        NSMutableString *valuesClause = [NSMutableString stringWithString:[NSString stringWithFormat:@"values('%@'", [arrayOfGUIDs objectAtIndex:i]]];
+        NSMutableString *valuesClause = [NSMutableString stringWithString:[NSString stringWithFormat:@"values('%@'", [newGUIDs objectAtIndex:i]]];
         for (int j = 0; j < columns; j++)
         {
             int indx = i * columns + j;
@@ -267,7 +288,7 @@
             }
             if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] == 3)
             {
-                NSString *syncDate = [arrayOfValues objectAtIndex:indx];
+                NSString *syncDate = [newValues objectAtIndex:indx];
                 NSArray *dateParts = [syncDate componentsSeparatedByString:@"-"];
                 NSString *mmddyyyy = @"";
                 if ([dateParts count] != 3)
@@ -279,7 +300,7 @@
                 [valuesClause appendString:mmddyyyy];
             }
             else
-                [valuesClause appendString:[arrayOfValues objectAtIndex:indx]];
+                [valuesClause appendString:[newValues objectAtIndex:indx]];
             if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] > 1)
             {
                 [valuesClause appendString:@"'"];
@@ -300,6 +321,94 @@
                 if (sqlite3_exec(epiinfoDB, query_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
                 {
                     NSLog(@"Failed to insert row into table.");
+                    return NO;
+                }
+            }
+        }
+        sqlite3_close(epiinfoDB);
+    }
+    return YES;
+}
+
+- (BOOL)updateRowsWithGUIDs:(NSArray *)existingGuids AndValues:(NSArray *)updatedValues
+{
+    int rows = (int)[existingGuids count];
+    int columns = (int)[arrayOfColumns count];
+    
+    createTableStatement = @"";
+    dictionaryOfColumnsAndTypes = [[NSMutableDictionary alloc] init];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
+    {
+        NSString *epiInfoForms = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"];
+        NSURL *templateFile = [[NSURL alloc] initWithString:[@"file://" stringByAppendingString:[[[epiInfoForms stringByAppendingString:@"/"] stringByAppendingString:[lvSelected text]] stringByAppendingString:@".xml"]]];
+        NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:templateFile];
+        [parser setDelegate:self];
+        [parser setShouldResolveExternalEntities:YES];
+        BOOL rc = [parser parse];
+        if (!rc)
+        {
+            NSLog(@"Could not parse form template.");
+            return NO;
+        }
+    }
+    else
+    {
+        NSLog(@"No forms on this device.");
+        return NO;
+    }
+
+    for (int i = 0; i < rows; i++)
+    {
+        NSMutableString *updateString = [NSMutableString stringWithString:[NSString stringWithFormat:@"update %@\nset ", [lvSelected text]]];
+        NSString *whereClause = [NSString stringWithFormat:@" where GlobalRecordId = '%@'", [existingGuids objectAtIndex:i]];
+        for (int j = 0; j < columns; j++)
+        {
+            int indx = i * columns + j;
+            if (j > 0)
+            {
+                [updateString appendString:@",\n"];
+            }
+            [updateString appendString:[arrayOfColumns objectAtIndex:j]];
+            [updateString appendString:@" = "];
+            if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] > 1)
+            {
+                [updateString appendString:@"'"];
+            }
+            if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] == 3)
+            {
+                NSString *syncDate = [updatedValues objectAtIndex:indx];
+                NSArray *dateParts = [syncDate componentsSeparatedByString:@"-"];
+                NSString *mmddyyyy = @"";
+                if ([dateParts count] != 3)
+                {
+                    mmddyyyy = [[syncDate stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+                }
+                else
+                    mmddyyyy = [NSString stringWithFormat:@"%@/%@/%@", [dateParts objectAtIndex:1], [dateParts objectAtIndex:2], [dateParts objectAtIndex:0]];
+                [updateString appendString:mmddyyyy];
+            }
+            else
+                [updateString appendString:[updatedValues objectAtIndex:indx]];
+            if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] > 1)
+            {
+                [updateString appendString:@"'"];
+            }
+        }
+        NSString *sqlStatement = [NSString stringWithFormat:@"%@\n%@", updateString, whereClause];
+        NSLog(@"%@", sqlStatement);
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
+        {
+            NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+            
+            if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+            {
+                char *errMsg;
+                const char *query_stmt = [sqlStatement UTF8String];
+                if (sqlite3_exec(epiinfoDB, query_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                {
+                    NSLog(@"Failed to update row in table.");
                     return NO;
                 }
             }
