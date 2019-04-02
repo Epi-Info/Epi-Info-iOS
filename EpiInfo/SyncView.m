@@ -179,6 +179,7 @@
     arrayOfGUIDs = [[NSMutableArray alloc] init];
     arrayOfColumns = [[NSMutableArray alloc] init];
     arrayOfValues = [[NSMutableArray alloc] init];
+    arrayOfCheckboxes = [[NSMutableArray alloc] init];
     doingResponseDetail = NO;
     NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[dataText dataUsingEncoding:NSUTF8StringEncoding]];
     [parser setDelegate:self];
@@ -248,7 +249,7 @@
     return rc;
 }
 
-- (int)insertRowsWithGUIDs:(NSArray *)newGUIDs AndValues:(NSArray *)newValues
+- (int)insertRowsWithGUIDs:(NSArray *)newGUIDs AndValues:(NSMutableArray *)newValues
 {
     int rows = (int)[newGUIDs count];
     int columns = (int)[arrayOfColumns count];
@@ -289,6 +290,23 @@
         for (int j = 0; j < columns; j++)
         {
             int indx = i * columns + j;
+            if ([arrayOfCheckboxes count] > 0)
+            {
+                if ([arrayOfCheckboxes containsObject:[arrayOfColumns objectAtIndex:j]])
+                {
+                    if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] ==0)
+                    {
+                        if ([[[newValues objectAtIndex:indx] lowercaseString] isEqualToString:@"true"])
+                        {
+                            [newValues setObject:@"1" atIndexedSubscript:indx];
+                        }
+                        else
+                        {
+                            [newValues setObject:@"0" atIndexedSubscript:indx];
+                        }
+                    }
+                }
+            }
             [valuesClause appendString:@", "];
             if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] > 1)
             {
@@ -502,15 +520,11 @@
             sqlite3_stmt *statement;
             if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
             {
-                while (sqlite3_step(statement) == SQLITE_ROW)
+                int i = 0;
+                while (sqlite3_column_name(statement, i))
                 {
-                    int i = 0;
-                    while (sqlite3_column_name(statement, i))
-                    {
-                        [nsma addObject:[[NSString alloc] initWithUTF8String:sqlite3_column_name(statement, i)]];
-                        i++;
-                    }
-                    break;
+                    [nsma addObject:[[NSString alloc] initWithUTF8String:sqlite3_column_name(statement, i)]];
+                    i++;
                 }
             }
             else
@@ -546,15 +560,11 @@
                             [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: SUBMIT: %@ table created\n", [NSDate date], formName]];
                             if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
                             {
-                                while (sqlite3_step(statement) == SQLITE_ROW)
+                                int i = 0;
+                                while (sqlite3_column_name(statement, i))
                                 {
-                                    int i = 0;
-                                    while (sqlite3_column_name(statement, i))
-                                    {
-                                        [nsma addObject:[[NSString alloc] initWithUTF8String:sqlite3_column_name(statement, i)]];
-                                        i++;
-                                    }
-                                    break;
+                                    [nsma addObject:[[NSString alloc] initWithUTF8String:sqlite3_column_name(statement, i)]];
+                                    i++;
                                 }
                             }
                         }
@@ -731,6 +741,7 @@
         {
             createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ integer", [attributeDict objectForKey:@"Name"]]];
             [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:0] forKey:[attributeDict objectForKey:@"Name"]];
+            [arrayOfCheckboxes addObject:[attributeDict objectForKey:@"Name"]];
         }
         else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"11"])
         {

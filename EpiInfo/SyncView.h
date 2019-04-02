@@ -36,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *arrayOfGUIDs;
     NSMutableArray *arrayOfColumns;
     NSMutableArray *arrayOfValues;
+    NSMutableArray *arrayOfCheckboxes;
     
     BOOL doingResponseDetail;
     
