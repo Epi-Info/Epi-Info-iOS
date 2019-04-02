@@ -12,6 +12,14 @@
 @synthesize rootViewController = _rootViewController;
 @synthesize fakeNavBar = _fakeNavBar;
 
+#define SUCCESS ((int) 1000)
+#define INSERT_COULD_NOT_PARSE_FORM ((int) 1001)
+#define INSERT_NO_FORMS_FOUND ((int) 1002)
+#define INSERT_COULD_NOT_INSERT ((int) 1003)
+#define UPDATE_COULD_NOT_PARSE_FORM ((int) 1004)
+#define UPDATE_NO_FORMS_FOUND ((int) 1005)
+#define UPDATE_COULD_NOT_UPDATE ((int) 1006)
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -217,7 +225,7 @@
             }
             if ([guidsToUpdate count] > 0)
             {
-                if (![self updateRowsWithGUIDs:guidsToUpdate AndValues:valuesToUpdate])
+                if ([self updateRowsWithGUIDs:guidsToUpdate AndValues:valuesToUpdate] != SUCCESS)
                 {
                     NSLog(@"Could not update rows to be updated.");
                     return NO;
@@ -225,7 +233,7 @@
             }
             if ([guidsToAdd count] > 0)
             {
-                if (![self insertRowsWithGUIDs:guidsToAdd AndValues:valuesToAdd])
+                if ([self insertRowsWithGUIDs:guidsToAdd AndValues:valuesToAdd] != SUCCESS)
                 {
                     NSLog(@"Could not insert rows.");
                     return NO;
@@ -240,7 +248,7 @@
     return rc;
 }
 
-- (BOOL)insertRowsWithGUIDs:(NSArray *)newGUIDs AndValues:(NSArray *)newValues
+- (int)insertRowsWithGUIDs:(NSArray *)newGUIDs AndValues:(NSArray *)newValues
 {
     int rows = (int)[newGUIDs count];
     int columns = (int)[arrayOfColumns count];
@@ -259,13 +267,13 @@
         if (!rc)
         {
             NSLog(@"Could not parse form template.");
-            return NO;
+            return INSERT_COULD_NOT_PARSE_FORM;
         }
     }
     else
     {
         NSLog(@"No forms on this device.");
-        return NO;
+        return INSERT_NO_FORMS_FOUND;
     }
 
     NSMutableString *insertString = [NSMutableString stringWithString:[NSString stringWithFormat:@"insert into %@(GlobalRecordId", [lvSelected text]]];
@@ -321,16 +329,16 @@
                 if (sqlite3_exec(epiinfoDB, query_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
                 {
                     NSLog(@"Failed to insert row into table.");
-                    return NO;
+                    return INSERT_COULD_NOT_INSERT;
                 }
             }
         }
         sqlite3_close(epiinfoDB);
     }
-    return YES;
+    return SUCCESS;
 }
 
-- (BOOL)updateRowsWithGUIDs:(NSArray *)existingGuids AndValues:(NSArray *)updatedValues
+- (int)updateRowsWithGUIDs:(NSArray *)existingGuids AndValues:(NSArray *)updatedValues
 {
     int rows = (int)[existingGuids count];
     int columns = (int)[arrayOfColumns count];
@@ -349,13 +357,13 @@
         if (!rc)
         {
             NSLog(@"Could not parse form template.");
-            return NO;
+            return UPDATE_COULD_NOT_PARSE_FORM;
         }
     }
     else
     {
         NSLog(@"No forms on this device.");
-        return NO;
+        return UPDATE_NO_FORMS_FOUND;
     }
 
     for (int i = 0; i < rows; i++)
@@ -409,13 +417,13 @@
                 if (sqlite3_exec(epiinfoDB, query_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
                 {
                     NSLog(@"Failed to update row in table.");
-                    return NO;
+                    return UPDATE_COULD_NOT_UPDATE;
                 }
             }
         }
         sqlite3_close(epiinfoDB);
     }
-    return YES;
+    return SUCCESS;
 }
 
 - (BOOL)deleteRowsWithGUIDs:(NSArray *)existingGuids

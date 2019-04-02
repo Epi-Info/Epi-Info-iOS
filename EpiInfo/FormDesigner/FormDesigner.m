@@ -4186,13 +4186,26 @@
         {
             MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
             [composer setMailComposeDelegate:self];
-            [composer addAttachmentData:[NSData dataWithContentsOfFile:filePathAndName] mimeType:@"text/plain" fileName:[formName stringByAppendingString:@".xml"]];
+            [composer addAttachmentData:[[self removeActualPageNumbers] dataUsingEncoding:NSUTF8StringEncoding] mimeType:@"text/plain" fileName:[formName stringByAppendingString:@".xml"]];
             [composer setSubject:@"Epi Info Form"];
             [composer setMessageBody:@"Here is an Epi Info form template." isHTML:NO];
             [self.rootViewController presentViewController:composer animated:YES completion:^(void){
             }];
         }
     }
+}
+
+- (NSString *)removeActualPageNumbers
+{
+    NSString *xmlString = [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:[@"file://" stringByAppendingString:[[[epiInfoForms stringByAppendingString:@"/"] stringByAppendingString:formName] stringByAppendingString:@".xml"]]] encoding:NSUTF8StringEncoding error:nil];
+    while ([xmlString containsString:@" ActualPageNumber=\""])
+    {
+        NSRange apnrange = [xmlString rangeOfString:@" ActualPageNumber=\""];
+        int indexofsecondquote = (int)[[xmlString substringFromIndex:apnrange.location + apnrange.length] rangeOfString:@"\""].location;
+        NSRange rangetoremove = NSMakeRange(apnrange.location, apnrange.length + indexofsecondquote + 1);
+        xmlString = [xmlString stringByReplacingCharactersInRange:rangetoremove withString:@""];
+    }
+    return xmlString;
 }
 
 - (void)upDownDeletePressed:(UIButton *)sender
