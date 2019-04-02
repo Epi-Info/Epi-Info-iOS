@@ -513,6 +513,59 @@
                     break;
                 }
             }
+            else
+            {
+                createTableStatement = @"";
+                dictionaryOfColumnsAndTypes = [[NSMutableDictionary alloc] init];
+                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
+                {
+                    NSString *epiInfoForms = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"];
+                    NSURL *templateFile = [[NSURL alloc] initWithString:[@"file://" stringByAppendingString:[[[epiInfoForms stringByAppendingString:@"/"] stringByAppendingString:[lvSelected text]] stringByAppendingString:@".xml"]]];
+                    NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:templateFile];
+                    [parser setDelegate:self];
+                    [parser setShouldResolveExternalEntities:YES];
+                    BOOL rc = [parser parse];
+                    if (!rc)
+                    {
+                        NSLog(@"Could not parse form template.");
+                        return [NSArray arrayWithArray:nsma];
+                    }
+                    else
+                    {
+                        createTableStatement = [createTableStatement stringByAppendingString:@")"];
+                        char *errMsg;
+                        const char *sql_stmt = [createTableStatement UTF8String];
+                        if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                        {
+                            NSLog(@"Failed to create table: %s :::: %@", errMsg, createTableStatement);
+                            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: SUBMIT: Failed to create table: %s :::: %@\n", [NSDate date], errMsg, createTableStatement]];
+                        }
+                        else
+                        {
+                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: SUBMIT: %@ table created\n", [NSDate date], formName]];
+                            if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+                            {
+                                while (sqlite3_step(statement) == SQLITE_ROW)
+                                {
+                                    int i = 0;
+                                    while (sqlite3_column_name(statement, i))
+                                    {
+                                        [nsma addObject:[[NSString alloc] initWithUTF8String:sqlite3_column_name(statement, i)]];
+                                        i++;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    NSLog(@"No forms on this device.");
+                    return [NSArray arrayWithArray:nsma];
+                }
+            }
             sqlite3_finalize(statement);
         }
         sqlite3_close(epiinfoDB);

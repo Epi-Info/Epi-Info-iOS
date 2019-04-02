@@ -11,6 +11,7 @@
 #import "SQLiteData.h"
 #import "LegalValuesEnter.h"
 #import "AnalysisDataObject.h"
+#import "EpiInfoLogManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
