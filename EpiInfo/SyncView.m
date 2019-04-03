@@ -195,7 +195,12 @@
             {
                 if (![existingColumns containsObject:st])
                 {
-                    NSLog(@"Column %@ not found in %@.", st, [lvSelected text]);
+                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Sync File Import: Column %@ not found in %@.\n", [NSDate date], st, [lvSelected text]]];
+                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Import" message:[NSString stringWithFormat:@"Column %@ not found in %@.", st, [lvSelected text]] preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    }];
+                    [alertC addAction:okAction];
+                    [self.rootViewController presentViewController:alertC animated:YES completion:nil];
                     return NO;
                 }
             }
@@ -224,26 +229,56 @@
                     }
                 }
             }
+            int resultByte = 10000000;
             if ([guidsToUpdate count] > 0)
             {
+                resultByte += 1000;
                 if ([self updateRowsWithGUIDs:guidsToUpdate AndValues:valuesToUpdate] != SUCCESS)
                 {
-                    NSLog(@"Could not update rows to be updated.");
-                    return NO;
+                    rc = NO;
+                }
+                else
+                {
+                    resultByte += 100;
                 }
             }
             if ([guidsToAdd count] > 0)
             {
+                resultByte += 10;
                 if ([self insertRowsWithGUIDs:guidsToAdd AndValues:valuesToAdd] != SUCCESS)
                 {
-                    NSLog(@"Could not insert rows.");
-                    return NO;
+                    rc = NO;
+                }
+                else
+                {
+                    resultByte += 1;
                 }
             }
+            NSString *alertMessage = @"No records to add or update.";
+            if (resultByte == 10001000)
+                alertMessage = @"Problem updating existing records. See Error Log for details.";
+            else if (resultByte == 10001100)
+                alertMessage = [NSString stringWithFormat:@"%lu records updated.", (unsigned long)[guidsToUpdate count]];
+            else if (resultByte == 10000010)
+                alertMessage = @"Problem adding new records. See Error Log for details.";
+            else if (resultByte == 10000011)
+                alertMessage = [NSString stringWithFormat:@"%lu records added.", (unsigned long)[guidsToAdd count]];
+            else if (resultByte == 10001011)
+                alertMessage = [NSString stringWithFormat:@"%lu records added.\nProblem updating existing records. See Error Log for details.", (unsigned long)[guidsToAdd count]];
+            else if (resultByte == 10001110)
+                alertMessage = [NSString stringWithFormat:@"%lu records updated.\nProblem adding new records. See Error Log for details.", (unsigned long)[guidsToUpdate count]];
+            else if (resultByte == 10001111)
+                alertMessage = [NSString stringWithFormat:@"%lu records updated.\n%lu records added.", (unsigned long)[guidsToUpdate count], (unsigned long)[guidsToAdd count]];
+            UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Import" message:alertMessage preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            }];
+            [alertC addAction:okAction];
+            [self.rootViewController presentViewController:alertC animated:YES completion:nil];
         }
         else
         {
             NSLog(@"Colums:Values mismatch");
+            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Sync File Import: Columns:Values mismatch\n", [NSDate date]]];
         }
     }
     return rc;
@@ -267,13 +302,13 @@
         BOOL rc = [parser parse];
         if (!rc)
         {
-            NSLog(@"Could not parse form template.");
+            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Sync File Import: Could not parse XML for form %@\n", [NSDate date], [lvSelected text]]];
             return INSERT_COULD_NOT_PARSE_FORM;
         }
     }
     else
     {
-        NSLog(@"No forms on this device.");
+        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Sync File Import: Could not find forms on this device\n", [NSDate date]]];
         return INSERT_NO_FORMS_FOUND;
     }
 
@@ -346,13 +381,14 @@
                 const char *query_stmt = [sqlStatement UTF8String];
                 if (sqlite3_exec(epiinfoDB, query_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
                 {
-                    NSLog(@"Failed to insert row into table.");
+                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Sync File Import: Could not add rows for form %@\n", [NSDate date], [lvSelected text]]];
                     return INSERT_COULD_NOT_INSERT;
                 }
             }
         }
         sqlite3_close(epiinfoDB);
     }
+    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Sync File Import: Added %d records for form %@\n", [NSDate date], rows, [lvSelected text]]];
     return SUCCESS;
 }
 
@@ -374,13 +410,13 @@
         BOOL rc = [parser parse];
         if (!rc)
         {
-            NSLog(@"Could not parse form template.");
+            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Sync File Import: Could not parse XML for form %@\n", [NSDate date], [lvSelected text]]];
             return UPDATE_COULD_NOT_PARSE_FORM;
         }
     }
     else
     {
-        NSLog(@"No forms on this device.");
+        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Sync File Import: Could not find forms on this device\n", [NSDate date]]];
         return UPDATE_NO_FORMS_FOUND;
     }
 
@@ -451,13 +487,14 @@
                 const char *query_stmt = [sqlStatement UTF8String];
                 if (sqlite3_exec(epiinfoDB, query_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
                 {
-                    NSLog(@"Failed to update row in table.");
+                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Sync File Import: Could not update row in table %@\n", [NSDate date], [lvSelected text]]];
                     return UPDATE_COULD_NOT_UPDATE;
                 }
             }
         }
         sqlite3_close(epiinfoDB);
     }
+    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Sync File Import: Updated %d records for form %@\n", [NSDate date], rows, [lvSelected text]]];
     return SUCCESS;
 }
 
@@ -481,7 +518,7 @@
             const char *query_stmt = [sqlStatement UTF8String];
             if (sqlite3_exec(epiinfoDB, query_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
             {
-                NSLog(@"Failed to delete row from table.");
+                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Sync File Import: Could not delete row from table %@\n", [NSDate date], [lvSelected text]]];
                 return NO;
             }
         }
@@ -514,6 +551,10 @@
                         i++;
                     }
                 }
+            }
+            else
+            {
+                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Sync File Import: Could not query existing GlobalRecordIDs for form %@\n", [NSDate date], [lvSelected text]]];
             }
             sqlite3_finalize(statement);
         }
@@ -559,7 +600,7 @@
                     BOOL rc = [parser parse];
                     if (!rc)
                     {
-                        NSLog(@"Could not parse form template.");
+                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Sync File Import: Could not parse XML for form %@\n", [NSDate date], [lvSelected text]]];
                         return [NSArray arrayWithArray:nsma];
                     }
                     else
@@ -569,7 +610,6 @@
                         const char *sql_stmt = [createTableStatement UTF8String];
                         if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
                         {
-                            NSLog(@"Failed to create table: %s :::: %@", errMsg, createTableStatement);
                             [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: SUBMIT: Failed to create table: %s :::: %@\n", [NSDate date], errMsg, createTableStatement]];
                         }
                         else
@@ -589,7 +629,7 @@
                 }
                 else
                 {
-                    NSLog(@"No forms on this device.");
+                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Sync File Import: No forms on this device\n", [NSDate date]]];
                     return [NSArray arrayWithArray:nsma];
                 }
             }
