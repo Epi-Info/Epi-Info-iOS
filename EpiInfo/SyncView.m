@@ -294,7 +294,7 @@
             {
                 if ([arrayOfCheckboxes containsObject:[arrayOfColumns objectAtIndex:j]])
                 {
-                    if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] ==0)
+                    if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] == 0)
                     {
                         if ([[[newValues objectAtIndex:indx] lowercaseString] isEqualToString:@"true"])
                         {
@@ -356,7 +356,7 @@
     return SUCCESS;
 }
 
-- (int)updateRowsWithGUIDs:(NSArray *)existingGuids AndValues:(NSArray *)updatedValues
+- (int)updateRowsWithGUIDs:(NSArray *)existingGuids AndValues:(NSMutableArray *)updatedValues
 {
     int rows = (int)[existingGuids count];
     int columns = (int)[arrayOfColumns count];
@@ -391,6 +391,23 @@
         for (int j = 0; j < columns; j++)
         {
             int indx = i * columns + j;
+            if ([arrayOfCheckboxes count] > 0)
+            {
+                if ([arrayOfCheckboxes containsObject:[arrayOfColumns objectAtIndex:j]])
+                {
+                    if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] == 0)
+                    {
+                        if ([[[updatedValues objectAtIndex:indx] lowercaseString] isEqualToString:@"true"])
+                        {
+                            [updatedValues setObject:@"1" atIndexedSubscript:indx];
+                        }
+                        else
+                        {
+                            [updatedValues setObject:@"0" atIndexedSubscript:indx];
+                        }
+                    }
+                }
+            }
             if (j > 0)
             {
                 [updateString appendString:@",\n"];
