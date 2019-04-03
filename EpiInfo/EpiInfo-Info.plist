@@ -38,11 +38,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>4.1.1</string>
+	<string>5.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>1</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationCategoryType</key>
@@ -56,9 +56,9 @@
 	<key>NSHumanReadableCopyright</key>
 	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Epi Info would like to use your location to assist you in populating Latitude and Longitude fields in questionnaire forms that include location. This information is collected only upon your request. It is saved only in Epi Info questionnaire data and will never be transmitted or stored elsewhere unless you follow the app&apos;s procedure for encrypting and transferring data.</string>
+	<string>Epi Info would like to use your location to assist you in populating Latitude and Longitude fields in questionnaire forms that include location. This information is collected only upon your request. It is saved only in Epi Info questionnaire data and will never be transmitted or stored elsewhere unless you follow the app's procedure for encrypting and transferring data.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Epi Info would like to access your camera to capture images for questionnaire Image Fields. Image capturing by Image Fields will be executed only by you. Images will be stored only in Epi Info data and will not be stored in the device camera&apos;s storage location and will never be shared, transmitted, or stored elsewhere unless you follow the app&apos;s procedure for encrypting and transferring data.</string>
+	<string>Epi Info would like to access your camera to capture images for questionnaire Image Fields. Image capturing by Image Fields will be executed only by you. Images will be stored only in Epi Info data and will not be stored in the device camera's storage location and will never be shared, transmitted, or stored elsewhere unless you follow the app's procedure for encrypting and transferring data.</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UIMainStoryboardFile</key>
