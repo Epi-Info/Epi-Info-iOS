@@ -4650,7 +4650,17 @@
     if ([formElements containsObject:[[(UITextField *)[[textField superview] viewWithTag:1001002] text] lowercaseString]] ||
         [reservedWords containsObject:[[(UITextField *)[[textField superview] viewWithTag:1001002] text] lowercaseString]] ||
         ([[(UITextField *)[[textField superview] viewWithTag:1001002] text] length] > 0 &&
-         [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '_'))
+         ([[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '_' ||
+          [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '0' ||
+          [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '1' ||
+          [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '2' ||
+          [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '3' ||
+          [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '4' ||
+          [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '5' ||
+          [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '6' ||
+          [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '7' ||
+          [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '8' ||
+          [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '9')))
     {
         [(UIButton *)[[textField superview] viewWithTag:1001003] setEnabled:NO];
         [(UIButton *)[[textField superview] viewWithTag:1001004] setEnabled:NO];
