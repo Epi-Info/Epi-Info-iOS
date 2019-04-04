@@ -4623,6 +4623,16 @@
 
 - (void)textFieldChanged:(UITextField *)textField
 {
+    if ([textField tag] == 1001002)
+    {
+        NSCharacterSet *validSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"];
+        if ([[[textField text] stringByTrimmingCharactersInSet:validSet] length] > 0)
+        {
+            NSCharacterSet *invalidSet = [NSCharacterSet characterSetWithCharactersInString:[[textField text] stringByTrimmingCharactersInSet:validSet]];
+            NSString *compressedText = [[textField text] stringByTrimmingCharactersInSet:invalidSet];
+            [textField setText:compressedText];
+        }
+    }
     if (![(UITextField *)[[textField superview] viewWithTag:1001002] isEnabled])
         return;
     if ([[(UITextField *)[[textField superview] viewWithTag:1001001] text] length] > 0 && [[(UITextField *)[[textField superview] viewWithTag:1001002] text] length] > 0)
