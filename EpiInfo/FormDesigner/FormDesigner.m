@@ -924,6 +924,7 @@
     [controlViewFieldNameText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
     [controlViewFieldNameText setReturnKeyType:UIReturnKeyDone];
     [controlViewFieldNameText setTag:1001002];
+    [controlViewFieldNameText setAutocorrectionType:UITextAutocorrectionTypeNo];
     [controlViewGrayBackground addSubview:controlViewFieldNameText];
     
     UIButton *controlViewMoveUpButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 3 - 1, 0)];
@@ -1041,6 +1042,7 @@
     [controlViewFieldNameText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
     [controlViewFieldNameText setReturnKeyType:UIReturnKeyDone];
     [controlViewFieldNameText setTag:1001002];
+    [controlViewFieldNameText setAutocorrectionType:UITextAutocorrectionTypeNo];
     [controlViewGrayBackground addSubview:controlViewFieldNameText];
     
     UIButton *controlViewMoveUpButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 3 - 1, 0)];
@@ -1170,6 +1172,7 @@
     [controlViewFieldNameText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
     [controlViewFieldNameText setReturnKeyType:UIReturnKeyDone];
     [controlViewFieldNameText setTag:1001002];
+    [controlViewFieldNameText setAutocorrectionType:UITextAutocorrectionTypeNo];
     [controlViewGrayBackground addSubview:controlViewFieldNameText];
     
     UIButton *controlViewMoveUpButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 3 - 1, 0)];
@@ -1299,6 +1302,7 @@
     [controlViewFieldNameText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
     [controlViewFieldNameText setReturnKeyType:UIReturnKeyDone];
     [controlViewFieldNameText setTag:1001002];
+    [controlViewFieldNameText setAutocorrectionType:UITextAutocorrectionTypeNo];
     [controlViewGrayBackground addSubview:controlViewFieldNameText];
     
     UIButton *controlViewMoveUpButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 3 - 1, 0)];
@@ -1428,6 +1432,7 @@
     [controlViewFieldNameText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
     [controlViewFieldNameText setReturnKeyType:UIReturnKeyDone];
     [controlViewFieldNameText setTag:1001002];
+    [controlViewFieldNameText setAutocorrectionType:UITextAutocorrectionTypeNo];
     [controlViewGrayBackground addSubview:controlViewFieldNameText];
     
     UIButton *controlViewMoveUpButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 3 - 1, 0)];
@@ -1557,6 +1562,7 @@
     [controlViewFieldNameText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
     [controlViewFieldNameText setReturnKeyType:UIReturnKeyDone];
     [controlViewFieldNameText setTag:1001002];
+    [controlViewFieldNameText setAutocorrectionType:UITextAutocorrectionTypeNo];
     [controlViewGrayBackground addSubview:controlViewFieldNameText];
     
     UIButton *controlViewMoveUpButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 3 - 1, 0)];
@@ -1686,6 +1692,7 @@
     [controlViewFieldNameText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
     [controlViewFieldNameText setReturnKeyType:UIReturnKeyDone];
     [controlViewFieldNameText setTag:1001002];
+    [controlViewFieldNameText setAutocorrectionType:UITextAutocorrectionTypeNo];
     [controlViewGrayBackground addSubview:controlViewFieldNameText];
     
     UIButton *controlViewMoveUpButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 3 - 1, 0)];
@@ -1815,6 +1822,7 @@
     [controlViewFieldNameText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
     [controlViewFieldNameText setReturnKeyType:UIReturnKeyDone];
     [controlViewFieldNameText setTag:1001002];
+    [controlViewFieldNameText setAutocorrectionType:UITextAutocorrectionTypeNo];
     [controlViewGrayBackground addSubview:controlViewFieldNameText];
     
     UIButton *controlViewMoveUpButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 3 - 1, 0)];
@@ -1944,6 +1952,7 @@
     [controlViewFieldNameText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
     [controlViewFieldNameText setReturnKeyType:UIReturnKeyDone];
     [controlViewFieldNameText setTag:1001002];
+    [controlViewFieldNameText setAutocorrectionType:UITextAutocorrectionTypeNo];
     [controlViewGrayBackground addSubview:controlViewFieldNameText];
     
     UIButton *controlViewMoveUpButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 3 - 1, 0)];
@@ -2073,6 +2082,7 @@
     [controlViewFieldNameText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
     [controlViewFieldNameText setReturnKeyType:UIReturnKeyDone];
     [controlViewFieldNameText setTag:1001002];
+    [controlViewFieldNameText setAutocorrectionType:UITextAutocorrectionTypeNo];
     [controlViewGrayBackground addSubview:controlViewFieldNameText];
     
     UIButton *controlViewMoveUpButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 3 - 1, 0)];
@@ -2237,6 +2247,7 @@
     [controlViewFieldNameText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
     [controlViewFieldNameText setReturnKeyType:UIReturnKeyDone];
     [controlViewFieldNameText setTag:1001002];
+    [controlViewFieldNameText setAutocorrectionType:UITextAutocorrectionTypeNo];
     [controlViewGrayBackground addSubview:controlViewFieldNameText];
     
     UIButton *controlViewMoveUpButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 3 - 1, 0)];
@@ -2366,6 +2377,7 @@
     [controlViewFieldNameText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
     [controlViewFieldNameText setReturnKeyType:UIReturnKeyDone];
     [controlViewFieldNameText setTag:1001002];
+    [controlViewFieldNameText setAutocorrectionType:UITextAutocorrectionTypeNo];
     [controlViewGrayBackground addSubview:controlViewFieldNameText];
     
     UIButton *controlViewMoveUpButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 3 - 1, 0)];
@@ -2532,6 +2544,7 @@
     [controlViewFieldNameText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
     [controlViewFieldNameText setReturnKeyType:UIReturnKeyDone];
     [controlViewFieldNameText setTag:1001002];
+    [controlViewFieldNameText setAutocorrectionType:UITextAutocorrectionTypeNo];
     [controlViewGrayBackground addSubview:controlViewFieldNameText];
     
     UIButton *controlViewMoveUpButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 3 - 1, 0)];
