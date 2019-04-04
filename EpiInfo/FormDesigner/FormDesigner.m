@@ -4648,7 +4648,9 @@
             return;
     }
     if ([formElements containsObject:[[(UITextField *)[[textField superview] viewWithTag:1001002] text] lowercaseString]] ||
-        [reservedWords containsObject:[[(UITextField *)[[textField superview] viewWithTag:1001002] text] lowercaseString]])
+        [reservedWords containsObject:[[(UITextField *)[[textField superview] viewWithTag:1001002] text] lowercaseString]] ||
+        ([[(UITextField *)[[textField superview] viewWithTag:1001002] text] length] > 0 &&
+         [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '_'))
     {
         [(UIButton *)[[textField superview] viewWithTag:1001003] setEnabled:NO];
         [(UIButton *)[[textField superview] viewWithTag:1001004] setEnabled:NO];
