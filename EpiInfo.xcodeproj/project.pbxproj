@@ -187,6 +187,7 @@
 		9258D1A9222D8833000376E7 /* FormElementObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9258D1A8222D8833000376E7 /* FormElementObject.m */; };
 		9258D1AD222FF10F000376E7 /* TextFieldDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 9258D1AC222FF10F000376E7 /* TextFieldDisplay.m */; };
 		9258D1B022428863000376E7 /* SyncView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9258D1AF22428862000376E7 /* SyncView.m */; };
+		9258D1B222562CAF000376E7 /* Reserved_Words.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9258D1B122562CAF000376E7 /* Reserved_Words.txt */; };
 		9259D2E61C9327D200AE9181 /* ChildFormFieldAssignments.m in Sources */ = {isa = PBXBuildFile; fileRef = 9259D2E51C9327D200AE9181 /* ChildFormFieldAssignments.m */; };
 		925A5DAF1858C0E2000C2E9E /* PlainOrangeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 925A5DAD1858C0E2000C2E9E /* PlainOrangeButton.png */; };
 		925A5DB01858C0E2000C2E9E /* PlainOrangeButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 925A5DAE1858C0E2000C2E9E /* PlainOrangeButtonNR.png */; };
@@ -695,6 +696,7 @@
 		9258D1AC222FF10F000376E7 /* TextFieldDisplay.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextFieldDisplay.m; sourceTree = "<group>"; };
 		9258D1AE22428862000376E7 /* SyncView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyncView.h; sourceTree = "<group>"; };
 		9258D1AF22428862000376E7 /* SyncView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SyncView.m; sourceTree = "<group>"; };
+		9258D1B122562CAF000376E7 /* Reserved_Words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Reserved_Words.txt; sourceTree = "<group>"; };
 		9259D2E41C9327D200AE9181 /* ChildFormFieldAssignments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildFormFieldAssignments.h; sourceTree = "<group>"; };
 		9259D2E51C9327D200AE9181 /* ChildFormFieldAssignments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildFormFieldAssignments.m; sourceTree = "<group>"; };
 		925A5DAD1858C0E2000C2E9E /* PlainOrangeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlainOrangeButton.png; sourceTree = "<group>"; };
@@ -1536,6 +1538,7 @@
 				9258D1A8222D8833000376E7 /* FormElementObject.m */,
 				9258D1AB222FF10F000376E7 /* TextFieldDisplay.h */,
 				9258D1AC222FF10F000376E7 /* TextFieldDisplay.m */,
+				9258D1B122562CAF000376E7 /* Reserved_Words.txt */,
 			);
 			path = FormDesigner;
 			sourceTree = "<group>";
@@ -1977,6 +1980,7 @@
 				92D4BB63184F77CC00B2D70C /* CancelButton.png in Resources */,
 				924764C018B3E9700046129F /* UploadButton.png in Resources */,
 				9295FFEB1CEE07B00022B75C /* PopBN.png in Resources */,
+				9258D1B222562CAF000376E7 /* Reserved_Words.txt in Resources */,
 				9295FFEE1CEE07B00022B75C /* PoissonBN.png in Resources */,
 				92F520EB1CD3BFAC0058F352 /* icon-58.png in Resources */,
 				92C2BC571E857E880034F85B /* growth_percentiles_icon_6+.png in Resources */,

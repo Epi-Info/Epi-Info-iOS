@@ -22,7 +22,10 @@
         yTouched = -99.9;
         [self getExistingForms];
         
-        reservedWords = @[@"name", @"john", @"kathleen"];
+        NSError *fileError;
+        NSString* filePath = [[NSBundle mainBundle] pathForResource:@"Reserved_Words" ofType:@"txt"];
+        NSString *fileString = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&fileError];
+        reservedWords = [[fileString lowercaseString] componentsSeparatedByString:@","];
         
         [self setBackgroundColor:[UIColor whiteColor]];
         
