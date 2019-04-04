@@ -46,6 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
     FormElementObject *feoUnderEdit;
     
     NSString *checkCodeString;
+    
+    NSArray *reservedWords;
 }
 @property UIViewController *rootViewController;
 -(id)initWithFrame:(CGRect)frame andSender:(UIButton *)sender;

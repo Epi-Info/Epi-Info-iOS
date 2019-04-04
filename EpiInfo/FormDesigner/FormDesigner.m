@@ -22,6 +22,8 @@
         yTouched = -99.9;
         [self getExistingForms];
         
+        reservedWords = @[@"name", @"john", @"kathleen"];
+        
         [self setBackgroundColor:[UIColor whiteColor]];
         
         float formDesignerLabelY = 0.0;
@@ -4586,6 +4588,12 @@
         if ([[(UITextField *)[[textField superview] viewWithTag:1001002] text] length] > 0)
             return YES;
         NSString *compressedText = [[textField text] stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSCharacterSet *validSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"];
+        if ([[compressedText stringByTrimmingCharactersInSet:validSet] length] > 0)
+        {
+            NSCharacterSet *invalidSet = [NSCharacterSet characterSetWithCharactersInString:[compressedText stringByTrimmingCharactersInSet:validSet]];
+            compressedText = [compressedText stringByTrimmingCharactersInSet:invalidSet];
+        }
         NSString *incrementedText = [NSString stringWithString:compressedText];
         int increment = 0;
         while ([formElements containsObject:[incrementedText lowercaseString]])
@@ -4613,7 +4621,8 @@
         if ([textField tag] == 1001001)
             return;
     }
-    if ([formElements containsObject:[[(UITextField *)[[textField superview] viewWithTag:1001002] text] lowercaseString]])
+    if ([formElements containsObject:[[(UITextField *)[[textField superview] viewWithTag:1001002] text] lowercaseString]] ||
+        [reservedWords containsObject:[[(UITextField *)[[textField superview] viewWithTag:1001002] text] lowercaseString]])
     {
         [(UIButton *)[[textField superview] viewWithTag:1001003] setEnabled:NO];
         [(UIButton *)[[textField superview] viewWithTag:1001004] setEnabled:NO];
