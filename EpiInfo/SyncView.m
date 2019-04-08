@@ -168,7 +168,15 @@
         if(bufferPtr) free(bufferPtr);
         dataText = [[NSString alloc] initWithData:cipherOrPlainText encoding:NSUTF8StringEncoding];
         if (!dataText)
+        {
+            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Sync File Import: No data decrypted. Possible incorrect password.\n", [NSDate date]]];
+            UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Import" message:[NSString stringWithFormat:@"No data decrypted. Possible incorrect password."] preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            }];
+            [alertC addAction:okAction];
+            [self.rootViewController presentViewController:alertC animated:YES completion:nil];
             return NO;
+        }
     }
     return YES;
 }
@@ -388,7 +396,7 @@
         }
         sqlite3_close(epiinfoDB);
     }
-    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Sync File Import: Added %d records for form %@\n", [NSDate date], rows, [lvSelected text]]];
+    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Sync File Import: Added %d records to form %@\n", [NSDate date], rows, [lvSelected text]]];
     return SUCCESS;
 }
 
@@ -494,7 +502,7 @@
         }
         sqlite3_close(epiinfoDB);
     }
-    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Sync File Import: Updated %d records for form %@\n", [NSDate date], rows, [lvSelected text]]];
+    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Sync File Import: Updated %d records in form %@\n", [NSDate date], rows, [lvSelected text]]];
     return SUCCESS;
 }
 
