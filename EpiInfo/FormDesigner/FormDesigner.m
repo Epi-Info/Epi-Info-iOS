@@ -4238,7 +4238,7 @@
     
     for (id f in pages)
     {
-        formElementObjects = (NSMutableArray *)f;
+        formElementObjects = [NSMutableArray arrayWithArray:(NSMutableArray *)f];
         if ([formElementObjects containsObject:feoUnderEdit])
             break;
     }
@@ -4249,11 +4249,11 @@
         {
             if ([nsma containsObject:feoUnderEdit])
             {
-                formElementObjects = nsma;
+                [nsma removeObject:feoUnderEdit];
+                formElementObjects = [NSMutableArray arrayWithArray:nsma];
                 break;
             }
         }
-        [formElementObjects removeObject:feoUnderEdit];
         [formElements removeObject:[[(UITextField *)[[sender superview] viewWithTag:1001002] text] lowercaseString]];
         [self buildTheXMLFile];
         for (UIView *v in [canvas subviews])
@@ -4288,6 +4288,8 @@
             [feoUnderEdit.FieldTagValues setObject:[NSString stringWithFormat:@"%d", pagesIndex] atIndexedSubscript:[feoUnderEdit.FieldTagElements indexOfObject:@"PageId"]];
             [formElementObjects addObject:feoUnderEdit];
         }
+        NSMutableArray *tempArray = [NSMutableArray arrayWithArray:formElementObjects];
+        formElementObjects = tempArray;
         [self buildTheXMLFile];
         for (UIView *v in [canvas subviews])
             if ([v tag] != 19572010)
@@ -4321,6 +4323,8 @@
             [formElementObjects removeObjectAtIndex:idx];
             [formElementObjects insertObject:feoUnderEdit atIndex:idx + 1];
         }
+        NSMutableArray *tempArray = [NSMutableArray arrayWithArray:formElementObjects];
+        formElementObjects = tempArray;
         [self buildTheXMLFile];
         for (UIView *v in [canvas subviews])
             if ([v tag] != 19572010)
@@ -4574,6 +4578,7 @@
         }
 //        NSLog(@"%@", filePathAndName);
         [xmlS writeToFile:filePathAndName atomically:YES encoding:NSUTF8StringEncoding error:nil];
+        NSLog(@"WROTE XML: %@", [NSString stringWithContentsOfFile:filePathAndName encoding:NSUTF8StringEncoding error:nil]);
     }
 }
 
