@@ -351,11 +351,13 @@
                 }
             }
             [valuesClause appendString:@", "];
-            if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] > 1)
+            if ([[[[newValues objectAtIndex:indx] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] length] == 0)
+                [newValues replaceObjectAtIndex:indx withObject:@"NULL"];
+            if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] > 1 && ![[newValues objectAtIndex:indx] isEqualToString:@"NULL"])
             {
                 [valuesClause appendString:@"'"];
             }
-            if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] == 3)
+            if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] == 3 && ![[newValues objectAtIndex:indx] isEqualToString:@"NULL"])
             {
                 NSString *syncDate = [newValues objectAtIndex:indx];
                 NSArray *dateParts = [syncDate componentsSeparatedByString:@"-"];
@@ -370,7 +372,7 @@
             }
             else
                 [valuesClause appendString:[newValues objectAtIndex:indx]];
-            if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] > 1)
+            if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] > 1 && ![[newValues objectAtIndex:indx] isEqualToString:@"NULL"])
             {
                 [valuesClause appendString:@"'"];
             }
@@ -458,11 +460,13 @@
             }
             [updateString appendString:[arrayOfColumns objectAtIndex:j]];
             [updateString appendString:@" = "];
-            if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] > 1)
+            if ([[[[updatedValues objectAtIndex:indx] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] length] == 0)
+                [updatedValues replaceObjectAtIndex:indx withObject:@"NULL"];
+            if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] > 1 && ![[updatedValues objectAtIndex:indx] isEqualToString:@"NULL"])
             {
                 [updateString appendString:@"'"];
             }
-            if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] == 3)
+            if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] == 3 && ![[updatedValues objectAtIndex:indx] isEqualToString:@"NULL"])
             {
                 NSString *syncDate = [updatedValues objectAtIndex:indx];
                 NSArray *dateParts = [syncDate componentsSeparatedByString:@"-"];
@@ -477,7 +481,7 @@
             }
             else
                 [updateString appendString:[updatedValues objectAtIndex:indx]];
-            if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] > 1)
+            if ([(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[arrayOfColumns objectAtIndex:j]] intValue] > 1 && ![[updatedValues objectAtIndex:indx] isEqualToString:@"NULL"])
             {
                 [updateString appendString:@"'"];
             }
