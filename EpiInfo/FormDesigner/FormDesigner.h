@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
     int lastPage;
     
     UIScrollView *canvasSV;
-    UILabel *formDesignerLabel;
+    UIButton *formDesignerLabel;
     UIView *canvas;
     UIView *canvasCover;
     UITapGestureRecognizer *canvasTapGesture;

@@ -17,8 +17,9 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.prompt = [[UILabel alloc] initWithFrame:CGRectMake(8, 0, frame.size.width - 16, 20)];
+        self.prompt = [[FormDesignerFieldDisplayPrompt alloc] initWithFrame:CGRectMake(8, 0, frame.size.width - 16, 20)];
         [self.prompt setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+        [self.prompt setAccessibilityLabel:[NSString stringWithFormat:@"%@: Double tap to edit field properties.", self.prompt.text]];
         [self addSubview:self.prompt];
         self.field = [[UITextField alloc] initWithFrame:CGRectMake(8, 20, self.prompt.frame.size.width, frame.size.height - 20)];
         [self.field setBorderStyle:UITextBorderStyleLine];
@@ -93,6 +94,7 @@
     [self.prompt setFrame:CGRectMake(16, 4, self.frame.size.width - 32.0, self.frame.size.height - 8)];
     [self bringSubviewToFront:self.prompt];
     [self.prompt setText:@"Page Break"];
+    [self.prompt setAccessibilityLabel:[NSString stringWithFormat:@"Page Break"]];
     [self.prompt setTextAlignment:NSTextAlignmentCenter];
 }
 /*
