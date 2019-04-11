@@ -1051,7 +1051,7 @@
             
             float formNavigationBarY = 0.0;
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-                formNavigationBarY = 8.0;
+                formNavigationBarY = 0.0;
             UINavigationBar *formNavigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, formNavigationBarY, orangeBanner.frame.size.width, orangeBanner.frame.size.height - 4)];
             [formNavigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
             [formNavigationBar setShadowImage:[UIImage new]];
@@ -1059,17 +1059,18 @@
             formNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
             closeFormBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(confirmDismissal)];
             [closeFormBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+            [closeFormBarButtonItem setImageInsets:UIEdgeInsetsMake(-8, 0, 0, 0)];
             [closeFormBarButtonItem setAccessibilityLabel:@"Close Form"];
             [formNavigationItem setRightBarButtonItem:closeFormBarButtonItem];
             deleteRecordBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(footerBarDelete)];
             [deleteRecordBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
-            [deleteRecordBarButtonItem setImageInsets:UIEdgeInsetsMake(0, 20, 0, -20)];
+            [deleteRecordBarButtonItem setImageInsets:UIEdgeInsetsMake(-8, 20, 0, -20)];
             UIBarButtonItem *packageDataBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(confirmUploadAllRecords)];
             [packageDataBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
-            [packageDataBarButtonItem setImageInsets:UIEdgeInsetsMake(0, -8, 0, 0)];
+            [packageDataBarButtonItem setImageInsets:UIEdgeInsetsMake(-8, -8, 0, 0)];
             UIBarButtonItem *recordLookupBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(lineListButtonPressed)];
             [recordLookupBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
-            [recordLookupBarButtonItem setImageInsets:UIEdgeInsetsMake(0, -40, 0, 0)];
+            [recordLookupBarButtonItem setImageInsets:UIEdgeInsetsMake(-8, -40, 0, 0)];
             [formNavigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:packageDataBarButtonItem, recordLookupBarButtonItem, nil]];
             [formNavigationBar setItems:[NSArray arrayWithObject:formNavigationItem]];
             [orangeBanner addSubview:formNavigationBar];
