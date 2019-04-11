@@ -25,7 +25,7 @@
         
         float bannerY = -4.0;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-            bannerY = 8.0;
+            bannerY = -4.0;
         UINavigationBar *banner = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, bannerY, frame.size.width, 32)];
         [banner setBackgroundColor:[UIColor clearColor]];
         [banner setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
