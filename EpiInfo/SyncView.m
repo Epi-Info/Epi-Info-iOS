@@ -6,6 +6,7 @@
 //
 
 #import "SyncView.h"
+#include <sys/sysctl.h>
 
 @implementation SyncView
 @synthesize url = _url;
@@ -51,7 +52,12 @@
         [self setFakeNavBar:fnb];
 
         float uinbY = 0.0;
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        size_t size;
+        sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+        char *machine = malloc(size);
+        sysctlbyname("hw.machine", machine, &size, NULL, 0);
+        NSString *platform = [NSString stringWithUTF8String:machine];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && ([platform isEqualToString:@"iPad2,5"] || [platform isEqualToString:@"iPad2,6"] || [platform isEqualToString:@"iPad2,7"]))
             uinbY = 20.0;
         UINavigationBar *uinb = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, uinbY, self.fakeNavBar.frame.size.width, 20)];
         [uinb setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
@@ -185,6 +191,7 @@
 {
     NSLog(@"%@", dataText);
     arrayOfGUIDs = [[NSMutableArray alloc] init];
+    dictionaryOfGuidsAndFKeys = [[NSMutableDictionary alloc] init];
     arrayOfColumns = [[NSMutableArray alloc] init];
     arrayOfValues = [[NSMutableArray alloc] init];
     arrayOfCheckboxes = [[NSMutableArray alloc] init];
@@ -320,7 +327,16 @@
         return INSERT_NO_FORMS_FOUND;
     }
 
-    NSMutableString *insertString = [NSMutableString stringWithString:[NSString stringWithFormat:@"insert into %@(GlobalRecordId", [lvSelected text]]];
+    NSString *lvSelectedText = [lvSelected text];
+    if ([lvSelectedText characterAtIndex:0] == '_')
+    {
+        lvSelectedText = [lvSelectedText substringFromIndex:1];
+    }
+    NSMutableString *insertString = [NSMutableString stringWithString:[NSString stringWithFormat:@"insert into %@(GlobalRecordId", lvSelectedText]];
+    if ([dictionaryOfGuidsAndFKeys count] > 0)
+    {
+        [insertString appendString:@", fkey"];
+    }
     for (int i = 0; i < columns; i++)
     {
         [insertString appendString:@", "];
@@ -330,6 +346,13 @@
     for (int i = 0; i < rows; i++)
     {
         NSMutableString *valuesClause = [NSMutableString stringWithString:[NSString stringWithFormat:@"values('%@'", [newGUIDs objectAtIndex:i]]];
+        if ([dictionaryOfGuidsAndFKeys count] > 0)
+        {
+            if ([dictionaryOfGuidsAndFKeys objectForKey:[newGUIDs objectAtIndex:i]] != nil)
+            {
+                [valuesClause appendString:[NSString stringWithFormat:@", '%@'", [dictionaryOfGuidsAndFKeys objectForKey:[newGUIDs objectAtIndex:i]]]];
+            }
+        }
         for (int j = 0; j < columns; j++)
         {
             int indx = i * columns + j;
@@ -432,7 +455,12 @@
 
     for (int i = 0; i < rows; i++)
     {
-        NSMutableString *updateString = [NSMutableString stringWithString:[NSString stringWithFormat:@"update %@\nset ", [lvSelected text]]];
+        NSString *lvSelectedText = [lvSelected text];
+        if ([lvSelectedText characterAtIndex:0] == '_')
+        {
+            lvSelectedText = [lvSelectedText substringFromIndex:1];
+        }
+        NSMutableString *updateString = [NSMutableString stringWithString:[NSString stringWithFormat:@"update %@\nset ", lvSelectedText]];
         NSString *whereClause = [NSString stringWithFormat:@" where GlobalRecordId = '%@'", [existingGuids objectAtIndex:i]];
         for (int j = 0; j < columns; j++)
         {
@@ -549,7 +577,12 @@
         
         if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
         {
-            NSString *selStmt = [NSString stringWithFormat:@"select GlobalRecordId from %@", [lvSelected text]];
+            NSString *lvSelectedText = [lvSelected text];
+            if ([lvSelectedText characterAtIndex:0] == '_')
+            {
+                lvSelectedText = [lvSelectedText substringFromIndex:1];
+            }
+            NSString *selStmt = [NSString stringWithFormat:@"select GlobalRecordId from %@", lvSelectedText];
             const char *query_stmt = [selStmt UTF8String];
             sqlite3_stmt *statement;
             if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
@@ -741,6 +774,11 @@
     {
         NSString *guidString = [attributeDict objectForKey:@"SurveyResponseID"];
         [arrayOfGUIDs addObject:guidString];
+        if ([attributeDict objectForKey:@"fkey"])
+        {
+            NSString *fkeyString = [attributeDict objectForKey:@"fkey"];
+            [dictionaryOfGuidsAndFKeys setObject:fkeyString forKey:guidString];
+        }
     }
     else if ([elementName isEqualToString:@"ResponseDetail"])
     {
@@ -762,6 +800,8 @@
         if ([createTableStatement length] == 0)
         {
             createTableStatement = [NSString stringWithFormat:@"create table %@(GlobalRecordID text", [lvSelected text]];
+            if ([dictionaryOfGuidsAndFKeys count] > 0)
+                createTableStatement = [createTableStatement stringByAppendingString:@", fkey text"];
         }
         if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"1"])
         {

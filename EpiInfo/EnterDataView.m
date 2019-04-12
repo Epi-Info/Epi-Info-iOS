@@ -3455,7 +3455,7 @@
                         if (checkCodeFieldName)
                         {
                             [tf setCheckcode:[[CheckCode alloc] init]];
-                            [(CheckCode *)[tf checkcode] setTheWords:(NSArray *)checkCodeFieldName];
+//                            [(CheckCode *)[tf checkcode] setTheWords:(NSArray *)checkCodeFieldName];
                         }
                     }
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -3811,8 +3811,8 @@
                         if (checkCodeFieldName)
                         {
                             [tf setCheckcode:[[CheckCode alloc] init]];
-                            [(CheckCode *)[tf checkcode] setTheWords:(NSArray *)checkCodeFieldName];
-                            [(CheckCode *)[tf checkcode] setDictionaryOfFields:self.dictionaryOfFields.nsmd];
+//                            [(CheckCode *)[tf checkcode] setTheWords:(NSArray *)checkCodeFieldName];
+//                            [(CheckCode *)[tf checkcode] setDictionaryOfFields:self.dictionaryOfFields.nsmd];
                         }
                     }
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -4406,7 +4406,7 @@
                         if (checkCodeFieldName)
                         {
                             [cb setCheckcode:[[CheckCode alloc] init]];
-                            [(CheckCode *)[cb checkcode] setTheWords:(NSArray *)checkCodeFieldName];
+//                            [(CheckCode *)[cb checkcode] setTheWords:(NSArray *)checkCodeFieldName];
                         }
                     }
                 }

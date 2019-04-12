@@ -178,7 +178,6 @@
 		9248261D19CB40E300A0C1DD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9248261C19CB40E300A0C1DD /* Images.xcassets */; };
 		924A7D1419C21D2900F168A0 /* MeansCrosstabCompute.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A7D1319C21D2900F168A0 /* MeansCrosstabCompute.m */; };
 		924B5B812125F2DF00B519CE /* DownTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 924B5B802125F2DF00B519CE /* DownTriangle.m */; };
-		924D8AAA1AAE2BA1005A6253 /* CohortSimulationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924D8AA91AAE2BA1005A6253 /* CohortSimulationModel.swift */; };
 		92502392225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.m in Sources */ = {isa = PBXBuildFile; fileRef = 92502391225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.m */; };
 		9252017E17D0C89A0071C754 /* ShinyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9252017D17D0C89A0071C754 /* ShinyButton.m */; };
 		9252018017D0CC930071C754 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9252017F17D0CC930071C754 /* QuartzCore.framework */; };
@@ -216,7 +215,6 @@
 		9266C54318468CCF00739AF2 /* LegalValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 9266C54218468CCF00739AF2 /* LegalValues.m */; };
 		926817841AA8C54E00935BE9 /* SimulateCohort.png in Resources */ = {isa = PBXBuildFile; fileRef = 926817821AA8C54E00935BE9 /* SimulateCohort.png */; };
 		926817851AA8C54E00935BE9 /* SimulateCohortNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 926817831AA8C54E00935BE9 /* SimulateCohortNR.png */; };
-		9268178B1AA8D27900935BE9 /* CohortSimulationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268178A1AA8D27900935BE9 /* CohortSimulationView.swift */; };
 		926A0F0918340A7400D49165 /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 926A0F0718340A7400D49165 /* Default-Portrait.png */; };
 		926A0F0A18340A7400D49165 /* Default-Portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 926A0F0818340A7400D49165 /* Default-Portrait@2x.png */; };
 		926C9D561A7AA8FE004A6ADD /* SimulationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926C9D551A7AA8FE004A6ADD /* SimulationsViewController.m */; };
@@ -230,8 +228,6 @@
 		926DFB531832AA5500FACCD2 /* iPhone5RetinaLaunch.png in Resources */ = {isa = PBXBuildFile; fileRef = 926DFB521832AA5500FACCD2 /* iPhone5RetinaLaunch.png */; };
 		926DFB551832B0A400FACCD2 /* iPhone4RetinaLaunch.png in Resources */ = {isa = PBXBuildFile; fileRef = 926DFB541832B0A400FACCD2 /* iPhone4RetinaLaunch.png */; };
 		926F4AA11946361200F476C3 /* UIPickerViewWithBlurryBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 926F4AA01946361200F476C3 /* UIPickerViewWithBlurryBackground.m */; };
-		926F55041AC5CDF200790628 /* CaseControlSimulationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926F55031AC5CDF200790628 /* CaseControlSimulationModel.swift */; };
-		926F55061AC5D09900790628 /* CaseControlSimulationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926F55051AC5D09900790628 /* CaseControlSimulationView.swift */; };
 		926F55091AC5D13200790628 /* SimulateCaseControlNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 926F55071AC5D13200790628 /* SimulateCaseControlNR.png */; };
 		926F550A1AC5D13200790628 /* SimulateCaseControl.png in Resources */ = {isa = PBXBuildFile; fileRef = 926F55081AC5D13200790628 /* SimulateCaseControl.png */; };
 		926F550D1AC5E01700790628 /* Simulations5.png in Resources */ = {isa = PBXBuildFile; fileRef = 926F550B1AC5E01700790628 /* Simulations5.png */; };
@@ -254,7 +250,6 @@
 		928FCEF219E5692000641A95 /* VHFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 928FCEF119E5692000641A95 /* VHFViewController.m */; };
 		928FCEF519E570B300641A95 /* VHFButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 928FCEF319E570B300641A95 /* VHFButton.png */; };
 		928FCEF619E570B300641A95 /* VHFButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 928FCEF419E570B300641A95 /* VHFButtonNR.png */; };
-		9291F43E1AA779C60041DE6E /* SimulationsViewControllerSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9291F43D1AA779C60041DE6E /* SimulationsViewControllerSwift.swift */; };
 		92921B9619A63E0000AA9477 /* MeansObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 92921B9519A63E0000AA9477 /* MeansObject.m */; };
 		92921B9919A6427000AA9477 /* MeansView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92921B9819A6427000AA9477 /* MeansView.m */; };
 		929230151EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 929230141EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework */; };
@@ -681,7 +676,6 @@
 		924A7D1319C21D2900F168A0 /* MeansCrosstabCompute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeansCrosstabCompute.m; sourceTree = "<group>"; };
 		924B5B7F2125F2DF00B519CE /* DownTriangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownTriangle.h; sourceTree = "<group>"; };
 		924B5B802125F2DF00B519CE /* DownTriangle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownTriangle.m; sourceTree = "<group>"; };
-		924D8AA91AAE2BA1005A6253 /* CohortSimulationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CohortSimulationModel.swift; sourceTree = "<group>"; };
 		92502390225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormDesignerFieldDisplayPrompt.h; sourceTree = "<group>"; };
 		92502391225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormDesignerFieldDisplayPrompt.m; sourceTree = "<group>"; };
 		9252017C17D0C89A0071C754 /* ShinyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShinyButton.h; sourceTree = "<group>"; };
@@ -743,7 +737,6 @@
 		9266C54218468CCF00739AF2 /* LegalValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegalValues.m; sourceTree = "<group>"; };
 		926817821AA8C54E00935BE9 /* SimulateCohort.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SimulateCohort.png; sourceTree = "<group>"; };
 		926817831AA8C54E00935BE9 /* SimulateCohortNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SimulateCohortNR.png; sourceTree = "<group>"; };
-		9268178A1AA8D27900935BE9 /* CohortSimulationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CohortSimulationView.swift; sourceTree = "<group>"; };
 		926A0F0718340A7400D49165 /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
 		926A0F0818340A7400D49165 /* Default-Portrait@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x.png"; sourceTree = "<group>"; };
 		926C9D541A7AA8FE004A6ADD /* SimulationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimulationsViewController.h; sourceTree = "<group>"; };
@@ -759,8 +752,6 @@
 		926DFB541832B0A400FACCD2 /* iPhone4RetinaLaunch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone4RetinaLaunch.png; sourceTree = "<group>"; };
 		926F4A9F1946361200F476C3 /* UIPickerViewWithBlurryBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPickerViewWithBlurryBackground.h; sourceTree = "<group>"; };
 		926F4AA01946361200F476C3 /* UIPickerViewWithBlurryBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPickerViewWithBlurryBackground.m; sourceTree = "<group>"; };
-		926F55031AC5CDF200790628 /* CaseControlSimulationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaseControlSimulationModel.swift; sourceTree = "<group>"; };
-		926F55051AC5D09900790628 /* CaseControlSimulationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaseControlSimulationView.swift; sourceTree = "<group>"; };
 		926F55071AC5D13200790628 /* SimulateCaseControlNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SimulateCaseControlNR.png; sourceTree = "<group>"; };
 		926F55081AC5D13200790628 /* SimulateCaseControl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SimulateCaseControl.png; sourceTree = "<group>"; };
 		926F550B1AC5E01700790628 /* Simulations5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Simulations5.png; sourceTree = "<group>"; };
@@ -793,7 +784,6 @@
 		928FCEF319E570B300641A95 /* VHFButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VHFButton.png; sourceTree = "<group>"; };
 		928FCEF419E570B300641A95 /* VHFButtonNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VHFButtonNR.png; sourceTree = "<group>"; };
 		9291F43C1AA779C60041DE6E /* EpiInfo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EpiInfo-Bridging-Header.h"; sourceTree = "<group>"; };
-		9291F43D1AA779C60041DE6E /* SimulationsViewControllerSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulationsViewControllerSwift.swift; sourceTree = "<group>"; };
 		92921B9419A63E0000AA9477 /* MeansObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeansObject.h; sourceTree = "<group>"; };
 		92921B9519A63E0000AA9477 /* MeansObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeansObject.m; sourceTree = "<group>"; };
 		92921B9719A6427000AA9477 /* MeansView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeansView.h; sourceTree = "<group>"; };
@@ -1663,11 +1653,6 @@
 				9291F43C1AA779C60041DE6E /* EpiInfo-Bridging-Header.h */,
 				926C9D541A7AA8FE004A6ADD /* SimulationsViewController.h */,
 				926C9D551A7AA8FE004A6ADD /* SimulationsViewController.m */,
-				9291F43D1AA779C60041DE6E /* SimulationsViewControllerSwift.swift */,
-				9268178A1AA8D27900935BE9 /* CohortSimulationView.swift */,
-				924D8AA91AAE2BA1005A6253 /* CohortSimulationModel.swift */,
-				926F55051AC5D09900790628 /* CaseControlSimulationView.swift */,
-				926F55031AC5CDF200790628 /* CaseControlSimulationModel.swift */,
 			);
 			name = Simulations;
 			sourceTree = "<group>";
@@ -1812,6 +1797,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 4AFD851A161F137B00FFBA65;
@@ -2129,7 +2115,6 @@
 				92921B9619A63E0000AA9477 /* MeansObject.m in Sources */,
 				9258D1AD222FF10F000376E7 /* TextFieldDisplay.m in Sources */,
 				4AFD8563161F17D900FFBA65 /* MatchedPairCompute.m in Sources */,
-				9291F43E1AA779C60041DE6E /* SimulationsViewControllerSwift.swift in Sources */,
 				9247F20F181ADB4E00C96F94 /* BlurryView.m in Sources */,
 				9294A5D82208CDD3008695AD /* LinearRegressionResults.m in Sources */,
 				92DBD603193CC57100A40691 /* EpiInfoOptionField.m in Sources */,
@@ -2139,7 +2124,6 @@
 				92E1A83C18730974003E58A5 /* EpiInfoTextView.m in Sources */,
 				84C816841CE22D8D00F408D2 /* CheckCodeParser.m in Sources */,
 				922920851AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift in Sources */,
-				926F55041AC5CDF200790628 /* CaseControlSimulationModel.swift in Sources */,
 				9258D1A122148EF1000376E7 /* FormDesigner.m in Sources */,
 				928FCEF219E5692000641A95 /* VHFViewController.m in Sources */,
 				4AFD8571161F524E00FFBA65 /* PopulationSurveyViewController.m in Sources */,
@@ -2166,7 +2150,6 @@
 				4AB23ED316284EE600AE47C0 /* UnmatchedCaseControlSampleSizeCompute.m in Sources */,
 				9259D2E61C9327D200AE9181 /* ChildFormFieldAssignments.m in Sources */,
 				92E1A83918730614003E58A5 /* EpiInfoTextField.m in Sources */,
-				924D8AAA1AAE2BA1005A6253 /* CohortSimulationModel.swift in Sources */,
 				922D49ED1D64F3D40090631E /* ParseAssignment.m in Sources */,
 				929E47B721A5DA3900D88EF0 /* VariableRow.m in Sources */,
 				92502392225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.m in Sources */,
@@ -2183,7 +2166,6 @@
 				922D49F01D64F4490090631E /* AssignmentModel.m in Sources */,
 				92EBAD03194A400D000EF983 /* EpiInfoUILabel.m in Sources */,
 				92B8E4CC191A8011007E4ECC /* EpiInfoLineListView.m in Sources */,
-				9268178B1AA8D27900935BE9 /* CohortSimulationView.swift in Sources */,
 				4AE6939A169F5CE700BE2AA3 /* Twox2StrataData.m in Sources */,
 				4A50FF0E16A4443F00A638C4 /* Twox2SummaryData.m in Sources */,
 				9262713B18213D5D002C1C73 /* EpiInfoIconSegue.m in Sources */,
@@ -2228,7 +2210,6 @@
 				92B3A7FD1EDDEA9700234CB1 /* EICalendar.m in Sources */,
 				92A25BFE1938DAD2003225E1 /* TimePicker.m in Sources */,
 				923A263B17B4265D00DCBCD5 /* FilterButton.m in Sources */,
-				926F55061AC5D09900790628 /* CaseControlSimulationView.swift in Sources */,
 				9265FF901CB29B9F003AD6E0 /* SQLTool.m in Sources */,
 				920CD0271EE4B30200415569 /* CheckButton.m in Sources */,
 				84C816861CE22D8D00F408D2 /* DialogModel.m in Sources */,
@@ -2309,6 +2290,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -2331,6 +2313,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -2366,7 +2349,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "EpiInfo/EpiInfo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2402,7 +2385,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "EpiInfo/EpiInfo-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

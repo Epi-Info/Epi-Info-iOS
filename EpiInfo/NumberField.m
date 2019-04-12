@@ -140,7 +140,7 @@
 - (BOOL)resignFirstResponder
 {
     NSLog(@"%@ resigning first responder", self.columnName);
-    [(CheckCode *)checkcode ownerDidResign];
+//    [(CheckCode *)checkcode ownerDidResign];
     BOOL retVal = [super resignFirstResponder];
     if ([[[self superview] superview] isKindOfClass:[EnterDataView class]])
     {

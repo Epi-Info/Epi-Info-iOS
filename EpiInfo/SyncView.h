@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
     UITextField *passwordField;
     
     NSMutableArray *arrayOfGUIDs;
+    NSMutableDictionary *dictionaryOfGuidsAndFKeys;
     NSMutableArray *arrayOfColumns;
     NSMutableArray *arrayOfValues;
     NSMutableArray *arrayOfCheckboxes;
