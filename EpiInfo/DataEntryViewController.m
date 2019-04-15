@@ -36,6 +36,7 @@
 @synthesize didShowProjectTemplateWarning = _didShowProjectTemplateWarning;
 @synthesize arrayOfFieldsAllPages = _arrayOfFieldsAllPages;
 @synthesize alterTableElements = _alterTableElements;
+@synthesize geocodingCheckbox = _geocodingCheckbox;
 
 - (NSMutableArray *)formNavigationItems
 {

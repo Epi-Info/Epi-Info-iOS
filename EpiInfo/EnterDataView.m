@@ -1041,14 +1041,18 @@
     NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
     [nsnf setMaximumFractionDigits:6];
     
-    for (UIView *v in [formCanvas subviews])
-        if ([v isKindOfClass:[NumberField class]])
-        {
-            if ([[(NumberField *)v columnName] isEqualToString:self.latitudeField])
-                [(NumberField *)v setText:[nsnf stringFromNumber:[NSNumber numberWithFloat:lat]]];
-            if ([[(NumberField *)v columnName] isEqualToString:self.longitudeField])
-                [(NumberField *)v setText:[nsnf stringFromNumber:[NSNumber numberWithFloat:lon]]];
-        }
+    for (NSString *thisEDVString in dictionaryOfPages)
+    {
+        EnterDataView *thisEDV = [dictionaryOfPages objectForKey:thisEDVString];
+        for (UIView *v in [[thisEDV formCanvas] subviews])
+            if ([v isKindOfClass:[NumberField class]])
+            {
+                if ([[(NumberField *)v columnName] isEqualToString:self.latitudeField])
+                    [(NumberField *)v setText:[nsnf stringFromNumber:[NSNumber numberWithFloat:lat]]];
+                if ([[(NumberField *)v columnName] isEqualToString:self.longitudeField])
+                    [(NumberField *)v setText:[nsnf stringFromNumber:[NSNumber numberWithFloat:lon]]];
+            }
+    }
     [self.locationManager stopUpdatingLocation];
 }
 
@@ -1060,7 +1064,7 @@
     {
         if ([[NSThread currentThread] isCancelled])
             [NSThread exit];
-        if (geocodingCheckbox.value && [CLLocationManager locationServicesEnabled])
+        if ((geocodingCheckbox.value || [(Checkbox *)[(DataEntryViewController *)self.rootViewController geocodingCheckbox] value]) && [CLLocationManager locationServicesEnabled])
         {
             [self.locationManager startUpdatingLocation];
         }
@@ -3826,6 +3830,7 @@
                         contentSizeHeight += 40.0;
                         UIView *hideTheGeocodeCheckbox = [[UIView alloc] initWithFrame:CGRectMake(20, contentSizeHeight + 5, 160, 30)];
                         geocodingCheckbox = [[Checkbox alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+                        [(DataEntryViewController *)self.rootViewController setGeocodingCheckbox:geocodingCheckbox];
                         [hideTheGeocodeCheckbox addSubview:geocodingCheckbox];
                         UILabel *useDeviceLocation = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, 120, 30)];
                         [useDeviceLocation setText:@"Use device location"];
