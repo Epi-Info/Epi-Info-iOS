@@ -613,7 +613,8 @@
     [self loadSampleForm:@"Sample_Contact_Investigation"];
     [self loadSampleForm:@"_ContactFollowup"];
     [self loadSampleForm:@"Sample_EColiFoodHistory"];
-    
+    [self loadSampleForm:@"Sample_InterviewMode"];
+
     // Add footnote and link to tutorial
     float bottomOfFadingColorView = fadingColorView.frame.origin.y + fadingColorView.frame.size.height;
     UIFont *footnoteFont = [UIFont fontWithName:@"HelveticaNeue" size:14.0];
