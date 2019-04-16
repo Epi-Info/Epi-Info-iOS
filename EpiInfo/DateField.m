@@ -10,6 +10,9 @@
 #import "EnterDataView.h"
 
 @implementation DateField
+{
+    DatePicker *dp;
+}
 @synthesize columnName = _columnName;
 @synthesize isReadOnly = _isReadOnly;
 @synthesize mirroringMe = _mirroringMe;
@@ -82,12 +85,16 @@
 
 - (BOOL)becomeFirstResponder
 {
+    if (dp)
+        if ([dp superview] == [[[self superview] superview] superview])
+            return NO;
+    
     [(EnterDataView *)[[self superview] superview] fieldBecameFirstResponder:self];
     
     CGRect finalFrame = [[self superview] superview].frame;
     CGRect initialframe = CGRectMake(finalFrame.origin.x, finalFrame.origin.y - finalFrame.size.height, finalFrame.size.width, finalFrame.size.height);
     
-    DatePicker *dp = [[DatePicker alloc] initWithFrame:initialframe AndDateField:self];
+    dp = [[DatePicker alloc] initWithFrame:initialframe AndDateField:self];
     [[[[self superview] superview] superview] addSubview:dp];
     [self resignFirstResponder];
     
