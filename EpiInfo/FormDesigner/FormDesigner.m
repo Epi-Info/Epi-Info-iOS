@@ -5085,7 +5085,7 @@
     {
         if ([attributeDict objectForKey:@"CheckCode"] != nil)
         {
-            checkCodeString = [[[[[[NSString stringWithString:[attributeDict objectForKey:@"CheckCode"]] stringByReplacingOccurrencesOfString:@"\n" withString:@"&#xA;"] stringByReplacingOccurrencesOfString:@"\t" withString:@"&#x9;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"]stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"];
+            checkCodeString = [[[[[[[[NSString stringWithString:[attributeDict objectForKey:@"CheckCode"]] stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"\t" withString:@"&#x9;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"]stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\r" withString:@"&#xD;"] stringByReplacingOccurrencesOfString:@"\n" withString:@"&#xA;"];
         }
     }
     else if ([elementName isEqualToString:@"Page"])
