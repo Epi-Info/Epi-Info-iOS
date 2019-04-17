@@ -4772,21 +4772,39 @@
                 if ([feo.values count] > 0)
                 {
                     NSString *itemString = [[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"Name"]] lowercaseString];
-                    [xmlMS appendString:@" SourceTableName=\""];
-                    [xmlMS appendString:[NSString stringWithFormat:@"code%@1", itemString]];
-                    [xmlMS appendString:@"\""];
-                    [xmlMS appendString:@" TextColumnName=\""];
-                    [xmlMS appendString:[NSString stringWithFormat:@"%@", itemString]];
-                    [xmlMS appendString:@"\""];
-                    [sourceTables appendString:[NSString stringWithFormat:@"<SourceTable TableName=\"code%@1\">\n", itemString]];
+                    if (![feo.FieldTagElements containsObject:@"SourceTableName"])
+                    {
+                        [xmlMS appendString:@" SourceTableName=\""];
+                        [xmlMS appendString:[NSString stringWithFormat:@"code%@1", itemString]];
+                        [xmlMS appendString:@"\""];
+                    }
+                    if (![feo.FieldTagElements containsObject:@"TextColumnName"])
+                    {
+                        [xmlMS appendString:@" TextColumnName=\""];
+                        [xmlMS appendString:[NSString stringWithFormat:@"%@", itemString]];
+                        [xmlMS appendString:@"\""];
+                    }
+                    NSMutableString *sourceTable = [[NSMutableString alloc] init];
+                    NSString *codeString = [NSString stringWithFormat:@"code%@1", itemString];
+                    if ([feo.FieldTagElements containsObject:@"SourceTableName"])
+                    {
+                        codeString = [feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"SourceTableName"]];
+                    }
+                    if ([feo.FieldTagElements containsObject:@"TextColumnName"])
+                    {
+                        itemString = [feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"TextColumnName"]];
+                    }
+                    [sourceTable appendString:[NSString stringWithFormat:@"<SourceTable TableName=\"%@\">\n", codeString]];
                     for (int j = 0; j < [feo.values count]; j++)
                     {
                         if (j == [feo.values count] - 1)
                             if ([(NSString *)[feo.values objectAtIndex:j] length] == 0)
                                 continue;
-                        [sourceTables appendString:[NSString stringWithFormat:@"<Item %@=\"%@\"/>\n", itemString, [feo.values objectAtIndex:j]]];
+                        [sourceTable appendString:[NSString stringWithFormat:@"<Item %@=\"%@\"/>\n", itemString, [feo.values objectAtIndex:j]]];
                     }
-                    [sourceTables appendString:@"</SourceTable>\n"];
+                    [sourceTable appendString:@"</SourceTable>\n"];
+                    if (![[sourceTables lowercaseString] containsString:[sourceTable lowercaseString]])
+                        [sourceTables appendString:sourceTable];
                 }
             }
             if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"19"] && feo.values != nil)
@@ -4794,26 +4812,51 @@
                 if ([feo.values count] > 0)
                 {
                     NSString *itemString = [[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"Name"]] lowercaseString];
-                    [xmlMS appendString:@" SourceTableName=\""];
-                    [xmlMS appendString:[NSString stringWithFormat:@"code%@1", itemString]];
-                    [xmlMS appendString:@"\""];
-                    [xmlMS appendString:@" TextColumnName=\""];
-                    [xmlMS appendString:[NSString stringWithFormat:@"%@", itemString]];
-                    [xmlMS appendString:@"\""];
-                    [sourceTables appendString:[NSString stringWithFormat:@"<SourceTable TableName=\"code%@1\">\n", itemString]];
+                    if (![feo.FieldTagElements containsObject:@"SourceTableName"])
+                    {
+                        [xmlMS appendString:@" SourceTableName=\""];
+                        [xmlMS appendString:[NSString stringWithFormat:@"code%@1", itemString]];
+                        [xmlMS appendString:@"\""];
+                    }
+                    if (![feo.FieldTagElements containsObject:@"TextColumnName"])
+                    {
+                        [xmlMS appendString:@" TextColumnName=\""];
+                        [xmlMS appendString:[NSString stringWithFormat:@"%@", itemString]];
+                        [xmlMS appendString:@"\""];
+                    }
+                    NSMutableString *sourceTable = [[NSMutableString alloc] init];
+                    NSString *codeString = [NSString stringWithFormat:@"code%@1", itemString];
+                    if ([feo.FieldTagElements containsObject:@"SourceTableName"])
+                    {
+                        codeString = [feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"SourceTableName"]];
+                    }
+                    if ([feo.FieldTagElements containsObject:@"TextColumnName"])
+                    {
+                        itemString = [feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"TextColumnName"]];
+                    }
+                    [sourceTable appendString:[NSString stringWithFormat:@"<SourceTable TableName=\"%@\">\n", codeString]];
                     for (int j = 0; j < [feo.values count]; j++)
                     {
                         if (j == [feo.values count] - 1)
                             if ([(NSString *)[feo.values objectAtIndex:j] length] == 0)
                                 continue;
-                        [sourceTables appendString:[NSString stringWithFormat:@"<Item %@=\"%@\"/>\n", itemString, [feo.values objectAtIndex:j]]];
+                        [sourceTable appendString:[NSString stringWithFormat:@"<Item %@=\"%@\"/>\n", itemString, [feo.values objectAtIndex:j]]];
                     }
-                    [sourceTables appendString:@"</SourceTable>\n"];
+                    [sourceTable appendString:@"</SourceTable>\n"];
+                    if (![[sourceTables lowercaseString] containsString:[sourceTable lowercaseString]])
+                        [sourceTables appendString:sourceTable];
                 }
             }
             [xmlMS appendString:[NSString stringWithFormat:@" ControlLeftPositionPercentage=\"0.1953846\" ControlTopPositionPercentage=\"%f\"", 0.0531496 + (0.9 / [arrayH count]) * i]];
             [xmlMS appendString:@" Position=\"0\" SourceFieldId=\"\" HasTabStop=\"False\" IsExclusiveTable=\"False\" Sort=\"False\" CodeColumnName=\"\""];
-            [xmlMS appendString:@" RelatedViewId=\"\" ShouldReturnToParent=\"False\" RelateCondition=\"\" Upper=\"\" Lower=\"\" ShowTextOnRight=\"False\" MaxLength=\"\""];
+            if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"20"])
+            {
+                [xmlMS appendString:@" ShouldReturnToParent=\"False\" RelateCondition=\"\" Upper=\"\" Lower=\"\" ShowTextOnRight=\"False\" MaxLength=\"\""];
+            }
+            else
+            {
+                [xmlMS appendString:@" RelatedViewId=\"\" ShouldReturnToParent=\"False\" RelateCondition=\"\" Upper=\"\" Lower=\"\" ShowTextOnRight=\"False\" MaxLength=\"\""];
+            }
             [xmlMS appendString:@" Pattern=\"\" ShouldRetainImageSize=\"False\" IsEncrypted=\"False\" ShouldRepeatLast=\"False\""];
             [xmlMS appendString:@" PromptScriptName=\"\" ControlFontStyle=\"Regular\" ControlFontSize=\"14.0\" ControlFontFamily=\"Arial\" PromptFontStyle=\"Regular\""];
             [xmlMS appendString:[NSString stringWithFormat:@" PromptFontSize=\"14.25\" PromptFontFamily=\"Arial\" PromptLeftPositionPercentage=\"0.118\" PromptTopPositionPercentage=\"%f\"", 0.0531496 + (0.9 / [arrayH count]) * i]];
@@ -5054,6 +5097,27 @@
                 [feo setValues:[NSMutableArray arrayWithArray:valuesArray]];
             }
         }
+        if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"17"] ||
+            [[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"19"])
+        {
+            if ([attributeDict objectForKey:@"SourceTableName"] != nil)
+            {
+                [feo.FieldTagElements addObject:@"SourceTableName"];
+                [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"SourceTableName"]]];
+            }
+            if ([attributeDict objectForKey:@"TextColumnName"] != nil)
+            {
+                [feo.FieldTagElements addObject:@"TextColumnName"];
+                [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"TextColumnName"]]];
+            }
+        }
+        if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"20"])
+        {
+            [feo.FieldTagElements addObject:@"RelatedViewName"];
+            [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"RelatedViewName"]]];
+            [feo.FieldTagElements addObject:@"RelatedViewId"];
+            [feo.FieldTagValues addObject:[NSString stringWithString:[attributeDict objectForKey:@"RelatedViewId"]]];
+        }
         if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"21"])
         {
             [feo.FieldTagElements addObject:@"List"];
@@ -5071,12 +5135,14 @@
             NSString *val = [attributeDict objectForKey:s];
             for (FormElementObject *feo in formElementObjects)
             {
-                if ([[[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"Name"]] lowercaseString] isEqualToString:s])
+                if ([feo.FieldTagElements containsObject:@"TextColumnName"])
                 {
-                    if (feo.values == nil)
-                        feo.values = [[NSMutableArray alloc] init];
-                    [feo.values addObject:val];
-                    break;
+                    if ([[[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"TextColumnName"]] lowercaseString] isEqualToString:s])
+                    {
+                        if (feo.values == nil)
+                            feo.values = [[NSMutableArray alloc] init];
+                        [feo.values addObject:val];
+                    }
                 }
             }
         }
