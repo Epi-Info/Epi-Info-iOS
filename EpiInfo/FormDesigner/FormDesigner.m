@@ -5137,7 +5137,7 @@
             {
                 if ([feo.FieldTagElements containsObject:@"TextColumnName"])
                 {
-                    if ([[[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"TextColumnName"]] lowercaseString] isEqualToString:s])
+                    if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"TextColumnName"]] caseInsensitiveCompare:s] == NSOrderedSame)
                     {
                         if (feo.values == nil)
                             feo.values = [[NSMutableArray alloc] init];
