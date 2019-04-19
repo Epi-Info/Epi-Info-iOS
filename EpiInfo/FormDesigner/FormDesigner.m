@@ -4871,6 +4871,13 @@
 
 - (void)buildTheXMLFile
 {
+    if ([pageNumbers count] == 0)
+        [pageNumbers addObject:[NSString stringWithFormat:@"%d", 1]];
+    if ([actualPageNumbers count] == 0)
+        [actualPageNumbers addObject:[NSString stringWithFormat:@"%d", 1]];
+    if ([pageNames count] == 0)
+        [pageNames addObject:[NSString stringWithFormat:@"Page %d", 1]];
+
     NSMutableString *xmlMS = [[NSMutableString alloc] init];
     NSMutableString *sourceTables = [[NSMutableString alloc] init];
     [xmlMS appendString:@"<?xml version=\"1.0\"?>\n"];
@@ -4883,7 +4890,11 @@
     {
         NSMutableArray *arrayH = (NSMutableArray *)[pages objectAtIndex:h];
         if ([arrayH count] == 0)
+        {
+            if ([pages count] == 1)
+                [xmlMS appendString:[NSString stringWithFormat:@"<Page PageId=\"1\" ActualPageNumber=\"1\" Name=\"Page 1\" ViewId=\"1\" BackgroundId=\"0\" Position=\"0\">\n</Page>\n"]];
             continue;
+        }
         if ([pageNumbers containsObject:[NSString stringWithFormat:@"%d", h + 1]])
         {
             unsigned long indexOfPageId = [pageNumbers indexOfObject:[NSString stringWithFormat:@"%d", h + 1]];
