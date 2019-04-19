@@ -88,6 +88,16 @@
     [dt setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
     [self addSubview:dt];
 }
+- (void)displayButton
+{
+    [self.field setText:[NSString stringWithFormat:@"%@", [self.prompt text]]];
+    [self.field setFrame:CGRectMake(self.field.frame.origin.x, self.field.frame.origin.y, 256, self.field.frame.size.height)];
+    [self.field setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [self.prompt setText:@"Button:"];
+    [self.field.layer setMasksToBounds:YES];
+    [self.field.layer setCornerRadius:4.0];
+    [self.field setTextAlignment:NSTextAlignmentCenter];
+}
 - (void)displayPageBreak
 {
     [self.field setFrame:CGRectMake(8, 0, self.frame.size.width - 16.0, self.frame.size.height)];
