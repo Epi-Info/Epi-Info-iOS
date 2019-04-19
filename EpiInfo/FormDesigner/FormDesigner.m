@@ -2974,9 +2974,9 @@
     UILabel *controlViewViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width - 2, 0)];
     [controlViewViewLabel setBackgroundColor:[UIColor whiteColor]];
     [controlViewViewLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
-    [controlViewViewLabel setText:@"\tRelate Button Editing Not Supported Yet"];
+    [controlViewViewLabel setText:@"\tRelate Button (No Editing Yet)"];
     [controlViewViewLabel setTextAlignment:NSTextAlignmentLeft];
-    [controlViewViewLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+    [controlViewViewLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
     [controlViewGrayBackground addSubview:controlViewViewLabel];
     
     UITextField *controlViewPromptText = [[UITextField alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width - 2, 0)];
