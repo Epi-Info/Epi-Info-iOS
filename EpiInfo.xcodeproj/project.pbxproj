@@ -143,6 +143,7 @@
 		921500851EAA39CF00E2CF9A /* PrivacyAndDisclaimerPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 921500841EAA39CF00E2CF9A /* PrivacyAndDisclaimerPresenter.m */; };
 		921500871EAA3E8D00E2CF9A /* BarButtonBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 921500861EAA3E8D00E2CF9A /* BarButtonBack.png */; };
 		9218EA5B1869D37500A4E2D9 /* ClickingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9218EA5A1869D37500A4E2D9 /* ClickingView.m */; };
+		921E6B572277593D00C46A72 /* CheckCodeWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 921E6B562277593D00C46A72 /* CheckCodeWriter.m */; };
 		921ED31E1C7F7043004C6091 /* RelateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 921ED31D1C7F7043004C6091 /* RelateButton.m */; };
 		921ED3201C7F7462004C6091 /* PlainPurpleButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 921ED31F1C7F7462004C6091 /* PlainPurpleButton.png */; };
 		922227B419BA1DCF002CD855 /* iPhone4Launch.png in Resources */ = {isa = PBXBuildFile; fileRef = 922227B319BA1DCF002CD855 /* iPhone4Launch.png */; };
@@ -625,6 +626,8 @@
 		921974961880583D007F6DFA /* WindowsAzureMobileServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WindowsAzureMobileServices.framework; sourceTree = "<group>"; };
 		9219749918805915007F6DFA /* QSEpiInfoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSEpiInfoService.h; sourceTree = "<group>"; };
 		9219749A18805915007F6DFA /* QSEpiInfoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSEpiInfoService.m; sourceTree = "<group>"; };
+		921E6B552277593C00C46A72 /* CheckCodeWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckCodeWriter.h; sourceTree = "<group>"; };
+		921E6B562277593D00C46A72 /* CheckCodeWriter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckCodeWriter.m; sourceTree = "<group>"; };
 		921ED31C1C7F7043004C6091 /* RelateButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelateButton.h; sourceTree = "<group>"; };
 		921ED31D1C7F7043004C6091 /* RelateButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelateButton.m; sourceTree = "<group>"; };
 		921ED31F1C7F7462004C6091 /* PlainPurpleButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlainPurpleButton.png; sourceTree = "<group>"; };
@@ -1531,6 +1534,8 @@
 				9258D1A8222D8833000376E7 /* FormElementObject.m */,
 				9258D1AB222FF10F000376E7 /* TextFieldDisplay.h */,
 				9258D1AC222FF10F000376E7 /* TextFieldDisplay.m */,
+				921E6B552277593C00C46A72 /* CheckCodeWriter.h */,
+				921E6B562277593D00C46A72 /* CheckCodeWriter.m */,
 				9258D1B122562CAF000376E7 /* Reserved_Words.txt */,
 				92502390225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.h */,
 				92502391225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.m */,
@@ -2145,6 +2150,7 @@
 				92A25C011938E0AC003225E1 /* TimeField.m in Sources */,
 				4A977F381627097C0009E572 /* CohortSampleSizeCompute.m in Sources */,
 				4AB23ED016284B6B00AE47C0 /* EpiInfoScrollView.m in Sources */,
+				921E6B572277593D00C46A72 /* CheckCodeWriter.m in Sources */,
 				92605C5119C36E1300827CB0 /* EpiInfoNumberFormatter.m in Sources */,
 				922825041863821700DF9493 /* EnterDataView.m in Sources */,
 				4AB23ED316284EE600AE47C0 /* UnmatchedCaseControlSampleSizeCompute.m in Sources */,

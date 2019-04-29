@@ -8,6 +8,7 @@
 #import "FormDesigner.h"
 #import "DataEntryViewController.h"
 #import "TextFieldDisplay.h"
+#import "CheckCodeWriter.h"
 
 @implementation FormDesigner
 @synthesize rootViewController = _rootViewController;
@@ -2020,7 +2021,7 @@
     [checkCodeButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
     [checkCodeButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
     [checkCodeButton addTarget:self action:@selector(checkCodePressed:) forControlEvents:UIControlEventTouchUpInside];
-    [checkCodeButton setEnabled:NO];
+    [checkCodeButton setEnabled:YES];
     [controlViewGrayBackground addSubview:checkCodeButton];
     
     UIButton *controlViewCancelButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 2 - 1, 0)];
@@ -4773,6 +4774,12 @@
 
 - (void)checkCodePressed:(UIButton *)sender
 {
+    CheckCodeWriter *ccWriter = [[CheckCodeWriter alloc] initWithFrame:CGRectMake(0, 0, [sender superview].frame.size.width, 0)];
+    [[sender superview] addSubview:ccWriter];
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [ccWriter setFrame:CGRectMake(0, 0, [sender superview].frame.size.width, [sender superview].frame.size.height)];
+    } completion:^(BOOL finished){
+    }];
 }
 
 - (void)valuesPressed:(UIButton *)sender
