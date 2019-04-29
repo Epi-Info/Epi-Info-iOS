@@ -4774,10 +4774,10 @@
 
 - (void)checkCodePressed:(UIButton *)sender
 {
-    CheckCodeWriter *ccWriter = [[CheckCodeWriter alloc] initWithFrame:CGRectMake(0, 0, [sender superview].frame.size.width, 0)];
+    CheckCodeWriter *ccWriter = [[CheckCodeWriter alloc] initWithFrame:CGRectMake(1, 1, [sender superview].frame.size.width - 2.0, 0)];
     [[sender superview] addSubview:ccWriter];
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [ccWriter setFrame:CGRectMake(0, 0, [sender superview].frame.size.width, [sender superview].frame.size.height)];
+        [ccWriter setFrame:CGRectMake(1, 1, [sender superview].frame.size.width - 2.0, [sender superview].frame.size.height - 2.0)];
     } completion:^(BOOL finished){
     }];
 }
