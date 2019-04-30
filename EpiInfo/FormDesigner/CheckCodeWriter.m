@@ -19,7 +19,7 @@
     {
         [self setBackgroundColor:[UIColor whiteColor]];
         
-        self.beforeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, frame.size.width / 2.0, 32)];
+        self.beforeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 2, frame.size.width / 2.0, 32)];
         [self.beforeButton setBackgroundColor:[UIColor whiteColor]];
         [self.beforeButton setTitle:@"Before" forState:UIControlStateNormal];
         [self.beforeButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
@@ -30,7 +30,7 @@
         [self.beforeButton setEnabled:NO];
         [self addSubview:self.beforeButton];
         
-        self.afterButton = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width / 2.0, 0, frame.size.width / 2.0, 32)];
+        self.afterButton = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width / 2.0, 2, frame.size.width / 2.0, 32)];
         [self.afterButton setBackgroundColor:[UIColor whiteColor]];
         [self.afterButton setTitle:@"After" forState:UIControlStateNormal];
         [self.afterButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
@@ -40,7 +40,7 @@
         [self.afterButton addTarget:self action:@selector(beforeOrAfterButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.afterButton];
         
-        self.closeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, frame.size.width / 2.0, 32)];
+        self.closeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, frame.size.height - 48.0, frame.size.width / 2.0, 32)];
         [self.closeButton setBackgroundColor:[UIColor whiteColor]];
         [self.closeButton setTitle:@"Close" forState:UIControlStateNormal];
         [self.closeButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
@@ -53,26 +53,9 @@
     return self;
 }
 
-- (void)setFrame:(CGRect)frame
-{
-    [super setFrame:frame];
-    if (frame.size.height > 0.0)
-    {
-        [self.beforeButton setFrame:CGRectMake(0, 2, frame.size.width / 2.0, 32)];
-        [self.afterButton setFrame:CGRectMake(frame.size.width / 2.0, 2, frame.size.width / 2.0, 32)];
-        [self.closeButton setFrame:CGRectMake(0, frame.size.height - 48.0, frame.size.width / 2.0, 32)];
-    }
-    else
-    {
-        [self.beforeButton setFrame:CGRectMake(0, 0, frame.size.width / 2.0, 32)];
-        [self.afterButton setFrame:CGRectMake(frame.size.width / 2.0, 0, frame.size.width / 2.0, 32)];
-        [self.closeButton setFrame:CGRectMake(0, 0, frame.size.width / 2.0, 32)];
-    }
-}
-
 - (void)beforeOrAfterButtonPressed:(UIButton *)sender
 {
-    UIView *selectFunctionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 0)];
+    UIView *selectFunctionView = [[UIView alloc] initWithFrame:CGRectMake(0, -self.frame.size.height, self.frame.size.width, self.frame.size.height)];
     [selectFunctionView setBackgroundColor:[UIColor whiteColor]];
     [self addSubview:selectFunctionView];
     if ([[[sender titleLabel] text] isEqualToString:@"After"])
@@ -95,7 +78,7 @@
     {
         NSLog(@"Before button pressed");
     }
-    UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, selectFunctionView.frame.size.width / 2.0, 32)];
+    UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, selectFunctionView.frame.size.height - 32, selectFunctionView.frame.size.width / 2.0, 32)];
     [closeButton setBackgroundColor:[UIColor whiteColor]];
     [closeButton setTitle:@"Close" forState:UIControlStateNormal];
     [closeButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
@@ -106,7 +89,6 @@
     [selectFunctionView addSubview:closeButton];
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [selectFunctionView setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-        [closeButton setFrame:CGRectMake(closeButton.frame.origin.x, selectFunctionView.frame.size.height - 32, closeButton.frame.size.width, 32)];
     } completion:^(BOOL finished){
     }];
 }
@@ -119,15 +101,7 @@
 - (void)closeButtonPressed:(UIButton *)sender
 {
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [[sender superview] setFrame:CGRectMake([sender superview].frame.origin.x, [sender superview].frame.origin.y, [sender superview].frame.size.width, 0)];
-        if ([sender superview] != self)
-        {
-            UIView *sv = [sender superview];
-            for (UIView *v in [sv subviews])
-            {
-                [v setFrame:CGRectMake(v.frame.origin.x, 0, v.frame.size.width, 32)];
-            }
-        }
+        [[sender superview] setFrame:CGRectMake([sender superview].frame.origin.x, -[sender superview].frame.size.height, [sender superview].frame.size.width, [sender superview].frame.size.height)];
     } completion:^(BOOL finished){
         [[sender superview] removeFromSuperview];
     }];
