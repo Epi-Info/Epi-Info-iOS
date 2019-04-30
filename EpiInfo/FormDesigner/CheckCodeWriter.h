@@ -10,9 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CheckCodeWriter : UIView
-@property UIButton *beforeButton;
-@property UIButton *afterButton;
-@property UIButton *closeButton;
+-(id)initWithFrame:(CGRect)frame AndFieldName:(NSString *)fn AndFieldType:(NSString *)ft;
 @end
 
 NS_ASSUME_NONNULL_END

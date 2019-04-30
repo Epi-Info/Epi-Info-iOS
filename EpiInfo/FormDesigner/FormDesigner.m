@@ -2020,6 +2020,7 @@
     [checkCodeButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
     [checkCodeButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
     [checkCodeButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [checkCodeButton.layer setValue:@"Date" forKey:@"FieldType"];
     [checkCodeButton addTarget:self action:@selector(checkCodePressed:) forControlEvents:UIControlEventTouchUpInside];
     [checkCodeButton setEnabled:YES];
     [controlViewGrayBackground addSubview:checkCodeButton];
@@ -4774,7 +4775,7 @@
 
 - (void)checkCodePressed:(UIButton *)sender
 {
-    CheckCodeWriter *ccWriter = [[CheckCodeWriter alloc] initWithFrame:CGRectMake(0, -self.frame.size.height, self.frame.size.width - 0.0, self.frame.size.height - 1.0)];
+    CheckCodeWriter *ccWriter = [[CheckCodeWriter alloc] initWithFrame:CGRectMake(0, -self.frame.size.height, self.frame.size.width - 0.0, self.frame.size.height - 1.0) AndFieldName:[(UITextField *)[[sender superview] viewWithTag:1001002] text] AndFieldType:[sender.layer valueForKey:@"FieldType"]];
     [self addSubview:ccWriter];
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [ccWriter setFrame:CGRectMake(0, 1, self.frame.size.width - 0.0, self.frame.size.height - 1.0)];
