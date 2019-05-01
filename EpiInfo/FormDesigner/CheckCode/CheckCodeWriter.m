@@ -6,6 +6,7 @@
 //
 
 #import "CheckCodeWriter.h"
+#import "Years.h"
 
 @implementation CheckCodeWriter
 
@@ -209,14 +210,30 @@
 
 - (void)functionSelectionButtonPressed:(UIButton *)sender
 {
-    NSLog(@"%@", [[sender titleLabel] text]);
-    if ([[sender.layer valueForKey:@"BeforeAfter"] isEqualToString:@"Before"])
+    if ([[[sender titleLabel] text] isEqualToString:@"Years"])
     {
+        Years *years = [[Years alloc] initWithFrame:CGRectMake([sender superview].frame.origin.x,
+                                                               -[sender superview].frame.size.height,
+                                                               [sender superview].frame.size.width,
+                                                               [sender superview].frame.size.height)
+                        AndCallingButton:sender];
+        [[sender superview] addSubview:years];
+        [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+            [years setFrame:CGRectMake(0, 0, [sender superview].frame.size.width, [sender superview].frame.size.height)];
+        } completion:^(BOOL finished){
+        }];
     }
-    if ([[sender.layer valueForKey:@"BeforeAfter"] isEqualToString:@"After"])
+    else
     {
-        if (![afterFunctions containsObject:[[sender titleLabel] text]])
-            [afterFunctions addObject:[[sender titleLabel] text]];
+        NSLog(@"%@", [[sender titleLabel] text]);
+        if ([[sender.layer valueForKey:@"BeforeAfter"] isEqualToString:@"Before"])
+        {
+        }
+        if ([[sender.layer valueForKey:@"BeforeAfter"] isEqualToString:@"After"])
+        {
+            if (![afterFunctions containsObject:[[sender titleLabel] text]])
+                [afterFunctions addObject:[[sender titleLabel] text]];
+        }
     }
 }
 

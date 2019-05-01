@@ -163,6 +163,7 @@
 		9232266F1E5381C20099439F /* FullAssignStatementParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9232266E1E5381C20099439F /* FullAssignStatementParser.m */; };
 		923226771E53825E0099439F /* ExpressionActionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 923226761E53825E0099439F /* ExpressionActionParser.m */; };
 		9232267A1E53829E0099439F /* IfParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 923226791E53829E0099439F /* IfParser.m */; };
+		92385D22227A31B800079890 /* Years.m in Sources */ = {isa = PBXBuildFile; fileRef = 92385D21227A31B800079890 /* Years.m */; };
 		923A263817B41BCE00DCBCD5 /* AnalysisFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A263717B41BCE00DCBCD5 /* AnalysisFilterView.m */; };
 		923A263B17B4265D00DCBCD5 /* FilterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A263A17B4265D00DCBCD5 /* FilterButton.m */; };
 		923A49F617B56636000FFC0C /* NewVariablesButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A49F517B56636000FFC0C /* NewVariablesButton.m */; };
@@ -654,6 +655,8 @@
 		923226761E53825E0099439F /* ExpressionActionParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionActionParser.m; sourceTree = "<group>"; };
 		923226781E53829E0099439F /* IfParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IfParser.h; sourceTree = "<group>"; };
 		923226791E53829E0099439F /* IfParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IfParser.m; sourceTree = "<group>"; };
+		92385D20227A31B800079890 /* Years.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Years.h; sourceTree = "<group>"; };
+		92385D21227A31B800079890 /* Years.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Years.m; sourceTree = "<group>"; };
 		923A263617B41BCE00DCBCD5 /* AnalysisFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalysisFilterView.h; sourceTree = "<group>"; };
 		923A263717B41BCE00DCBCD5 /* AnalysisFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalysisFilterView.m; sourceTree = "<group>"; };
 		923A263917B4265D00DCBCD5 /* FilterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterButton.h; sourceTree = "<group>"; };
@@ -1465,6 +1468,33 @@
 			name = "Launch Images";
 			sourceTree = "<group>";
 		};
+		92385D18227A30C400079890 /* CheckCode */ = {
+			isa = PBXGroup;
+			children = (
+				92385D1E227A316000079890 /* Functions */,
+				921E6B552277593C00C46A72 /* CheckCodeWriter.h */,
+				921E6B562277593D00C46A72 /* CheckCodeWriter.m */,
+			);
+			path = CheckCode;
+			sourceTree = "<group>";
+		};
+		92385D1E227A316000079890 /* Functions */ = {
+			isa = PBXGroup;
+			children = (
+				92385D1F227A319100079890 /* DateMath */,
+			);
+			path = Functions;
+			sourceTree = "<group>";
+		};
+		92385D1F227A319100079890 /* DateMath */ = {
+			isa = PBXGroup;
+			children = (
+				92385D20227A31B800079890 /* Years.h */,
+				92385D21227A31B800079890 /* Years.m */,
+			);
+			path = DateMath;
+			sourceTree = "<group>";
+		};
 		923A263C17B42C7F00DCBCD5 /* Analyses */ = {
 			isa = PBXGroup;
 			children = (
@@ -1528,14 +1558,13 @@
 		9258D1AA222FE8E3000376E7 /* FormDesigner */ = {
 			isa = PBXGroup;
 			children = (
+				92385D18227A30C400079890 /* CheckCode */,
 				9258D19F22148EF1000376E7 /* FormDesigner.h */,
 				9258D1A022148EF1000376E7 /* FormDesigner.m */,
 				9258D1A7222D8833000376E7 /* FormElementObject.h */,
 				9258D1A8222D8833000376E7 /* FormElementObject.m */,
 				9258D1AB222FF10F000376E7 /* TextFieldDisplay.h */,
 				9258D1AC222FF10F000376E7 /* TextFieldDisplay.m */,
-				921E6B552277593C00C46A72 /* CheckCodeWriter.h */,
-				921E6B562277593D00C46A72 /* CheckCodeWriter.m */,
 				9258D1B122562CAF000376E7 /* Reserved_Words.txt */,
 				92502390225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.h */,
 				92502391225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.m */,
@@ -2131,6 +2160,7 @@
 				922920851AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift in Sources */,
 				9258D1A122148EF1000376E7 /* FormDesigner.m in Sources */,
 				928FCEF219E5692000641A95 /* VHFViewController.m in Sources */,
+				92385D22227A31B800079890 /* Years.m in Sources */,
 				4AFD8571161F524E00FFBA65 /* PopulationSurveyViewController.m in Sources */,
 				4AFD8574161F531400FFBA65 /* PopulationSurveyView.m in Sources */,
 				4AFD8577161F563100FFBA65 /* SampleSizeAndPowerViewController.m in Sources */,
