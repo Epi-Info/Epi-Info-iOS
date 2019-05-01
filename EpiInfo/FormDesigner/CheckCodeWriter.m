@@ -9,11 +9,17 @@
 
 @implementation CheckCodeWriter
 
-- (id)initWithFrame:(CGRect)frame AndFieldName:(nonnull NSString *)fn AndFieldType:(nonnull NSString *)ft
+- (id)initWithFrame:(CGRect)frame AndFieldName:(nonnull NSString *)fn AndFieldType:(nonnull NSString *)ft AndSenderSuperview:(nonnull UIView *)sv
 {
     self = [super initWithFrame:frame];
     if (self)
     {
+        senderSuperview = sv;
+        beginFieldString = [NSString stringWithFormat:@"Field %@", fn];
+        endFieldString = @"\nEnd-Field";
+        beforeFunctions = [[NSMutableArray alloc] init];
+        afterFunctions = [[NSMutableArray alloc] init];
+        
         [self setBackgroundColor:[UIColor whiteColor]];
         
         UILabel *firstLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 32)];
@@ -156,6 +162,7 @@
             [differenceInYearsButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
             [differenceInYearsButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
             [differenceInYearsButton addTarget:self action:@selector(functionSelectionButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+            [differenceInYearsButton.layer setValue:@"After" forKey:@"BeforeAfter"];
             [selectFunctionView addSubview:differenceInYearsButton];
             
             UIButton *differenceInMonthsButton = [[UIButton alloc] initWithFrame:CGRectMake(selectFunctionView.frame.size.width / 2.0, 128, selectFunctionView.frame.size.width / 2.0, 32)];
@@ -166,6 +173,7 @@
             [differenceInMonthsButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
             [differenceInMonthsButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
             [differenceInMonthsButton addTarget:self action:@selector(functionSelectionButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+            [differenceInMonthsButton.layer setValue:@"After" forKey:@"BeforeAfter"];
             [selectFunctionView addSubview:differenceInMonthsButton];
             
             UIButton *differenceInDaysButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 160, selectFunctionView.frame.size.width / 2.0, 32)];
@@ -176,6 +184,7 @@
             [differenceInDaysButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
             [differenceInDaysButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
             [differenceInDaysButton addTarget:self action:@selector(functionSelectionButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+            [differenceInDaysButton.layer setValue:@"After" forKey:@"BeforeAfter"];
             [selectFunctionView addSubview:differenceInDaysButton];
         }
     }
@@ -201,10 +210,46 @@
 - (void)functionSelectionButtonPressed:(UIButton *)sender
 {
     NSLog(@"%@", [[sender titleLabel] text]);
+    if ([[sender.layer valueForKey:@"BeforeAfter"] isEqualToString:@"Before"])
+    {
+    }
+    if ([[sender.layer valueForKey:@"BeforeAfter"] isEqualToString:@"After"])
+    {
+        if (![afterFunctions containsObject:[[sender titleLabel] text]])
+            [afterFunctions addObject:[[sender titleLabel] text]];
+    }
 }
 
 - (void)closeButtonPressed:(UIButton *)sender
 {
+    if ([sender superview] == self)
+    {
+        NSMutableString *checkCodeMutableString = [[NSMutableString alloc] init];
+        if ([beforeFunctions count] > 0 || [afterFunctions count] > 0)
+        {
+            [checkCodeMutableString appendString:beginFieldString];
+            if ([beforeFunctions count] > 0)
+            {
+                [checkCodeMutableString appendString:@"\n\tBefore"];
+                for (int i = 0; i < [beforeFunctions count]; i++)
+                {
+                    [checkCodeMutableString appendFormat:@"\n\t\t%@", [beforeFunctions objectAtIndex:i]];
+                }
+                [checkCodeMutableString appendString:@"\n\tEnd-Before"];
+            }
+            if ([afterFunctions count] > 0)
+            {
+                [checkCodeMutableString appendString:@"\n\tAfter"];
+                for (int i = 0; i < [afterFunctions count]; i++)
+                {
+                    [checkCodeMutableString appendFormat:@"\n\t\t%@", [afterFunctions objectAtIndex:i]];
+                }
+                [checkCodeMutableString appendString:@"\n\tEnd-After"];
+            }
+            [checkCodeMutableString appendString:endFieldString];
+            [senderSuperview.layer setValue:[NSString stringWithString:checkCodeMutableString] forKey:@"CheckCode"];
+        }
+    }
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [[sender superview] setFrame:CGRectMake([sender superview].frame.origin.x, -[sender superview].frame.size.height, [sender superview].frame.size.width, [sender superview].frame.size.height)];
     } completion:^(BOOL finished){

@@ -20,6 +20,7 @@
     {
         lastPage = 1;
         checkCodeString = @"";
+        checkCodeStrings = [[NSMutableArray alloc] init];
         yTouched = -99.9;
         [self getExistingForms];
         
@@ -2024,7 +2025,8 @@
     [checkCodeButton addTarget:self action:@selector(checkCodePressed:) forControlEvents:UIControlEventTouchUpInside];
     [checkCodeButton setEnabled:YES];
     [controlViewGrayBackground addSubview:checkCodeButton];
-    
+    [controlViewGrayBackground.layer setValue:@"" forKey:@"CheckCode"];
+
     UIButton *controlViewCancelButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 2 - 1, 0)];
     [controlViewCancelButton setBackgroundColor:[UIColor whiteColor]];
     [controlViewCancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
@@ -3766,6 +3768,13 @@
 
 - (void)dateSaveOrCancelPressed:(UIButton *)sender
 {
+    if (!checkCodeStrings)
+        checkCodeStrings = [[NSMutableArray alloc] init];
+    if ([[[sender superview].layer valueForKey:@"CheckCode"] length] > 0)
+        [checkCodeStrings addObject:[NSString stringWithString:[[sender superview].layer valueForKey:@"CheckCode"]]];
+    for (int i = 0; i < [checkCodeStrings count]; i++)
+        NSLog(@"\n%@", [checkCodeStrings objectAtIndex:i]);
+    
     NSString *promptText = @"";
     NSString *fieldName = @"";
     BOOL saveButtonPressed = ([[[sender titleLabel] text] isEqualToString:@"Save"]);
@@ -4775,7 +4784,7 @@
 
 - (void)checkCodePressed:(UIButton *)sender
 {
-    CheckCodeWriter *ccWriter = [[CheckCodeWriter alloc] initWithFrame:CGRectMake(0, -self.frame.size.height, self.frame.size.width - 0.0, self.frame.size.height - 1.0) AndFieldName:[(UITextField *)[[sender superview] viewWithTag:1001002] text] AndFieldType:[sender.layer valueForKey:@"FieldType"]];
+    CheckCodeWriter *ccWriter = [[CheckCodeWriter alloc] initWithFrame:CGRectMake(0, -self.frame.size.height, self.frame.size.width - 0.0, self.frame.size.height - 1.0) AndFieldName:[(UITextField *)[[sender superview] viewWithTag:1001002] text] AndFieldType:[sender.layer valueForKey:@"FieldType"] AndSenderSuperview:[sender superview]];
     [self addSubview:ccWriter];
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [ccWriter setFrame:CGRectMake(0, 1, self.frame.size.width - 0.0, self.frame.size.height - 1.0)];

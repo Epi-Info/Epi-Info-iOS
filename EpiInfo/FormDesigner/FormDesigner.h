@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *pageNames;
     NSMutableArray *pageNumbers;
     NSMutableArray *actualPageNumbers;
+    NSMutableArray *checkCodeStrings;
     int lastPage;
     
     UIScrollView *canvasSV;
