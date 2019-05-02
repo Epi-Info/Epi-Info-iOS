@@ -7,8 +7,28 @@
 
 #import "CheckCodeWriter.h"
 #import "Years.h"
+#import "Months.h"
+#import "Days.h"
 
 @implementation CheckCodeWriter
+
+- (NSString *)beginFieldString
+{
+    return beginFieldString;
+}
+- (void)setBeginFieldString:(NSString *)bfs
+{
+    beginFieldString = bfs;
+}
+
+- (NSString *)endFieldString
+{
+    return endFieldString;
+}
+- (void)setEndFieldString:(NSString *)efs
+{
+    endFieldString = efs;
+}
 
 - (id)initWithFrame:(CGRect)frame AndFieldName:(nonnull NSString *)fn AndFieldType:(nonnull NSString *)ft AndSenderSuperview:(nonnull UIView *)sv
 {
@@ -210,20 +230,38 @@
 
 - (void)functionSelectionButtonPressed:(UIButton *)sender
 {
+    UIView *span = [[UIView alloc] init];
     if ([[[sender titleLabel] text] isEqualToString:@"Years"])
     {
-        Years *years = [[Years alloc] initWithFrame:CGRectMake([sender superview].frame.origin.x,
+        span = [[Years alloc] initWithFrame:CGRectMake([sender superview].frame.origin.x,
                                                                -[sender superview].frame.size.height,
                                                                [sender superview].frame.size.width,
                                                                [sender superview].frame.size.height)
                         AndCallingButton:sender];
-        [[sender superview] addSubview:years];
-        [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-            [years setFrame:CGRectMake(0, 0, [sender superview].frame.size.width, [sender superview].frame.size.height)];
-        } completion:^(BOOL finished){
-        }];
+        [[sender superview] addSubview:span];
     }
-    else
+    if ([[[sender titleLabel] text] isEqualToString:@"Months"])
+    {
+        span = [[Months alloc] initWithFrame:CGRectMake([sender superview].frame.origin.x,
+                                                               -[sender superview].frame.size.height,
+                                                               [sender superview].frame.size.width,
+                                                               [sender superview].frame.size.height)
+                                   AndCallingButton:sender];
+        [[sender superview] addSubview:span];
+    }
+    if ([[[sender titleLabel] text] isEqualToString:@"Days"])
+    {
+        span = [[Days alloc] initWithFrame:CGRectMake([sender superview].frame.origin.x,
+                                                               -[sender superview].frame.size.height,
+                                                               [sender superview].frame.size.width,
+                                                               [sender superview].frame.size.height)
+                                   AndCallingButton:sender];
+        [[sender superview] addSubview:span];
+    }
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [span setFrame:CGRectMake(0, 0, [sender superview].frame.size.width, [sender superview].frame.size.height)];
+    } completion:^(BOOL finished){
+    }];
     {
         NSLog(@"%@", [[sender titleLabel] text]);
         if ([[sender.layer valueForKey:@"BeforeAfter"] isEqualToString:@"Before"])

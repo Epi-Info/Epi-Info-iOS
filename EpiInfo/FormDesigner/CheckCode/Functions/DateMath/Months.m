@@ -1,21 +1,20 @@
 //
-//  Years.m
+//  Months.m
 //  EpiInfo
 //
-//  Created by John Copeland on 5/1/19.
+//  Created by John Copeland on 5/2/19.
 //
 
-#import "Years.h"
-#import "CheckCodeWriter.h"
+#import "Months.h"
 
-@implementation Years
+@implementation Months
 
 - (id)initWithFrame:(CGRect)frame AndCallingButton:(UIButton *)cb
 {
     self = [super initWithFrame:frame AndCallingButton:cb];
     if (self)
     {
-        [titleLabel setText:@"Assign Result of Years Function"];
+        [titleLabel setText:@"Assign Result of Months Function"];
     }
     return self;
 }

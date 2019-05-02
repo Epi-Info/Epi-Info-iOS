@@ -1,21 +1,20 @@
 //
-//  Years.m
+//  Days.m
 //  EpiInfo
 //
-//  Created by John Copeland on 5/1/19.
+//  Created by John Copeland on 5/2/19.
 //
 
-#import "Years.h"
-#import "CheckCodeWriter.h"
+#import "Days.h"
 
-@implementation Years
+@implementation Days
 
 - (id)initWithFrame:(CGRect)frame AndCallingButton:(UIButton *)cb
 {
     self = [super initWithFrame:frame AndCallingButton:cb];
     if (self)
     {
-        [titleLabel setText:@"Assign Result of Years Function"];
+        [titleLabel setText:@"Assign Result of Days Function"];
     }
     return self;
 }

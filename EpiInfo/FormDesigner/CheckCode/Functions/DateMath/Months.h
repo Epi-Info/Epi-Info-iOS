@@ -1,15 +1,15 @@
 //
-//  Years.h
+//  Months.h
 //  EpiInfo
 //
-//  Created by John Copeland on 5/1/19.
+//  Created by John Copeland on 5/2/19.
 //
 
 #import "DateMathFunction.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Years : DateMathFunction
+@interface Months : DateMathFunction
 
 @end
 

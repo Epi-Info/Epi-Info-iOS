@@ -18,6 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *afterFunctions;
 }
 -(id)initWithFrame:(CGRect)frame AndFieldName:(NSString *)fn AndFieldType:(NSString *)ft AndSenderSuperview:(UIView *)sv;
+-(NSString *)beginFieldString;
+-(void)setBeginFieldString:(NSString *)bfs;
+-(NSString *)endFieldString;
+-(void)setEndFieldString:(NSString *)efs;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -164,6 +164,10 @@
 		923226771E53825E0099439F /* ExpressionActionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 923226761E53825E0099439F /* ExpressionActionParser.m */; };
 		9232267A1E53829E0099439F /* IfParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 923226791E53829E0099439F /* IfParser.m */; };
 		92385D22227A31B800079890 /* Years.m in Sources */ = {isa = PBXBuildFile; fileRef = 92385D21227A31B800079890 /* Years.m */; };
+		92385D25227B20DC00079890 /* AssigningFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 92385D24227B20DC00079890 /* AssigningFunction.m */; };
+		92385D29227B29B600079890 /* DateMathFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 92385D28227B29B600079890 /* DateMathFunction.m */; };
+		92385D2C227B2AB100079890 /* Months.m in Sources */ = {isa = PBXBuildFile; fileRef = 92385D2B227B2AB100079890 /* Months.m */; };
+		92385D2F227B2AD100079890 /* Days.m in Sources */ = {isa = PBXBuildFile; fileRef = 92385D2E227B2AD100079890 /* Days.m */; };
 		923A263817B41BCE00DCBCD5 /* AnalysisFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A263717B41BCE00DCBCD5 /* AnalysisFilterView.m */; };
 		923A263B17B4265D00DCBCD5 /* FilterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A263A17B4265D00DCBCD5 /* FilterButton.m */; };
 		923A49F617B56636000FFC0C /* NewVariablesButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A49F517B56636000FFC0C /* NewVariablesButton.m */; };
@@ -657,6 +661,14 @@
 		923226791E53829E0099439F /* IfParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IfParser.m; sourceTree = "<group>"; };
 		92385D20227A31B800079890 /* Years.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Years.h; sourceTree = "<group>"; };
 		92385D21227A31B800079890 /* Years.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Years.m; sourceTree = "<group>"; };
+		92385D23227B20DC00079890 /* AssigningFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AssigningFunction.h; sourceTree = "<group>"; };
+		92385D24227B20DC00079890 /* AssigningFunction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssigningFunction.m; sourceTree = "<group>"; };
+		92385D27227B29B600079890 /* DateMathFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DateMathFunction.h; sourceTree = "<group>"; };
+		92385D28227B29B600079890 /* DateMathFunction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DateMathFunction.m; sourceTree = "<group>"; };
+		92385D2A227B2AB100079890 /* Months.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Months.h; sourceTree = "<group>"; };
+		92385D2B227B2AB100079890 /* Months.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Months.m; sourceTree = "<group>"; };
+		92385D2D227B2AD100079890 /* Days.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Days.h; sourceTree = "<group>"; };
+		92385D2E227B2AD100079890 /* Days.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Days.m; sourceTree = "<group>"; };
 		923A263617B41BCE00DCBCD5 /* AnalysisFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalysisFilterView.h; sourceTree = "<group>"; };
 		923A263717B41BCE00DCBCD5 /* AnalysisFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalysisFilterView.m; sourceTree = "<group>"; };
 		923A263917B4265D00DCBCD5 /* FilterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterButton.h; sourceTree = "<group>"; };
@@ -1481,6 +1493,8 @@
 		92385D1E227A316000079890 /* Functions */ = {
 			isa = PBXGroup;
 			children = (
+				92385D23227B20DC00079890 /* AssigningFunction.h */,
+				92385D24227B20DC00079890 /* AssigningFunction.m */,
 				92385D1F227A319100079890 /* DateMath */,
 			);
 			path = Functions;
@@ -1489,8 +1503,14 @@
 		92385D1F227A319100079890 /* DateMath */ = {
 			isa = PBXGroup;
 			children = (
+				92385D27227B29B600079890 /* DateMathFunction.h */,
+				92385D28227B29B600079890 /* DateMathFunction.m */,
 				92385D20227A31B800079890 /* Years.h */,
 				92385D21227A31B800079890 /* Years.m */,
+				92385D2A227B2AB100079890 /* Months.h */,
+				92385D2B227B2AB100079890 /* Months.m */,
+				92385D2D227B2AD100079890 /* Days.h */,
+				92385D2E227B2AD100079890 /* Days.m */,
 			);
 			path = DateMath;
 			sourceTree = "<group>";
@@ -2160,6 +2180,7 @@
 				922920851AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift in Sources */,
 				9258D1A122148EF1000376E7 /* FormDesigner.m in Sources */,
 				928FCEF219E5692000641A95 /* VHFViewController.m in Sources */,
+				92385D2F227B2AD100079890 /* Days.m in Sources */,
 				92385D22227A31B800079890 /* Years.m in Sources */,
 				4AFD8571161F524E00FFBA65 /* PopulationSurveyViewController.m in Sources */,
 				4AFD8574161F531400FFBA65 /* PopulationSurveyView.m in Sources */,
@@ -2205,6 +2226,7 @@
 				4AE6939A169F5CE700BE2AA3 /* Twox2StrataData.m in Sources */,
 				4A50FF0E16A4443F00A638C4 /* Twox2SummaryData.m in Sources */,
 				9262713B18213D5D002C1C73 /* EpiInfoIconSegue.m in Sources */,
+				92385D29227B29B600079890 /* DateMathFunction.m in Sources */,
 				6878E46C16EF55840081F949 /* DrawCurveView.m in Sources */,
 				6836D0AA16F3478400AC190E /* AnalysisViewController.m in Sources */,
 				4A0B99BB174BA98F00FF417B /* ZoomView.m in Sources */,
@@ -2228,12 +2250,14 @@
 				847C97DA1D427494001E47DD /* UIView+UpdateAutoLayoutConstraints.m in Sources */,
 				926C9D561A7AA8FE004A6ADD /* SimulationsViewController.m in Sources */,
 				9266C54318468CCF00739AF2 /* LegalValues.m in Sources */,
+				92385D2C227B2AB100079890 /* Months.m in Sources */,
 				84C816881CE22D8D00F408D2 /* ElementsModel.m in Sources */,
 				9266C53A184684B200739AF2 /* PhoneNumberField.m in Sources */,
 				925C895519535B9700F3DCE7 /* GrowthPercentilesViewController.m in Sources */,
 				9258D1A9222D8833000376E7 /* FormElementObject.m in Sources */,
 				92AAC01C1C208917005D77F3 /* FeedbackView.m in Sources */,
 				92DBD606193CDAFA00A40691 /* EpiInfoUniqueIDField.m in Sources */,
+				92385D25227B20DC00079890 /* AssigningFunction.m in Sources */,
 				927B555F18B6533B000AB7B1 /* Reachability.m in Sources */,
 				4A556867178DA09400B79542 /* TablesView.m in Sources */,
 				9276EEB917B028AE0050858B /* ChooseAnalysisButton.m in Sources */,
