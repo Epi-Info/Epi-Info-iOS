@@ -168,7 +168,7 @@
     [sixthLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
     [sixthLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
     [sixthLabel setTextAlignment:NSTextAlignmentLeft];
-    [sixthLabel setText:@"Select a function to execute:"];
+    [sixthLabel setText:[NSString stringWithFormat:@"Select a function to execute %@:", [[sender titleLabel] text]]];
     [selectFunctionView addSubview:sixthLabel];
 
     if ([[[sender titleLabel] text] isEqualToString:@"After"])
