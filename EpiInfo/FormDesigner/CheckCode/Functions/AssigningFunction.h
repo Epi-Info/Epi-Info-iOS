@@ -14,10 +14,14 @@ NS_ASSUME_NONNULL_BEGIN
 {
     UIButton *callingButton;
     UIView *ccWriter;
+    UIView *formDesigner;
+    
     UILabel *titleLabel;
     UILabel *subtitleLabel;
     
+    UILabel *fieldToAssignLabel;
     LegalValuesEnter *fieldToAssign;
+    UITextField *fieldToAssignSelected;
 }
 -(id)initWithFrame:(CGRect)frame AndCallingButton:(UIButton *)cb;
 @end

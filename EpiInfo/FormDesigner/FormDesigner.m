@@ -13,6 +13,11 @@
 @implementation FormDesigner
 @synthesize rootViewController = _rootViewController;
 
+- (NSMutableArray *)formElementObjects
+{
+    return formElementObjects;
+}
+
 - (id)initWithFrame:(CGRect)frame andSender:(nonnull UIButton *)sender
 {
     self = [super initWithFrame:frame];

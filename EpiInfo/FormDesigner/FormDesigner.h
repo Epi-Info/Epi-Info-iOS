@@ -51,6 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSArray *reservedWords;
 }
 @property UIViewController *rootViewController;
+-(NSMutableArray *)formElementObjects;
 -(id)initWithFrame:(CGRect)frame andSender:(UIButton *)sender;
 @end
 

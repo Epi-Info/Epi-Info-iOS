@@ -7,6 +7,8 @@
 
 #import "AssigningFunction.h"
 #import "CheckCodeWriter.h"
+#import "FormDesigner.h"
+#import "FormElementObject.h"
 
 @implementation AssigningFunction
 
@@ -17,6 +19,7 @@
     {
         callingButton = cb;
         ccWriter = [[callingButton superview] superview];
+        formDesigner = [ccWriter superview];
         
         [self setBackgroundColor:[UIColor whiteColor]];
         
@@ -27,12 +30,42 @@
         [titleLabel setText:@"Assignment Function"];
         [self addSubview:titleLabel];
         
-        subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 80)];
+        subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 32, frame.size.width, 32)];
         [subtitleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
         [subtitleLabel setTextAlignment:NSTextAlignmentCenter];
         [subtitleLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [subtitleLabel setText:[NSString stringWithFormat:@"%@ %@", [cb.layer valueForKey:@"BeforeAfter"], [(CheckCodeWriter *)ccWriter beginFieldString]]];
         [self addSubview:subtitleLabel];
+        
+        fieldToAssignLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 64, frame.size.width - 16, 32)];
+        [fieldToAssignLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [fieldToAssignLabel setTextAlignment:NSTextAlignmentLeft];
+        [fieldToAssignLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [fieldToAssignLabel setText:@"Field to Populate:"];
+        [self addSubview:fieldToAssignLabel];
+        
+        fieldToAssignSelected = [[UITextField alloc] init];
+        NSMutableArray *assignmentFields = [[NSMutableArray alloc] init];
+        [assignmentFields addObject:@""];
+        NSArray *formElementObjects = [(FormDesigner *)formDesigner formElementObjects];
+        for (int i = 0; i < [formElementObjects count]; i++)
+        {
+            FormElementObject *feo = [formElementObjects objectAtIndex:i];
+            if (![[feo FieldTagElements] containsObject:@"Name"] || ![[feo FieldTagElements] containsObject:@"FieldTypeId"])
+                continue;
+            int nameIndex = (int)[[feo FieldTagElements] indexOfObject:@"Name"];
+            int typeIndex = (int)[[feo FieldTagElements] indexOfObject:@"FieldTypeId"];
+            NSString *fieldName = [[feo FieldTagValues] objectAtIndex:nameIndex];
+            int fieldType = [(NSString *)[[feo FieldTagValues] objectAtIndex:typeIndex] intValue];
+            if (fieldType == 1 ||
+                fieldType == 3 ||
+                fieldType == 4 ||
+                fieldType == 5)
+                [assignmentFields addObject:fieldName];
+        }
+        fieldToAssign = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 96, 300, 180) AndListOfValues:assignmentFields AndTextFieldToUpdate:fieldToAssignSelected];
+        [fieldToAssign.picker selectRow:0 inComponent:0 animated:YES];
+        [self addSubview:fieldToAssign];
 
         UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0,
                                                                            self.frame.size.height - 48,
