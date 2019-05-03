@@ -1488,6 +1488,7 @@ void inv(int n, double a[n][n], double invA[n][n])
     int lintWRows = 0;
     int lintweight = 0;
     BOOL ldblweight = NO;
+    ldblweight = NO;
     int lintrowCount = 0;
     double ldblMagic = 0.0;
     if (NO) // Change this to [mstrWeightVar length] if weighted analysis added later
@@ -1524,12 +1525,14 @@ void inv(int n, double a[n][n], double invA[n][n])
     double probf[NumColumns - 1 - lintweight];
     double stdb[NumColumns - 1 - lintweight];
     double coeff[4][NumColumns - 1 - lintweight];
+    coeff[0][0] = 0.0;
     double meanY = 0.0;
     double ra2 = 0.0;
     double r2 = 0.0;
     double ssy = 0.0;
     double ftest = 0.0;
     int p = 0;
+    p = 0;
     int k = 0;
     
     for (i = 0; i < NumRows; i++)

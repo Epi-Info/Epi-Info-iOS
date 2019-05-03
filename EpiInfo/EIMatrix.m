@@ -211,7 +211,9 @@
     }
     double IthLikelihood = 0.0;
     double LogLikelihood = 0.0;
+    LogLikelihood = 0.0;
     double likelihood = 1.0;
+    likelihood = 1.0;
     double ldblweight = 1.0;
     
     int lIntRow = 1;
@@ -403,6 +405,7 @@
 {
     int i = 0;
     BOOL k = NO;
+    k = NO;
     
     double ncases = 0.0;
     double nrecs = 0.0;
@@ -461,13 +464,14 @@
     }
 }
 
-- (void)MaximizeLikelihood:(int)nRows NCols:(int *)nCols DataArray:(NSArray *)dataArray LintOffset:(int *)lintOffset LintMatrixSize:(int)lintMatrixSize LlngIters:(int *)llngIters LdblToler:(double *)ldblToler LdblConv:(double *)ldblConv BooStartAtZero:(BOOL)booStartAtZero
+- (void)MaximizeLikelihood:(int *)nRows NCols:(int *)nCols DataArray:(NSArray *)dataArray LintOffset:(int *)lintOffset LintMatrixSize:(int)lintMatrixSize LlngIters:(int *)llngIters LdblToler:(double *)ldblToler LdblConv:(double *)ldblConv BooStartAtZero:(BOOL)booStartAtZero
 {
     NSString *strCalcLikelihoodError = @"";
     self.lstrError = strCalcLikelihoodError;
     double ldbllfst = 0.0;
     [self setMdblScore:0.0];
     double oldmdblScore = 0.0;
+    oldmdblScore = 0.0;
     [self setMboolConverge:YES];
     
     [self setMboolErrorStatus:NO];

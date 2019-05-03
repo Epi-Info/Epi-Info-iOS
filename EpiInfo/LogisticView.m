@@ -1361,7 +1361,9 @@
         lintweight = 0;
     
     int k = 0;
+    k = 0;
     NSDate *d = [NSDate date];
+    d = [NSDate date];
     NumRows = (int)[currentTable count];
     NumColumns = (int)[(NSArray *)[currentTable firstObject] count];
     
@@ -1369,12 +1371,15 @@
         return;
     
     int lIntIsMatch = 0;
+    lIntIsMatch = 0;
     
     if ([mstrMatchVar length] > 0)
     {
         // Match Variable Matching write this later
         int i = 0;
+        i = 0;
         int lintnull = 0;
+        lintnull = 0;
     }
     
     NSMutableArray *mVarArray = [[NSMutableArray alloc] init];
@@ -1455,7 +1460,7 @@
     }
     return YES;
 }
-- (void)checkIndependentVariables:(NSMutableArray *)currentTableMA VariableNames:(NSMutableArray *)independentVariables
+- (void)checkIndependentVariables:(NSMutableArray *)currentTableMA VariableNames:(NSArray *)independentVariables
 {
     NSMutableArray *variablesNeedingDummies = [[NSMutableArray alloc] init];
     NSMutableArray *valuesForDummies = [[NSMutableArray alloc] init];
@@ -1605,6 +1610,7 @@
     int lintConditional = 0;
     int lintweight = 0;
     double ldblFirstLikelihood = 0.0;
+    ldblFirstLikelihood = 0.0;
     double ldblScore = 0.0;
     
     mboolFirst = YES;

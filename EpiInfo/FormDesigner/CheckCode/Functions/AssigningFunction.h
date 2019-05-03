@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LegalValuesEnter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
     UIView *ccWriter;
     UILabel *titleLabel;
     UILabel *subtitleLabel;
+    
+    LegalValuesEnter *fieldToAssign;
 }
 -(id)initWithFrame:(CGRect)frame AndCallingButton:(UIButton *)cb;
 @end

@@ -260,7 +260,7 @@
         schemaList = [[UIView alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 50)];
         [schemaList setBackgroundColor:[UIColor whiteColor]];
         [self.view addSubview:schemaList];
-        dataSourceList = [[UIView alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 50)];
+        dataSourceList = [[UIScrollView alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 50)];
         [dataSourceList setBackgroundColor:[UIColor whiteColor]];
         [self.view addSubview:dataSourceList];
     }
@@ -482,7 +482,7 @@
         schemaList = [[UIView alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 50)];
         [schemaList setBackgroundColor:[UIColor whiteColor]];
         [self.view addSubview:schemaList];
-        dataSourceList = [[UIView alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 50)];
+        dataSourceList = [[UIScrollView alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 50)];
         [dataSourceList setBackgroundColor:[UIColor whiteColor]];
         [self.view addSubview:dataSourceList];
         
