@@ -55,9 +55,10 @@
         [beginDate.picker selectRow:0 inComponent:0 animated:YES];
         [self addSubview:beginDate];
         
-        beginDateLiteral = [[DateField alloc] initWithFrame:CGRectMake(8, beginDate.frame.origin.y + beginDate.frame.size.height, 304, 40)];
+        beginDateLiteral = [[DateField alloc] initWithFrame:CGRectMake(8, beginDate.frame.origin.y + beginDate.frame.size.height - 16, 304, 40)];
         [beginDateLiteral setBorderStyle:UITextBorderStyleRoundedRect];
         [beginDateLiteral setEnabled:NO];
+        [beginDateLiteral setHidden:YES];
         [self addSubview:beginDateLiteral];
     }
     return self;
@@ -66,6 +67,25 @@
 - (void)myTextFieldChanged:(UITextField *)textField
 {
     NSLog(@"%@", [textField text]);
+    if ([[textField text] isEqualToString:@"Literal Date"])
+    {
+        if (textField == beginDateSelected)
+        {
+            [beginDateLiteral setEnabled:YES];
+            [beginDateLiteral setHidden:NO];
+            [beginDateLiteral setPlaceholder:@"Tap to select literal date."];
+        }
+    }
+    else
+    {
+        if (textField == beginDateSelected)
+        {
+            [beginDateLiteral setEnabled:NO];
+            [beginDateLiteral setHidden:YES];
+            [beginDateLiteral setPlaceholder:nil];
+            [beginDateLiteral setText:@""];
+        }
+    }
 }
 
 /*
