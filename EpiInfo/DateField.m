@@ -65,11 +65,21 @@
     
     // Then set the string value in the FieldsAndStringValues object
     if (textToUse != nil)
-        [[(EnterDataView *)[[self superview] superview] fieldsAndStringValues] setObject:textToUse forKey:[self.columnName lowercaseString]];
+    {
+        @try {
+            [[(EnterDataView *)[[self superview] superview] fieldsAndStringValues] setObject:textToUse forKey:[self.columnName lowercaseString]];
+        } @catch (NSException *exception) {
+        } @finally {
+        }
+    }
     
     [super setText:textToUse];
     
-    [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+    @try {
+        [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+    } @catch (NSException *exception) {
+    } @finally {
+    }
     
     if (self.mirroringMe)
         [self.mirroringMe setText:[self text]];
@@ -88,8 +98,11 @@
     if (dp)
         if ([dp superview] == [[[self superview] superview] superview])
             return NO;
-    
-    [(EnterDataView *)[[self superview] superview] fieldBecameFirstResponder:self];
+    @try {
+        [(EnterDataView *)[[self superview] superview] fieldBecameFirstResponder:self];
+    } @catch (NSException *exception) {
+    } @finally {
+    }
     
     CGRect finalFrame = [[self superview] superview].frame;
     CGRect initialframe = CGRectMake(finalFrame.origin.x, finalFrame.origin.y - finalFrame.size.height, finalFrame.size.width, finalFrame.size.height);

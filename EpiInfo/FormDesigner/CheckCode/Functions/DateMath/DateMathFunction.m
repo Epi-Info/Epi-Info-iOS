@@ -18,7 +18,7 @@
         CGRect fieldToAssignFrame = [fieldToAssign frame];
         
         beginDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(8,
-                                                                   fieldToAssignFrame.origin.y + fieldToAssignFrame.size.height,
+                                                                   fieldToAssignFrame.origin.y + fieldToAssignFrame.size.height - 16,
                                                                    frame.size.width - 16,
                                                                    32)];
         [beginDateLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -27,7 +27,9 @@
         [beginDateLabel setText:@"Beginning Date:"];
         [self addSubview:beginDateLabel];
         
-        beginDateSelected = [[UITextField alloc] init];
+        beginDateSelected = [[CETextField alloc] init];
+        [beginDateSelected addTarget:self action:@selector(myTextFieldChanged:) forControlEvents:UIControlEventEditingChanged];
+
         NSMutableArray *assignmentFields = [[NSMutableArray alloc] init];
         [assignmentFields addObject:@""];
         NSArray *formElementObjects = [(FormDesigner *)formDesigner formElementObjects];
@@ -43,16 +45,27 @@
             if (fieldType == 7)
                 [assignmentFields addObject:fieldName];
         }
+        [assignmentFields addObject:@"SYSTEMDATE"];
         [assignmentFields addObject:@"Literal Date"];
         beginDate = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4,
                                                                        beginDateLabel.frame.origin.y + beginDateLabel.frame.size.height,
                                                                        300,
                                                                        180)
-                                            AndListOfValues:assignmentFields AndTextFieldToUpdate:fieldToAssignSelected];
+                                            AndListOfValues:assignmentFields AndTextFieldToUpdate:beginDateSelected];
         [beginDate.picker selectRow:0 inComponent:0 animated:YES];
         [self addSubview:beginDate];
+        
+        beginDateLiteral = [[DateField alloc] initWithFrame:CGRectMake(8, beginDate.frame.origin.y + beginDate.frame.size.height, 304, 40)];
+        [beginDateLiteral setBorderStyle:UITextBorderStyleRoundedRect];
+        [beginDateLiteral setEnabled:NO];
+        [self addSubview:beginDateLiteral];
     }
     return self;
+}
+
+- (void)myTextFieldChanged:(UITextField *)textField
+{
+    NSLog(@"%@", [textField text]);
 }
 
 /*

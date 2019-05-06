@@ -7,6 +7,7 @@
 
 #import "AssigningFunction.h"
 #import "DateField.h"
+#import "CETextField.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
     UILabel *beginDateLabel;
     LegalValuesEnter *beginDate;
-    UITextField *beginDateSelected;
+    CETextField *beginDateSelected;
     UILabel *beginDateLiteralLabel;
     DateField *beginDateLiteral;
 }
