@@ -4899,6 +4899,17 @@
         [actualPageNumbers addObject:[NSString stringWithFormat:@"%d", 1]];
     if ([pageNames count] == 0)
         [pageNames addObject:[NSString stringWithFormat:@"Page %d", 1]];
+    
+    if ([checkCodeStrings count] > 0)
+    {
+        NSMutableString *checkCodeStringBuilder = [[NSMutableString alloc] init];
+        [checkCodeStringBuilder appendString:[checkCodeStrings objectAtIndex:0]];
+        for (int i = 1; i < [checkCodeStrings count]; i++)
+        {
+            [checkCodeStringBuilder appendFormat:@"\n\n%@", [checkCodeStrings objectAtIndex:i]];
+        }
+        checkCodeString = [checkCodeString stringByAppendingString:checkCodeStringBuilder];
+    }
 
     NSMutableString *xmlMS = [[NSMutableString alloc] init];
     NSMutableString *sourceTables = [[NSMutableString alloc] init];
