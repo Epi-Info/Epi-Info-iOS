@@ -273,6 +273,8 @@
                 [canvasSV setContentSize:CGSizeMake(canvasSV.contentSize.width, nextY + self.frame.size.height)];
                 [canvas setFrame:CGRectMake(canvas.frame.origin.x, canvas.frame.origin.y, canvas.frame.size.width, canvasSV.contentSize.height)];
                 [canvasCover setFrame:CGRectMake(canvasCover.frame.origin.x, canvasCover.frame.origin.y, canvasCover.frame.size.width, canvas.frame.size.height)];
+                
+                [self processCheckCodeString];
             }
         }
     }
@@ -2062,6 +2064,16 @@
         [controlViewMoveDnButton setEnabled:YES];
         [controlViewDeleteButton setEnabled:YES];
         [controlViewSaveButton setEnabled:YES];
+        for (int i = 0; i < [checkCodeStrings count]; i++)
+        {
+            NSArray *nsa = [[checkCodeStrings objectAtIndex:i] componentsSeparatedByString:@" "];
+            if ([[nsa objectAtIndex:1] containsString:[controlViewFieldNameText text]])
+            {
+                [controlViewGrayBackground.layer setValue:[checkCodeStrings objectAtIndex:i] forKey:@"CheckCode"];
+                [checkCodeStrings removeObjectAtIndex:i];
+                break;
+            }
+        }
     }
     
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -5401,6 +5413,21 @@
                 [(NSMutableArray *)[pages objectAtIndex:[(NSString *)[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PageId"]] intValue] - 1] addObject:feo];
             }
         }
+    }
+}
+
+- (void)processCheckCodeString
+{
+    if ([checkCodeString length] == 0)
+        return;
+    while ([[checkCodeString lowercaseString] containsString:@"end-field"])
+    {
+        int fieldPosition = (int)[[checkCodeString lowercaseString] rangeOfString:@"field "].location;
+        int endFieldPosition = (int)[[[checkCodeString lowercaseString] substringFromIndex:fieldPosition] rangeOfString:@"end-field"].location;
+        NSRange fieldRange = NSMakeRange(fieldPosition, endFieldPosition + 9);
+        NSString *fieldString = [checkCodeString substringWithRange:fieldRange];
+        [checkCodeStrings addObject:fieldString];
+        checkCodeString = [checkCodeString stringByReplacingCharactersInRange:fieldRange withString:@""];
     }
 }
 /*

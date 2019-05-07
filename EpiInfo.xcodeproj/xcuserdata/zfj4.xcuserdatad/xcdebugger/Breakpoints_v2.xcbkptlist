@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "578939410.262748"
+            timestampString = "578942985.746756"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "6639"
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/EnterDataView.m"
-            timestampString = "578939410.26281"
+            timestampString = "578942985.746821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "6540"
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/FormDesigner/FormDesigner.m"
-            timestampString = "578939410.262935"
+            timestampString = "578942985.746874"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4897"
-            endingLineNumber = "4897"
+            startingLineNumber = "4909"
+            endingLineNumber = "4909"
             landmarkName = "-buildTheXMLFile"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,27 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/FormDesigner/FormDesigner.m"
-            timestampString = "578939410.263389"
+            timestampString = "578942985.746937"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4899"
-            endingLineNumber = "4899"
-            landmarkName = "-buildTheXMLFile"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EpiInfo/FormDesigner/FormDesigner.m"
-            timestampString = "578939410.26368"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4920"
-            endingLineNumber = "4920"
+            startingLineNumber = "4911"
+            endingLineNumber = "4911"
             landmarkName = "-buildTheXMLFile"
             landmarkType = "7">
          </BreakpointContent>
