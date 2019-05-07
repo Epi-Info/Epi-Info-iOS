@@ -24,6 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
     UITextField *fieldToAssignSelected;
 }
 -(id)initWithFrame:(CGRect)frame AndCallingButton:(UIButton *)cb;
+-(void)closeButtonPressed:(UIButton *)sender;
+-(void)addAfterFunction:(NSString *)function;
+-(void)addBeforeFunction:(NSString *)function;
 @end
 
 NS_ASSUME_NONNULL_END

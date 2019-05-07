@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)setBeginFieldString:(NSString *)bfs;
 -(NSString *)endFieldString;
 -(void)setEndFieldString:(NSString *)efs;
+-(void)addAfterFunction:(NSString *)function;
+-(void)addBeforeFunction:(NSString *)function;
 @end
 
 NS_ASSUME_NONNULL_END

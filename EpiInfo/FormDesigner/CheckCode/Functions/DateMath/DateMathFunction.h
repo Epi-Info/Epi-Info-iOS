@@ -18,6 +18,12 @@ NS_ASSUME_NONNULL_BEGIN
     CETextField *beginDateSelected;
     UILabel *beginDateLiteralLabel;
     DateField *beginDateLiteral;
+    
+    UILabel *endDateLabel;
+    LegalValuesEnter *endDate;
+    CETextField *endDateSelected;
+    UILabel *endDateLiteralLabel;
+    DateField *endDateLiteral;
 }
 @end
 

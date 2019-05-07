@@ -12,6 +12,15 @@
 
 @implementation AssigningFunction
 
+- (void)addAfterFunction:(NSString *)function
+{
+    [(CheckCodeWriter *)ccWriter addAfterFunction:function];
+}
+- (void)addBeforeFunction:(NSString *)function
+{
+    [(CheckCodeWriter *)ccWriter addBeforeFunction:function];
+}
+
 - (id)initWithFrame:(CGRect)frame AndCallingButton:(nonnull UIButton *)cb
 {
     self = [super initWithFrame:frame];

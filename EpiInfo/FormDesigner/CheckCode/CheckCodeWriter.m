@@ -30,6 +30,17 @@
     endFieldString = efs;
 }
 
+- (void)addAfterFunction:(NSString *)function
+{
+    if (![afterFunctions containsObject:function])
+        [afterFunctions addObject:function];
+}
+- (void)addBeforeFunction:(NSString *)function
+{
+    if (![beforeFunctions containsObject:function])
+        [beforeFunctions addObject:function];
+}
+
 - (id)initWithFrame:(CGRect)frame AndFieldName:(nonnull NSString *)fn AndFieldType:(nonnull NSString *)ft AndSenderSuperview:(nonnull UIView *)sv
 {
     self = [super initWithFrame:frame];
@@ -263,15 +274,15 @@
     } completion:^(BOOL finished){
     }];
     {
-        NSLog(@"%@", [[sender titleLabel] text]);
-        if ([[sender.layer valueForKey:@"BeforeAfter"] isEqualToString:@"Before"])
-        {
-        }
-        if ([[sender.layer valueForKey:@"BeforeAfter"] isEqualToString:@"After"])
-        {
-            if (![afterFunctions containsObject:[[sender titleLabel] text]])
-                [afterFunctions addObject:[[sender titleLabel] text]];
-        }
+//       NSLog(@"%@", [[sender titleLabel] text]);
+//       if ([[sender.layer valueForKey:@"BeforeAfter"] isEqualToString:@"Before"])
+//       {
+//       }
+//       if ([[sender.layer valueForKey:@"BeforeAfter"] isEqualToString:@"After"])
+//       {
+//            if (![afterFunctions containsObject:[[sender titleLabel] text]])
+//                [afterFunctions addObject:[[sender titleLabel] text]];
+//        }
     }
 }
 
