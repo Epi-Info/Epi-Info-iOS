@@ -130,6 +130,9 @@
         [closeButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
         [closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:closeButton];
+        
+        if ([[sv.layer valueForKey:@"CheckCode"] length] > 0)
+            [self.layer setValue:[sv.layer valueForKey:@"CheckCode"] forKey:@"CheckCode"];
     }
     return self;
 }

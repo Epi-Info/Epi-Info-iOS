@@ -29,7 +29,11 @@
         callingButton = cb;
         ccWriter = [[callingButton superview] superview];
         formDesigner = [ccWriter superview];
-        
+        if ([[ccWriter.layer valueForKey:@"CheckCode"] length] > 0)
+        {
+            NSLog(@"Check Code from ccWriter:\n%@", [ccWriter.layer valueForKey:@"CheckCode"]);
+        }
+
         [self setBackgroundColor:[UIColor whiteColor]];
         
         titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 32)];
