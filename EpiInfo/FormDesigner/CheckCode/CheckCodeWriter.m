@@ -48,7 +48,7 @@
     {
         senderSuperview = sv;
         beginFieldString = [NSString stringWithFormat:@"Field %@", fn];
-        endFieldString = @"\nEnd-Field";
+        endFieldString = @"&#xA;End-Field";
         beforeFunctions = [[NSMutableArray alloc] init];
         afterFunctions = [[NSMutableArray alloc] init];
         
@@ -132,7 +132,33 @@
         [self addSubview:closeButton];
         
         if ([[sv.layer valueForKey:@"CheckCode"] length] > 0)
+        {
+            NSString *rawCheckCode = [NSString stringWithString:[sv.layer valueForKey:@"CheckCode"]];
             [self.layer setValue:[sv.layer valueForKey:@"CheckCode"] forKey:@"CheckCode"];
+            NSString *afterString = @"";
+            int afterLocation = (int)[[rawCheckCode lowercaseString] rangeOfString:@"after"].location;
+            int endAfterEndLocation = -1;
+            if (afterLocation > 0)
+            {
+                endAfterEndLocation = (int)[[[rawCheckCode lowercaseString] substringFromIndex:afterLocation] rangeOfString:@"end-after"].location + 9;
+                if (endAfterEndLocation > 0)
+                {
+                    afterString = [rawCheckCode substringWithRange:NSMakeRange(afterLocation, endAfterEndLocation)];
+                    rawCheckCode = [rawCheckCode stringByReplacingCharactersInRange:NSMakeRange(afterLocation, endAfterEndLocation) withString:@""];
+                }
+            }
+            
+            if ([afterString length] > 0)
+            {
+                while ([[afterString lowercaseString] containsString:@"&#x9;assign "])
+                {
+                    int assignLocation = (int)[[afterString lowercaseString] rangeOfString:@"&#x9;assign "].location + 5;
+                    int lineFeedLocation = (int)[[[afterString lowercaseString] substringFromIndex:assignLocation] rangeOfString:@"&#xa;"].location;
+                    [afterFunctions addObject:[afterString substringWithRange:NSMakeRange(assignLocation, lineFeedLocation)]];
+                    afterString = [afterString stringByReplacingCharactersInRange:NSMakeRange(assignLocation, lineFeedLocation) withString:@""];
+                }
+            }
+        }
     }
     return self;
 }
@@ -299,21 +325,21 @@
             [checkCodeMutableString appendString:beginFieldString];
             if ([beforeFunctions count] > 0)
             {
-                [checkCodeMutableString appendString:@"\n\tBefore"];
+                [checkCodeMutableString appendString:@"&#xA;&#x9;Before"];
                 for (int i = 0; i < [beforeFunctions count]; i++)
                 {
-                    [checkCodeMutableString appendFormat:@"\n\t\t%@", [beforeFunctions objectAtIndex:i]];
+                    [checkCodeMutableString appendFormat:@"&#xA;&#x9;&#x9;%@", [beforeFunctions objectAtIndex:i]];
                 }
-                [checkCodeMutableString appendString:@"\n\tEnd-Before"];
+                [checkCodeMutableString appendString:@"&#xA;&#x9;End-Before"];
             }
             if ([afterFunctions count] > 0)
             {
-                [checkCodeMutableString appendString:@"\n\tAfter"];
+                [checkCodeMutableString appendString:@"&#xA;&#x9;After"];
                 for (int i = 0; i < [afterFunctions count]; i++)
                 {
-                    [checkCodeMutableString appendFormat:@"\n\t\t%@", [afterFunctions objectAtIndex:i]];
+                    [checkCodeMutableString appendFormat:@"&#xA;&#x9;&#x9;%@", [afterFunctions objectAtIndex:i]];
                 }
-                [checkCodeMutableString appendString:@"\n\tEnd-After"];
+                [checkCodeMutableString appendString:@"&#xA;&#x9;End-After"];
             }
             [checkCodeMutableString appendString:endFieldString];
             [senderSuperview.layer setValue:[NSString stringWithString:checkCodeMutableString] forKey:@"CheckCode"];
