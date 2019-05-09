@@ -15,6 +15,19 @@
     if (self)
     {
         [titleLabel setText:@"Assign Result of Months Function"];
+
+        if (existingFunctions)
+        {
+            for (NSString *s in existingFunctionsArray)
+            {
+                if ([s containsString:@"MONTHS"])
+                {
+                    [existingFunctionsButton setTag:6647];
+                    [self addSubview:existingFunctionsButton];
+                    break;
+                }
+            }
+        }
     }
     return self;
 }

@@ -15,6 +15,19 @@
     if (self)
     {
         [titleLabel setText:@"Assign Result of Days Function"];
+
+        if (existingFunctions)
+        {
+            for (NSString *s in existingFunctionsArray)
+            {
+                if ([s containsString:@"DAYS"])
+                {
+                    [existingFunctionsButton setTag:3297];
+                    [self addSubview:existingFunctionsButton];
+                    break;
+                }
+            }
+        }
     }
     return self;
 }

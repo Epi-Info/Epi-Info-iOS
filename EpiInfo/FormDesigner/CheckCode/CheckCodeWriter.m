@@ -30,6 +30,21 @@
     endFieldString = efs;
 }
 
+- (NSMutableArray *)beforeFunctions
+{
+    return beforeFunctions;
+}
+
+- (NSMutableArray *)afterFunctions
+{
+    return afterFunctions;
+}
+
+- (NSMutableArray *)clickFunctions
+{
+    return clickFunctions;
+}
+
 - (void)addAfterFunction:(NSString *)function
 {
     if (![afterFunctions containsObject:function])
@@ -39,6 +54,11 @@
 {
     if (![beforeFunctions containsObject:function])
         [beforeFunctions addObject:function];
+}
+- (void)addClickFunction:(NSString *)function
+{
+    if (![clickFunctions containsObject:function])
+        [clickFunctions addObject:function];
 }
 
 - (id)initWithFrame:(CGRect)frame AndFieldName:(nonnull NSString *)fn AndFieldType:(nonnull NSString *)ft AndSenderSuperview:(nonnull UIView *)sv

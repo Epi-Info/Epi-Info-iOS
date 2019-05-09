@@ -22,11 +22,19 @@ NS_ASSUME_NONNULL_BEGIN
     UILabel *fieldToAssignLabel;
     LegalValuesEnter *fieldToAssign;
     UITextField *fieldToAssignSelected;
+    
+    UIButton *existingFunctionsButton;
+    UIButton *deleteButton;
+    
+    BOOL existingFunctions;
+    NSMutableArray *existingFunctionsArray;
 }
 -(id)initWithFrame:(CGRect)frame AndCallingButton:(UIButton *)cb;
 -(void)closeButtonPressed:(UIButton *)sender;
+-(void)editButtonPressed:(UIButton *)sender;
 -(void)addAfterFunction:(NSString *)function;
 -(void)addBeforeFunction:(NSString *)function;
+-(void)addClickFunction:(NSString *)function;
 @end
 
 NS_ASSUME_NONNULL_END

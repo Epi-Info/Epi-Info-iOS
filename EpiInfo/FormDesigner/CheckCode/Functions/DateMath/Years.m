@@ -16,6 +16,19 @@
     if (self)
     {
         [titleLabel setText:@"Assign Result of Years Function"];
+
+        if (existingFunctions)
+        {
+            for (NSString *s in existingFunctionsArray)
+            {
+                if ([s containsString:@"YEARS"])
+                {
+                    [existingFunctionsButton setTag:93277];
+                    [self addSubview:existingFunctionsButton];
+                    break;
+                }
+            }
+        }
     }
     return self;
 }

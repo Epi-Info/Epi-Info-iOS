@@ -25,6 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)setEndFieldString:(NSString *)efs;
 -(void)addAfterFunction:(NSString *)function;
 -(void)addBeforeFunction:(NSString *)function;
+-(void)addClickFunction:(NSString *)function;
+-(NSMutableArray *)beforeFunctions;
+-(NSMutableArray *)afterFunctions;
+-(NSMutableArray *)clickFunctions;
 @end
 
 NS_ASSUME_NONNULL_END

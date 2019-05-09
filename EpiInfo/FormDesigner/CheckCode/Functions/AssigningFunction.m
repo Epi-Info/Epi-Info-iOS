@@ -20,6 +20,10 @@
 {
     [(CheckCodeWriter *)ccWriter addBeforeFunction:function];
 }
+- (void)addClickFunction:(NSString *)function
+{
+    [(CheckCodeWriter *)ccWriter addClickFunction:function];
+}
 
 - (id)initWithFrame:(CGRect)frame AndCallingButton:(nonnull UIButton *)cb
 {
@@ -29,9 +33,31 @@
         callingButton = cb;
         ccWriter = [[callingButton superview] superview];
         formDesigner = [ccWriter superview];
-        if ([[ccWriter.layer valueForKey:@"CheckCode"] length] > 0)
+        existingFunctions = NO;
+
+        if ([[cb.layer valueForKey:@"BeforeAfter"] isEqualToString:@"After"])
         {
-            NSLog(@"Check Code from ccWriter:\n%@", [ccWriter.layer valueForKey:@"CheckCode"]);
+            if ([[(CheckCodeWriter *)ccWriter afterFunctions] count] > 0)
+            {
+                existingFunctions = YES;
+                existingFunctionsArray = [(CheckCodeWriter *)ccWriter afterFunctions];
+            }
+        }
+        else if ([[cb.layer valueForKey:@"BeforeAfter"] isEqualToString:@"Before"])
+        {
+            if ([[(CheckCodeWriter *)ccWriter beforeFunctions] count] > 0)
+            {
+                existingFunctions = YES;
+                existingFunctionsArray = [(CheckCodeWriter *)ccWriter beforeFunctions];
+            }
+        }
+        else if ([[cb.layer valueForKey:@"BeforeAfter"] isEqualToString:@"Click"])
+        {
+            if ([[(CheckCodeWriter *)ccWriter clickFunctions] count] > 0)
+            {
+                existingFunctions = YES;
+                existingFunctionsArray = [(CheckCodeWriter *)ccWriter clickFunctions];
+            }
         }
 
         [self setBackgroundColor:[UIColor whiteColor]];
@@ -80,18 +106,55 @@
         [fieldToAssign.picker selectRow:0 inComponent:0 animated:YES];
         [self addSubview:fieldToAssign];
 
-        UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0,
-                                                                           self.frame.size.height - 48,
-                                                                           self.frame.size.width / 2.0,
+        UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(0,
+                                                                           self.frame.size.height - 40,
+                                                                           self.frame.size.width / 4.0,
+                                                                           32)];
+        [saveButton setBackgroundColor:[UIColor whiteColor]];
+        [saveButton setTitle:@"Save" forState:UIControlStateNormal];
+        [saveButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [saveButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [saveButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [saveButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [saveButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:saveButton];
+
+        UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width / 4.0,
+                                                                           self.frame.size.height - 40,
+                                                                           self.frame.size.width / 4.0,
                                                                            32)];
         [closeButton setBackgroundColor:[UIColor whiteColor]];
-        [closeButton setTitle:@"Close" forState:UIControlStateNormal];
+        [closeButton setTitle:@"Cancel" forState:UIControlStateNormal];
         [closeButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
         [closeButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [closeButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
         [closeButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
         [closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:closeButton];
+
+        existingFunctionsButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0,
+                                                                           self.frame.size.height - 40,
+                                                                           self.frame.size.width / 4.0,
+                                                                           32)];
+        [existingFunctionsButton setBackgroundColor:[UIColor whiteColor]];
+        [existingFunctionsButton setTitle:@"Edit" forState:UIControlStateNormal];
+        [existingFunctionsButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [existingFunctionsButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [existingFunctionsButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [existingFunctionsButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [existingFunctionsButton addTarget:self action:@selector(editButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+
+        deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(3.0 * self.frame.size.width / 4.0,
+                                                                                       self.frame.size.height - 40,
+                                                                                       self.frame.size.width / 4.0,
+                                                                                       32)];
+        [deleteButton setBackgroundColor:[UIColor whiteColor]];
+        [deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+        [deleteButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [deleteButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [deleteButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [deleteButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [deleteButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
 }
@@ -103,6 +166,22 @@
     } completion:^(BOOL finished){
         [[sender superview] removeFromSuperview];
     }];
+}
+
+- (void)editButtonPressed:(UIButton *)sender
+{
+    if ([sender tag] == 93277)
+    {
+        NSLog(@"Getting existing YEARS functions.");
+    }
+    else if ([sender tag] == 6647)
+    {
+        NSLog(@"Getting existing MONTHS functions.");
+    }
+    else if ([sender tag] == 3297)
+    {
+        NSLog(@"Getting existing DAYS functions.");
+    }
 }
 
 /*

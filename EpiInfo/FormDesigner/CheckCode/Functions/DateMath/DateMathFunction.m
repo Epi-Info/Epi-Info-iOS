@@ -137,6 +137,13 @@
     
     [super closeButtonPressed:sender];
     
+    if ([[[sender titleLabel] text] isEqualToString:@"Cancel"])
+        return;
+    else if ([[[sender titleLabel] text] isEqualToString:@"Delete"])
+    {
+        return;
+    }
+    
     if ([beginningDateString isEqualToString:@"Literal Date"])
         beginningDateString = beginningDateLiteralString;
     if ([endDateString isEqualToString:@"Literal Date"])
