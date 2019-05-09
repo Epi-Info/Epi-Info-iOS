@@ -169,6 +169,7 @@
 		92385D2C227B2AB100079890 /* Months.m in Sources */ = {isa = PBXBuildFile; fileRef = 92385D2B227B2AB100079890 /* Months.m */; };
 		92385D2F227B2AD100079890 /* Days.m in Sources */ = {isa = PBXBuildFile; fileRef = 92385D2E227B2AD100079890 /* Days.m */; };
 		92385D322280A55600079890 /* CETextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 92385D312280A55600079890 /* CETextField.m */; };
+		92385D352284A37100079890 /* ExistingFunctionsListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92385D342284A37100079890 /* ExistingFunctionsListView.m */; };
 		923A263817B41BCE00DCBCD5 /* AnalysisFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A263717B41BCE00DCBCD5 /* AnalysisFilterView.m */; };
 		923A263B17B4265D00DCBCD5 /* FilterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A263A17B4265D00DCBCD5 /* FilterButton.m */; };
 		923A49F617B56636000FFC0C /* NewVariablesButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A49F517B56636000FFC0C /* NewVariablesButton.m */; };
@@ -672,6 +673,8 @@
 		92385D2E227B2AD100079890 /* Days.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Days.m; sourceTree = "<group>"; };
 		92385D302280A55600079890 /* CETextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CETextField.h; sourceTree = "<group>"; };
 		92385D312280A55600079890 /* CETextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CETextField.m; sourceTree = "<group>"; };
+		92385D332284A37100079890 /* ExistingFunctionsListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExistingFunctionsListView.h; sourceTree = "<group>"; };
+		92385D342284A37100079890 /* ExistingFunctionsListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExistingFunctionsListView.m; sourceTree = "<group>"; };
 		923A263617B41BCE00DCBCD5 /* AnalysisFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalysisFilterView.h; sourceTree = "<group>"; };
 		923A263717B41BCE00DCBCD5 /* AnalysisFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalysisFilterView.m; sourceTree = "<group>"; };
 		923A263917B4265D00DCBCD5 /* FilterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterButton.h; sourceTree = "<group>"; };
@@ -1500,6 +1503,8 @@
 			children = (
 				92385D23227B20DC00079890 /* AssigningFunction.h */,
 				92385D24227B20DC00079890 /* AssigningFunction.m */,
+				92385D332284A37100079890 /* ExistingFunctionsListView.h */,
+				92385D342284A37100079890 /* ExistingFunctionsListView.m */,
 				92385D1F227A319100079890 /* DateMath */,
 			);
 			path = Functions;
@@ -2155,6 +2160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AFD8536161F137B00FFBA65 /* main.m in Sources */,
+				92385D352284A37100079890 /* ExistingFunctionsListView.m in Sources */,
 				92EB1ACF1DCA77B900694282 /* DictionaryOfFields.m in Sources */,
 				9253C7762195F42400DC084B /* LogisticView.m in Sources */,
 				92385D322280A55600079890 /* CETextField.m in Sources */,

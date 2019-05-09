@@ -156,6 +156,11 @@
     }
 }
 
+- (void)loadFunctionToEdit:(NSString *)function
+{
+    NSLog(@"\nDateMath object loading\n%@", function);
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

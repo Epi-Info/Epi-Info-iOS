@@ -9,6 +9,7 @@
 #import "CheckCodeWriter.h"
 #import "FormDesigner.h"
 #import "FormElementObject.h"
+#import "ExistingFunctionsListView.h"
 
 @implementation AssigningFunction
 
@@ -170,18 +171,40 @@
 
 - (void)editButtonPressed:(UIButton *)sender
 {
+    NSMutableArray *relevantFunctionsArray = [[NSMutableArray alloc] init];
     if ([sender tag] == 93277)
     {
-        NSLog(@"Getting existing YEARS functions.");
+        for (int i = 0; i < [existingFunctionsArray count]; i++)
+            if ([(NSString *)[existingFunctionsArray objectAtIndex:i] containsString:@"YEARS"])
+                [relevantFunctionsArray addObject:[existingFunctionsArray objectAtIndex:i]];
     }
     else if ([sender tag] == 6647)
     {
-        NSLog(@"Getting existing MONTHS functions.");
+        for (int i = 0; i < [existingFunctionsArray count]; i++)
+            if ([(NSString *)[existingFunctionsArray objectAtIndex:i] containsString:@"MONTHS"])
+                [relevantFunctionsArray addObject:[existingFunctionsArray objectAtIndex:i]];
     }
     else if ([sender tag] == 3297)
     {
-        NSLog(@"Getting existing DAYS functions.");
+        for (int i = 0; i < [existingFunctionsArray count]; i++)
+            if ([(NSString *)[existingFunctionsArray objectAtIndex:i] containsString:@"DAYS"])
+                [relevantFunctionsArray addObject:[existingFunctionsArray objectAtIndex:i]];
     }
+    ExistingFunctionsListView *eflv = [[ExistingFunctionsListView alloc] initWithFrame:CGRectMake(0,
+                                                                                                  -self.frame.size.height,
+                                                                                                  self.frame.size.width,
+                                                                                                  self.frame.size.height)
+                                                                     AndFunctionsArray:relevantFunctionsArray
+                                                                             AndSender:sender];
+    [self addSubview:eflv];
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [eflv setFrame:CGRectMake(0, 0, eflv.frame.size.width, eflv.frame.size.height)];
+    } completion:^(BOOL finished){
+    }];
+}
+
+- (void)loadFunctionToEdit:(NSString *)function
+{
 }
 
 /*
