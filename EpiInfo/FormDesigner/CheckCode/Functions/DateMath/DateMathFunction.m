@@ -138,12 +138,18 @@
     [super closeButtonPressed:sender];
     
     if ([[[sender titleLabel] text] isEqualToString:@"Cancel"])
+    {
+        if (functionBeingEdited != nil)
+            if ([functionBeingEdited length] > 0)
+                if (![existingFunctionsArray containsObject:functionBeingEdited])
+                    [existingFunctionsArray addObject:functionBeingEdited];
         return;
+    }
     else if ([[[sender titleLabel] text] isEqualToString:@"Delete"])
     {
         return;
     }
-    
+
     if ([beginningDateString isEqualToString:@"Literal Date"])
         beginningDateString = beginningDateLiteralString;
     if ([endDateString isEqualToString:@"Literal Date"])
@@ -159,6 +165,66 @@
 - (void)loadFunctionToEdit:(NSString *)function
 {
     NSLog(@"\nDateMath object loading\n%@", function);
+    [self addSubview:deleteButton];
+    functionBeingEdited = [NSString stringWithString:function];
+    [existingFunctionsArray removeObject:functionBeingEdited];
+    NSArray *tokens = [function componentsSeparatedByString:@" "];
+    NSString *fieldToPopulateString = [tokens objectAtIndex:1];
+    NSString *dateMathFunction = [[[function stringByReplacingOccurrencesOfString:@" " withString:@""] componentsSeparatedByString:@"="] lastObject];
+    int openParenLocation = (int)[dateMathFunction rangeOfString:@"("].location;
+    int commaLocation = (int)[dateMathFunction rangeOfString:@","].location;
+    int closeParenLocation = (int)[dateMathFunction rangeOfString:@")"].location;
+    NSString *beginningDateString = [dateMathFunction substringWithRange:NSMakeRange(openParenLocation + 1, commaLocation - openParenLocation - 1)];
+    NSString *endDateString = [dateMathFunction substringWithRange:NSMakeRange(commaLocation + 1, closeParenLocation - commaLocation - 1)];
+    
+    if (![beginDate.listOfValues containsObject:beginningDateString])
+    {
+        if ([beginningDateString rangeOfString:@"/"].location > 0)
+        {
+            if ([beginningDateString length] > [beginningDateString rangeOfString:@"/"].location + 1)
+            {
+                if ([[beginningDateString substringFromIndex:[beginningDateString rangeOfString:@"/"].location + 1] rangeOfString:@"/"].location > 0)
+                {
+                    [beginDateLiteral setText:beginningDateString];
+                    [beginDateLiteral setHidden:NO];
+                    beginningDateString = @"Literal Date";
+                }
+            }
+        }
+    }
+    if (![endDate.listOfValues containsObject:endDateString])
+    {
+        if ([endDateString rangeOfString:@"/"].location > 0)
+        {
+            if ([endDateString length] > [endDateString rangeOfString:@"/"].location + 1)
+            {
+                if ([[endDateString substringFromIndex:[endDateString rangeOfString:@"/"].location + 1] rangeOfString:@"/"].location > 0)
+                {
+                    [endDateLiteral setText:endDateString];
+                    [endDateLiteral setHidden:NO];
+                    endDateString = @"Literal Date";
+                }
+            }
+        }
+    }
+
+    @try {
+        [endDate assignValue:endDateString];
+    } @catch (NSException *exception) {
+    } @finally {
+    }
+    [fieldToAssign assignValue:fieldToPopulateString];
+    @try {
+        [endDate assignValue:endDateString];
+    } @catch (NSException *exception) {
+    } @finally {
+    }
+    [beginDate assignValue:beginningDateString];
+    @try {
+        [endDate assignValue:endDateString];
+    } @catch (NSException *exception) {
+    } @finally {
+    }
 }
 
 /*

@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
     
     BOOL existingFunctions;
     NSMutableArray *existingFunctionsArray;
+    
+    NSString *functionBeingEdited;
 }
 -(id)initWithFrame:(CGRect)frame AndCallingButton:(UIButton *)cb;
 -(void)closeButtonPressed:(UIButton *)sender;

@@ -335,7 +335,11 @@
     //
     [self setPicked:value];
     [self setFormFieldValue:value];
-    [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+    @try {
+        [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+    } @catch (NSException *exception) {
+    } @finally {
+    }
 }
 
 - (void)setIsEnabled:(BOOL)isEnabled
