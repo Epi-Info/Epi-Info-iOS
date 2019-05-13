@@ -9,6 +9,8 @@
 #import "Years.h"
 #import "Months.h"
 #import "Days.h"
+#import "EnableDisableClear.h"
+#import "Clear.h"
 
 @implementation CheckCodeWriter
 
@@ -177,6 +179,13 @@
                     [afterFunctions addObject:[afterString substringWithRange:NSMakeRange(assignLocation, lineFeedLocation)]];
                     afterString = [afterString stringByReplacingCharactersInRange:NSMakeRange(assignLocation, lineFeedLocation) withString:@""];
                 }
+                while ([[afterString lowercaseString] containsString:@"&#x9;clear "])
+                {
+                    int assignLocation = (int)[[afterString lowercaseString] rangeOfString:@"&#x9;clear "].location + 5;
+                    int lineFeedLocation = (int)[[[afterString lowercaseString] substringFromIndex:assignLocation] rangeOfString:@"&#xa;"].location;
+                    [afterFunctions addObject:[afterString substringWithRange:NSMakeRange(assignLocation, lineFeedLocation)]];
+                    afterString = [afterString stringByReplacingCharactersInRange:NSMakeRange(assignLocation, lineFeedLocation) withString:@""];
+                }
             }
         }
     }
@@ -267,6 +276,17 @@
             [differenceInDaysButton addTarget:self action:@selector(functionSelectionButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [differenceInDaysButton.layer setValue:@"After" forKey:@"BeforeAfter"];
             [selectFunctionView addSubview:differenceInDaysButton];
+            
+            UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(selectFunctionView.frame.size.width / 2.0, 160, selectFunctionView.frame.size.width / 2.0, 32)];
+            [clearButton setBackgroundColor:[UIColor whiteColor]];
+            [clearButton setTitle:@"Clear" forState:UIControlStateNormal];
+            [clearButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+            [clearButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+            [clearButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+            [clearButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+            [clearButton addTarget:self action:@selector(functionSelectionButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+            [clearButton.layer setValue:@"After" forKey:@"BeforeAfter"];
+            [selectFunctionView addSubview:clearButton];
         }
     }
     else
@@ -316,6 +336,15 @@
                                                                [sender superview].frame.size.width,
                                                                [sender superview].frame.size.height)
                                    AndCallingButton:sender];
+        [[sender superview] addSubview:span];
+    }
+    if ([[[sender titleLabel] text] isEqualToString:@"Clear"])
+    {
+        span = [[Clear alloc] initWithFrame:CGRectMake([sender superview].frame.origin.x,
+                                                      -[sender superview].frame.size.height,
+                                                      [sender superview].frame.size.width,
+                                                      [sender superview].frame.size.height)
+                          AndCallingButton:sender];
         [[sender superview] addSubview:span];
     }
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{

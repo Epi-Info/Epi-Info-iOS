@@ -170,6 +170,10 @@
 		92385D2F227B2AD100079890 /* Days.m in Sources */ = {isa = PBXBuildFile; fileRef = 92385D2E227B2AD100079890 /* Days.m */; };
 		92385D322280A55600079890 /* CETextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 92385D312280A55600079890 /* CETextField.m */; };
 		92385D352284A37100079890 /* ExistingFunctionsListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92385D342284A37100079890 /* ExistingFunctionsListView.m */; };
+		923A02CD2289A07300C33F3B /* EnableDisableClear.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A02CC2289A07300C33F3B /* EnableDisableClear.m */; };
+		923A02D62289A3BF00C33F3B /* Enable.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A02D52289A3BF00C33F3B /* Enable.m */; };
+		923A02D92289A3DA00C33F3B /* Disable.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A02D82289A3DA00C33F3B /* Disable.m */; };
+		923A02DC2289A3ED00C33F3B /* Clear.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A02DB2289A3ED00C33F3B /* Clear.m */; };
 		923A263817B41BCE00DCBCD5 /* AnalysisFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A263717B41BCE00DCBCD5 /* AnalysisFilterView.m */; };
 		923A263B17B4265D00DCBCD5 /* FilterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A263A17B4265D00DCBCD5 /* FilterButton.m */; };
 		923A49F617B56636000FFC0C /* NewVariablesButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A49F517B56636000FFC0C /* NewVariablesButton.m */; };
@@ -675,6 +679,14 @@
 		92385D312280A55600079890 /* CETextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CETextField.m; sourceTree = "<group>"; };
 		92385D332284A37100079890 /* ExistingFunctionsListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExistingFunctionsListView.h; sourceTree = "<group>"; };
 		92385D342284A37100079890 /* ExistingFunctionsListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExistingFunctionsListView.m; sourceTree = "<group>"; };
+		923A02CB2289A07300C33F3B /* EnableDisableClear.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EnableDisableClear.h; sourceTree = "<group>"; };
+		923A02CC2289A07300C33F3B /* EnableDisableClear.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EnableDisableClear.m; sourceTree = "<group>"; };
+		923A02D42289A3BF00C33F3B /* Enable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Enable.h; sourceTree = "<group>"; };
+		923A02D52289A3BF00C33F3B /* Enable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Enable.m; sourceTree = "<group>"; };
+		923A02D72289A3DA00C33F3B /* Disable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Disable.h; sourceTree = "<group>"; };
+		923A02D82289A3DA00C33F3B /* Disable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Disable.m; sourceTree = "<group>"; };
+		923A02DA2289A3ED00C33F3B /* Clear.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Clear.h; sourceTree = "<group>"; };
+		923A02DB2289A3ED00C33F3B /* Clear.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Clear.m; sourceTree = "<group>"; };
 		923A263617B41BCE00DCBCD5 /* AnalysisFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalysisFilterView.h; sourceTree = "<group>"; };
 		923A263717B41BCE00DCBCD5 /* AnalysisFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalysisFilterView.m; sourceTree = "<group>"; };
 		923A263917B4265D00DCBCD5 /* FilterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterButton.h; sourceTree = "<group>"; };
@@ -1503,9 +1515,12 @@
 			children = (
 				92385D23227B20DC00079890 /* AssigningFunction.h */,
 				92385D24227B20DC00079890 /* AssigningFunction.m */,
+				923A02CB2289A07300C33F3B /* EnableDisableClear.h */,
+				923A02CC2289A07300C33F3B /* EnableDisableClear.m */,
 				92385D332284A37100079890 /* ExistingFunctionsListView.h */,
 				92385D342284A37100079890 /* ExistingFunctionsListView.m */,
 				92385D1F227A319100079890 /* DateMath */,
+				923A02D32289A38700C33F3B /* Actions */,
 			);
 			path = Functions;
 			sourceTree = "<group>";
@@ -1523,6 +1538,19 @@
 				92385D2E227B2AD100079890 /* Days.m */,
 			);
 			path = DateMath;
+			sourceTree = "<group>";
+		};
+		923A02D32289A38700C33F3B /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				923A02D42289A3BF00C33F3B /* Enable.h */,
+				923A02D52289A3BF00C33F3B /* Enable.m */,
+				923A02D72289A3DA00C33F3B /* Disable.h */,
+				923A02D82289A3DA00C33F3B /* Disable.m */,
+				923A02DA2289A3ED00C33F3B /* Clear.h */,
+				923A02DB2289A3ED00C33F3B /* Clear.m */,
+			);
+			path = Actions;
 			sourceTree = "<group>";
 		};
 		923A263C17B42C7F00DCBCD5 /* Analyses */ = {
@@ -2169,6 +2197,7 @@
 				4AFD854F161F142600FFBA65 /* StatCalcViewController.m in Sources */,
 				92A1F68F1B03E9A4004654B8 /* CheckCode.swift in Sources */,
 				920AE61019C88D71001C96CE /* EpiInfoViewForRounding.m in Sources */,
+				923A02D92289A3DA00C33F3B /* Disable.m in Sources */,
 				4AFD8557161F179600FFBA65 /* StatCalc2x2ViewController.m in Sources */,
 				4AFD8558161F179600FFBA65 /* Twox2CalculatorView.m in Sources */,
 				921ED31E1C7F7043004C6091 /* RelateButton.m in Sources */,
@@ -2208,6 +2237,7 @@
 				92F25A3C1ECB558400638DF9 /* EpiInfoLogManager.m in Sources */,
 				4AC7D6301625C0C80056A8AC /* UnmatchedCaseControlSampleSizeViewController.m in Sources */,
 				929E47AF21A5D16900D88EF0 /* LogisticRegressionResults.m in Sources */,
+				923A02CD2289A07300C33F3B /* EnableDisableClear.m in Sources */,
 				923226771E53825E0099439F /* ExpressionActionParser.m in Sources */,
 				921500821EA92A2100E2CF9A /* MainMenuMenu.m in Sources */,
 				92A25C011938E0AC003225E1 /* TimeField.m in Sources */,
@@ -2220,6 +2250,7 @@
 				9259D2E61C9327D200AE9181 /* ChildFormFieldAssignments.m in Sources */,
 				92E1A83918730614003E58A5 /* EpiInfoTextField.m in Sources */,
 				922D49ED1D64F3D40090631E /* ParseAssignment.m in Sources */,
+				923A02D62289A3BF00C33F3B /* Enable.m in Sources */,
 				929E47B721A5DA3900D88EF0 /* VariableRow.m in Sources */,
 				92502392225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.m in Sources */,
 				920BCE3521760F6F00BF050A /* LogisticObject.m in Sources */,
@@ -2270,6 +2301,7 @@
 				92AAC01C1C208917005D77F3 /* FeedbackView.m in Sources */,
 				92DBD606193CDAFA00A40691 /* EpiInfoUniqueIDField.m in Sources */,
 				92385D25227B20DC00079890 /* AssigningFunction.m in Sources */,
+				923A02DC2289A3ED00C33F3B /* Clear.m in Sources */,
 				927B555F18B6533B000AB7B1 /* Reachability.m in Sources */,
 				4A556867178DA09400B79542 /* TablesView.m in Sources */,
 				9276EEB917B028AE0050858B /* ChooseAnalysisButton.m in Sources */,
