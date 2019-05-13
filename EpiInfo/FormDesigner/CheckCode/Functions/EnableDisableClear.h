@@ -36,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)editButtonPressed:(UIButton *)sender;
 -(void)addAfterFunction:(NSString *)function;
 -(void)addBeforeFunction:(NSString *)function;
--(void)addClickFunction:(NSString *)function;@end
+-(void)addClickFunction:(NSString *)function;
+-(void)loadFunctionToEdit:(NSString *)function;
+@end
 
 NS_ASSUME_NONNULL_END

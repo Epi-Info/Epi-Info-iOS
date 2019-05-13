@@ -201,6 +201,22 @@
     }];
 }
 
+- (void)loadFunctionToEdit:(NSString *)function
+{
+    NSLog(@"\nEnableDisableClear object loading\n%@", function);
+    [self addSubview:deleteButton];
+    functionBeingEdited = [NSString stringWithString:function];
+    [existingFunctionsArray removeObject:functionBeingEdited];
+    NSArray *tokens = [function componentsSeparatedByString:@" "];
+    NSString *fieldToPopulateString = [tokens objectAtIndex:1];
+    
+    @try {
+        [fieldToAffect assignValue:fieldToPopulateString];
+    } @catch (NSException *exception) {
+    } @finally {
+    }
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

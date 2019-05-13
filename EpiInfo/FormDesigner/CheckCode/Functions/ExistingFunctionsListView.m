@@ -7,6 +7,7 @@
 
 #import "ExistingFunctionsListView.h"
 #import "AssigningFunction.h"
+#import "EnableDisableClear.h"
 
 @implementation ExistingFunctionsListView
 
@@ -71,7 +72,10 @@
 {
     if (![[[sender titleLabel] text] isEqualToString:@"Cancel"])
     {
-        [(AssigningFunction *)assigningFunction loadFunctionToEdit:[[sender titleLabel] text]];
+        if ([assigningFunction isKindOfClass:[AssigningFunction class]])
+            [(AssigningFunction *)assigningFunction loadFunctionToEdit:[[sender titleLabel] text]];
+        if ([assigningFunction isKindOfClass:[EnableDisableClear class]])
+            [(EnableDisableClear *)assigningFunction loadFunctionToEdit:[[sender titleLabel] text]];
     }
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [self setFrame:CGRectMake(self.frame.origin.x, -self.frame.size.height, self.frame.size.width, self.frame.size.height)];
