@@ -118,7 +118,7 @@
         [sixthLabel setText:@"Select when execution will occur:"];
         [self addSubview:sixthLabel];
 
-        UIButton *beforeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 128, frame.size.width / 2.0, 32)];
+        beforeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 128, frame.size.width / 2.0, 32)];
         [beforeButton setBackgroundColor:[UIColor whiteColor]];
         [beforeButton setTitle:@"Before" forState:UIControlStateNormal];
         [beforeButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
@@ -131,7 +131,7 @@
         [beforeButton setEnabled:NO];
         [self addSubview:beforeButton];
         
-        UIButton *afterButton = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width / 2.0, 128, frame.size.width / 2.0, 32)];
+        afterButton = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width / 2.0, 128, frame.size.width / 2.0, 32)];
         [afterButton setBackgroundColor:[UIColor whiteColor]];
         [afterButton setTitle:@"After" forState:UIControlStateNormal];
         [afterButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];

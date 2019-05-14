@@ -52,6 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 @property UIViewController *rootViewController;
 -(NSMutableArray *)formElementObjects;
+-(NSMutableArray *)pageNames;
 -(id)initWithFrame:(CGRect)frame andSender:(UIButton *)sender;
 @end
 

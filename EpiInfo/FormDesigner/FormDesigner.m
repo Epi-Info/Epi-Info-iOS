@@ -9,6 +9,7 @@
 #import "DataEntryViewController.h"
 #import "TextFieldDisplay.h"
 #import "CheckCodeWriter.h"
+#import "PageCheckCodeWriter.h"
 
 @implementation FormDesigner
 @synthesize rootViewController = _rootViewController;
@@ -16,6 +17,10 @@
 - (NSMutableArray *)formElementObjects
 {
     return formElementObjects;
+}
+- (NSMutableArray *)pageNames
+{
+    return pageNames;
 }
 
 - (id)initWithFrame:(CGRect)frame andSender:(nonnull UIButton *)sender
@@ -962,6 +967,19 @@
         [menu addSubview:distributeFormButton];
         [distributeFormButton setEnabled:formNamed];
 
+        UIButton *pageCheckCodeButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 2.0 * initialButtonHeight, menu.frame.size.width - 2, initialButtonHeight)];
+        [pageCheckCodeButton setBackgroundColor:[UIColor whiteColor]];
+        [pageCheckCodeButton setTitle:@"\tCheck Code" forState:UIControlStateNormal];
+        [pageCheckCodeButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [pageCheckCodeButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [pageCheckCodeButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [pageCheckCodeButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [pageCheckCodeButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [pageCheckCodeButton addTarget:self action:@selector(menuButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [pageCheckCodeButton setTag:tagIncrementer++ * 1000000 + 1957];
+        [menu addSubview:pageCheckCodeButton];
+        [pageCheckCodeButton setEnabled:formNamed];
+
         [self addSubview:menu];
         
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -1117,6 +1135,8 @@
             [self insertPageBreakPressed:sender];
         else if (buttonTag == 17)
             [self distributeFormPressed:sender];
+        else if (buttonTag == 18)
+            [self pageCheckCodePressed:sender];
     }];
 }
 
@@ -4806,6 +4826,17 @@
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [ccWriter setFrame:CGRectMake(0, 1, self.frame.size.width - 0.0, self.frame.size.height - 1.0)];
     } completion:^(BOOL finished){
+    }];
+}
+
+- (void)pageCheckCodePressed:(UIButton *)sender
+{
+    PageCheckCodeWriter *ccWriter = [[PageCheckCodeWriter alloc] initWithFrame:CGRectMake(0, -self.frame.size.height, self.frame.size.width - 0.0, self.frame.size.height - 1.0) AndFieldName:@"Page" AndFieldType:@"Page" AndSenderSuperview:self];
+    [self addSubview:ccWriter];
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [ccWriter setFrame:CGRectMake(0, 1, self.frame.size.width - 0.0, self.frame.size.height - 1.0)];
+    } completion:^(BOOL finished){
+        [canvasTapGesture setEnabled:YES];
     }];
 }
 

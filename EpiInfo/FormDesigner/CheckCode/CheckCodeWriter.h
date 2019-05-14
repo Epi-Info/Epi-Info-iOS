@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *beforeFunctions;
     NSMutableArray *afterFunctions;
     NSMutableArray *clickFunctions;
+    
+    UIButton *beforeButton;
+    UIButton *afterButton;
 }
 -(id)initWithFrame:(CGRect)frame AndFieldName:(NSString *)fn AndFieldType:(NSString *)ft AndSenderSuperview:(UIView *)sv;
 -(NSString *)beginFieldString;
