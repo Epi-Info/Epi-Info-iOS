@@ -10,7 +10,7 @@
 #import "Months.h"
 #import "Days.h"
 #import "EnableDisableClear.h"
-#import "Clear.h"
+#import "Disable.h"
 
 @implementation CheckCodeWriter
 
@@ -186,6 +186,20 @@
                     [afterFunctions addObject:[afterString substringWithRange:NSMakeRange(assignLocation, lineFeedLocation)]];
                     afterString = [afterString stringByReplacingCharactersInRange:NSMakeRange(assignLocation, lineFeedLocation) withString:@""];
                 }
+                while ([[afterString lowercaseString] containsString:@"&#x9;enable "])
+                {
+                    int assignLocation = (int)[[afterString lowercaseString] rangeOfString:@"&#x9;enable "].location + 5;
+                    int lineFeedLocation = (int)[[[afterString lowercaseString] substringFromIndex:assignLocation] rangeOfString:@"&#xa;"].location;
+                    [afterFunctions addObject:[afterString substringWithRange:NSMakeRange(assignLocation, lineFeedLocation)]];
+                    afterString = [afterString stringByReplacingCharactersInRange:NSMakeRange(assignLocation, lineFeedLocation) withString:@""];
+                }
+                while ([[afterString lowercaseString] containsString:@"&#x9;disable "])
+                {
+                    int assignLocation = (int)[[afterString lowercaseString] rangeOfString:@"&#x9;disable "].location + 5;
+                    int lineFeedLocation = (int)[[[afterString lowercaseString] substringFromIndex:assignLocation] rangeOfString:@"&#xa;"].location;
+                    [afterFunctions addObject:[afterString substringWithRange:NSMakeRange(assignLocation, lineFeedLocation)]];
+                    afterString = [afterString stringByReplacingCharactersInRange:NSMakeRange(assignLocation, lineFeedLocation) withString:@""];
+                }
             }
         }
     }
@@ -279,7 +293,7 @@
             
             UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(selectFunctionView.frame.size.width / 2.0, 160, selectFunctionView.frame.size.width / 2.0, 32)];
             [clearButton setBackgroundColor:[UIColor whiteColor]];
-            [clearButton setTitle:@"Clear" forState:UIControlStateNormal];
+            [clearButton setTitle:@"Disable" forState:UIControlStateNormal];
             [clearButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
             [clearButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
             [clearButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
@@ -338,9 +352,9 @@
                                    AndCallingButton:sender];
         [[sender superview] addSubview:span];
     }
-    if ([[[sender titleLabel] text] isEqualToString:@"Clear"])
+    if ([[[sender titleLabel] text] isEqualToString:@"Disable"])
     {
-        span = [[Clear alloc] initWithFrame:CGRectMake([sender superview].frame.origin.x,
+        span = [[Disable alloc] initWithFrame:CGRectMake([sender superview].frame.origin.x,
                                                       -[sender superview].frame.size.height,
                                                       [sender superview].frame.size.width,
                                                       [sender superview].frame.size.height)

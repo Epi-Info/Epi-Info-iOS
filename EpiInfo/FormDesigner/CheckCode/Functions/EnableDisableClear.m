@@ -173,13 +173,13 @@
     if ([sender tag] == 362253)
     {
         for (int i = 0; i < [existingFunctionsArray count]; i++)
-            if ([(NSString *)[existingFunctionsArray objectAtIndex:i] containsString:@" ENABLE("])
+            if ([(NSString *)[existingFunctionsArray objectAtIndex:i] containsString:@"ENABLE "])
                 [relevantFunctionsArray addObject:[existingFunctionsArray objectAtIndex:i]];
     }
     else if ([sender tag] == 3472253)
     {
         for (int i = 0; i < [existingFunctionsArray count]; i++)
-            if ([(NSString *)[existingFunctionsArray objectAtIndex:i] containsString:@" DISABLE("])
+            if ([(NSString *)[existingFunctionsArray objectAtIndex:i] containsString:@"DISABLE "])
                 [relevantFunctionsArray addObject:[existingFunctionsArray objectAtIndex:i]];
     }
     else if ([sender tag] == 25327)
