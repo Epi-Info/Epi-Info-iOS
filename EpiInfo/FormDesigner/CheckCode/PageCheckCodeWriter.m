@@ -22,10 +22,17 @@
         [beforeButton setEnabled:YES];
         [afterButton setEnabled:NO];
         
-        pageNamePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(frame.size.width / 2.0 + 44, 25, frame.size.width / 2.0 - 46, 48)];
+        [secondLabel setText:@"Page Name:"];
+        [thirdLabel setText:pageNameSelected];
+        [thirdLabel setHidden:YES];
+        
+        pageNamePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(frame.size.width / 2.0 + 4, 24, frame.size.width / 2.0 - 6, 48)];
         [pageNamePicker setDelegate:self];
         [pageNamePicker setDataSource:self];
         [self addSubview:pageNamePicker];
+        
+        [beforeButton.layer setValue:pageNameSelected forKey:@"FieldName"];
+        [afterButton.layer setValue:pageNameSelected forKey:@"FieldName"];
     }
     return self;
 }
@@ -58,6 +65,9 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     pageNameSelected = [pageNames objectAtIndex:row];
+    [thirdLabel setText:pageNameSelected];
+    [beforeButton.layer setValue:pageNameSelected forKey:@"FieldName"];
+    [afterButton.layer setValue:pageNameSelected forKey:@"FieldName"];
     pageNameSelectedIndex = row;
 }
 

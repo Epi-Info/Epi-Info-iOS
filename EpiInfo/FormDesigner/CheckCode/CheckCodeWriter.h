@@ -11,6 +11,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CheckCodeWriter : UIView
 {
+    UILabel *firstLabel;
+    UILabel *secondLabel;
+    UILabel *thirdLabel;
+    UILabel *fourthLabel;
+    UILabel *fifthLabel;
+    UILabel *sixthLabel;
+
     UIView *senderSuperview;
     NSString *beginFieldString;
     NSString *endFieldString;
