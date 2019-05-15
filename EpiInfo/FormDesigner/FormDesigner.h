@@ -54,6 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSMutableArray *)formElementObjects;
 -(NSMutableArray *)pageNames;
 -(id)initWithFrame:(CGRect)frame andSender:(UIButton *)sender;
+-(void)addCheckCodeString:(NSString *)ccString;
 @end
 
 NS_ASSUME_NONNULL_END

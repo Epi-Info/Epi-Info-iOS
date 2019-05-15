@@ -23,6 +23,13 @@
     return pageNames;
 }
 
+- (void)addCheckCodeString:(NSString *)ccString
+{
+    if (checkCodeStrings == nil)
+        checkCodeStrings = [[NSMutableArray alloc] init];
+    [checkCodeStrings addObject:ccString];
+}
+
 - (id)initWithFrame:(CGRect)frame andSender:(nonnull UIButton *)sender
 {
     self = [super initWithFrame:frame];

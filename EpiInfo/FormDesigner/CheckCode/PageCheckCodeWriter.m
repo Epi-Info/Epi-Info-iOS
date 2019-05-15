@@ -19,6 +19,9 @@
         pageNames = [(FormDesigner *)sv pageNames];
         pageNameSelected = [NSString stringWithString:[pageNames objectAtIndex:0]];
         pageNameSelectedIndex = 0;
+        beginFieldString = [NSString stringWithFormat:@"Page [%@]", pageNameSelected];
+        endFieldString = @"&#xA;End-Page";
+
         [beforeButton setEnabled:YES];
         [afterButton setEnabled:NO];
         
@@ -66,9 +69,22 @@
 {
     pageNameSelected = [pageNames objectAtIndex:row];
     [thirdLabel setText:pageNameSelected];
+    beginFieldString = [NSString stringWithFormat:@"Page [%@]", pageNameSelected];
     [beforeButton.layer setValue:pageNameSelected forKey:@"FieldName"];
     [afterButton.layer setValue:pageNameSelected forKey:@"FieldName"];
     pageNameSelectedIndex = row;
+}
+
+- (void)closeButtonPressed:(UIButton *)sender
+{
+    [super closeButtonPressed:sender];
+    if ([[sender superview] superview] == senderSuperview)
+    {
+        if ([senderSuperview.layer valueForKey:@"CheckCode"])
+        {
+            [(FormDesigner *)senderSuperview addCheckCodeString:[senderSuperview.layer valueForKey:@"CheckCode"]];
+        }
+    }
 }
 
 /*

@@ -55,7 +55,22 @@
     {
         NSString *assignStatement = [NSString stringWithFormat:@"ENABLE %@", fieldToClear];
         NSLog(@"%@", assignStatement);
-        [self addAfterFunction:assignStatement];
+        if ([callingButton.layer valueForKey:@"BeforeAfter"])
+        {
+            NSString *ba = [callingButton.layer valueForKey:@"BeforeAfter"];
+            if ([ba isEqualToString:@"After"])
+            {
+                [self addAfterFunction:assignStatement];
+            }
+            else if ([ba isEqualToString:@"Before"])
+            {
+                [self addBeforeFunction:assignStatement];
+            }
+            else if ([ba isEqualToString:@"Click"])
+            {
+                [self addClickFunction:assignStatement];
+            }
+        }
     }
 }
 

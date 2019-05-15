@@ -39,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSMutableArray *)beforeFunctions;
 -(NSMutableArray *)afterFunctions;
 -(NSMutableArray *)clickFunctions;
+-(void)closeButtonPressed:(UIButton *)sender;
 @end
 
 NS_ASSUME_NONNULL_END
