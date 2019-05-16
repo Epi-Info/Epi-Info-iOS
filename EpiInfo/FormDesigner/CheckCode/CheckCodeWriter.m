@@ -386,7 +386,7 @@
                                    AndCallingButton:sender];
         [[sender superview] addSubview:span];
     }
-    if ([[[sender titleLabel] text] isEqualToString:@"Disable"])
+    if ([[[sender titleLabel] text] isEqualToString:@"Enable"])
     {
         span = [[Disable alloc] initWithFrame:CGRectMake([sender superview].frame.origin.x,
                                                       -[sender superview].frame.size.height,
