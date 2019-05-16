@@ -64,6 +64,24 @@
         [subtitleLabel setText:[NSString stringWithFormat:@"%@ %@", [cb.layer valueForKey:@"BeforeAfter"], [(CheckCodeWriter *)ccWriter beginFieldString]]];
         [self addSubview:subtitleLabel];
         
+        ifConditionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 63, frame.size.width, 32)];
+        [ifConditionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [ifConditionLabel setTextAlignment:NSTextAlignmentLeft];
+        [ifConditionLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [ifConditionLabel setText:@"\tIF Condition:"];
+        [self addSubview:ifConditionLabel];
+        
+        ifConditionText = [[UITextView alloc] initWithFrame:CGRectMake(4, ifConditionLabel.frame.origin.y + ifConditionLabel.frame.size.height, ifConditionLabel.frame.size.width - 8, 128)];
+        [ifConditionText.layer setBorderColor:[[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] CGColor]];
+        [ifConditionText.layer setBorderWidth:1.0];
+        [ifConditionText setClipsToBounds:YES];
+        [self addSubview:ifConditionText];
+        
+        UIButton *ifConditionButton = [[UIButton alloc] initWithFrame:ifConditionText.frame];
+        [ifConditionButton setBackgroundColor:[UIColor clearColor]];
+        [ifConditionButton addTarget:self action:@selector(ifConditionTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:ifConditionButton];
+
         UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(0,
                                                                           self.frame.size.height - 40,
                                                                           self.frame.size.width / 4.0,
@@ -156,6 +174,11 @@
         [eflv setFrame:CGRectMake(0, 0, eflv.frame.size.width, eflv.frame.size.height)];
     } completion:^(BOOL finished){
     }];
+}
+
+- (void)ifConditionTouched:(UIButton *)sender
+{
+    NSLog(@"If condition touched on %@", [sender superview]);
 }
 
 /*

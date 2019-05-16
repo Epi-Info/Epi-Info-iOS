@@ -15,6 +15,13 @@ NS_ASSUME_NONNULL_BEGIN
     UIView *ccWriter;
     UIView *formDesigner;
     
+    UILabel *ifConditionLabel;
+    UITextView *ifConditionText;
+    UILabel *thenLabel;
+    UITextView *thenText;
+    UILabel *elseLabel;
+    UITextView *elseText;
+    
     UILabel *titleLabel;
     UILabel *subtitleLabel;
     
