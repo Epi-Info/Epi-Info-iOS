@@ -10,7 +10,7 @@
 #import "Months.h"
 #import "Days.h"
 #import "EnableDisableClear.h"
-#import "Disable.h"
+#import "Enable.h"
 
 @implementation CheckCodeWriter
 
@@ -388,7 +388,7 @@
     }
     if ([[[sender titleLabel] text] isEqualToString:@"Enable"])
     {
-        span = [[Disable alloc] initWithFrame:CGRectMake([sender superview].frame.origin.x,
+        span = [[Enable alloc] initWithFrame:CGRectMake([sender superview].frame.origin.x,
                                                       -[sender superview].frame.size.height,
                                                       [sender superview].frame.size.width,
                                                       [sender superview].frame.size.height)

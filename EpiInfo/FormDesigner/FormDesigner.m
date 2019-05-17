@@ -4956,7 +4956,7 @@
         [checkCodeStringBuilder appendString:[checkCodeStrings objectAtIndex:0]];
         for (int i = 1; i < [checkCodeStrings count]; i++)
         {
-            [checkCodeStringBuilder appendFormat:@"\n\n%@", [checkCodeStrings objectAtIndex:i]];
+            [checkCodeStringBuilder appendFormat:@"&#xA;&#xA;%@", [checkCodeStrings objectAtIndex:i]];
         }
         checkCodeString = [checkCodeString stringByAppendingString:checkCodeStringBuilder];
     }

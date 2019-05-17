@@ -11,8 +11,23 @@
 #import "FormDesigner.h"
 #import "ExistingFunctionsListView.h"
 #import "ConditionText.h"
+#import "ThenText.h"
+#import "ElseText.h"
 
 @implementation IfBuilder
+
+- (void)addAfterFunction:(NSString *)function
+{
+    [(CheckCodeWriter *)ccWriter addAfterFunction:function];
+}
+- (void)addBeforeFunction:(NSString *)function
+{
+    [(CheckCodeWriter *)ccWriter addBeforeFunction:function];
+}
+- (void)addClickFunction:(NSString *)function
+{
+    [(CheckCodeWriter *)ccWriter addClickFunction:function];
+}
 
 - (id)initWithFrame:(CGRect)frame AndCallingButton:(nonnull UIButton *)cb
 {
@@ -51,6 +66,8 @@
         
         [self setBackgroundColor:[UIColor whiteColor]];
         
+        float textAreaHeight = 96.0;
+        
         titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 32)];
         [titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
         [titleLabel setTextAlignment:NSTextAlignmentCenter];
@@ -72,7 +89,7 @@
         [ifConditionLabel setText:@"\tIF Condition:"];
         [self addSubview:ifConditionLabel];
         
-        ifConditionText = [[UITextView alloc] initWithFrame:CGRectMake(4, ifConditionLabel.frame.origin.y + ifConditionLabel.frame.size.height, ifConditionLabel.frame.size.width - 8, 128)];
+        ifConditionText = [[UITextView alloc] initWithFrame:CGRectMake(4, ifConditionLabel.frame.origin.y + ifConditionLabel.frame.size.height, ifConditionLabel.frame.size.width - 8, textAreaHeight)];
         [ifConditionText.layer setBorderColor:[[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] CGColor]];
         [ifConditionText.layer setBorderWidth:1.0];
         [ifConditionText setClipsToBounds:YES];
@@ -82,6 +99,42 @@
         [ifConditionButton setBackgroundColor:[UIColor clearColor]];
         [ifConditionButton addTarget:self action:@selector(ifConditionTouched:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:ifConditionButton];
+        
+        thenLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, ifConditionText.frame.origin.y + ifConditionText.frame.size.height, frame.size.width, 32)];
+        [thenLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [thenLabel setTextAlignment:NSTextAlignmentLeft];
+        [thenLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [thenLabel setText:@"\tTHEN:"];
+        [self addSubview:thenLabel];
+        
+        thenText = [[UITextView alloc] initWithFrame:CGRectMake(4, thenLabel.frame.origin.y + thenLabel.frame.size.height, thenLabel.frame.size.width - 8, textAreaHeight)];
+        [thenText.layer setBorderColor:[[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] CGColor]];
+        [thenText.layer setBorderWidth:1.0];
+        [thenText setClipsToBounds:YES];
+        [self addSubview:thenText];
+        
+        UIButton *thenButton = [[UIButton alloc] initWithFrame:thenText.frame];
+        [thenButton setBackgroundColor:[UIColor clearColor]];
+        [thenButton addTarget:self action:@selector(thenTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:thenButton];
+        
+        elseLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, thenText.frame.origin.y + thenText.frame.size.height, frame.size.width, 32)];
+        [elseLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [elseLabel setTextAlignment:NSTextAlignmentLeft];
+        [elseLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [elseLabel setText:@"\tELSE:"];
+        [self addSubview:elseLabel];
+        
+        elseText = [[UITextView alloc] initWithFrame:CGRectMake(4, elseLabel.frame.origin.y + elseLabel.frame.size.height, elseLabel.frame.size.width - 8, textAreaHeight)];
+        [elseText.layer setBorderColor:[[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] CGColor]];
+        [elseText.layer setBorderWidth:1.0];
+        [elseText setClipsToBounds:YES];
+        [self addSubview:elseText];
+        
+        UIButton *elseButton = [[UIButton alloc] initWithFrame:elseText.frame];
+        [elseButton setBackgroundColor:[UIColor clearColor]];
+        [elseButton addTarget:self action:@selector(elseTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:elseButton];
 
         UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(0,
                                                                           self.frame.size.height - 40,
@@ -156,6 +209,42 @@
     } completion:^(BOOL finished){
         [[sender superview] removeFromSuperview];
     }];
+
+    if ([[[sender titleLabel] text] isEqualToString:@"Cancel"])
+    {
+        if (functionBeingEdited != nil)
+            if ([functionBeingEdited length] > 0)
+                if (![existingFunctionsArray containsObject:functionBeingEdited])
+                    [existingFunctionsArray addObject:functionBeingEdited];
+        return;
+    }
+    else if ([[[sender titleLabel] text] isEqualToString:@"Delete"])
+    {
+        return;
+    }
+    
+    if ([[ifConditionText text] length] > 0 && [[thenText text] length] > 0)
+    {
+        NSMutableString *ifStatement = [NSMutableString stringWithFormat:@"IF %@ THEN&#xA;&#x9;&#x9;&#x9;%@", [ifConditionText text], [thenText text]];
+        [ifStatement appendString:@"&#xA;&#x9;&#x9;END-IF"];
+        NSLog(@"%@", ifStatement);
+        if ([callingButton.layer valueForKey:@"BeforeAfter"])
+        {
+            NSString *ba = [callingButton.layer valueForKey:@"BeforeAfter"];
+            if ([ba isEqualToString:@"After"])
+            {
+                [self addAfterFunction:ifStatement];
+            }
+            else if ([ba isEqualToString:@"Before"])
+            {
+                [self addBeforeFunction:ifStatement];
+            }
+            else if ([ba isEqualToString:@"Click"])
+            {
+                [self addClickFunction:ifStatement];
+            }
+        }
+    }
 }
 
 - (void)editButtonPressed:(UIButton *)sender
@@ -187,6 +276,40 @@
     [span setDestinationOfText:ifConditionText];
     [span setText:[ifConditionText text]];
     	
+    [[sender superview] addSubview:span];
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [span setFrame:CGRectMake(0, 0, [sender superview].frame.size.width, [sender superview].frame.size.height)];
+    } completion:^(BOOL finished){
+    }];
+}
+
+- (void)thenTouched:(UIButton *)sender
+{
+    ThenText *span = [[ThenText alloc] initWithFrame:CGRectMake([sender superview].frame.origin.x,
+                                                                          -[sender superview].frame.size.height,
+                                                                          [sender superview].frame.size.width,
+                                                                          [sender superview].frame.size.height)
+                                              AndCallingButton:sender];
+    [span setDestinationOfText:thenText];
+    [span setText:[thenText text]];
+    
+    [[sender superview] addSubview:span];
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [span setFrame:CGRectMake(0, 0, [sender superview].frame.size.width, [sender superview].frame.size.height)];
+    } completion:^(BOOL finished){
+    }];
+}
+
+- (void)elseTouched:(UIButton *)sender
+{
+    ElseText *span = [[ElseText alloc] initWithFrame:CGRectMake([sender superview].frame.origin.x,
+                                                                -[sender superview].frame.size.height,
+                                                                [sender superview].frame.size.width,
+                                                                [sender superview].frame.size.height)
+                                    AndCallingButton:sender];
+    [span setDestinationOfText:elseText];
+    [span setText:[elseText text]];
+    
     [[sender superview] addSubview:span];
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [span setFrame:CGRectMake(0, 0, [sender superview].frame.size.width, [sender superview].frame.size.height)];

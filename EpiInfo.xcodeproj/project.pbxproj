@@ -354,6 +354,8 @@
 		92CC6086228DBC8200513DC5 /* IfBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC6085228DBC8200513DC5 /* IfBuilder.m */; };
 		92CC608F228ED03A00513DC5 /* IfText.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC608E228ED03A00513DC5 /* IfText.m */; };
 		92CC6092228ED12A00513DC5 /* ConditionText.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC6091228ED12A00513DC5 /* ConditionText.m */; };
+		92CC6095228F20F300513DC5 /* ThenText.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC6094228F20F300513DC5 /* ThenText.m */; };
+		92CC6098228F217B00513DC5 /* ElseText.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC6097228F217B00513DC5 /* ElseText.m */; };
 		92D30F5B1899726100CEBCAE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92D30F5A1899726100CEBCAE /* CoreLocation.framework */; };
 		92D43A471992A5BD00B24712 /* ConfirmDeleteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D43A461992A5BD00B24712 /* ConfirmDeleteButton.m */; };
 		92D43A491992C61700B24712 /* RoundDeleteButton60.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D43A481992C61700B24712 /* RoundDeleteButton60.png */; };
@@ -939,6 +941,10 @@
 		92CC608E228ED03A00513DC5 /* IfText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IfText.m; sourceTree = "<group>"; };
 		92CC6090228ED12A00513DC5 /* ConditionText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConditionText.h; sourceTree = "<group>"; };
 		92CC6091228ED12A00513DC5 /* ConditionText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConditionText.m; sourceTree = "<group>"; };
+		92CC6093228F20F300513DC5 /* ThenText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThenText.h; sourceTree = "<group>"; };
+		92CC6094228F20F300513DC5 /* ThenText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThenText.m; sourceTree = "<group>"; };
+		92CC6096228F217B00513DC5 /* ElseText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ElseText.h; sourceTree = "<group>"; };
+		92CC6097228F217B00513DC5 /* ElseText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ElseText.m; sourceTree = "<group>"; };
 		92D30F5A1899726100CEBCAE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		92D43A451992A5BD00B24712 /* ConfirmDeleteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmDeleteButton.h; sourceTree = "<group>"; };
 		92D43A461992A5BD00B24712 /* ConfirmDeleteButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmDeleteButton.m; sourceTree = "<group>"; };
@@ -1789,6 +1795,10 @@
 				92CC608E228ED03A00513DC5 /* IfText.m */,
 				92CC6090228ED12A00513DC5 /* ConditionText.h */,
 				92CC6091228ED12A00513DC5 /* ConditionText.m */,
+				92CC6093228F20F300513DC5 /* ThenText.h */,
+				92CC6094228F20F300513DC5 /* ThenText.m */,
+				92CC6096228F217B00513DC5 /* ElseText.h */,
+				92CC6097228F217B00513DC5 /* ElseText.m */,
 			);
 			path = "IF-THEN-ELSE";
 			sourceTree = "<group>";
@@ -2246,6 +2256,7 @@
 				92BB3C3621AC79BC00D785CD /* EIMatrix.m in Sources */,
 				92E1A83C18730974003E58A5 /* EpiInfoTextView.m in Sources */,
 				84C816841CE22D8D00F408D2 /* CheckCodeParser.m in Sources */,
+				92CC6098228F217B00513DC5 /* ElseText.m in Sources */,
 				922920851AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift in Sources */,
 				9258D1A122148EF1000376E7 /* FormDesigner.m in Sources */,
 				928FCEF219E5692000641A95 /* VHFViewController.m in Sources */,
@@ -2312,6 +2323,7 @@
 				4A1E42CC177CBCDE00946472 /* FrequencyObject.m in Sources */,
 				924A7D1419C21D2900F168A0 /* MeansCrosstabCompute.m in Sources */,
 				9218EA5B1869D37500A4E2D9 /* ClickingView.m in Sources */,
+				92CC6095228F20F300513DC5 /* ThenText.m in Sources */,
 				923F2BBD198C045B008A4856 /* ImportCSV.m in Sources */,
 				68DAD2B81781F35D00BD6947 /* TablesObject.m in Sources */,
 				4AC04F49178B37610001F3DC /* FrequencyView.m in Sources */,
