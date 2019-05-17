@@ -184,6 +184,9 @@
                                                                           [sender superview].frame.size.width,
                                                                           [sender superview].frame.size.height)
                                               AndCallingButton:sender];
+    [span setDestinationOfText:ifConditionText];
+    [span setText:[ifConditionText text]];
+    	
     [[sender superview] addSubview:span];
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [span setFrame:CGRectMake(0, 0, [sender superview].frame.size.width, [sender superview].frame.size.height)];
