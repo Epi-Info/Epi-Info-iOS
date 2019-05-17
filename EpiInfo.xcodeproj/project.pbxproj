@@ -1512,8 +1512,6 @@
 				921E6B562277593D00C46A72 /* CheckCodeWriter.m */,
 				923A02DD228B2DD000C33F3B /* PageCheckCodeWriter.h */,
 				923A02DE228B2DD000C33F3B /* PageCheckCodeWriter.m */,
-				92CC6084228DBC8200513DC5 /* IfBuilder.h */,
-				92CC6085228DBC8200513DC5 /* IfBuilder.m */,
 				92385D302280A55600079890 /* CETextField.h */,
 				92385D312280A55600079890 /* CETextField.m */,
 			);
@@ -1523,6 +1521,7 @@
 		92385D1E227A316000079890 /* Functions */ = {
 			isa = PBXGroup;
 			children = (
+				92CC608C228ECF5400513DC5 /* IF-THEN-ELSE */,
 				92385D23227B20DC00079890 /* AssigningFunction.h */,
 				92385D24227B20DC00079890 /* AssigningFunction.m */,
 				923A02CB2289A07300C33F3B /* EnableDisableClear.h */,
@@ -1773,6 +1772,15 @@
 			children = (
 			);
 			name = Logs;
+			sourceTree = "<group>";
+		};
+		92CC608C228ECF5400513DC5 /* IF-THEN-ELSE */ = {
+			isa = PBXGroup;
+			children = (
+				92CC6084228DBC8200513DC5 /* IfBuilder.h */,
+				92CC6085228DBC8200513DC5 /* IfBuilder.m */,
+			);
+			path = "IF-THEN-ELSE";
 			sourceTree = "<group>";
 		};
 		92D4BB60184F77BD00B2D70C /* Button Images */ = {
