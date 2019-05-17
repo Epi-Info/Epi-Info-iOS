@@ -10,6 +10,7 @@
 #import "PageCheckCodeWriter.h"
 #import "FormDesigner.h"
 #import "ExistingFunctionsListView.h"
+#import "ConditionText.h"
 
 @implementation IfBuilder
 
@@ -178,7 +179,16 @@
 
 - (void)ifConditionTouched:(UIButton *)sender
 {
-    NSLog(@"If condition touched on %@", [sender superview]);
+    ConditionText *span = [[ConditionText alloc] initWithFrame:CGRectMake([sender superview].frame.origin.x,
+                                                                          -[sender superview].frame.size.height,
+                                                                          [sender superview].frame.size.width,
+                                                                          [sender superview].frame.size.height)
+                                              AndCallingButton:sender];
+    [[sender superview] addSubview:span];
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [span setFrame:CGRectMake(0, 0, [sender superview].frame.size.width, [sender superview].frame.size.height)];
+    } completion:^(BOOL finished){
+    }];
 }
 
 /*

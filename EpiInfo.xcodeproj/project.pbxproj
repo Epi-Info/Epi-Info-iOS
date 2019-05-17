@@ -352,6 +352,8 @@
 		92C2BC6F1E8956380034F85B /* population_survey_icon_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC691E8956380034F85B /* population_survey_icon_blue.png */; };
 		92C419D91921595000FA46EA /* DeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C419D81921595000FA46EA /* DeleteButton.png */; };
 		92CC6086228DBC8200513DC5 /* IfBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC6085228DBC8200513DC5 /* IfBuilder.m */; };
+		92CC608F228ED03A00513DC5 /* IfText.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC608E228ED03A00513DC5 /* IfText.m */; };
+		92CC6092228ED12A00513DC5 /* ConditionText.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC6091228ED12A00513DC5 /* ConditionText.m */; };
 		92D30F5B1899726100CEBCAE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92D30F5A1899726100CEBCAE /* CoreLocation.framework */; };
 		92D43A471992A5BD00B24712 /* ConfirmDeleteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D43A461992A5BD00B24712 /* ConfirmDeleteButton.m */; };
 		92D43A491992C61700B24712 /* RoundDeleteButton60.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D43A481992C61700B24712 /* RoundDeleteButton60.png */; };
@@ -933,6 +935,10 @@
 		92C419D81921595000FA46EA /* DeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeleteButton.png; sourceTree = "<group>"; };
 		92CC6084228DBC8200513DC5 /* IfBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IfBuilder.h; sourceTree = "<group>"; };
 		92CC6085228DBC8200513DC5 /* IfBuilder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IfBuilder.m; sourceTree = "<group>"; };
+		92CC608D228ED03A00513DC5 /* IfText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IfText.h; sourceTree = "<group>"; };
+		92CC608E228ED03A00513DC5 /* IfText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IfText.m; sourceTree = "<group>"; };
+		92CC6090228ED12A00513DC5 /* ConditionText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConditionText.h; sourceTree = "<group>"; };
+		92CC6091228ED12A00513DC5 /* ConditionText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConditionText.m; sourceTree = "<group>"; };
 		92D30F5A1899726100CEBCAE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		92D43A451992A5BD00B24712 /* ConfirmDeleteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmDeleteButton.h; sourceTree = "<group>"; };
 		92D43A461992A5BD00B24712 /* ConfirmDeleteButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmDeleteButton.m; sourceTree = "<group>"; };
@@ -1779,6 +1785,10 @@
 			children = (
 				92CC6084228DBC8200513DC5 /* IfBuilder.h */,
 				92CC6085228DBC8200513DC5 /* IfBuilder.m */,
+				92CC608D228ED03A00513DC5 /* IfText.h */,
+				92CC608E228ED03A00513DC5 /* IfText.m */,
+				92CC6090228ED12A00513DC5 /* ConditionText.h */,
+				92CC6091228ED12A00513DC5 /* ConditionText.m */,
 			);
 			path = "IF-THEN-ELSE";
 			sourceTree = "<group>";
@@ -2274,6 +2284,7 @@
 				920BCE3521760F6F00BF050A /* LogisticObject.m in Sources */,
 				92921B9919A6427000AA9477 /* MeansView.m in Sources */,
 				847C97D71D427301001E47DD /* LegalValuesEnter.m in Sources */,
+				92CC608F228ED03A00513DC5 /* IfText.m in Sources */,
 				4AB23ED616288B9900AE47C0 /* ChiSquareCalculatorViewController.m in Sources */,
 				4AB23ED916288CB800AE47C0 /* BinomialCalculatorViewController.m in Sources */,
 				4AB23EDC16288D3600AE47C0 /* PoissonCalculatorViewController.m in Sources */,
@@ -2322,6 +2333,7 @@
 				92DBD606193CDAFA00A40691 /* EpiInfoUniqueIDField.m in Sources */,
 				92385D25227B20DC00079890 /* AssigningFunction.m in Sources */,
 				923A02DC2289A3ED00C33F3B /* Clear.m in Sources */,
+				92CC6092228ED12A00513DC5 /* ConditionText.m in Sources */,
 				927B555F18B6533B000AB7B1 /* Reachability.m in Sources */,
 				4A556867178DA09400B79542 /* TablesView.m in Sources */,
 				9276EEB917B028AE0050858B /* ChooseAnalysisButton.m in Sources */,
