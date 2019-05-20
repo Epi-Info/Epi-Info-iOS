@@ -49,18 +49,39 @@
 
 - (void)addAfterFunction:(NSString *)function
 {
-    if (![afterFunctions containsObject:function])
-        [afterFunctions addObject:function];
+    NSString *fixedFunction = [[[[[[[function stringByReplacingOccurrencesOfString:@" & " withString:@" &amp; "]
+                                    stringByReplacingOccurrencesOfString:@"\t" withString:@"&#x9;"]
+                                   stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"]
+                                  stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"]
+                                 stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"]
+                                stringByReplacingOccurrencesOfString:@"\r" withString:@"&#xD;"]
+                               stringByReplacingOccurrencesOfString:@"\n" withString:@"&#xA;"];
+    if (![afterFunctions containsObject:fixedFunction])
+        [afterFunctions addObject:fixedFunction];
 }
 - (void)addBeforeFunction:(NSString *)function
 {
-    if (![beforeFunctions containsObject:function])
-        [beforeFunctions addObject:function];
+    NSString *fixedFunction = [[[[[[[function stringByReplacingOccurrencesOfString:@" & " withString:@" &amp; "]
+                                    stringByReplacingOccurrencesOfString:@"\t" withString:@"&#x9;"]
+                                   stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"]
+                                  stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"]
+                                 stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"]
+                                stringByReplacingOccurrencesOfString:@"\r" withString:@"&#xD;"]
+                               stringByReplacingOccurrencesOfString:@"\n" withString:@"&#xA;"];
+    if (![beforeFunctions containsObject:fixedFunction])
+        [beforeFunctions addObject:fixedFunction];
 }
 - (void)addClickFunction:(NSString *)function
 {
-    if (![clickFunctions containsObject:function])
-        [clickFunctions addObject:function];
+    NSString *fixedFunction = [[[[[[[function stringByReplacingOccurrencesOfString:@" & " withString:@" &amp; "]
+                                    stringByReplacingOccurrencesOfString:@"\t" withString:@"&#x9;"]
+                                   stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"]
+                                  stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"]
+                                 stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"]
+                                stringByReplacingOccurrencesOfString:@"\r" withString:@"&#xD;"]
+                               stringByReplacingOccurrencesOfString:@"\n" withString:@"&#xA;"];
+    if (![clickFunctions containsObject:fixedFunction])
+        [clickFunctions addObject:fixedFunction];
 }
 
 - (id)initWithFrame:(CGRect)frame AndFieldName:(nonnull NSString *)fn AndFieldType:(nonnull NSString *)ft AndSenderSuperview:(nonnull UIView *)sv

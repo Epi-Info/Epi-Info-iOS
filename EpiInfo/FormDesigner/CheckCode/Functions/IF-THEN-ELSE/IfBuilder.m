@@ -228,7 +228,7 @@
         NSMutableString *ifStatement = [NSMutableString stringWithFormat:@"IF %@ THEN&#xA;&#x9;&#x9;&#x9;%@", [ifConditionText text], [thenText text]];
         if ([[elseText text] length] > 0)
         {
-            [ifStatement appendString:@"&#xA;&#x9;&#x9;ELSE"];
+            [ifStatement appendFormat:@"&#xA;&#x9;&#x9;ELSE&#xA;&#x9;&#x9;&#x9;%@", [elseText text]];
         }
         [ifStatement appendString:@"&#xA;&#x9;&#x9;END-IF"];
         NSLog(@"%@", ifStatement);
