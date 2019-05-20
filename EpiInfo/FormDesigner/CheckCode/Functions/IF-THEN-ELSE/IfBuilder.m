@@ -226,6 +226,10 @@
     if ([[ifConditionText text] length] > 0 && [[thenText text] length] > 0)
     {
         NSMutableString *ifStatement = [NSMutableString stringWithFormat:@"IF %@ THEN&#xA;&#x9;&#x9;&#x9;%@", [ifConditionText text], [thenText text]];
+        if ([[elseText text] length] > 0)
+        {
+            [ifStatement appendString:@"&#xA;&#x9;&#x9;ELSE"];
+        }
         [ifStatement appendString:@"&#xA;&#x9;&#x9;END-IF"];
         NSLog(@"%@", ifStatement);
         if ([callingButton.layer valueForKey:@"BeforeAfter"])
