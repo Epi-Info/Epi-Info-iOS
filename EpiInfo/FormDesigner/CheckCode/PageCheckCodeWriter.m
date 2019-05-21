@@ -84,6 +84,7 @@
         if ([senderSuperview.layer valueForKey:@"CheckCode"])
         {
             [(FormDesigner *)senderSuperview addCheckCodeString:[senderSuperview.layer valueForKey:@"CheckCode"]];
+            [(FormDesigner *)senderSuperview buildTheXMLFile];
         }
     }
 }

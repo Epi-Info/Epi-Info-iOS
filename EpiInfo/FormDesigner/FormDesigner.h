@@ -55,6 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSMutableArray *)pageNames;
 -(id)initWithFrame:(CGRect)frame andSender:(UIButton *)sender;
 -(void)addCheckCodeString:(NSString *)ccString;
+-(void)buildTheXMLFile;
 @end
 
 NS_ASSUME_NONNULL_END
