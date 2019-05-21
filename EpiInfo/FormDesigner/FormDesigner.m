@@ -22,6 +22,10 @@
 {
     return pageNames;
 }
+- (NSMutableArray *)checkCodeStrings
+{
+    return checkCodeStrings;
+}
 
 - (void)addCheckCodeString:(NSString *)ccString
 {
@@ -5466,6 +5470,15 @@
         NSString *fieldString = [checkCodeString substringWithRange:fieldRange];
         [checkCodeStrings addObject:fieldString];
         checkCodeString = [checkCodeString stringByReplacingCharactersInRange:fieldRange withString:@""];
+    }
+    while ([[checkCodeString lowercaseString] containsString:@"end-page"])
+    {
+        int pagePosition = (int)[[checkCodeString lowercaseString] rangeOfString:@"page "].location;
+        int endPagePosition = (int)[[[checkCodeString lowercaseString] substringFromIndex:pagePosition] rangeOfString:@"end-page"].location;
+        NSRange pageRange = NSMakeRange(pagePosition, endPagePosition + 8);
+        NSString *pageString = [checkCodeString substringWithRange:pageRange];
+        [checkCodeStrings addObject:pageString];
+        checkCodeString = [checkCodeString stringByReplacingCharactersInRange:pageRange withString:@""];
     }
 }
 /*

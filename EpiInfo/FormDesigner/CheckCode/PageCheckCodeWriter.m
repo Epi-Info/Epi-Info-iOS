@@ -91,6 +91,44 @@
 
 - (void)beforeOrAfterButtonPressed:(UIButton *)sender
 {
+    NSMutableArray *checkCodeStrings = [(FormDesigner *)senderSuperview checkCodeStrings];
+    for (int i = 0; i < [checkCodeStrings count]; i++)
+    {
+        if ([[checkCodeStrings objectAtIndex:i] containsString:[sender.layer valueForKey:@"FieldName"]])
+        {
+            [self.layer setValue:[checkCodeStrings objectAtIndex:i] forKey:@"CheckCode"];
+            [checkCodeStrings removeObjectAtIndex:i];
+            break;
+        }
+    }
+    if ([[self.layer valueForKey:@"CheckCode"] length] > 0)
+    {
+        NSString *rawCheckCode = [NSString stringWithString:[self.layer valueForKey:@"CheckCode"]];
+        NSString *beforeString = @"";
+        int beforeLocation = (int)[[rawCheckCode lowercaseString] rangeOfString:@"before"].location;
+        int endBeforeEndLocation = -1;
+        if (beforeLocation > 0)
+        {
+            endBeforeEndLocation = (int)[[[rawCheckCode lowercaseString] substringFromIndex:beforeLocation] rangeOfString:@"end-before"].location + 10;
+            if (endBeforeEndLocation > 0)
+            {
+                beforeString = [rawCheckCode substringWithRange:NSMakeRange(beforeLocation, endBeforeEndLocation)];
+                rawCheckCode = [rawCheckCode stringByReplacingCharactersInRange:NSMakeRange(beforeLocation, endBeforeEndLocation) withString:@""];
+            }
+        }
+        
+        if ([beforeString length] > 0)
+        {
+            while ([[beforeString lowercaseString] containsString:@"&#x9;if "])
+            {
+                int ifLocation = (int)[[beforeString lowercaseString] rangeOfString:@"&#x9;if "].location + 5;
+                int lineFeedLocation = (int)[[[beforeString lowercaseString] substringFromIndex:ifLocation] rangeOfString:@"end-if&#xa;"].location + 6;
+                [beforeFunctions addObject:[beforeString substringWithRange:NSMakeRange(ifLocation, lineFeedLocation)]];
+                beforeString = [beforeString stringByReplacingCharactersInRange:NSMakeRange(ifLocation, lineFeedLocation) withString:@""];
+            }
+        }
+    }
+
     UIView *selectFunctionView = [[UIView alloc] initWithFrame:CGRectMake(0, -self.frame.size.height, self.frame.size.width, self.frame.size.height)];
     [selectFunctionView setBackgroundColor:[UIColor whiteColor]];
     [self addSubview:selectFunctionView];

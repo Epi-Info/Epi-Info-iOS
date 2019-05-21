@@ -53,6 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property UIViewController *rootViewController;
 -(NSMutableArray *)formElementObjects;
 -(NSMutableArray *)pageNames;
+-(NSMutableArray *)checkCodeStrings;
 -(id)initWithFrame:(CGRect)frame andSender:(UIButton *)sender;
 -(void)addCheckCodeString:(NSString *)ccString;
 -(void)buildTheXMLFile;

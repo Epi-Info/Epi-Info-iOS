@@ -255,7 +255,7 @@
 {
     NSMutableArray *relevantFunctionsArray = [[NSMutableArray alloc] init];
         for (int i = 0; i < [existingFunctionsArray count]; i++)
-            if ([(NSString *)[existingFunctionsArray objectAtIndex:i] containsString:@"ENABLE "])
+            if ([(NSString *)[existingFunctionsArray objectAtIndex:i] containsString:@"IF "])
                 [relevantFunctionsArray addObject:[existingFunctionsArray objectAtIndex:i]];
     ExistingFunctionsListView *eflv = [[ExistingFunctionsListView alloc] initWithFrame:CGRectMake(0,
                                                                                                   -self.frame.size.height,
