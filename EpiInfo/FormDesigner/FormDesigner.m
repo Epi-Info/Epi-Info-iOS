@@ -5480,6 +5480,8 @@
         [checkCodeStrings addObject:pageString];
         checkCodeString = [checkCodeString stringByReplacingCharactersInRange:pageRange withString:@""];
     }
+    if ([[[checkCodeString stringByReplacingOccurrencesOfString:@"&#xA;" withString:@""] stringByReplacingOccurrencesOfString:@"&#x9;" withString:@""] length] == 0)
+        checkCodeString = @"";
 }
 /*
 // Only override drawRect: if you perform custom drawing.

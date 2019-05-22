@@ -106,12 +106,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/FormDesigner/CheckCode/Functions/DateMath/DateMathFunction.m"
-            timestampString = "580239842.529467"
+            timestampString = "580246612.3452311"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "161"
             endingLineNumber = "161"
             landmarkName = "-closeButtonPressed:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/FormDesigner/FormDesigner.m"
+            timestampString = "580246612.345305"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "5465"
+            endingLineNumber = "5465"
+            landmarkName = "-processCheckCodeString"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
