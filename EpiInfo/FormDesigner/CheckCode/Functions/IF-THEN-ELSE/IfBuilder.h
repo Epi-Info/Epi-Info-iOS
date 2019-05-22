@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSString *functionBeingEdited;
 }
 -(id)initWithFrame:(CGRect)frame AndCallingButton:(UIButton *)cb;
+-(void)loadFunctionToEdit:(NSString *)function;
 @end
 
 NS_ASSUME_NONNULL_END

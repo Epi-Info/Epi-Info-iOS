@@ -8,6 +8,7 @@
 #import "ExistingFunctionsListView.h"
 #import "AssigningFunction.h"
 #import "EnableDisableClear.h"
+#import "IfBuilder.h"
 
 @implementation ExistingFunctionsListView
 
@@ -39,7 +40,20 @@
             [[functionButton titleLabel] setNumberOfLines:0];
             [[functionButton titleLabel] setLineBreakMode:NSLineBreakByWordWrapping];
             [functionButton setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 8)];
-            [functionButton setTitle:[NSString stringWithFormat:@"%@", [functionsArray objectAtIndex:i]] forState:UIControlStateNormal];
+            NSString *functionsArrayI = [NSString stringWithFormat:@"%@", [functionsArray objectAtIndex:i]];
+            if ([functionsArrayI containsString:@"IF "] && [functionsArrayI containsString:@" THEN"])
+            {
+                int ifLoc = (int)[functionsArrayI rangeOfString:@"IF "].location;
+                int thenLoc = (int)[functionsArrayI rangeOfString:@" THEN"].location;
+                NSRange ifThenRange = NSMakeRange(ifLoc, thenLoc + 5);
+                functionsArrayI = [[[[[functionsArrayI substringWithRange:ifThenRange]
+                                    stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"]
+                                   stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
+                                   stringByReplacingOccurrencesOfString:@" &amp; " withString:@" & "]
+                                   stringByAppendingString:@"..."];
+            }
+            [functionButton setTitle:functionsArrayI forState:UIControlStateNormal];
+            [functionButton.layer setValue:[NSString stringWithFormat:@"%@", [functionsArray objectAtIndex:i]] forKey:@"ActualFunction"];
             [functionButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
             [functionButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
             [functionButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
@@ -74,8 +88,10 @@
     {
         if ([assigningFunction isKindOfClass:[AssigningFunction class]])
             [(AssigningFunction *)assigningFunction loadFunctionToEdit:[[sender titleLabel] text]];
-        if ([assigningFunction isKindOfClass:[EnableDisableClear class]])
+        else if ([assigningFunction isKindOfClass:[EnableDisableClear class]])
             [(EnableDisableClear *)assigningFunction loadFunctionToEdit:[[sender titleLabel] text]];
+        else if ([assigningFunction isKindOfClass:[IfBuilder class]])
+            [(IfBuilder *)assigningFunction loadFunctionToEdit:[sender.layer valueForKey:@"ActualFunction"]];
     }
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [self setFrame:CGRectMake(self.frame.origin.x, -self.frame.size.height, self.frame.size.width, self.frame.size.height)];

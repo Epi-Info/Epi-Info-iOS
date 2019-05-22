@@ -256,7 +256,10 @@
     NSMutableArray *relevantFunctionsArray = [[NSMutableArray alloc] init];
         for (int i = 0; i < [existingFunctionsArray count]; i++)
             if ([(NSString *)[existingFunctionsArray objectAtIndex:i] containsString:@"IF "])
+            {
                 [relevantFunctionsArray addObject:[existingFunctionsArray objectAtIndex:i]];
+//                [relevantFunctionsArray addObject:[[[existingFunctionsArray objectAtIndex:i] stringByReplacingOccurrencesOfString:@"&#xA;" withString:@"\n"] stringByReplacingOccurrencesOfString:@"&#x9;" withString:@""]];
+            }
     ExistingFunctionsListView *eflv = [[ExistingFunctionsListView alloc] initWithFrame:CGRectMake(0,
                                                                                                   -self.frame.size.height,
                                                                                                   self.frame.size.width,
@@ -319,6 +322,67 @@
         [span setFrame:CGRectMake(0, 0, [sender superview].frame.size.width, [sender superview].frame.size.height)];
     } completion:^(BOOL finished){
     }];
+}
+
+- (void)loadFunctionToEdit:(NSString *)function
+{
+    [self addSubview:deleteButton];
+    functionBeingEdited = [NSString stringWithString:function];
+    [existingFunctionsArray removeObject:functionBeingEdited];
+//    NSArray *tokens = [function componentsSeparatedByString:@"\n"];
+    NSString *ifConditionString = @"";
+    NSString *thenString = @"";
+    NSString *elseString = @"";
+    if ([function containsString:@"IF "] && [function containsString:@" THEN&#xA;"])
+    {
+        int ifLoc = (int)[function rangeOfString:@"IF "].location;
+        int thenLoc = (int)[function rangeOfString:@" THEN&#xA;"].location;
+        NSRange ifThenRange = NSMakeRange(ifLoc + 3, thenLoc - (ifLoc + 3));
+        ifConditionString = [[[[function substringWithRange:ifThenRange]
+                              stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"]
+                             stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
+                            stringByReplacingOccurrencesOfString:@" &amp; " withString:@" & "];
+        if ([[function uppercaseString] containsString:@"END-IF"])
+        {
+            int endIfLoc = (int)[function rangeOfString:@"END-IF"].location;
+            if ([function containsString:@"ELSE&#xA;"])
+            {
+                int elseLoc = (int)[function rangeOfString:@"ELSE&#xA;"].location;
+                NSRange elseRange = NSMakeRange(elseLoc + 9, endIfLoc - (elseLoc + 9));
+                elseString = [[[[[[function substringWithRange:elseRange]
+                                  stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"]
+                                 stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
+                                stringByReplacingOccurrencesOfString:@"&#xA;" withString:@"\n"]
+                               stringByReplacingOccurrencesOfString:@"&#x9;" withString:@""]
+                              stringByReplacingOccurrencesOfString:@" &amp; " withString:@" & "];
+                NSRange thenRange = NSMakeRange(thenLoc + 10, elseLoc - (thenLoc + 10));
+                thenString = [[[[[[function substringWithRange:thenRange]
+                                  stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"]
+                                 stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
+                                stringByReplacingOccurrencesOfString:@"&#xA;" withString:@"\n"]
+                               stringByReplacingOccurrencesOfString:@"&#x9;" withString:@""]
+                              stringByReplacingOccurrencesOfString:@" &amp; " withString:@" & "];
+            }
+            else
+            {
+                NSRange thenRange = NSMakeRange(thenLoc + 10, endIfLoc - (thenLoc + 10));
+                thenString = [[[[[[function substringWithRange:thenRange]
+                                  stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"]
+                                 stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
+                                stringByReplacingOccurrencesOfString:@"&#xA;" withString:@"\n"]
+                               stringByReplacingOccurrencesOfString:@"&#x9;" withString:@""]
+                              stringByReplacingOccurrencesOfString:@" &amp; " withString:@" & "];
+            }
+        }
+    }
+
+    @try {
+        [ifConditionText setText:ifConditionString];
+        [thenText setText:thenString];
+        [elseText setText:elseString];
+    } @catch (NSException *exception) {
+    } @finally {
+    }
 }
 
 /*
