@@ -3819,7 +3819,8 @@
     if (!checkCodeStrings)
         checkCodeStrings = [[NSMutableArray alloc] init];
     if ([[[sender superview].layer valueForKey:@"CheckCode"] length] > 0)
-        [checkCodeStrings addObject:[NSString stringWithString:[[sender superview].layer valueForKey:@"CheckCode"]]];
+        if (![checkCodeStrings containsObject:[NSString stringWithString:[[sender superview].layer valueForKey:@"CheckCode"]]])
+            [checkCodeStrings addObject:[NSString stringWithString:[[sender superview].layer valueForKey:@"CheckCode"]]];
     for (int i = 0; i < [checkCodeStrings count]; i++)
         NSLog(@"\n%@", [checkCodeStrings objectAtIndex:i]);
     
@@ -4832,6 +4833,7 @@
 
 - (void)checkCodePressed:(UIButton *)sender
 {
+    [self processCheckCodeString];
     CheckCodeWriter *ccWriter = [[CheckCodeWriter alloc] initWithFrame:CGRectMake(0, -self.frame.size.height, self.frame.size.width - 0.0, self.frame.size.height - 1.0) AndFieldName:[(UITextField *)[[sender superview] viewWithTag:1001002] text] AndFieldType:[sender.layer valueForKey:@"FieldType"] AndSenderSuperview:[sender superview]];
     [self addSubview:ccWriter];
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -4842,6 +4844,7 @@
 
 - (void)pageCheckCodePressed:(UIButton *)sender
 {
+    [self processCheckCodeString];
     PageCheckCodeWriter *ccWriter = [[PageCheckCodeWriter alloc] initWithFrame:CGRectMake(0, -self.frame.size.height, self.frame.size.width - 0.0, self.frame.size.height - 1.0) AndFieldName:@"Page" AndFieldType:@"Page" AndSenderSuperview:self];
     [self addSubview:ccWriter];
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -5468,7 +5471,8 @@
         int endFieldPosition = (int)[[[checkCodeString lowercaseString] substringFromIndex:fieldPosition] rangeOfString:@"end-field"].location;
         NSRange fieldRange = NSMakeRange(fieldPosition, endFieldPosition + 9);
         NSString *fieldString = [checkCodeString substringWithRange:fieldRange];
-        [checkCodeStrings addObject:fieldString];
+        if (![checkCodeStrings containsObject:fieldString])
+            [checkCodeStrings addObject:fieldString];
         checkCodeString = [checkCodeString stringByReplacingCharactersInRange:fieldRange withString:@""];
     }
     while ([[checkCodeString lowercaseString] containsString:@"end-page"])
@@ -5477,7 +5481,8 @@
         int endPagePosition = (int)[[[checkCodeString lowercaseString] substringFromIndex:pagePosition] rangeOfString:@"end-page"].location;
         NSRange pageRange = NSMakeRange(pagePosition, endPagePosition + 8);
         NSString *pageString = [checkCodeString substringWithRange:pageRange];
-        [checkCodeStrings addObject:pageString];
+        if (![checkCodeStrings containsObject:pageString])
+            [checkCodeStrings addObject:pageString];
         checkCodeString = [checkCodeString stringByReplacingCharactersInRange:pageRange withString:@""];
     }
     if ([[[checkCodeString stringByReplacingOccurrencesOfString:@"&#xA;" withString:@""] stringByReplacingOccurrencesOfString:@"&#x9;" withString:@""] length] == 0)
