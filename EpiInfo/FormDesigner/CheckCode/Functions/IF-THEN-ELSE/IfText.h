@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
     UILabel *fflvLabel;
     FormFieldsLegalValues *fflv;
     UITextField *fflvSelected;
+    
+    UIView *operatorView;
 }
 -(id)initWithFrame:(CGRect)frame AndCallingButton:(UIButton *)cb;
 -(void)setDestinationOfText:(UITextView *)dot;
