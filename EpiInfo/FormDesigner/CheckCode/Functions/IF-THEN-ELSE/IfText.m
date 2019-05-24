@@ -6,6 +6,7 @@
 //
 
 #import "IfText.h"
+#import "FormDesigner.h"
 
 @implementation IfText
 
@@ -24,6 +25,10 @@
     self = [super initWithFrame:frame];
     if (self)
     {
+        formDesigner =[cb superview];
+        while (![formDesigner isKindOfClass:[FormDesigner class]])
+            formDesigner = [formDesigner superview];
+        
         UIButton *resignButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         [resignButton setBackgroundColor:[UIColor clearColor]];
         [resignButton addTarget:self action:@selector(textViewResign) forControlEvents:UIControlEventTouchUpInside];
@@ -42,6 +47,21 @@
         [textView setClipsToBounds:YES];
         [textView setDelegate:self];
         [self addSubview:textView];
+        
+        fflvLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, textView.frame.origin.y + textView.frame.size.height, frame.size.width - 16, 32)];
+        [fflvLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [fflvLabel setTextAlignment:NSTextAlignmentLeft];
+        [fflvLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [fflvLabel setText:[NSString stringWithFormat:@"Available Fields"]];
+        [self addSubview:fflvLabel];
+        
+        fflvSelected = [[UITextField alloc] init];
+        [fflvSelected addTarget:self action:@selector(FieldSelected:) forControlEvents:UIControlEventEditingChanged];
+        fflv = [[FormFieldsLegalValues alloc] initWithFrame:CGRectMake(4, fflvLabel.frame.origin.y + fflvLabel.frame.size.height - 8, 300, 180)
+                                            AndFormDesigner:formDesigner
+                                       AndTextFieldToUpdate:fflvSelected];
+        [fflv.picker selectRow:0 inComponent:0 animated:YES];
+        [self addSubview:fflv];
 
         [self setBackgroundColor:[UIColor whiteColor]];
         
@@ -57,7 +77,7 @@
         [closeButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
         [closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:closeButton];
-
+        
         UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(0,
                                                                           self.frame.size.height - 40,
                                                                           self.frame.size.width / 4.0,
@@ -89,6 +109,20 @@
 - (void)textViewResign
 {
     [textView resignFirstResponder];
+}
+
+- (void)FieldSelected:(UITextField *)uitv
+{
+    NSString *textViewString = [textView text];
+    if ([textViewString length] > 0)
+    {
+        NSUInteger lastIndex = [textViewString length] - 1;
+        if ([textViewString characterAtIndex:lastIndex] != ' ' && [textViewString characterAtIndex:lastIndex] != '\n')
+        {
+            textViewString = [textViewString stringByAppendingString:@" "];
+        }
+    }
+    [textView setText:[textViewString stringByAppendingString:[uitv text]]];
 }
 
 /*

@@ -267,6 +267,7 @@
 		92921B9919A6427000AA9477 /* MeansView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92921B9819A6427000AA9477 /* MeansView.m */; };
 		929230151EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 929230141EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework */; };
 		9292301B1EC4F3EE0078D9C2 /* WindowsAzureMobileServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921974961880583D007F6DFA /* WindowsAzureMobileServices.framework */; };
+		9292B6E12298384700802240 /* FormFieldsLegalValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 9292B6E02298384700802240 /* FormFieldsLegalValues.m */; };
 		9294A5CD2208CD1B008695AD /* LinearObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9294A5CC2208CD1B008695AD /* LinearObject.m */; };
 		9294A5D52208CD6F008695AD /* LinearView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9294A5D42208CD6F008695AD /* LinearView.m */; };
 		9294A5D82208CDD3008695AD /* LinearRegressionResults.m in Sources */ = {isa = PBXBuildFile; fileRef = 9294A5D72208CDD3008695AD /* LinearRegressionResults.m */; };
@@ -833,6 +834,8 @@
 		92921B9719A6427000AA9477 /* MeansView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeansView.h; sourceTree = "<group>"; };
 		92921B9819A6427000AA9477 /* MeansView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeansView.m; sourceTree = "<group>"; };
 		929230141EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MicrosoftAzureMobile.framework; sourceTree = "<group>"; };
+		9292B6DF2298384700802240 /* FormFieldsLegalValues.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFieldsLegalValues.h; sourceTree = "<group>"; };
+		9292B6E02298384700802240 /* FormFieldsLegalValues.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormFieldsLegalValues.m; sourceTree = "<group>"; };
 		9294A5CB2208CD1B008695AD /* LinearObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinearObject.h; sourceTree = "<group>"; };
 		9294A5CC2208CD1B008695AD /* LinearObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinearObject.m; sourceTree = "<group>"; };
 		9294A5D32208CD6F008695AD /* LinearView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinearView.h; sourceTree = "<group>"; };
@@ -1526,6 +1529,8 @@
 				923A02DE228B2DD000C33F3B /* PageCheckCodeWriter.m */,
 				92385D302280A55600079890 /* CETextField.h */,
 				92385D312280A55600079890 /* CETextField.m */,
+				9292B6DF2298384700802240 /* FormFieldsLegalValues.h */,
+				9292B6E02298384700802240 /* FormFieldsLegalValues.m */,
 			);
 			path = CheckCode;
 			sourceTree = "<group>";
@@ -2227,6 +2232,7 @@
 			files = (
 				4AFD8536161F137B00FFBA65 /* main.m in Sources */,
 				92385D352284A37100079890 /* ExistingFunctionsListView.m in Sources */,
+				9292B6E12298384700802240 /* FormFieldsLegalValues.m in Sources */,
 				92EB1ACF1DCA77B900694282 /* DictionaryOfFields.m in Sources */,
 				9253C7762195F42400DC084B /* LogisticView.m in Sources */,
 				92385D322280A55600079890 /* CETextField.m in Sources */,

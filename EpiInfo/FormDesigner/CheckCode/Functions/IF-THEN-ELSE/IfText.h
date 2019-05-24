@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FormFieldsLegalValues.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +18,12 @@ NS_ASSUME_NONNULL_BEGIN
     UITextView *textView;
     
     UITextView *destinationOfText;
+    
+    UIView *formDesigner;
+    
+    UILabel *fflvLabel;
+    FormFieldsLegalValues *fflv;
+    UITextField *fflvSelected;
 }
 -(id)initWithFrame:(CGRect)frame AndCallingButton:(UIButton *)cb;
 -(void)setDestinationOfText:(UITextView *)dot;
