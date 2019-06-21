@@ -7352,6 +7352,14 @@
                         lastElmt = @"unhidden";
                         j++;
                     }
+                    else if ([elmt isEqualToString:@"execute"])
+                    {
+                        ConditionsModel *cModel = [[ConditionsModel alloc]initWithPage:pageName from:conditionWord name:conditionWordOne element:eleSp beforeAfter:epc.condition condition:@"unhidden"];
+                        [conditionsArray addObject:cModel];
+                        lastElmt = @"unhidden";
+                        j++;
+                        j++;
+                    }
                     else if ([elmt isEqualToString:@"if"])
                     {
                         break;
@@ -7964,7 +7972,7 @@
                             
                         }
                     }
-                    else if ([cpm.element caseInsensitiveCompare:@"nowaitforexit"] == NSOrderedSame)
+                    else if ([cpm.element caseInsensitiveCompare:@"execute nowaitforexit \"save\""] == NSOrderedSame)
                         [self submitOrUpdateWithoutClearing];
                 }
             }
