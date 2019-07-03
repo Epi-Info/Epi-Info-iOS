@@ -9,6 +9,7 @@
 #import "EpiInfoViewController.h"
 #import "PrivacyAndDisclaimerPresenter.h"
 #include <sys/sysctl.h>
+@import BoxContentSDK;
 
 @implementation MainMenuMenu
 @synthesize eivc = _eivc;
@@ -46,7 +47,7 @@
         [back setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [item setRightBarButtonItem:back];
         
-        UIView *gravView = [[UIView alloc] initWithFrame:CGRectMake(0, 32, frame.size.width, 180)];
+        UIView *gravView = [[UIView alloc] initWithFrame:CGRectMake(0, 32, frame.size.width, 270)];
         [gravView setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
         [self addSubview:gravView];
         
@@ -98,6 +99,36 @@
         [errorLogButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
         [gravView addSubview:errorLogButton];
         
+        NSArray *users = [BOXContentClient users];
+
+        UIButton *boxLoginButton = [[UIButton alloc] initWithFrame:CGRectMake(0, errorLogButton.frame.origin.y + errorLogButton.frame.size.height + 1, frame.size.width, errorLogButton.frame.size.height)];
+        [boxLoginButton setTag:4];
+        [boxLoginButton addTarget:self action:@selector(boxConnect:) forControlEvents:UIControlEventTouchUpInside];
+        [boxLoginButton setBackgroundColor:[UIColor whiteColor]];
+        [boxLoginButton setTitle:@"Connect to Box" forState:UIControlStateNormal];
+        [boxLoginButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [boxLoginButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [boxLoginButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [boxLoginButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [boxLoginButton setContentEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
+        [boxLoginButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+        [boxLoginButton setEnabled:([users count] <= 0)];
+        [gravView addSubview:boxLoginButton];
+        
+        UIButton *boxLogoutButton = [[UIButton alloc] initWithFrame:CGRectMake(0, boxLoginButton.frame.origin.y + boxLoginButton.frame.size.height + 1, frame.size.width, boxLoginButton.frame.size.height)];
+        [boxLogoutButton setTag:5];
+        [boxLogoutButton addTarget:self action:@selector(boxDisconnect:) forControlEvents:UIControlEventTouchUpInside];
+        [boxLogoutButton setBackgroundColor:[UIColor whiteColor]];
+        [boxLogoutButton setTitle:@"Disconnect from Box" forState:UIControlStateNormal];
+        [boxLogoutButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [boxLogoutButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [boxLogoutButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [boxLogoutButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [boxLogoutButton setContentEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
+        [boxLogoutButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+        [boxLogoutButton setEnabled:([users count] > 0)];
+        [gravView addSubview:boxLogoutButton];
+
         UILabel *versionInfo = [[UILabel alloc] initWithFrame:CGRectMake(4, frame.size.height - 30, frame.size.width - 4, 30)];
         [versionInfo setTextAlignment:NSTextAlignmentLeft];
         [versionInfo setText:[NSString stringWithFormat:@"Epi Info v%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]]];
@@ -111,6 +142,8 @@
             [disclaimerButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
             [activityLogButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
             [errorLogButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+            [boxLoginButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+            [boxLogoutButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
             [versionInfo setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
         }
     }
@@ -126,6 +159,31 @@
         [padp setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     } completion:^(BOOL finished){
     }];
+}
+
+- (void)boxConnect:(UIButton *)sender
+{
+    // This will present the necessary UI for a user to authenticate into Box
+    [[BOXContentClient defaultClient] authenticateWithCompletionBlock:^(BOXUser *user, NSError *error) {
+        if (error == nil) {
+            NSLog(@"Logged in user: %@", user.login);
+            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box logged in user: %@\n", [NSDate date], user.login]];
+            [sender setEnabled:NO];
+            [(UIButton *)[[sender superview] viewWithTag:5] setEnabled:YES];
+        }
+        else {
+            NSLog(@"Error logging in to Box: %@", error);
+            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Error logging in to Box: %@\n", [NSDate date], error]];
+        }
+    }];
+}
+
+- (void)boxDisconnect:(UIButton *)sender
+{
+    [[BOXContentClient defaultClient] logOut];
+    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Disconnected from Box\n", [NSDate date]]];
+    [sender setEnabled:NO];
+    [(UIButton *)[[sender superview] viewWithTag:4] setEnabled:YES];
 }
 
 - (void)goBack

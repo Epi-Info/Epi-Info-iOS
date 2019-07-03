@@ -10,6 +10,7 @@
 #import "FormView.h"
 #import "ImportCSV.h"
 #import "SyncView.h"
+@import BoxContentSDK;
 
 @implementation EpiInfoAppDelegate
 
@@ -17,7 +18,8 @@
 {
     // Override point for customization after application launch.
 //    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[UIImage imageNamed:@"StAndrewXButtonWhite.png"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    
+    [BOXContentClient setClientID:@"ugy4lgruo9nju5zl3hhr4wq3e280minq" clientSecret:@"wgDzGDJzi9vZqWxTHVAUKzGR8Y013jYd"];
+
     return YES;
 }
 							
