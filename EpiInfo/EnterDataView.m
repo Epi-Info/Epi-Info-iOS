@@ -2139,7 +2139,7 @@
 
                     // JSON section for Box;
                     NSArray *users = [BOXContentClient users];
-                    if ([users count] > 0 && NO)
+                    if ([users count] > 0)
                     {
                         NSError *jerror;
                         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:azureDictionary options:0 error:&jerror];
