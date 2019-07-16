@@ -13,6 +13,7 @@
 #import "FormFromGoogleSheetView.h"
 #import "FormDesigner.h"
 #include <sys/sysctl.h>
+@import BoxContentSDK;
 
 #pragma mark * Private Interface
 
@@ -1157,6 +1158,19 @@
             [edv getMyLocation];
             if (![edv superview])
                 [edv restoreToViewController];
+
+            // JSON section for Box;
+            NSArray *users = [BOXContentClient users];
+            if ([users count] > 0)
+            {
+                NSLog(@"Box connection found. Records will be sent to Box as well as stored locally.");
+                UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Alert"
+                                                                                message:@"Box connection found. Records will be sent to Box as well as stored locally." preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                }];
+                [alertC addAction:okAction];
+                [self presentViewController:alertC animated:YES completion:nil];
+            }
         }];
     }];
 }
