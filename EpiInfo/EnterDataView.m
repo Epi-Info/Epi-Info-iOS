@@ -2225,8 +2225,8 @@
                                     [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder creation request finished with folder %@, error %@\n", [NSDate date], folder, error]];
                                     if (folder && !error)
                                     {
-                                        NSLog(@"folder %@ created; attempting to add a file", @"__EpiInfo");
-                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a file\n", [NSDate date], @"__EpiInfo"]];
+                                        NSLog(@"folder %@ created; attempting to add a subfolder", @"__EpiInfo");
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a subfolder\n", [NSDate date], @"__EpiInfo"]];
                                         BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:[folder modelID]];
                                         [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
                                             NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
@@ -2967,8 +2967,8 @@
                                     [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder creation request finished with folder %@, error %@\n", [NSDate date], folder, error]];
                                     if (folder && !error)
                                     {
-                                        NSLog(@"folder %@ created; attempting to add a file", @"__EpiInfo");
-                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a file\n", [NSDate date], @"__EpiInfo"]];
+                                        NSLog(@"folder %@ created; attempting to add a subfolder", @"__EpiInfo");
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a subfolder\n", [NSDate date], @"__EpiInfo"]];
                                         BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:[folder modelID]];
                                         [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
                                             NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
@@ -3695,8 +3695,8 @@
                                     [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder creation request finished with folder %@, error %@\n", [NSDate date], folder, error]];
                                     if (folder && !error)
                                     {
-                                        NSLog(@"folder %@ created; attempting to add a file", @"__EpiInfo");
-                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a file\n", [NSDate date], @"__EpiInfo"]];
+                                        NSLog(@"folder %@ created; attempting to add a subfolder", @"__EpiInfo");
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a subfolder\n", [NSDate date], @"__EpiInfo"]];
                                         BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:[folder modelID]];
                                         [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
                                             NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
@@ -4190,23 +4190,16 @@
                                     [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder creation request finished with folder %@, error %@\n", [NSDate date], folder, error]];
                                     if (folder && !error)
                                     {
-                                        NSLog(@"folder %@ created; attempting to add a file", @"__EpiInfo");
-                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a file\n", [NSDate date], @"__EpiInfo"]];
+                                        NSLog(@"folder %@ created; attempting to add a subfolder", @"__EpiInfo");
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a subfolder\n", [NSDate date], @"__EpiInfo"]];
                                         BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:[folder modelID]];
                                         [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
                                             NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
                                             [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder creation request finished with folder %@, error %@\n", [NSDate date], folder, error]];
                                             if (folder && !error)
                                             {
-                                                NSLog(@"folder %@ created; attempting to add a file", subfoldername);
-                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a file\n", [NSDate date], subfoldername]];
-                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[folder modelID] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
-                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
-                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
-                                                } completion:^(BOXFile *file, NSError *error) {
-                                                    NSLog(@"upload request finished with file %@, error %@", file, error);
-                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
-                                                }];
+                                                NSLog(@"folder %@ created", subfoldername);
+                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; nothing to delete\n", [NSDate date], subfoldername]];
                                             }
                                         }];
                                     }
