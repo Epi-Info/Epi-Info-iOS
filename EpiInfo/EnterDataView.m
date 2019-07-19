@@ -2243,7 +2243,30 @@
                                                     [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
                                                 }];
                                             }
+                                            else
+                                            {
+                                                UIAlertController *alertE = [UIAlertController alertControllerWithTitle:@"Alert"
+                                                                                                                message:@"Box could not obtain Directory ID for file storage. Record has been stored locally. Try disconnecting from and reconnecting to Box. Then reload the record and touch Update." preferredStyle:UIAlertControllerStyleAlert];
+                                                UIAlertAction *okActionE = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                }];
+                                                [alertE addAction:okActionE];
+                                                [self.rootViewController presentViewController:alertE animated:YES completion:nil];
+                                            }
                                         }];
+                                    }
+                                    else
+                                    {
+                                        UIAlertController *alertD = [UIAlertController alertControllerWithTitle:@"Alert"
+                                                                                                        message:@"Box could not obtain Directory ID for file storage. Record has been stored locally. Try disconnecting from and reconnecting to Box. Then reload the record and touch Update." preferredStyle:UIAlertControllerStyleAlert];
+                                        UIAlertAction *okActionD = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                        }];
+                                        [alertD addAction:okActionD];
+                                        UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                                        [alertWindow setRootViewController:[[UIViewController alloc] init]];
+                                        [alertWindow setWindowLevel:UIWindowLevelAlert + 1];
+                                        [alertWindow makeKeyAndVisible];
+                                        [[alertWindow rootViewController] presentViewController:alertD animated:YES completion:nil];
+//                                        [self.rootViewController presentViewController:alertD animated:YES completion:nil];
                                     }
                                 }];
                             }
@@ -3652,8 +3675,34 @@
                                                                 [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
                                                                     NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
                                                                 } completion:^(BOXFile *file, NSError *error) {
-                                                                    NSLog(@"upload request finished with file %@, error %@", file, error);
-                                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                                    if (error)
+                                                                    {
+                                                                        NSDictionary *thing1 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                                                        NSDictionary *thing2 = [thing1 objectForKey:@"context_info"];
+                                                                        NSDictionary *thing3 = [thing2 objectForKey:@"conflicts"];
+                                                                        BOXFileDeleteRequest *deleteRequest = [client0 fileDeleteRequestWithID:[thing3 objectForKey:@"id"]];
+                                                                        [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
+                                                                            if (error)
+                                                                            {
+                                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:folderID fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                                                } completion:^(BOXFile *file, NSError *error) {
+                                                                                    NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                                                }];
+                                                                            }
+                                                                        }];
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                                    }
                                                                 }];
                                                             }
                                                         }];
@@ -3665,8 +3714,6 @@
                                             {
                                                 BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:eiFolderID];
                                                 [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
-                                                    NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
-                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder creation request finished with folder %@, error %@\n", [NSDate date], folder, error]];
                                                     if (folder && !error)
                                                     {
                                                         NSLog(@"folder %@ created; attempting to add a file", subfoldername);
@@ -3677,6 +3724,46 @@
                                                         } completion:^(BOXFile *file, NSError *error) {
                                                             NSLog(@"upload request finished with file %@, error %@", file, error);
                                                             [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                        }];
+                                                    }
+                                                    else if (error)
+                                                    {
+                                                        NSDictionary *thing11 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                                        NSDictionary *thing12 = [thing11 objectForKey:@"context_info"];
+                                                        NSArray *thing13 = [thing12 objectForKey:@"conflicts"];
+                                                        NSDictionary *thing14 = [thing13 objectAtIndex:0];
+                                                        BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[thing14 objectForKey:@"id"] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                        [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                            NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                        } completion:^(BOXFile *file, NSError *error) {
+                                                            if (error)
+                                                            {
+                                                                NSDictionary *thing1 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                                                NSDictionary *thing2 = [thing1 objectForKey:@"context_info"];
+                                                                NSDictionary *thing3 = [thing2 objectForKey:@"conflicts"];
+                                                                BOXFileDeleteRequest *deleteRequest = [client0 fileDeleteRequestWithID:[thing3 objectForKey:@"id"]];
+                                                                [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
+                                                                    if (deleteError)
+                                                                    {
+                                                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                        BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[thing14 objectForKey:@"id"] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                                        [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                                            NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                                        } completion:^(BOXFile *file, NSError *error) {
+                                                                            NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                                        }];
+                                                                    }
+                                                                }];
+                                                            }
+                                                            else
+                                                            {
+                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                            }
                                                         }];
                                                     }
                                                 }];
@@ -3692,15 +3779,12 @@
                                 BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:@"__EpiInfo" parentFolderID:BOXAPIFolderIDRoot];
                                 [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
                                     NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
-                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder creation request finished with folder %@, error %@\n", [NSDate date], folder, error]];
                                     if (folder && !error)
                                     {
                                         NSLog(@"folder %@ created; attempting to add a subfolder", @"__EpiInfo");
                                         [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a subfolder\n", [NSDate date], @"__EpiInfo"]];
                                         BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:[folder modelID]];
                                         [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
-                                            NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
-                                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder creation request finished with folder %@, error %@\n", [NSDate date], folder, error]];
                                             if (folder && !error)
                                             {
                                                 NSLog(@"folder %@ created; attempting to add a file", subfoldername);
@@ -3711,6 +3795,83 @@
                                                 } completion:^(BOXFile *file, NSError *error) {
                                                     NSLog(@"upload request finished with file %@, error %@", file, error);
                                                     [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                }];
+                                            }
+                                            else if (error)
+                                            {
+                                                NSDictionary *thing11 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                                NSDictionary *thing12 = [thing11 objectForKey:@"context_info"];
+                                                NSArray *thing13 = [thing12 objectForKey:@"conflicts"];
+                                                NSDictionary *thing14 = [thing13 objectAtIndex:0];
+                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[thing14 objectForKey:@"id"] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                } completion:^(BOXFile *file, NSError *error) {
+                                                    NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                }];
+                                            }
+                                        }];
+                                    }
+                                    else if (error)
+                                    {
+                                        NSDictionary *thing1 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                        NSDictionary *thing2 = [thing1 objectForKey:@"context_info"];
+                                        NSArray *thing3 = [thing2 objectForKey:@"conflicts"];
+                                        NSDictionary *thing4 = [thing3 objectAtIndex:0];
+                                        BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:[thing4 objectForKey:@"id"]];
+                                        [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                            NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
+                                            if (folder && !error)
+                                            {
+                                                NSLog(@"folder %@ created; attempting to add a file", subfoldername);
+                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a file\n", [NSDate date], subfoldername]];
+                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[folder modelID] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                } completion:^(BOXFile *file, NSError *error) {
+                                                    NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                }];
+                                            }
+                                            else if (error)
+                                            {
+                                                NSDictionary *thing11 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                                NSDictionary *thing12 = [thing11 objectForKey:@"context_info"];
+                                                NSArray *thing13 = [thing12 objectForKey:@"conflicts"];
+                                                NSDictionary *thing14 = [thing13 objectAtIndex:0];
+                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[thing14 objectForKey:@"id"] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                } completion:^(BOXFile *file, NSError *error) {
+                                                    if (error)
+                                                    {
+                                                        NSDictionary *thing21 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                                        NSDictionary *thing22 = [thing21 objectForKey:@"context_info"];
+                                                        NSDictionary *thing23 = [thing22 objectForKey:@"conflicts"];
+                                                        BOXFileDeleteRequest *deleteRequest = [client0 fileDeleteRequestWithID:[thing23 objectForKey:@"id"]];
+                                                        [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
+                                                            if (deleteError)
+                                                            {
+                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                            }
+                                                            else
+                                                            {
+                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[thing14 objectForKey:@"id"] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                                } completion:^(BOXFile *file, NSError *error) {
+                                                                    NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                                }];
+                                                            }
+                                                        }];
+                                                    }
+                                                    else
+                                                    {
+                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                    }
                                                 }];
                                             }
                                         }];
