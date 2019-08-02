@@ -3102,13 +3102,13 @@
                                                                     {
                                                                         BOXFileDeleteRequest *deleteRequest = [client0 fileDeleteRequestWithID:[bifile modelID]];
                                                                         [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
-                                                                            if (error)
+                                                                            if (deleteError)
                                                                             {
-                                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
                                                                             }
                                                                             else
                                                                             {
-                                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
                                                                                 BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:folderID fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
                                                                                 [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
                                                                                     NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
@@ -3134,13 +3134,13 @@
                                                                         NSDictionary *thing3 = [thing2 objectForKey:@"conflicts"];
                                                                         BOXFileDeleteRequest *deleteRequest = [client0 fileDeleteRequestWithID:[thing3 objectForKey:@"id"]];
                                                                         [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
-                                                                            if (error)
+                                                                            if (deleteError)
                                                                             {
-                                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
                                                                             }
                                                                             else
                                                                             {
-                                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
                                                                                 BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:folderID fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
                                                                                 [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
                                                                                     NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
@@ -3197,11 +3197,11 @@
                                                                 [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
                                                                     if (deleteError)
                                                                     {
-                                                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
                                                                     }
                                                                     else
                                                                     {
-                                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
                                                                         BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[thing14 objectForKey:@"id"] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
                                                                         [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
                                                                             NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
@@ -3305,11 +3305,11 @@
                                                         [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
                                                             if (deleteError)
                                                             {
-                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
                                                             }
                                                             else
                                                             {
-                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
                                                                 BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[thing14 objectForKey:@"id"] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
                                                                 [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
                                                                     NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
@@ -3968,13 +3968,13 @@
                                                                     {
                                                                         BOXFileDeleteRequest *deleteRequest = [client0 fileDeleteRequestWithID:[bifile modelID]];
                                                                         [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
-                                                                            if (error)
+                                                                            if (deleteError)
                                                                             {
-                                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
                                                                             }
                                                                             else
                                                                             {
-                                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
                                                                                 BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:folderID fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
                                                                                 [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
                                                                                     NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
@@ -4000,13 +4000,13 @@
                                                                         NSDictionary *thing3 = [thing2 objectForKey:@"conflicts"];
                                                                         BOXFileDeleteRequest *deleteRequest = [client0 fileDeleteRequestWithID:[thing3 objectForKey:@"id"]];
                                                                         [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
-                                                                            if (error)
+                                                                            if (deleteError)
                                                                             {
-                                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
                                                                             }
                                                                             else
                                                                             {
-                                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
                                                                                 BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:folderID fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
                                                                                 [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
                                                                                     NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
@@ -4063,11 +4063,11 @@
                                                                 [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
                                                                     if (deleteError)
                                                                     {
-                                                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
                                                                     }
                                                                     else
                                                                     {
-                                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
                                                                         BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[thing14 objectForKey:@"id"] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
                                                                         [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
                                                                             NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
@@ -4171,11 +4171,11 @@
                                                         [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
                                                             if (deleteError)
                                                             {
-                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
                                                             }
                                                             else
                                                             {
-                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
                                                                 BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[thing14 objectForKey:@"id"] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
                                                                 [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
                                                                     NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
@@ -4621,9 +4621,9 @@
                                                                     {
                                                                         BOXFileDeleteRequest *deleteRequest = [client0 fileDeleteRequestWithID:[bifile modelID]];
                                                                         [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
-                                                                            if (error)
+                                                                            if (deleteError)
                                                                             {
-                                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
                                                                                 [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box file %@ not found so no delete performed. If the file does exist, use the Box web interface to delete it manually.\n", [NSDate date], [azureDictionary objectForKey:@"id"]]];
                                                                                 UIAlertController *alertD = [UIAlertController alertControllerWithTitle:@"Alert"
                                                                                                                                                 message:[NSString stringWithFormat:@"Box file %@ not found so no delete performed. If the file does exist, use the Box web interface to delete it manually.\n", [azureDictionary objectForKey:@"id"]] preferredStyle:UIAlertControllerStyleAlert];
@@ -4639,7 +4639,7 @@
                                                                             }
                                                                             else
                                                                             {
-                                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], error]];
+                                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
                                                                             }
                                                                         }];
                                                                     }
