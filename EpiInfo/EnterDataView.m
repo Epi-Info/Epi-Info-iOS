@@ -5587,13 +5587,14 @@
                     float carriageReturnHeightMultiplier = 20.0;
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
                         carriageReturnHeightMultiplier *= (24.0 / 14.0);
-                    elementLabelHeight += carriageReturnHeightMultiplier * (float)(carriageReturns - (int)(elementLabelHeight / 20.0));
-                    [elementLabel setFrame:CGRectMake(20, contentSizeHeight, self.frame.size.width - 40.0, elementLabelHeight)];
+                    int elementLabelY = contentSizeHeight;
                     contentSizeHeight += carriageReturnHeightMultiplier * (float)(carriageReturns - (int)(elementLabelHeight / 20.0));
+                    elementLabelHeight += carriageReturnHeightMultiplier * (float)(carriageReturns - (int)(elementLabelHeight / 20.0));
+                    [elementLabel setFrame:CGRectMake(20, elementLabelY, self.frame.size.width - 40.0, elementLabelHeight)];
                 }
                 
             }
-
+            
             if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"1"])
             {
                 EpiInfoTextField *tf;
