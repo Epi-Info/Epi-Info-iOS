@@ -1594,6 +1594,21 @@
                                                             [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
                                                         }];
                                                     }
+                                                    else
+                                                    {
+                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box could not obtain Directory ID for file storage. Record has been stored locally. Try reloading the record and touching Update.\n", [NSDate date]]];
+                                                        UIAlertController *alertE = [UIAlertController alertControllerWithTitle:@"Alert"
+                                                                                                                        message:@"Box could not obtain Directory ID for file storage. Record has been stored locally. Try reloading the record and touching Update." preferredStyle:UIAlertControllerStyleAlert];
+                                                        UIAlertAction *okActionE = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                        }];
+                                                        [alertE addAction:okActionE];
+                                                        UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                                                        [alertWindow setRootViewController:[[UIViewController alloc] init]];
+                                                        [alertWindow setWindowLevel:UIWindowLevelAlert + 1];
+                                                        [alertWindow makeKeyAndVisible];
+                                                        [[alertWindow rootViewController] presentViewController:alertE animated:YES completion:nil];
+                                                        //[self.rootViewController presentViewController:alertE animated:YES completion:nil];
+                                                    }
                                                 }];
                                             }
                                         }];
@@ -2351,6 +2366,21 @@
                                                             NSLog(@"upload request finished with file %@, error %@", file, error);
                                                             [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
                                                         }];
+                                                    }
+                                                    else
+                                                    {
+                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box could not obtain Directory ID for file storage. Record has been stored locally. Try reloading the record and touching Update.\n", [NSDate date]]];
+                                                        UIAlertController *alertE = [UIAlertController alertControllerWithTitle:@"Alert"
+                                                                                                                        message:@"Box could not obtain Directory ID for file storage. Record has been stored locally. Try reloading the record and touching Update." preferredStyle:UIAlertControllerStyleAlert];
+                                                        UIAlertAction *okActionE = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                        }];
+                                                        [alertE addAction:okActionE];
+                                                        UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                                                        [alertWindow setRootViewController:[[UIViewController alloc] init]];
+                                                        [alertWindow setWindowLevel:UIWindowLevelAlert + 1];
+                                                        [alertWindow makeKeyAndVisible];
+                                                        [[alertWindow rootViewController] presentViewController:alertE animated:YES completion:nil];
+                                                        //[self.rootViewController presentViewController:alertE animated:YES completion:nil];
                                                     }
                                                 }];
                                             }
