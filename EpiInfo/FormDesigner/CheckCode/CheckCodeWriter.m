@@ -12,6 +12,7 @@
 #import "EnableDisableClear.h"
 #import "Enable.h"
 
+
 @implementation CheckCodeWriter
 
 - (NSString *)beginFieldString
@@ -322,6 +323,24 @@
             [clearButton addTarget:self action:@selector(functionSelectionButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [clearButton.layer setValue:@"After" forKey:@"BeforeAfter"];
             [selectFunctionView addSubview:clearButton];
+            
+            UILabel *ifButtonLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 200, self.frame.size.width - 16, 32)];
+            [ifButtonLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+            [ifButtonLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [ifButtonLabel setTextAlignment:NSTextAlignmentLeft];
+            [ifButtonLabel setText:[NSString stringWithFormat:@"Build IF statement to evaluate %@:", [[sender titleLabel] text]]];
+            [selectFunctionView addSubview:ifButtonLabel];
+
+            UIButton *ifButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 232, selectFunctionView.frame.size.width, 32)];
+            [ifButton setBackgroundColor:[UIColor whiteColor]];
+            [ifButton setTitle:@"IF-THEN-ELSE Statement" forState:UIControlStateNormal];
+            [ifButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+            [ifButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+            [ifButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+            [ifButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+            [ifButton addTarget:self action:@selector(ifButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+            [ifButton.layer setValue:@"After" forKey:@"BeforeAfter"];
+            [selectFunctionView addSubview:ifButton];
         }
     }
     else
@@ -467,6 +486,21 @@
         [[sender superview] setFrame:CGRectMake([sender superview].frame.origin.x, -[sender superview].frame.size.height, [sender superview].frame.size.width, [sender superview].frame.size.height)];
     } completion:^(BOOL finished){
         [[sender superview] removeFromSuperview];
+    }];
+}
+
+- (void)ifButtonPressed:(UIButton *)sender
+{
+    UIView *span = [[UIView alloc] init];
+    span = [[IfBuilder alloc] initWithFrame:CGRectMake([sender superview].frame.origin.x,
+                                                       -[sender superview].frame.size.height,
+                                                       [sender superview].frame.size.width,
+                                                       [sender superview].frame.size.height)
+                           AndCallingButton:sender];
+    [[sender superview] addSubview:span];
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [span setFrame:CGRectMake(0, 0, [sender superview].frame.size.width, [sender superview].frame.size.height)];
+    } completion:^(BOOL finished){
     }];
 }
 

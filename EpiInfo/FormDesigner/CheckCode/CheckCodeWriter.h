@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IfBuilder.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -40,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSMutableArray *)afterFunctions;
 -(NSMutableArray *)clickFunctions;
 -(void)closeButtonPressed:(UIButton *)sender;
+-(void)ifButtonPressed:(UIButton *)sender;
 @end
 
 NS_ASSUME_NONNULL_END

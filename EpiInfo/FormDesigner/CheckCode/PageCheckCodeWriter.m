@@ -8,7 +8,6 @@
 #import "PageCheckCodeWriter.h"
 #import "FormDesigner.h"
 #import "FormElementObject.h"
-#import "IfBuilder.h"
 
 @implementation PageCheckCodeWriter
 
@@ -202,21 +201,6 @@
     [selectFunctionView addSubview:closeButton];
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [selectFunctionView setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-    } completion:^(BOOL finished){
-    }];
-}
-
-- (void)ifButtonPressed:(UIButton *)sender
-{
-    UIView *span = [[UIView alloc] init];
-    span = [[IfBuilder alloc] initWithFrame:CGRectMake([sender superview].frame.origin.x,
-                                                     -[sender superview].frame.size.height,
-                                                     [sender superview].frame.size.width,
-                                                     [sender superview].frame.size.height)
-                         AndCallingButton:sender];
-    [[sender superview] addSubview:span];
-    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [span setFrame:CGRectMake(0, 0, [sender superview].frame.size.width, [sender superview].frame.size.height)];
     } completion:^(BOOL finished){
     }];
 }
