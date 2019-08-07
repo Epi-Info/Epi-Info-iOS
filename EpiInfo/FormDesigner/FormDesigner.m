@@ -989,7 +989,7 @@
         [pageCheckCodeButton addTarget:self action:@selector(menuButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [pageCheckCodeButton setTag:tagIncrementer++ * 1000000 + 1957];
         [menu addSubview:pageCheckCodeButton];
-        [pageCheckCodeButton setEnabled:NO];
+        [pageCheckCodeButton setEnabled:formNamed];
 
         [self addSubview:menu];
         
@@ -2061,7 +2061,7 @@
     [checkCodeButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
     [checkCodeButton.layer setValue:@"Date" forKey:@"FieldType"];
     [checkCodeButton addTarget:self action:@selector(checkCodePressed:) forControlEvents:UIControlEventTouchUpInside];
-    [checkCodeButton setEnabled:NO];
+    [checkCodeButton setEnabled:YES];
     [controlViewGrayBackground addSubview:checkCodeButton];
     [controlViewGrayBackground.layer setValue:@"" forKey:@"CheckCode"];
 
