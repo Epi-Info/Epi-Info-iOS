@@ -27,6 +27,11 @@
     return checkCodeStrings;
 }
 
+- (void)setDeletedFieldIfBlocks:(NSMutableArray *)dfib
+{
+    deletedFieldIfBlocks = dfib;
+}
+
 - (void)addCheckCodeString:(NSString *)ccString
 {
     if (checkCodeStrings == nil)
@@ -3816,24 +3821,36 @@
 
 - (void)dateSaveOrCancelPressed:(UIButton *)sender
 {
+    UIView *vv = [controlViewGrayBackground viewWithTag:1001002];
+    NSString *fieldName = @"";
+    fieldName = [(UITextField *)vv text];
     if (!checkCodeStrings)
         checkCodeStrings = [[NSMutableArray alloc] init];
     if ([[[sender superview].layer valueForKey:@"CheckCode"] length] > 0)
         if (![checkCodeStrings containsObject:[NSString stringWithString:[[sender superview].layer valueForKey:@"CheckCode"]]])
-            [checkCodeStrings addObject:[NSString stringWithString:[[sender superview].layer valueForKey:@"CheckCode"]]];
+        {
+            NSString *csString = [NSString stringWithString:[[sender superview].layer valueForKey:@"CheckCode"]];
+            if (deletedFieldIfBlocks)
+            {
+                for (NSString *ifb in deletedFieldIfBlocks)
+                {
+                    csString = [csString stringByReplacingOccurrencesOfString:ifb withString:@""];
+                }
+            }
+            NSString *trimmedCSString = [[[[[[[csString stringByReplacingOccurrencesOfString:fieldName withString:@""] stringByReplacingOccurrencesOfString:@"End-Field" withString:@""] stringByReplacingOccurrencesOfString:@"End-After" withString:@""] stringByReplacingOccurrencesOfString:@"After" withString:@""] stringByReplacingOccurrencesOfString:@"Field " withString:@""] stringByReplacingOccurrencesOfString:@"&#xA;" withString:@""] stringByReplacingOccurrencesOfString:@"&#x9;" withString:@""];
+            if ([trimmedCSString length] > 0)
+                [checkCodeStrings addObject:csString];
+        }
     for (int i = 0; i < [checkCodeStrings count]; i++)
         NSLog(@"\n%@", [checkCodeStrings objectAtIndex:i]);
     
     NSString *promptText = @"";
-    NSString *fieldName = @"";
     BOOL saveButtonPressed = ([[[sender titleLabel] text] isEqualToString:@"Save"]);
     
-    UIView *vv = [controlViewGrayBackground viewWithTag:1001001];
+    vv = [controlViewGrayBackground viewWithTag:1001001];
     promptText = [(UITextField *)vv text];
     if ([promptText characterAtIndex:[promptText length] - 1] == ' ')
         promptText = [promptText substringToIndex:[promptText length] - 1];
-    vv = [controlViewGrayBackground viewWithTag:1001002];
-    fieldName = [(UITextField *)vv text];
     
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, formDesignerLabel.frame.origin.y + formDesignerLabel.frame.size.height, 0.84 * self.frame.size.width, 0)];
@@ -4835,6 +4852,10 @@
 {
     [self processCheckCodeString];
     CheckCodeWriter *ccWriter = [[CheckCodeWriter alloc] initWithFrame:CGRectMake(0, -self.frame.size.height, self.frame.size.width - 0.0, self.frame.size.height - 1.0) AndFieldName:[(UITextField *)[[sender superview] viewWithTag:1001002] text] AndFieldType:[sender.layer valueForKey:@"FieldType"] AndSenderSuperview:[sender superview]];
+    [ccWriter setFormDesignerCheckCodeStrings:checkCodeStrings];
+    if (!deletedFieldIfBlocks)
+        deletedFieldIfBlocks = [[NSMutableArray alloc] init];
+    [ccWriter setDeletedIfBlocks:deletedFieldIfBlocks];
     [self addSubview:ccWriter];
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [ccWriter setFrame:CGRectMake(0, 1, self.frame.size.width - 0.0, self.frame.size.height - 1.0)];

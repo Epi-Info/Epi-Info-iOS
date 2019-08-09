@@ -93,6 +93,7 @@
     NSMutableArray *checkCodeStrings = [(FormDesigner *)senderSuperview checkCodeStrings];
     for (int i = 0; i < [checkCodeStrings count]; i++)
     {
+        NSLog(@"Checking checkCodeStrings object for %@", [sender.layer valueForKey:@"FieldName"]);
         if ([[checkCodeStrings objectAtIndex:i] containsString:[sender.layer valueForKey:@"FieldName"]])
         {
             [self.layer setValue:[checkCodeStrings objectAtIndex:i] forKey:@"CheckCode"];

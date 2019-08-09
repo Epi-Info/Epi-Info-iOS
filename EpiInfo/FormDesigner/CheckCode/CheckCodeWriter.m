@@ -33,6 +33,16 @@
     endFieldString = efs;
 }
 
+- (void)setFormDesignerCheckCodeStrings:(NSMutableArray *)fdccs
+{
+    formDesignerCheckCodeStrings = fdccs;
+}
+
+- (void)setDeletedIfBlocks:(NSMutableArray *)dib
+{
+    deletedIfBlocks = dib;
+}
+
 - (NSMutableArray *)beforeFunctions
 {
     return beforeFunctions;
@@ -194,6 +204,13 @@
             
             if ([afterString length] > 0)
             {
+                while ([[afterString lowercaseString] containsString:@"&#x9;if "])
+                {
+                    int ifLocation = (int)[[afterString lowercaseString] rangeOfString:@"&#x9;if "].location + 5;
+                    int lineFeedLocation = (int)[[[afterString lowercaseString] substringFromIndex:ifLocation] rangeOfString:@"end-if&#xa;"].location + 6;
+                    [afterFunctions addObject:[afterString substringWithRange:NSMakeRange(ifLocation, lineFeedLocation)]];
+                    afterString = [afterString stringByReplacingCharactersInRange:NSMakeRange(ifLocation, lineFeedLocation) withString:@""];
+                }
                 while ([[afterString lowercaseString] containsString:@"&#x9;assign "])
                 {
                     int assignLocation = (int)[[afterString lowercaseString] rangeOfString:@"&#x9;assign "].location + 5;
@@ -230,6 +247,44 @@
 
 - (void)beforeOrAfterButtonPressed:(UIButton *)sender
 {
+    for (int i = 0; i < [formDesignerCheckCodeStrings count]; i++)
+    {
+        NSLog(@"Checking checkCodeStrings object for %@", [sender.layer valueForKey:@"FieldName"]);
+        if ([[[[formDesignerCheckCodeStrings objectAtIndex:i] componentsSeparatedByString:@" "] objectAtIndex:1] containsString:[sender.layer valueForKey:@"FieldName"]])
+        {
+            [self.layer setValue:[formDesignerCheckCodeStrings objectAtIndex:i] forKey:@"CheckCode"];
+            [formDesignerCheckCodeStrings removeObjectAtIndex:i];
+            break;
+        }
+    }
+    if ([[self.layer valueForKey:@"CheckCode"] length] > 0)
+    {
+        NSString *rawCheckCode = [NSString stringWithString:[self.layer valueForKey:@"CheckCode"]];
+        NSString *beforeString = @"";
+        int beforeLocation = (int)[[rawCheckCode lowercaseString] rangeOfString:@"before"].location;
+        int endBeforeEndLocation = -1;
+        if (beforeLocation > 0)
+        {
+            endBeforeEndLocation = (int)[[[rawCheckCode lowercaseString] substringFromIndex:beforeLocation] rangeOfString:@"end-before"].location + 10;
+            if (endBeforeEndLocation > 0)
+            {
+                beforeString = [rawCheckCode substringWithRange:NSMakeRange(beforeLocation, endBeforeEndLocation)];
+                rawCheckCode = [rawCheckCode stringByReplacingCharactersInRange:NSMakeRange(beforeLocation, endBeforeEndLocation) withString:@""];
+            }
+        }
+        
+        if ([beforeString length] > 0)
+        {
+            while ([[beforeString lowercaseString] containsString:@"&#x9;if "])
+            {
+                int ifLocation = (int)[[beforeString lowercaseString] rangeOfString:@"&#x9;if "].location + 5;
+                int lineFeedLocation = (int)[[[beforeString lowercaseString] substringFromIndex:ifLocation] rangeOfString:@"end-if&#xa;"].location + 6;
+                [beforeFunctions addObject:[beforeString substringWithRange:NSMakeRange(ifLocation, lineFeedLocation)]];
+                beforeString = [beforeString stringByReplacingCharactersInRange:NSMakeRange(ifLocation, lineFeedLocation) withString:@""];
+            }
+        }
+    }
+    
     UIView *selectFunctionView = [[UIView alloc] initWithFrame:CGRectMake(0, -self.frame.size.height, self.frame.size.width, self.frame.size.height)];
     [selectFunctionView setBackgroundColor:[UIColor whiteColor]];
     [self addSubview:selectFunctionView];
@@ -497,6 +552,10 @@
                                                        [sender superview].frame.size.width,
                                                        [sender superview].frame.size.height)
                            AndCallingButton:sender];
+    [(IfBuilder *)span setFormDesignerCheckCodeStrings:formDesignerCheckCodeStrings];
+    if (!deletedIfBlocks)
+        deletedIfBlocks = [[NSMutableArray alloc] init];
+    [(IfBuilder *)span setDeletedIfBlocks:deletedIfBlocks];
     [[sender superview] addSubview:span];
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [span setFrame:CGRectMake(0, 0, [sender superview].frame.size.width, [sender superview].frame.size.height)];

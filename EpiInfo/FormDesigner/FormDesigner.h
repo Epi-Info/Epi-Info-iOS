@@ -49,11 +49,14 @@ NS_ASSUME_NONNULL_BEGIN
     NSString *checkCodeString;
     
     NSArray *reservedWords;
+    
+    NSMutableArray *deletedFieldIfBlocks;
 }
 @property UIViewController *rootViewController;
 -(NSMutableArray *)formElementObjects;
 -(NSMutableArray *)pageNames;
 -(NSMutableArray *)checkCodeStrings;
+-(void)setDeletedFieldIfBlocks:(NSMutableArray *)dfib;
 -(id)initWithFrame:(CGRect)frame andSender:(UIButton *)sender;
 -(void)addCheckCodeString:(NSString *)ccString;
 -(void)buildTheXMLFile;

@@ -16,6 +16,16 @@
 
 @implementation IfBuilder
 
+- (void)setFormDesignerCheckCodeStrings:(NSMutableArray *)fdccs
+{
+    formDesignerCheckCodeStrings = fdccs;
+}
+
+- (void)setDeletedIfBlocks:(NSMutableArray *)dib
+{
+    deletedIfBlocks = dib;
+}
+
 - (void)addAfterFunction:(NSString *)function
 {
     [(CheckCodeWriter *)ccWriter addAfterFunction:function];
@@ -220,6 +230,9 @@
     }
     else if ([[[sender titleLabel] text] isEqualToString:@"Delete"])
     {
+        if (!deletedIfBlocks)
+            deletedIfBlocks = [[NSMutableArray alloc] init];
+        [deletedIfBlocks addObject:functionBeingEdited];
         return;
     }
     
@@ -232,6 +245,8 @@
         }
         [ifStatement appendString:@"&#xA;&#x9;&#x9;END-IF"];
         NSLog(@"%@", ifStatement);
+        if ([deletedIfBlocks containsObject:ifStatement])
+            [deletedIfBlocks removeObject:ifStatement];
         if ([callingButton.layer valueForKey:@"BeforeAfter"])
         {
             NSString *ba = [callingButton.layer valueForKey:@"BeforeAfter"];

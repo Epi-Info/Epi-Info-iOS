@@ -32,7 +32,13 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *existingFunctionsArray;
     
     NSString *functionBeingEdited;
+    
+    NSMutableArray *formDesignerCheckCodeStrings;
+    
+    NSMutableArray *deletedIfBlocks;
 }
+-(void)setFormDesignerCheckCodeStrings:(NSMutableArray *)fdccs;
+-(void)setDeletedIfBlocks:(NSMutableArray *)dib;
 -(id)initWithFrame:(CGRect)frame AndCallingButton:(UIButton *)cb;
 -(void)loadFunctionToEdit:(NSString *)function;
 @end

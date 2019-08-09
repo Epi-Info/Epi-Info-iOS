@@ -28,12 +28,17 @@ NS_ASSUME_NONNULL_BEGIN
     
     UIButton *beforeButton;
     UIButton *afterButton;
+    
+    NSMutableArray *formDesignerCheckCodeStrings;
+    NSMutableArray *deletedIfBlocks;
 }
 -(id)initWithFrame:(CGRect)frame AndFieldName:(NSString *)fn AndFieldType:(NSString *)ft AndSenderSuperview:(UIView *)sv;
 -(NSString *)beginFieldString;
 -(void)setBeginFieldString:(NSString *)bfs;
 -(NSString *)endFieldString;
 -(void)setEndFieldString:(NSString *)efs;
+-(void)setFormDesignerCheckCodeStrings:(NSMutableArray *)fdccs;
+-(void)setDeletedIfBlocks:(NSMutableArray *)dib;
 -(void)addAfterFunction:(NSString *)function;
 -(void)addBeforeFunction:(NSString *)function;
 -(void)addClickFunction:(NSString *)function;
