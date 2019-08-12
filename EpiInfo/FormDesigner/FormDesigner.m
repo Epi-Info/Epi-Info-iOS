@@ -996,6 +996,19 @@
         [menu addSubview:pageCheckCodeButton];
         [pageCheckCodeButton setEnabled:formNamed];
 
+        UIButton *showFormTemplateButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 2.0 * initialButtonHeight, menu.frame.size.width - 2, initialButtonHeight)];
+        [showFormTemplateButton setBackgroundColor:[UIColor whiteColor]];
+        [showFormTemplateButton setTitle:@"\tShow Form Template Text" forState:UIControlStateNormal];
+        [showFormTemplateButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [showFormTemplateButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [showFormTemplateButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [showFormTemplateButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [showFormTemplateButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [showFormTemplateButton addTarget:self action:@selector(menuButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [showFormTemplateButton setTag:tagIncrementer++ * 1000000 + 1957];
+        [menu addSubview:showFormTemplateButton];
+        [showFormTemplateButton setEnabled:formNamed];
+
         [self addSubview:menu];
         
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -1153,6 +1166,8 @@
             [self distributeFormPressed:sender];
         else if (buttonTag == 18)
             [self pageCheckCodePressed:sender];
+        else if (buttonTag == 19)
+            [self showHideFormTemplate:sender];
     }];
 }
 
@@ -4873,6 +4888,72 @@
     } completion:^(BOOL finished){
         [canvasTapGesture setEnabled:YES];
     }];
+}
+
+- (void)showHideFormTemplate:(UIButton *)sender
+{
+    int buttonTag = ((int)(((float)((int)[sender tag])) / 1000000));
+    if (buttonTag == 19)
+    {
+        UIView *templateBottomView = [[UIView alloc] initWithFrame:CGRectMake(0, -self.frame.size.height, self.frame.size.width - 0.0, self.frame.size.height - 1.0)];
+        [templateBottomView setBackgroundColor:[UIColor whiteColor]];
+        [self addSubview:templateBottomView];
+        
+        UIButton *templateViewCloseButton = [[UIButton alloc] initWithFrame:CGRectMake(templateBottomView.frame.size.width / 2.0, templateBottomView.frame.size.height - 48.0, templateBottomView.frame.size.width / 2.0, 32)];
+        [templateViewCloseButton setBackgroundColor:[UIColor whiteColor]];
+        [templateViewCloseButton setTitle:@"Close" forState:UIControlStateNormal];
+        [templateViewCloseButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [templateViewCloseButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [templateViewCloseButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [templateViewCloseButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [templateViewCloseButton addTarget:self action:@selector(showHideFormTemplate:) forControlEvents:UIControlEventTouchUpInside];
+        [templateViewCloseButton setTag:-1];
+        [templateBottomView addSubview:templateViewCloseButton];
+        
+        UIScrollView *templateSV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, templateBottomView.frame.size.width, templateViewCloseButton.frame.origin.y)];
+        [templateSV setContentSize:CGSizeMake(templateSV.frame.size.width, templateSV.frame.size.height)];
+        [templateBottomView addSubview:templateSV];
+        
+        UILabel *templateViewLabel = [[UILabel alloc] initWithFrame:templateSV.frame];
+        [templateSV addSubview:templateViewLabel];
+        [templateViewLabel setNumberOfLines:0];
+        [templateViewLabel setLineBreakMode:NSLineBreakByWordWrapping];
+        [templateViewLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            [templateViewLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+        }
+        [templateViewLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
+        {
+            [[NSFileManager defaultManager] createDirectoryAtPath:[paths objectAtIndex:0] withIntermediateDirectories:NO attributes:nil error:nil];
+        }
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
+        {
+            NSString *filePathAndName = [[[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] stringByAppendingString:@"/"] stringByAppendingString:formName] stringByAppendingString:@".xml"];
+            [templateViewLabel setText:[NSString stringWithContentsOfFile:filePathAndName encoding:NSUTF8StringEncoding error:nil]];
+        }
+        
+        [templateViewLabel sizeToFit];
+        if (templateViewLabel.frame.size.height > templateSV.contentSize.height)
+            [templateSV setContentSize:CGSizeMake(templateViewLabel.frame.size.width, templateViewLabel.frame.size.height)];
+
+        [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+            [templateBottomView setFrame:CGRectMake(0, 1, self.frame.size.width - 0.0, self.frame.size.height - 1.0)];
+        } completion:^(BOOL finished){
+            [canvasTapGesture setEnabled:YES];
+        }];
+    }
+    else
+    {
+        [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+            [[sender superview] setFrame:CGRectMake(0, -self.frame.size.height, self.frame.size.width - 0.0, self.frame.size.height - 1.0)];
+        } completion:^(BOOL finished){
+            [[sender superview] removeFromSuperview];
+        }];
+    }
 }
 
 - (void)valuesPressed:(UIButton *)sender
