@@ -4899,6 +4899,17 @@
         [templateBottomView setBackgroundColor:[UIColor whiteColor]];
         [self addSubview:templateBottomView];
         
+        UIButton *showCheckCodeButton = [[UIButton alloc] initWithFrame:CGRectMake(00, templateBottomView.frame.size.height - 48.0, templateBottomView.frame.size.width / 2.0, 32)];
+        [showCheckCodeButton setBackgroundColor:[UIColor whiteColor]];
+        [showCheckCodeButton setTitle:@"Check Code View" forState:UIControlStateNormal];
+        [showCheckCodeButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [showCheckCodeButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [showCheckCodeButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [showCheckCodeButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [showCheckCodeButton addTarget:self action:@selector(showHideFormTemplate:) forControlEvents:UIControlEventTouchUpInside];
+        [showCheckCodeButton setTag:243252633];
+        [templateBottomView addSubview:showCheckCodeButton];
+        
         UIButton *templateViewCloseButton = [[UIButton alloc] initWithFrame:CGRectMake(templateBottomView.frame.size.width / 2.0, templateBottomView.frame.size.height - 48.0, templateBottomView.frame.size.width / 2.0, 32)];
         [templateViewCloseButton setBackgroundColor:[UIColor whiteColor]];
         [templateViewCloseButton setTitle:@"Close" forState:UIControlStateNormal];
@@ -4909,7 +4920,7 @@
         [templateViewCloseButton addTarget:self action:@selector(showHideFormTemplate:) forControlEvents:UIControlEventTouchUpInside];
         [templateViewCloseButton setTag:-1];
         [templateBottomView addSubview:templateViewCloseButton];
-        
+
         UIScrollView *templateSV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, templateBottomView.frame.size.width, templateViewCloseButton.frame.origin.y)];
         [templateSV setContentSize:CGSizeMake(templateSV.frame.size.width, templateSV.frame.size.height)];
         [templateBottomView addSubview:templateSV];
@@ -4944,6 +4955,42 @@
             [templateBottomView setFrame:CGRectMake(0, 1, self.frame.size.width - 0.0, self.frame.size.height - 1.0)];
         } completion:^(BOOL finished){
             [canvasTapGesture setEnabled:YES];
+        }];
+    }
+    else if ([sender tag] == 243252633)
+    {
+        UIView *checkCodeBottomView = [[UIView alloc] initWithFrame:CGRectMake(0, -self.frame.size.height, self.frame.size.width - 0.0, self.frame.size.height - 1.0)];
+        [checkCodeBottomView setBackgroundColor:[UIColor whiteColor]];
+        [self addSubview:checkCodeBottomView];
+        
+        UIButton *checkCodeViewCloseButton = [[UIButton alloc] initWithFrame:CGRectMake(checkCodeBottomView.frame.size.width / 2.0, checkCodeBottomView.frame.size.height - 48.0, checkCodeBottomView.frame.size.width / 2.0, 32)];
+        [checkCodeViewCloseButton setBackgroundColor:[UIColor whiteColor]];
+        [checkCodeViewCloseButton setTitle:@"Close" forState:UIControlStateNormal];
+        [checkCodeViewCloseButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [checkCodeViewCloseButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [checkCodeViewCloseButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [checkCodeViewCloseButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [checkCodeViewCloseButton addTarget:self action:@selector(showHideFormTemplate:) forControlEvents:UIControlEventTouchUpInside];
+        [checkCodeViewCloseButton setTag:-1];
+        [checkCodeBottomView addSubview:checkCodeViewCloseButton];
+        
+        UIScrollView *checkCodeSV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, checkCodeBottomView.frame.size.width, checkCodeViewCloseButton.frame.origin.y)];
+        [checkCodeSV setContentSize:CGSizeMake(checkCodeSV.frame.size.width, checkCodeSV.frame.size.height)];
+        [checkCodeBottomView addSubview:checkCodeSV];
+        
+        UILabel *checkCodeViewLabel = [[UILabel alloc] initWithFrame:checkCodeSV.frame];
+        [checkCodeSV addSubview:checkCodeViewLabel];
+        [checkCodeViewLabel setNumberOfLines:0];
+        [checkCodeViewLabel setLineBreakMode:NSLineBreakByWordWrapping];
+        [checkCodeViewLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
+        [checkCodeViewLabel setText:[[checkCodeString stringByReplacingOccurrencesOfString:@"&#xA;" withString:@"\n"] stringByReplacingOccurrencesOfString:@"&#x9;" withString:@"\t"]];
+        [checkCodeViewLabel sizeToFit];
+        if (checkCodeViewLabel.frame.size.height > checkCodeSV.contentSize.height)
+            [checkCodeSV setContentSize:CGSizeMake(checkCodeViewLabel.frame.size.width, checkCodeViewLabel.frame.size.height)];
+        
+        [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+            [checkCodeBottomView setFrame:CGRectMake(0, 1, self.frame.size.width - 0.0, self.frame.size.height - 1.0)];
+        } completion:^(BOOL finished){
         }];
     }
     else
