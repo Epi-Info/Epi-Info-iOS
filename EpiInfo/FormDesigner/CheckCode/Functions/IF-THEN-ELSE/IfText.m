@@ -46,6 +46,11 @@
         [textView.layer setBorderWidth:1.0];
         [textView setClipsToBounds:YES];
         [textView setDelegate:self];
+        if (@available(iOS 11.0, *)) {
+            [textView setSmartQuotesType:UITextSmartQuotesTypeNo];
+        } else {
+            // Fallback on earlier versions
+        }
         [self addSubview:textView];
         
         fflvLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, textView.frame.origin.y + textView.frame.size.height, frame.size.width - 16, 32)];

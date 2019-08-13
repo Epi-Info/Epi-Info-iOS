@@ -324,17 +324,17 @@
     [fifthLabel setText:[sender.layer valueForKey:@"FieldType"]];
     [selectFunctionView addSubview:fifthLabel];
     
-    UILabel *sixthLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 96, self.frame.size.width - 16, 32)];
-    [sixthLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
-    [sixthLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
-    [sixthLabel setTextAlignment:NSTextAlignmentLeft];
-    [sixthLabel setText:[NSString stringWithFormat:@"Select a function to execute %@:", [[sender titleLabel] text]]];
-    [selectFunctionView addSubview:sixthLabel];
-
     if ([[[sender titleLabel] text] isEqualToString:@"After"])
     {
         if ([[sender.layer valueForKey:@"FieldType"] isEqualToString:@"Date"])
         {
+            UILabel *sixthLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 96, self.frame.size.width - 16, 32)];
+            [sixthLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+            [sixthLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [sixthLabel setTextAlignment:NSTextAlignmentLeft];
+            [sixthLabel setText:[NSString stringWithFormat:@"Select a function to execute %@:", [[sender titleLabel] text]]];
+            [selectFunctionView addSubview:sixthLabel];
+            
             UIButton *differenceInYearsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 128, selectFunctionView.frame.size.width / 2.0, 32)];
             [differenceInYearsButton setBackgroundColor:[UIColor whiteColor]];
             [differenceInYearsButton setTitle:@"Years" forState:UIControlStateNormal];
@@ -368,17 +368,6 @@
             [differenceInDaysButton.layer setValue:@"After" forKey:@"BeforeAfter"];
             [selectFunctionView addSubview:differenceInDaysButton];
             
-            UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(selectFunctionView.frame.size.width / 2.0, 160, selectFunctionView.frame.size.width / 2.0, 32)];
-            [clearButton setBackgroundColor:[UIColor whiteColor]];
-            [clearButton setTitle:@"Enable" forState:UIControlStateNormal];
-            [clearButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
-            [clearButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
-            [clearButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
-            [clearButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
-            [clearButton addTarget:self action:@selector(functionSelectionButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-            [clearButton.layer setValue:@"After" forKey:@"BeforeAfter"];
-            [selectFunctionView addSubview:clearButton];
-            
             UILabel *ifButtonLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 200, self.frame.size.width - 16, 32)];
             [ifButtonLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
             [ifButtonLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
@@ -387,6 +376,26 @@
             [selectFunctionView addSubview:ifButtonLabel];
 
             UIButton *ifButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 232, selectFunctionView.frame.size.width, 32)];
+            [ifButton setBackgroundColor:[UIColor whiteColor]];
+            [ifButton setTitle:@"IF-THEN-ELSE Statement" forState:UIControlStateNormal];
+            [ifButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+            [ifButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+            [ifButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+            [ifButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+            [ifButton addTarget:self action:@selector(ifButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+            [ifButton.layer setValue:@"After" forKey:@"BeforeAfter"];
+            [selectFunctionView addSubview:ifButton];
+        }
+        else
+        {
+            UILabel *ifButtonLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 96, self.frame.size.width - 16, 32)];
+            [ifButtonLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+            [ifButtonLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+            [ifButtonLabel setTextAlignment:NSTextAlignmentLeft];
+            [ifButtonLabel setText:[NSString stringWithFormat:@"Build IF statement to evaluate %@:", [[sender titleLabel] text]]];
+            [selectFunctionView addSubview:ifButtonLabel];
+            
+            UIButton *ifButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 128, selectFunctionView.frame.size.width, 32)];
             [ifButton setBackgroundColor:[UIColor whiteColor]];
             [ifButton setTitle:@"IF-THEN-ELSE Statement" forState:UIControlStateNormal];
             [ifButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
