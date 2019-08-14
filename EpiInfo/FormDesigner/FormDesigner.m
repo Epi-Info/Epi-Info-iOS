@@ -1708,8 +1708,9 @@
     [checkCodeButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
     [checkCodeButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
     [checkCodeButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [checkCodeButton.layer setValue:@"Text Field" forKey:@"FieldType"];
     [checkCodeButton addTarget:self action:@selector(checkCodePressed:) forControlEvents:UIControlEventTouchUpInside];
-    [checkCodeButton setEnabled:NO];
+    [checkCodeButton setEnabled:YES];
     [controlViewGrayBackground addSubview:checkCodeButton];
     
     UIButton *controlViewCancelButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 2 - 1, 0)];
@@ -1742,6 +1743,16 @@
         [controlViewMoveDnButton setEnabled:YES];
         [controlViewDeleteButton setEnabled:YES];
         [controlViewSaveButton setEnabled:YES];
+        for (int i = 0; i < [checkCodeStrings count]; i++)
+        {
+            NSArray *nsa = [[checkCodeStrings objectAtIndex:i] componentsSeparatedByString:@" "];
+            if ([[nsa objectAtIndex:1] containsString:[controlViewFieldNameText text]])
+            {
+                [controlViewGrayBackground.layer setValue:[checkCodeStrings objectAtIndex:i] forKey:@"CheckCode"];
+                [checkCodeStrings removeObjectAtIndex:i];
+                break;
+            }
+        }
     }
     
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -1981,8 +1992,9 @@
     [checkCodeButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
     [checkCodeButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
     [checkCodeButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [checkCodeButton.layer setValue:@"Text Field" forKey:@"FieldType"];
     [checkCodeButton addTarget:self action:@selector(checkCodePressed:) forControlEvents:UIControlEventTouchUpInside];
-    [checkCodeButton setEnabled:NO];
+    [checkCodeButton setEnabled:YES];
     [controlViewGrayBackground addSubview:checkCodeButton];
     
     UIButton *controlViewCancelButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 2 - 1, 0)];
@@ -2015,6 +2027,16 @@
         [controlViewMoveDnButton setEnabled:YES];
         [controlViewDeleteButton setEnabled:YES];
         [controlViewSaveButton setEnabled:YES];
+        for (int i = 0; i < [checkCodeStrings count]; i++)
+        {
+            NSArray *nsa = [[checkCodeStrings objectAtIndex:i] componentsSeparatedByString:@" "];
+            if ([[nsa objectAtIndex:1] containsString:[controlViewFieldNameText text]])
+            {
+                [controlViewGrayBackground.layer setValue:[checkCodeStrings objectAtIndex:i] forKey:@"CheckCode"];
+                [checkCodeStrings removeObjectAtIndex:i];
+                break;
+            }
+        }
     }
     
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -3626,6 +3648,24 @@
     vv = [controlViewGrayBackground viewWithTag:1001002];
     fieldName = [(UITextField *)vv text];
     
+    if (!checkCodeStrings)
+        checkCodeStrings = [[NSMutableArray alloc] init];
+    if ([[[sender superview].layer valueForKey:@"CheckCode"] length] > 0)
+        if (![checkCodeStrings containsObject:[NSString stringWithString:[[sender superview].layer valueForKey:@"CheckCode"]]])
+        {
+            NSString *csString = [NSString stringWithString:[[sender superview].layer valueForKey:@"CheckCode"]];
+            if (deletedFieldIfBlocks)
+            {
+                for (NSString *ifb in deletedFieldIfBlocks)
+                {
+                    csString = [csString stringByReplacingOccurrencesOfString:ifb withString:@""];
+                }
+            }
+            NSString *trimmedCSString = [[[[[[[csString stringByReplacingOccurrencesOfString:fieldName withString:@""] stringByReplacingOccurrencesOfString:@"End-Field" withString:@""] stringByReplacingOccurrencesOfString:@"End-After" withString:@""] stringByReplacingOccurrencesOfString:@"After" withString:@""] stringByReplacingOccurrencesOfString:@"Field " withString:@""] stringByReplacingOccurrencesOfString:@"&#xA;" withString:@""] stringByReplacingOccurrencesOfString:@"&#x9;" withString:@""];
+            if ([trimmedCSString length] > 0)
+                [checkCodeStrings addObject:csString];
+        }
+    
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, formDesignerLabel.frame.origin.y + formDesignerLabel.frame.size.height, 0.84 * self.frame.size.width, 0)];
         for (UIView *vv in [controlViewGrayBackground subviews])
@@ -3843,6 +3883,24 @@
         promptText = [promptText substringToIndex:[promptText length] - 1];
     vv = [controlViewGrayBackground viewWithTag:1001002];
     fieldName = [(UITextField *)vv text];
+    
+    if (!checkCodeStrings)
+        checkCodeStrings = [[NSMutableArray alloc] init];
+    if ([[[sender superview].layer valueForKey:@"CheckCode"] length] > 0)
+        if (![checkCodeStrings containsObject:[NSString stringWithString:[[sender superview].layer valueForKey:@"CheckCode"]]])
+        {
+            NSString *csString = [NSString stringWithString:[[sender superview].layer valueForKey:@"CheckCode"]];
+            if (deletedFieldIfBlocks)
+            {
+                for (NSString *ifb in deletedFieldIfBlocks)
+                {
+                    csString = [csString stringByReplacingOccurrencesOfString:ifb withString:@""];
+                }
+            }
+            NSString *trimmedCSString = [[[[[[[csString stringByReplacingOccurrencesOfString:fieldName withString:@""] stringByReplacingOccurrencesOfString:@"End-Field" withString:@""] stringByReplacingOccurrencesOfString:@"End-After" withString:@""] stringByReplacingOccurrencesOfString:@"After" withString:@""] stringByReplacingOccurrencesOfString:@"Field " withString:@""] stringByReplacingOccurrencesOfString:@"&#xA;" withString:@""] stringByReplacingOccurrencesOfString:@"&#x9;" withString:@""];
+            if ([trimmedCSString length] > 0)
+                [checkCodeStrings addObject:csString];
+        }
     
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, formDesignerLabel.frame.origin.y + formDesignerLabel.frame.size.height, 0.84 * self.frame.size.width, 0)];
