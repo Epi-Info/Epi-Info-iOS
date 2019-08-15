@@ -141,6 +141,10 @@
     NSString *textViewString = [textView text];
     if ([operation isEqualToString:@"Missing"])
         operation = @"(.)";
+    else if ([operation isEqualToString:@"Yes/True"])
+        operation = @"(+)";
+    else if ([operation isEqualToString:@"No/False"])
+        operation = @"(-)";
     if ([textViewString length] > 0)
     {
         NSUInteger lastIndex = [textViewString length] - 1;

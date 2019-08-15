@@ -238,10 +238,16 @@
     
     if ([[ifConditionText text] length] > 0 && [[thenText text] length] > 0)
     {
-        NSMutableString *ifStatement = [NSMutableString stringWithFormat:@"IF %@ THEN&#xA;&#x9;&#x9;&#x9;%@", [ifConditionText text], [thenText text]];
+        NSString *thenTextString = [thenText text];
+        if ([thenTextString characterAtIndex:[thenTextString length] - 1] == '\n')
+            thenTextString = [thenTextString substringToIndex:[thenTextString length] - 1];
+        NSMutableString *ifStatement = [NSMutableString stringWithFormat:@"IF %@ THEN&#xA;&#x9;&#x9;&#x9;%@", [ifConditionText text], [thenTextString stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\t\t\t"]];
         if ([[elseText text] length] > 0)
         {
-            [ifStatement appendFormat:@"&#xA;&#x9;&#x9;ELSE&#xA;&#x9;&#x9;&#x9;%@", [elseText text]];
+            NSString *elseTextString = [elseText text];
+            if ([elseTextString characterAtIndex:[elseTextString length] - 1] == '\n')
+                elseTextString = [elseTextString substringToIndex:[elseTextString length] - 1];
+            [ifStatement appendFormat:@"&#xA;&#x9;&#x9;ELSE&#xA;&#x9;&#x9;&#x9;%@", [elseTextString stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\t\t\t"]];
         }
         [ifStatement appendString:@"&#xA;&#x9;&#x9;END-IF"];
         NSLog(@"%@", ifStatement);

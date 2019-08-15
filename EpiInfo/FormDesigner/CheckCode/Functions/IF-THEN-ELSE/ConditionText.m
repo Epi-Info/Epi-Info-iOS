@@ -46,7 +46,7 @@
         [greaterThanButton addTarget:self action:@selector(operatorButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [operatorView addSubview:greaterThanButton];
         
-        UIButton *missingButton = [[UIButton alloc] initWithFrame:CGRectMake(142, 4, 80, 40)];
+        UIButton *missingButton = [[UIButton alloc] initWithFrame:CGRectMake(142, 4, 84, 40)];
         [missingButton setBackgroundColor:[UIColor whiteColor]];
         [missingButton setTitle:@"Missing" forState:UIControlStateNormal];
         [missingButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
@@ -55,6 +55,26 @@
         [missingButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
         [missingButton addTarget:self action:@selector(operatorButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [operatorView addSubview:missingButton];
+        
+        UIButton *yesButton = [[UIButton alloc] initWithFrame:CGRectMake(232, 4, 84, 40)];
+        [yesButton setBackgroundColor:[UIColor whiteColor]];
+        [yesButton setTitle:@"Yes/True" forState:UIControlStateNormal];
+        [yesButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [yesButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [yesButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [yesButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [yesButton addTarget:self action:@selector(operatorButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [operatorView addSubview:yesButton];
+        
+        UIButton *noButton = [[UIButton alloc] initWithFrame:CGRectMake(4, 50, 84, 40)];
+        [noButton setBackgroundColor:[UIColor whiteColor]];
+        [noButton setTitle:@"No/False" forState:UIControlStateNormal];
+        [noButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [noButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [noButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [noButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [noButton addTarget:self action:@selector(operatorButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [operatorView addSubview:noButton];
     }
     return self;
 }
