@@ -5215,8 +5215,11 @@
         UIScrollView *templateSV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, templateBottomView.frame.size.width, templateViewCloseButton.frame.origin.y)];
         [templateSV setContentSize:CGSizeMake(templateSV.frame.size.width, templateSV.frame.size.height)];
         [templateBottomView addSubview:templateSV];
+        [templateSV setTag:2360852];
+        [templateSV setMaximumZoomScale:2.0];
+        [templateSV setDelegate:self];
         
-        UILabel *templateViewLabel = [[UILabel alloc] initWithFrame:templateSV.frame];
+        templateViewLabel = [[UILabel alloc] initWithFrame:templateSV.frame];
         [templateSV addSubview:templateViewLabel];
         [templateViewLabel setNumberOfLines:0];
         [templateViewLabel setLineBreakMode:NSLineBreakByWordWrapping];
@@ -5268,8 +5271,11 @@
         UIScrollView *checkCodeSV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, checkCodeBottomView.frame.size.width, checkCodeViewCloseButton.frame.origin.y)];
         [checkCodeSV setContentSize:CGSizeMake(checkCodeSV.frame.size.width, checkCodeSV.frame.size.height)];
         [checkCodeBottomView addSubview:checkCodeSV];
+        [checkCodeSV setTag:2729988];
+        [checkCodeSV setMaximumZoomScale:2.0];
+        [checkCodeSV setDelegate:self];
         
-        UILabel *checkCodeViewLabel = [[UILabel alloc] initWithFrame:checkCodeSV.frame];
+        checkCodeViewLabel = [[UILabel alloc] initWithFrame:checkCodeSV.frame];
         [checkCodeSV addSubview:checkCodeViewLabel];
         [checkCodeViewLabel setNumberOfLines:0];
         [checkCodeViewLabel setLineBreakMode:NSLineBreakByWordWrapping];
@@ -5948,6 +5954,14 @@
     }
     if ([[[checkCodeString stringByReplacingOccurrencesOfString:@"&#xA;" withString:@""] stringByReplacingOccurrencesOfString:@"&#x9;" withString:@""] length] == 0)
         checkCodeString = @"";
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    if ([scrollView tag] == 2360852)
+        return templateViewLabel;
+    else
+        return checkCodeViewLabel;
 }
 /*
 // Only override drawRect: if you perform custom drawing.

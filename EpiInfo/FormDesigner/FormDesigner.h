@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FormDesigner : UIView <MFMailComposeViewControllerDelegate, UITextFieldDelegate, NSXMLParserDelegate>
+@interface FormDesigner : UIView <MFMailComposeViewControllerDelegate, UITextFieldDelegate, NSXMLParserDelegate, UIScrollViewDelegate>
 {
     float nextY;
     float nextYReset;
@@ -54,6 +54,9 @@ NS_ASSUME_NONNULL_BEGIN
     
     BOOL justParsingForCheckCode;
     NSString *checkCodeStringForDisplay;
+    
+    UILabel *templateViewLabel;
+    UILabel *checkCodeViewLabel;
 }
 @property UIViewController *rootViewController;
 -(NSMutableArray *)formElementObjects;
