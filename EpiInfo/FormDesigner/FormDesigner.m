@@ -5414,7 +5414,8 @@
         {
             [checkCodeStringBuilder appendFormat:@"&#xA;&#xA;%@", [checkCodeStrings objectAtIndex:i]];
         }
-        checkCodeString = [checkCodeString stringByAppendingString:checkCodeStringBuilder];
+        if ([checkCodeString rangeOfString:checkCodeStringBuilder options:NSCaseInsensitiveSearch].location == NSNotFound)
+            checkCodeString = [checkCodeString stringByAppendingString:checkCodeStringBuilder];
     }
 
     NSMutableString *xmlMS = [[NSMutableString alloc] init];
