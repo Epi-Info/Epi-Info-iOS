@@ -46,6 +46,7 @@
     {
         lastPage = 1;
         checkCodeString = @"";
+        justParsingForCheckCode = NO;
         checkCodeStrings = [[NSMutableArray alloc] init];
         yTouched = -99.9;
         [self getExistingForms];
@@ -5273,7 +5274,16 @@
         [checkCodeViewLabel setNumberOfLines:0];
         [checkCodeViewLabel setLineBreakMode:NSLineBreakByWordWrapping];
         [checkCodeViewLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
-        [checkCodeViewLabel setText:[[checkCodeString stringByReplacingOccurrencesOfString:@"&#xA;" withString:@"\n"] stringByReplacingOccurrencesOfString:@"&#x9;" withString:@"\t"]];
+        justParsingForCheckCode = YES;
+        NSURL *templateFile = [[NSURL alloc] initWithString:[@"file://" stringByAppendingString:[[[epiInfoForms stringByAppendingString:@"/"] stringByAppendingString:formName] stringByAppendingString:@".xml"]]];
+        NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:templateFile];
+        [parser setDelegate:self];
+        [parser setShouldResolveExternalEntities:YES];
+        //            NSLog(@"CONSUMING XML: %@", [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:[@"file://" stringByAppendingString:[[[epiInfoForms stringByAppendingString:@"/"] stringByAppendingString:formName] stringByAppendingString:@".xml"]]] encoding:NSUTF8StringEncoding error:nil]);
+        BOOL success = [parser parse];
+        justParsingForCheckCode = NO;
+        if (success)
+            [checkCodeViewLabel setText:[[checkCodeStringForDisplay stringByReplacingOccurrencesOfString:@"&#xA;" withString:@"\n"] stringByReplacingOccurrencesOfString:@"&#x9;" withString:@"\t"]];
         [checkCodeViewLabel sizeToFit];
         if (checkCodeViewLabel.frame.size.height > checkCodeSV.contentSize.height)
             [checkCodeSV setContentSize:CGSizeMake(checkCodeViewLabel.frame.size.width, checkCodeViewLabel.frame.size.height)];
@@ -5763,6 +5773,17 @@
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
+    if (justParsingForCheckCode)
+    {
+        if ([elementName isEqualToString:@"View"])
+        {
+            if ([attributeDict objectForKey:@"CheckCode"] != nil)
+            {
+                checkCodeStringForDisplay = [[[[[[[[NSString stringWithString:[attributeDict objectForKey:@"CheckCode"]] stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"\t" withString:@"&#x9;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"]stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\r" withString:@"&#xD;"] stringByReplacingOccurrencesOfString:@"\n" withString:@"&#xA;"];
+            }
+        }
+        return;
+    }
     if ([elementName isEqualToString:@"Field"])
     {
         [formElements addObject:[[NSString stringWithString:[attributeDict objectForKey:@"Name"]] lowercaseString]];

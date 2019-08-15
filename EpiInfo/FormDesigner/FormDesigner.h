@@ -51,6 +51,9 @@ NS_ASSUME_NONNULL_BEGIN
     NSArray *reservedWords;
     
     NSMutableArray *deletedFieldIfBlocks;
+    
+    BOOL justParsingForCheckCode;
+    NSString *checkCodeStringForDisplay;
 }
 @property UIViewController *rootViewController;
 -(NSMutableArray *)formElementObjects;
