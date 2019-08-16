@@ -75,6 +75,26 @@
         [noButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
         [noButton addTarget:self action:@selector(operatorButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [operatorView addSubview:noButton];
+        
+        UIButton *andButton = [[UIButton alloc] initWithFrame:CGRectMake(94, 50, 84, 40)];
+        [andButton setBackgroundColor:[UIColor whiteColor]];
+        [andButton setTitle:@"AND" forState:UIControlStateNormal];
+        [andButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [andButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [andButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [andButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [andButton addTarget:self action:@selector(operatorButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [operatorView addSubview:andButton];
+        
+        UIButton *orButton = [[UIButton alloc] initWithFrame:CGRectMake(184, 50, 84, 40)];
+        [orButton setBackgroundColor:[UIColor whiteColor]];
+        [orButton setTitle:@"OR" forState:UIControlStateNormal];
+        [orButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [orButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [orButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [orButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [orButton addTarget:self action:@selector(operatorButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [operatorView addSubview:orButton];
     }
     return self;
 }

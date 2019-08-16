@@ -16,6 +16,8 @@
     {
         [titleLabel setText:@"THEN (when IF condition is true)"];
         
+        [operatorView setFrame:CGRectMake(operatorView.frame.origin.x, operatorView.frame.origin.y, operatorView.frame.size.width, 1.5 * operatorView.frame.size.height)];
+        
         UIButton *enableButton = [[UIButton alloc] initWithFrame:CGRectMake(4, 4, 80, 40)];
         [enableButton setBackgroundColor:[UIColor whiteColor]];
         [enableButton setTitle:@"Enable" forState:UIControlStateNormal];
@@ -105,6 +107,36 @@
         [closeParenButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
         [closeParenButton addTarget:self action:@selector(operatorButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [operatorView addSubview:closeParenButton];
+        
+        UIButton *yesButton = [[UIButton alloc] initWithFrame:CGRectMake(4, 96, 84, 40)];
+        [yesButton setBackgroundColor:[UIColor whiteColor]];
+        [yesButton setTitle:@"Yes/True" forState:UIControlStateNormal];
+        [yesButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [yesButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [yesButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [yesButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [yesButton addTarget:self action:@selector(operatorButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [operatorView addSubview:yesButton];
+        
+        UIButton *noButton = [[UIButton alloc] initWithFrame:CGRectMake(94, 96, 84, 40)];
+        [noButton setBackgroundColor:[UIColor whiteColor]];
+        [noButton setTitle:@"No/False" forState:UIControlStateNormal];
+        [noButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [noButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [noButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [noButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [noButton addTarget:self action:@selector(operatorButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [operatorView addSubview:noButton];
+        
+        UIButton *crButton = [[UIButton alloc] initWithFrame:CGRectMake(184, 96, 84, 40)];
+        [crButton setBackgroundColor:[UIColor whiteColor]];
+        [crButton setTitle:@"<return>" forState:UIControlStateNormal];
+        [crButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [crButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [crButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [crButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [crButton addTarget:self action:@selector(operatorButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [operatorView addSubview:crButton];
     }
     return self;
 }

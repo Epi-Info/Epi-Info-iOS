@@ -145,6 +145,8 @@
         operation = @"(+)";
     else if ([operation isEqualToString:@"No/False"])
         operation = @"(-)";
+    else if ([operation isEqualToString:@"<return>"])
+        operation = @"\n";
     if ([textViewString length] > 0)
     {
         NSUInteger lastIndex = [textViewString length] - 1;
