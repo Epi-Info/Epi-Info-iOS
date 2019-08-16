@@ -603,7 +603,7 @@
                     if ([field isKindOfClass:[LegalValuesEnter class]])
                     {
                         if ([[NSScanner scannerWithString:[NSString stringWithFormat:@"%c", [fieldsControlValue characterAtIndex:0]]] scanFloat:nil] ||
-                            [[NSScanner scannerWithString:[NSString stringWithFormat:@"%c%c", [fieldsControlValue characterAtIndex:0], [fieldsControlValue characterAtIndex:1]]] scanFloat:nil])
+                            ([fieldsControlValue length] > 1 && [[NSScanner scannerWithString:[NSString stringWithFormat:@"%c%c", [fieldsControlValue characterAtIndex:0], [fieldsControlValue characterAtIndex:1]]] scanFloat:nil]))
                         {
                             bool canBeQuoted = false;
                             NSCharacterSet *justNumbers = [NSCharacterSet characterSetWithCharactersInString:[NSString stringWithFormat:@"%@0123456789", [[[NSNumberFormatter alloc] init] decimalSeparator]]];
@@ -624,7 +624,7 @@
                     //
                     if ([field isKindOfClass:[EpiInfoOptionField class]])
                     {
-                        fieldsControlValue = [NSString stringWithFormat:@"%d", [fieldsControlValue intValue] - 1];
+//                        fieldsControlValue = [NSString stringWithFormat:@"%d", [fieldsControlValue intValue] - 1];
                         if ([fieldsControlValue intValue] < 0)
                             fieldsControlValue = @"";
                     }
