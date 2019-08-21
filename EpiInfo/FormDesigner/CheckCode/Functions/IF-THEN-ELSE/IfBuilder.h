@@ -17,10 +17,13 @@ NS_ASSUME_NONNULL_BEGIN
     
     UILabel *ifConditionLabel;
     UITextView *ifConditionText;
+    UIButton *ifConditionButton;
     UILabel *thenLabel;
     UITextView *thenText;
+    UIButton *thenButton;
     UILabel *elseLabel;
     UITextView *elseText;
+    UIButton *elseButton;
     
     UILabel *titleLabel;
     UILabel *subtitleLabel;

@@ -105,9 +105,10 @@
         [ifConditionText setClipsToBounds:YES];
         [self addSubview:ifConditionText];
         
-        UIButton *ifConditionButton = [[UIButton alloc] initWithFrame:ifConditionText.frame];
+        ifConditionButton = [[UIButton alloc] initWithFrame:ifConditionText.frame];
         [ifConditionButton setBackgroundColor:[UIColor clearColor]];
         [ifConditionButton addTarget:self action:@selector(ifConditionTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [ifConditionButton setAccessibilityLabel:[NSString stringWithFormat:@"If - Condition. %@. Double tap to build if-condition.", [ifConditionText text]]];
         [self addSubview:ifConditionButton];
         
         thenLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, ifConditionText.frame.origin.y + ifConditionText.frame.size.height, frame.size.width, 32)];
@@ -123,9 +124,10 @@
         [thenText setClipsToBounds:YES];
         [self addSubview:thenText];
         
-        UIButton *thenButton = [[UIButton alloc] initWithFrame:thenText.frame];
+        thenButton = [[UIButton alloc] initWithFrame:thenText.frame];
         [thenButton setBackgroundColor:[UIColor clearColor]];
         [thenButton addTarget:self action:@selector(thenTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [thenButton setAccessibilityLabel:@"Then - Action. Double tap to build then - action."];
         [self addSubview:thenButton];
         
         elseLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, thenText.frame.origin.y + thenText.frame.size.height, frame.size.width, 32)];
@@ -141,9 +143,10 @@
         [elseText setClipsToBounds:YES];
         [self addSubview:elseText];
         
-        UIButton *elseButton = [[UIButton alloc] initWithFrame:elseText.frame];
+        elseButton = [[UIButton alloc] initWithFrame:elseText.frame];
         [elseButton setBackgroundColor:[UIColor clearColor]];
         [elseButton addTarget:self action:@selector(elseTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [elseButton setAccessibilityLabel:@"Else-Action. Double tap to build else-action."];
         [self addSubview:elseButton];
 
         UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(0,
@@ -399,8 +402,11 @@
 
     @try {
         [ifConditionText setText:ifConditionString];
+        [ifConditionButton setAccessibilityLabel:[NSString stringWithFormat:@"If - Condition. %@. Double tap to build if-condition.", ifConditionString]];
         [thenText setText:thenString];
+        [thenButton setAccessibilityLabel:[NSString stringWithFormat:@"Then - Action. %@. Double tap to build then - action.", thenString]];
         [elseText setText:elseString];
+        [elseButton setAccessibilityLabel:[NSString stringWithFormat:@"Else-Action. %@. Double tap to build else-action.", elseString]];
     } @catch (NSException *exception) {
     } @finally {
     }
