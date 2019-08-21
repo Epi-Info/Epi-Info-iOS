@@ -189,38 +189,45 @@
     int openParenLocation = (int)[dateMathFunction rangeOfString:@"("].location;
     int commaLocation = (int)[dateMathFunction rangeOfString:@","].location;
     int closeParenLocation = (int)[dateMathFunction rangeOfString:@")"].location;
-    NSString *beginningDateString = [dateMathFunction substringWithRange:NSMakeRange(openParenLocation + 1, commaLocation - openParenLocation - 1)];
-    NSString *endDateString = [dateMathFunction substringWithRange:NSMakeRange(commaLocation + 1, closeParenLocation - commaLocation - 1)];
+    NSString *beginningDateString = @"";
+    NSString *endDateString = @"";
     
-    if (![beginDate.listOfValues containsObject:beginningDateString])
-    {
-        if ([beginningDateString rangeOfString:@"/"].location > 0)
+    @try {
+        beginningDateString = [dateMathFunction substringWithRange:NSMakeRange(openParenLocation + 1, commaLocation - openParenLocation - 1)];
+        endDateString = [dateMathFunction substringWithRange:NSMakeRange(commaLocation + 1, closeParenLocation - commaLocation - 1)];
+        
+        if (![beginDate.listOfValues containsObject:beginningDateString])
         {
-            if ([beginningDateString length] > [beginningDateString rangeOfString:@"/"].location + 1)
+            if ([beginningDateString rangeOfString:@"/"].location > 0)
             {
-                if ([[beginningDateString substringFromIndex:[beginningDateString rangeOfString:@"/"].location + 1] rangeOfString:@"/"].location > 0)
+                if ([beginningDateString length] > [beginningDateString rangeOfString:@"/"].location + 1)
                 {
-                    [beginDateLiteral setText:beginningDateString];
-                    [beginDateLiteral setHidden:NO];
-                    beginningDateString = @"Literal Date";
+                    if ([[beginningDateString substringFromIndex:[beginningDateString rangeOfString:@"/"].location + 1] rangeOfString:@"/"].location > 0)
+                    {
+                        [beginDateLiteral setText:beginningDateString];
+                        [beginDateLiteral setHidden:NO];
+                        beginningDateString = @"Literal Date";
+                    }
                 }
             }
         }
-    }
-    if (![endDate.listOfValues containsObject:endDateString])
-    {
-        if ([endDateString rangeOfString:@"/"].location > 0)
+        if (![endDate.listOfValues containsObject:endDateString])
         {
-            if ([endDateString length] > [endDateString rangeOfString:@"/"].location + 1)
+            if ([endDateString rangeOfString:@"/"].location > 0)
             {
-                if ([[endDateString substringFromIndex:[endDateString rangeOfString:@"/"].location + 1] rangeOfString:@"/"].location > 0)
+                if ([endDateString length] > [endDateString rangeOfString:@"/"].location + 1)
                 {
-                    [endDateLiteral setText:endDateString];
-                    [endDateLiteral setHidden:NO];
-                    endDateString = @"Literal Date";
+                    if ([[endDateString substringFromIndex:[endDateString rangeOfString:@"/"].location + 1] rangeOfString:@"/"].location > 0)
+                    {
+                        [endDateLiteral setText:endDateString];
+                        [endDateLiteral setHidden:NO];
+                        endDateString = @"Literal Date";
+                    }
                 }
             }
         }
+    } @catch (NSException *exception) {
+    } @finally {
     }
 
     @try {

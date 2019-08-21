@@ -175,19 +175,22 @@
     if ([sender tag] == 93277)
     {
         for (int i = 0; i < [existingFunctionsArray count]; i++)
-            if ([(NSString *)[existingFunctionsArray objectAtIndex:i] containsString:@" YEARS("])
+            if ([(NSString *)[existingFunctionsArray objectAtIndex:i] containsString:@" YEARS("] &&
+                ![(NSString *)[existingFunctionsArray objectAtIndex:i] containsString:@"END-IF"])
                 [relevantFunctionsArray addObject:[existingFunctionsArray objectAtIndex:i]];
     }
     else if ([sender tag] == 6647)
     {
         for (int i = 0; i < [existingFunctionsArray count]; i++)
-            if ([(NSString *)[existingFunctionsArray objectAtIndex:i] containsString:@" MONTHS("])
+            if ([(NSString *)[existingFunctionsArray objectAtIndex:i] containsString:@" MONTHS("] &&
+                ![(NSString *)[existingFunctionsArray objectAtIndex:i] containsString:@"END-IF"])
                 [relevantFunctionsArray addObject:[existingFunctionsArray objectAtIndex:i]];
     }
     else if ([sender tag] == 3297)
     {
         for (int i = 0; i < [existingFunctionsArray count]; i++)
-            if ([(NSString *)[existingFunctionsArray objectAtIndex:i] containsString:@" DAYS("])
+            if ([(NSString *)[existingFunctionsArray objectAtIndex:i] containsString:@" DAYS("] &&
+                ![(NSString *)[existingFunctionsArray objectAtIndex:i] containsString:@"END-IF"])
                 [relevantFunctionsArray addObject:[existingFunctionsArray objectAtIndex:i]];
     }
     ExistingFunctionsListView *eflv = [[ExistingFunctionsListView alloc] initWithFrame:CGRectMake(0,
