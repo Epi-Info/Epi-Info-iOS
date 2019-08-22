@@ -263,7 +263,7 @@
         NSString *beforeString = @"";
         int beforeLocation = (int)[[rawCheckCode lowercaseString] rangeOfString:@"before"].location;
         int endBeforeEndLocation = -1;
-        if (beforeLocation > 0)
+        if (beforeLocation != NSNotFound)
         {
             endBeforeEndLocation = (int)[[[rawCheckCode lowercaseString] substringFromIndex:beforeLocation] rangeOfString:@"end-before"].location + 10;
             if (endBeforeEndLocation > 0)
