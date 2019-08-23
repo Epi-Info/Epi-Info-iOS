@@ -2844,6 +2844,259 @@
     }
 }
 
+- (void)emailDataAsCSV:(UIButton *)sender
+{
+    NSDate *dateObject = [NSDate date];
+    BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+    
+    BOOL formHasImages = NO;
+    
+    if (!mailComposerShown)
+    {
+        NSString *tmpPath = NSTemporaryDirectory();
+        NSString *tmpFile = [tmpPath stringByAppendingPathComponent:[edv.formName stringByAppendingString:@".csv"]];
+        
+        NSMutableString *csvVariablesText = [[NSMutableString alloc] init];
+        NSMutableString *csvDataText = [[NSMutableString alloc] init];
+
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"]])
+        {
+            if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository"]])
+            {
+                if ([[NSFileManager defaultManager] fileExistsAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:edv.formName]])
+                {
+                    formHasImages = YES;
+                }
+            }
+            NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+            if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+            {
+                NSString *selStmt = @"select GlobalRecordID";
+                for (int k = 0; k < edv.pagesArray.count; k++)
+                    for (int l = 0; l < [(NSMutableArray *)[edv.pagesArray objectAtIndex:k] count]; l++)
+                        selStmt = [[selStmt stringByAppendingString:@", "] stringByAppendingString:[(NSMutableArray *)[edv.pagesArray objectAtIndex:k] objectAtIndex:l]];
+                selStmt = [NSString stringWithFormat:@"%@ from %@", selStmt, edv.formName];
+                const char *query_stmt = [selStmt UTF8String];
+                sqlite3_stmt *statement;
+                if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+                {
+                    // Give user feedback that package is building.
+                    int row = -1;
+                    while (sqlite3_step(statement) == SQLITE_ROW)
+                    {
+                        row++;
+                        [csvDataText appendString:@"\n"];
+                        
+                        int i = 0;
+                        
+                        while (sqlite3_column_name(statement, i))
+                        {
+                            NSString *columnName = [[NSString alloc] initWithUTF8String:sqlite3_column_name(statement, i)];
+                            BOOL isOptionField = NO;
+                            NSDictionary *nsdof = [edv.dictionaryOfFields nsmd];
+                            id controlField = [nsdof objectForKey:[columnName lowercaseString]];
+                            if (controlField == nil)
+                            {
+                                for (id key in [edv dictionaryOfPages])
+                                {
+                                    EnterDataView *ev = (EnterDataView *)[[edv dictionaryOfPages] objectForKey:key];
+                                    nsdof = [ev.dictionaryOfFields nsmd];
+                                    controlField = [nsdof objectForKey:[columnName lowercaseString]];
+                                    if (controlField != nil)
+                                        break;
+                                }
+                            }
+                            if ([controlField isKindOfClass:[EpiInfoOptionField class]])
+                                isOptionField = YES;
+                            if (row == 0)
+                            {
+                                if (i > 0)
+                                    [csvVariablesText appendFormat:@",\"%@\"", columnName];
+                                else
+                                    [csvVariablesText appendFormat:@"\"%@\"", columnName];
+                            }
+                            if ([edv.checkboxes objectForKey:columnName])
+                            {
+                                switch (sqlite3_column_int(statement, i))
+                                {
+                                    case (1):
+                                    {
+                                        if (i > 0)
+                                            [csvDataText appendFormat:@",true"];
+                                        else
+                                            [csvDataText appendFormat:@"true"];
+                                        break;
+                                    }
+                                    default:
+                                    {
+                                        if (i > 0)
+                                            [csvDataText appendFormat:@",false"];
+                                        else
+                                            [csvDataText appendFormat:@"false"];
+                                        break;
+                                    }
+                                }
+                            }
+                            else if ([[edv.dictionaryOfCommentLegals objectForKey:columnName] isKindOfClass:[CommentLegal class]])
+                            {
+                                NSString *dataValue = [NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]];
+                                if ([dataValue isEqualToString:@"(null)"])
+                                {
+                                    if (i > 0)
+                                        [csvDataText appendFormat:@","];
+                                    else
+                                        [csvDataText appendFormat:@""];
+                                }
+                                else if ([dataValue containsString:@"-"])
+                                {
+                                    int dashPos = (int)[dataValue rangeOfString:@"-"].location;
+                                    NSString *clValue = [dataValue substringToIndex:dashPos];
+                                    if (i > 0)
+                                        [csvDataText appendFormat:@",\"%@\"", clValue];
+                                    else
+                                        [csvDataText appendFormat:@"\"%@\"", clValue];
+                                }
+                                else
+                                {
+                                    if (i > 0)
+                                        [csvDataText appendFormat:@",\"%@\"", dataValue];
+                                    else
+                                        [csvDataText appendFormat:@"\"%@\"", dataValue];
+                                }
+                            }
+                            else if (sqlite3_column_type(statement, i) == 1)
+                            {
+                                if (i > 0)
+                                    [csvDataText appendFormat:@",%@", [NSString stringWithFormat:@"%d", sqlite3_column_int(statement, i)]];
+                                else
+                                    [csvDataText appendFormat:@"%@", [NSString stringWithFormat:@"%d", sqlite3_column_int(statement, i)]];
+                            }
+                            else if (sqlite3_column_type(statement, i) == 2)
+                            {
+                                NSString *value = [NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]];
+                                
+                                NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
+                                [nsnf setMaximumFractionDigits:6];
+                                if (!useDotForDecimal)
+                                    value = [value stringByReplacingOccurrencesOfString:@"." withString:@","];
+                                if (i > 0)
+                                    [csvDataText appendFormat:@",\"%@\"", value];
+                                else
+                                    [csvDataText appendFormat:@"\"%@\"", value];
+                            }
+                            else if ([[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] isEqualToString:@"(null)"])
+                            {
+                                if (i > 0)
+                                    [csvDataText appendFormat:@","];
+                                else
+                                    [csvDataText appendFormat:@""];
+                            }
+                            else
+                            {
+                                NSString *stringValue = [NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]];
+                                // New code for correcting single and double quote characters
+                                NSMutableArray *eightytwoeighteens = [[NSMutableArray alloc] init];
+                                for (int i = 0; i < stringValue.length; i++)
+                                {
+                                    if ([stringValue characterAtIndex:i] == 8218)
+                                        [eightytwoeighteens addObject:[NSNumber numberWithInteger:i]];
+                                }
+                                for (int i = (int)eightytwoeighteens.count - 1; i >= 0; i--)
+                                {
+                                    NSNumber *num = [eightytwoeighteens objectAtIndex:i];
+                                    stringValue = [stringValue stringByReplacingCharactersInRange:NSMakeRange([num integerValue], 1) withString:@""];
+                                }
+                                if ([eightytwoeighteens count] > 0)
+                                {
+                                    if ([stringValue containsString:[NSString stringWithFormat:@"%c%c", '\304', '\364']])
+                                        stringValue = [stringValue stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%c%c", '\304', '\364'] withString:@"'"];
+                                    if ([stringValue containsString:[NSString stringWithFormat:@"%c%c", '\304', '\371']])
+                                        stringValue = [stringValue stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%c%c", '\304', '\371'] withString:@"\""];
+                                }
+                                @try {
+                                    NSDateFormatter *nsdf = [[NSDateFormatter alloc] init];
+                                    if (dmy)
+                                    {
+                                        [nsdf setDateFormat:@"dd/MM/yyyy"];
+                                    }
+                                    else
+                                    {
+                                        [nsdf setDateFormat:@"MM/dd/yyyy"];
+                                    }
+                                    NSDate *dt = [nsdf dateFromString:stringValue];
+                                    if (dt)
+                                    {
+                                        NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+                                        NSDateComponents *components = [cal components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:dt];
+                                        stringValue = [NSString stringWithFormat:@"%d-%d-%d", (int)[components year], (int)[components month], (int)[components day]];
+                                    }
+                                    NSLog(@"%@", stringValue);
+                                }
+                                @catch (NSException *exception) {
+                                    NSLog(@"%@", exception);
+                                }
+                                @finally {
+                                    //
+                                }
+                                if (isOptionField)
+                                {
+                                    if ([stringValue isEqualToString:[NSString stringWithFormat:@"%d", [stringValue intValue]]])
+                                    {
+                                        int stringValueIntValue = [stringValue intValue];
+                                        stringValue = [NSString stringWithFormat:@"%d", stringValueIntValue - 0];
+                                    }
+                                }
+                                if (i > 0)
+                                    [csvDataText appendFormat:@","];
+                                if ([controlField isKindOfClass:[EpiInfoImageField class]])
+                                {
+                                    [csvDataText appendString:@"EpiInfo\\Images\\"];
+                                    [csvDataText appendString:[NSString stringWithFormat:@"%@\\", edv.formName]];
+                                }
+                                [csvDataText appendFormat:@"\"%@\"", stringValue];
+                                if ([controlField isKindOfClass:[EpiInfoImageField class]])
+                                {
+                                    [csvDataText appendString:@".jpg"];
+                                }
+                            }
+
+                            i++;
+                        }
+                    }
+                }
+                sqlite3_finalize(statement);
+            }
+            sqlite3_close(epiinfoDB);
+        }
+        
+        NSString *wholeCSVString = [csvVariablesText stringByAppendingString:csvDataText];
+        [wholeCSVString writeToFile:tmpFile atomically:NO encoding:NSUTF8StringEncoding error:nil];
+        
+        if (YES)
+        {
+            MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
+            [composer setMailComposeDelegate:self];
+            
+            [composer addAttachmentData:[NSData dataWithContentsOfFile:tmpFile] mimeType:@"text/plain" fileName:[edv.formName stringByAppendingString:@".csv"]];
+            if (formHasImages)
+            {
+                NSArray *ls = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:edv.formName] error:nil];
+                for (id file in ls)
+                {
+                    [composer addAttachmentData:[NSData dataWithContentsOfFile:[[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:edv.formName] stringByAppendingString:[NSString stringWithFormat:@"/%@", file]]] mimeType:@"image/jpeg" fileName:(NSString *)file];
+                }
+            }
+            [composer setSubject:@"Epi Info Data"];
+            [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
+            [self presentViewController:composer animated:YES completion:^(void){
+                mailComposerShown = YES;
+            }];
+            return;
+        }
+    }
+}
+
 - (void)uploadAllRecords:(UIButton *)sender
 {
     NSMutableArray *arrayOfAzureDictionaries = [[NSMutableArray alloc] init];
