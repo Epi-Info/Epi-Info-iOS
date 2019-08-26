@@ -1030,6 +1030,11 @@
         }
         else
         {
+            UILabel *feedbackLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 8, outputView.frame.size.width - 16, 32)];
+            [feedbackLabel setTextColor:[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:1.0]];
+            [feedbackLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+            [feedbackLabel setText:@"Dependent variable must have 2 values."];
+            [outputView addSubview:feedbackLabel];
             [spinner setHidden:YES];
             [spinner stopAnimating];
             [gearButton setEnabled:YES];
