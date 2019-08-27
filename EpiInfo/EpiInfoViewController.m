@@ -280,7 +280,7 @@
         [l1a setTextAlignment:NSTextAlignmentLeft];
         [l1a setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [l1a setFont:[UIFont fontWithName:@"HelveticaNeue" size:24.0]];
-        [l1b setText:@"Enter data, browse records, and search the database."];
+        [l1b setText:@"Create forms, enter data, browse records, and search the database."];
         [l1b setTextAlignment:NSTextAlignmentLeft];
         [l1b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [l1b setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -323,7 +323,7 @@
         [clearButton1 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
         [clearButton1 addTarget:self action:@selector(clearButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
         [clearButton1 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
-        [clearButton1 setAccessibilityLabel:@"Enter data. Enter data, browse records, and search the database."];
+        [clearButton1 setAccessibilityLabel:@"Enter data. Create forms, enter data, browse records, and search the database."];
         [v1 addSubview:clearButton1];
         UIButton *clearButton2 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
         [clearButton2 setBackgroundColor:[UIColor clearColor]];
@@ -536,7 +536,7 @@
         [l1a setTextAlignment:NSTextAlignmentLeft];
         [l1a setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [l1a setFont:[UIFont fontWithName:@"HelveticaNeue" size:24.0]];
-        [l1b setText:@"Enter data, browse records, and search the database."];
+        [l1b setText:@"Create forms, enter data, browse records, and search the database."];
         [l1b setTextAlignment:NSTextAlignmentLeft];
         [l1b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [l1b setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
@@ -585,7 +585,7 @@
         [clearButton1 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
         [clearButton1 addTarget:self action:@selector(clearButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
         [clearButton1 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
-        [clearButton1 setAccessibilityLabel:@"Enter data. Enter data, browse records, and search the database."];
+        [clearButton1 setAccessibilityLabel:@"Enter data. Create forms, enter data, browse records, and search the database."];
         [v1 addSubview:clearButton1];
         UIButton *clearButton2 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
         [clearButton2 setBackgroundColor:[UIColor clearColor]];
