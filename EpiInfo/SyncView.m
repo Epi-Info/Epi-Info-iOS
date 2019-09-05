@@ -6,6 +6,7 @@
 //
 
 #import "SyncView.h"
+#import "ConverterMethods.h"
 #include <sys/sysctl.h>
 
 @implementation SyncView
@@ -154,6 +155,100 @@
                                    (const void *)[password dataUsingEncoding:NSUTF8StringEncoding].bytes,
                                    [password dataUsingEncoding:NSUTF8StringEncoding].length,
                                    (const void *)[@"0000000000000000" dataUsingEncoding:NSUTF8StringEncoding].bytes,
+                                   &thisEncipher
+                                   );
+        plainTextBufferSize = [encryptedData length];
+        bufferPtrSize = CCCryptorGetOutputLength(thisEncipher, plainTextBufferSize, true);
+        bufferPtr = malloc( bufferPtrSize * sizeof(uint8_t) );
+        memset((void *)bufferPtr, 0x0, bufferPtrSize);
+        ptr = bufferPtr;
+        remainingBytes = bufferPtrSize;
+        ccStatus = CCCryptorUpdate(thisEncipher, (const void *) [encryptedData bytes], plainTextBufferSize, ptr, remainingBytes, &movedBytes);
+        ptr += movedBytes;
+        remainingBytes -= movedBytes;
+        totalBytesWritten += movedBytes;
+        ccStatus = CCCryptorFinal(thisEncipher, ptr, remainingBytes, &movedBytes);
+        totalBytesWritten += movedBytes;
+        cipherOrPlainText = [NSData dataWithBytes:(const void *)bufferPtr length:(NSUInteger)totalBytesWritten];
+        CCCryptorRelease(thisEncipher);
+        thisEncipher = NULL;
+        if(bufferPtr) free(bufferPtr);
+        dataText = [[NSString alloc] initWithData:cipherOrPlainText encoding:NSUTF8StringEncoding];
+        if (!dataText)
+        {
+            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Sync File Import: No data decrypted. Possible incorrect password.\n", [NSDate date]]];
+            UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Import" message:[NSString stringWithFormat:@"No data decrypted. Possible incorrect password."] preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            }];
+            [alertC addAction:okAction];
+            [self.rootViewController presentViewController:alertC animated:YES completion:nil];
+            return NO;
+        }
+    }
+    else
+    {
+        NSString *encryptedString = [NSString stringWithString:encryptedString0];
+        NSData *encryptedData = [[NSData alloc] initWithBase64EncodedString:encryptedString options:NSDataBase64EncodingEndLineWithCarriageReturn];
+        CCCryptorStatus ccStatus = kCCSuccess;
+        CCCryptorRef thisEncipher = NULL;
+        NSData *cipherOrPlainText = nil;
+        uint8_t *bufferPtr = NULL;
+        size_t bufferPtrSize = 0;
+        size_t remainingBytes = 0;
+        size_t movedBytes = 0;
+        size_t plainTextBufferSize = 0;
+        size_t totalBytesWritten = 0;
+        uint8_t *ptr;
+        
+        NSString *password = [NSString stringWithString:[passwordField text]];
+        /*
+        float passwordLength = (float)password.length;
+        float sixteens = 16.0 / passwordLength;
+        if (sixteens > 1.0)
+            for (int i = 0; i < (int)sixteens; i++)
+                password = [password stringByAppendingString:password];
+        password = [password substringToIndex:16];
+         */
+        
+        NSString *keyString = @"00000000000000000000000000000000";
+        NSString *saltString = @"00000000000000000000";
+
+        NSMutableData *keyArray = [[NSMutableData alloc] init];
+        unsigned char key_whole_byte;
+        char key_byte_chars[3] = {'\0', '\0', '\0'};
+        for (int i = 0; i < [keyString length] / 2; i++)
+        {
+            key_byte_chars[0] = [keyString characterAtIndex:i*2];
+            key_byte_chars[1] = [keyString characterAtIndex:i*2+1];
+            key_whole_byte = strtol(key_byte_chars, NULL, 16);
+            [keyArray appendBytes:&key_whole_byte length:1];
+        }
+        
+        NSMutableData *saltArray = [[NSMutableData alloc] init];
+        unsigned char salt_whole_byte;
+        char salt_byte_chars[3] = {'\0', '\0', '\0'};
+        for (int i = 0; i < [saltString length] / 2; i++)
+        {
+            salt_byte_chars[0] = [saltString characterAtIndex:i*2];
+            salt_byte_chars[1] = [saltString characterAtIndex:i*2+1];
+            salt_whole_byte = strtol(salt_byte_chars, NULL, 16);
+            [saltArray appendBytes:&salt_whole_byte length:1];
+        }
+
+        // int rounds = CCCalibratePBKDF(kCCPBKDF2, [password dataUsingEncoding:NSUTF8StringEncoding].length, saltArray.length, kCCPRFHmacAlgSHA256, 16, 100);
+        unsigned char key[16];
+        CCKeyDerivationPBKDF(kCCPBKDF2, [password dataUsingEncoding:NSUTF8StringEncoding].bytes, [password dataUsingEncoding:NSUTF8StringEncoding].length, saltArray.bytes, saltArray.length, kCCPRFHmacAlgSHA1, 1000, key, 16);
+        NSData *keyData = [NSData dataWithBytes:(const void *)key length:sizeof(unsigned char)*16];
+        
+        NSLog(@"            keyData: %@", keyData);
+        NSLog(@"           keyArray: %@", keyArray);
+        NSLog(@"          saltArray: %@", saltArray);
+        ccStatus = CCCryptorCreate(kCCDecrypt,
+                                   kCCAlgorithmAES128,
+                                   kCCOptionPKCS7Padding, // 0x0000 or kCCOptionPKCS7Padding
+                                   keyData.bytes, //(const void *)[password dataUsingEncoding:NSUTF8StringEncoding].bytes,
+                                   keyData.length, //[password dataUsingEncoding:NSUTF8StringEncoding].length,
+                                   keyArray.bytes, //(const void *)[keyString dataUsingEncoding:NSUTF8StringEncoding].bytes,
                                    &thisEncipher
                                    );
         plainTextBufferSize = [encryptedData length];
