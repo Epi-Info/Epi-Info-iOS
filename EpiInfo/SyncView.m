@@ -6,7 +6,6 @@
 //
 
 #import "SyncView.h"
-#import "ConverterMethods.h"
 #include <sys/sysctl.h>
 
 @implementation SyncView
@@ -201,14 +200,6 @@
         uint8_t *ptr;
         
         NSString *password = [NSString stringWithString:[passwordField text]];
-        /*
-        float passwordLength = (float)password.length;
-        float sixteens = 16.0 / passwordLength;
-        if (sixteens > 1.0)
-            for (int i = 0; i < (int)sixteens; i++)
-                password = [password stringByAppendingString:password];
-        password = [password substringToIndex:16];
-         */
         
         NSString *keyString = @"00000000000000000000000000000000";
         NSString *saltString = @"00000000000000000000";
@@ -387,7 +378,7 @@
         }
         else
         {
-            NSLog(@"Colums:Values mismatch");
+            NSLog(@"Columns:Values mismatch");
             [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Sync File Import: Columns:Values mismatch\n", [NSDate date]]];
         }
     }
@@ -868,6 +859,13 @@
     if ([elementName isEqualToString:@"SurveyResponse"])
     {
         NSString *guidString = [attributeDict objectForKey:@"SurveyResponseID"];
+        if (![attributeDict objectForKey:@"SurveyResponseID"])
+        {
+            if ([attributeDict objectForKey:@"SurveyResponseId"])
+            {
+                guidString = [attributeDict objectForKey:@"SurveyResponseId"];
+            }
+        }
         [arrayOfGUIDs addObject:guidString];
         if ([attributeDict objectForKey:@"fkey"])
         {
@@ -995,6 +993,14 @@
         return;
     [arrayOfValues addObject:string];
     doingResponseDetail = NO;
+}
+- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+{
+    if (doingResponseDetail)
+    {
+        [arrayOfValues addObject:@""];
+        doingResponseDetail = NO;
+    }
 }
 /*
 // Only override drawRect: if you perform custom drawing.
