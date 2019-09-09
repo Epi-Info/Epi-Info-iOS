@@ -9,6 +9,7 @@
 #import "EpiInfoTextField.h"
 #import "EpiInfoTextView.h"
 #import "Checkbox.h"
+#import "CommandButton.h"
 #import "EpiInfoImageField.h"
 #import "YesNo.h"
 #import "NumberField.h"
@@ -130,6 +131,7 @@
 
 @property NSString *latitudeField;
 @property NSString *longitudeField;
+@property NSString *altitudeField;
 
 @property NSString *nameOfTheForm;
 

@@ -81,6 +81,7 @@
 @property (nonatomic, retain) NSMutableDictionary *trigFunction_memo;
 @property (nonatomic, retain) NSMutableDictionary *syslatitudeFunction_memo;
 @property (nonatomic, retain) NSMutableDictionary *syslongitudeFunction_memo;
+@property (nonatomic, retain) NSMutableDictionary *sysaltitudeFunction_memo;
 @property (nonatomic, retain) NSMutableDictionary *sineFunction_memo;
 @property (nonatomic, retain) NSMutableDictionary *cosineFunction_memo;
 @property (nonatomic, retain) NSMutableDictionary *tangentFunction_memo;
@@ -154,6 +155,7 @@
         self.trigFunction_memo = [NSMutableDictionary dictionary];
         self.syslatitudeFunction_memo = [NSMutableDictionary dictionary];
         self.syslongitudeFunction_memo = [NSMutableDictionary dictionary];
+        self.sysaltitudeFunction_memo = [NSMutableDictionary dictionary];
         self.sineFunction_memo = [NSMutableDictionary dictionary];
         self.cosineFunction_memo = [NSMutableDictionary dictionary];
         self.tangentFunction_memo = [NSMutableDictionary dictionary];
@@ -202,6 +204,7 @@
     [_trigFunction_memo removeAllObjects];
     [_syslatitudeFunction_memo removeAllObjects];
     [_syslongitudeFunction_memo removeAllObjects];
+    [_sysaltitudeFunction_memo removeAllObjects];
     [_sineFunction_memo removeAllObjects];
     [_cosineFunction_memo removeAllObjects];
     [_tangentFunction_memo removeAllObjects];
@@ -814,6 +817,33 @@
     [self parseRule:@selector(__dateLiteral) withMemo:_dateLiteral_memo];
 }
 
+- (void)__sysaltitudeFunction {
+    
+    [self testAndThrow:(id)^{ return MATCHES_IGNORE_CASE(LS(1), @"sysaltitude"); }];
+    [self matchWord:YES];
+    [self execute:(id)^{
+        
+        NSString *latString = POP_STR();
+        latString = latString;
+        CLLocationManager *locMan = [[CLLocationManager alloc] init];
+        [locMan setDelegate:self];
+        [locMan setDistanceFilter:kCLDistanceFilterNone];
+        [locMan setDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
+        [locMan startUpdatingLocation];
+        NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
+        [nsnf setMaximumFractionDigits:6];
+        NSString *latStr = [nsnf stringFromNumber:[NSNumber numberWithFloat:locMan.location.altitude]];
+        PUSH(latStr);
+        
+    }];
+    
+    [self fireDelegateSelector:@selector(parser:didMatchSysaltitudeFunction:)];
+}
+
+- (void)sysaltitudeFunction_ {
+    [self parseRule:@selector(__sysaltitudeFunction) withMemo:_sysaltitudeFunction_memo];
+}
+
 - (void)__syslatitudeFunction {
     
     [self testAndThrow:(id)^{ return MATCHES_IGNORE_CASE(LS(1), @"syslatitude"); }];
@@ -1266,6 +1296,8 @@
         [self syslatitudeFunction_];
     } else if ([self speculate:^{ [self syslongitudeFunction_]; }]) {
         [self syslongitudeFunction_];
+    } else if ([self speculate:^{ [self sysaltitudeFunction_]; }]) {
+        [self sysaltitudeFunction_];
     } else if ([self speculate:^{ [self primary_]; }]) {
         [self primary_];
     } else {

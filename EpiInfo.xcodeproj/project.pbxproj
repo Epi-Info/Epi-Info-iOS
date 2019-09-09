@@ -330,6 +330,7 @@
 		92BA7F9718C773E400841104 /* PackageAndEmailDataButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BA7F9518C773E400841104 /* PackageAndEmailDataButton.png */; };
 		92BA7F9818C773E400841104 /* UploadDataToCloudButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BA7F9618C773E400841104 /* UploadDataToCloudButton.png */; };
 		92BB3C3621AC79BC00D785CD /* EIMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BB3C3521AC79BC00D785CD /* EIMatrix.m */; };
+		92BE663E23267DC500F9A5B5 /* CommandButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BE663D23267DC500F9A5B5 /* CommandButton.m */; };
 		92C2BC4D1E857E880034F85B /* 2x2_icon_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC3B1E857E880034F85B /* 2x2_icon_6+.png */; };
 		92C2BC4E1E857E880034F85B /* 2x2_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC3C1E857E880034F85B /* 2x2_icon.png */; };
 		92C2BC4F1E857E880034F85B /* binomial_icon_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC3D1E857E880034F85B /* binomial_icon_6+.png */; };
@@ -931,6 +932,8 @@
 		92BA7F9618C773E400841104 /* UploadDataToCloudButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UploadDataToCloudButton.png; sourceTree = "<group>"; };
 		92BB3C3421AC79BC00D785CD /* EIMatrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EIMatrix.h; sourceTree = "<group>"; };
 		92BB3C3521AC79BC00D785CD /* EIMatrix.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EIMatrix.m; sourceTree = "<group>"; };
+		92BE663C23267DC500F9A5B5 /* CommandButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandButton.h; sourceTree = "<group>"; };
+		92BE663D23267DC500F9A5B5 /* CommandButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommandButton.m; sourceTree = "<group>"; };
 		92C2BC3B1E857E880034F85B /* 2x2_icon_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2x2_icon_6+.png"; sourceTree = "<group>"; };
 		92C2BC3C1E857E880034F85B /* 2x2_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2x2_icon.png; sourceTree = "<group>"; };
 		92C2BC3D1E857E880034F85B /* binomial_icon_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "binomial_icon_6+.png"; sourceTree = "<group>"; };
@@ -1730,6 +1733,8 @@
 				92E1A83B18730974003E58A5 /* EpiInfoTextView.m */,
 				9266C52F18466ED600739AF2 /* Checkbox.h */,
 				9266C53018466ED600739AF2 /* Checkbox.m */,
+				92BE663C23267DC500F9A5B5 /* CommandButton.h */,
+				92BE663D23267DC500F9A5B5 /* CommandButton.m */,
 				920CD0251EE4B30200415569 /* CheckButton.h */,
 				920CD0261EE4B30200415569 /* CheckButton.m */,
 				928F8817200FEF85001F3E03 /* EpiInfoImageField.h */,
@@ -2293,6 +2298,7 @@
 				9295554A192BC8C5008DEC5C /* DatePicker.m in Sources */,
 				4AFD855E161F17B000FFBA65 /* MatchedPairCalculatorViewController.m in Sources */,
 				9240E96219548243006345FE /* GrowthPercentilesCompute.m in Sources */,
+				92BE663E23267DC500F9A5B5 /* CommandButton.m in Sources */,
 				84C816871CE22D8D00F408D2 /* ElementPairsCheck.m in Sources */,
 				92921B9619A63E0000AA9477 /* MeansObject.m in Sources */,
 				9258D1AD222FF10F000376E7 /* TextFieldDisplay.m in Sources */,

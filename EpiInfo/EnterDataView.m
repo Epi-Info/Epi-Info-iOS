@@ -1037,6 +1037,7 @@
 {
     float lat = [(CLLocation *)[locations objectAtIndex:[locations count] - 1] coordinate].latitude;
     float lon = [(CLLocation *)[locations objectAtIndex:[locations count] - 1] coordinate].longitude;
+    float alt = [(CLLocation *)[locations objectAtIndex:[locations count] - 1] altitude];
     NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
     [nsnf setMaximumFractionDigits:6];
     
@@ -1050,6 +1051,8 @@
                     [(NumberField *)v setText:[nsnf stringFromNumber:[NSNumber numberWithFloat:lat]]];
                 if ([[(NumberField *)v columnName] isEqualToString:self.longitudeField])
                     [(NumberField *)v setText:[nsnf stringFromNumber:[NSNumber numberWithFloat:lon]]];
+                if ([[(NumberField *)v columnName] isEqualToString:self.altitudeField])
+                    [(NumberField *)v setText:[nsnf stringFromNumber:[NSNumber numberWithFloat:alt]]];
             }
     }
     [self.locationManager stopUpdatingLocation];
@@ -7479,6 +7482,125 @@
                 {
                     [tf setIsReadOnly:YES];
                     [tf setIsEnabled:NO];
+                }
+            }
+            else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"13"])
+            {
+                CommandButton *cb;
+                if (isCurrentPage)
+                {
+                    float fieldWidth = 768 - 100;
+                    float checkboxLines = 3.0;
+                    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && fieldWidth > 260.0)
+                        fieldWidth = 260.0;
+                    else
+                    {
+                        fontsize = 24.0;
+                        checkboxLines = 2.0;
+                    }
+                    [elementLabel setFrame:CGRectMake(60, contentSizeHeight - 10, fieldWidth, 60)];
+                    while ([elementLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]}].width > checkboxLines * (fieldWidth - 18))
+                        fontsize -= 0.1;
+                    [elementLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]];
+                    
+                    cb = [[CommandButton alloc] initWithFrame:CGRectMake(20, contentSizeHeight + 5, 30, 30)];
+                    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                    {
+                        [cb setFrame:CGRectMake(40, cb.frame.origin.y, 30, 30)];
+                        [elementLabel setFrame:CGRectMake(80, contentSizeHeight - 20, fieldWidth, 80)];
+                    }
+                    
+                    /*CHECK*/
+                    
+                    cb.tag = tagNum;
+                }
+                BOOL required;
+                if ([[attributeDict objectForKey:@"IsRequired"]caseInsensitiveCompare:@"true"]==NSOrderedSame)
+                {
+                    required = YES;
+                }
+                else
+                {
+                    required = NO;
+                }
+                epc.req = required;
+                epc.elementName = [attributeDict objectForKey:@"Name"];
+                epc.type = 10;
+                epc.tag = tagNum;
+                epc.enable= YES;
+                epc.hide = NO;
+                epc.highlight = NO;
+                epc.page = [attributeDict objectForKey:@"PageId"];
+                tagNum++;
+                epc.promptText = [attributeDict objectForKey:@"PromptText"];
+                if (![elmArray containsObject:[[attributeDict objectForKey:@"Name"] lowercaseString]])
+                {
+                    [elementListArray addObject:epc];
+                    [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                }
+                else
+                {
+                    int indexofcontrol = (int)[elmArray indexOfObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                    [(ElementsModel *)[elementListArray objectAtIndex:indexofcontrol] setTag:epc.tag];
+                }
+                
+                /*END-CHECK*/
+                
+                
+                if (isCurrentPage)
+                {
+                    if ([self isEnableName:epc.elementName])
+                    {
+                        [cb setUserInteractionEnabled:NO];
+                        NSLog(@"enb no");
+                    }
+                    else
+                    {
+                        [cb setUserInteractionEnabled:YES];
+                    }
+                    if ([self ishideName:epc.elementName])
+                    {
+                        [cb hideByHeight:YES];
+                        NSLog(@"hide yes");
+                        
+                    }
+                    else
+                    {
+                        [cb hideByHeight:NO];
+                    }
+                    if ([self ishighlightName:epc.elementName])
+                    {
+                        [cb setBackgroundColor:[UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1]];
+                        NSLog(@"hig yes");
+                        
+                    }
+                    else
+                    {
+                        [cb setBackgroundColor:[UIColor blackColor]];
+                    }
+                    
+                    [formCanvas addSubview:cb];
+                    [alterTableElements setObject:@"integer" forKey:[attributeDict objectForKey:@"Name"]];
+                    [cb setColumnName:[attributeDict objectForKey:@"Name"]];
+                    [cb setCheckboxAccessibilityLabel:[attributeDict objectForKey:@"Name"]];
+                    //        [self.checkboxes setObject:@"A" forKey:[attributeDict objectForKey:@"Name"]];
+                    beginColumList = YES;
+                    [self.dictionaryOfFields setObject:cb forKey:[attributeDict objectForKey:@"Name"]];
+                    if (self.dictionaryOfWordsArrays)
+                    {
+                        NSString *checkCodeFieldName = [self.dictionaryOfWordsArrays objectForKey:[attributeDict objectForKey:@"Name"]];
+                        if (checkCodeFieldName)
+                        {
+                            [cb setCheckcode:[[CheckCode alloc] init]];
+                            //                            [(CheckCode *)[cb checkcode] setTheWords:(NSArray *)checkCodeFieldName];
+                        }
+                    }
+                }
+                createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ integer", commaOrParen, [attributeDict objectForKey:@"Name"]]];
+                if ([[attributeDict objectForKey:@"IsReadOnly"]caseInsensitiveCompare:@"true"] == NSOrderedSame)
+                {
+                    [cb setIsReadOnly:YES];
+                    [cb setIsEnabled:NO];
                 }
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"20"])
