@@ -1158,7 +1158,8 @@
             EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
             for (UIView *v in [[tempedv formCanvas] subviews])
             {
-                if ([v isKindOfClass:[Checkbox class]])
+                if ([v isKindOfClass:[CommandButton class]]) { }
+                else if ([v isKindOfClass:[Checkbox class]])
                 {
                     if (valuesClauseBegun)
                     {
@@ -1936,7 +1937,8 @@
             EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
             for (UIView *v in [[tempedv formCanvas] subviews])
             {
-                if ([v isKindOfClass:[Checkbox class]])
+                if ([v isKindOfClass:[CommandButton class]]) { }
+                else if ([v isKindOfClass:[Checkbox class]])
                 {
                     if (valuesClauseBegun)
                     {
@@ -2708,7 +2710,8 @@
             EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
             for (UIView *v in [[tempedv formCanvas] subviews])
             {
-                if ([v isKindOfClass:[Checkbox class]])
+                if ([v isKindOfClass:[CommandButton class]]) { }
+                else if ([v isKindOfClass:[Checkbox class]])
                 {
                     if (valuesClauseBegun)
                     {
@@ -3574,7 +3577,8 @@
             EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
             for (UIView *v in [[tempedv formCanvas] subviews])
             {
-                if ([v isKindOfClass:[Checkbox class]])
+                if ([v isKindOfClass:[CommandButton class]]) { }
+                else if ([v isKindOfClass:[Checkbox class]])
                 {
                     if (valuesClauseBegun)
                     {
@@ -7503,7 +7507,7 @@
                         fontsize -= 0.1;
                     [elementLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]];
                     
-                    cb = [[CommandButton alloc] initWithFrame:CGRectMake(20, contentSizeHeight + 5, 30, 30)];
+                    cb = [[CommandButton alloc] initWithFrame:CGRectMake(20, contentSizeHeight + 5, 30, 30) AndPromptText:[attributeDict objectForKey:@"PromptText"]];
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
                     {
                         [cb setFrame:CGRectMake(40, cb.frame.origin.y, 30, 30)];
@@ -7596,7 +7600,6 @@
                         }
                     }
                 }
-                createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@"%@\n%@ integer", commaOrParen, [attributeDict objectForKey:@"Name"]]];
                 if ([[attributeDict objectForKey:@"IsReadOnly"]caseInsensitiveCompare:@"true"] == NSOrderedSame)
                 {
                     [cb setIsReadOnly:YES];
@@ -7879,6 +7882,7 @@
             {
                 [(EpiInfoImageField *)v assignValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(EpiInfoTextView *)v columnName] lowercaseString]]];
             }
+            else if ([v isKindOfClass:[CommandButton class]]) { }
             else if ([v isKindOfClass:[Checkbox class]])
                 [(Checkbox *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(Checkbox *)v columnName] lowercaseString]]];
             else if ([v isKindOfClass:[YesNo class]])
@@ -8036,7 +8040,8 @@
         [self checkElements:[etf columnName] from:@"before" page:pageName];
         
     }
-    if ([field isKindOfClass:[Checkbox class]])
+    if ([field isKindOfClass:[CommandButton class]]) { }
+    else if ([field isKindOfClass:[Checkbox class]])
     {
         Checkbox *etf = (Checkbox *)field;
         //  NSLog(@"%@",[etf columnName]);
