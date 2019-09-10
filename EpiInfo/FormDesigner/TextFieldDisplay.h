@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)displayOption;
 -(void)displayImage;
 -(void)displayLegalValues;
+-(void)displayCommandButton;
 -(void)displayButton;
 -(void)displayPageBreak;
 @end

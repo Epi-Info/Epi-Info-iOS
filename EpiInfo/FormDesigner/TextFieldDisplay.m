@@ -88,6 +88,16 @@
     [dt setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
     [self addSubview:dt];
 }
+- (void)displayCommandButton
+{
+    [self.field setText:[NSString stringWithFormat:@"%@", [self.prompt text]]];
+    [self.field setFrame:CGRectMake(self.field.frame.origin.x, self.field.frame.origin.y, 256, self.field.frame.size.height)];
+    [self.field setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [self.prompt setText:@"Command Button:"];
+    [self.field.layer setMasksToBounds:YES];
+    [self.field.layer setCornerRadius:4.0];
+    [self.field setTextAlignment:NSTextAlignmentCenter];
+}
 - (void)displayButton
 {
     [self.field setText:[NSString stringWithFormat:@"%@", [self.prompt text]]];
