@@ -1144,6 +1144,7 @@
             [header setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontSize]];
             
         }
+        [edv clearButtonPressed];
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
             [customBackButton setAlpha:0.0];
             [backToMainMenu setEnabled:NO];

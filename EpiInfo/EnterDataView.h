@@ -231,6 +231,7 @@
 -(void)setElementListArrayIsEnabledForElement:(NSString *)elementName andIsEnabled:(BOOL)enabled;
 
 -(void)clearButtonPressedAction;
+-(void)clearButtonPressed;
 
 -(void)syncPageDots;
 
