@@ -185,6 +185,7 @@
 		9240E95F195481DA006345FE /* wtageinf.csv in Resources */ = {isa = PBXBuildFile; fileRef = 9240E95D195481DA006345FE /* wtageinf.csv */; };
 		9240E96219548243006345FE /* GrowthPercentilesCompute.m in Sources */ = {isa = PBXBuildFile; fileRef = 9240E96119548243006345FE /* GrowthPercentilesCompute.m */; };
 		924368EB1919736200E680BF /* LineList6060.png in Resources */ = {isa = PBXBuildFile; fileRef = 924368EA1919736200E680BF /* LineList6060.png */; };
+		92469BF1232AAE6B00752ADC /* EncryptionDecryptionKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 92469BF0232AAE6B00752ADC /* EncryptionDecryptionKeys.m */; };
 		924764C018B3E9700046129F /* UploadButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 924764BF18B3E9700046129F /* UploadButton.png */; };
 		924770821C4015EF008F8C90 /* ManageButtonOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 924770811C4015EF008F8C90 /* ManageButtonOrange.png */; };
 		9247F20F181ADB4E00C96F94 /* BlurryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9247F20E181ADB4E00C96F94 /* BlurryView.m */; };
@@ -730,6 +731,8 @@
 		9240E96019548243006345FE /* GrowthPercentilesCompute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowthPercentilesCompute.h; sourceTree = "<group>"; };
 		9240E96119548243006345FE /* GrowthPercentilesCompute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrowthPercentilesCompute.m; sourceTree = "<group>"; };
 		924368EA1919736200E680BF /* LineList6060.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LineList6060.png; sourceTree = "<group>"; };
+		92469BEF232AAE6B00752ADC /* EncryptionDecryptionKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EncryptionDecryptionKeys.h; sourceTree = "<group>"; };
+		92469BF0232AAE6B00752ADC /* EncryptionDecryptionKeys.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EncryptionDecryptionKeys.m; sourceTree = "<group>"; };
 		924764BF18B3E9700046129F /* UploadButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UploadButton.png; sourceTree = "<group>"; };
 		924770811C4015EF008F8C90 /* ManageButtonOrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ManageButtonOrange.png; sourceTree = "<group>"; };
 		9247F20D181ADB4E00C96F94 /* BlurryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlurryView.h; sourceTree = "<group>"; };
@@ -1711,6 +1714,8 @@
 				9258D1AA222FE8E3000376E7 /* FormDesigner */,
 				84C816791CE22D7800F408D2 /* CheckCode */,
 				92E9801218A538B40011CC8B /* ButtonImages */,
+				92469BEF232AAE6B00752ADC /* EncryptionDecryptionKeys.h */,
+				92469BF0232AAE6B00752ADC /* EncryptionDecryptionKeys.m */,
 				9266C526184657E900739AF2 /* DataEntryViewController.h */,
 				9266C527184657E900739AF2 /* DataEntryViewController.m */,
 				922825021863821700DF9493 /* EnterDataView.h */,
@@ -2403,6 +2408,7 @@
 				92CC6092228ED12A00513DC5 /* ConditionText.m in Sources */,
 				927B555F18B6533B000AB7B1 /* Reachability.m in Sources */,
 				4A556867178DA09400B79542 /* TablesView.m in Sources */,
+				92469BF1232AAE6B00752ADC /* EncryptionDecryptionKeys.m in Sources */,
 				9276EEB917B028AE0050858B /* ChooseAnalysisButton.m in Sources */,
 				920BCE3D2178F0AA00BF050A /* FormFromGoogleSheetView.m in Sources */,
 				9294A5CD2208CD1B008695AD /* LinearObject.m in Sources */,

@@ -788,7 +788,7 @@
     }];
 }
 
-- (void)packageAndEmailData:(UIButton *)sender
+- (void)oldPackageAndEmailDaga:(UIButton *)sender
 {
     NSDate *dateObject = [NSDate date];
     BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
@@ -1105,6 +1105,357 @@
         {
             NSData *encryptedData = [NSData dataWithBytes:(const void *)bufferPtr length:(NSUInteger)totalBytesWritten];
             [[@"APPLE" stringByAppendingString:[encryptedData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn]] writeToFile:docFile atomically:NO encoding:NSUTF8StringEncoding error:nil];
+            return;
+        }
+        MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
+        [composer setMailComposeDelegate:self];
+        [composer addAttachmentData:[NSData dataWithContentsOfFile:docFile] mimeType:@"text/plain" fileName:[((EnterDataView *)edv).formName stringByAppendingString:@".epi7"]];
+        [composer setSubject:@"Epi Info Data"];
+        [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
+        [(DataEntryViewController *)rootViewController presentViewController:composer animated:YES completion:^(void){
+            mailComposerShown = YES;
+        }];
+    }
+}
+- (void)packageAndEmailData:(UIButton *)sender
+{
+    NSDate *dateObject = [NSDate date];
+    BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+    
+    if (!mailComposerShown)
+    {
+        NSString *userPassword;
+        for (UIView *v in [[sender superview] subviews])
+            if ([v isKindOfClass:[UITextField class]])
+                userPassword = [(UITextField *)v text];
+        if ([userPassword length] == 0)
+            return;
+        
+        NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        
+        NSString *docFile = [path stringByAppendingPathComponent:[((EnterDataView *)edv).formName stringByAppendingString:@".epi7"]];
+        NSString *tmpPath = NSTemporaryDirectory();
+        NSString *tmpFile = [tmpPath stringByAppendingPathComponent:[((EnterDataView *)edv).formName stringByAppendingString:@".xml"]];
+        
+        // Connect to sqlite and assemble XML
+        NSMutableString *xmlFileText = [NSMutableString stringWithString:@"<SurveyResponses>"];
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"]])
+        {
+            NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+            if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+            {
+                NSString *selStmt = @"select GlobalRecordID, FKEY";
+                for (int k = 0; k < ((EnterDataView *)edv).pagesArray.count; k++)
+                    for (int l = 0; l < [(NSMutableArray *)[((EnterDataView *)edv).pagesArray objectAtIndex:k] count]; l++)
+                        selStmt = [[selStmt stringByAppendingString:@", "] stringByAppendingString:[(NSMutableArray *)[((EnterDataView *)edv).pagesArray objectAtIndex:k] objectAtIndex:l]];
+                selStmt = [NSString stringWithFormat:@"%@ from %@", selStmt, ((EnterDataView *)edv).formName];
+                
+                const char *query_stmt = [selStmt UTF8String];
+                sqlite3_stmt *statement;
+                if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+                {
+                    // Give user feedback that package is building.
+                    FeedbackView *feedbackView = [[FeedbackView alloc] initWithFrame:CGRectMake(10, 0, 300, 0)];
+                    [feedbackView setTotalRecords:recordsToBeWrittenToPackageFile];
+                    NSThread *activityIndicatorThread = [[NSThread alloc] initWithTarget:self selector:@selector(showActivityIndicatorWhileCreatingPackageFile:) object:feedbackView];
+                    [activityIndicatorThread start];
+                    int recordTracker = 0;
+                    while (sqlite3_step(statement) == SQLITE_ROW)
+                    {
+                        [feedbackView setTag:++recordTracker];
+                        [xmlFileText appendString:@"\n\t<SurveyResponse SurveyResponseID=\""];
+                        
+                        int i = 0;
+                        BOOL idAlreadyAdded = NO;
+                        BOOL fkeyAlreadyAdded = NO;
+                        
+                        while (sqlite3_column_name(statement, i))
+                        {
+                            NSString *columnName = [[NSString alloc] initWithUTF8String:sqlite3_column_name(statement, i)];
+                            if ([[columnName lowercaseString] isEqualToString:@"globalrecordid"])
+                            {
+                                if (!idAlreadyAdded)
+                                {
+                                    [xmlFileText appendString:@""];
+                                    [xmlFileText appendString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)]];
+                                    [xmlFileText appendString:@"\""];
+                                }
+                                idAlreadyAdded = YES;
+                            }
+                            if ([[columnName lowercaseString] isEqualToString:@"fkey"])
+                            {
+                                if (!fkeyAlreadyAdded)
+                                {
+                                    [xmlFileText appendString:@" fkey=\""];
+                                    [xmlFileText appendString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)]];
+                                    [xmlFileText appendString:@"\">"];
+                                }
+                                fkeyAlreadyAdded = YES;
+                            }
+                            i++;
+                        }
+                        
+                        i = 0;
+                        
+                        while (sqlite3_column_name(statement, i))
+                        {
+                            NSString *columnName = [[NSString alloc] initWithUTF8String:sqlite3_column_name(statement, i)];
+                            if ([[columnName lowercaseString] isEqualToString:@"globalrecordid"] || [[columnName lowercaseString] isEqualToString:@"fkey"])
+                            {
+                                i++;
+                                continue;
+                            }
+                            if ([[columnName lowercaseString] isEqualToString:[[(NSMutableArray *)[((EnterDataView *)edv).pagesArray objectAtIndex:0] objectAtIndex:0] lowercaseString]])
+                            {
+                                [xmlFileText appendString:@"\n\t<Page PageId=\""];
+                                [xmlFileText appendString:[((EnterDataView *)edv).pageIDs objectAtIndex:0]];
+                                [xmlFileText appendString:@"\">"];
+                            }
+                            for (int j = 1; j < ((EnterDataView *)edv).pagesArray.count; j++)
+                            {
+                                if ([[columnName lowercaseString] isEqualToString:[[(NSMutableArray *)[((EnterDataView *)edv).pagesArray objectAtIndex:j] objectAtIndex:0] lowercaseString]])
+                                {
+                                    [xmlFileText appendString:@"\n\t</Page>\n\t<Page PageId=\""];
+                                    [xmlFileText appendString:[((EnterDataView *)edv).pageIDs objectAtIndex:j]];
+                                    [xmlFileText appendString:@"\">"];
+                                }
+                            }
+                            
+                            if ([((EnterDataView *)edv).checkboxes objectForKey:columnName])
+                            {
+                                switch (sqlite3_column_int(statement, i))
+                                {
+                                    case (1):
+                                    {
+                                        [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
+                                        [xmlFileText appendString:columnName];
+                                        [xmlFileText appendString:@"\">"];
+                                        [xmlFileText appendString:@"true"];
+                                        [xmlFileText appendString:@"</"];
+                                        [xmlFileText appendString:@"ResponseDetail"];
+                                        [xmlFileText appendString:@">"];
+                                        break;
+                                    }
+                                    default:
+                                    {
+                                        [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
+                                        [xmlFileText appendString:columnName];
+                                        [xmlFileText appendString:@"\">"];
+                                        [xmlFileText appendString:@"false"];
+                                        [xmlFileText appendString:@"</"];
+                                        [xmlFileText appendString:@"ResponseDetail"];
+                                        [xmlFileText appendString:@">"];
+                                        break;
+                                    }
+                                }
+                            }
+                            else if (sqlite3_column_type(statement, i) == 1)
+                            {
+                                [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
+                                [xmlFileText appendString:columnName];
+                                [xmlFileText appendString:@"\">"];
+                                [xmlFileText appendString:[NSString stringWithFormat:@"%d", sqlite3_column_int(statement, i)]];
+                                [xmlFileText appendString:@"</"];
+                                [xmlFileText appendString:@"ResponseDetail"];
+                                [xmlFileText appendString:@">"];
+                            }
+                            else if (sqlite3_column_type(statement, i) == 2)
+                            {
+                                NSString *value = [NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]];
+                                
+                                NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
+                                [nsnf setMaximumFractionDigits:6];
+                                
+                                if (!useDotForDecimal)
+                                    value = [value stringByReplacingOccurrencesOfString:@"." withString:@","];
+                                
+                                [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
+                                [xmlFileText appendString:columnName];
+                                [xmlFileText appendString:@"\">"];
+                                [xmlFileText appendString:value];
+                                [xmlFileText appendString:@"</"];
+                                [xmlFileText appendString:@"ResponseDetail"];
+                                [xmlFileText appendString:@">"];
+                            }
+                            else if ([[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] isEqualToString:@"(null)"])
+                            {
+                                [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
+                                [xmlFileText appendString:columnName];
+                                [xmlFileText appendString:@"\">"];
+                                [xmlFileText appendString:@""];
+                                [xmlFileText appendString:@"</"];
+                                [xmlFileText appendString:@"ResponseDetail"];
+                                [xmlFileText appendString:@">"];
+                            }
+                            else
+                            {
+                                NSString *stringValue = [NSString stringWithUTF8String:[[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)] cStringUsingEncoding:NSMacOSRomanStringEncoding]];
+                                @try {
+                                    NSDateFormatter *nsdf = [[NSDateFormatter alloc] init];
+                                    if (dmy)
+                                    {
+                                        [nsdf setDateFormat:@"dd/MM/yyyy"];
+                                    }
+                                    else
+                                    {
+                                        [nsdf setDateFormat:@"MM/dd/yyyy"];
+                                    }
+                                    NSDate *dt = [nsdf dateFromString:stringValue];
+                                    if (dt)
+                                    {
+                                        NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+                                        NSDateComponents *components = [cal components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:dt];
+                                        stringValue = [NSString stringWithFormat:@"%d-%d-%d", (int)[components year], (int)[components month], (int)[components day]];
+                                    }
+                                    NSLog(@"%@", stringValue);
+                                }
+                                @catch (NSException *exception) {
+                                    NSLog(@"%@", exception);
+                                }
+                                @finally {
+                                    //
+                                }
+                                [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
+                                [xmlFileText appendString:columnName];
+                                [xmlFileText appendString:@"\">"];
+                                [xmlFileText appendString:stringValue];
+                                [xmlFileText appendString:@"</"];
+                                [xmlFileText appendString:@"ResponseDetail"];
+                                [xmlFileText appendString:@">"];
+                            }
+                            i++;
+                        }
+                        [xmlFileText appendString:@"\n\t</Page>\n\t</SurveyResponse>"];
+                    }
+                    [feedbackView removeFromSuperview];
+                }
+                sqlite3_finalize(statement);
+            }
+            sqlite3_close(epiinfoDB);
+        }
+        
+        [xmlFileText appendString:@"</SurveyResponses>"];
+        //        NSLog(@"%@", xmlFileText);
+        
+        [xmlFileText writeToFile:tmpFile atomically:NO encoding:NSUTF8StringEncoding error:nil];
+        
+        CCCryptorRef thisEncipher = NULL;
+        
+        //    const unsigned char bytes[] = {0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610};
+        //    NSData *iv = [NSData dataWithBytes:bytes length:16];
+        //    NSLog(@"%@:%s", iv, (const void *)iv.bytes);
+        
+        NSString *password = userPassword;
+        
+        NSString *keyString = @"00000000000000000000000000000000";
+        NSString *saltString = @"00000000000000000000";
+        
+        NSMutableData *keyArray = [[NSMutableData alloc] init];
+        unsigned char key_whole_byte;
+        char key_byte_chars[3] = {'\0', '\0', '\0'};
+        for (int i = 0; i < [keyString length] / 2; i++)
+        {
+            key_byte_chars[0] = [keyString characterAtIndex:i*2];
+            key_byte_chars[1] = [keyString characterAtIndex:i*2+1];
+            key_whole_byte = strtol(key_byte_chars, NULL, 16);
+            [keyArray appendBytes:&key_whole_byte length:1];
+        }
+        
+        NSMutableData *saltArray = [[NSMutableData alloc] init];
+        unsigned char salt_whole_byte;
+        char salt_byte_chars[3] = {'\0', '\0', '\0'};
+        for (int i = 0; i < [saltString length] / 2; i++)
+        {
+            salt_byte_chars[0] = [saltString characterAtIndex:i*2];
+            salt_byte_chars[1] = [saltString characterAtIndex:i*2+1];
+            salt_whole_byte = strtol(salt_byte_chars, NULL, 16);
+            [saltArray appendBytes:&salt_whole_byte length:1];
+        }
+        
+        unsigned char key[16];
+        CCKeyDerivationPBKDF(kCCPBKDF2, [password dataUsingEncoding:NSUTF8StringEncoding].bytes, [password dataUsingEncoding:NSUTF8StringEncoding].length, saltArray.bytes, saltArray.length, kCCPRFHmacAlgSHA1, 1000, key, 16);
+        NSData *keyData = [NSData dataWithBytes:(const void *)key length:sizeof(unsigned char)*16];
+        
+        CCCryptorStatus result = CCCryptorCreate(kCCEncrypt,
+                                                 kCCAlgorithmAES128,
+                                                 kCCOptionPKCS7Padding, // 0x0000 or kCCOptionPKCS7Padding
+                                                 keyData.bytes, //(const void *)[password dataUsingEncoding:NSUTF8StringEncoding].bytes,
+                                                 keyData.length, //[password dataUsingEncoding:NSUTF8StringEncoding].length,
+                                                 keyArray.bytes, //(const void *)[@"0000000000000000" dataUsingEncoding:NSUTF8StringEncoding].bytes,
+                                                 &thisEncipher
+                                                 );
+
+        uint8_t *bufferPtr = NULL;
+        size_t bufferPtrSize = 0;
+        size_t remainingBytes = 0;
+        size_t movedBytes = 0;
+        size_t plainTextBufferSize = 0;
+        size_t totalBytesWritten = 0;
+        uint8_t *ptr;
+        
+        NSData *plainText = [xmlFileText dataUsingEncoding:NSUTF8StringEncoding];
+        
+        plainTextBufferSize = [plainText length];
+        bufferPtrSize = CCCryptorGetOutputLength(thisEncipher, plainTextBufferSize, true);
+        bufferPtr = malloc(bufferPtrSize * sizeof(uint8_t));
+        memset((void *)bufferPtr, 0x0, bufferPtrSize);
+        ptr = bufferPtr;
+        remainingBytes = bufferPtrSize;
+        
+        result = CCCryptorUpdate(thisEncipher,
+                                 (const void *)[plainText bytes],
+                                 plainTextBufferSize,
+                                 ptr,
+                                 remainingBytes,
+                                 &movedBytes
+                                 );
+        
+        ptr += movedBytes;
+        remainingBytes -= movedBytes;
+        totalBytesWritten += movedBytes;
+        
+        result = CCCryptorFinal(thisEncipher,
+                                ptr,
+                                remainingBytes,
+                                &movedBytes
+                                );
+        
+        totalBytesWritten += movedBytes;
+        
+        if (thisEncipher)
+        {
+            (void) CCCryptorRelease(thisEncipher);
+            thisEncipher = NULL;
+        }
+        
+        if (result == kCCSuccess)
+        {
+            MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
+            [composer setMailComposeDelegate:self];
+            //            NSData *encryptedData = [NSData dataWithBytes:thisEncipher length:numBytesEncrypted];
+            NSData *encryptedData = [NSData dataWithBytes:(const void *)bufferPtr length:(NSUInteger)totalBytesWritten];
+            [[encryptedData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn] writeToFile:docFile atomically:NO encoding:NSUTF8StringEncoding error:nil];
+            
+            if (bufferPtr)
+                free(bufferPtr);
+            [composer addAttachmentData:[NSData dataWithContentsOfFile:docFile] mimeType:@"text/plain" fileName:[((EnterDataView *)edv).formName stringByAppendingString:@".epi7"]];
+            [composer setSubject:@"Epi Info Data"];
+            [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
+            [(DataEntryViewController *)rootViewController presentViewController:composer animated:YES completion:^(void){
+                mailComposerShown = YES;
+            }];
+            //            free(buffer);
+            [self dismissPrePackageDataView:sender];
+            return;
+        }
+        
+        
+        if (result == kCCSuccess)
+        {
+            NSData *encryptedData = [NSData dataWithBytes:(const void *)bufferPtr length:(NSUInteger)totalBytesWritten];
+            [[encryptedData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn] writeToFile:docFile atomically:NO encoding:NSUTF8StringEncoding error:nil];
             return;
         }
         MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
