@@ -17,6 +17,7 @@
 #import "sqlite3.h"
 #import "FieldsAndStringValues.h"
 #import "EpiInfoLogManager.h"
+#import "EncryptionDecryptionKeys.h"
 #import <CoreImage/CoreImage.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import <CommonCrypto/CommonCrypto.h>

@@ -10,6 +10,7 @@
 #import "FeedbackView.h"
 #import "Reachability.h"
 #import "sqlite3.h"
+#import "EncryptionDecryptionKeys.h"
 #import <CoreImage/CoreImage.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import <CommonCrypto/CommonCrypto.h>

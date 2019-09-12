@@ -1349,9 +1349,9 @@
         
         NSString *password = userPassword;
         
-        NSString *keyString = @"00000000000000000000000000000000";
-        NSString *saltString = @"00000000000000000000";
-        
+        NSString *keyString = INITVECTOR;
+        NSString *saltString = PASSWORDSALT;
+
         NSMutableData *keyArray = [[NSMutableData alloc] init];
         unsigned char key_whole_byte;
         char key_byte_chars[3] = {'\0', '\0', '\0'};
@@ -1383,7 +1383,7 @@
                                                  kCCOptionPKCS7Padding, // 0x0000 or kCCOptionPKCS7Padding
                                                  keyData.bytes, //(const void *)[password dataUsingEncoding:NSUTF8StringEncoding].bytes,
                                                  keyData.length, //[password dataUsingEncoding:NSUTF8StringEncoding].length,
-                                                 keyArray.bytes, //(const void *)[@"0000000000000000" dataUsingEncoding:NSUTF8StringEncoding].bytes,
+                                                 keyArray.bytes, //(const void *)[LEGACYKEY dataUsingEncoding:NSUTF8StringEncoding].bytes,
                                                  &thisEncipher
                                                  );
 

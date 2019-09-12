@@ -12,6 +12,7 @@
 #import "LegalValuesEnter.h"
 #import "AnalysisDataObject.h"
 #import "EpiInfoLogManager.h"
+#import "EncryptionDecryptionKeys.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

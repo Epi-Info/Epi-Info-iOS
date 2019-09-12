@@ -153,7 +153,7 @@
                                    kCCOptionPKCS7Padding, // 0x0000 or kCCOptionPKCS7Padding
                                    (const void *)[password dataUsingEncoding:NSUTF8StringEncoding].bytes,
                                    [password dataUsingEncoding:NSUTF8StringEncoding].length,
-                                   (const void *)[@"0000000000000000" dataUsingEncoding:NSUTF8StringEncoding].bytes,
+                                   (const void *)[LEGACYKEY dataUsingEncoding:NSUTF8StringEncoding].bytes,
                                    &thisEncipher
                                    );
         plainTextBufferSize = [encryptedData length];
@@ -201,8 +201,8 @@
         
         NSString *password = [NSString stringWithString:[passwordField text]];
         
-        NSString *keyString = @"00000000000000000000000000000000";
-        NSString *saltString = @"00000000000000000000";
+        NSString *keyString = INITVECTOR;
+        NSString *saltString = PASSWORDSALT;
 
         NSMutableData *keyArray = [[NSMutableData alloc] init];
         unsigned char key_whole_byte;
