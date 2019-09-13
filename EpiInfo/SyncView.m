@@ -147,13 +147,25 @@
             for (int i = 0; i < (int)sixteens; i++)
                 password = [password stringByAppendingString:password];
         password = [password substringToIndex:16];
-        
+
+        NSString *legacyKeyString = LEGACYKEY;
+        NSMutableData *legacyKeyArray = [[NSMutableData alloc] init];
+        unsigned char key_whole_byte;
+        char key_byte_chars[3] = {'\0', '\0', '\0'};
+        for (int i = 0; i < [legacyKeyString length] / 2; i++)
+        {
+            key_byte_chars[0] = [legacyKeyString characterAtIndex:i*2];
+            key_byte_chars[1] = [legacyKeyString characterAtIndex:i*2+1];
+            key_whole_byte = strtol(key_byte_chars, NULL, 16);
+            [legacyKeyArray appendBytes:&key_whole_byte length:1];
+        }
+
         ccStatus = CCCryptorCreate(kCCDecrypt,
                                    kCCAlgorithmAES128,
                                    kCCOptionPKCS7Padding, // 0x0000 or kCCOptionPKCS7Padding
                                    (const void *)[password dataUsingEncoding:NSUTF8StringEncoding].bytes,
                                    [password dataUsingEncoding:NSUTF8StringEncoding].length,
-                                   (const void *)[LEGACYKEY dataUsingEncoding:NSUTF8StringEncoding].bytes,
+                                   legacyKeyArray.bytes, //(const void *)[LEGACYKEY dataUsingEncoding:NSUTF8StringEncoding].bytes,
                                    &thisEncipher
                                    );
         plainTextBufferSize = [encryptedData length];
