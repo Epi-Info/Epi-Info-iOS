@@ -8211,59 +8211,6 @@
     return [NSString stringWithString:xmlText];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch ([alertView tag]) {
-        case 0:
-            switch (buttonIndex) {
-                case 0:
-                    break;
-                    
-                case 1:
-                    [self submitButtonPressed];
-                    break;
-            }
-            break;
-            
-        case 1:
-            switch (buttonIndex) {
-                case 0:
-                    break;
-                    
-                case 1:
-                    [self updateButtonPressed];
-                    break;
-            }
-            break;
-            
-        case 2:
-            switch (buttonIndex) {
-                case 0:
-                    break;
-                    
-                case 1:
-                    [self deleteButtonPressed];
-                    break;
-            }
-            break;
-            
-        case 3:
-            switch (buttonIndex) {
-                case 0:
-                    break;
-                    
-                case 1:
-                    updatevisibleScreenOnly = NO;
-                    [self clearButtonPressed];
-                    break;
-            }
-            break;
-            
-        default:
-            break;
-    }
-}
-
 /*
  // Only override drawRect: if you perform custom drawing.
  // An empty implementation adversely affects performance during animation.

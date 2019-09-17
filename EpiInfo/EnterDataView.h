@@ -40,7 +40,7 @@
 #import "DictionaryOfFields.h"
 #import <MicrosoftAzureMobile/MicrosoftAzureMobile.h>
 
-@interface EnterDataView : UIScrollView <NSXMLParserDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UITextViewDelegate, UIAlertViewDelegate>
+@interface EnterDataView : UIScrollView <NSXMLParserDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UITextViewDelegate>
 {
     BOOL firstParse;
     BOOL firstElement;
