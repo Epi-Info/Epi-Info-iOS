@@ -106,4 +106,6 @@
 -(CGSize)getInitialContentSize;
 -(void)putViewOnZoomingView:(UIView *)viewToMove;
 -(void)putViewOnEpiInfoScrollView:(UIView *)viewToMove;
+-(NSArray *)getSQLiteColumnNames;
+-(NSArray *)getSQLiteColumnTypes;
 @end

@@ -3,7 +3,6 @@
 //  EpiInfo
 //
 //  Created by John Copeland on 8/8/13.
-//  Copyright (c) 2013 John Copeland. All rights reserved.
 //
 
 #import "AnalysisFilterView.h"
@@ -24,7 +23,7 @@
         //Add blueView and whiteView to create thin blue border line
         //Add all other views to whiteView
         UIView *blueView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, frame.size.width - 4, frame.size.height - 4)];
-        [blueView setBackgroundColor:[UIColor colorWithRed:99/255.0 green:166/255.0 blue:223/255.0 alpha:1.0]];
+        [blueView setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
         [blueView.layer setCornerRadius:10.0];
         [self addSubview:blueView];
         UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, blueView.frame.size.width - 4, blueView.frame.size.height - 4)];
@@ -32,9 +31,30 @@
         [whiteView.layer setCornerRadius:8];
         [blueView addSubview:whiteView];
         
+        UILabel *selectVariableLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 4, 256, 32)];
+        [selectVariableLabel setText:@"Filter Variable:"];
+        [selectVariableLabel setTextColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
+        [selectVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bolx" size:16.0]];
+        [selectVariableLabel setTextAlignment:NSTextAlignmentLeft];
+        [whiteView addSubview:selectVariableLabel];
+        selectVariable = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 36, 300, 180) AndListOfValues:[[NSMutableArray alloc] init]];
+        [selectVariable analysisStyle];
+        [whiteView addSubview:selectVariable];
+        
+        UILabel *selectOperatorLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 92, 256, 32)];
+        [selectOperatorLabel setText:@"Operator:"];
+        [selectOperatorLabel setTextColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
+        [selectOperatorLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bolx" size:16.0]];
+        [selectOperatorLabel setTextAlignment:NSTextAlignmentLeft];
+        [whiteView addSubview:selectOperatorLabel];
+        selectOperator = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 124, 300, 180) AndListOfValues:[[NSMutableArray alloc] init]];
+        [selectOperator analysisStyle];
+        [whiteView addSubview:selectOperator];
+        [selectOperator setIsEnabled:NO];
+
         float side = 40;
         UIButton *hideSelfButton = [[UIButton alloc] initWithFrame:CGRectMake(whiteView.frame.size.width - side - 4, whiteView.frame.size.height - side - 4, side, side)];
-        [hideSelfButton setBackgroundColor:[UIColor colorWithRed:99/255.0 green:166/255.0 blue:223/255.0 alpha:1.0]];
+        [hideSelfButton setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
         [hideSelfButton.layer setCornerRadius:10];
         [hideSelfButton setTitle:@">>>" forState:UIControlStateNormal];
         [hideSelfButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
@@ -54,6 +74,19 @@
 {
     self = [self initWithFrame:CGRectMake(0, 50, vc.view.frame.size.width, vc.view.frame.size.height - 50)];
     avc = (AnalysisViewController *)vc;
+    
+    NSArray *unsortedVariableNames = [avc getSQLiteColumnNames];
+    NSArray *unsortedVariableTypes = [avc getSQLiteColumnTypes];
+    
+    NSMutableArray *variableNamesNSMA = [[NSMutableArray alloc] init];
+    [variableNamesNSMA addObject:@""];
+    for (NSString *variable in unsortedVariableNames)
+    {
+        [variableNamesNSMA addObject:variable];
+    }
+    [variableNamesNSMA sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    [selectVariable setListOfValues:variableNamesNSMA];
+    
     return self;
 }
 
@@ -68,6 +101,11 @@
 {
     [self removeFromSuperview];
     return YES;
+}
+
+- (void)fieldResignedFirstResponder:(id)field
+{
+    [selectOperator setIsEnabled:YES];
 }
 
 /*

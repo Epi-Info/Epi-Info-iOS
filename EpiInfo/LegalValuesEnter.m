@@ -7,6 +7,7 @@
 
 #import "LegalValuesEnter.h"
 #import "EnterDataView.h"
+#import "DataManagementView.h"
 
 @implementation LegalValuesEnter
 @synthesize columnName = _columnName;
@@ -39,6 +40,24 @@
 -(float)contentSizeHeightAdjustment
 {
     return self.frame.size.height - 20.0;
+}
+- (void)analysisStyle
+{
+    [self.valueButton.layer setBorderColor:[[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0] CGColor]];
+    DownTriangle *tempDT;
+    for (UIView *v in [self.valueButton subviews])
+    {
+        if ([v isKindOfClass:[DownTriangle class]])
+        {
+            tempDT = (DownTriangle *)v;
+            break;
+        }
+    }
+    DownTriangleAnalysisStyle *dtas = [[DownTriangleAnalysisStyle alloc] initWithFrame:tempDT.frame];
+    [dtas setBackgroundColor:[UIColor whiteColor]];
+    [dtas addTarget:self action:@selector(valueButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.valueButton addSubview:dtas];
+    [tempDT removeFromSuperview];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -248,7 +267,9 @@
     }
     if ([[[self superview] superview] isKindOfClass:[EnterDataView class]])
         [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
-    
+    else if ([[[[self superview] superview] superview] isKindOfClass:[DataManagementView class]])
+        [(DataManagementView *)[[[self superview] superview] superview] fieldResignedFirstResponder:self];
+
 }
 
 - (void)setSelectedLegalValue:(NSString *)selectedLegalValue

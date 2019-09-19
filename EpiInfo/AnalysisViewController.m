@@ -15,6 +15,15 @@
 
 @implementation AnalysisViewController
 
+- (NSArray *)getSQLiteColumnNames
+{
+    return sqlData.columnNamesWorking;
+}
+- (NSArray *)getSQLiteColumnTypes
+{
+    return sqlData.dataTypesWorking;
+}
+
 -(void)setEpiInfoScrollView:(EpiInfoScrollView *)epiInfoScrollView
 {
     _epiInfoScrollView = epiInfoScrollView;
@@ -162,7 +171,7 @@
         UIView *filterButtonSideLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, filterButton.frame.size.height)];
         [filterButtonSideLine setBackgroundColor:[UIColor blackColor]];
         [filterButton addSubview:filterButtonSideLine];
-        //        [self.view addSubview:filterButton];
+        [self.view addSubview:filterButton];
         UILabel *filterButtonLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, filterButton.frame.size.height / 2 - 25, 50, 50)];
         [filterButtonLabel setText:@"Filter"];
         [filterButtonLabel setBackgroundColor:[UIColor clearColor]];
@@ -384,7 +393,7 @@
         UIView *filterButtonSideLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, filterButton.frame.size.height)];
         [filterButtonSideLine setBackgroundColor:[UIColor blackColor]];
         [filterButton addSubview:filterButtonSideLine];
-//        [self.view addSubview:filterButton];
+        [self.view addSubview:filterButton];
         UILabel *filterButtonLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, filterButton.frame.size.height / 2 - 25, 50, 50)];
         [filterButtonLabel setText:@"Filter"];
         [filterButtonLabel setBackgroundColor:[UIColor clearColor]];

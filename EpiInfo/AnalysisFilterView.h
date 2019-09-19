@@ -3,12 +3,22 @@
 //  EpiInfo
 //
 //  Created by John Copeland on 8/8/13.
-//  Copyright (c) 2013 John Copeland. All rights reserved.
 //
 
+#import "DataManagementView.h"
+#import "LegalValuesEnter.h"
+#import "EpiInfoTextField.h"
+#import "NumberField.h"
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface AnalysisFilterView : UIView
+@interface AnalysisFilterView : DataManagementView
+{
+    LegalValuesEnter *selectVariable;
+    LegalValuesEnter *selectOperator;
+    LegalValuesEnter *selectValue;
+    EpiInfoTextField *typeTextValue;
+    NumberField *typeNumberValue;
+}
 - (id)initWithViewController:(UIViewController *)vc;
 @end

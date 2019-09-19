@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "EpiInfoControlProtocol.h"
 #import "DownTriangle.h"
+#import "DownTriangleAnalysisStyle.h"
 
 @interface LegalValuesEnter : UIView <UIPickerViewDelegate, UIPickerViewDataSource, EpiInfoControlProtocol, UITableViewDelegate, UITableViewDataSource>
 {
@@ -43,4 +44,5 @@
 -(void)setFormFieldValue:(NSString *)formFieldValue;
 -(void)removeValueButtonViewFromSuperview;
 -(float)contentSizeHeightAdjustment;
+-(void)analysisStyle;
 @end

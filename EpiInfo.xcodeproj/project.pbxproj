@@ -320,6 +320,8 @@
 		92AED73E186E09D5004A4DB9 /* StAndrewXButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92AED73C186E09D5004A4DB9 /* StAndrewXButton.png */; };
 		92AED73F186E09D5004A4DB9 /* XButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92AED73D186E09D5004A4DB9 /* XButton.png */; };
 		92AED741186E0CF9004A4DB9 /* StAndrewXButtonWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 92AED740186E0CF9004A4DB9 /* StAndrewXButtonWhite.png */; };
+		92B070CF2332AAC900F27141 /* DownTriangleAnalysisStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B070CE2332AAC900F27141 /* DownTriangleAnalysisStyle.m */; };
+		92B070D72332C09100F27141 /* DataManagementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B070D62332C09100F27141 /* DataManagementView.m */; };
 		92B258271820376A008D88FC /* CohortCrossSectional.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B258221820376A008D88FC /* CohortCrossSectional.png */; };
 		92B258291820376A008D88FC /* PopulationStudy.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B258241820376A008D88FC /* PopulationStudy.png */; };
 		92B2582A1820376A008D88FC /* UnmatchedCaseControl.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B258251820376A008D88FC /* UnmatchedCaseControl.png */; };
@@ -921,6 +923,10 @@
 		92AED73C186E09D5004A4DB9 /* StAndrewXButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StAndrewXButton.png; sourceTree = "<group>"; };
 		92AED73D186E09D5004A4DB9 /* XButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = XButton.png; sourceTree = "<group>"; };
 		92AED740186E0CF9004A4DB9 /* StAndrewXButtonWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StAndrewXButtonWhite.png; sourceTree = "<group>"; };
+		92B070CD2332AAC900F27141 /* DownTriangleAnalysisStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownTriangleAnalysisStyle.h; sourceTree = "<group>"; };
+		92B070CE2332AAC900F27141 /* DownTriangleAnalysisStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownTriangleAnalysisStyle.m; sourceTree = "<group>"; };
+		92B070D52332C09100F27141 /* DataManagementView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataManagementView.h; sourceTree = "<group>"; };
+		92B070D62332C09100F27141 /* DataManagementView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataManagementView.m; sourceTree = "<group>"; };
 		92B258221820376A008D88FC /* CohortCrossSectional.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CohortCrossSectional.png; sourceTree = "<group>"; };
 		92B258241820376A008D88FC /* PopulationStudy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopulationStudy.png; sourceTree = "<group>"; };
 		92B258251820376A008D88FC /* UnmatchedCaseControl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UnmatchedCaseControl.png; sourceTree = "<group>"; };
@@ -1650,6 +1656,8 @@
 				9276EEB817B028AE0050858B /* ChooseAnalysisButton.m */,
 				9276EEBA17B029E60050858B /* AnalysisList.h */,
 				9276EEBB17B029E60050858B /* AnalysisList.m */,
+				92B070D52332C09100F27141 /* DataManagementView.h */,
+				92B070D62332C09100F27141 /* DataManagementView.m */,
 				923A263617B41BCE00DCBCD5 /* AnalysisFilterView.h */,
 				923A263717B41BCE00DCBCD5 /* AnalysisFilterView.m */,
 				923A263917B4265D00DCBCD5 /* FilterButton.h */,
@@ -1748,6 +1756,8 @@
 				9266C5331846795000739AF2 /* YesNo.m */,
 				924B5B7F2125F2DF00B519CE /* DownTriangle.h */,
 				924B5B802125F2DF00B519CE /* DownTriangle.m */,
+				92B070CD2332AAC900F27141 /* DownTriangleAnalysisStyle.h */,
+				92B070CE2332AAC900F27141 /* DownTriangleAnalysisStyle.m */,
 				9266C5351846848800739AF2 /* NumberField.h */,
 				9266C5361846848800739AF2 /* NumberField.m */,
 				9266C538184684B200739AF2 /* PhoneNumberField.h */,
@@ -2318,6 +2328,7 @@
 				84C816841CE22D8D00F408D2 /* CheckCodeParser.m in Sources */,
 				92CC6098228F217B00513DC5 /* ElseText.m in Sources */,
 				922920851AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift in Sources */,
+				92B070D72332C09100F27141 /* DataManagementView.m in Sources */,
 				9258D1A122148EF1000376E7 /* FormDesigner.m in Sources */,
 				928FCEF219E5692000641A95 /* VHFViewController.m in Sources */,
 				92385D2F227B2AD100079890 /* Days.m in Sources */,
@@ -2369,6 +2380,7 @@
 				92B8E4CC191A8011007E4ECC /* EpiInfoLineListView.m in Sources */,
 				4AE6939A169F5CE700BE2AA3 /* Twox2StrataData.m in Sources */,
 				4A50FF0E16A4443F00A638C4 /* Twox2SummaryData.m in Sources */,
+				92B070CF2332AAC900F27141 /* DownTriangleAnalysisStyle.m in Sources */,
 				9262713B18213D5D002C1C73 /* EpiInfoIconSegue.m in Sources */,
 				92385D29227B29B600079890 /* DateMathFunction.m in Sources */,
 				6878E46C16EF55840081F949 /* DrawCurveView.m in Sources */,
