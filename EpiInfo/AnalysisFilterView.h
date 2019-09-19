@@ -14,6 +14,11 @@
 
 @interface AnalysisFilterView : DataManagementView
 {
+    NSArray *unsortedVariableNames;
+    NSArray *unsortedVariableTypes;
+    
+    int variablesLVESelectedIndex;
+    
     LegalValuesEnter *selectVariable;
     LegalValuesEnter *selectOperator;
     LegalValuesEnter *selectValue;

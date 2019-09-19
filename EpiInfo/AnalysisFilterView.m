@@ -38,6 +38,7 @@
         [selectVariableLabel setTextAlignment:NSTextAlignmentLeft];
         [whiteView addSubview:selectVariableLabel];
         selectVariable = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 36, 300, 180) AndListOfValues:[[NSMutableArray alloc] init]];
+        [selectVariable setTag:3401];
         [selectVariable analysisStyle];
         [whiteView addSubview:selectVariable];
         
@@ -48,6 +49,7 @@
         [selectOperatorLabel setTextAlignment:NSTextAlignmentLeft];
         [whiteView addSubview:selectOperatorLabel];
         selectOperator = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 124, 300, 180) AndListOfValues:[[NSMutableArray alloc] init]];
+        [selectOperator setTag:3402];
         [selectOperator analysisStyle];
         [whiteView addSubview:selectOperator];
         [selectOperator setIsEnabled:NO];
@@ -75,8 +77,8 @@
     self = [self initWithFrame:CGRectMake(0, 50, vc.view.frame.size.width, vc.view.frame.size.height - 50)];
     avc = (AnalysisViewController *)vc;
     
-    NSArray *unsortedVariableNames = [avc getSQLiteColumnNames];
-    NSArray *unsortedVariableTypes = [avc getSQLiteColumnTypes];
+    unsortedVariableNames = [avc getSQLiteColumnNames];
+    unsortedVariableTypes = [avc getSQLiteColumnTypes];
     
     NSMutableArray *variableNamesNSMA = [[NSMutableArray alloc] init];
     [variableNamesNSMA addObject:@""];
@@ -86,7 +88,20 @@
     }
     [variableNamesNSMA sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     [selectVariable setListOfValues:variableNamesNSMA];
+    variablesLVESelectedIndex = 0;
     
+    NSMutableArray *operatorsNSMA = [[NSMutableArray alloc] init];
+    [operatorsNSMA addObject:@""];
+    [operatorsNSMA addObject:@"is missing"];
+    [operatorsNSMA addObject:@"is not missing"];
+    [operatorsNSMA addObject:@"equals"];
+    [operatorsNSMA addObject:@"is not equal to"];
+    [operatorsNSMA addObject:@"is less than"];
+    [operatorsNSMA addObject:@"is less than or equal to"];
+    [operatorsNSMA addObject:@"is greater than"];
+    [operatorsNSMA addObject:@"is greater than or equal to"];
+    [selectOperator setListOfValues:operatorsNSMA];
+
     return self;
 }
 
@@ -105,7 +120,50 @@
 
 - (void)fieldResignedFirstResponder:(id)field
 {
-    [selectOperator setIsEnabled:YES];
+    if ([field tag] == 3401)
+    {
+        if ([[(LegalValuesEnter *)field selectedIndex] intValue] == variablesLVESelectedIndex)
+            return;
+        
+        variablesLVESelectedIndex = [[(LegalValuesEnter *)field selectedIndex] intValue];
+        [selectOperator reset];
+
+        if ([[(LegalValuesEnter *)field selectedIndex] intValue] == 0)
+        {
+            [selectOperator setIsEnabled:NO];
+            return;
+        }
+        
+        NSString *selectedVariable = [(LegalValuesEnter *)field epiInfoControlValue];
+//        int selectedVariableType = [[unsortedVariableTypes objectAtIndex:[unsortedVariableNames indexOfObject:selectedVariable]] intValue];
+        NSNumber *indexNSN = (NSNumber *)[[avc getWorkingColumnNames] objectForKey:selectedVariable];
+        NSNumber *isYesNo = (NSNumber *)[[avc getWorkingYesNo] objectForKey:indexNSN];
+        if ([isYesNo boolValue])
+        {
+            NSMutableArray *operatorsNSMA = [[NSMutableArray alloc] init];
+            [operatorsNSMA addObject:@""];
+            [operatorsNSMA addObject:@"is missing"];
+            [operatorsNSMA addObject:@"is not missing"];
+            [operatorsNSMA addObject:@"equals"];
+            [operatorsNSMA addObject:@"is not equal to"];
+            [selectOperator setListOfValues:operatorsNSMA];
+        }
+        else
+        {
+            NSMutableArray *operatorsNSMA = [[NSMutableArray alloc] init];
+            [operatorsNSMA addObject:@""];
+            [operatorsNSMA addObject:@"is missing"];
+            [operatorsNSMA addObject:@"is not missing"];
+            [operatorsNSMA addObject:@"equals"];
+            [operatorsNSMA addObject:@"is not equal to"];
+            [operatorsNSMA addObject:@"is less than"];
+            [operatorsNSMA addObject:@"is less than or equal to"];
+            [operatorsNSMA addObject:@"is greater than"];
+            [operatorsNSMA addObject:@"is greater than or equal to"];
+            [selectOperator setListOfValues:operatorsNSMA];
+        }
+        [selectOperator setIsEnabled:YES];
+    }
 }
 
 /*

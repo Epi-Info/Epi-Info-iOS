@@ -23,6 +23,30 @@
 {
     return sqlData.dataTypesWorking;
 }
+- (NSDictionary *)getWorkingColumnNames
+{
+    return workingDataObject.columnNames;
+}
+- (NSDictionary *)getWorkingColumnTypes
+{
+    return workingDataObject.dataTypes;
+}
+- (NSDictionary *)getWorkingYesNo
+{
+    return workingDataObject.isYesNo;
+}
+- (NSDictionary *)getWorkingTrueFalse
+{
+    return workingDataObject.isTrueFalse;
+}
+- (NSDictionary *)getWorkingOneZero
+{
+    return workingDataObject.isOneZero;
+}
+- (NSDictionary *)getWorkingBinary
+{
+    return workingDataObject.isBinary;
+}
 
 -(void)setEpiInfoScrollView:(EpiInfoScrollView *)epiInfoScrollView
 {

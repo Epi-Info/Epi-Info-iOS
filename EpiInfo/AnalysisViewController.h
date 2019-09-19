@@ -108,4 +108,10 @@
 -(void)putViewOnEpiInfoScrollView:(UIView *)viewToMove;
 -(NSArray *)getSQLiteColumnNames;
 -(NSArray *)getSQLiteColumnTypes;
+-(NSDictionary *)getWorkingColumnNames;
+-(NSDictionary *)getWorkingColumnTypes;
+-(NSDictionary *)getWorkingYesNo;
+-(NSDictionary *)getWorkingTrueFalse;
+-(NSDictionary *)getWorkingBinary;
+-(NSDictionary *)getWorkingOneZero;
 @end

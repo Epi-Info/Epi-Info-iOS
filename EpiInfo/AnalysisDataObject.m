@@ -221,7 +221,9 @@
                 continue;
             if ([[[[self.dataSet objectAtIndex:j] objectAtIndex:i] stringByReplacingOccurrencesOfString:@" " withString:@""] isEqualToString:@"."])
                 continue;
-            
+            if ([[[self.dataSet objectAtIndex:j] objectAtIndex:i] isEqualToString:@"(null)"])
+                continue;
+
             //Need two NSScanner objects: one to scan for non-numbers and another to scan for non-integers
             NSScanner *scanner0 = [NSScanner scannerWithString:[[self.dataSet objectAtIndex:j] objectAtIndex:i]];
             NSScanner *scanner1 = [NSScanner scannerWithString:[[self.dataSet objectAtIndex:j] objectAtIndex:i]];

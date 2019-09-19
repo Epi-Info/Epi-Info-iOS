@@ -22,6 +22,7 @@
 {
     listOfValues = [NSMutableArray arrayWithArray:lov];
     [self.picker reloadAllComponents];
+    [self.tv reloadData];
 }
 - (NSMutableArray *)listOfValues
 {
