@@ -7,6 +7,7 @@
 
 #import "AnalysisFilterView.h"
 #import "AnalysisViewController.h"
+#import "FrequencyObject.h"
 
 @implementation AnalysisFilterView
 {
@@ -26,7 +27,7 @@
         [blueView setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
         [blueView.layer setCornerRadius:10.0];
         [self addSubview:blueView];
-        UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, blueView.frame.size.width - 4, blueView.frame.size.height - 4)];
+        UIScrollView *whiteView = [[UIScrollView alloc] initWithFrame:CGRectMake(2, 2, blueView.frame.size.width - 4, blueView.frame.size.height - 4)];
         [whiteView setBackgroundColor:[UIColor whiteColor]];
         [whiteView.layer setCornerRadius:8];
         [blueView addSubview:whiteView];
@@ -63,27 +64,64 @@
         selectValue = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 236, 300, 180) AndListOfValues:[[NSMutableArray alloc] init]];
         [selectValue setTag:3403];
         [selectValue analysisStyle];
-        typeTextValue = [[EpiInfoTextField alloc] initWithFrame:CGRectMake(4, 236, 300, 180)];
+        typeTextValue = [[EpiInfoTextField alloc] initWithFrame:CGRectMake(4, 236, 300, 40)];
         [typeTextValue setBorderStyle:UITextBorderStyleRoundedRect];
         [typeTextValue setDelegate:self];
         [typeTextValue setReturnKeyType:UIReturnKeyDone];
-        [typeTextValue setTag:3403];
-        typeNumberValue = [[NumberField alloc] initWithFrame:CGRectMake(4, 236, 300, 180)];
-        [typeNumberValue setTag:3403];
+        [typeTextValue setTag:3404];
+        typeNumberValue = [[NumberField alloc] initWithFrame:CGRectMake(4, 236, 300, 40)];
+        [typeNumberValue setBorderStyle:UITextBorderStyleRoundedRect];
+        [typeNumberValue setDelegate:self];
+        [typeNumberValue setReturnKeyType:UIReturnKeyDone];
+        [typeNumberValue setTag:3405];
         [whiteView addSubview:typeTextValue];
         [typeTextValue setIsEnabled:NO];
 
         float side = 40;
         UIButton *hideSelfButton = [[UIButton alloc] initWithFrame:CGRectMake(whiteView.frame.size.width - side - 4, whiteView.frame.size.height - side - 4, side, side)];
         [hideSelfButton setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
-        [hideSelfButton.layer setCornerRadius:10];
+        [hideSelfButton.layer setCornerRadius:2];
         [hideSelfButton setTitle:@">>>" forState:UIControlStateNormal];
-        [hideSelfButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
+        [hideSelfButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14]];
         [hideSelfButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [hideSelfButton setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
         [hideSelfButton addTarget:self action:@selector(hideSelf) forControlEvents:UIControlEventTouchUpInside];
         [whiteView addSubview:hideSelfButton];
         
+        addFilterButton = [[UIButton alloc] initWithFrame:CGRectMake(4, hideSelfButton.frame.origin.y, 2.5 * side, side)];
+        [addFilterButton setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
+        [addFilterButton.layer setCornerRadius:2];
+        [addFilterButton setTitle:@"Add Filter" forState:UIControlStateNormal];
+        [addFilterButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
+        [addFilterButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [addFilterButton setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
+        [addFilterButton addTarget:self action:@selector(addFilter:) forControlEvents:UIControlEventTouchUpInside];
+        [whiteView addSubview:addFilterButton];
+        [addFilterButton setEnabled:NO];
+        [addFilterButton setAlpha:0.5];
+        
+        addWithAndButton = [[UIButton alloc] initWithFrame:addFilterButton.frame];
+        [addWithAndButton setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
+        [addWithAndButton.layer setCornerRadius:2];
+        [addWithAndButton setTitle:@"Add With AND" forState:UIControlStateNormal];
+        [addWithAndButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14]];
+        [addWithAndButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [addWithAndButton setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
+        [addWithAndButton addTarget:self action:@selector(addFilter:) forControlEvents:UIControlEventTouchUpInside];
+        [addWithAndButton setEnabled:NO];
+        [addWithAndButton setAlpha:0.5];
+
+        addWithOrButton = [[UIButton alloc] initWithFrame:CGRectMake(4 + 2.5 * side + 2, hideSelfButton.frame.origin.y, 2.5 * side, side)];
+        [addWithOrButton setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
+        [addWithOrButton.layer setCornerRadius:2];
+        [addWithOrButton setTitle:@"Add With OR" forState:UIControlStateNormal];
+        [addWithOrButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14]];
+        [addWithOrButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [addWithOrButton setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
+        [addWithOrButton addTarget:self action:@selector(addFilter:) forControlEvents:UIControlEventTouchUpInside];
+        [addWithOrButton setEnabled:NO];
+        [addWithOrButton setAlpha:0.5];
+
         [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
             [self setFrame:frame];
         }completion:nil];
@@ -111,15 +149,11 @@
     
     NSMutableArray *operatorsNSMA = [[NSMutableArray alloc] init];
     [operatorsNSMA addObject:@""];
-    [operatorsNSMA addObject:@"is missing"];
-    [operatorsNSMA addObject:@"is not missing"];
-    [operatorsNSMA addObject:@"equals"];
-    [operatorsNSMA addObject:@"is not equal to"];
-    [operatorsNSMA addObject:@"is less than"];
-    [operatorsNSMA addObject:@"is less than or equal to"];
-    [operatorsNSMA addObject:@"is greater than"];
-    [operatorsNSMA addObject:@"is greater than or equal to"];
     [selectOperator setListOfValues:operatorsNSMA];
+    
+    NSMutableArray *valuesNSMA = [[NSMutableArray alloc] init];
+    [valuesNSMA addObject:@""];
+    [selectValue setListOfValues:valuesNSMA];
 
     return self;
 }
@@ -129,6 +163,23 @@
     [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
         [self setFrame:CGRectMake(self.frame.size.width, self.frame.origin.y, self.frame.size.width, self.frame.size.height)];
     }completion:^(BOOL finished){[self removeSelfFromSuperview];}];
+}
+
+- (void)addFilter:(UIButton *)sender
+{
+    NSLog(@"Adding filter action TBD...");
+    [addFilterButton setEnabled:NO];
+    [addFilterButton setAlpha:0.5];
+    [addWithAndButton setEnabled:NO];
+    [addWithAndButton setAlpha:0.5];
+    [addWithOrButton setEnabled:NO];
+    [addWithOrButton setAlpha:0.5];
+    if ([[[sender titleLabel] text] isEqualToString:@"Add Filter"])
+    {
+        [[addFilterButton superview] addSubview:addWithAndButton];
+        [[addFilterButton superview] addSubview:addWithOrButton];
+        [addFilterButton removeFromSuperview];
+    }
 }
 
 - (BOOL)removeSelfFromSuperview
@@ -146,6 +197,19 @@
         
         variablesLVESelectedIndex = [[(LegalValuesEnter *)field selectedIndex] intValue];
         [selectOperator reset];
+        [selectValue reset];
+        [typeNumberValue reset];
+        [selectValue setIsEnabled:NO];
+        [typeNumberValue setIsEnabled:NO];
+        [selectValue removeFromSuperview];
+        [typeNumberValue removeFromSuperview];
+        [[selectVariable superview] addSubview:typeTextValue];
+        [addFilterButton setEnabled:NO];
+        [addFilterButton setAlpha:0.5];
+        [addWithAndButton setEnabled:NO];
+        [addWithAndButton setAlpha:0.5];
+        [addWithOrButton setEnabled:NO];
+        [addWithOrButton setAlpha:0.5];
 
         if ([[(LegalValuesEnter *)field selectedIndex] intValue] == 0)
         {
@@ -157,7 +221,11 @@
 //        int selectedVariableType = [[unsortedVariableTypes objectAtIndex:[unsortedVariableNames indexOfObject:selectedVariable]] intValue];
         NSNumber *indexNSN = (NSNumber *)[[avc getWorkingColumnNames] objectForKey:selectedVariable];
         NSNumber *isYesNo = (NSNumber *)[[avc getWorkingYesNo] objectForKey:indexNSN];
-        if ([isYesNo boolValue])
+        NSNumber *isBinary = (NSNumber *)[[avc getWorkingBinary] objectForKey:indexNSN];
+        NSNumber *isOneZero = (NSNumber *)[[avc getWorkingOneZero] objectForKey:indexNSN];
+        NSNumber *isTrueFalse = (NSNumber *)[[avc getWorkingTrueFalse] objectForKey:indexNSN];
+        NSNumber *columnType = (NSNumber *)[[avc getWorkingColumnTypes] objectForKey:indexNSN];
+        if ([columnType intValue] == 2 || [isYesNo boolValue] || [isOneZero boolValue] || [isTrueFalse boolValue] || [isBinary boolValue])
         {
             NSMutableArray *operatorsNSMA = [[NSMutableArray alloc] init];
             [operatorsNSMA addObject:@""];
@@ -166,6 +234,14 @@
             [operatorsNSMA addObject:@"equals"];
             [operatorsNSMA addObject:@"is not equal to"];
             [selectOperator setListOfValues:operatorsNSMA];
+            [typeTextValue removeFromSuperview];
+            [typeNumberValue removeFromSuperview];
+            [[selectVariable superview] addSubview:selectValue];
+            
+            FrequencyObject *fo = [avc getFrequencyObjectForVariable:selectedVariable];
+            NSMutableArray *valuesNSMA = [NSMutableArray arrayWithArray:fo.variableValues];
+            [valuesNSMA insertObject:@"" atIndex:0];
+            [selectValue setListOfValues:valuesNSMA];
         }
         else
         {
@@ -180,18 +256,83 @@
             [operatorsNSMA addObject:@"is greater than"];
             [operatorsNSMA addObject:@"is greater than or equal to"];
             [selectOperator setListOfValues:operatorsNSMA];
+            [typeTextValue removeFromSuperview];
+            [selectValue removeFromSuperview];
+            [[selectVariable superview] addSubview:typeNumberValue];
         }
         [selectOperator setIsEnabled:YES];
+    }
+    else if ([field tag] == 3402)
+    {
+        NSString *selectedOperator = [(LegalValuesEnter *)field epiInfoControlValue];
+        if ([selectedOperator containsString:@"missing"] || [selectedOperator length] == 0 || [selectedOperator isEqualToString:@"NULL"])
+        {
+            [selectValue reset];
+            [typeNumberValue reset];
+            [selectValue setIsEnabled:NO];
+            [typeNumberValue setIsEnabled:NO];
+            if ([selectedOperator containsString:@"missing"])
+            {
+                [addFilterButton setEnabled:YES];
+                [addFilterButton setAlpha:1.0];
+                [addWithAndButton setEnabled:YES];
+                [addWithAndButton setAlpha:1.0];
+                [addWithOrButton setEnabled:YES];
+                [addWithOrButton setAlpha:1.0];
+            }
+            else
+            {
+                [addFilterButton setEnabled:NO];
+                [addFilterButton setAlpha:0.5];
+                [addWithAndButton setEnabled:NO];
+                [addWithAndButton setAlpha:0.5];
+                [addWithOrButton setEnabled:NO];
+                [addWithOrButton setAlpha:0.5];
+            }
+        }
+        else
+        {
+            [selectValue setIsEnabled:YES];
+            [typeNumberValue setIsEnabled:YES];
+            [addFilterButton setEnabled:NO];
+            [addFilterButton setAlpha:0.5];
+            [addWithAndButton setEnabled:NO];
+            [addWithAndButton setAlpha:0.5];
+            [addWithOrButton setEnabled:NO];
+            [addWithOrButton setAlpha:0.5];
+        }
+    }
+    else if ([field tag] > 3402)
+    {
+        [addFilterButton setEnabled:YES];
+        [addFilterButton setAlpha:1.0];
+        [addWithAndButton setEnabled:YES];
+        [addWithAndButton setAlpha:1.0];
+        [addWithOrButton setEnabled:YES];
+        [addWithOrButton setAlpha:1.0];
     }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
-    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-//        [self setContentSize:CGSizeMake(self.contentSize.width, self.contentSize.height - 200.0)];
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [(UIScrollView *)[textField superview] setContentSize:CGSizeMake([textField superview].frame.size.width, [textField superview].frame.size.height)];
     } completion:^(BOOL finished){
 //        hasAFirstResponder = NO;
+    }];
+    return YES;
+}
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        return YES;
+    
+    [(UIScrollView *)[textField superview] setContentSize:CGSizeMake([textField superview].frame.size.width, [textField superview].frame.size.height * 1.2)];
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [(UIScrollView *)[textField superview] setContentOffset:CGPointMake(0, ((UIScrollView *)[textField superview]).contentSize.height - ((UIScrollView *)[textField superview]).bounds.size.height + ((UIScrollView *)[textField superview]).contentInset.bottom) animated:NO];
+    } completion:^(BOOL finished){
+        //        hasAFirstResponder = NO;
     }];
     return YES;
 }

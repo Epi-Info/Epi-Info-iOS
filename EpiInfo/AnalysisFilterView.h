@@ -24,6 +24,11 @@
     LegalValuesEnter *selectValue;
     EpiInfoTextField *typeTextValue;
     NumberField *typeNumberValue;
+    
+    UIButton *addFilterButton;
+    UIButton *addWithAndButton;
+    UIButton *addWithOrButton;
+    UIButton *removeFilterButton;
 }
 - (id)initWithViewController:(UIViewController *)vc;
 @end

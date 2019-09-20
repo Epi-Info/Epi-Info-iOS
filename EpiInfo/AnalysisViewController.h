@@ -114,4 +114,5 @@
 -(NSDictionary *)getWorkingTrueFalse;
 -(NSDictionary *)getWorkingBinary;
 -(NSDictionary *)getWorkingOneZero;
+-(FrequencyObject *)getFrequencyObjectForVariable:(NSString *)variableName;
 @end

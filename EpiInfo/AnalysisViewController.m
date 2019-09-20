@@ -47,6 +47,10 @@
 {
     return workingDataObject.isBinary;
 }
+- (FrequencyObject *)getFrequencyObjectForVariable:(NSString *)variableName
+{
+    return [[FrequencyObject alloc] initWithAnalysisDataObject:workingDataObject AndVariable:variableName AndIncludeMissing:NO];
+}
 
 -(void)setEpiInfoScrollView:(EpiInfoScrollView *)epiInfoScrollView
 {
