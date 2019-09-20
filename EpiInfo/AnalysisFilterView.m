@@ -42,17 +42,36 @@
         [selectVariable analysisStyle];
         [whiteView addSubview:selectVariable];
         
-        UILabel *selectOperatorLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 92, 256, 32)];
+        UILabel *selectOperatorLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 100, 256, 32)];
         [selectOperatorLabel setText:@"Operator:"];
         [selectOperatorLabel setTextColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
         [selectOperatorLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bolx" size:16.0]];
         [selectOperatorLabel setTextAlignment:NSTextAlignmentLeft];
         [whiteView addSubview:selectOperatorLabel];
-        selectOperator = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 124, 300, 180) AndListOfValues:[[NSMutableArray alloc] init]];
+        selectOperator = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 132, 300, 180) AndListOfValues:[[NSMutableArray alloc] init]];
         [selectOperator setTag:3402];
         [selectOperator analysisStyle];
         [whiteView addSubview:selectOperator];
         [selectOperator setIsEnabled:NO];
+        
+        UILabel *selectValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 204, 256, 32)];
+        [selectValueLabel setText:@"Value:"];
+        [selectValueLabel setTextColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
+        [selectValueLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bolx" size:16.0]];
+        [selectValueLabel setTextAlignment:NSTextAlignmentLeft];
+        [whiteView addSubview:selectValueLabel];
+        selectValue = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 236, 300, 180) AndListOfValues:[[NSMutableArray alloc] init]];
+        [selectValue setTag:3403];
+        [selectValue analysisStyle];
+        typeTextValue = [[EpiInfoTextField alloc] initWithFrame:CGRectMake(4, 236, 300, 180)];
+        [typeTextValue setBorderStyle:UITextBorderStyleRoundedRect];
+        [typeTextValue setDelegate:self];
+        [typeTextValue setReturnKeyType:UIReturnKeyDone];
+        [typeTextValue setTag:3403];
+        typeNumberValue = [[NumberField alloc] initWithFrame:CGRectMake(4, 236, 300, 180)];
+        [typeNumberValue setTag:3403];
+        [whiteView addSubview:typeTextValue];
+        [typeTextValue setIsEnabled:NO];
 
         float side = 40;
         UIButton *hideSelfButton = [[UIButton alloc] initWithFrame:CGRectMake(whiteView.frame.size.width - side - 4, whiteView.frame.size.height - side - 4, side, side)];
@@ -164,6 +183,17 @@
         }
         [selectOperator setIsEnabled:YES];
     }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+//        [self setContentSize:CGSizeMake(self.contentSize.width, self.contentSize.height - 200.0)];
+    } completion:^(BOOL finished){
+//        hasAFirstResponder = NO;
+    }];
+    return YES;
 }
 
 /*

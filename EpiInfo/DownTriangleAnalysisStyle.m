@@ -16,7 +16,7 @@
     CGContextAddLineToPoint(ctx, CGRectGetMaxX(rect) * 0.8, CGRectGetMaxY(rect)  * 0.4);
     CGContextAddLineToPoint(ctx, CGRectGetMaxX(rect) / 2.0, CGRectGetMaxY(rect) * 0.6);
     CGContextClosePath(ctx);
-    CGContextSetRGBFillColor(ctx, 3/255.0, 36/255.0, 77/255.0, 1);
+    CGContextSetRGBFillColor(ctx, 255/255.0, 255/255.0, 255/255.0, 1);
     CGContextFillPath(ctx);
 }
 - (void)setBackgroundColor:(UIColor *)backgroundColor
