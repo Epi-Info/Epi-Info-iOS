@@ -310,12 +310,25 @@
         [addWithAndButton setAlpha:1.0];
         [addWithOrButton setEnabled:YES];
         [addWithOrButton setAlpha:1.0];
+        if ([field tag] > 3403)
+        {
+            if ([[[(UITextField *)field text] stringByReplacingOccurrencesOfString:@"." withString:@""] length] == 0)
+            {
+                [addFilterButton setEnabled:NO];
+                [addFilterButton setAlpha:0.5];
+                [addWithAndButton setEnabled:NO];
+                [addWithAndButton setAlpha:0.5];
+                [addWithOrButton setEnabled:NO];
+                [addWithOrButton setAlpha:0.5];
+            }
+        }
     }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+    [self fieldResignedFirstResponder:textField];
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         [(UIScrollView *)[textField superview] setContentSize:CGSizeMake([textField superview].frame.size.width, [textField superview].frame.size.height)];
     } completion:^(BOOL finished){
