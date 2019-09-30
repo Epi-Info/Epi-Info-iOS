@@ -32,50 +32,56 @@
         [whiteView.layer setCornerRadius:8];
         [blueView addSubview:whiteView];
         
-        UILabel *selectVariableLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 4, 256, 32)];
+        UILabel *selectVariableLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 4, 256, 28)];
         [selectVariableLabel setText:@"Filter Variable:"];
         [selectVariableLabel setTextColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
         [selectVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bolx" size:16.0]];
         [selectVariableLabel setTextAlignment:NSTextAlignmentLeft];
         [whiteView addSubview:selectVariableLabel];
-        selectVariable = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 36, 300, 180) AndListOfValues:[[NSMutableArray alloc] init]];
+        selectVariable = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 32, 300, 180) AndListOfValues:[[NSMutableArray alloc] init]];
         [selectVariable setTag:3401];
         [selectVariable analysisStyle];
         [whiteView addSubview:selectVariable];
         
-        UILabel *selectOperatorLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 100, 256, 32)];
+        UILabel *selectOperatorLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 96, 256, 28)];
         [selectOperatorLabel setText:@"Operator:"];
         [selectOperatorLabel setTextColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
         [selectOperatorLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bolx" size:16.0]];
         [selectOperatorLabel setTextAlignment:NSTextAlignmentLeft];
         [whiteView addSubview:selectOperatorLabel];
-        selectOperator = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 132, 300, 180) AndListOfValues:[[NSMutableArray alloc] init]];
+        selectOperator = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 124, 300, 180) AndListOfValues:[[NSMutableArray alloc] init]];
         [selectOperator setTag:3402];
         [selectOperator analysisStyle];
         [whiteView addSubview:selectOperator];
         [selectOperator setIsEnabled:NO];
         
-        UILabel *selectValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 204, 256, 32)];
+        UILabel *selectValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 188, 256, 28)];
         [selectValueLabel setText:@"Value:"];
         [selectValueLabel setTextColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
         [selectValueLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bolx" size:16.0]];
         [selectValueLabel setTextAlignment:NSTextAlignmentLeft];
         [whiteView addSubview:selectValueLabel];
-        selectValue = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 236, 300, 180) AndListOfValues:[[NSMutableArray alloc] init]];
+        selectValue = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 216, 300, 180) AndListOfValues:[[NSMutableArray alloc] init]];
         [selectValue setTag:3403];
         [selectValue analysisStyle];
-        typeTextValue = [[EpiInfoTextField alloc] initWithFrame:CGRectMake(4, 236, 300, 40)];
+        typeTextValue = [[EpiInfoTextField alloc] initWithFrame:CGRectMake(4, 216, 300, 40)];
         [typeTextValue setBorderStyle:UITextBorderStyleRoundedRect];
         [typeTextValue setDelegate:self];
         [typeTextValue setReturnKeyType:UIReturnKeyDone];
         [typeTextValue setTag:3404];
-        typeNumberValue = [[NumberField alloc] initWithFrame:CGRectMake(4, 236, 300, 40)];
+        typeNumberValue = [[NumberField alloc] initWithFrame:CGRectMake(4, 216, 300, 40)];
         [typeNumberValue setBorderStyle:UITextBorderStyleRoundedRect];
         [typeNumberValue setDelegate:self];
         [typeNumberValue setReturnKeyType:UIReturnKeyDone];
         [typeNumberValue setTag:3405];
         [whiteView addSubview:typeTextValue];
         [typeTextValue setIsEnabled:NO];
+        
+        listOfValues = [[NSMutableArray alloc] init];
+        [listOfValues addObject:@""];
+        filterList = [[UITableView alloc] initWithFrame:CGRectMake(typeNumberValue.frame.origin.x, typeNumberValue.frame.origin.y + typeNumberValue.frame.size.height + 4.0, typeNumberValue.frame.size.width, 2.5 * typeNumberValue.frame.size.height)];
+        [filterList setDelegate:self];
+        [whiteView addSubview:filterList];
 
         float side = 40;
         UIButton *hideSelfButton = [[UIButton alloc] initWithFrame:CGRectMake(whiteView.frame.size.width - side - 4, whiteView.frame.size.height - side - 4, side, side)];
@@ -348,6 +354,41 @@
         //        hasAFirstResponder = NO;
     }];
     return YES;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *TableIdentifier = @"dataline";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TableIdentifier];
+    
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TableIdentifier];
+        [cell setFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, tableView.frame.size.width, cell.frame.size.height)];
+        [cell setIndentationLevel:1];
+        [cell setIndentationWidth:4];
+    }
+    
+    [cell.textLabel setText:[NSString stringWithFormat:@"%@", [listOfValues objectAtIndex:indexPath.row]]];
+    if (indexPath.row == 0)
+        [cell.textLabel setText:@""];
+    [cell.textLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+    [cell.textLabel setNumberOfLines:0];
+    
+    float fontSize = 16.0;
+    [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:fontSize]];
+    
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [listOfValues count];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
 }
 
 /*

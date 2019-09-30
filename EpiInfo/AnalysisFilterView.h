@@ -12,7 +12,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface AnalysisFilterView : DataManagementView <UITextFieldDelegate>
+@interface AnalysisFilterView : DataManagementView <UITextFieldDelegate, UITableViewDelegate>
 {
     NSArray *unsortedVariableNames;
     NSArray *unsortedVariableTypes;
@@ -24,6 +24,9 @@
     LegalValuesEnter *selectValue;
     EpiInfoTextField *typeTextValue;
     NumberField *typeNumberValue;
+    
+    NSMutableArray *listOfValues;
+    UITableView *filterList;
     
     UIButton *addFilterButton;
     UIButton *addWithAndButton;
