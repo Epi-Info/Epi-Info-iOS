@@ -174,17 +174,19 @@
 
 - (void)addFilter:(UIButton *)sender
 {
-    NSLog(@"Adding filter action TBD...");
     [addFilterButton setEnabled:NO];
     [addFilterButton setAlpha:0.5];
     [addWithAndButton setEnabled:NO];
     [addWithAndButton setAlpha:0.5];
     [addWithOrButton setEnabled:NO];
     [addWithOrButton setAlpha:0.5];
+    NSString *selectedValue = [selectValue epiInfoControlValue];
+    if ([selectedValue isEqualToString:@"NULL"])
+        selectedValue = @"";
     if ([[[sender titleLabel] text] isEqualToString:@"Add Filter"])
     {
         [listOfValues removeAllObjects];
-        [listOfValues addObject:[NSString stringWithFormat:@"%@ %@ %@ %@", [selectVariable epiInfoControlValue], [selectOperator epiInfoControlValue], [selectValue epiInfoControlValue], [typeNumberValue epiInfoControlValue]]];
+        [listOfValues addObject:[NSString stringWithFormat:@"%@ %@ %@ %@", [selectVariable epiInfoControlValue], [selectOperator epiInfoControlValue], selectedValue, [typeNumberValue epiInfoControlValue]]];
         [filterList reloadData];
         [[addFilterButton superview] addSubview:addWithAndButton];
         [[addFilterButton superview] addSubview:addWithOrButton];
@@ -192,12 +194,12 @@
     }
     else if ([[[sender titleLabel] text] containsString:@"AND"])
     {
-        [listOfValues addObject:[NSString stringWithFormat:@"AND %@ %@ %@ %@", [selectVariable epiInfoControlValue], [selectOperator epiInfoControlValue], [selectValue epiInfoControlValue], [typeNumberValue epiInfoControlValue]]];
+        [listOfValues addObject:[NSString stringWithFormat:@"AND %@ %@ %@ %@", [selectVariable epiInfoControlValue], [selectOperator epiInfoControlValue], selectedValue, [typeNumberValue epiInfoControlValue]]];
         [filterList reloadData];
     }
     else if ([[[sender titleLabel] text] containsString:@"OR"])
     {
-        [listOfValues addObject:[NSString stringWithFormat:@"OR %@ %@ %@ %@", [selectVariable epiInfoControlValue], [selectOperator epiInfoControlValue], [selectValue epiInfoControlValue], [typeNumberValue epiInfoControlValue]]];
+        [listOfValues addObject:[NSString stringWithFormat:@"OR %@ %@ %@ %@", [selectVariable epiInfoControlValue], [selectOperator epiInfoControlValue], selectedValue, [typeNumberValue epiInfoControlValue]]];
         [filterList reloadData];
     }
 }
@@ -411,6 +413,26 @@
 {
     UITableViewCell *cell = (UITableViewCell *)[sender superview];
     [listOfValues removeObject:[[cell textLabel] text]];
+    if ([listOfValues count] > 0)
+    {
+        NSString *value0 = [listOfValues objectAtIndex:0];
+        NSArray *components = [value0 componentsSeparatedByString:@" "];
+        NSString *component0 = [components objectAtIndex:0];
+        if ([component0 isEqualToString:@"AND"])
+            [listOfValues setObject:[value0 substringFromIndex:4] atIndexedSubscript:0];
+        else if ([component0 isEqualToString:@"OR"])
+            [listOfValues setObject:[value0 substringFromIndex:3] atIndexedSubscript:0];
+    }
+    else
+    {
+        [listOfValues addObject:@""];
+        if ([addWithAndButton superview])
+        {
+            [[addWithAndButton superview] addSubview:addFilterButton];
+            [addWithAndButton removeFromSuperview];
+            [addWithOrButton removeFromSuperview];
+        }
+    }
     [filterList reloadData];
 }
 
