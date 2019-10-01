@@ -79,8 +79,9 @@
         
         listOfValues = [[NSMutableArray alloc] init];
         [listOfValues addObject:@""];
-        filterList = [[UITableView alloc] initWithFrame:CGRectMake(typeNumberValue.frame.origin.x, typeNumberValue.frame.origin.y + typeNumberValue.frame.size.height + 4.0, typeNumberValue.frame.size.width, 2.5 * typeNumberValue.frame.size.height)];
+        filterList = [[UITableView alloc] initWithFrame:CGRectMake(typeNumberValue.frame.origin.x, typeNumberValue.frame.origin.y + 2.0 * typeNumberValue.frame.size.height + 4.0, typeNumberValue.frame.size.width, 2.4 * typeNumberValue.frame.size.height)];
         [filterList setDelegate:self];
+        [filterList setDataSource:self];
         [whiteView addSubview:filterList];
 
         float side = 40;
@@ -182,9 +183,22 @@
     [addWithOrButton setAlpha:0.5];
     if ([[[sender titleLabel] text] isEqualToString:@"Add Filter"])
     {
+        [listOfValues removeAllObjects];
+        [listOfValues addObject:[NSString stringWithFormat:@"%@ %@ %@ %@", [selectVariable epiInfoControlValue], [selectOperator epiInfoControlValue], [selectValue epiInfoControlValue], [typeNumberValue epiInfoControlValue]]];
+        [filterList reloadData];
         [[addFilterButton superview] addSubview:addWithAndButton];
         [[addFilterButton superview] addSubview:addWithOrButton];
         [addFilterButton removeFromSuperview];
+    }
+    else if ([[[sender titleLabel] text] containsString:@"AND"])
+    {
+        [listOfValues addObject:[NSString stringWithFormat:@"AND %@ %@ %@ %@", [selectVariable epiInfoControlValue], [selectOperator epiInfoControlValue], [selectValue epiInfoControlValue], [typeNumberValue epiInfoControlValue]]];
+        [filterList reloadData];
+    }
+    else if ([[[sender titleLabel] text] containsString:@"OR"])
+    {
+        [listOfValues addObject:[NSString stringWithFormat:@"OR %@ %@ %@ %@", [selectVariable epiInfoControlValue], [selectOperator epiInfoControlValue], [selectValue epiInfoControlValue], [typeNumberValue epiInfoControlValue]]];
+        [filterList reloadData];
     }
 }
 
@@ -368,11 +382,13 @@
         [cell setFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, tableView.frame.size.width, cell.frame.size.height)];
         [cell setIndentationLevel:1];
         [cell setIndentationWidth:4];
+        UIButton *bt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
+        [bt setBackgroundColor:[UIColor clearColor]];
+        [bt addTarget:self action:@selector(conditionDoubleTapped:) forControlEvents:UIControlEventTouchDownRepeat];
+        [cell addSubview:bt];
     }
     
     [cell.textLabel setText:[NSString stringWithFormat:@"%@", [listOfValues objectAtIndex:indexPath.row]]];
-    if (indexPath.row == 0)
-        [cell.textLabel setText:@""];
     [cell.textLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
     [cell.textLabel setNumberOfLines:0];
     
@@ -389,6 +405,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+}
+
+- (void)conditionDoubleTapped:(UIButton *)sender
+{
+    UITableViewCell *cell = (UITableViewCell *)[sender superview];
+    [listOfValues removeObject:[[cell textLabel] text]];
+    [filterList reloadData];
 }
 
 /*

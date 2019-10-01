@@ -12,7 +12,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface AnalysisFilterView : DataManagementView <UITextFieldDelegate, UITableViewDelegate>
+@interface AnalysisFilterView : DataManagementView <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 {
     NSArray *unsortedVariableNames;
     NSArray *unsortedVariableTypes;
