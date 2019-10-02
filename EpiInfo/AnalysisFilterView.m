@@ -186,7 +186,7 @@
     if ([[[sender titleLabel] text] isEqualToString:@"Add Filter"])
     {
         [listOfValues removeAllObjects];
-        [listOfValues addObject:[NSString stringWithFormat:@"%@ %@ %@ %@", [selectVariable epiInfoControlValue], [selectOperator epiInfoControlValue], selectedValue, [typeNumberValue epiInfoControlValue]]];
+        [listOfValues addObject:[[NSString stringWithFormat:@"%@ %@ %@ %@", [selectVariable epiInfoControlValue], [selectOperator epiInfoControlValue], selectedValue, [typeNumberValue epiInfoControlValue]] stringByReplacingOccurrencesOfString:@"  " withString:@" "]];
         [filterList reloadData];
         [[addFilterButton superview] addSubview:addWithAndButton];
         [[addFilterButton superview] addSubview:addWithOrButton];
@@ -194,12 +194,12 @@
     }
     else if ([[[sender titleLabel] text] containsString:@"AND"])
     {
-        [listOfValues addObject:[NSString stringWithFormat:@"AND %@ %@ %@ %@", [selectVariable epiInfoControlValue], [selectOperator epiInfoControlValue], selectedValue, [typeNumberValue epiInfoControlValue]]];
+        [listOfValues addObject:[[NSString stringWithFormat:@"AND %@ %@ %@ %@", [selectVariable epiInfoControlValue], [selectOperator epiInfoControlValue], selectedValue, [typeNumberValue epiInfoControlValue]] stringByReplacingOccurrencesOfString:@"  " withString:@" "]];
         [filterList reloadData];
     }
     else if ([[[sender titleLabel] text] containsString:@"OR"])
     {
-        [listOfValues addObject:[NSString stringWithFormat:@"OR %@ %@ %@ %@", [selectVariable epiInfoControlValue], [selectOperator epiInfoControlValue], selectedValue, [typeNumberValue epiInfoControlValue]]];
+        [listOfValues addObject:[[NSString stringWithFormat:@"OR %@ %@ %@ %@", [selectVariable epiInfoControlValue], [selectOperator epiInfoControlValue], selectedValue, [typeNumberValue epiInfoControlValue]] stringByReplacingOccurrencesOfString:@"  " withString:@" "]];
         [filterList reloadData];
     }
 }
@@ -314,6 +314,8 @@
         }
         else
         {
+            [selectValue reset];
+            [typeNumberValue reset];
             [selectValue setIsEnabled:YES];
             [typeNumberValue setIsEnabled:YES];
             [addFilterButton setEnabled:NO];
