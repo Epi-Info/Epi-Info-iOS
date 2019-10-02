@@ -2,8 +2,7 @@
 //  AnalysisViewController.m
 //  EpiInfo
 //
-//  Created by labuser on 3/15/13.
-//  Copyright (c) 2013 John Copeland. All rights reserved.
+//  Created by John Copeland on 3/15/13.
 //
 
 #import "AnalysisViewController.h"
@@ -14,6 +13,15 @@
 @end
 
 @implementation AnalysisViewController
+
+- (void)setWorkingDataObject:(AnalysisDataObject *)wdo
+{
+    workingDataObject = wdo;
+}
+- (AnalysisDataObject *)fullDataObject
+{
+    return fullDataObject;
+}
 
 - (NSArray *)getSQLiteColumnNames
 {

@@ -2,8 +2,7 @@
 //  AnalysisViewController.h
 //  EpiInfo
 //
-//  Created by labuser on 3/15/13.
-//  Copyright (c) 2013 John Copeland. All rights reserved.
+//  Created by John Copeland on 3/15/13.
 //
 
 #import <UIKit/UIKit.h>
@@ -95,6 +94,8 @@
     
     UIButton *datasetButton;
 }
+-(void)setWorkingDataObject:(AnalysisDataObject *)wdo;
+-(AnalysisDataObject *)fullDataObject;
 - (void)replaceChooseAnalysis;
 - (void)setContentSize:(CGSize)size;
 - (void)resetContentSize;

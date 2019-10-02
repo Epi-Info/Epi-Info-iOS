@@ -2,8 +2,7 @@
 //  AnalysisDataObject.m
 //  EpiInfo
 //
-//  Created by labuser on 6/24/13.
-//  Copyright (c) 2013 John Copeland. All rights reserved.
+//  Created by John Copeland on 6/24/13.
 //
 
 #import "AnalysisDataObject.h"
@@ -37,6 +36,18 @@
     [self setIsOneZero:[NSDictionary dictionaryWithDictionary:analysisDataObject.isOneZero]];
     [self setIsYesNo:[NSDictionary dictionaryWithDictionary:analysisDataObject.isYesNo]];
     [self setDataSet:[NSArray arrayWithArray:analysisDataObject.dataSet]];
+    
+    return self;
+}
+
+- (id)initWithAnalysisDataObject:(AnalysisDataObject *)analysisDataObject AndFilters:(NSMutableArray *)filters
+{
+    self = [self initWithAnalysisDataObject:analysisDataObject];
+    
+    if ([filters count] > 0)
+    {
+        NSLog(@"Add filtering here...");
+    }
     
     return self;
 }

@@ -2,8 +2,7 @@
 //  AnalysisDataObject.h
 //  EpiInfo
 //
-//  Created by labuser on 6/24/13.
-//  Copyright (c) 2013 John Copeland. All rights reserved.
+//  Created by John Copeland on 6/24/13.
 //
 
 #import "sqlite3.h"
@@ -23,6 +22,7 @@
 @property (nonatomic, strong) NSArray *dataSet;
 
 -(id)initWithAnalysisDataObject:(AnalysisDataObject *)analysisDataObject;
+-(id)initWithAnalysisDataObject:(AnalysisDataObject *)analysisDataObject AndFilters:(NSMutableArray *)filters;
 -(id)initWithCSVFile:(NSString *)pathAndFileName;
 -(id)initWithStoredDataTable:(NSString *)tableName;
 -(id)initWithVariablesArray:(NSMutableArray *)variables AndDataArray:(NSMutableArray *)data;
