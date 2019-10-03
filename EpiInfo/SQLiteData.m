@@ -152,6 +152,45 @@
     [self.databaseButton setTitle:buttonLabel forState:UIControlStateHighlighted];
 }
 
+- (void)makeSQLiteWorkingTableWithWhereClause:(NSString *)whereClause
+{
+    //This method is called when WORKING_DATASET is to be a subset of FULL_DATASET
+    
+    //Get the path to the database
+    NSString *databasePath = [[NSString alloc] initWithString:[NSTemporaryDirectory() stringByAppendingString:@"EpiInfo.db"]];
+    
+    //If it exists, create the WORKING_DATASET table
+    if ([[NSFileManager defaultManager] fileExistsAtPath:databasePath])
+    {
+        //Convert the databasePath NSString to a char array
+        const char *dbpath = [databasePath UTF8String];
+        
+        //Open the sqlite analysisDB pointing to the database path
+        if (sqlite3_open(dbpath, &analysisDB) == SQLITE_OK)
+        {
+            char *errMsg;
+            const char *sql_stmt = "DROP TABLE WORKING_DATASET";
+            if (sqlite3_exec(analysisDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+            {
+                NSLog(@"Failed to drop working table");
+            }
+            //Create and execute the CREATE TABLE statement
+            NSString *sqlStmt = [NSString stringWithFormat:@"CREATE TABLE WORKING_DATASET AS SELECT * FROM FULL_DATASET %@", whereClause];
+            sql_stmt = [sqlStmt UTF8String];
+            if (sqlite3_exec(analysisDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+            {
+                NSLog(@"Failed to create working table");
+            }
+            //Close the database connection
+            sqlite3_close(analysisDB);
+        }
+        else
+        {
+            NSLog(@"Failed to open database");
+        }
+    }
+}
+
 - (void)makeSQLiteWorkingTable
 {
     //This method is called when WORKING_DATASET is to be the same as FULL_DATASET

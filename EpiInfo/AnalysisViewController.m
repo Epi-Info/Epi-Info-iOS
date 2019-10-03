@@ -23,6 +23,14 @@
 {
     workingDataObject = wdo;
 }
+- (void)workingDataSetWithWhereClause:(NSString *)whereClause
+{
+    [sqlData makeSQLiteWorkingTableWithWhereClause:whereClause];
+}
+- (NSString *)workingDatasetWhereClause
+{
+    return [workingDataObject whereClause];
+}
 - (AnalysisDataObject *)fullDataObject
 {
     return fullDataObject;

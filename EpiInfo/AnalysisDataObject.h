@@ -11,6 +11,7 @@
 @interface AnalysisDataObject : NSObject
 {
     sqlite3 *epiinfoDB;
+    NSMutableString *whereClause;
 }
 @property (nonatomic, strong) NSMutableArray *listOfFilters;
 @property (nonatomic, strong) NSDictionary *dataDefinitions;
@@ -22,6 +23,7 @@
 @property (nonatomic, strong) NSDictionary *isTrueFalse;
 @property (nonatomic, strong) NSArray *dataSet;
 
+-(NSMutableString *)whereClause;
 -(id)initWithAnalysisDataObject:(AnalysisDataObject *)analysisDataObject;
 -(id)initWithAnalysisDataObject:(AnalysisDataObject *)analysisDataObject AndTableName:(NSString *)tableName AndFilters:(NSMutableArray *)filters;
 -(id)initWithCSVFile:(NSString *)pathAndFileName;

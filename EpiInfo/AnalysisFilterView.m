@@ -186,6 +186,7 @@
 - (void)hideSelf
 {
     [avc setWorkingDataObject:[[AnalysisDataObject alloc] initWithAnalysisDataObject:[avc fullDataObject] AndTableName:[avc dataSourceName] AndFilters:listOfValues]];
+    [avc workingDataSetWithWhereClause:[avc workingDatasetWhereClause]];
     [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
         [self setFrame:CGRectMake(self.frame.size.width, self.frame.origin.y, self.frame.size.width, self.frame.size.height)];
     }completion:^(BOOL finished){

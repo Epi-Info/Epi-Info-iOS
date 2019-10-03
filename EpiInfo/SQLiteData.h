@@ -31,6 +31,7 @@
 
 - (void)makeSQLiteFullTable:(AnalysisDataObject *)ado ProvideUpdatesTo:(UIButton *)button;
 - (void)makeSQLiteWorkingTable;
+- (void)makeSQLiteWorkingTableWithWhereClause:(NSString *)whereClause;
 - (int)addColumnToWorkingTable:(NSString *)columnName ColumnType:(NSNumber *)columnType;
 - (int)workingTableSize;
 @end

@@ -18,6 +18,14 @@
 @synthesize isTrueFalse = _isTrueFalse;
 @synthesize listOfFilters = _listOfFilters;
 
+- (NSMutableString *)whereClause
+{
+    if (whereClause)
+        return whereClause;
+    else
+        return [NSMutableString stringWithString:@""];
+}
+
 - (NSDictionary *)dataDefinitions
 {
     return [NSDictionary dictionaryWithObjectsAndKeys:
@@ -49,6 +57,8 @@
     {
         NSLog(@"Add filtering here...");
         if ([tableName length] == 0)
+            return self;
+        if ([filters count] == 1 && [(NSString *)[filters objectAtIndex:0] length] == 0)
             return self;
         
         self = [self initWithStoredDataTable:tableName AndFilters:filters];
@@ -109,21 +119,98 @@
     return self;
 }
 
-- (id)initWithStoredDataTable:(NSString *)tableName AndFilters:(NSMutableArray *)filter
+- (id)initWithStoredDataTable:(NSString *)tableName AndFilters:(NSMutableArray *)filters
 {
+    NSDictionary *columnNames = [NSDictionary dictionaryWithDictionary:self.columnNames];
+    NSDictionary *dataTypes = [NSDictionary dictionaryWithDictionary:self.dataTypes];
     self = [super init];
     
     NSMutableArray *mutableFullDataSet = [[NSMutableArray alloc] init];
     NSMutableArray *mutableColumns = [[NSMutableArray alloc] init];
     NSMutableArray *columnNumbers = [[NSMutableArray alloc] init];
     
+    whereClause = [[NSMutableString alloc] init];
+    [whereClause appendString:@"WHERE"];
+    for (int i = 0; i < [filters count]; i++)
+    {
+        NSString *condition = [filters objectAtIndex:i];
+        NSArray *conditionComponents = [condition componentsSeparatedByString:@" "];
+        NSString *variable = [conditionComponents objectAtIndex:0];
+        NSString *contraction = @"";
+        int startIndex = 1;
+        if ([variable isEqualToString:@"AND"] || [variable isEqualToString:@"OR"])
+        {
+            variable = [conditionComponents objectAtIndex:startIndex++];
+            contraction = [conditionComponents objectAtIndex:0];
+        }
+        NSMutableString *operatorAndValue = [NSMutableString stringWithString:[conditionComponents objectAtIndex:startIndex++]];
+        for (int j = startIndex; j < [conditionComponents count]; j++)
+        {
+            [operatorAndValue appendFormat:@" %@", [conditionComponents objectAtIndex:j]];
+        }
+        NSString *operator = @"";
+        NSString *value = @"";
+        if ([operatorAndValue isEqualToString:@"is missing"])
+        {
+            operator = @" = ";
+            value = @"' '";
+        }
+        else if ([operatorAndValue isEqualToString:@"is not missing"])
+        {
+            operator = @" <> ";
+            value = @"' '";
+        }
+        else if ([operatorAndValue length] > 6 && [[operatorAndValue substringToIndex:6] isEqualToString:@"equals"])
+        {
+            operator = @" = ";
+            value = [operatorAndValue substringFromIndex:7];
+        }
+        else if ([operatorAndValue length] > 15 && [[operatorAndValue substringToIndex:15] isEqualToString:@"is not equal to"])
+        {
+            operator = @" <> ";
+            value = [operatorAndValue substringFromIndex:16];
+        }
+        else if ([operatorAndValue length] > 24 && [[operatorAndValue substringToIndex:24] isEqualToString:@"is less than or equal to"])
+        {
+            operator = @" <= ";
+            value = [operatorAndValue substringFromIndex:25];
+        }
+        else if ([operatorAndValue length] > 12 && [[operatorAndValue substringToIndex:12] isEqualToString:@"is less than"])
+        {
+            operator = @" < ";
+            value = [operatorAndValue substringFromIndex:13];
+        }
+        else if ([operatorAndValue length] > 27 && [[operatorAndValue substringToIndex:27] isEqualToString:@"is greater than or equal to"])
+        {
+            operator = @" >= ";
+            value = [operatorAndValue substringFromIndex:27];
+        }
+        else if ([operatorAndValue length] > 15 && [[operatorAndValue substringToIndex:15] isEqualToString:@"is greater than"])
+        {
+            operator = @" > ";
+            value = [operatorAndValue substringFromIndex:16];
+        }
+        int valueLength = (int)[value length];
+        while ([value length] > 0 && [value characterAtIndex:valueLength - 1] == ' ')
+        {
+            value = [value substringToIndex:[value length] - 1];
+            valueLength = (int)[value length];
+        }
+        NSNumber *variableIndex = (NSNumber *)[columnNames objectForKey:variable];
+        NSNumber *variableType = (NSNumber *)[dataTypes objectForKey:variableIndex];
+        int vt = [variableType intValue];
+        if (vt == 2)
+            value = [[@"'" stringByAppendingString:value] stringByAppendingString:@"'"];
+        [whereClause appendFormat:@" %@ %@ %@ %@", contraction, variable, operator, value];
+    }
+
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"]])
     {
         NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
         if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
         {
-            NSString *selStmt = [NSString stringWithFormat:@"select * from %@", tableName];
+            NSString *selStmt = [NSString stringWithFormat:@"select * from %@ %@", tableName, whereClause];
             const char *query_stmt = [selStmt UTF8String];
             sqlite3_stmt *statement;
             if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)

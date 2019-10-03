@@ -97,6 +97,8 @@
 }
 -(NSString *)dataSourceName;
 -(void)setWorkingDataObject:(AnalysisDataObject *)wdo;
+-(void)workingDataSetWithWhereClause:(NSString *)whereClause;
+-(NSString *)workingDatasetWhereClause;
 -(AnalysisDataObject *)fullDataObject;
 -(void)replaceChooseAnalysis;
 -(void)setContentSize:(CGSize)size;
