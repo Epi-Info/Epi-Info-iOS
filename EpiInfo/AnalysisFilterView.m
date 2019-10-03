@@ -14,6 +14,24 @@
     AnalysisViewController *avc;
 }
 
+- (void)setListOfValues:(NSMutableArray *)lov
+{
+    listOfValues = [NSMutableArray arrayWithArray:lov];
+    [filterList reloadData];
+    if ([lov count] > 0)
+    {
+        if ([(NSString *)[lov objectAtIndex:0] length] > 0)
+        {
+            if ([addFilterButton superview])
+            {
+                [[addFilterButton superview] addSubview:addWithAndButton];
+                [[addFilterButton superview] addSubview:addWithOrButton];
+                [addFilterButton removeFromSuperview];
+            }
+        }
+    }
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:CGRectMake(frame.size.width, frame.origin.y, frame.size.width, frame.size.height)];
@@ -167,7 +185,7 @@
 
 - (void)hideSelf
 {
-    [avc setWorkingDataObject:[[AnalysisDataObject alloc] initWithAnalysisDataObject:[avc fullDataObject] AndFilters:listOfValues]];
+    [avc setWorkingDataObject:[[AnalysisDataObject alloc] initWithAnalysisDataObject:[avc fullDataObject] AndTableName:[avc dataSourceName] AndFilters:listOfValues]];
     [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
         [self setFrame:CGRectMake(self.frame.size.width, self.frame.origin.y, self.frame.size.width, self.frame.size.height)];
     }completion:^(BOOL finished){

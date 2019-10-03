@@ -34,4 +34,5 @@
     UIButton *removeFilterButton;
 }
 - (id)initWithViewController:(UIViewController *)vc;
+-(void)setListOfValues:(NSMutableArray *)lov;
 @end

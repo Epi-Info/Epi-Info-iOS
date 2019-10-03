@@ -16,6 +16,7 @@
 @synthesize isOneZero = _isOneZero;
 @synthesize isYesNo = _isYesNo;
 @synthesize isTrueFalse = _isTrueFalse;
+@synthesize listOfFilters = _listOfFilters;
 
 - (NSDictionary *)dataDefinitions
 {
@@ -40,19 +41,75 @@
     return self;
 }
 
-- (id)initWithAnalysisDataObject:(AnalysisDataObject *)analysisDataObject AndFilters:(NSMutableArray *)filters
+- (id)initWithAnalysisDataObject:(AnalysisDataObject *)analysisDataObject AndTableName:(NSString *)tableName AndFilters:(NSMutableArray *)filters
 {
     self = [self initWithAnalysisDataObject:analysisDataObject];
     
     if ([filters count] > 0)
     {
         NSLog(@"Add filtering here...");
+        if ([tableName length] == 0)
+            return self;
+        
+        self = [self initWithStoredDataTable:tableName AndFilters:filters];
+        [self setListOfFilters:filters];
     }
     
     return self;
 }
 
 - (id)initWithStoredDataTable:(NSString *)tableName
+{
+    self = [super init];
+    
+    NSMutableArray *mutableFullDataSet = [[NSMutableArray alloc] init];
+    NSMutableArray *mutableColumns = [[NSMutableArray alloc] init];
+    NSMutableArray *columnNumbers = [[NSMutableArray alloc] init];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"]])
+    {
+        NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+        if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+        {
+            NSString *selStmt = [NSString stringWithFormat:@"select * from %@", tableName];
+            const char *query_stmt = [selStmt UTF8String];
+            sqlite3_stmt *statement;
+            if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+            {
+                BOOL firstRow = YES;
+                while (sqlite3_step(statement) == SQLITE_ROW)
+                {
+                    int i = 0;
+                    NSMutableArray *rowArray = [[NSMutableArray alloc] init];
+                    while (sqlite3_column_name(statement, i))
+                    {
+                        if (firstRow)
+                        {
+                            NSString *columnName = [[NSString alloc] initWithUTF8String:sqlite3_column_name(statement, i)];
+                            [mutableColumns addObject:columnName];
+                            [columnNumbers addObject:[NSString stringWithFormat:@"%d", i]];
+                        }
+                        [rowArray addObject:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)]];
+                        i++;
+                    }
+                    firstRow = NO;
+                    [mutableFullDataSet addObject:[NSArray arrayWithArray:rowArray]];
+                }
+                [self setColumnNames:[NSMutableDictionary dictionaryWithObjects:columnNumbers forKeys:[NSArray arrayWithArray:mutableColumns]]];
+                [self setDataSet:[NSArray arrayWithArray:mutableFullDataSet]];
+                
+                //Set up the column types
+                [self determineCSVDataTypes];
+            }
+        }
+        sqlite3_close(epiinfoDB);
+    }
+    
+    return self;
+}
+
+- (id)initWithStoredDataTable:(NSString *)tableName AndFilters:(NSMutableArray *)filter
 {
     self = [super init];
     

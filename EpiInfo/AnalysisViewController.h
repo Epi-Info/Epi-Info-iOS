@@ -51,6 +51,7 @@
     
     UILabel *analyzeDataLabel;
     UIButton *setDataSource;
+    NSString *dataSourceName;
     UILabel *dataSourceLabel;
     UIView *dataSourceBorder;
     
@@ -94,15 +95,16 @@
     
     UIButton *datasetButton;
 }
+-(NSString *)dataSourceName;
 -(void)setWorkingDataObject:(AnalysisDataObject *)wdo;
 -(AnalysisDataObject *)fullDataObject;
-- (void)replaceChooseAnalysis;
-- (void)setContentSize:(CGSize)size;
-- (void)resetContentSize;
-- (BOOL)portraitOrientation;
-- (CGRect)getZoomingViewFrame;
+-(void)replaceChooseAnalysis;
+-(void)setContentSize:(CGSize)size;
+-(void)resetContentSize;
+-(BOOL)portraitOrientation;
+-(CGRect)getZoomingViewFrame;
 //- (void)lookupSimpleDBSources;
-- (void)setDataSourceEnabled:(BOOL)isEnabled;
+-(void)setDataSourceEnabled:(BOOL)isEnabled;
 -(void)setInitialContentSize:(CGSize)ics;
 -(CGSize)getInitialContentSize;
 -(void)putViewOnZoomingView:(UIView *)viewToMove;

@@ -12,6 +12,7 @@
 {
     sqlite3 *epiinfoDB;
 }
+@property (nonatomic, strong) NSMutableArray *listOfFilters;
 @property (nonatomic, strong) NSDictionary *dataDefinitions;
 @property (nonatomic, strong) NSDictionary *columnNames;
 @property (nonatomic, strong) NSDictionary *dataTypes;
@@ -22,7 +23,7 @@
 @property (nonatomic, strong) NSArray *dataSet;
 
 -(id)initWithAnalysisDataObject:(AnalysisDataObject *)analysisDataObject;
--(id)initWithAnalysisDataObject:(AnalysisDataObject *)analysisDataObject AndFilters:(NSMutableArray *)filters;
+-(id)initWithAnalysisDataObject:(AnalysisDataObject *)analysisDataObject AndTableName:(NSString *)tableName AndFilters:(NSMutableArray *)filters;
 -(id)initWithCSVFile:(NSString *)pathAndFileName;
 -(id)initWithStoredDataTable:(NSString *)tableName;
 -(id)initWithVariablesArray:(NSMutableArray *)variables AndDataArray:(NSMutableArray *)data;

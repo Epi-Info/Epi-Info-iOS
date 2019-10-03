@@ -14,6 +14,11 @@
 
 @implementation AnalysisViewController
 
+- (NSString *)dataSourceName
+{
+    return dataSourceName;
+}
+
 - (void)setWorkingDataObject:(AnalysisDataObject *)wdo
 {
     workingDataObject = wdo;
@@ -92,6 +97,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self setTitle:@""];
+    dataSourceName = @"";
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         [self.epiInfoScrollView setFrame:CGRectMake(0, 0, 768, 1024)];
@@ -430,6 +436,7 @@
         [filterButtonSideLine setBackgroundColor:[UIColor blackColor]];
         [filterButton addSubview:filterButtonSideLine];
         [self.view addSubview:filterButton];
+        [filterButton setAlpha:0.0];
         UILabel *filterButtonLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, filterButton.frame.size.height / 2 - 25, 50, 50)];
         [filterButtonLabel setText:@"Filter"];
         [filterButtonLabel setBackgroundColor:[UIColor clearColor]];
@@ -559,6 +566,8 @@
                 [newVariablesButton setFrame:CGRectMake(-50, 60, 50, self.view.frame.size.height - 120)];
                 //newVariableButton starts out invisible until view is in place
                 [newVariablesButton setAlpha:1];
+                } completion:^(BOOL finished){
+                    [filterButton setAlpha:0.0];
             }];
         }
         else
@@ -572,6 +581,8 @@
                 [newVariablesButton setFrame:CGRectMake(-50, 100, 50, self.view.frame.size.height - 200)];
                 //newVariableButton starts out invisible until view is in place
                 [newVariablesButton setAlpha:1];
+                } completion:^(BOOL finished){
+                    [filterButton setAlpha:0.0];
             }];
         }
         //Re-size the zoomingView
@@ -591,6 +602,8 @@
                 [newVariablesButton setFrame:CGRectMake(-50, 60, 50, self.view.frame.size.height - 120)];
                 //newVariableButton starts out invisible until view is in place
                 [newVariablesButton setAlpha:1];
+                } completion:^(BOOL finished){
+                    [filterButton setAlpha:0.0];
             }];
         }
         else
@@ -604,6 +617,8 @@
                 [newVariablesButton setFrame:CGRectMake(-50, 100, 50, self.view.frame.size.height - 200)];
                 //newVariableButton starts out invisible until view is in place
                 [newVariablesButton setAlpha:1];
+            } completion:^(BOOL finished){
+                [filterButton setAlpha:1.0];
             }];
         }
         //Re-size the zoomingView
@@ -654,6 +669,11 @@
 {
     filterView = [[AnalysisFilterView alloc] initWithViewController:self];
     [self.view addSubview:filterView];
+    if (workingDataObject.listOfFilters)
+        if ([workingDataObject.listOfFilters count] > 0)
+        {
+            [filterView setListOfValues:workingDataObject.listOfFilters];
+        }
 }
 
 - (void)selectDataType
@@ -1396,6 +1416,9 @@
     
     //Set the dataSourceLabel (on the setDataSource button) to the name of the selected file
     [dataSourceLabel setText:[NSString stringWithFormat:@"%@\n(%d Records)", [b.titleLabel.text substringFromIndex:2], recordCount]];
+    
+    //Record the name of the data source
+    dataSourceName = [NSString stringWithString:b.titleLabel.text];
     
     //Change the title of the setDataSource button itself (if necessary) to indicate
     //that a source has been selected
