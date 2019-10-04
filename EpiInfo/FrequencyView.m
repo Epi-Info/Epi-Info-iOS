@@ -270,10 +270,11 @@
     availableVariables = [NSMutableArray arrayWithArray:outcomeNSMA];
     frequencyLVE = [[LegalValuesEnter alloc] initWithFrame:chosenFrequencyVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:frequencyVariableString];
     [frequencyLVE.picker selectRow:0 inComponent:0 animated:YES];
+    [frequencyLVE analysisStyle];
     [inputView addSubview:frequencyLVE];
     stratificationLVE = [[LegalValuesEnter alloc] initWithFrame:chosenStratificationVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:stratificationVariableString];
     [stratificationLVE.picker selectRow:0 inComponent:0 animated:YES];
-    
+    [stratificationLVE analysisStyle];
     [inputView addSubview:stratificationLVE];
     [chosenFrequencyVariable setTitle:[frequencyVariableString text] forState:UIControlStateNormal];
     [inputView addSubview:frequencyVariableLabel];

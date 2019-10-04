@@ -347,10 +347,11 @@
     availableOutcomeVariables = [NSMutableArray arrayWithArray:outcomeNSMA];
     outcomeLVE = [[LegalValuesEnter alloc] initWithFrame:chosenOutcomeVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:outcomeVariableString];
     [outcomeLVE.picker selectRow:0 inComponent:0 animated:YES];
+    [outcomeLVE analysisStyle];
     [inputView addSubview:outcomeLVE];
     exposureLVE = [[LegalValuesEnter alloc] initWithFrame:chosenExposureVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:exposureVariableString];
     [exposureLVE.picker selectRow:0 inComponent:0 animated:YES];
-    
+    [exposureLVE analysisStyle];
     [inputView addSubview:exposureLVE];
     [chosenOutcomeVariable setTitle:[outcomeVariableString text] forState:UIControlStateNormal];
     [inputView addSubview:outcomeVariableLabel];
@@ -384,6 +385,7 @@
     [groupVariableLabel setText:@"Match Variable"];
     groupVariableLVE = [[LegalValuesEnter alloc] initWithFrame:dummiesUITV.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:outcomeVariableString];
     [groupVariableLVE.picker selectRow:0 inComponent:0 animated:YES];
+    [groupVariableLVE analysisStyle];
     [inputView addSubview:groupVariableLabel];
     [inputView addSubview:groupVariableLVE];
 

@@ -342,10 +342,11 @@
     availableOutcomeVariables = [NSMutableArray arrayWithArray:outcomeNSMA];
     meansLVE = [[LegalValuesEnter alloc] initWithFrame:chosenMeansVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:meansVariableString];
     [meansLVE.picker selectRow:0 inComponent:0 animated:YES];
+    [meansLVE analysisStyle];
     [inputView addSubview:meansLVE];
     crosstabLVE = [[LegalValuesEnter alloc] initWithFrame:chosenCrosstabVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:crosstabVariableString];
     [crosstabLVE.picker selectRow:0 inComponent:0 animated:YES];
-    
+    [crosstabLVE analysisStyle];
     [inputView addSubview:crosstabLVE];
     [chosenMeansVariable setTitle:[meansVariableString text] forState:UIControlStateNormal];
     [inputView addSubview:meansVariableLabel];
