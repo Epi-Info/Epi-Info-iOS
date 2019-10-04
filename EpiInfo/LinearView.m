@@ -399,10 +399,10 @@
                     [avc setInitialContentSize:CGSizeMake(320, self.frame.origin.y + 2.0 + inputView.frame.origin.y + inputView.frame.size.height)];
                     [chosenOutcomeVariable setFrame:CGRectMake(20, 8, 276, 44)];
                     [outcomeVariableLabel setFrame:CGRectMake(16, 8, 284, 20)];
-                    [outcomeLVE setFrame:CGRectMake(10, 28, 276, 44)];
+                    [outcomeLVE setFrame:CGRectMake(10, 28, 300, 44)];
                     [chosenExposureVariable setFrame:CGRectMake(20, 56, 276, 44)];
                     [exposureVariableLabel setFrame:CGRectMake(16, 92, 284, 20)];
-                    [exposureLVE setFrame:CGRectMake(10, 112, 276, 44)];
+                    [exposureLVE setFrame:CGRectMake(10, 112, 300, 44)];
                     [exposuresUITV setFrame:CGRectMake(12, 168, 276, 132)];
                     [makeDummyButton setFrame:CGRectMake(14, exposuresUITV.frame.origin.y + exposuresUITV.frame.size.height + 4.0, inputView.frame.size.width - 28.0, exposureLVE.frame.size.height)];
                     [self setMakeDummyButtonEnabled:NO];

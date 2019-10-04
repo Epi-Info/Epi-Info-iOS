@@ -304,11 +304,11 @@
                 [chooseStratificationVariable setFrame:CGRectMake(10, 1000, 296, 162)];
                 [inputViewWhiteBox setFrame:CGRectMake(2, 2, inputView.frame.size.width - 4, inputView.frame.size.height - 4)];
                 [frequencyVariableLabel setFrame:CGRectMake(16, 10, 284, 20)];
-                [frequencyLVE setFrame:CGRectMake(10, 30, 276, 44)];
+                [frequencyLVE setFrame:CGRectMake(10, 30, 300, 44)];
                 [includeMissingButton setFrame:CGRectMake(170, 124, 22, 22)];
                 [includeMissingLabel setFrame:CGRectMake(20, 124, 140, 22)];
                 [stratificationVariableLabel setFrame:CGRectMake(16, includeMissingLabel.frame.origin.y + includeMissingLabel.frame.size.height + 16, 284, 20)];
-                [stratificationLVE setFrame:CGRectMake(10, stratificationVariableLabel.frame.origin.y + stratificationVariableLabel.frame.size.height, 276, 44)];
+                [stratificationLVE setFrame:CGRectMake(10, stratificationVariableLabel.frame.origin.y + stratificationVariableLabel.frame.size.height, 300, 44)];
             }
             else
             {

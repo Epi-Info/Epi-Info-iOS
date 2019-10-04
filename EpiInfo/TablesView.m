@@ -387,14 +387,14 @@
                     [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, 342)];
                     [chosenOutcomeVariable setFrame:CGRectMake(20, 8, 276, 44)];
                     [outcomeVariableLabel setFrame:CGRectMake(16, 8, 284, 20)];
-                    [outcomeLVE setFrame:CGRectMake(10, 28, 276, 44)];
+                    [outcomeLVE setFrame:CGRectMake(10, 28, 300, 44)];
                     [chosenExposureVariable setFrame:CGRectMake(20, 56, 276, 44)];
                     [exposureVariableLabel setFrame:CGRectMake(16, 92, 284, 20)];
-                    [exposureLVE setFrame:CGRectMake(10, 112, 276, 44)];
+                    [exposureLVE setFrame:CGRectMake(10, 112, 300, 44)];
                     [includeMissingButton setFrame:CGRectMake(170, exposureLVE.frame.origin.y + exposureLVE.frame.size.height + 40, 22, 22)];
                     [includeMissingLabel setFrame:CGRectMake(20, includeMissingButton.frame.origin.y, 140, 22)];
                     [stratificationVariableLabel setFrame:CGRectMake(16, includeMissingLabel.frame.origin.y + includeMissingLabel.frame.size.height + 16, 284, 20)];
-                    [stratificationLVE setFrame:CGRectMake(10, stratificationVariableLabel.frame.origin.y + stratificationVariableLabel.frame.size.height, 276, 44)];
+                    [stratificationLVE setFrame:CGRectMake(10, stratificationVariableLabel.frame.origin.y + stratificationVariableLabel.frame.size.height, 300, 44)];
                     [chosenStratificationVariable setFrame:CGRectMake(20, 135, 276, 44)];
                     [chooseOutcomeVariable setFrame:CGRectMake(10, 1000, 296, 162)];
                     [chooseExposureVariable setFrame:CGRectMake(10, 1000, 296, 162)];

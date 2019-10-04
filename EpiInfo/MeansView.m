@@ -380,11 +380,11 @@
                     [chooseStratificationVariable setFrame:CGRectMake(10, 1000, 296, 162)];
                     [inputViewWhiteBox setFrame:CGRectMake(2, 2, inputView.frame.size.width - 4, inputView.frame.size.height - 4)];
                     [meansVariableLabel setFrame:CGRectMake(16, 8, 284, 20)];
-                    [meansLVE setFrame:CGRectMake(10, 28, 276, 44)];
+                    [meansLVE setFrame:CGRectMake(10, 28, 300, 44)];
                     [includeMissingButton setFrame:CGRectMake(170, 124, 22, 22)];
                     [includeMissingLabel setFrame:CGRectMake(20, 124, 140, 22)];
                     [crosstabVariableLabel setFrame:CGRectMake(16, 94, 284, 20)];
-                    [crosstabLVE setFrame:CGRectMake(10, 114, 276, 44)];
+                    [crosstabLVE setFrame:CGRectMake(10, 114, 300, 44)];
                     [spinner setFrame:CGRectMake(frame.size.width / 2.0 - 20, 118, 40, 40)];
                 }
                 else
