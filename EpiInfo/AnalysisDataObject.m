@@ -150,15 +150,15 @@
         }
         NSString *operator = @"";
         NSString *value = @"";
-        if ([operatorAndValue isEqualToString:@"is missing"])
+        if ([operatorAndValue isEqualToString:@"is missing"] || ([operatorAndValue length] > 10 && [[operatorAndValue substringToIndex:10] isEqualToString:@"is missing"]))
         {
-            operator = @" = ";
-            value = @"' '";
+            operator = @" is ";
+            value = @"null";
         }
-        else if ([operatorAndValue isEqualToString:@"is not missing"])
+        else if ([operatorAndValue isEqualToString:@"is not missing"] || ([operatorAndValue length] > 14 && [[operatorAndValue substringToIndex:14] isEqualToString:@"is not missing"]))
         {
-            operator = @" <> ";
-            value = @"' '";
+            operator = @" is not ";
+            value = @"null";
         }
         else if ([operatorAndValue length] > 6 && [[operatorAndValue substringToIndex:6] isEqualToString:@"equals"])
         {
@@ -199,7 +199,7 @@
         NSNumber *variableIndex = (NSNumber *)[columnNames objectForKey:variable];
         NSNumber *variableType = (NSNumber *)[dataTypes objectForKey:variableIndex];
         int vt = [variableType intValue];
-        if (vt == 2)
+        if (vt == 2 && ![operator containsString:@"is"])
             value = [[@"'" stringByAppendingString:value] stringByAppendingString:@"'"];
         [whereClause appendFormat:@" %@ %@ %@ %@", contraction, variable, operator, value];
     }
