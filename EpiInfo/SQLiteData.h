@@ -34,4 +34,5 @@
 - (void)makeSQLiteWorkingTableWithWhereClause:(NSString *)whereClause;
 - (int)addColumnToWorkingTable:(NSString *)columnName ColumnType:(NSNumber *)columnType;
 - (int)workingTableSize;
+- (int)fullTableSize;
 @end

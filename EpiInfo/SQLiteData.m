@@ -305,4 +305,30 @@
     
     return size;
 }
+
+- (int)fullTableSize
+{
+    //This method gets and returns the size of WORKING_DATASET by submitting SELECT COUNT(*)
+    int size = -1;
+    
+    NSString *databasePath = [[NSString alloc] initWithString:[NSTemporaryDirectory() stringByAppendingString:@"EpiInfo.db"]];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:databasePath])
+    {
+        const char *dbpath = [databasePath UTF8String];
+        sqlite3_stmt *statement;
+        if (sqlite3_open(dbpath, &analysisDB) == SQLITE_OK)
+        {
+            const char *query_stmt = "SELECT COUNT(*) AS N FROM FULL_DATASET";
+            if (sqlite3_prepare_v2(analysisDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+            {
+                if (sqlite3_step(statement) == SQLITE_ROW)
+                    size = sqlite3_column_int(statement, 0);
+            }
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(analysisDB);
+    }
+    
+    return size;
+}
 @end

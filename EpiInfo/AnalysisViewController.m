@@ -26,6 +26,7 @@
 - (void)workingDataSetWithWhereClause:(NSString *)whereClause
 {
     [sqlData makeSQLiteWorkingTableWithWhereClause:whereClause];
+    [dataSourceLabel setText:[NSString stringWithFormat:@"%@\n(%d/%d Records)", [[[dataSourceLabel text] componentsSeparatedByString:@"\n"] objectAtIndex:0], [sqlData workingTableSize], [sqlData fullTableSize]]];
 }
 - (NSString *)workingDatasetWhereClause
 {
