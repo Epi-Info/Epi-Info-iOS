@@ -223,6 +223,7 @@
         [filterButtonSideLine setBackgroundColor:[UIColor blackColor]];
         [filterButton addSubview:filterButtonSideLine];
         [self.view addSubview:filterButton];
+        [filterButton setAlpha:0.0];
         UILabel *filterButtonLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, filterButton.frame.size.height / 2 - 25, 50, 50)];
         [filterButtonLabel setText:@"Filter"];
         [filterButtonLabel setBackgroundColor:[UIColor clearColor]];
@@ -591,7 +592,7 @@
                 //newVariableButton starts out invisible until view is in place
                 [newVariablesButton setAlpha:1];
                 } completion:^(BOOL finished){
-                    [filterButton setAlpha:0.0];
+                    [filterButton setAlpha:1.0];
             }];
         }
         //Re-size the zoomingView
