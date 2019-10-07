@@ -107,6 +107,7 @@
         [hideSelfButton setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
         [hideSelfButton.layer setCornerRadius:2];
         [hideSelfButton setTitle:@">>>" forState:UIControlStateNormal];
+        [hideSelfButton setAccessibilityLabel:@"Save filters and return to analysis screen"];
         [hideSelfButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14]];
         [hideSelfButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [hideSelfButton setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
@@ -117,6 +118,7 @@
         [addFilterButton setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
         [addFilterButton.layer setCornerRadius:2];
         [addFilterButton setTitle:@"Add Filter" forState:UIControlStateNormal];
+        [addFilterButton setAccessibilityLabel:@"Add, filter"];
         [addFilterButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
         [addFilterButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [addFilterButton setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
@@ -129,6 +131,7 @@
         [addWithAndButton setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
         [addWithAndButton.layer setCornerRadius:2];
         [addWithAndButton setTitle:@"Add With AND" forState:UIControlStateNormal];
+        [addWithAndButton setAccessibilityLabel:@"Add, with, and"];
         [addWithAndButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14]];
         [addWithAndButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [addWithAndButton setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
@@ -140,6 +143,7 @@
         [addWithOrButton setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
         [addWithOrButton.layer setCornerRadius:2];
         [addWithOrButton setTitle:@"Add With OR" forState:UIControlStateNormal];
+        [addWithOrButton setAccessibilityLabel:@"Add, with, or"];
         [addWithOrButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14]];
         [addWithOrButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [addWithOrButton setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
@@ -410,12 +414,16 @@
         [cell setIndentationLevel:1];
         [cell setIndentationWidth:4];
         UIButton *bt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)];
+        [bt setTag:1066];
         [bt setBackgroundColor:[UIColor clearColor]];
         [bt addTarget:self action:@selector(conditionDoubleTapped:) forControlEvents:UIControlEventTouchDownRepeat];
         [cell addSubview:bt];
     }
     
     [cell.textLabel setText:[NSString stringWithFormat:@"%@", [listOfValues objectAtIndex:indexPath.row]]];
+    UIButton *bt = (UIButton *)[cell viewWithTag:1066];
+    if (bt)
+        [bt setAccessibilityLabel:[NSString stringWithFormat:@"%@", [listOfValues objectAtIndex:indexPath.row]]];
     [cell.textLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
     [cell.textLabel setNumberOfLines:0];
     

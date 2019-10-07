@@ -27,6 +27,7 @@
 {
     [sqlData makeSQLiteWorkingTableWithWhereClause:whereClause];
     [dataSourceLabel setText:[NSString stringWithFormat:@"%@\n(%d/%d Records)", [[[dataSourceLabel text] componentsSeparatedByString:@"\n"] objectAtIndex:0], [sqlData workingTableSize], [sqlData fullTableSize]]];
+    [setDataSource setAccessibilityLabel:[NSString stringWithFormat:@"Data Source: %@ (%d of %d Records)", [[[dataSourceLabel text] componentsSeparatedByString:@"\n"] objectAtIndex:0], [sqlData workingTableSize], [sqlData fullTableSize]]];
 }
 - (NSString *)workingDatasetWhereClause
 {
@@ -177,6 +178,7 @@
         chooseAnalysis = [[ChooseAnalysisButton alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50)];
         [chooseAnalysis setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
         [chooseAnalysis setTitle:@"Add Analysis" forState:UIControlStateNormal];
+        [chooseAnalysis setAccessibilityLabel:@"Add, Analysis"];
         [chooseAnalysis setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [chooseAnalysis setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
         [chooseAnalysis addTarget:self action:@selector(showAnalysisList) forControlEvents:UIControlEventTouchUpInside];
@@ -263,6 +265,7 @@
         //Add the tables button to the list
         UIButton *doTablesAnalysisButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 100, zoomingView.frame.size.width, 50)];
         [doTablesAnalysisButton setTitle:@"  Tables (2x2, MxN)" forState:UIControlStateNormal];
+        [doTablesAnalysisButton setAccessibilityLabel:@"Tables (2 by 2, M by N)"];
         [doTablesAnalysisButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [doTablesAnalysisButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
         [doTablesAnalysisButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -400,6 +403,7 @@
         chooseAnalysis = [[ChooseAnalysisButton alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50)];
         [chooseAnalysis setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
         [chooseAnalysis setTitle:@"Add Analysis" forState:UIControlStateNormal];
+        [chooseAnalysis setAccessibilityLabel:@"Add, Analysis"];
         [chooseAnalysis setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [chooseAnalysis setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
         [chooseAnalysis addTarget:self action:@selector(showAnalysisList) forControlEvents:UIControlEventTouchUpInside];
@@ -486,6 +490,7 @@
         //Add the tables button to the list
         UIButton *doTablesAnalysisButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 100, zoomingView.frame.size.width, 50)];
         [doTablesAnalysisButton setTitle:@"  Tables (2x2, MxN)" forState:UIControlStateNormal];
+        [doTablesAnalysisButton setAccessibilityLabel:@"Tables (2 by 2, M by N)"];
         [doTablesAnalysisButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [doTablesAnalysisButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
         [doTablesAnalysisButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -559,6 +564,8 @@
             initialLandscapeContentSize = CGSizeMake(480, 268);
         }
     }
+    [filterButton setAccessibilityLabel:@"Add, or, remove, data filters"];
+    [newVariablesButton setAccessibilityLabel:@"Add, temporary, variables, to dataset."];
 }
 
 - (void)viewDidAppear:(BOOL)animated
