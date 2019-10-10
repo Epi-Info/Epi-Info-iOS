@@ -53,7 +53,7 @@
         UILabel *selectVariableLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 4, 256, 28)];
         [selectVariableLabel setText:@"Filter Variable:"];
         [selectVariableLabel setTextColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
-        [selectVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bolx" size:16.0]];
+        [selectVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
         [selectVariableLabel setTextAlignment:NSTextAlignmentLeft];
         [whiteView addSubview:selectVariableLabel];
         selectVariable = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 32, 300, 180) AndListOfValues:[[NSMutableArray alloc] init]];
@@ -64,7 +64,7 @@
         UILabel *selectOperatorLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 96, 256, 28)];
         [selectOperatorLabel setText:@"Operator:"];
         [selectOperatorLabel setTextColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
-        [selectOperatorLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bolx" size:16.0]];
+        [selectOperatorLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
         [selectOperatorLabel setTextAlignment:NSTextAlignmentLeft];
         [whiteView addSubview:selectOperatorLabel];
         selectOperator = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 124, 300, 180) AndListOfValues:[[NSMutableArray alloc] init]];
@@ -76,7 +76,7 @@
         UILabel *selectValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 188, 256, 28)];
         [selectValueLabel setText:@"Value:"];
         [selectValueLabel setTextColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
-        [selectValueLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bolx" size:16.0]];
+        [selectValueLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
         [selectValueLabel setTextAlignment:NSTextAlignmentLeft];
         [whiteView addSubview:selectValueLabel];
         selectValue = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 216, 300, 180) AndListOfValues:[[NSMutableArray alloc] init]];
