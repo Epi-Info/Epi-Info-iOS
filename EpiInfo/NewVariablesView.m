@@ -8,7 +8,7 @@
 
 #import "NewVariablesView.h"
 #import "AnalysisViewController.h"
-#import "BlurryView.h"
+#import "DateMathFunctionInput.h"
 
 @implementation NewVariablesView
 {
@@ -154,6 +154,18 @@
         {
             [selectFunction reset];
             [selectFunction setIsEnabled:NO];
+        }
+    }
+    else if ([field tag] == 702)
+    {
+        if ([[(LegalValuesEnter *)field selectedIndex] intValue] > 0)
+        {
+            if ([[(LegalValuesEnter *)field epiInfoControlValue] containsString:@"difference between two dates"])
+            {
+                DateMathFunctionInput *dmfi = [[DateMathFunctionInput alloc] initWithFrame:CGRectMake(0, 0, [field superview].frame.size.width, [field superview].frame.size.height)];
+                [[field superview] addSubview:dmfi];
+                [dmfi setFunction:[(LegalValuesEnter *)field epiInfoControlValue]];
+            }
         }
     }
 }

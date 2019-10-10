@@ -272,6 +272,8 @@
 		929230151EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 929230141EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework */; };
 		9292301B1EC4F3EE0078D9C2 /* WindowsAzureMobileServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921974961880583D007F6DFA /* WindowsAzureMobileServices.framework */; };
 		9292B6E12298384700802240 /* FormFieldsLegalValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 9292B6E02298384700802240 /* FormFieldsLegalValues.m */; };
+		92936298234FABD600949AF4 /* NewVariableInputs.m in Sources */ = {isa = PBXBuildFile; fileRef = 92936297234FABD600949AF4 /* NewVariableInputs.m */; };
+		9293629B234FAE2400949AF4 /* DateMathFunctionInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 9293629A234FAE2400949AF4 /* DateMathFunctionInput.m */; };
 		9294A5CD2208CD1B008695AD /* LinearObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9294A5CC2208CD1B008695AD /* LinearObject.m */; };
 		9294A5D52208CD6F008695AD /* LinearView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9294A5D42208CD6F008695AD /* LinearView.m */; };
 		9294A5D82208CDD3008695AD /* LinearRegressionResults.m in Sources */ = {isa = PBXBuildFile; fileRef = 9294A5D72208CDD3008695AD /* LinearRegressionResults.m */; };
@@ -860,6 +862,10 @@
 		929230141EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MicrosoftAzureMobile.framework; sourceTree = "<group>"; };
 		9292B6DF2298384700802240 /* FormFieldsLegalValues.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFieldsLegalValues.h; sourceTree = "<group>"; };
 		9292B6E02298384700802240 /* FormFieldsLegalValues.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormFieldsLegalValues.m; sourceTree = "<group>"; };
+		92936296234FABD600949AF4 /* NewVariableInputs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewVariableInputs.h; sourceTree = "<group>"; };
+		92936297234FABD600949AF4 /* NewVariableInputs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewVariableInputs.m; sourceTree = "<group>"; };
+		92936299234FAE2400949AF4 /* DateMathFunctionInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DateMathFunctionInput.h; sourceTree = "<group>"; };
+		9293629A234FAE2400949AF4 /* DateMathFunctionInput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DateMathFunctionInput.m; sourceTree = "<group>"; };
 		9294A5CB2208CD1B008695AD /* LinearObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinearObject.h; sourceTree = "<group>"; };
 		9294A5CC2208CD1B008695AD /* LinearObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinearObject.m; sourceTree = "<group>"; };
 		9294A5D32208CD6F008695AD /* LinearView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinearView.h; sourceTree = "<group>"; };
@@ -1666,6 +1672,10 @@
 				923A49F517B56636000FFC0C /* NewVariablesButton.m */,
 				923A49F717B57624000FFC0C /* NewVariablesView.h */,
 				923A49F817B57624000FFC0C /* NewVariablesView.m */,
+				92936296234FABD600949AF4 /* NewVariableInputs.h */,
+				92936297234FABD600949AF4 /* NewVariableInputs.m */,
+				92936299234FAE2400949AF4 /* DateMathFunctionInput.h */,
+				9293629A234FAE2400949AF4 /* DateMathFunctionInput.m */,
 				923F2BBB198C045B008A4856 /* ImportCSV.h */,
 				923F2BBC198C045B008A4856 /* ImportCSV.m */,
 				9265FF8E1CB29B9F003AD6E0 /* SQLTool.h */,
@@ -2348,6 +2358,7 @@
 				4AC7D6301625C0C80056A8AC /* UnmatchedCaseControlSampleSizeViewController.m in Sources */,
 				929E47AF21A5D16900D88EF0 /* LogisticRegressionResults.m in Sources */,
 				923A02CD2289A07300C33F3B /* EnableDisableClear.m in Sources */,
+				92936298234FABD600949AF4 /* NewVariableInputs.m in Sources */,
 				923226771E53825E0099439F /* ExpressionActionParser.m in Sources */,
 				921500821EA92A2100E2CF9A /* MainMenuMenu.m in Sources */,
 				92A25C011938E0AC003225E1 /* TimeField.m in Sources */,
@@ -2404,6 +2415,7 @@
 				9211F6EF1D53758F002583D4 /* AssignModel.m in Sources */,
 				92EB1ACC1DCA660100694282 /* FieldsAndStringValues.m in Sources */,
 				92D43A471992A5BD00B24712 /* ConfirmDeleteButton.m in Sources */,
+				9293629B234FAE2400949AF4 /* DateMathFunctionInput.m in Sources */,
 				847C97DA1D427494001E47DD /* UIView+UpdateAutoLayoutConstraints.m in Sources */,
 				926C9D561A7AA8FE004A6ADD /* SimulationsViewController.m in Sources */,
 				9266C54318468CCF00739AF2 /* LegalValues.m in Sources */,
