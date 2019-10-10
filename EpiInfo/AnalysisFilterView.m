@@ -43,11 +43,9 @@
         //Add all other views to whiteView
         UIView *blueView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, frame.size.width - 4, frame.size.height - 4)];
         [blueView setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
-        [blueView.layer setCornerRadius:10.0];
         [self addSubview:blueView];
         UIScrollView *whiteView = [[UIScrollView alloc] initWithFrame:CGRectMake(2, 2, blueView.frame.size.width - 4, blueView.frame.size.height - 4)];
         [whiteView setBackgroundColor:[UIColor whiteColor]];
-        [whiteView.layer setCornerRadius:8];
         [blueView addSubview:whiteView];
         
         UILabel *selectVariableLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 4, 256, 28)];

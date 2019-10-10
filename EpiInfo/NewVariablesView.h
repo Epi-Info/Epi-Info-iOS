@@ -13,7 +13,7 @@
 #import "DataManagementView.h"
 #import "LegalValuesEnter.h"
 
-@interface NewVariablesView : DataManagementView <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource>
+@interface NewVariablesView : DataManagementView <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 {
     UITextField *newVariableName;
     LegalValuesEnter *selectVariableType;
