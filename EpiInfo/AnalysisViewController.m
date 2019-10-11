@@ -70,6 +70,10 @@
 {
     return workingDataObject.isBinary;
 }
+- (NSDictionary *)getWorkingDates
+{
+    return [workingDataObject isDate];
+}
 - (FrequencyObject *)getFrequencyObjectForVariable:(NSString *)variableName
 {
     return [[FrequencyObject alloc] initWithAnalysisDataObject:workingDataObject AndVariable:variableName AndIncludeMissing:NO];

@@ -165,6 +165,7 @@
                 DateMathFunctionInput *dmfi = [[DateMathFunctionInput alloc] initWithFrame:CGRectMake(0, 0, [field superview].frame.size.width, [field superview].frame.size.height)];
                 [[field superview] addSubview:dmfi];
                 [dmfi setFunction:[(LegalValuesEnter *)field epiInfoControlValue]];
+                [dmfi setAVC:avc];
             }
         }
     }

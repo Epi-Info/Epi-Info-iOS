@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSDictionary *isOneZero;
 @property (nonatomic, strong) NSDictionary *isYesNo;
 @property (nonatomic, strong) NSDictionary *isTrueFalse;
+@property (nonatomic, strong) NSDictionary *isDate;
 @property (nonatomic, strong) NSArray *dataSet;
 
 -(NSMutableString *)whereClause;

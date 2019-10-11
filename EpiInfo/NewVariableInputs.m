@@ -13,6 +13,10 @@
 {
     [function setText:func];
 }
+- (void)setAVC:(UIViewController *)uivc
+{
+    avc = uivc;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -38,10 +42,17 @@
         [saveButton setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
         [saveButton addTarget:self action:@selector(removeSelf:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:saveButton];
-
-        [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
-            [self setFrame:frame];
-        }completion:nil];
+        
+        cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 2, 4)];
+        [cancelButton setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
+        [cancelButton.layer setCornerRadius:2];
+        [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+        [cancelButton setAccessibilityLabel:@"Cancel"];
+        [cancelButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
+        [cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [cancelButton setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
+        [cancelButton addTarget:self action:@selector(removeSelf:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:cancelButton];
     }
     return self;
 }
@@ -51,6 +62,7 @@
     [super setFrame:frame];
     [function setFrame:CGRectMake(0, 0, frame.size.width, 28)];
     [saveButton setFrame:CGRectMake(4, frame.size.height - 44, 120, 40)];
+    [cancelButton setFrame:CGRectMake(frame.size.width - 124, frame.size.height - 44, 120, 40)];
 }
 
 - (void)removeSelf:(UIButton *)sender
@@ -60,6 +72,11 @@
     }completion:^(BOOL finished){
         [self removeFromSuperview];
     }];
+}
+
+- (void)fieldResignedFirstResponder:(id)field
+{
+    // Stub
 }
 
 /*

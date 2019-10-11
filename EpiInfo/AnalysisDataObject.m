@@ -17,6 +17,7 @@
 @synthesize isYesNo = _isYesNo;
 @synthesize isTrueFalse = _isTrueFalse;
 @synthesize listOfFilters = _listOfFilters;
+@synthesize isDate = _isDate;
 
 - (NSMutableString *)whereClause
 {
@@ -44,6 +45,7 @@
     [self setIsBinary:[NSDictionary dictionaryWithDictionary:analysisDataObject.isBinary]];
     [self setIsOneZero:[NSDictionary dictionaryWithDictionary:analysisDataObject.isOneZero]];
     [self setIsYesNo:[NSDictionary dictionaryWithDictionary:analysisDataObject.isYesNo]];
+    [self setIsDate:[NSDictionary dictionaryWithDictionary:analysisDataObject.isDate]];
     [self setDataSet:[NSArray arrayWithArray:analysisDataObject.dataSet]];
     
     return self;
@@ -455,6 +457,54 @@
     }
     [self setIsBinary:[NSDictionary dictionaryWithDictionary:temporaryDictionary]];
     
+    //Next determine whether columns are dates
+    NSError *error = nil;
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeDate error:&error];
+    temporaryDictionary = nil;
+    keys = nil;
+    values = nil;
+    keys = [[NSMutableArray alloc] init];
+    values = [[NSMutableArray alloc] init];
+    for (int i = 0; i < self.columnNames.count; i++)
+    {
+        [keys addObject:[NSString stringWithFormat:@"%d", i]];
+        [values addObject:[NSNumber numberWithBool:YES]];
+    }
+    temporaryDictionary = [NSMutableDictionary dictionaryWithObjects:values forKeys:keys];
+    int datesFound = 0;
+    for (int i = 0; i < self.columnNames.count; i++)
+    {
+        datesFound = 0;
+        for (int j = 0; j < self.dataSet.count; j++)
+        {
+            if ([[[self.dataSet objectAtIndex:j] objectAtIndex:i] isKindOfClass:[NSNull class]] || ([[[self.dataSet objectAtIndex:j] objectAtIndex:i] isKindOfClass:[NSString class]] && [[[self.dataSet objectAtIndex:j] objectAtIndex:i] isEqualToString:@"(null)"]))
+                continue;
+            if (![[[self.dataSet objectAtIndex:j] objectAtIndex:i] isKindOfClass:[NSString class]])
+            {
+                [temporaryDictionary setValue:[NSNumber numberWithBool:NO] forKey:[[NSNumber numberWithInt:i] stringValue]];
+                break;
+            }
+            NSString *value = [[self.dataSet objectAtIndex:j] objectAtIndex:i];
+            if ([value length] == 0)
+                continue;
+            NSUInteger numberOfMatches = [detector numberOfMatchesInString:value options:0 range:NSMakeRange(0, [value length])];
+            if (numberOfMatches != 1)
+            {
+                [temporaryDictionary setValue:[NSNumber numberWithBool:NO] forKey:[[NSNumber numberWithInt:i] stringValue]];
+                break;
+            }
+            else
+            {
+                datesFound++;
+            }
+        }
+        if (datesFound == 0)
+        {
+            [temporaryDictionary setValue:[NSNumber numberWithBool:NO] forKey:[[NSNumber numberWithInt:i] stringValue]];
+        }
+    }
+    [self setIsDate:[NSDictionary dictionaryWithDictionary:temporaryDictionary]];
+
     //Next determine whether any binary columns are One-Zero or Yes-No
     temporaryDictionary = nil;
     temporaryDictionary = [NSMutableDictionary dictionaryWithObjects:values forKeys:keys];
