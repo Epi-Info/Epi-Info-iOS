@@ -17,6 +17,18 @@
 {
     avc = uivc;
 }
+- (void)setNewVariableName:(NSString *)nvn
+{
+    newVariableName = nvn;
+}
+- (void)setListOfNewVariables:(NSMutableArray *)nsma
+{
+    listOfNewVariables = nsma;
+}
+- (void)setNewVariableList:(UITableView *)uitv
+{
+    newVariableList = uitv;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {

@@ -20,11 +20,18 @@ NS_ASSUME_NONNULL_BEGIN
     UILabel *function;
     UIButton *saveButton;
     UIButton *cancelButton;
+    
+    NSString *newVariableName;
+    NSMutableArray *listOfNewVariables;
+    UITableView *newVariableList;
 }
 -(void)setFunction:(NSString *)func;
 -(void)removeSelf:(UIButton *)sender;
 -(void)fieldResignedFirstResponder:(id)field;
 -(void)setAVC:(UIViewController *)uivc;
+-(void)setNewVariableName:(NSString *)nvn;
+-(void)setListOfNewVariables:(NSMutableArray *)nsma;
+-(void)setNewVariableList:(UITableView *)uitv;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -16,6 +16,16 @@
     SQLiteData *sqlData;
 }
 
+- (void)addToListOfAllVariables:(NSString *)var
+{
+    [listOfAllVariables addObject:[var lowercaseString]];
+    [newVariableName setText:@""];
+    [selectVariableType reset];
+    [selectVariableType setIsEnabled:NO];
+    [selectFunction reset];
+    [selectFunction setIsEnabled:NO];
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:CGRectMake(-frame.size.width, frame.origin.y, frame.size.width, frame.size.height)];
@@ -117,6 +127,9 @@
 {
     self = [self initWithFrame:CGRectMake(0, 50, vc.view.frame.size.width, vc.view.frame.size.height - 50)];
     avc = (AnalysisViewController *)vc;
+    listOfAllVariables = [[NSMutableArray alloc] init];
+    for (NSString *str in [avc getSQLiteColumnNames])
+        [listOfAllVariables addObject:[str lowercaseString]];
     return self;
 }
 
@@ -125,6 +138,9 @@
     self = [self initWithFrame:CGRectMake(0, 50, vc.view.frame.size.width, vc.view.frame.size.height - 50)];
     avc = (AnalysisViewController *)vc;
     sqlData = sqliteData;
+    listOfAllVariables = [[NSMutableArray alloc] init];
+    for (NSString *str in [avc getSQLiteColumnNames])
+        [listOfAllVariables addObject:[str lowercaseString]];
     return self;
 }
 
@@ -132,9 +148,22 @@
 - (void)userTypedInNewVariableName:(id)sender
 {
     if ([(UITextField *)sender text].length > 0)
-        [selectVariableType setIsEnabled:YES];
+    {
+        if ([listOfAllVariables containsObject:[[(UITextField *)sender text] lowercaseString]])
+        {
+            [(UITextField *)sender setTextColor:[UIColor redColor]];
+            [selectVariableType setIsEnabled:NO];
+            [selectFunction setIsEnabled:NO];
+        }
+        else
+        {
+            [(UITextField *)sender setTextColor:[UIColor blackColor]];
+            [selectVariableType setIsEnabled:YES];
+        }
+    }
     else
     {
+        [(UITextField *)sender setTextColor:[UIColor blackColor]];
         [selectVariableType reset];
         [selectFunction reset];
         [selectVariableType setIsEnabled:NO];
@@ -166,6 +195,9 @@
                 [[field superview] addSubview:dmfi];
                 [dmfi setFunction:[(LegalValuesEnter *)field epiInfoControlValue]];
                 [dmfi setAVC:avc];
+                [dmfi setNewVariableName:[newVariableName text]];
+                [dmfi setListOfNewVariables:listOfNewVariables];
+                [dmfi setNewVariableList:newVariableList];
             }
         }
     }
@@ -197,6 +229,10 @@
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     return YES;
+}
+
+- (void)textFieldChanged:(UITextField *)sender
+{
 }
 
 
@@ -244,6 +280,8 @@
 - (void)conditionDoubleTapped:(UIButton *)sender
 {
     UITableViewCell *cell = (UITableViewCell *)[sender superview];
+    NSString *lowercaseVariableName = [[[[[cell textLabel] text] lowercaseString] componentsSeparatedByString:@" = "] objectAtIndex:0];
+    [listOfAllVariables removeObject:lowercaseVariableName];
     [listOfNewVariables removeObject:[[cell textLabel] text]];
     if ([listOfNewVariables count] == 0)
     {

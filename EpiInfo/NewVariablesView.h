@@ -18,10 +18,13 @@
     UITextField *newVariableName;
     LegalValuesEnter *selectVariableType;
     LegalValuesEnter *selectFunction;
+    
+    NSMutableArray *listOfAllVariables;
 
     NSMutableArray *listOfNewVariables;
     UITableView *newVariableList;
 }
+-(void)addToListOfAllVariables:(NSString *)var;
 - (id)initWithViewController:(UIViewController *)vc;
 - (id)initWithViewController:(UIViewController *)vc AndSQLiteData:(SQLiteData *)sqliteData;
 @end

@@ -6,6 +6,7 @@
 //
 
 #import "DateMathFunctionInput.h"
+#import "NewVariablesView.h"
 
 @implementation DateMathFunctionInput
 - (void)setAVC:(UIViewController *)uivc
@@ -16,8 +17,6 @@
     NSDictionary *isDate = [(AnalysisViewController *)avc getWorkingDates];
     NSMutableArray *variableNamesNSMA = [[NSMutableArray alloc] init];
     [variableNamesNSMA addObject:@""];
-    [variableNamesNSMA addObject:@"Literal Date"];
-    [variableNamesNSMA addObject:@"Today's Date"];
     for (NSString *variable in unsortedVariableNames)
     {
         NSNumber *isADate = [isDate objectForKey:[columnNames objectForKey:variable]];
@@ -90,11 +89,22 @@
     [super removeSelf:sender];
     if ([[[sender titleLabel] text] isEqualToString:@"Save"])
     {
-        NSLog(@"Save button pressed");
+        NSString *dateMathFunction = [[[function text] componentsSeparatedByString:@" "] objectAtIndex:0];
+        NSString *firstArgument = [beginDateLiteral text];
+        if ([firstArgument length] == 0)
+            firstArgument = [beginDateLVE epiInfoControlValue];
+        NSString *secondArgument = [endDateLiteral text];
+        if ([secondArgument length] == 0)
+            secondArgument = [endDateLVE epiInfoControlValue];
+        if ([firstArgument length] == 0 || [firstArgument isEqualToString:@"NULL"] || [firstArgument isEqualToString:@"Literal Date"] || [secondArgument length] == 0 || [secondArgument isEqualToString:@"NULL"] || [secondArgument isEqualToString:@"Literal Date"])
+            return;
+        NSString *functionWithArguments = [NSString stringWithFormat:@"%@ = %@(%@, %@)", newVariableName, dateMathFunction, firstArgument, secondArgument];
+        [listOfNewVariables addObject:functionWithArguments];
+        [newVariableList reloadData];
+        [(NewVariablesView *)[[[newVariableList superview] superview] superview] addToListOfAllVariables:newVariableName];
     }
     else
     {
-        NSLog(@"Cancel button pressed");
     }
 }
 
@@ -105,6 +115,17 @@
         if ([[(LegalValuesEnter *)field epiInfoControlValue] isEqualToString:@"Literal Date"])
         {
             [beginDateLiteral setIsEnabled:YES];
+        }
+        else if ([[(LegalValuesEnter *)field epiInfoControlValue] isEqualToString:@"Today's Date"])
+        {
+            [beginDateLiteral reset];
+            [beginDateLiteral setIsEnabled:NO];
+            NSDateFormatter *nsdf = [[NSDateFormatter alloc] init];
+            [nsdf setDateFormat:@"MM/dd/yyyy"];
+            BOOL dmy = ([[[[NSDate date] descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[[NSDate date] descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+            if (dmy)
+                [nsdf setDateFormat:@"dd/MM/yyyy"];
+            [beginDateLiteral setText:[nsdf stringFromDate:[NSDate date]]];
         }
         else
         {
@@ -117,6 +138,17 @@
         if ([[(LegalValuesEnter *)field epiInfoControlValue] isEqualToString:@"Literal Date"])
         {
             [endDateLiteral setIsEnabled:YES];
+        }
+        else if ([[(LegalValuesEnter *)field epiInfoControlValue] isEqualToString:@"Today's Date"])
+        {
+            [endDateLiteral reset];
+            [endDateLiteral setIsEnabled:NO];
+            NSDateFormatter *nsdf = [[NSDateFormatter alloc] init];
+            [nsdf setDateFormat:@"MM/dd/yyyy"];
+            BOOL dmy = ([[[[NSDate date] descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[[NSDate date] descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+            if (dmy)
+                [nsdf setDateFormat:@"dd/MM/yyyy"];
+            [endDateLiteral setText:[nsdf stringFromDate:[NSDate date]]];
         }
         else
         {
