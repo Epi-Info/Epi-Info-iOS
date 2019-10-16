@@ -95,6 +95,8 @@
     
     UIButton *datasetButton;
 }
+@property NSMutableArray *listOfNewVariables;
+
 -(NSString *)dataSourceName;
 -(void)setWorkingDataObject:(AnalysisDataObject *)wdo;
 -(void)workingDataSetWithWhereClause:(NSString *)whereClause;

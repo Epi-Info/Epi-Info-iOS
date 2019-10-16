@@ -13,6 +13,7 @@
 @end
 
 @implementation AnalysisViewController
+@synthesize listOfNewVariables = _listOfNewVariables;
 
 - (NSString *)dataSourceName
 {
@@ -112,6 +113,7 @@
 	// Do any additional setup after loading the view.
     [self setTitle:@""];
     dataSourceName = @"";
+    self.listOfNewVariables = [[NSMutableArray alloc] init];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         [self.epiInfoScrollView setFrame:CGRectMake(0, 0, 768, 1024)];
@@ -683,6 +685,7 @@
 - (void)newVariablesButtonPressed
 {
     newVariableswView = [[NewVariablesView alloc] initWithViewController:self AndSQLiteData:sqlData];
+    [newVariableswView setListOfNewVariables:self.listOfNewVariables];
     [self.view addSubview:newVariableswView];
 }
 

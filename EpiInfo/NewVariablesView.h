@@ -24,7 +24,8 @@
     NSMutableArray *listOfNewVariables;
     UITableView *newVariableList;
 }
+-(void)setListOfNewVariables:(NSMutableArray *)loav;
 -(void)addToListOfAllVariables:(NSString *)var;
-- (id)initWithViewController:(UIViewController *)vc;
-- (id)initWithViewController:(UIViewController *)vc AndSQLiteData:(SQLiteData *)sqliteData;
+-(id)initWithViewController:(UIViewController *)vc;
+-(id)initWithViewController:(UIViewController *)vc AndSQLiteData:(SQLiteData *)sqliteData;
 @end

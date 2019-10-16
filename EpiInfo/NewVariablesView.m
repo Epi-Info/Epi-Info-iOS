@@ -16,6 +16,18 @@
     SQLiteData *sqlData;
 }
 
+- (void)setListOfNewVariables:(NSMutableArray *)loav
+{
+    listOfNewVariables = loav;
+    [newVariableList reloadData];
+    for (NSString *str in loav)
+    {
+        NSString *justTheVariableName = [[str componentsSeparatedByString:@" = "] objectAtIndex:0];
+        if (![listOfAllVariables containsObject:[justTheVariableName lowercaseString]])
+            [listOfAllVariables addObject:[justTheVariableName lowercaseString]];
+    }
+}
+
 - (void)addToListOfAllVariables:(NSString *)var
 {
     [listOfAllVariables addObject:[var lowercaseString]];
@@ -149,6 +161,13 @@
 {
     if ([(UITextField *)sender text].length > 0)
     {
+        NSCharacterSet *validSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"];
+        if ([[[(UITextField *)sender text] stringByTrimmingCharactersInSet:validSet] length] > 0)
+        {
+            NSCharacterSet *invalidSet = [NSCharacterSet characterSetWithCharactersInString:[[(UITextField *)sender text] stringByTrimmingCharactersInSet:validSet]];
+            NSString *compressedText = [[(UITextField *)sender text] stringByTrimmingCharactersInSet:invalidSet];
+            [(UITextField *)sender setText:compressedText];
+        }
         if ([listOfAllVariables containsObject:[[(UITextField *)sender text] lowercaseString]])
         {
             [(UITextField *)sender setTextColor:[UIColor redColor]];
