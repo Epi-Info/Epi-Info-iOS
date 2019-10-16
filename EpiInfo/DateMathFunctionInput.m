@@ -98,7 +98,7 @@
             secondArgument = [endDateLVE epiInfoControlValue];
         if ([firstArgument length] == 0 || [firstArgument isEqualToString:@"NULL"] || [firstArgument isEqualToString:@"Literal Date"] || [secondArgument length] == 0 || [secondArgument isEqualToString:@"NULL"] || [secondArgument isEqualToString:@"Literal Date"])
             return;
-        NSString *functionWithArguments = [NSString stringWithFormat:@"%@ = %@(%@, %@)", newVariableName, dateMathFunction, firstArgument, secondArgument];
+        NSString *functionWithArguments = [NSString stringWithFormat:@"%@ = %@(%@, %@) |~| %@", newVariableName, dateMathFunction, firstArgument, secondArgument, newVariableType];
         [listOfNewVariables addObject:functionWithArguments];
         [newVariableList reloadData];
         [(NewVariablesView *)[[[newVariableList superview] superview] superview] addToListOfAllVariables:newVariableName];

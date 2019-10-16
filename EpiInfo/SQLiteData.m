@@ -152,6 +152,114 @@
     [self.databaseButton setTitle:buttonLabel forState:UIControlStateHighlighted];
 }
 
+- (void)makeSQLiteWorkingTableWithWhereClause:(NSString *)whereClause AndNewVariblesList:(NSArray *)newVariablesList
+{
+    //This method is called when WORKING_DATASET is to be a subset of FULL_DATASET
+    
+    //Get the path to the database
+    NSString *databasePath = [[NSString alloc] initWithString:[NSTemporaryDirectory() stringByAppendingString:@"EpiInfo.db"]];
+    
+    //If it exists, create the WORKING_DATASET table
+    if ([[NSFileManager defaultManager] fileExistsAtPath:databasePath])
+    {
+        //Convert the databasePath NSString to a char array
+        const char *dbpath = [databasePath UTF8String];
+        
+        //Open the sqlite analysisDB pointing to the database path
+        if (sqlite3_open(dbpath, &analysisDB) == SQLITE_OK)
+        {
+            char *errMsg;
+            const char *sql_stmt = "DROP TABLE WORKING_DATASET";
+            if (sqlite3_exec(analysisDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+            {
+                NSLog(@"Failed to drop working table");
+            }
+            //Create and execute the CREATE TABLE statement for intermediate dataset new variables
+            NSString *sqlStmt = [NSString stringWithFormat:@"CREATE TABLE INTERMEDIATE_DATASET AS SELECT * FROM FULL_DATASET"];
+            sql_stmt = [sqlStmt UTF8String];
+            if (sqlite3_exec(analysisDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+            {
+                NSLog(@"Failed to create working table");
+            }
+            [self setColumnNamesWorking:[NSMutableArray arrayWithArray:self.columnNamesFull]];
+            [self setDataTypesWorking:[NSMutableArray arrayWithArray:self.dataTypesFull]];
+            [self setIsBinaryWorking:[NSMutableArray arrayWithArray:self.isBinaryFull]];
+            [self setIsOneZeroWorking:[NSMutableArray arrayWithArray:self.isOneZeroFull]];
+            [self setIsTrueFalseWorking:[NSMutableArray arrayWithArray:self.isTrueFalseFull]];
+            [self setIsYesNoWorking:[NSMutableArray arrayWithArray:self.isYesNoFull]];
+            // Alter the intermediate dataset with new variables
+            for (int v = 0; v < [newVariablesList count]; v++)
+            {
+                NSString *newVariableFullString = (NSString *)[newVariablesList objectAtIndex:v];
+                NSString *variableType = [[newVariableFullString componentsSeparatedByString:@" |~| "] objectAtIndex:1];
+                NSString *variableName = [[newVariableFullString componentsSeparatedByString:@" = "] objectAtIndex:0];
+                NSString *columnType = @"NUM";
+                if (![variableType isEqualToString:@"Number"])
+                    columnType = @"CHAR";
+                sqlStmt = [NSString stringWithFormat:@"ALTER TABLE INTERMEDIATE_DATASET ADD %@ %@", variableName, columnType];
+                sql_stmt = [sqlStmt UTF8String];
+                if (sqlite3_exec(analysisDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                {
+                    NSLog(@"Failed to alter table");
+                }
+                else
+                {
+                    [self.columnNamesWorking addObject:variableName];
+                    if ([variableType isEqualToString:@"Yes/No"])
+                    {
+                        [self.dataTypesWorking addObject:[NSNumber numberWithInt:2]];
+                        [self.isBinaryWorking addObject:[NSNumber numberWithBool:YES]];
+                        [self.isOneZeroWorking addObject:[NSNumber numberWithBool:NO]];
+                        [self.isTrueFalseWorking addObject:[NSNumber numberWithBool:NO]];
+                        [self.isYesNoWorking addObject:[NSNumber numberWithBool:YES]];
+                    }
+                    else if ([variableType isEqualToString:@"Number"])
+                    {
+                        [self.dataTypesWorking addObject:[NSNumber numberWithInt:1]];
+                        [self.isBinaryWorking addObject:[NSNumber numberWithBool:NO]];
+                        [self.isOneZeroWorking addObject:[NSNumber numberWithBool:NO]];
+                        [self.isTrueFalseWorking addObject:[NSNumber numberWithBool:NO]];
+                        [self.isYesNoWorking addObject:[NSNumber numberWithBool:NO]];
+                    }
+                    else
+                    {
+                        [self.dataTypesWorking addObject:[NSNumber numberWithInt:2]];
+                        [self.isBinaryWorking addObject:[NSNumber numberWithBool:NO]];
+                        [self.isOneZeroWorking addObject:[NSNumber numberWithBool:NO]];
+                        [self.isTrueFalseWorking addObject:[NSNumber numberWithBool:NO]];
+                        [self.isYesNoWorking addObject:[NSNumber numberWithBool:NO]];
+                    }
+                }
+                sqlStmt = [NSString stringWithFormat:@"UPDATE INTERMEDIATE_DATASET SET %@ = %@", variableName, @"42"];
+                sql_stmt = [sqlStmt UTF8String];
+                if (sqlite3_exec(analysisDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                {
+                    NSLog(@"Failed to update table");
+                }
+            }
+            //Create and execute the CREATE TABLE statement for working dataset
+            sqlStmt = [NSString stringWithFormat:@"CREATE TABLE WORKING_DATASET AS SELECT * FROM INTERMEDIATE_DATASET %@", whereClause];
+            sql_stmt = [sqlStmt UTF8String];
+            if (sqlite3_exec(analysisDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+            {
+                NSLog(@"Failed to create working table");
+            }
+            // Now drop the intermediate table
+            sql_stmt = "DROP TABLE INTERMEDIATE_DATASET";
+            if (sqlite3_exec(analysisDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+            {
+                NSLog(@"Failed to drop intermetiate table");
+            }
+            //Close the database connection
+            sqlite3_close(analysisDB);
+        }
+        else
+        {
+            NSLog(@"Failed to open database");
+        }
+    }
+}
+
 - (void)makeSQLiteWorkingTableWithWhereClause:(NSString *)whereClause
 {
     //This method is called when WORKING_DATASET is to be a subset of FULL_DATASET

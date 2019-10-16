@@ -213,6 +213,7 @@
                 DateMathFunctionInput *dmfi = [[DateMathFunctionInput alloc] initWithFrame:CGRectMake(0, 0, [field superview].frame.size.width, [field superview].frame.size.height)];
                 [[field superview] addSubview:dmfi];
                 [dmfi setFunction:[(LegalValuesEnter *)field epiInfoControlValue]];
+                [dmfi setNewVariableType:[selectVariableType epiInfoControlValue]];
                 [dmfi setAVC:avc];
                 [dmfi setNewVariableName:[newVariableName text]];
                 [dmfi setListOfNewVariables:listOfNewVariables];
@@ -228,6 +229,7 @@
 
 - (void)hideSelf
 {
+    [avc workingDataSetWithWhereClause:[avc workingDatasetWhereClause]];
     [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
         [self setFrame:CGRectMake(-self.frame.size.width, self.frame.origin.y, self.frame.size.width, self.frame.size.height)];
     }completion:^(BOOL finished){[self removeSelfFromSuperview];}];

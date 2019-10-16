@@ -9,6 +9,11 @@
 
 @implementation NewVariableInputs
 
+- (void)setNewVariableType:(NSString *)nvType
+{
+    newVariableType = nvType;
+}
+
 - (void)setFunction:(NSString *)func
 {
     [function setText:func];

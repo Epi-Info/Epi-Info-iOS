@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
     UIViewController *avc;
     UILabel *function;
+    NSString *newVariableType;
     UIButton *saveButton;
     UIButton *cancelButton;
     
@@ -25,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *listOfNewVariables;
     UITableView *newVariableList;
 }
+-(void)setNewVariableType:(NSString *)nvType;
 -(void)setFunction:(NSString *)func;
 -(void)removeSelf:(UIButton *)sender;
 -(void)fieldResignedFirstResponder:(id)field;
