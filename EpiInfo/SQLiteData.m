@@ -193,7 +193,10 @@
                 NSString *newVariableFullString = (NSString *)[newVariablesList objectAtIndex:v];
                 NSString *variableType = [[newVariableFullString componentsSeparatedByString:@" |~| "] objectAtIndex:1];
                 NSString *variableName = [[newVariableFullString componentsSeparatedByString:@" = "] objectAtIndex:0];
+                NSString *variableFunction = [[[[newVariableFullString componentsSeparatedByString:@" = "] objectAtIndex:1] componentsSeparatedByString:@" |~| "] objectAtIndex:0];
                 NSString *columnType = @"NUM";
+                NSString *beginDate = @"DOB";
+                NSString *endDate = @"'5/5/2013'";
                 if (![variableType isEqualToString:@"Number"])
                     columnType = @"CHAR";
                 sqlStmt = [NSString stringWithFormat:@"ALTER TABLE INTERMEDIATE_DATASET ADD %@ %@", variableName, columnType];
@@ -230,7 +233,69 @@
                         [self.isYesNoWorking addObject:[NSNumber numberWithBool:NO]];
                     }
                 }
-                sqlStmt = [NSString stringWithFormat:@"UPDATE INTERMEDIATE_DATASET SET %@ = %@", variableName, @"42"];
+                if ([variableFunction containsString:@"Years("] && [[variableFunction substringToIndex:6] isEqualToString:@"Years("])
+                {
+                    NSString *firstArgument = [[[[variableFunction componentsSeparatedByString:@"("] objectAtIndex:1] componentsSeparatedByString:@", "] objectAtIndex:0];
+                    NSString *secondArgument = [[[[variableFunction componentsSeparatedByString:@", "] objectAtIndex:1] componentsSeparatedByString:@")"] objectAtIndex:0];
+                    beginDate = firstArgument;
+                    endDate = secondArgument;
+                    NSCharacterSet *validSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789/"];
+                    if ([[firstArgument stringByTrimmingCharactersInSet:validSet] length] == 0)
+                    {
+                        beginDate = [NSString stringWithFormat:@"'%@'", firstArgument];
+                    }
+                    if ([[secondArgument stringByTrimmingCharactersInSet:validSet] length] == 0)
+                    {
+                        endDate = [NSString stringWithFormat:@"'%@'", secondArgument];
+                    }
+                    sqlStmt = [NSString stringWithFormat:@"UPDATE INTERMEDIATE_DATASET SET %@ = date(substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)) - date(substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2))",
+                               variableName,
+                               endDate,
+                               endDate,
+                               endDate,
+                               endDate,
+                               endDate,
+                               endDate,
+                               endDate,
+                               endDate,
+                               endDate,
+                               endDate,
+                               beginDate,
+                               beginDate,
+                               beginDate,
+                               beginDate,
+                               beginDate,
+                               beginDate,
+                               beginDate,
+                               beginDate,
+                               beginDate,
+                               beginDate];
+                }
+                else if ([variableFunction containsString:@"DAYS("] && [[variableFunction substringToIndex:5] isEqualToString:@"DAYS("])
+                {
+                    sqlStmt = [NSString stringWithFormat:@"UPDATE INTERMEDIATE_DATASET SET %@ = julianday(substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)) - julianday(substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2))",
+                               variableName,
+                               endDate,
+                               endDate,
+                               endDate,
+                               endDate,
+                               endDate,
+                               endDate,
+                               endDate,
+                               endDate,
+                               endDate,
+                               endDate,
+                               beginDate,
+                               beginDate,
+                               beginDate,
+                               beginDate,
+                               beginDate,
+                               beginDate,
+                               beginDate,
+                               beginDate,
+                               beginDate,
+                               beginDate];
+                }
                 sql_stmt = [sqlStmt UTF8String];
                 if (sqlite3_exec(analysisDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
                 {
