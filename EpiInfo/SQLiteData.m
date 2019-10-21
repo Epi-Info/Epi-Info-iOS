@@ -256,28 +256,28 @@
                     BOOL functiondays = ([[[variableFunction componentsSeparatedByString:@"("] objectAtIndex:0] isEqualToString:@"Days"]);
                     if (functionyears)
                     {
-                        sqlStmt = [NSString stringWithFormat:@"UPDATE INTERMEDIATE_DATASET SET %@ = date(substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)) - date(substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2))",
+                        NSString *properlyFormattedBeginDate = [NSString stringWithFormat:@"substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)", beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate];
+                        NSString *properlyFormattedEndDate = [NSString stringWithFormat:@"substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)", endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate];
+                        sqlStmt = [NSString stringWithFormat:@"UPDATE INTERMEDIATE_DATASET SET %@ = CASE date(%@) < date(%@) WHEN 1 THEN -1*((date(%@) - date(%@)) - (date(strftime('%%Y', %@)||'-'||strftime('%%m', %@)||'-'||strftime('%%d', %@)) < date(strftime('%%Y', %@)||'-'||strftime('%%m', %@)||'-'||strftime('%%d', %@)))) ELSE (date(%@) - date(%@)) - (date(strftime('%%Y', %@)||'-'||strftime('%%m', %@)||'-'||strftime('%%d', %@)) < date(strftime('%%Y', %@)||'-'||strftime('%%m', %@)||'-'||strftime('%%d', %@))) END",
                                    variableName,
-                                   endDate,
-                                   endDate,
-                                   endDate,
-                                   endDate,
-                                   endDate,
-                                   endDate,
-                                   endDate,
-                                   endDate,
-                                   endDate,
-                                   endDate,
-                                   beginDate,
-                                   beginDate,
-                                   beginDate,
-                                   beginDate,
-                                   beginDate,
-                                   beginDate,
-                                   beginDate,
-                                   beginDate,
-                                   beginDate,
-                                   beginDate];
+                                   properlyFormattedEndDate,
+                                   properlyFormattedBeginDate,
+                                   properlyFormattedBeginDate,
+                                   properlyFormattedEndDate,
+                                   @"'2009-10-21'",
+                                   properlyFormattedBeginDate,
+                                   properlyFormattedBeginDate,
+                                   @"'2009-10-21'",
+                                   properlyFormattedEndDate,
+                                   properlyFormattedEndDate,
+                                   properlyFormattedEndDate,
+                                   properlyFormattedBeginDate,
+                                   @"'2009-10-21'",
+                                   properlyFormattedEndDate,
+                                   properlyFormattedEndDate,
+                                   @"'2009-10-21'",
+                                   properlyFormattedBeginDate,
+                                   properlyFormattedBeginDate];
                     }
                     else if (functiondays)
                     {
