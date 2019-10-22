@@ -203,7 +203,19 @@
         int vt = [variableType intValue];
         if (vt == 2 && ![operator containsString:@"is"])
             value = [[@"'" stringByAppendingString:value] stringByAppendingString:@"'"];
-        [whereClause appendFormat:@" %@ %@ %@ %@", contraction, variable, operator, value];
+        if ([value isEqualToString:@"null"])
+        {
+            if ([operator containsString:@"not"])
+            {
+                [whereClause appendFormat:@" %@ (%@ %@ %@ AND %@ <> '(null)')", contraction, variable, operator, value, variable];
+            }
+            else
+            {
+                [whereClause appendFormat:@" %@ (%@ %@ %@ OR %@ = '(null)')", contraction, variable, operator, value, variable];
+            }
+        }
+        else
+            [whereClause appendFormat:@" %@ %@ %@ %@", contraction, variable, operator, value];
     }
 
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

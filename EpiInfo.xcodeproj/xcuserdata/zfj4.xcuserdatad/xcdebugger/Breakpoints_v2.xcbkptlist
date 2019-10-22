@@ -168,8 +168,8 @@
             timestampString = "590625494.517336"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "305"
-            endingLineNumber = "305"
+            startingLineNumber = "317"
+            endingLineNumber = "317"
             landmarkName = "-initWithCSVFile:"
             landmarkType = "7">
          </BreakpointContent>
@@ -193,49 +193,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E692038C-069B-4FFB-8B1F-BD7CCA107699"
+            uuid = "98A6902B-87F3-40BF-9361-E1C0356239B8"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EpiInfo/EnterDataView.m"
+            filePath = "EpiInfo/SQLiteData.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "7866"
-            endingLineNumber = "7866"
-            landmarkName = "-populateFieldsWithRecord:"
+            startingLineNumber = "327"
+            endingLineNumber = "327"
+            landmarkName = "-makeSQLiteWorkingTableWithWhereClause:AndNewVariblesList:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "E692038C-069B-4FFB-8B1F-BD7CCA107699 - 8a462b3cf723c33a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[EnterDataView populateFieldsWithRecord:]"
-                  moduleName = "EpiInfo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/EnterDataView.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "7866"
-                  endingLineNumber = "7866"
-                  offsetFromSymbolStart = "2872">
-               </Location>
-               <Location
-                  uuid = "E692038C-069B-4FFB-8B1F-BD7CCA107699 - 8a462b3cf723c33a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[EnterDataView populateFieldsWithRecord:]"
-                  moduleName = "EpiInfo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/EnterDataView.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "7866"
-                  endingLineNumber = "7866"
-                  offsetFromSymbolStart = "2908">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
