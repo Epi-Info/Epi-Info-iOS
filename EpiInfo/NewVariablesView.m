@@ -131,6 +131,92 @@
                 [self setFrame:frame];
             }completion:nil];
         }
+        else
+        {
+            //Add blueView and whiteView to create thin blue border line
+            //Add all other views to whiteView
+            UIView *blueView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, frame.size.width - 4, frame.size.height - 4)];
+            [blueView setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
+            [self addSubview:blueView];
+            UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, blueView.frame.size.width - 4, blueView.frame.size.height - 4)];
+            [whiteView setBackgroundColor:[UIColor whiteColor]];
+            [blueView addSubview:whiteView];
+            
+            //The title of the view
+            UILabel *viewMainTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteView.frame.size.width, 40)];
+            [viewMainTitle setBackgroundColor:[UIColor clearColor]];
+            [viewMainTitle setTextColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
+            [viewMainTitle setText:@"Add Variables"];
+            [viewMainTitle setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+            [viewMainTitle setTextAlignment:NSTextAlignmentCenter];
+            [whiteView addSubview:viewMainTitle];
+            
+            //The label for the text field where the new variable name is entered
+            NSString *newVariableNameLabelText = @"Variable Name:";
+            UILabel *newVariableNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 40, [newVariableNameLabelText sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:16.0]}].width, 28)];
+            [newVariableNameLabel setBackgroundColor:[UIColor clearColor]];
+            [newVariableNameLabel setText:newVariableNameLabelText];
+            [newVariableNameLabel setTextColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
+            [newVariableNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [whiteView addSubview:newVariableNameLabel];
+            //The text field where the new variable name is entered
+            newVariableName = [[UITextField alloc] initWithFrame:CGRectMake(4, 68, 300, 40)];
+            [newVariableName setBorderStyle:UITextBorderStyleRoundedRect];
+            [newVariableName setReturnKeyType:UIReturnKeyDone];
+            [newVariableName setDelegate:self];
+            [newVariableName setAutocorrectionType:UITextAutocorrectionTypeNo];
+            [newVariableName addTarget:self action:@selector(userTypedInNewVariableName:) forControlEvents:UIControlEventEditingChanged];
+            [newVariableName setTag:700];
+            [whiteView addSubview:newVariableName];
+            
+            UILabel *selectVariableTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 108, 256, 28)];
+            [selectVariableTypeLabel setText:@"Variable Type:"];
+            [selectVariableTypeLabel setTextColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
+            [selectVariableTypeLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [selectVariableTypeLabel setTextAlignment:NSTextAlignmentLeft];
+            [whiteView addSubview:selectVariableTypeLabel];
+            selectVariableType = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 136, 300, 180) AndListOfValues:[NSMutableArray arrayWithArray:@[@"", @"Number", @"Text", @"Yes/No"]]];
+            [selectVariableType setTag:701];
+            [selectVariableType analysisStyle];
+            [whiteView addSubview:selectVariableType];
+            [selectVariableType setIsEnabled:NO];
+
+            UILabel *selectFunctionLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 200, 256, 28)];
+            [selectFunctionLabel setText:@"Assign Values Function:"];
+            [selectFunctionLabel setTextColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
+            [selectFunctionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [selectFunctionLabel setTextAlignment:NSTextAlignmentLeft];
+            [whiteView addSubview:selectFunctionLabel];
+            selectFunction = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 228, 300, 180) AndListOfValues:[NSMutableArray arrayWithArray:@[@"", @"Years difference between two dates", @"Months difference between two dates", @"Days difference between two dates"]]];
+            [selectFunction setTag:702];
+            [selectFunction analysisStyle];
+            [whiteView addSubview:selectFunction];
+            [selectFunction setIsEnabled:NO];
+            
+            listOfNewVariables = [[NSMutableArray alloc] init];
+            [listOfNewVariables addObject:@""];
+            newVariableList = [[UITableView alloc] initWithFrame:CGRectMake(newVariableName.frame.origin.x, selectFunction.frame.origin.y + 1.7 * newVariableName.frame.size.height + 4.0, newVariableName.frame.size.width, 2.4 * newVariableName.frame.size.height)];
+            [newVariableList setDelegate:self];
+            [newVariableList setDataSource:self];
+            [whiteView addSubview:newVariableList];
+
+            //Button to remove this view and return to the main analysis view
+            float side = 40;
+            UIButton *hideSelfButton = [[UIButton alloc] initWithFrame:CGRectMake(4, whiteView.frame.size.height - side - 4, side, side)];
+            [hideSelfButton setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
+            [hideSelfButton.layer setCornerRadius:2];
+            [hideSelfButton setTitle:@"<<<" forState:UIControlStateNormal];
+            [hideSelfButton setAccessibilityLabel:@"Save variables and return to analysis screen"];
+            [hideSelfButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14]];
+            [hideSelfButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [hideSelfButton setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
+            [hideSelfButton addTarget:self action:@selector(hideSelf) forControlEvents:UIControlEventTouchUpInside];
+            [whiteView addSubview:hideSelfButton];
+
+            [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
+                [self setFrame:frame];
+            }completion:nil];
+        }
     }
     return self;
 }

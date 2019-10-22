@@ -40,6 +40,11 @@
     self = [super initWithFrame:CGRectMake(frame.origin.x + frame.size.width / 2, frame.origin.y + frame.size.height / 2.0, 4, 4)];
     if (self)
     {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            [self setFrame:CGRectMake(frame.origin.x + frame.size.width / 4.0, frame.origin.y + frame.size.height / 4.0, 4, 4)];
+        }
+
         [self setBackgroundColor:[UIColor whiteColor]];
         
         function = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 2, 2)];

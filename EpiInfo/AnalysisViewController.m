@@ -206,7 +206,7 @@
         UIView *newVariablesButtonSideLine = [[UIView alloc] initWithFrame:CGRectMake(newVariablesButton.frame.size.width - 1, 0, 1, newVariablesButton.frame.size.height)];
         [newVariablesButtonSideLine setBackgroundColor:[UIColor blackColor]];
         [newVariablesButton addSubview:newVariablesButtonSideLine];
-        //        [self.view addSubview:newVariablesButton];
+        [self.view addSubview:newVariablesButton];
         UILabel *newVariablesButtonLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, newVariablesButton.frame.size.height / 2 - 25, 50, 50)];
         [newVariablesButtonLabel setText:@"Add Variables"];
         [newVariablesButtonLabel setBackgroundColor:[UIColor clearColor]];
