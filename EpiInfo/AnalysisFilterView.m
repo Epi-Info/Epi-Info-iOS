@@ -32,6 +32,11 @@
     }
 }
 
+- (id)initWithFrameForSubclass:(CGRect)frame
+{
+    return [super initWithFrame:frame];
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:CGRectMake(frame.size.width, frame.origin.y, frame.size.width, frame.size.height)];

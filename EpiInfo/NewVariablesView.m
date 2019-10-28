@@ -9,6 +9,7 @@
 #import "NewVariablesView.h"
 #import "AnalysisViewController.h"
 #import "DateMathFunctionInput.h"
+#import "ConditionalAssignmentView.h"
 
 @implementation NewVariablesView
 {
@@ -283,6 +284,16 @@
         if ([[(LegalValuesEnter *)field selectedIndex] intValue] > 0)
         {
             [selectFunction setIsEnabled:YES];
+            if ([[(LegalValuesEnter *) field selectedIndex] intValue] == 3)
+            {
+                [selectFunction setListOfValues:[NSMutableArray arrayWithArray:@[@"", @"Conditional Assignment"]]];
+                [selectFunction.tv reloadData];
+            }
+            else
+            {
+                [selectFunction setListOfValues:[NSMutableArray arrayWithArray:@[@"", @"Years difference between two dates", @"Months difference between two dates", @"Days difference between two dates"]]];
+                [selectFunction.tv reloadData];
+            }
         }
         else
         {
@@ -304,6 +315,11 @@
                 [dmfi setNewVariableName:[newVariableName text]];
                 [dmfi setListOfNewVariables:listOfNewVariables];
                 [dmfi setNewVariableList:newVariableList];
+            }
+            else if ([[(LegalValuesEnter *)field epiInfoControlValue] containsString:@"Conditional Assignment"])
+            {
+                ConditionalAssignmentView *cav = [[ConditionalAssignmentView alloc] initWithFrame:CGRectMake(0, 0, [field superview].frame.size.width, [field superview].frame.size.height)];
+                [[field superview] addSubview:cav];
             }
         }
     }

@@ -32,6 +32,7 @@
     UIButton *addWithAndButton;
     UIButton *addWithOrButton;
 }
-- (id)initWithViewController:(UIViewController *)vc;
+-(id)initWithFrameForSubclass:(CGRect)frame;
+-(id)initWithViewController:(UIViewController *)vc;
 -(void)setListOfValues:(NSMutableArray *)lov;
 @end
