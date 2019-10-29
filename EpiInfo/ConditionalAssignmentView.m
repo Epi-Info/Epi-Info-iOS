@@ -102,7 +102,7 @@
         
         listOfValues = [[NSMutableArray alloc] init];
         [listOfValues addObject:@""];
-        filterList = [[UITableView alloc] initWithFrame:CGRectMake(typeNumberValue.frame.origin.x, typeNumberValue.frame.origin.y + 2.0 * typeNumberValue.frame.size.height + 4.0, typeNumberValue.frame.size.width, 2.4 * typeNumberValue.frame.size.height)];
+        filterList = [[UITableView alloc] initWithFrame:CGRectMake(typeNumberValue.frame.origin.x, typeNumberValue.frame.origin.y + 1.8 * typeNumberValue.frame.size.height + 4.0, typeNumberValue.frame.size.width, 2.4 * typeNumberValue.frame.size.height)];
         [filterList setDelegate:self];
         [filterList setDataSource:self];
         [whiteView addSubview:filterList];
@@ -111,7 +111,7 @@
         UIButton *hideSelfButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - side - 4, self.frame.size.height - side - 4, 1, 1)];
         [hideSelfButton setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
         [hideSelfButton.layer setCornerRadius:2];
-        [hideSelfButton setTitle:@">>>" forState:UIControlStateNormal];
+        [hideSelfButton setTitle:@"Close" forState:UIControlStateNormal];
         [hideSelfButton setAccessibilityLabel:@"Save filters and return to analysis screen"];
         [hideSelfButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14]];
         [hideSelfButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -160,7 +160,7 @@
             [self setFrame:frame];
             [blueView setFrame:CGRectMake(2, 2, frame.size.width - 4, frame.size.height - 4)];
             [whiteView setFrame:CGRectMake(2, 2, blueView.frame.size.width - 4, blueView.frame.size.height - 4)];
-            [hideSelfButton setFrame:CGRectMake(self.frame.size.width - side - 4, self.frame.size.height - side - 4, side, side)];
+            [hideSelfButton setFrame:CGRectMake(self.frame.size.width - 1.4 * side - 4, self.frame.size.height - side - 4, 1.4 * side, side)];
             [addFilterButton setFrame:CGRectMake(4, hideSelfButton.frame.origin.y, 2.5 * side, side)];
             [addWithAndButton setFrame:addFilterButton.frame];
             [addWithOrButton setFrame:CGRectMake(4 + 2.5 * side + 2, hideSelfButton.frame.origin.y, 2.5 * side, side)];
@@ -306,6 +306,21 @@
             }
         }
     }
+}
+
+- (void)hideSelf
+{
+    [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
+        [self setFrame:CGRectMake(0, self.frame.size.height, self.frame.size.width, self.frame.size.height)];
+    }completion:^(BOOL finished){
+        [self removeSelfFromSuperview];
+    }];
+}
+
+- (BOOL)removeSelfFromSuperview
+{
+    [self removeFromSuperview];
+    return YES;
 }
 
 @end
