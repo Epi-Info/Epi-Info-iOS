@@ -319,6 +319,7 @@
             else if ([[(LegalValuesEnter *)field epiInfoControlValue] containsString:@"Conditional Assignment"])
             {
                 ConditionalAssignmentView *cav = [[ConditionalAssignmentView alloc] initWithFrame:CGRectMake(0, 0, [field superview].frame.size.width, [field superview].frame.size.height)];
+                [cav setAnalysisViewController:avc];
                 [[field superview] addSubview:cav];
             }
         }

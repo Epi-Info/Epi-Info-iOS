@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ConditionalAssignmentView : AnalysisFilterView
-
+-(void)setAnalysisViewController:(UIViewController *)uivc;
 @end
 
 NS_ASSUME_NONNULL_END

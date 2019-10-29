@@ -53,6 +53,7 @@
 }
 - (NSDictionary *)getWorkingColumnTypes
 {
+    NSLog(@"Getting WDO Types");
     return workingDataObject.dataTypes;
 }
 - (NSDictionary *)getWorkingYesNo

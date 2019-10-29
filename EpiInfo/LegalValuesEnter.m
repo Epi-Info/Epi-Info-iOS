@@ -271,6 +271,8 @@
         [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
     else if ([[[[self superview] superview] superview] isKindOfClass:[DataManagementView class]])
         [(DataManagementView *)[[[self superview] superview] superview] fieldResignedFirstResponder:self];
+    else if ([[self superview] isKindOfClass:[DataManagementView class]])
+        [(DataManagementView *)[self superview] fieldResignedFirstResponder:self];
     else if ([[self superview] isKindOfClass:[NewVariableInputs class]])
         [(NewVariableInputs *)[self superview] fieldResignedFirstResponder:self];
 
