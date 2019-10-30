@@ -6,6 +6,7 @@
 //
 
 #import "ConditionalAssignmentView.h"
+#import "ConditionalAssignmentValuesView.h"
 #import "AnalysisViewController.h"
 
 @implementation ConditionalAssignmentView
@@ -112,8 +113,8 @@
         [hideSelfButton setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
         [hideSelfButton.layer setCornerRadius:2];
         [hideSelfButton setTitle:@"Close" forState:UIControlStateNormal];
-        [hideSelfButton setAccessibilityLabel:@"Save filters and return to analysis screen"];
-        [hideSelfButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14]];
+        [hideSelfButton setAccessibilityLabel:@"Close condition screen and open assign values screen or return to new variables screen"];
+        [hideSelfButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14]];
         [hideSelfButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [hideSelfButton setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
         [hideSelfButton addTarget:self action:@selector(hideSelf) forControlEvents:UIControlEventTouchUpInside];
@@ -160,7 +161,7 @@
             [self setFrame:frame];
             [blueView setFrame:CGRectMake(2, 2, frame.size.width - 4, frame.size.height - 4)];
             [whiteView setFrame:CGRectMake(2, 2, blueView.frame.size.width - 4, blueView.frame.size.height - 4)];
-            [hideSelfButton setFrame:CGRectMake(self.frame.size.width - 1.4 * side - 4, self.frame.size.height - side - 4, 1.4 * side, side)];
+            [hideSelfButton setFrame:CGRectMake(self.frame.size.width - 1.6 * side - 4, self.frame.size.height - side - 4, 1.6 * side, side)];
             [addFilterButton setFrame:CGRectMake(4, hideSelfButton.frame.origin.y, 2.5 * side, side)];
             [addWithAndButton setFrame:addFilterButton.frame];
             [addWithOrButton setFrame:CGRectMake(4 + 2.5 * side + 2, hideSelfButton.frame.origin.y, 2.5 * side, side)];
@@ -310,10 +311,16 @@
 
 - (void)hideSelf
 {
+    ConditionalAssignmentValuesView *cavv = [[ConditionalAssignmentValuesView alloc] initWithFrame:CGRectMake(0, self.frame.size.height + 4.0, self.frame.size.width, self.frame.size.height)];
+    [[self superview] addSubview:cavv];
     [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
         [self setFrame:CGRectMake(0, self.frame.size.height, self.frame.size.width, self.frame.size.height)];
     }completion:^(BOOL finished){
         [self removeSelfFromSuperview];
+        [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
+            [cavv setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        }completion:^(BOOL finished){
+        }];
     }];
 }
 

@@ -185,6 +185,7 @@
 		9240E95F195481DA006345FE /* wtageinf.csv in Resources */ = {isa = PBXBuildFile; fileRef = 9240E95D195481DA006345FE /* wtageinf.csv */; };
 		9240E96219548243006345FE /* GrowthPercentilesCompute.m in Sources */ = {isa = PBXBuildFile; fileRef = 9240E96119548243006345FE /* GrowthPercentilesCompute.m */; };
 		9242CE5F2367266A005DA913 /* ConditionalAssignmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9242CE5E2367266A005DA913 /* ConditionalAssignmentView.m */; };
+		9242CE672369BAA1005DA913 /* ConditionalAssignmentValuesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9242CE662369BAA1005DA913 /* ConditionalAssignmentValuesView.m */; };
 		924368EB1919736200E680BF /* LineList6060.png in Resources */ = {isa = PBXBuildFile; fileRef = 924368EA1919736200E680BF /* LineList6060.png */; };
 		92469BF1232AAE6B00752ADC /* EncryptionDecryptionKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 92469BF0232AAE6B00752ADC /* EncryptionDecryptionKeys.m */; };
 		924764C018B3E9700046129F /* UploadButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 924764BF18B3E9700046129F /* UploadButton.png */; };
@@ -737,6 +738,8 @@
 		9240E96119548243006345FE /* GrowthPercentilesCompute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrowthPercentilesCompute.m; sourceTree = "<group>"; };
 		9242CE5D2367266A005DA913 /* ConditionalAssignmentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConditionalAssignmentView.h; sourceTree = "<group>"; };
 		9242CE5E2367266A005DA913 /* ConditionalAssignmentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConditionalAssignmentView.m; sourceTree = "<group>"; };
+		9242CE652369BAA1005DA913 /* ConditionalAssignmentValuesView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConditionalAssignmentValuesView.h; sourceTree = "<group>"; };
+		9242CE662369BAA1005DA913 /* ConditionalAssignmentValuesView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConditionalAssignmentValuesView.m; sourceTree = "<group>"; };
 		924368EA1919736200E680BF /* LineList6060.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LineList6060.png; sourceTree = "<group>"; };
 		92469BEF232AAE6B00752ADC /* EncryptionDecryptionKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EncryptionDecryptionKeys.h; sourceTree = "<group>"; };
 		92469BF0232AAE6B00752ADC /* EncryptionDecryptionKeys.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EncryptionDecryptionKeys.m; sourceTree = "<group>"; };
@@ -1679,6 +1682,8 @@
 				92936297234FABD600949AF4 /* NewVariableInputs.m */,
 				9242CE5D2367266A005DA913 /* ConditionalAssignmentView.h */,
 				9242CE5E2367266A005DA913 /* ConditionalAssignmentView.m */,
+				9242CE652369BAA1005DA913 /* ConditionalAssignmentValuesView.h */,
+				9242CE662369BAA1005DA913 /* ConditionalAssignmentValuesView.m */,
 				92936299234FAE2400949AF4 /* DateMathFunctionInput.h */,
 				9293629A234FAE2400949AF4 /* DateMathFunctionInput.m */,
 				923F2BBB198C045B008A4856 /* ImportCSV.h */,
@@ -2308,6 +2313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9242CE672369BAA1005DA913 /* ConditionalAssignmentValuesView.m in Sources */,
 				4AFD8536161F137B00FFBA65 /* main.m in Sources */,
 				92385D352284A37100079890 /* ExistingFunctionsListView.m in Sources */,
 				9292B6E12298384700802240 /* FormFieldsLegalValues.m in Sources */,
