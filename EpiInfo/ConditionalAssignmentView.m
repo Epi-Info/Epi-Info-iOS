@@ -311,16 +311,31 @@
 
 - (void)hideSelf
 {
+    int filterConditions = (int)[listOfValues count];
     ConditionalAssignmentValuesView *cavv = [[ConditionalAssignmentValuesView alloc] initWithFrame:CGRectMake(0, self.frame.size.height + 4.0, self.frame.size.width, self.frame.size.height)];
     [[self superview] addSubview:cavv];
+    if (filterConditions > 0)
+    {
+        NSMutableString *fcnsms = [NSMutableString stringWithString:[listOfValues objectAtIndex:0]];
+        for (int i = 1; i < filterConditions; i++)
+        {
+            [fcnsms appendFormat:@"\n%@", [listOfValues objectAtIndex:i]];
+        }
+        [cavv setFilterText:fcnsms];
+    }
     [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
         [self setFrame:CGRectMake(0, self.frame.size.height, self.frame.size.width, self.frame.size.height)];
     }completion:^(BOOL finished){
         [self removeSelfFromSuperview];
-        [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
-            [cavv setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-        }completion:^(BOOL finished){
-        }];
+        if (filterConditions > 0)
+        {
+            [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
+                [cavv setFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+            }completion:^(BOOL finished){
+            }];
+        }
+        else
+            [cavv removeFromSuperview];
     }];
 }
 

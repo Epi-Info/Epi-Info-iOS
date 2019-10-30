@@ -9,6 +9,14 @@
 
 @implementation ConditionalAssignmentValuesView
 
+- (void)setFilterText:(NSString *)filterText
+{
+    if (filter)
+    {
+        [filter setText:[NSString stringWithString:filterText]];
+    }
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -24,6 +32,11 @@
         UIScrollView *whiteView = [[UIScrollView alloc] initWithFrame:CGRectMake(2, 2, blueView.frame.size.width - 4, blueView.frame.size.height - 4)];
         [whiteView setBackgroundColor:[UIColor whiteColor]];
         [blueView addSubview:whiteView];
+        
+        filter = [[EpiInfoTextView alloc] initWithFrame:CGRectMake(2, 0, whiteView.frame.size.width - 4, 128)];
+        [whiteView addSubview:filter];
+        [filter setText:@"Condition\ntext\nhere"];
+        [filter setIsEnabled:NO];
         
         float side = 40;
         UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(4, self.frame.size.height - side - 4, 2.5 * side, side)];
