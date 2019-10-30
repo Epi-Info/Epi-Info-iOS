@@ -36,8 +36,31 @@
         filter = [[EpiInfoTextView alloc] initWithFrame:CGRectMake(2, 0, whiteView.frame.size.width - 4, 128)];
         [whiteView addSubview:filter];
         [filter setText:@"Condition\ntext\nhere"];
+        [filter setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
         [filter setIsEnabled:NO];
         
+        UILabel *uil0 = [[UILabel alloc] initWithFrame:CGRectMake(2, filter.frame.size.height, filter.frame.size.width, 28)];
+        [uil0 setText:@"Value when condition is true:"];
+        [uil0 setTextColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
+        [uil0 setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+        [uil0 setTextAlignment:NSTextAlignmentLeft];
+        [whiteView addSubview:uil0];
+        trueValueLVE = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, uil0.frame.origin.y + uil0.frame.size.height, 300, 180) AndListOfValues:[NSMutableArray arrayWithArray:@[@"", @"Yes", @"No"]]];
+        [trueValueLVE setTag:1201];
+        [trueValueLVE analysisStyle];
+        [whiteView addSubview:trueValueLVE];
+        
+        UILabel *uil1 = [[UILabel alloc] initWithFrame:CGRectMake(2, trueValueLVE.frame.origin.y + trueValueLVE.frame.size.height, filter.frame.size.width, 28)];
+        [uil1 setText:@"Else value (optional):"];
+        [uil1 setTextColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
+        [uil1 setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+        [uil1 setTextAlignment:NSTextAlignmentLeft];
+        [whiteView addSubview:uil1];
+        elseValueLVE = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, uil1.frame.origin.y + uil1.frame.size.height, 300, 180) AndListOfValues:[NSMutableArray arrayWithArray:@[@"", @"Yes", @"No"]]];
+        [elseValueLVE setTag:1202];
+        [elseValueLVE analysisStyle];
+        [whiteView addSubview:elseValueLVE];
+
         float side = 40;
         UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(4, self.frame.size.height - side - 4, 2.5 * side, side)];
         [saveButton setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];

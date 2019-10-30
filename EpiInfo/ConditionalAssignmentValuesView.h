@@ -7,12 +7,15 @@
 
 #import "DataManagementView.h"
 #import "EpiInfoTextView.h"
+#import "LegalValuesEnter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ConditionalAssignmentValuesView : DataManagementView
 {
     EpiInfoTextView *filter;
+    LegalValuesEnter *trueValueLVE;
+    LegalValuesEnter *elseValueLVE;
 }
 -(void)setFilterText:(NSString *)filterText;
 @end
