@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)setNewVariableName:(NSString *)nvn;
 -(void)setListOfNewVariables:(NSMutableArray *)nsma;
 -(void)setNewVariableList:(UITableView *)uitv;
+-(id)initWithFrameForConditionalAssignment:(CGRect)frame;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -35,6 +35,12 @@
     newVariableList = uitv;
 }
 
+- (id)initWithFrameForConditionalAssignment:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    return self;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:CGRectMake(frame.origin.x + frame.size.width / 2, frame.origin.y + frame.size.height / 2.0, 4, 4)];

@@ -14,6 +14,23 @@
     AnalysisViewController *avc;
 }
 
+- (void)setNewVariableType:(NSString *)nvType
+{
+    newVariableType = nvType;
+}
+- (void)setNewVariableName:(NSString *)nvn
+{
+    newVariableName = nvn;
+}
+- (void)setListOfNewVariables:(NSMutableArray *)nsma
+{
+    listOfNewVariables = nsma;
+}
+- (void)setNewVariableList:(UITableView *)uitv
+{
+    newVariableList = uitv;
+}
+
 - (void)setAnalysisViewController:(UIViewController *)uivc
 {
     avc = (AnalysisViewController *)uivc;
@@ -322,6 +339,11 @@
             [fcnsms appendFormat:@"\n%@", [listOfValues objectAtIndex:i]];
         }
         [cavv setFilterText:fcnsms];
+        [cavv setNewVariableType:newVariableType];
+        [cavv setAVC:avc];
+        [cavv setNewVariableName:newVariableName];
+        [cavv setListOfNewVariables:listOfNewVariables];
+        [cavv setNewVariableList:newVariableList];
     }
     [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
         [self setFrame:CGRectMake(0, self.frame.size.height, self.frame.size.width, self.frame.size.height)];

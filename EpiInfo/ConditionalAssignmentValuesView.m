@@ -19,7 +19,7 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithFrameForConditionalAssignment:frame];
     if (self)
     {
         [self setBackgroundColor:[UIColor whiteColor]];
@@ -62,7 +62,7 @@
         [whiteView addSubview:elseValueLVE];
 
         float side = 40;
-        UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(4, self.frame.size.height - side - 4, 2.5 * side, side)];
+        saveButton = [[UIButton alloc] initWithFrame:CGRectMake(4, self.frame.size.height - side - 4, 2.5 * side, side)];
         [saveButton setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
         [saveButton.layer setCornerRadius:2];
         [saveButton setTitle:@"Save" forState:UIControlStateNormal];
@@ -70,21 +70,44 @@
         [saveButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14]];
         [saveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [saveButton setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
-        [saveButton addTarget:self action:@selector(hideSelf) forControlEvents:UIControlEventTouchUpInside];
+        [saveButton addTarget:self action:@selector(removeSelf:) forControlEvents:UIControlEventTouchUpInside];
         [whiteView addSubview:saveButton];
         
-        UIButton *hideSelfButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - 2.5 * side - 4, self.frame.size.height - side - 4, 2.5 * side, side)];
-        [hideSelfButton setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
-        [hideSelfButton.layer setCornerRadius:2];
-        [hideSelfButton setTitle:@"Cancel" forState:UIControlStateNormal];
-        [hideSelfButton setAccessibilityLabel:@"Cancel and return to new variables screen"];
-        [hideSelfButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14]];
-        [hideSelfButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [hideSelfButton setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
-        [hideSelfButton addTarget:self action:@selector(hideSelf) forControlEvents:UIControlEventTouchUpInside];
-        [whiteView addSubview:hideSelfButton];
+        cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - 2.5 * side - 4, self.frame.size.height - side - 4, 2.5 * side, side)];
+        [cancelButton setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
+        [cancelButton.layer setCornerRadius:2];
+        [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+        [cancelButton setAccessibilityLabel:@"Cancel and return to new variables screen"];
+        [cancelButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14]];
+        [cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [cancelButton setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
+        [cancelButton addTarget:self action:@selector(hideSelf) forControlEvents:UIControlEventTouchUpInside];
+        [whiteView addSubview:cancelButton];
     }
     return self;
+}
+
+- (void)removeSelf:(UIButton *)sender
+{
+    [super removeSelf:sender];
+    if ([[[sender titleLabel] text] isEqualToString:@"Save"])
+    {
+        NSString *firstArgument = @"";
+        if ([firstArgument length] == 0)
+            firstArgument = [trueValueLVE epiInfoControlValue];
+        NSString *secondArgument = @"";
+        if ([secondArgument length] == 0)
+            secondArgument = [elseValueLVE epiInfoControlValue];
+        if ([firstArgument length] == 0 || [firstArgument isEqualToString:@"NULL"] || [firstArgument isEqualToString:@"Literal Date"] || [secondArgument length] == 0 || [secondArgument isEqualToString:@"NULL"] || [secondArgument isEqualToString:@"Literal Date"])
+            return;
+        NSString *functionWithArguments = [NSString stringWithFormat:@"%@ = WHEN %@ THEN %@ ELSE %@ |~| %@", newVariableName, [filter text], firstArgument, secondArgument, newVariableType];
+        [listOfNewVariables addObject:functionWithArguments];
+        [newVariableList reloadData];
+        [(NewVariablesView *)[[[newVariableList superview] superview] superview] addToListOfAllVariables:newVariableName];
+    }
+    else
+    {
+    }
 }
 
 - (void)hideSelf
