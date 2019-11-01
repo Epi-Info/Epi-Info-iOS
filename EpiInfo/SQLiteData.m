@@ -315,6 +315,10 @@
 //                        sqlStmt = [NSString stringWithFormat:@"UPDATE INTERMEDIATE_DATASET SET %@ = strftime('%%d', %@)||', '||strftime('%%d', %@)||': '||(strftime('%%d', %@) < strftime('%%d', %@))", variableName, properlyFormattedBeginDate, properlyFormattedEndDate, properlyFormattedBeginDate, properlyFormattedEndDate];
                     }
                 }
+                else if ([variableType isEqualToString:@"Yes/No"])
+                {
+                    sqlStmt = [NSString stringWithFormat:@"UPDATE INTERMEDIATE_DATASET SET %@ = CASE %@ END", variableName, [variableFunction stringByReplacingOccurrencesOfString:@" equals " withString:@" = "]];
+                }
                 sql_stmt = [sqlStmt UTF8String];
                 if (sqlite3_exec(analysisDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
                 {
