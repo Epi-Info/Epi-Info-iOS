@@ -60,6 +60,7 @@
         [elseValueLVE setTag:1202];
         [elseValueLVE analysisStyle];
         [whiteView addSubview:elseValueLVE];
+        [elseValueLVE setIsEnabled:NO];
 
         float side = 40;
         saveButton = [[UIButton alloc] initWithFrame:CGRectMake(4, self.frame.size.height - side - 4, 2.5 * side, side)];
@@ -72,6 +73,8 @@
         [saveButton setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
         [saveButton addTarget:self action:@selector(removeSelf:) forControlEvents:UIControlEventTouchUpInside];
         [whiteView addSubview:saveButton];
+        [saveButton setEnabled:NO];
+        [saveButton setAlpha:0.5];
         
         cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - 2.5 * side - 4, self.frame.size.height - side - 4, 2.5 * side, side)];
         [cancelButton setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
@@ -107,6 +110,26 @@
     }
     else
     {
+    }
+}
+
+- (void)fieldResignedFirstResponder:(id)field
+{
+    if ([field tag] == 1201)
+    {
+        if ([[(LegalValuesEnter *)field selectedIndex] intValue] == 0)
+        {
+            [elseValueLVE reset];
+            [elseValueLVE setIsEnabled:NO];
+            [saveButton setEnabled:NO];
+            [saveButton setAlpha:0.5];
+        }
+        else
+        {
+            [elseValueLVE setIsEnabled:YES];
+            [saveButton setEnabled:YES];
+            [saveButton setAlpha:1.0];
+        }
     }
 }
 

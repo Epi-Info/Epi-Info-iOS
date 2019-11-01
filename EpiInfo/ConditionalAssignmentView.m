@@ -187,6 +187,48 @@
     return self;
 }
 
+- (void)addFilter:(UIButton *)sender
+{
+    [addFilterButton setEnabled:NO];
+    [addFilterButton setAlpha:0.5];
+    [addWithAndButton setEnabled:NO];
+    [addWithAndButton setAlpha:0.5];
+    [addWithOrButton setEnabled:NO];
+    [addWithOrButton setAlpha:0.5];
+    NSString *selectedValue = [selectValue epiInfoControlValue];
+    if ([selectedValue isEqualToString:@"NULL"])
+        selectedValue = @"";
+    if ([selectedValue length] > 0)
+    {
+        NSDictionary *columnNames = [avc getWorkingColumnNames];
+        NSDictionary *dataTypes = [avc getWorkingColumnTypes];
+        NSNumber *variableIndex = (NSNumber *)[columnNames objectForKey:[selectVariable epiInfoControlValue]];
+        NSNumber *variableType = (NSNumber *)[dataTypes objectForKey:variableIndex];
+        int vt = [variableType intValue];
+        if (vt == 2)
+            selectedValue = [[@"'" stringByAppendingString:selectedValue] stringByAppendingString:@"'"];
+    }
+    if ([[[sender titleLabel] text] isEqualToString:@"Add Filter"])
+    {
+        [listOfValues removeAllObjects];
+        [listOfValues addObject:[[NSString stringWithFormat:@"%@ %@ %@ %@", [selectVariable epiInfoControlValue], [selectOperator epiInfoControlValue], selectedValue, [typeNumberValue epiInfoControlValue]] stringByReplacingOccurrencesOfString:@"  " withString:@" "]];
+        [filterList reloadData];
+        [[addFilterButton superview] addSubview:addWithAndButton];
+        [[addFilterButton superview] addSubview:addWithOrButton];
+        [addFilterButton removeFromSuperview];
+    }
+    else if ([[[sender titleLabel] text] containsString:@"AND"])
+    {
+        [listOfValues addObject:[[NSString stringWithFormat:@"AND %@ %@ %@ %@", [selectVariable epiInfoControlValue], [selectOperator epiInfoControlValue], selectedValue, [typeNumberValue epiInfoControlValue]] stringByReplacingOccurrencesOfString:@"  " withString:@" "]];
+        [filterList reloadData];
+    }
+    else if ([[[sender titleLabel] text] containsString:@"OR"])
+    {
+        [listOfValues addObject:[[NSString stringWithFormat:@"OR %@ %@ %@ %@", [selectVariable epiInfoControlValue], [selectOperator epiInfoControlValue], selectedValue, [typeNumberValue epiInfoControlValue]] stringByReplacingOccurrencesOfString:@"  " withString:@" "]];
+        [filterList reloadData];
+    }
+}
+
 - (void)fieldResignedFirstResponder:(id)field
 {
     if ([field tag] == 3401)
