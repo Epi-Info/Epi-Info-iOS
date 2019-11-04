@@ -317,7 +317,7 @@
                 }
                 else if ([variableType isEqualToString:@"Yes/No"])
                 {
-                    sqlStmt = [NSString stringWithFormat:@"UPDATE INTERMEDIATE_DATASET SET %@ = CASE %@ END", variableName, [variableFunction stringByReplacingOccurrencesOfString:@" equals " withString:@" = "]];
+                    sqlStmt = [NSString stringWithFormat:@"UPDATE INTERMEDIATE_DATASET SET %@ = CASE %@ END", variableName, [[[[[[[[variableFunction stringByReplacingOccurrencesOfString:@" equals " withString:@" = "] stringByReplacingOccurrencesOfString:@" is missing " withString:@" is null "] stringByReplacingOccurrencesOfString:@" is not missing " withString:@" is not null "] stringByReplacingOccurrencesOfString:@" is not equal to " withString:@" <> "] stringByReplacingOccurrencesOfString:@" is less than or equal to " withString:@" <= "] stringByReplacingOccurrencesOfString:@" is less than " withString:@" < "] stringByReplacingOccurrencesOfString:@" is greater than or equal to " withString:@" >= "] stringByReplacingOccurrencesOfString:@" is greater than " withString:@" > "]];
                 }
                 sql_stmt = [sqlStmt UTF8String];
                 if (sqlite3_exec(analysisDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
