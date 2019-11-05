@@ -337,6 +337,7 @@
 - (void)hideSelf
 {
     [avc workingDataSetWithWhereClause:[avc workingDatasetWhereClause]];
+    [avc setWorkingDataObject:[[AnalysisDataObject alloc] initWithWorkingDataset]];
     [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
         [self setFrame:CGRectMake(-self.frame.size.width, self.frame.origin.y, self.frame.size.width, self.frame.size.height)];
     }completion:^(BOOL finished){[self removeSelfFromSuperview];}];

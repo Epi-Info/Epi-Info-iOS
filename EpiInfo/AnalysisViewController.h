@@ -97,11 +97,13 @@
 }
 @property NSMutableArray *listOfNewVariables;
 
+-(void)setWorkingDataObjectListOfFilters:(NSMutableArray *)lof;
 -(NSString *)dataSourceName;
 -(void)setWorkingDataObject:(AnalysisDataObject *)wdo;
 -(void)workingDataSetWithWhereClause:(NSString *)whereClause;
 -(NSString *)workingDatasetWhereClause;
 -(AnalysisDataObject *)fullDataObject;
+-(AnalysisDataObject *)workingDataObject;
 -(void)replaceChooseAnalysis;
 -(void)setContentSize:(CGSize)size;
 -(void)resetContentSize;

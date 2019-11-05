@@ -20,6 +20,10 @@
     return dataSourceName;
 }
 
+- (void)setWorkingDataObjectListOfFilters:(NSMutableArray *)lof
+{
+    [workingDataObject setListOfFilters:lof];
+}
 - (void)setWorkingDataObject:(AnalysisDataObject *)wdo
 {
     workingDataObject = wdo;
@@ -37,6 +41,10 @@
 - (AnalysisDataObject *)fullDataObject
 {
     return fullDataObject;
+}
+- (AnalysisDataObject *)workingDataObject
+{
+    return workingDataObject;
 }
 
 - (NSArray *)getSQLiteColumnNames

@@ -70,6 +70,56 @@
     return self;
 }
 
+- (id)initWithWorkingDataset
+{
+    self = [super init];
+    
+    NSMutableArray *mutableFullDataSet = [[NSMutableArray alloc] init];
+    NSMutableArray *mutableColumns = [[NSMutableArray alloc] init];
+    NSMutableArray *columnNumbers = [[NSMutableArray alloc] init];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[[NSString alloc] initWithString:[NSTemporaryDirectory() stringByAppendingString:@"EpiInfo.db"]]])
+    {
+        NSString *databasePath = [[NSString alloc] initWithString:[NSTemporaryDirectory() stringByAppendingString:@"EpiInfo.db"]];
+        if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+        {
+            NSString *selStmt = [NSString stringWithFormat:@"select * from WORKING_DATASET"];
+            const char *query_stmt = [selStmt UTF8String];
+            sqlite3_stmt *statement;
+            if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+            {
+                BOOL firstRow = YES;
+                while (sqlite3_step(statement) == SQLITE_ROW)
+                {
+                    int i = 0;
+                    NSMutableArray *rowArray = [[NSMutableArray alloc] init];
+                    while (sqlite3_column_name(statement, i))
+                    {
+                        if (firstRow)
+                        {
+                            NSString *columnName = [[NSString alloc] initWithUTF8String:sqlite3_column_name(statement, i)];
+                            [mutableColumns addObject:columnName];
+                            [columnNumbers addObject:[NSString stringWithFormat:@"%d", i]];
+                        }
+                        [rowArray addObject:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)]];
+                        i++;
+                    }
+                    firstRow = NO;
+                    [mutableFullDataSet addObject:[NSArray arrayWithArray:rowArray]];
+                }
+                [self setColumnNames:[NSMutableDictionary dictionaryWithObjects:columnNumbers forKeys:[NSArray arrayWithArray:mutableColumns]]];
+                [self setDataSet:[NSArray arrayWithArray:mutableFullDataSet]];
+                
+                //Set up the column types
+                [self determineCSVDataTypes];
+            }
+        }
+        sqlite3_close(epiinfoDB);
+    }
+    
+    return self;
+}
+
 - (id)initWithStoredDataTable:(NSString *)tableName
 {
     self = [super init];
@@ -119,6 +169,101 @@
     }
     
     return self;
+}
+
++ (NSString *)buildWhereClauseFromFilters:(NSMutableArray *)filters DataObject:(AnalysisDataObject *)dataObject
+{
+    NSMutableString *whereClause = [[NSMutableString alloc] init];
+    [whereClause appendString:@"WHERE"];
+    for (int i = 0; i < [filters count]; i++)
+    {
+        NSString *condition = [filters objectAtIndex:i];
+        if ([condition length] == 0)
+            continue;
+        NSArray *conditionComponents = [condition componentsSeparatedByString:@" "];
+        NSString *variable = [conditionComponents objectAtIndex:0];
+        NSString *contraction = @"";
+        int startIndex = 1;
+        if ([variable isEqualToString:@"AND"] || [variable isEqualToString:@"OR"])
+        {
+            variable = [conditionComponents objectAtIndex:startIndex++];
+            contraction = [conditionComponents objectAtIndex:0];
+        }
+        NSMutableString *operatorAndValue = [NSMutableString stringWithString:[conditionComponents objectAtIndex:startIndex++]];
+        for (int j = startIndex; j < [conditionComponents count]; j++)
+        {
+            [operatorAndValue appendFormat:@" %@", [conditionComponents objectAtIndex:j]];
+        }
+        NSString *operator = @"";
+        NSString *value = @"";
+        if ([operatorAndValue isEqualToString:@"is missing"] || ([operatorAndValue length] > 10 && [[operatorAndValue substringToIndex:10] isEqualToString:@"is missing"]))
+        {
+            operator = @" is ";
+            value = @"null";
+        }
+        else if ([operatorAndValue isEqualToString:@"is not missing"] || ([operatorAndValue length] > 14 && [[operatorAndValue substringToIndex:14] isEqualToString:@"is not missing"]))
+        {
+            operator = @" is not ";
+            value = @"null";
+        }
+        else if ([operatorAndValue length] > 6 && [[operatorAndValue substringToIndex:6] isEqualToString:@"equals"])
+        {
+            operator = @" = ";
+            value = [operatorAndValue substringFromIndex:7];
+        }
+        else if ([operatorAndValue length] > 15 && [[operatorAndValue substringToIndex:15] isEqualToString:@"is not equal to"])
+        {
+            operator = @" <> ";
+            value = [operatorAndValue substringFromIndex:16];
+        }
+        else if ([operatorAndValue length] > 24 && [[operatorAndValue substringToIndex:24] isEqualToString:@"is less than or equal to"])
+        {
+            operator = @" <= ";
+            value = [operatorAndValue substringFromIndex:25];
+        }
+        else if ([operatorAndValue length] > 12 && [[operatorAndValue substringToIndex:12] isEqualToString:@"is less than"])
+        {
+            operator = @" < ";
+            value = [operatorAndValue substringFromIndex:13];
+        }
+        else if ([operatorAndValue length] > 27 && [[operatorAndValue substringToIndex:27] isEqualToString:@"is greater than or equal to"])
+        {
+            operator = @" >= ";
+            value = [operatorAndValue substringFromIndex:27];
+        }
+        else if ([operatorAndValue length] > 15 && [[operatorAndValue substringToIndex:15] isEqualToString:@"is greater than"])
+        {
+            operator = @" > ";
+            value = [operatorAndValue substringFromIndex:16];
+        }
+        int valueLength = (int)[value length];
+        while ([value length] > 0 && [value characterAtIndex:valueLength - 1] == ' ')
+        {
+            value = [value substringToIndex:[value length] - 1];
+            valueLength = (int)[value length];
+        }
+        NSNumber *variableIndex = (NSNumber *)[dataObject.columnNames objectForKey:variable];
+        NSNumber *variableType = (NSNumber *)[dataObject.dataTypes objectForKey:variableIndex];
+        int vt = [variableType intValue];
+        if (vt == 2 && ![operator containsString:@"is"])
+            value = [[@"'" stringByAppendingString:value] stringByAppendingString:@"'"];
+        if ([value isEqualToString:@"null"])
+        {
+            if ([operator containsString:@"not"])
+            {
+                [whereClause appendFormat:@" %@ (%@ %@ %@ AND %@ <> '(null)')", contraction, variable, operator, value, variable];
+            }
+            else
+            {
+                [whereClause appendFormat:@" %@ (%@ %@ %@ OR %@ = '(null)')", contraction, variable, operator, value, variable];
+            }
+        }
+        else
+            [whereClause appendFormat:@" %@ %@ %@ %@", contraction, variable, operator, value];
+    }
+    if ([whereClause isEqualToString:@"WHERE"])
+        return @"";
+    return [NSString stringWithString:whereClause];
 }
 
 - (id)initWithStoredDataTable:(NSString *)tableName AndFilters:(NSMutableArray *)filters

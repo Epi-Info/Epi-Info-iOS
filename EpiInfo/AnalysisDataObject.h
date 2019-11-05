@@ -28,6 +28,8 @@
 -(id)initWithAnalysisDataObject:(AnalysisDataObject *)analysisDataObject;
 -(id)initWithAnalysisDataObject:(AnalysisDataObject *)analysisDataObject AndTableName:(NSString *)tableName AndFilters:(NSMutableArray *)filters;
 -(id)initWithCSVFile:(NSString *)pathAndFileName;
+-(id)initWithWorkingDataset;
 -(id)initWithStoredDataTable:(NSString *)tableName;
 -(id)initWithVariablesArray:(NSMutableArray *)variables AndDataArray:(NSMutableArray *)data;
++(NSString *)buildWhereClauseFromFilters:(NSMutableArray *)filters DataObject:(AnalysisDataObject *)dataObject;
 @end
