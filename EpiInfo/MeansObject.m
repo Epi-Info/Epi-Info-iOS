@@ -75,6 +75,35 @@
     float max = 0.0;
     BOOL minMaxSet = NO;
     
+    if ([meansArray count] == 0)
+    {
+        [self setMeansVariableValues:@[@"0",
+                                       @"0",
+                                       @"0",
+                                       @"0",
+                                       @"0",
+                                       @"0",
+                                       @"0",
+                                       @"0",
+                                       @"0",
+                                       @"0"
+                                       ]];
+
+        [self setMeansVariableFloatValues:@[[NSNumber numberWithFloat:0.0],
+                                            [NSNumber numberWithFloat:0.0],
+                                            [NSNumber numberWithFloat:0.0],
+                                            [NSNumber numberWithFloat:0.0],
+                                            [NSNumber numberWithFloat:0.0],
+                                            [NSNumber numberWithFloat:0.0],
+                                            [NSNumber numberWithFloat:0.0],
+                                            [NSNumber numberWithFloat:0.0],
+                                            [NSNumber numberWithFloat:0.0],
+                                            [NSNumber numberWithFloat:0.0]
+                                            ]];
+        
+        return self;
+    }
+    
     for (int i = 0; i < meansArray.count; i++)
     {
         if ([[meansArray objectAtIndex:i] isKindOfClass:[NSNull class]])
