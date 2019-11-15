@@ -300,8 +300,9 @@
                 [selectFunction reset];
                 [selectFunction setIsEnabled:NO];
                 GroupOfVariablesInputs *govi = [[GroupOfVariablesInputs alloc] initWithFrame:CGRectMake(0, 0, [field superview].frame.size.width, [field superview].frame.size.height)];
-                [govi setFunction:[(LegalValuesEnter *)field epiInfoControlValue]];
                 [[field superview] addSubview:govi];
+                [govi setFunction:[(LegalValuesEnter *)field epiInfoControlValue]];
+                [govi setAVC:avc];
             }
         }
         else

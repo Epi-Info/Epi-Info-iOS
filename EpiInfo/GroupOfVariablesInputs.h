@@ -9,8 +9,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GroupOfVariablesInputs : NewVariableInputs
-
+@interface GroupOfVariablesInputs : NewVariableInputs <UITableViewDelegate, UITableViewDataSource>
+{
+    UILabel *variablesListLabel;
+    LegalValuesEnter *variablesListLVE;
+    NSMutableArray *arrayOfVariablesInGroup;
+    UITableView *variablesInGroupUITV;
+}
 @end
 
 NS_ASSUME_NONNULL_END
