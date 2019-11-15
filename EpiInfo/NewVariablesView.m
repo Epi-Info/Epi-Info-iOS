@@ -10,6 +10,7 @@
 #import "AnalysisViewController.h"
 #import "DateMathFunctionInput.h"
 #import "ConditionalAssignmentView.h"
+#import "GroupOfVariablesInputs.h"
 
 @implementation NewVariablesView
 {
@@ -90,7 +91,7 @@
             [selectVariableTypeLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
             [selectVariableTypeLabel setTextAlignment:NSTextAlignmentLeft];
             [whiteView addSubview:selectVariableTypeLabel];
-            selectVariableType = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 136, 300, 180) AndListOfValues:[NSMutableArray arrayWithArray:@[@"", @"Number", @"Text", @"Yes/No"]]];
+            selectVariableType = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 136, 300, 180) AndListOfValues:[NSMutableArray arrayWithArray:@[@"", @"Number", @"Text", @"Yes/No", @"Group"]]];
             [selectVariableType setTag:701];
             [selectVariableType analysisStyle];
             [whiteView addSubview:selectVariableType];
@@ -176,7 +177,7 @@
             [selectVariableTypeLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
             [selectVariableTypeLabel setTextAlignment:NSTextAlignmentLeft];
             [whiteView addSubview:selectVariableTypeLabel];
-            selectVariableType = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 136, 300, 180) AndListOfValues:[NSMutableArray arrayWithArray:@[@"", @"Number", @"Text", @"Yes/No"]]];
+            selectVariableType = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(4, 136, 300, 180) AndListOfValues:[NSMutableArray arrayWithArray:@[@"", @"Number", @"Text", @"Yes/No", @"Group"]]];
             [selectVariableType setTag:701];
             [selectVariableType analysisStyle];
             [whiteView addSubview:selectVariableType];
@@ -289,10 +290,18 @@
                 [selectFunction setListOfValues:[NSMutableArray arrayWithArray:@[@"", @"Conditional Assignment"]]];
                 [selectFunction.tv reloadData];
             }
-            else
+            else if ([[(LegalValuesEnter *) field selectedIndex] intValue] < 3)
             {
                 [selectFunction setListOfValues:[NSMutableArray arrayWithArray:@[@"", @"Years difference between two dates", @"Months difference between two dates", @"Days difference between two dates"]]];
                 [selectFunction.tv reloadData];
+            }
+            else if ([[(LegalValuesEnter *) field selectedIndex] intValue] == 4)
+            {
+                [selectFunction reset];
+                [selectFunction setIsEnabled:NO];
+                GroupOfVariablesInputs *govi = [[GroupOfVariablesInputs alloc] initWithFrame:CGRectMake(0, 0, [field superview].frame.size.width, [field superview].frame.size.height)];
+                [govi setFunction:[(LegalValuesEnter *)field epiInfoControlValue]];
+                [[field superview] addSubview:govi];
             }
         }
         else
