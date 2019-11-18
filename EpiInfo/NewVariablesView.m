@@ -302,7 +302,11 @@
                 GroupOfVariablesInputs *govi = [[GroupOfVariablesInputs alloc] initWithFrame:CGRectMake(0, 0, [field superview].frame.size.width, [field superview].frame.size.height)];
                 [[field superview] addSubview:govi];
                 [govi setFunction:[(LegalValuesEnter *)field epiInfoControlValue]];
+                [govi setNewVariableType:@"GROUP"];
                 [govi setAVC:avc];
+                [govi setNewVariableName:[newVariableName text]];
+                [govi setListOfNewVariables:listOfNewVariables];
+                [govi setNewVariableList:newVariableList];
             }
         }
         else

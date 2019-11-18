@@ -58,6 +58,14 @@
     [super removeSelf:sender];
     if ([[[sender titleLabel] text] isEqualToString:@"Save"])
     {
+        NSMutableString *groupDeclaration = [[NSMutableString alloc] init];
+        [groupDeclaration appendFormat:@"%@ = GROUP(%@", newVariableName, [arrayOfVariablesInGroup objectAtIndex:0]];
+        for (int i = 1; i < [arrayOfVariablesInGroup count]; i++)
+            [groupDeclaration appendFormat:@", %@", [arrayOfVariablesInGroup objectAtIndex:i]];
+        [groupDeclaration appendString:@")"];
+        [listOfNewVariables addObject:groupDeclaration];
+        [newVariableList reloadData];
+        [(NewVariablesView *)[[[newVariableList superview] superview] superview] addToListOfAllVariables:newVariableName];
     }
     else
     {
