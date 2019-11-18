@@ -11,6 +11,13 @@
 @implementation SQLiteData
 @synthesize databaseButton = _databaseButton;
 
+- (NSArray *)groups
+{
+    if (groupsNSMA)
+        return [NSArray arrayWithArray:groupsNSMA];
+    return [[NSArray alloc] init];
+}
+
 - (void)makeSQLiteFullTable:(AnalysisDataObject *)ado ProvideUpdatesTo:(UIButton *)button
 {
     NSString *buttonText;
@@ -192,7 +199,15 @@
             {
                 NSString *newVariableFullString = (NSString *)[newVariablesList objectAtIndex:v];
                 if (![newVariableFullString containsString:@" |~| "] || ![newVariableFullString containsString:@" = "])
+                {
+                    if ([newVariableFullString containsString:@"GROUP("])
+                    {
+                        if (!groupsNSMA)
+                            groupsNSMA = [[NSMutableArray alloc] init];
+                        [groupsNSMA addObject:newVariableFullString];
+                    }
                     continue;
+                }
                 NSString *variableType = [[newVariableFullString componentsSeparatedByString:@" |~| "] objectAtIndex:1];
                 NSString *variableName = [[newVariableFullString componentsSeparatedByString:@" = "] objectAtIndex:0];
                 NSString *variableFunction = [[[[newVariableFullString componentsSeparatedByString:@" = "] objectAtIndex:1] componentsSeparatedByString:@" |~| "] objectAtIndex:0];

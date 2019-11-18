@@ -13,6 +13,7 @@
 @interface SQLiteData : NSObject
 {
     sqlite3 *analysisDB;
+    NSMutableArray *groupsNSMA;
 }
 
 @property (nonatomic, strong) NSArray *columnNamesFull;
@@ -36,4 +37,5 @@
 - (int)addColumnToWorkingTable:(NSString *)columnName ColumnType:(NSNumber *)columnType;
 - (int)workingTableSize;
 - (int)fullTableSize;
+- (NSArray *)groups;
 @end

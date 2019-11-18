@@ -352,7 +352,11 @@
     [outcomeLVE.picker selectRow:0 inComponent:0 animated:YES];
     [outcomeLVE analysisStyle];
     [inputView addSubview:outcomeLVE];
-    exposureLVE = [[LegalValuesEnter alloc] initWithFrame:chosenExposureVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:exposureVariableString];
+    NSMutableArray *exposureNSMA = [NSMutableArray arrayWithArray:outcomeNSMA];
+    NSArray *groupArray = [sqliteData groups];
+    for (int groupindex = 0; groupindex < [groupArray count]; groupindex ++)
+        [exposureNSMA addObject:[groupArray objectAtIndex:groupindex]];
+    exposureLVE = [[LegalValuesEnter alloc] initWithFrame:chosenExposureVariable.frame AndListOfValues:exposureNSMA AndTextFieldToUpdate:exposureVariableString];
     [exposureLVE.picker selectRow:0 inComponent:0 animated:YES];
     [exposureLVE analysisStyle];
     stratificationLVE = [[LegalValuesEnter alloc] initWithFrame:chosenStratificationVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:stratificationVariableString];
