@@ -81,5 +81,6 @@
 
 -(id)initWithFrame:(CGRect)frame AndDataSource:(AnalysisDataObject *)dataSource AndViewController:(UIViewController *)vc;
 -(id)initWithFrame:(CGRect)frame AndSQLiteData:(SQLiteData *)dataSource AndViewController:(UIViewController *)vc;
+-(void)fieldResignedFirstResponder:(id)field;
 -(void)xButtonPressed;
 @end

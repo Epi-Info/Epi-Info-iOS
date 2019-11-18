@@ -357,6 +357,7 @@
     for (int groupindex = 0; groupindex < [groupArray count]; groupindex ++)
         [exposureNSMA addObject:[groupArray objectAtIndex:groupindex]];
     exposureLVE = [[LegalValuesEnter alloc] initWithFrame:chosenExposureVariable.frame AndListOfValues:exposureNSMA AndTextFieldToUpdate:exposureVariableString];
+    [exposureLVE setTag:0x051810];
     [exposureLVE.picker selectRow:0 inComponent:0 animated:YES];
     [exposureLVE analysisStyle];
     stratificationLVE = [[LegalValuesEnter alloc] initWithFrame:chosenStratificationVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:stratificationVariableString];
@@ -523,6 +524,22 @@
                     }
                 }
             }
+        }
+    }
+}
+
+- (void)fieldResignedFirstResponder:(id)field
+{
+    if ([field tag] == 0x051810)
+    {
+        if ([[(LegalValuesEnter *)field epiInfoControlValue] containsString:@" = GROUP("])
+        {
+            [stratificationLVE reset];
+            [stratificationLVE setIsEnabled:NO];
+        }
+        else
+        {
+            [stratificationLVE setIsEnabled:YES];
         }
     }
 }

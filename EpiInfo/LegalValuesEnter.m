@@ -9,6 +9,7 @@
 #import "EnterDataView.h"
 #import "DataManagementView.h"
 #import "NewVariableInputs.h"
+#import "TablesView.h"
 
 @implementation LegalValuesEnter
 @synthesize columnName = _columnName;
@@ -277,6 +278,8 @@
         [(NewVariableInputs *)[self superview] fieldResignedFirstResponder:self];
     else if ([[[[self superview] superview] superview] isKindOfClass:[NewVariableInputs class]])
         [(NewVariableInputs *)[[[self superview] superview] superview] fieldResignedFirstResponder:self];
+    else if ([[[self superview] superview] isKindOfClass:[TablesView class]])
+        [(TablesView *)[[self superview] superview] fieldResignedFirstResponder:self];
 
 }
 
