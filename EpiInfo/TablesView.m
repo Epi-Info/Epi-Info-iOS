@@ -356,6 +356,7 @@
     NSArray *groupArray = [sqliteData groups];
     for (int groupindex = 0; groupindex < [groupArray count]; groupindex ++)
         [exposureNSMA addObject:[groupArray objectAtIndex:groupindex]];
+    availableExposureVariables = [NSMutableArray arrayWithArray:exposureNSMA];
     exposureLVE = [[LegalValuesEnter alloc] initWithFrame:chosenExposureVariable.frame AndListOfValues:exposureNSMA AndTextFieldToUpdate:exposureVariableString];
     [exposureLVE setTag:0x051810];
     [exposureLVE.picker selectRow:0 inComponent:0 animated:YES];
@@ -858,7 +859,22 @@
     {
         outputViewDisplayed = YES;
         stratum = 0;
-        TablesObject *to = [[TablesObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:[outcomeLVE selectedIndex].intValue] AndExposureVariable:[availableOutcomeVariables objectAtIndex:[exposureLVE selectedIndex].intValue] AndIncludeMissing:includeMissing];
+        NSString *exposureVariableString = [availableExposureVariables objectAtIndex:[exposureLVE selectedIndex].intValue];
+        NSArray *exposureVariablesNSA = [[NSArray alloc] init];
+        if ([exposureVariableString containsString:@" = GROUP("])
+        {
+            NSRange GROUPrange = [exposureVariableString rangeOfString:@" = GROUP("];
+            int lastPosition = (int)[exposureVariableString length] - 1;
+            NSString *stringWithVariablesAndCommas = [[exposureVariableString substringToIndex:lastPosition] substringFromIndex:GROUPrange.location + GROUPrange.length];
+            exposureVariablesNSA = [stringWithVariablesAndCommas componentsSeparatedByString:@", "];
+        }
+        else
+            exposureVariablesNSA = @[exposureVariableString];
+        NSMutableArray *toNSMA = [[NSMutableArray alloc] init];
+        for (int exposuresindex = 0; exposuresindex < [exposureVariablesNSA count]; exposuresindex++)
+            [toNSMA addObject:[[TablesObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:[outcomeLVE selectedIndex].intValue] AndExposureVariable:[exposureVariablesNSA objectAtIndex:exposuresindex] AndIncludeMissing:includeMissing]];
+//        TablesObject *to = [[TablesObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:[outcomeLVE selectedIndex].intValue] AndExposureVariable:[availableExposureVariables objectAtIndex:[exposureLVE selectedIndex].intValue] AndIncludeMissing:includeMissing];
+        TablesObject *to = (TablesObject *)[toNSMA objectAtIndex:0];
         
         if (to.exposureValues.count == 2 && to.outcomeValues.count == 2)
         {

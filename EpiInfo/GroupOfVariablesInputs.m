@@ -53,6 +53,13 @@
     return self;
 }
 
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    [variablesListLabel setFrame:CGRectMake(4, 36, frame.size.width - 8, 28)];
+    [variablesListLVE setFrame:CGRectMake(4, 64, 300, 180)];
+}
+
 - (void)removeSelf:(UIButton *)sender
 {
     [super removeSelf:sender];

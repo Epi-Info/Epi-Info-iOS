@@ -17,6 +17,11 @@
         return [NSArray arrayWithArray:groupsNSMA];
     return [[NSArray alloc] init];
 }
+- (void)removeGroupFromGroups:(NSString *)grp
+{
+    if (groupsNSMA && [groupsNSMA containsObject:grp])
+        [groupsNSMA removeObject:grp];
+}
 
 - (void)makeSQLiteFullTable:(AnalysisDataObject *)ado ProvideUpdatesTo:(UIButton *)button
 {

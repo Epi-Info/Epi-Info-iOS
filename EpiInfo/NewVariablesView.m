@@ -301,7 +301,7 @@
                 [selectFunction setIsEnabled:NO];
                 GroupOfVariablesInputs *govi = [[GroupOfVariablesInputs alloc] initWithFrame:CGRectMake(0, 0, [field superview].frame.size.width, [field superview].frame.size.height)];
                 [[field superview] addSubview:govi];
-                [govi setFunction:[(LegalValuesEnter *)field epiInfoControlValue]];
+                [govi setFunction:[newVariableName text]];
                 [govi setNewVariableType:@"GROUP"];
                 [govi setAVC:avc];
                 [govi setNewVariableName:[newVariableName text]];
@@ -423,6 +423,10 @@
 - (void)conditionDoubleTapped:(UIButton *)sender
 {
     UITableViewCell *cell = (UITableViewCell *)[sender superview];
+    if ([[[cell textLabel] text] containsString:@" = GROUP("])
+    {
+        [sqlData removeGroupFromGroups:[[cell textLabel] text]];
+    }
     NSString *lowercaseVariableName = [[[[[cell textLabel] text] lowercaseString] componentsSeparatedByString:@" = "] objectAtIndex:0];
     [listOfAllVariables removeObject:lowercaseVariableName];
     [listOfNewVariables removeObject:[[cell textLabel] text]];

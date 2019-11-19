@@ -38,4 +38,5 @@
 - (int)workingTableSize;
 - (int)fullTableSize;
 - (NSArray *)groups;
+- (void)removeGroupFromGroups:(NSString *)grp;
 @end
