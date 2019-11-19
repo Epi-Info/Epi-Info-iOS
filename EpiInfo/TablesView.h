@@ -77,6 +77,10 @@
     int stratum;
     
     float leftSide;
+    
+    int numberOfExposures;
+    int workingExposure;
+    NSMutableArray *summaryTable;
 }
 
 -(id)initWithFrame:(CGRect)frame AndDataSource:(AnalysisDataObject *)dataSource AndViewController:(UIViewController *)vc;
