@@ -885,7 +885,7 @@
             {
                 [summaryTable addObject:[[NSMutableArray alloc] init]];
                 [self doTwoByTwo:to OnOutputView:outputView StratificationVariable:nil StratificationValue:nil];
-                [avc setContentSize:CGSizeMake(self.frame.size.width, 650 * numberOfExposures)];
+                [avc setContentSize:CGSizeMake(self.frame.size.width, 650 + 550 * (numberOfExposures - 1) + 20.0 * (numberOfExposures + 1) + 2)];
             }
             else
             {
@@ -1625,7 +1625,7 @@
             [outputV addSubview:stratumHeader];
         }
         else
-            stratificationOffset = 650 * workingExposure;
+            stratificationOffset = 550 * workingExposure + 20.0 * (numberOfExposures + 1) + 2;
         
         //Make the view for the actual 2x2 table
         outputTableView = [[UIView alloc] initWithFrame:CGRectMake(2, 2 + stratificationOffset, 313, 168)];
