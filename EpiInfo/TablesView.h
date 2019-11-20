@@ -16,7 +16,7 @@
 #import "LegalValuesEnter.h"
 #import "EpiInfoTextField.h"
 
-@interface TablesView : UIView <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface TablesView : UIView <UIPickerViewDelegate, UIPickerViewDataSource, UIScrollViewDelegate>
 {
     UIColor *epiInfoLightBlue;
     
@@ -81,6 +81,7 @@
     int numberOfExposures;
     int workingExposure;
     NSMutableArray *summaryTable;
+    UIScrollView *oddsAndRiskTableView;
 }
 
 -(id)initWithFrame:(CGRect)frame AndDataSource:(AnalysisDataObject *)dataSource AndViewController:(UIViewController *)vc;
