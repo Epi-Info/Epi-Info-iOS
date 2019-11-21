@@ -1259,6 +1259,77 @@
     [columnHeader setTextAlignment:NSTextAlignmentCenter];
     [columnHeader setText:@"RR UL"];
     [oddsAndRiskTableView addSubview:columnHeader];
+    
+    for (int orindex = 0; orindex < [oddsAndRisk count]; orindex++)
+    {
+        float yPos = 20.0 + orindex * 20.0;
+        
+        UILabel *rowHeader = [[UILabel alloc] initWithFrame:CGRectMake(0 * cellWidth + 1, yPos, cellWidth - 1, 19)];
+        [rowHeader setBackgroundColor:[UIColor whiteColor]];
+        [rowHeader setTextColor:[UIColor blackColor]];
+        NSString *variableName = [[oddsAndRisk objectAtIndex:orindex] objectAtIndex:0];
+        float fontSize = 14.0;
+        while ([variableName sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontSize]}].width > rowHeader.frame.size.width - 0.0)
+            fontSize -= 0.1;
+        [rowHeader setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontSize]];
+        [rowHeader setTextAlignment:NSTextAlignmentLeft];
+        [rowHeader setText:variableName];
+        [oddsAndRiskTableView addSubview:rowHeader];
+        
+        cellPositionAdjustment = 1.0;
+        UILabel *statValue = [[UILabel alloc] initWithFrame:CGRectMake(cellPositionAdjustment + cellPositionAdjustment * cellWidth, yPos, cellWidth, 19)];
+        [statValue setBackgroundColor:[UIColor whiteColor]];
+        [statValue setTextColor:[UIColor blackColor]];
+        [statValue setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+        [statValue setTextAlignment:NSTextAlignmentCenter];
+        [statValue setText:[NSString stringWithFormat:@"%.2f", [[[oddsAndRisk objectAtIndex:orindex] objectAtIndex:1] floatValue]]];
+        [oddsAndRiskTableView addSubview:statValue];
+        
+        cellPositionAdjustment = 2.0;
+        statValue = [[UILabel alloc] initWithFrame:CGRectMake(cellPositionAdjustment + cellPositionAdjustment * cellWidth, yPos, cellWidth, 19)];
+        [statValue setBackgroundColor:[UIColor whiteColor]];
+        [statValue setTextColor:[UIColor blackColor]];
+        [statValue setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+        [statValue setTextAlignment:NSTextAlignmentCenter];
+        [statValue setText:[NSString stringWithFormat:@"%.2f", [[[oddsAndRisk objectAtIndex:orindex] objectAtIndex:2] floatValue]]];
+        [oddsAndRiskTableView addSubview:statValue];
+        
+        cellPositionAdjustment = 3.0;
+        statValue = [[UILabel alloc] initWithFrame:CGRectMake(cellPositionAdjustment + cellPositionAdjustment * cellWidth, yPos, cellWidth, 19)];
+        [statValue setBackgroundColor:[UIColor whiteColor]];
+        [statValue setTextColor:[UIColor blackColor]];
+        [statValue setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+        [statValue setTextAlignment:NSTextAlignmentCenter];
+        [statValue setText:[NSString stringWithFormat:@"%.2f", [[[oddsAndRisk objectAtIndex:orindex] objectAtIndex:3] floatValue]]];
+        [oddsAndRiskTableView addSubview:statValue];
+        
+        cellPositionAdjustment = 4.0;
+        statValue = [[UILabel alloc] initWithFrame:CGRectMake(cellPositionAdjustment + cellPositionAdjustment * cellWidth, yPos, cellWidth, 19)];
+        [statValue setBackgroundColor:[UIColor whiteColor]];
+        [statValue setTextColor:[UIColor blackColor]];
+        [statValue setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
+        [statValue setTextAlignment:NSTextAlignmentCenter];
+        [statValue setText:[NSString stringWithFormat:@"%.2f", [[[oddsAndRisk objectAtIndex:orindex] objectAtIndex:4] floatValue]]];
+        [oddsAndRiskTableView addSubview:statValue];
+        
+        cellPositionAdjustment = 5.0;
+        statValue = [[UILabel alloc] initWithFrame:CGRectMake(cellPositionAdjustment + cellPositionAdjustment * cellWidth, yPos, cellWidth, 19)];
+        [statValue setBackgroundColor:[UIColor whiteColor]];
+        [statValue setTextColor:[UIColor blackColor]];
+        [statValue setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+        [statValue setTextAlignment:NSTextAlignmentCenter];
+        [statValue setText:[NSString stringWithFormat:@"%.2f", [[[oddsAndRisk objectAtIndex:orindex] objectAtIndex:5] floatValue]]];
+        [oddsAndRiskTableView addSubview:statValue];
+        
+        cellPositionAdjustment = 6.0;
+        statValue = [[UILabel alloc] initWithFrame:CGRectMake(cellPositionAdjustment + cellPositionAdjustment * cellWidth, yPos, cellWidth, 19)];
+        [statValue setBackgroundColor:[UIColor whiteColor]];
+        [statValue setTextColor:[UIColor blackColor]];
+        [statValue setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+        [statValue setTextAlignment:NSTextAlignmentCenter];
+        [statValue setText:[NSString stringWithFormat:@"%.2f", [[[oddsAndRisk objectAtIndex:orindex] objectAtIndex:6] floatValue]]];
+        [oddsAndRiskTableView addSubview:statValue];
+    }
 }
 
 - (CGSize)doMxN:(TablesObject *)to OnOutputView:(UIView *)outputV StratificationVariable:(NSString *)stratVar StratificationValue:(NSString *)stratValue
@@ -1991,6 +2062,7 @@
         [gridBox setFont:[UIFont systemFontOfSize:12.0]];
         [gridBox setText:[NSString stringWithFormat:@"%.4f", oddsRatio]];
         [oddsBasedParametersView addSubview:gridBox];
+        [(NSMutableArray *)[summaryTable objectAtIndex:workingExposure] addObject:[NSString stringWithString:to.exposureVariable]];
         [(NSMutableArray *)[summaryTable objectAtIndex:workingExposure] addObject:[NSNumber numberWithFloat:oddsRatio]];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + fourWidth0 + fourWidth1, 44, fourWidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
