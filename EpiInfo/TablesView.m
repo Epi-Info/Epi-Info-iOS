@@ -1198,13 +1198,25 @@
     [oddsAndRiskTableView setContentSize:CGSizeMake(7 * (cellWidth + 1.0), 20.0 * ([oddsAndRisk count] + 1))];
     [outputV addSubview:oddsAndRiskTableView];
     
+    UIView *underTheFirstColumnView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, cellWidth + 1, 20.0 * ([oddsAndRisk count] + 1))];
+    [underTheFirstColumnView setBackgroundColor:epiInfoLightBlue];
+    [outputV addSubview:underTheFirstColumnView];
+    
+    UIView *rightBorderView = [[UIView alloc] initWithFrame:CGRectMake(outputV.frame.size.width - 3.0, 2, 1, 20.0 * ([oddsAndRisk count] + 1))];
+    [rightBorderView setBackgroundColor:epiInfoLightBlue];
+    [outputV addSubview:rightBorderView];
+    
+    UIView *rightOfTheTableView = [[UIView alloc] initWithFrame:CGRectMake(outputV.frame.size.width - 2.0, 2, 2, 20.0 * ([oddsAndRisk count] + 1))];
+    [rightOfTheTableView setBackgroundColor:[UIColor whiteColor]];
+    [outputV addSubview:rightOfTheTableView];
+    
     UILabel *columnHeader = [[UILabel alloc] initWithFrame:CGRectMake(0 * cellWidth + 1, 1, cellWidth - 1, 18)];
     [columnHeader setBackgroundColor:[UIColor whiteColor]];
     [columnHeader setTextColor:[UIColor blackColor]];
     [columnHeader setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
     [columnHeader setTextAlignment:NSTextAlignmentCenter];
     [columnHeader setText:@"Variable"];
-    [oddsAndRiskTableView addSubview:columnHeader];
+    [underTheFirstColumnView addSubview:columnHeader];
     
     float cellPositionAdjustment = 1.0;
     columnHeader = [[UILabel alloc] initWithFrame:CGRectMake(cellPositionAdjustment + cellPositionAdjustment * cellWidth, 1, cellWidth, 18)];
@@ -1274,7 +1286,7 @@
         [rowHeader setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontSize]];
         [rowHeader setTextAlignment:NSTextAlignmentLeft];
         [rowHeader setText:variableName];
-        [oddsAndRiskTableView addSubview:rowHeader];
+        [underTheFirstColumnView addSubview:rowHeader];
         
         cellPositionAdjustment = 1.0;
         UILabel *statValue = [[UILabel alloc] initWithFrame:CGRectMake(cellPositionAdjustment + cellPositionAdjustment * cellWidth, yPos, cellWidth, 19)];
