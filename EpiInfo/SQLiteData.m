@@ -209,7 +209,8 @@
                     {
                         if (!groupsNSMA)
                             groupsNSMA = [[NSMutableArray alloc] init];
-                        [groupsNSMA addObject:newVariableFullString];
+                        if (![groupsNSMA containsObject:newVariableFullString])
+                            	[groupsNSMA addObject:newVariableFullString];
                     }
                     continue;
                 }
