@@ -686,6 +686,24 @@
 //    To here
 }
 
+- (void)parserDidStartDocument:(NSXMLParser *)parser
+{
+}
+
+- (void)parserDidEndDocument:(NSXMLParser *)parser
+{
+}
+
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
+{
+    NSLog(@"%@", elementName);
+    if ([elementName isEqualToString:@"Field"] && [[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"21"])
+    {
+        NSMutableString *groupNSMS = [NSMutableString stringWithFormat:@"%@ = GROUP(%@)", [attributeDict objectForKey:@"Name"], [[[attributeDict objectForKey:@"List"] stringByReplacingOccurrencesOfString:@"," withString:@", "] stringByReplacingOccurrencesOfString:@"  " withString:@" "]];
+        [sqlData addGroupToGroups:[NSString stringWithString:groupNSMS]];
+    }
+}
+
 - (void)setDataSourceEnabled:(BOOL)isEnabled
 {
     [setDataSource setEnabled:isEnabled];
@@ -1650,6 +1668,24 @@
     sqlData = [[SQLiteData alloc] init];
     [sqlData makeSQLiteFullTable:fullDataObject ProvideUpdatesTo:datasetButton];
     [sqlData makeSQLiteWorkingTable];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
+    {
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/"] stringByAppendingString:tableName] stringByAppendingString:@".xml"]])
+        {
+            NSString *path = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/"] stringByAppendingString:tableName] stringByAppendingString:@".xml"];
+            NSURL *url = [NSURL fileURLWithPath:path];
+            NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+            [xmlParser setDelegate:self];
+            [xmlParser setShouldResolveExternalEntities:YES];
+            BOOL success = [xmlParser parse];
+            if (!success)
+            {
+            }
+        }
+    }
+
     return [sqlData workingTableSize];
 }
 

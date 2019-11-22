@@ -82,6 +82,7 @@
     int workingExposure;
     NSMutableArray *summaryTable;
     UIScrollView *oddsAndRiskTableView;
+    float contentSizeHeight;
 }
 
 -(id)initWithFrame:(CGRect)frame AndDataSource:(AnalysisDataObject *)dataSource AndViewController:(UIViewController *)vc;

@@ -38,7 +38,7 @@
 #define ACCESS_KEY_ID_2              @"AKIAIVE6TVDQRLCT65VQ"
 #define SECRET_KEY_2                 @"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"
 
-@interface AnalysisViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate>
+@interface AnalysisViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, NSXMLParserDelegate>
 {
     UIButton *customBackButton;
     

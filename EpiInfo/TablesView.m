@@ -872,10 +872,23 @@
             exposureVariablesNSA = @[exposureVariableString];
         NSMutableArray *toNSMA = [[NSMutableArray alloc] init];
         for (int exposuresindex = 0; exposuresindex < [exposureVariablesNSA count]; exposuresindex++)
+        {
+            if (![availableExposureVariables containsObject:[exposureVariablesNSA objectAtIndex:exposuresindex]])
+                continue;
             [toNSMA addObject:[[TablesObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:[outcomeLVE selectedIndex].intValue] AndExposureVariable:[exposureVariablesNSA objectAtIndex:exposuresindex] AndIncludeMissing:includeMissing]];
+        }
         numberOfExposures = (int)[toNSMA count];
         summaryTable = [[NSMutableArray alloc] init];
 //        TablesObject *to = [[TablesObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:[outcomeLVE selectedIndex].intValue] AndExposureVariable:[availableExposureVariables objectAtIndex:[exposureLVE selectedIndex].intValue] AndIncludeMissing:includeMissing];
+        contentSizeHeight = 22;
+        for (int tos = 0; tos < [toNSMA count]; tos++)
+        {
+            TablesObject *to = (TablesObject *)[toNSMA objectAtIndex:tos];
+            if (to.exposureValues.count == 2 && to.outcomeValues.count == 2)
+                contentSizeHeight += 20;
+        }
+        if (contentSizeHeight < 40)
+            contentSizeHeight = 0;
         for (int tos = 0; tos < [toNSMA count]; tos++)
         {
             workingExposure = tos;
@@ -885,11 +898,20 @@
             {
                 [summaryTable addObject:[[NSMutableArray alloc] init]];
                 [self doTwoByTwo:to OnOutputView:outputView StratificationVariable:nil StratificationValue:nil];
-                [avc setContentSize:CGSizeMake(self.frame.size.width, 650 + 550 * (numberOfExposures - 1) + 20.0 * (numberOfExposures + 1) + 2)];
+                if (tos > 0)
+                    contentSizeHeight += 550;
+                else
+                    contentSizeHeight += 650;
+                CGSize avcContentSize = CGSizeMake(self.frame.size.width, contentSizeHeight);
+                [avc setContentSize:avcContentSize];
+//                [avc setContentSize:CGSizeMake(self.frame.size.width, 650 + 550 * (numberOfExposures - 1) + 20.0 * (numberOfExposures + 1) + 2)];
             }
             else
             {
-                [avc setContentSize:[self doMxN:to OnOutputView:outputView StratificationVariable:nil StratificationValue:nil]];
+                contentSizeHeight += [self doMxN:to OnOutputView:outputView StratificationVariable:nil StratificationValue:nil].height;
+                CGSize avcContentSize = CGSizeMake(self.frame.size.width, contentSizeHeight);
+                [avc setContentSize:avcContentSize];
+//                [avc setContentSize:[self doMxN:to OnOutputView:outputView StratificationVariable:nil StratificationValue:nil]];
             }
             to = nil;
         }
@@ -1360,6 +1382,8 @@
         [stratumHeader setTextAlignment:NSTextAlignmentCenter];
         [outputV addSubview:stratumHeader];
     }
+    else
+        stratificationOffset = contentSizeHeight;
 
     //Get the dimensions of the table and the size of the outputTableView
     float numberOfOutcomeValues = (float)to.outcomeValues.count;
@@ -1685,7 +1709,7 @@
     if (stratVar)
         return CGSizeMake(MAX(self.frame.size.width, outputTableViewWidth + 4.0), outputTableViewHeight + outputTableView.frame.origin.y + 110.0);
 
-    return CGSizeMake(MAX(self.frame.size.width, outputTableViewWidth + 4.0), outputTableViewHeight + outputTableView.frame.origin.y + 150.0);
+    return CGSizeMake(MAX(self.frame.size.width, outputTableViewWidth + 4.0), outputTableViewHeight + 20.0);// + outputTableView.frame.origin.y + 150.0);
 }
 
 - (void)doTwoByTwo:(TablesObject *)to OnOutputView:(UIView *)outputV StratificationVariable:(NSString *)stratVar StratificationValue:(NSString *)stratValue
@@ -1708,7 +1732,8 @@
             [outputV addSubview:stratumHeader];
         }
         else
-            stratificationOffset = 550 * workingExposure + 20.0 * (numberOfExposures + 1) + 2;
+            stratificationOffset = contentSizeHeight;
+//            stratificationOffset = 550 * workingExposure + 20.0 * (numberOfExposures + 1) + 2;
         
         //Make the view for the actual 2x2 table
         outputTableView = [[UIView alloc] initWithFrame:CGRectMake(2, 2 + stratificationOffset, 313, 168)];
@@ -2074,8 +2099,8 @@
         [gridBox setFont:[UIFont systemFontOfSize:12.0]];
         [gridBox setText:[NSString stringWithFormat:@"%.4f", oddsRatio]];
         [oddsBasedParametersView addSubview:gridBox];
-        [(NSMutableArray *)[summaryTable objectAtIndex:workingExposure] addObject:[NSString stringWithString:to.exposureVariable]];
-        [(NSMutableArray *)[summaryTable objectAtIndex:workingExposure] addObject:[NSNumber numberWithFloat:oddsRatio]];
+        [(NSMutableArray *)[summaryTable lastObject] addObject:[NSString stringWithString:to.exposureVariable]];
+        [(NSMutableArray *)[summaryTable lastObject] addObject:[NSNumber numberWithFloat:oddsRatio]];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + fourWidth0 + fourWidth1, 44, fourWidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
         [gridBox setTextColor:[UIColor blackColor]];
@@ -2083,7 +2108,7 @@
         [gridBox setFont:[UIFont systemFontOfSize:12.0]];
         [gridBox setText:[NSString stringWithFormat:@"%.4f", oddsRatioLower]];
         [oddsBasedParametersView addSubview:gridBox];
-        [(NSMutableArray *)[summaryTable objectAtIndex:workingExposure] addObject:[NSNumber numberWithFloat:oddsRatioLower]];
+        [(NSMutableArray *)[summaryTable lastObject] addObject:[NSNumber numberWithFloat:oddsRatioLower]];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8 + fourWidth0 + 2 * fourWidth1, 44, fourWidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
         [gridBox setTextColor:[UIColor blackColor]];
@@ -2091,7 +2116,7 @@
         [gridBox setFont:[UIFont systemFontOfSize:12.0]];
         [gridBox setText:[NSString stringWithFormat:@"%.4f", oddsRatioUpper]];
         [oddsBasedParametersView addSubview:gridBox];
-        [(NSMutableArray *)[summaryTable objectAtIndex:workingExposure] addObject:[NSNumber numberWithFloat:oddsRatioUpper]];
+        [(NSMutableArray *)[summaryTable lastObject] addObject:[NSNumber numberWithFloat:oddsRatioUpper]];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(2, 66, fourWidth0, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
         [gridBox setTextColor:[UIColor blackColor]];
@@ -2217,7 +2242,7 @@
         [gridBox setFont:[UIFont systemFontOfSize:12.0]];
         [gridBox setText:[NSString stringWithFormat:@"%.4f", RRstats[0]]];
         [riskBasedParametersView addSubview:gridBox];
-        [(NSMutableArray *)[summaryTable objectAtIndex:workingExposure] addObject:[NSNumber numberWithFloat:RRstats[0]]];
+        [(NSMutableArray *)[summaryTable lastObject] addObject:[NSNumber numberWithFloat:RRstats[0]]];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + fourWidth0 + fourWidth1, 44, fourWidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
         [gridBox setTextColor:[UIColor blackColor]];
@@ -2225,7 +2250,7 @@
         [gridBox setFont:[UIFont systemFontOfSize:12.0]];
         [gridBox setText:[NSString stringWithFormat:@"%.4f", RRstats[1]]];
         [riskBasedParametersView addSubview:gridBox];
-        [(NSMutableArray *)[summaryTable objectAtIndex:workingExposure] addObject:[NSNumber numberWithFloat:RRstats[1]]];
+        [(NSMutableArray *)[summaryTable lastObject] addObject:[NSNumber numberWithFloat:RRstats[1]]];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8 + fourWidth0 + 2 * fourWidth1, 44, fourWidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
         [gridBox setTextColor:[UIColor blackColor]];
@@ -2233,7 +2258,7 @@
         [gridBox setFont:[UIFont systemFontOfSize:12.0]];
         [gridBox setText:[NSString stringWithFormat:@"%.4f", RRstats[2]]];
         [riskBasedParametersView addSubview:gridBox];
-        [(NSMutableArray *)[summaryTable objectAtIndex:workingExposure] addObject:[NSNumber numberWithFloat:RRstats[2]]];
+        [(NSMutableArray *)[summaryTable lastObject] addObject:[NSNumber numberWithFloat:RRstats[2]]];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(2, 66, fourWidth0, 20)];
         [gridBox.layer setCornerRadius:8.0];
         [gridBox setBackgroundColor:[UIColor whiteColor]];

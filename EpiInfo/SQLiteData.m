@@ -22,6 +22,12 @@
     if (groupsNSMA && [groupsNSMA containsObject:grp])
         [groupsNSMA removeObject:grp];
 }
+- (void)addGroupToGroups:(NSString *)grp
+{
+    if (!groupsNSMA)
+        groupsNSMA = [[NSMutableArray alloc] init];
+    [groupsNSMA addObject:grp];
+}
 
 - (void)makeSQLiteFullTable:(AnalysisDataObject *)ado ProvideUpdatesTo:(UIButton *)button
 {
