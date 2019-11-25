@@ -901,15 +901,15 @@
                 if (tos > 0)
                     contentSizeHeight += 550;
                 else
-                    contentSizeHeight += 650;
-                CGSize avcContentSize = CGSizeMake(self.frame.size.width, contentSizeHeight);
+                    contentSizeHeight += 550;
+                CGSize avcContentSize = CGSizeMake(self.frame.size.width, contentSizeHeight + 100);
                 [avc setContentSize:avcContentSize];
 //                [avc setContentSize:CGSizeMake(self.frame.size.width, 650 + 550 * (numberOfExposures - 1) + 20.0 * (numberOfExposures + 1) + 2)];
             }
             else
             {
                 contentSizeHeight += [self doMxN:to OnOutputView:outputView StratificationVariable:nil StratificationValue:nil].height;
-                CGSize avcContentSize = CGSizeMake(self.frame.size.width, contentSizeHeight);
+                CGSize avcContentSize = CGSizeMake(self.frame.size.width, contentSizeHeight + 100);
                 [avc setContentSize:avcContentSize];
 //                [avc setContentSize:[self doMxN:to OnOutputView:outputView StratificationVariable:nil StratificationValue:nil]];
             }
@@ -1709,7 +1709,7 @@
     if (stratVar)
         return CGSizeMake(MAX(self.frame.size.width, outputTableViewWidth + 4.0), outputTableViewHeight + outputTableView.frame.origin.y + 110.0);
 
-    return CGSizeMake(MAX(self.frame.size.width, outputTableViewWidth + 4.0), outputTableViewHeight + 20.0);// + outputTableView.frame.origin.y + 150.0);
+    return CGSizeMake(MAX(self.frame.size.width, outputTableViewWidth + 4.0), outputTableViewHeight + 16.0);// + outputTableView.frame.origin.y + 150.0);
 }
 
 - (void)doTwoByTwo:(TablesObject *)to OnOutputView:(UIView *)outputV StratificationVariable:(NSString *)stratVar StratificationValue:(NSString *)stratValue
