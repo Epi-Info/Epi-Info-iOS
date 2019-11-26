@@ -172,7 +172,10 @@
             outputView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
             [outputView setBackgroundColor:[UIColor whiteColor]];
             [self addSubview:outputView];
-            
+            secondOutputViewForIPad = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+            [secondOutputViewForIPad setBackgroundColor:[UIColor clearColor]];
+            [outputView addSubview:secondOutputViewForIPad];
+
             //Add the input view
             inputView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 204)];
             [inputView setBackgroundColor:epiInfoLightBlue];
@@ -461,6 +464,7 @@
             [xButton setFrame:CGRectMake(frame.size.width - 4.0 - 46, 116, 44, 44)];
             [gearButton setFrame:CGRectMake(frame.size.width - 4.0 - 92, 116, 44, 44)];
             [outputView setFrame:CGRectMake(0, 46, frame.size.width, 10.0 * frame.size.height - 46)];
+            [secondOutputViewForIPad setFrame:CGRectMake(outputView.frame.size.width / 2.0, 0, outputView.frame.size.width / 2.0, outputView.frame.size.height)];
             if (inputViewDisplayed)
             {
                 if ([avc portraitOrientation])
@@ -822,7 +826,7 @@
             }
             for (UIView *v in [self subviews])
             {
-                if (v.frame.origin.y > outputView.frame.origin.x && v != inputView && v != outputView)
+                if (v.frame.origin.y > outputView.frame.origin.x && v != inputView && v != outputView && v != secondOutputViewForIPad)
                 {
                     for (UIView *v2 in [v subviews])
                     {
@@ -897,11 +901,18 @@
             if (to.exposureValues.count == 2 && to.outcomeValues.count == 2)
             {
                 [summaryTable addObject:[[NSMutableArray alloc] init]];
-                [self doTwoByTwo:to OnOutputView:outputView StratificationVariable:nil StratificationValue:nil];
+                UIView *useThisOutputView = outputView;
+                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && tos % 2 > 0)
+                    useThisOutputView = secondOutputViewForIPad;
+                [self doTwoByTwo:to OnOutputView:useThisOutputView StratificationVariable:nil StratificationValue:nil];
                 if (tos > 0)
                     contentSizeHeight += 550;
                 else
                     contentSizeHeight += 550;
+                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && tos % 2 == 0 && (tos + 1) < [toNSMA count])
+                {
+                    contentSizeHeight -= 550;
+                }
                 CGSize avcContentSize = CGSizeMake(self.frame.size.width, contentSizeHeight + 100);
                 [avc setContentSize:avcContentSize];
 //                [avc setContentSize:CGSizeMake(self.frame.size.width, 650 + 550 * (numberOfExposures - 1) + 20.0 * (numberOfExposures + 1) + 2)];
@@ -1214,9 +1225,9 @@
 {
     if ([oddsAndRisk count] == 0)
         return;
-    oddsAndRiskTableView = [[UIScrollView alloc] initWithFrame:CGRectMake(2, 2, outputV.frame.size.width - 4.0, 20.0 * ([oddsAndRisk count] + 1))];
-    [oddsAndRiskTableView setBackgroundColor:epiInfoLightBlue];
     float cellWidth = 79.0;
+    oddsAndRiskTableView = [[UIScrollView alloc] initWithFrame:CGRectMake(2, 2, 7.0 * (cellWidth + 1.0) + 1.0, 20.0 * ([oddsAndRisk count] + 1))];
+    [oddsAndRiskTableView setBackgroundColor:epiInfoLightBlue];
     [oddsAndRiskTableView setContentSize:CGSizeMake(7 * (cellWidth + 1.0), 20.0 * ([oddsAndRisk count] + 1))];
     [outputV addSubview:oddsAndRiskTableView];
     
@@ -2497,7 +2508,9 @@
             [stratumHeader setTextAlignment:NSTextAlignmentCenter];
             [outputV addSubview:stratumHeader];
         }
-        
+        else
+            stratificationOffset = contentSizeHeight;
+
         //Make the view for the actual 2x2 table
         outputTableView = [[UIView alloc] initWithFrame:CGRectMake(2, 2 + stratificationOffset, 313, 168)];
         [outputTableView setBackgroundColor:epiInfoLightBlue];
@@ -2862,6 +2875,8 @@
         [gridBox setFont:[UIFont systemFontOfSize:12.0]];
         [gridBox setText:[NSString stringWithFormat:@"%.4f", oddsRatio]];
         [oddsBasedParametersView addSubview:gridBox];
+        [(NSMutableArray *)[summaryTable lastObject] addObject:[NSString stringWithString:to.exposureVariable]];
+        [(NSMutableArray *)[summaryTable lastObject] addObject:[NSNumber numberWithFloat:oddsRatio]];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + fourWidth0 + fourWidth1, 44, fourWidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
         [gridBox setTextColor:[UIColor blackColor]];
@@ -2869,6 +2884,7 @@
         [gridBox setFont:[UIFont systemFontOfSize:12.0]];
         [gridBox setText:[NSString stringWithFormat:@"%.4f", oddsRatioLower]];
         [oddsBasedParametersView addSubview:gridBox];
+        [(NSMutableArray *)[summaryTable lastObject] addObject:[NSNumber numberWithFloat:oddsRatioLower]];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8 + fourWidth0 + 2 * fourWidth1, 44, fourWidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
         [gridBox setTextColor:[UIColor blackColor]];
@@ -2876,6 +2892,7 @@
         [gridBox setFont:[UIFont systemFontOfSize:12.0]];
         [gridBox setText:[NSString stringWithFormat:@"%.4f", oddsRatioUpper]];
         [oddsBasedParametersView addSubview:gridBox];
+        [(NSMutableArray *)[summaryTable lastObject] addObject:[NSNumber numberWithFloat:oddsRatioUpper]];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(2, 66, fourWidth0, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
         [gridBox setTextColor:[UIColor blackColor]];
@@ -3001,6 +3018,7 @@
         [gridBox setFont:[UIFont systemFontOfSize:12.0]];
         [gridBox setText:[NSString stringWithFormat:@"%.4f", RRstats[0]]];
         [riskBasedParametersView addSubview:gridBox];
+        [(NSMutableArray *)[summaryTable lastObject] addObject:[NSNumber numberWithFloat:RRstats[0]]];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + fourWidth0 + fourWidth1, 44, fourWidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
         [gridBox setTextColor:[UIColor blackColor]];
@@ -3008,6 +3026,7 @@
         [gridBox setFont:[UIFont systemFontOfSize:12.0]];
         [gridBox setText:[NSString stringWithFormat:@"%.4f", RRstats[1]]];
         [riskBasedParametersView addSubview:gridBox];
+        [(NSMutableArray *)[summaryTable lastObject] addObject:[NSNumber numberWithFloat:RRstats[1]]];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8 + fourWidth0 + 2 * fourWidth1, 44, fourWidth1, 20)];
         [gridBox setBackgroundColor:[UIColor whiteColor]];
         [gridBox setTextColor:[UIColor blackColor]];
@@ -3015,6 +3034,7 @@
         [gridBox setFont:[UIFont systemFontOfSize:12.0]];
         [gridBox setText:[NSString stringWithFormat:@"%.4f", RRstats[2]]];
         [riskBasedParametersView addSubview:gridBox];
+        [(NSMutableArray *)[summaryTable lastObject] addObject:[NSNumber numberWithFloat:RRstats[2]]];
         gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(2, 66, fourWidth0, 20)];
         [gridBox.layer setCornerRadius:8.0];
         [gridBox setBackgroundColor:[UIColor whiteColor]];

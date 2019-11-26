@@ -58,7 +58,8 @@
     LegalValuesEnter *stratificationLVE;
 
     UIView *outputView;
-    
+    UIView *secondOutputViewForIPad;
+
     AnalysisDataObject *dataObject;
     SQLiteData *sqliteData;
     
