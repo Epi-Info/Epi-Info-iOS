@@ -893,6 +893,7 @@
         }
         if (contentSizeHeight < 40)
             contentSizeHeight = 0;
+        float valueToAddToContentSizeHeight = 0.0;
         for (int tos = 0; tos < [toNSMA count]; tos++)
         {
             workingExposure = tos;
@@ -912,6 +913,12 @@
                 if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && tos % 2 == 0 && (tos + 1) < [toNSMA count])
                 {
                     contentSizeHeight -= 550;
+                    valueToAddToContentSizeHeight = 550;
+                }
+                else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                {
+                    contentSizeHeight -= 550;
+                    contentSizeHeight += MAX(550.0, valueToAddToContentSizeHeight);
                 }
                 CGSize avcContentSize = CGSizeMake(self.frame.size.width, contentSizeHeight + 100);
                 [avc setContentSize:avcContentSize];
@@ -919,7 +926,21 @@
             }
             else
             {
-                contentSizeHeight += [self doMxN:to OnOutputView:outputView StratificationVariable:nil StratificationValue:nil].height;
+                UIView *useThisOutputView = outputView;
+                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && tos % 2 > 0)
+                    useThisOutputView = secondOutputViewForIPad;
+                float contentSizeHeightPlus = [self doMxN:to OnOutputView:useThisOutputView StratificationVariable:nil StratificationValue:nil].height;
+                contentSizeHeight += contentSizeHeightPlus;
+                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && tos % 2 == 0 && (tos + 1) < [toNSMA count])
+                {
+                    contentSizeHeight -= contentSizeHeightPlus;
+                    valueToAddToContentSizeHeight = contentSizeHeightPlus;
+                }
+                else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                {
+                    contentSizeHeight -= contentSizeHeightPlus;
+                    contentSizeHeight += MAX(contentSizeHeightPlus, valueToAddToContentSizeHeight);
+                }
                 CGSize avcContentSize = CGSizeMake(self.frame.size.width, contentSizeHeight + 100);
                 [avc setContentSize:avcContentSize];
 //                [avc setContentSize:[self doMxN:to OnOutputView:outputView StratificationVariable:nil StratificationValue:nil]];
@@ -1226,7 +1247,7 @@
     if ([oddsAndRisk count] == 0)
         return;
     float cellWidth = 79.0;
-    oddsAndRiskTableView = [[UIScrollView alloc] initWithFrame:CGRectMake(2, 2, 7.0 * (cellWidth + 1.0) + 1.0, 20.0 * ([oddsAndRisk count] + 1))];
+    oddsAndRiskTableView = [[UIScrollView alloc] initWithFrame:CGRectMake(2, 2, 7.0 * (cellWidth + 1.0), 20.0 * ([oddsAndRisk count] + 1))];
     [oddsAndRiskTableView setBackgroundColor:epiInfoLightBlue];
     [oddsAndRiskTableView setContentSize:CGSizeMake(7 * (cellWidth + 1.0), 20.0 * ([oddsAndRisk count] + 1))];
     [outputV addSubview:oddsAndRiskTableView];
@@ -1693,10 +1714,10 @@
             }
         }
         double chiSqP = [SharedResources PValFromChiSq:chiSq PVFCSdf:(double)((to.exposureValues.count - 1) * (to.outcomeValues.count - 1))];
-        EpiInfoUILabel *chiSqLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, outputTableView.frame.origin.y + outputTableView.frame.size.height, outputV.frame.size.width, 20)];
+        EpiInfoUILabel *chiSqLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(outputTableView.frame.origin.x, outputTableView.frame.origin.y + outputTableView.frame.size.height, outputTableView.frame.size.width, 20)];
         [chiSqLabel setBackgroundColor:[UIColor clearColor]];
-        [chiSqLabel setText:[NSString stringWithFormat:@"Chi Square: %.2f, df: %lu, p-value: %.3f", chiSq, (to.exposureValues.count - 1) * (to.outcomeValues.count - 1), chiSqP]];
-        [chiSqLabel setAccessibilityLabel:[NSString stringWithFormat:@"Ky Square: %.2f, degrees of freedom: %lu, p-value: %.3f", chiSq, (to.exposureValues.count - 1) * (to.outcomeValues.count - 1), chiSqP]];
+        [chiSqLabel setText:[NSString stringWithFormat:@"Chi Square: %.2f, df: %u, p-value: %.3f", chiSq, (to.exposureValues.count - 1) * (to.outcomeValues.count - 1), chiSqP]];
+        [chiSqLabel setAccessibilityLabel:[NSString stringWithFormat:@"Ky Square: %.2f, degrees of freedom: %u, p-value: %.3f", chiSq, (to.exposureValues.count - 1) * (to.outcomeValues.count - 1), chiSqP]];
         [chiSqLabel setTextAlignment:NSTextAlignmentCenter];
         [outputV addSubview: chiSqLabel];
         outputTableViewHeight += chiSqLabel.frame.size.height;

@@ -696,7 +696,6 @@
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
-    NSLog(@"%@", elementName);
     if ([elementName isEqualToString:@"Field"] && [[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"21"])
     {
         NSMutableString *groupNSMS = [NSMutableString stringWithFormat:@"%@ = GROUP(%@)", [attributeDict objectForKey:@"Name"], [[[attributeDict objectForKey:@"List"] stringByReplacingOccurrencesOfString:@"," withString:@", "] stringByReplacingOccurrencesOfString:@"  " withString:@" "]];
