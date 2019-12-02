@@ -354,6 +354,7 @@
     outcomeLVE = [[LegalValuesEnter alloc] initWithFrame:chosenOutcomeVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:outcomeVariableString];
     [outcomeLVE.picker selectRow:0 inComponent:0 animated:YES];
     [outcomeLVE analysisStyle];
+    [outcomeLVE setTag:1957];
     [inputView addSubview:outcomeLVE];
     NSMutableArray *exposureNSMA = [NSMutableArray arrayWithArray:outcomeNSMA];
     NSArray *groupArray = [sqliteData groups];
@@ -367,6 +368,7 @@
     stratificationLVE = [[LegalValuesEnter alloc] initWithFrame:chosenStratificationVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:stratificationVariableString];
     [stratificationLVE.picker selectRow:0 inComponent:0 animated:YES];
     [stratificationLVE analysisStyle];
+    [stratificationLVE setTag:1957];
     [inputView addSubview:exposureLVE];
     [inputView addSubview:stratificationLVE];
     [chosenOutcomeVariable setTitle:[outcomeVariableString text] forState:UIControlStateNormal];

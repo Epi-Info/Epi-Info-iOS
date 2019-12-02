@@ -46,6 +46,7 @@
 }
 - (void)analysisStyle
 {
+    isAnalysisStyle = YES;
     [self.valueButton.layer setBorderColor:[[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0] CGColor]];
     DownTriangle *tempDT;
     for (UIView *v in [self.valueButton subviews])
@@ -74,6 +75,7 @@
             // Fallback on earlier versions
         }
         [self setSelectedIndex:[NSNumber numberWithInt:0]];
+        isAnalysisStyle = NO;
     }
     return self;
 }
@@ -461,6 +463,8 @@
     topX = [self.valueButton convertRect:self.valueButton.bounds toView:nil].origin.x;
     topY = [self.valueButton convertRect:self.valueButton.bounds toView:nil].origin.y;
     finalTopY = topView.frame.size.height - 16.0 - (180.0 - 16);
+    if ([self tag] == 1957 || isAnalysisStyle)
+        finalTopY = topView.frame.size.height - 16.0 - (360.0 - 16);
     if (topY < finalTopY)
         finalTopY = topY;
     [self.tv setFrame:CGRectMake(topX, topY, self.tv.frame.size.width, 0.0)];
@@ -474,7 +478,7 @@
     
     [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [self.tv setFrame:CGRectMake(topX, finalTopY, self.valueButton.frame.size.width, 180 - 16)];
-        if ([self tag] == 1957)
+        if ([self tag] == 1957 || isAnalysisStyle)
             [self.tv setFrame:CGRectMake(topX, finalTopY, self.valueButton.frame.size.width, 360 - 16)];
     } completion:^(BOOL finished){
     }];

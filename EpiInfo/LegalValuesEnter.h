@@ -20,6 +20,8 @@
     NSMutableArray *listOfValues;
     UIView *valueButtonView;
     UIView *shield;
+    
+    BOOL isAnalysisStyle;
 }
 @property NSString *columnName;
 @property BOOL isReadOnly;
