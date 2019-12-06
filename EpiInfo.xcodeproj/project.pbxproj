@@ -197,6 +197,7 @@
 		9249822822C2C5B100C36CF3 /* BoxContentSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9249822522C2C57700C36CF3 /* BoxContentSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		924A7D1419C21D2900F168A0 /* MeansCrosstabCompute.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A7D1319C21D2900F168A0 /* MeansCrosstabCompute.m */; };
 		924B5B812125F2DF00B519CE /* DownTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 924B5B802125F2DF00B519CE /* DownTriangle.m */; };
+		924CF54F239AD8A500372E8B /* VariablesInGroupSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 924CF54E239AD8A500372E8B /* VariablesInGroupSelector.m */; };
 		92502392225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.m in Sources */ = {isa = PBXBuildFile; fileRef = 92502391225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.m */; };
 		9252017E17D0C89A0071C754 /* ShinyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9252017D17D0C89A0071C754 /* ShinyButton.m */; };
 		9252018017D0CC930071C754 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9252017F17D0CC930071C754 /* QuartzCore.framework */; };
@@ -754,6 +755,8 @@
 		924A7D1319C21D2900F168A0 /* MeansCrosstabCompute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeansCrosstabCompute.m; sourceTree = "<group>"; };
 		924B5B7F2125F2DF00B519CE /* DownTriangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownTriangle.h; sourceTree = "<group>"; };
 		924B5B802125F2DF00B519CE /* DownTriangle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownTriangle.m; sourceTree = "<group>"; };
+		924CF54D239AD8A500372E8B /* VariablesInGroupSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VariablesInGroupSelector.h; sourceTree = "<group>"; };
+		924CF54E239AD8A500372E8B /* VariablesInGroupSelector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VariablesInGroupSelector.m; sourceTree = "<group>"; };
 		92502390225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormDesignerFieldDisplayPrompt.h; sourceTree = "<group>"; };
 		92502391225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormDesignerFieldDisplayPrompt.m; sourceTree = "<group>"; };
 		9252017C17D0C89A0071C754 /* ShinyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShinyButton.h; sourceTree = "<group>"; };
@@ -1705,6 +1708,8 @@
 				92385D18227A30C400079890 /* CheckCode */,
 				9258D19F22148EF1000376E7 /* FormDesigner.h */,
 				9258D1A022148EF1000376E7 /* FormDesigner.m */,
+				924CF54D239AD8A500372E8B /* VariablesInGroupSelector.h */,
+				924CF54E239AD8A500372E8B /* VariablesInGroupSelector.m */,
 				9258D1A7222D8833000376E7 /* FormElementObject.h */,
 				9258D1A8222D8833000376E7 /* FormElementObject.m */,
 				9258D1AB222FF10F000376E7 /* TextFieldDisplay.h */,
@@ -2465,6 +2470,7 @@
 				920CD0271EE4B30200415569 /* CheckButton.m in Sources */,
 				84C816861CE22D8D00F408D2 /* DialogModel.m in Sources */,
 				92524A8C184E50BE003C820B /* SaveFormView.m in Sources */,
+				924CF54F239AD8A500372E8B /* VariablesInGroupSelector.m in Sources */,
 				9266C540184684FD00739AF2 /* UppercaseTextField.m in Sources */,
 				9258D1B022428863000376E7 /* SyncView.m in Sources */,
 				9266C5371846848800739AF2 /* NumberField.m in Sources */,
