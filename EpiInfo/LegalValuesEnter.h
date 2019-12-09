@@ -47,4 +47,5 @@
 -(void)removeValueButtonViewFromSuperview;
 -(float)contentSizeHeightAdjustment;
 -(void)analysisStyle;
+-(void)valueButtonPressed:(id)sender;
 @end

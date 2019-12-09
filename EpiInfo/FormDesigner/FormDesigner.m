@@ -292,6 +292,17 @@
                         nextY += 40;
                         [feo setNextY:nextY];
                     }
+                    else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"21"])
+                    {
+                        TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
+                        [controlRendering setBackgroundColor:[UIColor clearColor]];
+                        [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                        [controlRendering displayGroup];
+                        [canvas addSubview:controlRendering];
+                        [canvas sendSubviewToBack:controlRendering];
+                        nextY += 40;
+                        [feo setNextY:nextY];
+                    }
                     else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"99"])
                     {
                         TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
@@ -1157,6 +1168,11 @@
                     {
                         feoUnderEdit = feo;
                         [self presentButtonView];
+                    }
+                    if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"21"])
+                    {
+                        feoUnderEdit = feo;
+                        [self presentGroupView];
                     }
                     if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"99"])
                     {
@@ -3564,18 +3580,33 @@
     [checkCodeButton setEnabled:YES];
     
     NSMutableArray *variablesThatCanBeInGroups = [[NSMutableArray alloc] init];
-    [variablesThatCanBeInGroups addObject:@""];
+    NSMutableArray *selectRowNumbers = [[NSMutableArray alloc] init];
     for (int i = 0; i < [pages count]; i++)
     {
         for (int j = 0; j < [(NSArray *)[pages objectAtIndex:i] count]; j++)
         {
             FormElementObject *feoij = [(NSArray *)[pages objectAtIndex:i] objectAtIndex:j];
+            if ([[feoij.FieldTagValues objectAtIndex:[feoij.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"21"])
+                continue;
             NSString *varname = [feoij.FieldTagValues objectAtIndex:[feoij.FieldTagElements indexOfObject:@"Name"]];
             [variablesThatCanBeInGroups addObject:varname];
+            if (feoUnderEdit != nil)
+            {
+                if (feoUnderEdit.values != nil)
+                {
+                    if ([feoUnderEdit.values containsObject:varname])
+                        [selectRowNumbers addObject:[NSNumber numberWithInt:(int)[variablesThatCanBeInGroups indexOfObject:varname]]];
+                }
+            }
         }
     }
     VariablesInGroupSelector *vigs = [[VariablesInGroupSelector alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width - 2, 0) AndListOfValues:variablesThatCanBeInGroups AndTextFieldToUpdate:[[UITextField alloc] init]];
+    [vigs setFD:self];
     [controlViewGrayBackground addSubview:vigs];
+    for (int selections = 0; selections < [selectRowNumbers count]; selections++)
+    {
+        [vigs.tv selectRowAtIndexPath:[NSIndexPath indexPathForRow:[(NSNumber *)[selectRowNumbers objectAtIndex:selections] intValue] inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+    }
     
     UIButton *controlViewCancelButton = [[UIButton alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width / 3 - 1, 0)];
     [controlViewCancelButton setBackgroundColor:[UIColor whiteColor]];
@@ -3596,6 +3627,7 @@
     [controlViewSaveButton addTarget:self action:@selector(variableGroupSaveOrCancelPressed:) forControlEvents:UIControlEventTouchUpInside];
     [controlViewSaveButton setEnabled:NO];
     [controlViewSaveButton setTag:1001003];
+    [controlViewSaveButton.layer setValue:vigs.tv forKey:@"groupTV"];
     [controlViewGrayBackground addSubview:controlViewSaveButton];
     
     if (feoUnderEdit != nil)
@@ -3603,20 +3635,8 @@
         [controlViewPromptText setText:[feoUnderEdit.FieldTagValues objectAtIndex:[feoUnderEdit.FieldTagElements indexOfObject:@"PromptText"]]];
         [controlViewFieldNameText setText:[feoUnderEdit.FieldTagValues objectAtIndex:[feoUnderEdit.FieldTagElements indexOfObject:@"Name"]]];
         [controlViewFieldNameText setEnabled:NO];
-        [controlViewMoveUpButton setEnabled:YES];
-        [controlViewMoveDnButton setEnabled:YES];
         [controlViewDeleteButton setEnabled:YES];
         [controlViewSaveButton setEnabled:YES];
-        for (int i = 0; i < [checkCodeStrings count]; i++)
-        {
-            NSArray *nsa = [[checkCodeStrings objectAtIndex:i] componentsSeparatedByString:@" "];
-            if ([[nsa objectAtIndex:1] containsString:[controlViewFieldNameText text]])
-            {
-                [controlViewGrayBackground.layer setValue:[checkCodeStrings objectAtIndex:i] forKey:@"CheckCode"];
-                [checkCodeStrings removeObjectAtIndex:i];
-                break;
-            }
-        }
     }
     
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -4752,7 +4772,24 @@
     NSString *promptText = @"";
     NSString *fieldName = @"";
     BOOL saveButtonPressed = ([[[sender titleLabel] text] isEqualToString:@"Save"]);
-    saveButtonPressed = NO;
+    UITableView *uitv;
+    NSArray *uitvselections;
+    if (saveButtonPressed)
+    {
+        if ([sender.layer valueForKey:@"groupTV"])
+        {
+            uitv = [sender.layer valueForKey:@"groupTV"];
+            uitvselections = [uitv indexPathsForSelectedRows];
+            if ([uitvselections count] == 0)
+            {
+                saveButtonPressed = NO;
+            }
+        }
+        else
+        {
+            saveButtonPressed = NO;
+        }
+    }
     
     UIView *vv = [controlViewGrayBackground viewWithTag:1001001];
     promptText = [(UITextField *)vv text];
@@ -4781,7 +4818,7 @@
                     TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width / 2, 40)];
                     [controlRendering setBackgroundColor:[UIColor clearColor]];
                     [controlRendering.prompt setText:promptText];
-                    [controlRendering displayCommandButton];
+                    [controlRendering displayGroup];
                     [canvas addSubview:controlRendering];
                     [canvas sendSubviewToBack:controlRendering];
                     nextY += 40;
@@ -4829,6 +4866,14 @@
                     [feo.FieldTagValues addObject:@"21"];
                     [feo.FieldTagElements addObject:@"UniqueId"];
                     [feo.FieldTagValues addObject:[CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL))) lowercaseString]];
+                }
+                if (!feo.values)
+                    feo.values = [[NSMutableArray alloc] init];
+                else
+                    [feo.values removeAllObjects];
+                for (int sels = 0; sels < [uitvselections count]; sels++)
+                {
+                    [feo.values addObject:[[[uitv cellForRowAtIndexPath:[uitvselections objectAtIndex:sels]] textLabel] text]];
                 }
                 
                 if (feoUnderEdit == nil)
@@ -6216,6 +6261,10 @@
     }];
 }
 
+- (void)fieldResignedFirstResponder:(UIView *)vigs
+{
+}
+
 #pragma mark UITextFieldDelegate Methods
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -6418,6 +6467,15 @@
                 NSString *valuesString = [[[attributeDict objectForKey:@"List"] componentsSeparatedByString:@"||"] objectAtIndex:0];
                 NSMutableArray *valuesArray = [NSMutableArray arrayWithArray:[valuesString componentsSeparatedByString:@","]];
                 [valuesArray addObject:@""];
+                [feo setValues:[NSMutableArray arrayWithArray:valuesArray]];
+            }
+        }
+        if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"21"])
+        {
+            if ([attributeDict objectForKey:@"List"] != nil)
+            {
+                NSString *valuesString = [attributeDict objectForKey:@"List"];
+                NSMutableArray *valuesArray = [NSMutableArray arrayWithArray:[valuesString componentsSeparatedByString:@","]];
                 [feo setValues:[NSMutableArray arrayWithArray:valuesArray]];
             }
         }

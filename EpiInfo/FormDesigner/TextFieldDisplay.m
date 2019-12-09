@@ -117,6 +117,9 @@
     [self.prompt setAccessibilityLabel:[NSString stringWithFormat:@"Page Break"]];
     [self.prompt setTextAlignment:NSTextAlignmentCenter];
 }
+- (void)displayGroup
+{
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

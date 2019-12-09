@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)displayCommandButton;
 -(void)displayButton;
 -(void)displayPageBreak;
+-(void)displayGroup;
 @end
 
 NS_ASSUME_NONNULL_END
