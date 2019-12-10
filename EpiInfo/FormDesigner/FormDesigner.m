@@ -294,7 +294,7 @@
                     }
                     else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"21"])
                     {
-                        TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
+                        TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width / 2.0, 40)];
                         [controlRendering setBackgroundColor:[UIColor clearColor]];
                         [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
                         [controlRendering displayGroup];
@@ -4815,7 +4815,7 @@
                 
                 if (feoUnderEdit == nil)
                 {
-                    TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width / 2, 40)];
+                    TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width / 2.0, 40)];
                     [controlRendering setBackgroundColor:[UIColor clearColor]];
                     [controlRendering.prompt setText:promptText];
                     [controlRendering displayGroup];

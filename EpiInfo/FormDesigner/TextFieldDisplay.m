@@ -119,6 +119,22 @@
 }
 - (void)displayGroup
 {
+    [self.field setText:[NSString stringWithFormat:@"GROUP()"]];
+}
+- (void)displayGroup:(NSArray *)variables
+{
+    NSMutableString *nsms = [[NSMutableString alloc] init];
+    if (variables && [variables count] > 0)
+    {
+        [nsms appendString:[variables objectAtIndex:0]];
+        for (int i = 1; i < [variables count]; i++)
+        {
+            [nsms appendFormat:@",%@", [variables objectAtIndex:i]];
+        }
+    }
+    if ([nsms length] > 40)
+        [nsms substringToIndex:39];
+    [self.field setText:[NSString stringWithFormat:@"GROUP(%@)", nsms]];
 }
 /*
 // Only override drawRect: if you perform custom drawing.
