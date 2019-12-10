@@ -3518,7 +3518,7 @@
     [controlViewPromptText setLeftView:spacerView];
     [controlViewPromptText setPlaceholder:@"Group Label"];
     [controlViewPromptText setDelegate:self];
-    [controlViewPromptText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
+    [controlViewPromptText addTarget:self action:@selector(textFieldChangedInGroupView:) forControlEvents:UIControlEventEditingChanged];
     [controlViewPromptText setReturnKeyType:UIReturnKeyDone];
     [controlViewPromptText setTag:1001001];
     [controlViewGrayBackground addSubview:controlViewPromptText];
@@ -3530,7 +3530,7 @@
     [controlViewFieldNameText setLeftView:spacerView2];
     [controlViewFieldNameText setPlaceholder:@"Group Name"];
     [controlViewFieldNameText setDelegate:self];
-    [controlViewFieldNameText addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
+    [controlViewFieldNameText addTarget:self action:@selector(textFieldChangedInGroupView:) forControlEvents:UIControlEventEditingChanged];
     [controlViewFieldNameText setReturnKeyType:UIReturnKeyDone];
     [controlViewFieldNameText setTag:1001002];
     [controlViewFieldNameText setAutocorrectionType:UITextAutocorrectionTypeNo];
@@ -3601,6 +3601,7 @@
         }
     }
     VariablesInGroupSelector *vigs = [[VariablesInGroupSelector alloc] initWithFrame:CGRectMake(1, 0, controlViewGrayBackground.frame.size.width - 2, 0) AndListOfValues:variablesThatCanBeInGroups AndTextFieldToUpdate:[[UITextField alloc] init]];
+    [vigs setTag:1001008];
     [vigs setFD:self];
     [controlViewGrayBackground addSubview:vigs];
     for (int selections = 0; selections < [selectRowNumbers count]; selections++)
@@ -6263,6 +6264,7 @@
 
 - (void)fieldResignedFirstResponder:(UIView *)vigs
 {
+    [self textFieldChangedInGroupView:[[vigs superview] viewWithTag:1001001]];
 }
 
 #pragma mark UITextFieldDelegate Methods
@@ -6293,6 +6295,8 @@
         UITextField *variableNameField = [[textField superview] viewWithTag:1001002];
         [variableNameField setText:incrementedText];
         [self textFieldChanged:textField];
+        if ([[textField superview] viewWithTag:1001008])
+            [self textFieldChangedInGroupView:textField];
     }
     return YES;
 }
@@ -6312,6 +6316,55 @@
     if (![(UITextField *)[[textField superview] viewWithTag:1001002] isEnabled])
         return;
     if ([[(UITextField *)[[textField superview] viewWithTag:1001001] text] length] > 0 && [[(UITextField *)[[textField superview] viewWithTag:1001002] text] length] > 0)
+    {
+        [(UIButton *)[[textField superview] viewWithTag:1001003] setEnabled:YES];
+        [(UIButton *)[[textField superview] viewWithTag:1001004] setEnabled:YES];
+    }
+    else
+    {
+        [(UIButton *)[[textField superview] viewWithTag:1001003] setEnabled:NO];
+        [(UIButton *)[[textField superview] viewWithTag:1001004] setEnabled:NO];
+        if ([textField tag] == 1001001)
+            return;
+    }
+    if ([formElements containsObject:[[(UITextField *)[[textField superview] viewWithTag:1001002] text] lowercaseString]] ||
+        [reservedWords containsObject:[[(UITextField *)[[textField superview] viewWithTag:1001002] text] lowercaseString]] ||
+        ([[(UITextField *)[[textField superview] viewWithTag:1001002] text] length] > 0 &&
+         ([[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '_' ||
+          [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '0' ||
+          [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '1' ||
+          [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '2' ||
+          [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '3' ||
+          [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '4' ||
+          [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '5' ||
+          [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '6' ||
+          [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '7' ||
+          [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '8' ||
+          [[(UITextField *)[[textField superview] viewWithTag:1001002] text] characterAtIndex:0] == '9')))
+    {
+        [(UIButton *)[[textField superview] viewWithTag:1001003] setEnabled:NO];
+        [(UIButton *)[[textField superview] viewWithTag:1001004] setEnabled:NO];
+        [(UITextField *)[[textField superview] viewWithTag:1001002] setTextColor:[UIColor redColor]];
+    }
+    else
+        [(UITextField *)[[textField superview] viewWithTag:1001002] setTextColor:[UIColor blackColor]];
+}
+
+- (void)textFieldChangedInGroupView:(UITextField *)textField
+{
+    if ([textField tag] == 1001002)
+    {
+        NSCharacterSet *validSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"];
+        if ([[[textField text] stringByTrimmingCharactersInSet:validSet] length] > 0)
+        {
+            NSCharacterSet *invalidSet = [NSCharacterSet characterSetWithCharactersInString:[[textField text] stringByTrimmingCharactersInSet:validSet]];
+            NSString *compressedText = [[textField text] stringByTrimmingCharactersInSet:invalidSet];
+            [textField setText:compressedText];
+        }
+    }
+    if (![(UITextField *)[[textField superview] viewWithTag:1001002] isEnabled])
+        return;
+    if ([[(UITextField *)[[textField superview] viewWithTag:1001001] text] length] > 0 && [[(UITextField *)[[textField superview] viewWithTag:1001002] text] length] > 0 && [[((VariablesInGroupSelector *)[[textField superview] viewWithTag:1001008]).tv indexPathsForSelectedRows] count] > 0)
     {
         [(UIButton *)[[textField superview] viewWithTag:1001003] setEnabled:YES];
         [(UIButton *)[[textField superview] viewWithTag:1001004] setEnabled:YES];
