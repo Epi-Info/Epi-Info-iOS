@@ -501,6 +501,17 @@
                     nextY += 40;
                     [feo setNextY:nextY];
                 }
+                else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"21"])
+                {
+                    TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width / 2.0, 40)];
+                    [controlRendering setBackgroundColor:[UIColor clearColor]];
+                    [controlRendering.prompt setText:[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"PromptText"]]];
+                    [controlRendering displayGroup];
+                    [canvas addSubview:controlRendering];
+                    [canvas sendSubviewToBack:controlRendering];
+                    nextY += 40;
+                    [feo setNextY:nextY];
+                }
                 else if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"99"])
                 {
                     TextFieldDisplay *controlRendering = [[TextFieldDisplay alloc] initWithFrame:CGRectMake(8, nextY, canvasSV.frame.size.width - 16, 40)];
@@ -3586,7 +3597,8 @@
         for (int j = 0; j < [(NSArray *)[pages objectAtIndex:i] count]; j++)
         {
             FormElementObject *feoij = [(NSArray *)[pages objectAtIndex:i] objectAtIndex:j];
-            if ([[feoij.FieldTagValues objectAtIndex:[feoij.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"21"])
+            if ([[feoij.FieldTagValues objectAtIndex:[feoij.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"2"] ||
+                [[feoij.FieldTagValues objectAtIndex:[feoij.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"21"])
                 continue;
             NSString *varname = [feoij.FieldTagValues objectAtIndex:[feoij.FieldTagElements indexOfObject:@"Name"]];
             [variablesThatCanBeInGroups addObject:varname];
@@ -6083,6 +6095,12 @@
             if ([[feo.FieldTagValues objectAtIndex:[feo.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"99"])
                 continue;
             [xmlMS appendString:@"<Field"];
+            if ([feo.FieldTagElements containsObject:@"List"])
+            {
+                unsigned long indexOfList = [feo.FieldTagElements indexOfObject:@"List"];
+                [feo.FieldTagElements removeObjectAtIndex:indexOfList];
+                [feo.FieldTagValues removeObjectAtIndex:indexOfList];
+            }
             for (int j = 0; j < [feo.FieldTagElements count]; j++)
             {
                 [xmlMS appendString:[NSString stringWithFormat:@" %@=\"%@\"", (NSString *)[feo.FieldTagElements objectAtIndex:j], (NSString *)[feo.FieldTagValues objectAtIndex:j]]];

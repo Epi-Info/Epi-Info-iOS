@@ -33,18 +33,58 @@
     float tvX = self.tv.frame.origin.x;
     float tvY = self.tv.frame.origin.y;
     float tvWidth = self.tv.frame.size.width;
-    UIButton *closeTVButton = [[UIButton alloc] initWithFrame:CGRectMake(tvX, tvY - 32.0, tvWidth, 32.0)];
+    UIButton *closeTVButton = [[UIButton alloc] initWithFrame:CGRectMake(tvX, tvY - 39.0, tvWidth, 40.0)];
     [closeTVButton setBackgroundColor:[UIColor whiteColor]];
-    [closeTVButton setTitle:@"\tClose" forState:UIControlStateNormal];
+    [closeTVButton setTitle:@"" forState:UIControlStateNormal];
     [closeTVButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
     [closeTVButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
     [closeTVButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [closeTVButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [closeTVButton.layer setBorderWidth:1.0];
+    [closeTVButton.layer setBorderColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0].CGColor];
+    [closeTVButton setAccessibilityLabel:@"Close Variable List"];
     [shield addSubview:closeTVButton];
+    UINavigationBar *vigsNavigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(tvWidth - 50, 0, tvWidth - (tvWidth - 50), 40.0)];
+    [vigsNavigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [vigsNavigationBar setShadowImage:[UIImage new]];
+    [vigsNavigationBar setTranslucent:YES];
+//    [vigsNavigationBar.layer setBorderWidth:1.0];
+//    [vigsNavigationBar.layer setBorderColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0].CGColor];
+    UINavigationItem *vigsNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
+    UIBarButtonItem *closevigsBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(closeButtonPressed:)];
+    [closevigsBarButtonItem setAccessibilityLabel:@"Close Variable List"];
+    [closevigsBarButtonItem setTintColor:[UIColor colorWithRed:89/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+    [vigsNavigationItem setRightBarButtonItem:closevigsBarButtonItem];
+    [vigsNavigationBar setItems:[NSArray arrayWithObject:vigsNavigationItem]];
+    [closeTVButton addSubview:vigsNavigationBar];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *TableIdentifier = @"dataline";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TableIdentifier];
+    
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TableIdentifier];
+        [cell setFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, tableView.frame.size.width, cell.frame.size.height)];
+        [cell setIndentationLevel:1];
+        [cell setIndentationWidth:4];
+    }
+    
+    [cell.textLabel setText:[NSString stringWithFormat:@"%@", [listOfValues objectAtIndex:indexPath.row]]];
+    [cell.textLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+    [cell.textLabel setNumberOfLines:0];
+    
+    float fontSize = 16.0;
+    [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:fontSize]];
+    
+    return cell;
 }
 
 - (void)closeButtonPressed:(UIButton *)sender
