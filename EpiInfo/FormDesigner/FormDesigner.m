@@ -127,6 +127,29 @@
             BOOL success = [parser parse];
             if (success)
             {
+                for (int i = (int)[pages count] - 1; i >= 0; i--)
+                {
+                    NSMutableArray *page = [pages objectAtIndex:i];
+                    if ([page count] == 0)
+                    {
+                        [pages removeObjectAtIndex:i];
+                        continue;
+                    }
+                    BOOL nothingButPageBreaks = YES;
+                    for (int j = 0; j < [page count]; j++)
+                    {
+                        FormElementObject *feoj = (FormElementObject *)[page objectAtIndex:j];
+                        if (![[feoj.FieldTagValues objectAtIndex:[feoj.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"99"])
+                        {
+                            nothingButPageBreaks = NO;
+                            break;
+                        }
+                    }
+                    if (nothingButPageBreaks)
+                    {
+                        [pages removeObjectAtIndex:i];
+                    }
+                }
                 for (int i = 0; i < [formElementObjects count]; i++)
                 {
                     FormElementObject *feo = [formElementObjects objectAtIndex:i];
