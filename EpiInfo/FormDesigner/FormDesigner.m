@@ -4909,7 +4909,11 @@
                     [feo.values removeAllObjects];
                 for (int sels = 0; sels < [uitvselections count]; sels++)
                 {
-                    [feo.values addObject:[[[uitv cellForRowAtIndexPath:[uitvselections objectAtIndex:sels]] textLabel] text]];
+                    NSIndexPath *nsip = [uitvselections objectAtIndex:sels];
+                    id uitvsource = [uitv dataSource];
+                    NSArray *uitvdata = [(VariablesInGroupSelector *)uitvsource listOfValues];
+                    NSString *nsst = [uitvdata objectAtIndex:nsip.row];
+                    [feo.values addObject:nsst];
                 }
                 
                 if (feoUnderEdit == nil)
