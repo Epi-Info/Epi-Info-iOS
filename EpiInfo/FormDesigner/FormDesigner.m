@@ -6106,7 +6106,12 @@
                 [xmlMS appendString:[NSString stringWithFormat:@"<Page PageId=\"1\" ActualPageNumber=\"1\" Name=\"Page 1\" ViewId=\"1\" BackgroundId=\"0\" Position=\"0\">\n</Page>\n"]];
             continue;
         }
-        if ([pageNumbers containsObject:[NSString stringWithFormat:@"%d", h + 1]])
+        if ([actualPageNumbers containsObject:[NSString stringWithFormat:@"%d", h + 1]])
+        {
+            unsigned long indexOfPageId = [actualPageNumbers indexOfObject:[NSString stringWithFormat:@"%d", h + 1]];
+            [xmlMS appendString:[NSString stringWithFormat:@"<Page PageId=\"%@\" ActualPageNumber=\"%d\" Name=\"%@\" ViewId=\"1\" BackgroundId=\"0\" Position=\"0\">\n", [pageNumbers objectAtIndex:indexOfPageId], h + 1, [pageNames objectAtIndex:indexOfPageId]]];
+        }
+        else if ([pageNumbers containsObject:[NSString stringWithFormat:@"%d", h + 1]])
         {
             unsigned long indexOfPageId = [pageNumbers indexOfObject:[NSString stringWithFormat:@"%d", h + 1]];
             [xmlMS appendString:[NSString stringWithFormat:@"<Page PageId=\"%d\" ActualPageNumber=\"%@\" Name=\"%@\" ViewId=\"1\" BackgroundId=\"0\" Position=\"0\">\n", h + 1, [actualPageNumbers objectAtIndex:indexOfPageId], [pageNames objectAtIndex:indexOfPageId]]];
