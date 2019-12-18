@@ -3579,7 +3579,8 @@
     [controlViewMoveUpButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
     [controlViewMoveUpButton addTarget:self action:@selector(upDownDeletePressed:) forControlEvents:UIControlEventTouchUpInside];
     [controlViewMoveUpButton setEnabled:NO];
-    
+    [controlViewGrayBackground addSubview:controlViewMoveUpButton];
+
     UIButton *controlViewMoveDnButton = [[UIButton alloc] initWithFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 3, 0, controlViewGrayBackground.frame.size.width / 3, 0)];
     [controlViewMoveDnButton setBackgroundColor:[UIColor whiteColor]];
     [controlViewMoveDnButton setTitle:@"Move Down" forState:UIControlStateNormal];
@@ -3589,7 +3590,8 @@
     [controlViewMoveDnButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
     [controlViewMoveDnButton addTarget:self action:@selector(upDownDeletePressed:) forControlEvents:UIControlEventTouchUpInside];
     [controlViewMoveDnButton setEnabled:NO];
-    
+    [controlViewGrayBackground addSubview:controlViewMoveDnButton];
+
     UIButton *controlViewDeleteButton = [[UIButton alloc] initWithFrame:CGRectMake(2.0 * controlViewGrayBackground.frame.size.width / 3, 0, controlViewGrayBackground.frame.size.width / 3 - 1, 0)];
     [controlViewDeleteButton setBackgroundColor:[UIColor whiteColor]];
     [controlViewDeleteButton setTitle:@"Delete" forState:UIControlStateNormal];
@@ -3672,20 +3674,22 @@
         [controlViewFieldNameText setText:[feoUnderEdit.FieldTagValues objectAtIndex:[feoUnderEdit.FieldTagElements indexOfObject:@"Name"]]];
         [controlViewFieldNameText setEnabled:NO];
         [controlViewDeleteButton setEnabled:YES];
+        [controlViewMoveUpButton setEnabled:YES];
+        [controlViewMoveDnButton setEnabled:YES];
         [controlViewSaveButton setEnabled:YES];
     }
     
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 242)];
+        [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 282)];
         [controlViewViewLabel setFrame:CGRectMake(1, 1, controlViewGrayBackground.frame.size.width - 2, 40)];
         [controlViewPromptText setFrame:CGRectMake(1, 41, controlViewGrayBackground.frame.size.width - 2, 40)];
         [controlViewFieldNameText setFrame:CGRectMake(1, 81, controlViewGrayBackground.frame.size.width - 2, 40)];
-        [controlViewMoveUpButton setFrame:CGRectMake(1, 121, controlViewGrayBackground.frame.size.width / 3 - 1, 40)];
-        [controlViewMoveDnButton setFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 3, 121, controlViewGrayBackground.frame.size.width / 3, 40)];
-        [controlViewDeleteButton setFrame:CGRectMake(2.0 * controlViewGrayBackground.frame.size.width / 3, 201, controlViewGrayBackground.frame.size.width / 3 - 1, 40)];
+        [controlViewMoveUpButton setFrame:CGRectMake(1, 201, controlViewGrayBackground.frame.size.width / 2 - 1, 40)];
+        [controlViewMoveDnButton setFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 2, 201, controlViewGrayBackground.frame.size.width / 2, 40)];
+        [controlViewDeleteButton setFrame:CGRectMake(2.0 * controlViewGrayBackground.frame.size.width / 3, 241, controlViewGrayBackground.frame.size.width / 3 - 1, 40)];
         [vigs setFrame:CGRectMake(1, 121, controlViewGrayBackground.frame.size.width - 2, 80)];
-        [controlViewCancelButton setFrame:CGRectMake(1, 201, controlViewGrayBackground.frame.size.width / 3 - 1, 40)];
-        [controlViewSaveButton setFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 3, 201, controlViewGrayBackground.frame.size.width / 3, 40)];
+        [controlViewCancelButton setFrame:CGRectMake(1, 241, controlViewGrayBackground.frame.size.width / 3 - 1, 40)];
+        [controlViewSaveButton setFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 3, 241, controlViewGrayBackground.frame.size.width / 3, 40)];
     } completion:^(BOOL finished){
     }];
 }
