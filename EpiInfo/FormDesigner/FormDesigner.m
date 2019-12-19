@@ -3685,7 +3685,7 @@
         [controlViewPromptText setFrame:CGRectMake(1, 41, controlViewGrayBackground.frame.size.width - 2, 40)];
         [controlViewFieldNameText setFrame:CGRectMake(1, 81, controlViewGrayBackground.frame.size.width - 2, 40)];
         [controlViewMoveUpButton setFrame:CGRectMake(1, 201, controlViewGrayBackground.frame.size.width / 2 - 1, 40)];
-        [controlViewMoveDnButton setFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 2, 201, controlViewGrayBackground.frame.size.width / 2, 40)];
+        [controlViewMoveDnButton setFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 2, 201, controlViewGrayBackground.frame.size.width / 2 - 1, 40)];
         [controlViewDeleteButton setFrame:CGRectMake(2.0 * controlViewGrayBackground.frame.size.width / 3, 241, controlViewGrayBackground.frame.size.width / 3 - 1, 40)];
         [vigs setFrame:CGRectMake(1, 121, controlViewGrayBackground.frame.size.width - 2, 80)];
         [controlViewCancelButton setFrame:CGRectMake(1, 241, controlViewGrayBackground.frame.size.width / 3 - 1, 40)];
