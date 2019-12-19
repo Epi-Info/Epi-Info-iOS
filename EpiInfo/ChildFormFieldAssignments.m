@@ -229,7 +229,8 @@
     if ((int)[parentCheckCodeString rangeOfString:[NSString stringWithFormat:@"Field %@", relateButtonName]].location > -1)
     {
         NSString *buttonCheckCodeString = [parentCheckCodeString substringFromIndex:(int)[parentCheckCodeString rangeOfString:[NSString stringWithFormat:@"Field %@", relateButtonName]].location];
-        buttonCheckCodeString = [buttonCheckCodeString substringToIndex:(int)[buttonCheckCodeString rangeOfString:@"End-Field"].location + 10];
+        buttonCheckCodeString = [buttonCheckCodeString substringToIndex:(int)[buttonCheckCodeString rangeOfString:@"End-Field"].location + 9];
+        buttonCheckCodeString = [buttonCheckCodeString stringByAppendingString:@"\n"];
         buttonCheckCodeString = [buttonCheckCodeString stringByReplacingOccurrencesOfString:@"\t" withString:@""];
         
         NSMutableArray *arrayOfLines = [[NSMutableArray alloc] init];
