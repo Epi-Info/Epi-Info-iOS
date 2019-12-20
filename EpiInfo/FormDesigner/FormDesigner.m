@@ -6431,8 +6431,11 @@
     {
         [(UIButton *)[[textField superview] viewWithTag:1001003] setEnabled:YES];
         [(UIButton *)[[textField superview] viewWithTag:1001004] setEnabled:YES];
-        [(UIButton *)[[textField superview] viewWithTag:1001005] setEnabled:YES];
-        [(UIButton *)[[textField superview] viewWithTag:1001006] setEnabled:YES];
+        if (![(UITextField *)[[textField superview] viewWithTag:1001002] isEnabled])
+        {
+            [(UIButton *)[[textField superview] viewWithTag:1001005] setEnabled:YES];
+            [(UIButton *)[[textField superview] viewWithTag:1001006] setEnabled:YES];
+        }
     }
     else
     {
