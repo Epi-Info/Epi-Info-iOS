@@ -5774,6 +5774,10 @@
         for (UIView *v in [canvas subviews])
             if ([v tag] != 19572010)
                 [v removeFromSuperview];
+        if ([sender tag] == 1001005 || [sender tag] == 1001006)
+        {
+            [self variableGroupSaveOrCancelPressed:[[sender superview] viewWithTag:1001003]];
+        }
     }
     else
     {
@@ -5809,6 +5813,10 @@
         for (UIView *v in [canvas subviews])
             if ([v tag] != 19572010)
                 [v removeFromSuperview];
+        if ([sender tag] == 1001005 || [sender tag] == 1001006)
+        {
+            [self variableGroupSaveOrCancelPressed:[[sender superview] viewWithTag:1001003]];
+        }
     }
     
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -5821,7 +5829,8 @@
         [controlViewGrayBackground removeFromSuperview];
         [canvasTapGesture setEnabled:YES];
         [self displayFieldsFromFEO];
-        feoUnderEdit = nil;
+        if (!([sender tag] == 1001005 || [sender tag] == 1001006))
+            feoUnderEdit = nil;
     }];
 }
 
