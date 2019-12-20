@@ -3579,6 +3579,7 @@
     [controlViewMoveUpButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
     [controlViewMoveUpButton addTarget:self action:@selector(upDownDeletePressed:) forControlEvents:UIControlEventTouchUpInside];
     [controlViewMoveUpButton setEnabled:NO];
+    [controlViewMoveUpButton setTag:1001005];
     [controlViewGrayBackground addSubview:controlViewMoveUpButton];
 
     UIButton *controlViewMoveDnButton = [[UIButton alloc] initWithFrame:CGRectMake(controlViewGrayBackground.frame.size.width / 3, 0, controlViewGrayBackground.frame.size.width / 3, 0)];
@@ -3590,6 +3591,7 @@
     [controlViewMoveDnButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
     [controlViewMoveDnButton addTarget:self action:@selector(upDownDeletePressed:) forControlEvents:UIControlEventTouchUpInside];
     [controlViewMoveDnButton setEnabled:NO];
+    [controlViewMoveDnButton setTag:1001006];
     [controlViewGrayBackground addSubview:controlViewMoveDnButton];
 
     UIButton *controlViewDeleteButton = [[UIButton alloc] initWithFrame:CGRectMake(2.0 * controlViewGrayBackground.frame.size.width / 3, 0, controlViewGrayBackground.frame.size.width / 3 - 1, 0)];
@@ -6416,20 +6418,24 @@
             [textField setText:compressedText];
         }
     }
-    if (![(UITextField *)[[textField superview] viewWithTag:1001002] isEnabled])
-        return;
     if ([[(UITextField *)[[textField superview] viewWithTag:1001001] text] length] > 0 && [[(UITextField *)[[textField superview] viewWithTag:1001002] text] length] > 0 && [[((VariablesInGroupSelector *)[[textField superview] viewWithTag:1001008]).tv indexPathsForSelectedRows] count] > 0)
     {
         [(UIButton *)[[textField superview] viewWithTag:1001003] setEnabled:YES];
         [(UIButton *)[[textField superview] viewWithTag:1001004] setEnabled:YES];
+        [(UIButton *)[[textField superview] viewWithTag:1001005] setEnabled:YES];
+        [(UIButton *)[[textField superview] viewWithTag:1001006] setEnabled:YES];
     }
     else
     {
         [(UIButton *)[[textField superview] viewWithTag:1001003] setEnabled:NO];
         [(UIButton *)[[textField superview] viewWithTag:1001004] setEnabled:NO];
+        [(UIButton *)[[textField superview] viewWithTag:1001005] setEnabled:NO];
+        [(UIButton *)[[textField superview] viewWithTag:1001006] setEnabled:NO];
         if ([textField tag] == 1001001)
             return;
     }
+    if (![(UITextField *)[[textField superview] viewWithTag:1001002] isEnabled])
+        return;
     if ([formElements containsObject:[[(UITextField *)[[textField superview] viewWithTag:1001002] text] lowercaseString]] ||
         [reservedWords containsObject:[[(UITextField *)[[textField superview] viewWithTag:1001002] text] lowercaseString]] ||
         ([[(UITextField *)[[textField superview] viewWithTag:1001002] text] length] > 0 &&
