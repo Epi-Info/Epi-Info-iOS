@@ -3625,7 +3625,8 @@
         {
             FormElementObject *feoij = [(NSArray *)[pages objectAtIndex:i] objectAtIndex:j];
             if ([[feoij.FieldTagValues objectAtIndex:[feoij.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"2"] ||
-                [[feoij.FieldTagValues objectAtIndex:[feoij.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"21"])
+                [[feoij.FieldTagValues objectAtIndex:[feoij.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"21"] ||
+                [[feoij.FieldTagValues objectAtIndex:[feoij.FieldTagElements indexOfObject:@"FieldTypeId"]] isEqualToString:@"99"])
                 continue;
             NSString *varname = [feoij.FieldTagValues objectAtIndex:[feoij.FieldTagElements indexOfObject:@"Name"]];
             [variablesThatCanBeInGroups addObject:varname];
