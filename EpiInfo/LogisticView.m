@@ -349,7 +349,12 @@
     [outcomeLVE.picker selectRow:0 inComponent:0 animated:YES];
     [outcomeLVE analysisStyle];
     [inputView addSubview:outcomeLVE];
-    exposureLVE = [[LegalValuesEnter alloc] initWithFrame:chosenExposureVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:exposureVariableString];
+    NSMutableArray *exposureNSMA = [NSMutableArray arrayWithArray:outcomeNSMA];
+    NSArray *groupArray = [sqliteData groups];
+    for (int groupindex = 0; groupindex < [groupArray count]; groupindex ++)
+        [exposureNSMA addObject:[groupArray objectAtIndex:groupindex]];
+    availableExposureVariables = [NSMutableArray arrayWithArray:exposureNSMA];
+    exposureLVE = [[LegalValuesEnter alloc] initWithFrame:chosenExposureVariable.frame AndListOfValues:exposureNSMA AndTextFieldToUpdate:exposureVariableString];
     [exposureLVE.picker selectRow:0 inComponent:0 animated:YES];
     [exposureLVE analysisStyle];
     [inputView addSubview:exposureLVE];
@@ -577,6 +582,10 @@
 - (void)textFieldAction
 {
     NSLog(@"exposureVariableString field value set to %@.", exposureVariableString.text);
+    // REMOVE THIS WHEN READY FOR MULTIPLE REGRESSION WITH GROUP(S)
+    if ([[exposureVariableString text] containsString:@" = GROUP("] || ([exposuresNSMA count] == 1 && [(NSString *)[exposuresNSMA objectAtIndex:0] containsString:@" = GROUP("]))
+        [exposuresNSMA removeAllObjects];
+    // REMOVE TO HERE
     if ([exposureVariableString.text length] > 0 && ![exposuresNSMA containsObject:exposureVariableString.text])
     {
         [exposuresNSMA addObject:exposureVariableString.text];
@@ -1014,10 +1023,38 @@
     
     if ((outcomeVariableChosen || outcomeLVE.selectedIndex > 0) && ([exposuresNSMA count] > 0 || [dummiesNSMA count] > 0) && !stratificationVariableChosen)
     {
+        NSString *groupOfExposures;
+        NSMutableArray *arrayOfExposuresNSMAs = [[NSMutableArray alloc] init];
+        for (NSString *exposureVariableString in exposuresNSMA)
+        {
+            if ([exposureVariableString containsString:@" = GROUP("])
+            {
+                groupOfExposures = exposureVariableString;
+                break;
+            }
+        }
+        if (groupOfExposures)
+        {
+            [exposuresNSMA removeObject:groupOfExposures];
+            NSRange GROUPrange = [groupOfExposures rangeOfString:@" = GROUP("];
+            int lastPosition = (int)[groupOfExposures length] - 1;
+            NSString *stringWithVariablesAndCommas = [[groupOfExposures substringToIndex:lastPosition] substringFromIndex:GROUPrange.location + GROUPrange.length];
+            NSArray *exposureVariablesNSA = [stringWithVariablesAndCommas componentsSeparatedByString:@", "];
+            for (int exposuregroupindex = 0; exposuregroupindex < [exposureVariablesNSA count]; exposuregroupindex++)
+            {
+                NSMutableArray *remainingExposures = [NSMutableArray arrayWithArray:exposuresNSMA];
+                [remainingExposures insertObject:[exposureVariablesNSA objectAtIndex:exposuregroupindex] atIndex:0];
+                [arrayOfExposuresNSMAs addObject:remainingExposures];
+            }
+        }
+        else
+        {
+            [arrayOfExposuresNSMAs addObject:exposuresNSMA];
+        }
         outputViewDisplayed = YES;
         stratum = 0;
         int outcomeSelectedIndex = [outcomeLVE.selectedIndex intValue];
-        NSMutableArray *allExposures = [NSMutableArray arrayWithArray:exposuresNSMA];
+        NSMutableArray *allExposures = [NSMutableArray arrayWithArray:(NSMutableArray *)[arrayOfExposuresNSMAs objectAtIndex:0]];
         for (int i = 0; i < [dummiesNSMA count]; i++)
             [allExposures addObject:[dummiesNSMA objectAtIndex:i]];
         if ([[groupVariableLVE selectedIndex] intValue] > 0)
