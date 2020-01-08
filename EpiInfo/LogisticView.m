@@ -871,6 +871,15 @@
             inputViewDisplayed = YES;
             outputViewDisplayed = NO;
             twoByTwoDisplayed = NO;
+            if (outputViewsNSMA && [outputViewsNSMA count] > 0)
+            {
+                outputView = [outputViewsNSMA objectAtIndex:0];
+                for (int ovi = 1; ovi < [outputViewsNSMA count]; ovi++)
+                {
+                    [(UIView *)[outputViewsNSMA objectAtIndex:ovi] removeFromSuperview];
+                }
+                [outputViewsNSMA removeAllObjects];
+            }
             for (UIView *v in [outputView subviews])
             {
                 for (UIView *v2 in [v subviews])
@@ -971,6 +980,15 @@
             inputViewDisplayed = YES;
             outputViewDisplayed = NO;
             twoByTwoDisplayed = NO;
+            if (outputViewsNSMA)
+            {
+                outputView = [outputViewsNSMA objectAtIndex:0];
+                for (int ovi = 1; ovi < [outputViewsNSMA count]; ovi++)
+                {
+                    [(UIView *)[outputViewsNSMA objectAtIndex:ovi] removeFromSuperview];
+                }
+                [outputViewsNSMA removeAllObjects];
+            }
             for (UIView *v in [outputView subviews])
             {
                 for (UIView *v2 in [v subviews])
@@ -1073,7 +1091,10 @@
 
         if (to.outcomeValues.count == 2)
         {
+            if (!outputViewsNSMA)
+                outputViewsNSMA = [[NSMutableArray alloc] init];
             [self doLogistic:[toNSMA objectAtIndex:0] OnOutputView:outputView StratificationVariable:nil StratificationValue:nil];
+            [outputViewsNSMA addObject:outputView];
             for (int toindex = 1; toindex < [toNSMA count]; toindex++)
             {
                 float ovX = outputView.frame.origin.x;
@@ -1084,6 +1105,7 @@
                 [outputView setBackgroundColor:[UIColor whiteColor]];
                 [self addSubview:outputView];
                 [self doLogistic:[toNSMA objectAtIndex:toindex] OnOutputView:outputView StratificationVariable:nil StratificationValue:[NSString stringWithFormat:@"%d", toindex]];
+                [outputViewsNSMA addObject:outputView];
             }
             if ([toNSMA count] > 1)
                 [avc putViewOnEpiInfoScrollView:self];
@@ -1103,6 +1125,8 @@
             return;
         }
         to = nil;
+        if (groupOfExposures && ![exposuresNSMA containsObject:groupOfExposures])
+            [exposuresNSMA insertObject:groupOfExposures atIndex:0];
     }
     
     [spinner setHidden:YES];

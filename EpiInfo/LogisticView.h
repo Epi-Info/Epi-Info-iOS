@@ -53,6 +53,8 @@ NS_ASSUME_NONNULL_BEGIN
     LogisticObject *to;
     
     CGSize avDefaultContentSize;
+    
+    NSMutableArray *outputViewsNSMA;
 }
 @end
 
