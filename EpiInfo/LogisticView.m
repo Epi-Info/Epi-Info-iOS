@@ -1042,6 +1042,8 @@
             NSArray *exposureVariablesNSA = [stringWithVariablesAndCommas componentsSeparatedByString:@", "];
             for (int exposuregroupindex = 0; exposuregroupindex < [exposureVariablesNSA count]; exposuregroupindex++)
             {
+                if (![availableExposureVariables containsObject:[exposureVariablesNSA objectAtIndex:exposuregroupindex]])
+                    continue;
                 NSMutableArray *remainingExposures = [NSMutableArray arrayWithArray:exposuresNSMA];
                 [remainingExposures insertObject:[exposureVariablesNSA objectAtIndex:exposuregroupindex] atIndex:0];
                 [arrayOfExposuresNSMAs addObject:remainingExposures];

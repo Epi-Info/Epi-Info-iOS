@@ -247,8 +247,8 @@
             filePath = "EpiInfo/LogisticView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1072"
-            endingLineNumber = "1072"
+            startingLineNumber = "1074"
+            endingLineNumber = "1074"
             landmarkName = "-doInBackground"
             landmarkType = "7">
          </BreakpointContent>
