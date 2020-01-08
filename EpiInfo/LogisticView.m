@@ -1054,18 +1054,37 @@
         outputViewDisplayed = YES;
         stratum = 0;
         int outcomeSelectedIndex = [outcomeLVE.selectedIndex intValue];
-        NSMutableArray *allExposures = [NSMutableArray arrayWithArray:(NSMutableArray *)[arrayOfExposuresNSMAs objectAtIndex:0]];
-        for (int i = 0; i < [dummiesNSMA count]; i++)
-            [allExposures addObject:[dummiesNSMA objectAtIndex:i]];
-        if ([[groupVariableLVE selectedIndex] intValue] > 0)
-            [allExposures insertObject:[availableOutcomeVariables objectAtIndex:[[groupVariableLVE selectedIndex] intValue]] atIndex:0];
-        to = [[LogisticObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:outcomeSelectedIndex] AndExposureVariables:allExposures AndIncludeMissing:includeMissing];
-        if ([[groupVariableLVE selectedIndex] intValue] > 0)
-            [to setMatchVariable:[availableOutcomeVariables objectAtIndex:[[groupVariableLVE selectedIndex] intValue] - 1]];
+        
+        NSMutableArray *toNSMA = [[NSMutableArray alloc] init];
+        for (int exposuresetindex = 0; exposuresetindex < [arrayOfExposuresNSMAs count]; exposuresetindex++)
+        {
+            NSMutableArray *allExposures = [NSMutableArray arrayWithArray:(NSMutableArray *)[arrayOfExposuresNSMAs objectAtIndex:exposuresetindex]];
+            for (int i = 0; i < [dummiesNSMA count]; i++)
+                [allExposures addObject:[dummiesNSMA objectAtIndex:i]];
+            if ([[groupVariableLVE selectedIndex] intValue] > 0)
+                [allExposures insertObject:[availableOutcomeVariables objectAtIndex:[[groupVariableLVE selectedIndex] intValue]] atIndex:0];
+            to = [[LogisticObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:outcomeSelectedIndex] AndExposureVariables:allExposures AndIncludeMissing:includeMissing];
+            if ([[groupVariableLVE selectedIndex] intValue] > 0)
+                [to setMatchVariable:[availableOutcomeVariables objectAtIndex:[[groupVariableLVE selectedIndex] intValue] - 1]];
+            [toNSMA addObject:to];
+        }
 
         if (to.outcomeValues.count == 2)
         {
-            [self doLogistic:to OnOutputView:outputView StratificationVariable:nil StratificationValue:nil];
+            [self doLogistic:[toNSMA objectAtIndex:0] OnOutputView:outputView StratificationVariable:nil StratificationValue:nil];
+            for (int toindex = 1; toindex < [toNSMA count]; toindex++)
+            {
+                float ovX = outputView.frame.origin.x;
+                float ovWidth = outputView.frame.size.width;
+                float ovHeight = outputView.frame.size.height;
+                float ovY = outputView.frame.origin.y + ovHeight + 4.0;
+                outputView = [[UIView alloc] initWithFrame:CGRectMake(ovX, ovY, ovWidth, ovHeight)];
+                [outputView setBackgroundColor:[UIColor whiteColor]];
+                [self addSubview:outputView];
+                [self doLogistic:[toNSMA objectAtIndex:toindex] OnOutputView:outputView StratificationVariable:nil StratificationValue:[NSString stringWithFormat:@"%d", toindex]];
+            }
+            if ([toNSMA count] > 1)
+                [avc putViewOnEpiInfoScrollView:self];
         }
         else
         {
@@ -2356,6 +2375,11 @@
         [gridBox setText:[NSString stringWithFormat:@"%.4f", regressionResults.LRP]];
         [statisticalTestsView addSubview:gridBox];
     }
+    float outputVX = outputV.frame.origin.x;
+    float outputVY = outputV.frame.origin.y;
+    float outputVWidth = outputV.frame.size.width;
+    float newOutputVHeight = statisticalTestsView.frame.origin.y + statisticalTestsView.frame.size.height;
+    [outputV setFrame:CGRectMake(outputVX, outputVY, outputVWidth, newOutputVHeight)];
 }
 
 /*

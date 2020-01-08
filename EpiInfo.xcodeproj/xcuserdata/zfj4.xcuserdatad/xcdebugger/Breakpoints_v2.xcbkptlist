@@ -240,15 +240,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9FDE26FA-02A6-47CC-ADC6-54DA209923A6"
+            uuid = "F1B2877D-EDEB-406D-9453-867B282F03F8"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EpiInfo/LogisticView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1054"
-            endingLineNumber = "1054"
+            startingLineNumber = "1072"
+            endingLineNumber = "1072"
             landmarkName = "-doInBackground"
             landmarkType = "7">
          </BreakpointContent>
