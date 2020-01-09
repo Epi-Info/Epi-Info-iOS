@@ -584,7 +584,11 @@
     NSLog(@"exposureVariableString field value set to %@.", exposureVariableString.text);
     // REMOVE THIS WHEN READY FOR MULTIPLE REGRESSION WITH GROUP(S)
     if ([[exposureVariableString text] containsString:@" = GROUP("] || ([exposuresNSMA count] == 1 && [(NSString *)[exposuresNSMA objectAtIndex:0] containsString:@" = GROUP("]))
+    {
         [exposuresNSMA removeAllObjects];
+        [dummiesNSMA removeAllObjects];
+        [dummiesUITV reloadData];
+    }
     // REMOVE TO HERE
     if ([exposureVariableString.text length] > 0 && ![exposuresNSMA containsObject:exposureVariableString.text])
     {
@@ -632,6 +636,11 @@
         }
         else
         {
+            if ([sender.textLabel.text containsString:@" GROUP("])
+            {
+                [sender setHighlighted:NO];
+                return;
+            }
             [self setMakeDummyButtonEnabled:YES];
             exposureVariableSelected = [NSString stringWithString:sender.textLabel.text];
         }
@@ -1042,7 +1051,9 @@
     if ((outcomeVariableChosen || outcomeLVE.selectedIndex > 0) && ([exposuresNSMA count] > 0 || [dummiesNSMA count] > 0) && !stratificationVariableChosen)
     {
         NSString *groupOfExposures;
+        NSString *stringWithVariablesAndCommas;
         NSMutableArray *arrayOfExposuresNSMAs = [[NSMutableArray alloc] init];
+        BOOL groupOfDummies = NO;
         for (NSString *exposureVariableString in exposuresNSMA)
         {
             if ([exposureVariableString containsString:@" = GROUP("])
@@ -1051,12 +1062,24 @@
                 break;
             }
         }
+        for (NSString *exposureVariableString in dummiesNSMA)
+        {
+            if ([exposureVariableString containsString:@" = GROUP("])
+            {
+                groupOfExposures = exposureVariableString;
+                groupOfDummies = YES;
+                break;
+            }
+        }
         if (groupOfExposures)
         {
-            [exposuresNSMA removeObject:groupOfExposures];
+            if ([exposuresNSMA containsObject:groupOfExposures])
+                [exposuresNSMA removeObject:groupOfExposures];
+            else if ([dummiesNSMA containsObject:groupOfExposures])
+                [dummiesNSMA removeObject:groupOfExposures];
             NSRange GROUPrange = [groupOfExposures rangeOfString:@" = GROUP("];
             int lastPosition = (int)[groupOfExposures length] - 1;
-            NSString *stringWithVariablesAndCommas = [[groupOfExposures substringToIndex:lastPosition] substringFromIndex:GROUPrange.location + GROUPrange.length];
+            stringWithVariablesAndCommas = [[groupOfExposures substringToIndex:lastPosition] substringFromIndex:GROUPrange.location + GROUPrange.length];
             NSArray *exposureVariablesNSA = [stringWithVariablesAndCommas componentsSeparatedByString:@", "];
             for (int exposuregroupindex = 0; exposuregroupindex < [exposureVariablesNSA count]; exposuregroupindex++)
             {
@@ -1093,7 +1116,10 @@
         {
             if (!outputViewsNSMA)
                 outputViewsNSMA = [[NSMutableArray alloc] init];
-            [self doLogistic:[toNSMA objectAtIndex:0] OnOutputView:outputView StratificationVariable:nil StratificationValue:nil];
+            if (groupOfDummies && stringWithVariablesAndCommas)
+                dummiesNSMA = [NSMutableArray arrayWithArray:[stringWithVariablesAndCommas componentsSeparatedByString:@", "]];
+            to = [toNSMA objectAtIndex:0];
+            [self doLogistic:to OnOutputView:outputView StratificationVariable:nil StratificationValue:nil];
             [outputViewsNSMA addObject:outputView];
             for (int toindex = 1; toindex < [toNSMA count]; toindex++)
             {
@@ -1104,9 +1130,12 @@
                 outputView = [[UIView alloc] initWithFrame:CGRectMake(ovX, ovY, ovWidth, ovHeight)];
                 [outputView setBackgroundColor:[UIColor whiteColor]];
                 [self addSubview:outputView];
-                [self doLogistic:[toNSMA objectAtIndex:toindex] OnOutputView:outputView StratificationVariable:nil StratificationValue:[NSString stringWithFormat:@"%d", toindex]];
+                to = [toNSMA objectAtIndex:toindex];
+                [self doLogistic:to OnOutputView:outputView StratificationVariable:nil StratificationValue:[NSString stringWithFormat:@"%d", toindex]];
                 [outputViewsNSMA addObject:outputView];
             }
+            if (groupOfDummies)
+                [dummiesNSMA removeAllObjects];
             if ([toNSMA count] > 1)
                 [avc putViewOnEpiInfoScrollView:self];
         }
@@ -1125,8 +1154,10 @@
             return;
         }
         to = nil;
-        if (groupOfExposures && ![exposuresNSMA containsObject:groupOfExposures])
+        if (groupOfExposures && !groupOfDummies && ![exposuresNSMA containsObject:groupOfExposures])
             [exposuresNSMA insertObject:groupOfExposures atIndex:0];
+        else if (groupOfExposures && groupOfDummies && ![dummiesNSMA containsObject:groupOfExposures])
+            [dummiesNSMA insertObject:groupOfExposures atIndex:0];
     }
     
     [spinner setHidden:YES];
