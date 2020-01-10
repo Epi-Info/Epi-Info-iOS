@@ -588,7 +588,10 @@
         [exposuresNSMA removeAllObjects];
         [dummiesNSMA removeAllObjects];
         [dummiesUITV reloadData];
+        [[exposuresUITV cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
+    else
+        [[exposuresUITV cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] setSelectionStyle:UITableViewCellSelectionStyleDefault];
     // REMOVE TO HERE
     if ([exposureVariableString.text length] > 0 && ![exposuresNSMA containsObject:exposureVariableString.text])
     {
@@ -638,7 +641,6 @@
         {
             if ([sender.textLabel.text containsString:@" GROUP("])
             {
-                [sender setHighlighted:NO];
                 return;
             }
             [self setMakeDummyButtonEnabled:YES];
