@@ -583,20 +583,24 @@
 {
     NSLog(@"exposureVariableString field value set to %@.", exposureVariableString.text);
     // REMOVE THIS WHEN READY FOR MULTIPLE REGRESSION WITH GROUP(S)
+    BOOL addingAGroup = NO;
     if ([[exposureVariableString text] containsString:@" = GROUP("] || ([exposuresNSMA count] == 1 && [(NSString *)[exposuresNSMA objectAtIndex:0] containsString:@" = GROUP("]))
     {
         [exposuresNSMA removeAllObjects];
         [dummiesNSMA removeAllObjects];
         [dummiesUITV reloadData];
-        [[exposuresUITV cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] setSelectionStyle:UITableViewCellSelectionStyleNone];
+        if ([[exposureVariableString text] containsString:@" = GROUP("])
+            addingAGroup = YES;
     }
-    else
-        [[exposuresUITV cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] setSelectionStyle:UITableViewCellSelectionStyleDefault];
     // REMOVE TO HERE
     if ([exposureVariableString.text length] > 0 && ![exposuresNSMA containsObject:exposureVariableString.text])
     {
         [exposuresNSMA addObject:exposureVariableString.text];
         [exposuresUITV reloadData];
+        if (addingAGroup)
+            [[exposuresUITV cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] setSelectionStyle:UITableViewCellSelectionStyleNone];
+        else
+            [[exposuresUITV cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] setSelectionStyle:UITableViewCellSelectionStyleDefault];
     }
     [self setMakeDummyButtonEnabled:NO];
 }
