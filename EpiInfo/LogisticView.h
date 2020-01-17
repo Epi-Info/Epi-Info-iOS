@@ -55,6 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
     CGSize avDefaultContentSize;
     
     NSMutableArray *outputViewsNSMA;
+    float initialOutputViewY;
 }
 @end
 
