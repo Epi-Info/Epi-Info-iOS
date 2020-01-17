@@ -1060,7 +1060,7 @@
     if ([oddsAndRisk count] == 0)
         return;
     float cellWidth = 79.0;
-    oddsTableView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, MIN(7.0 * (cellWidth + 1.0), outputV.frame.size.width - 4.0), 20.0 * ([oddsAndRisk count] + 1))];
+    oddsTableView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, MIN(4.0 * (cellWidth + 1.0), outputV.frame.size.width - 4.0), 20.0 * ([oddsAndRisk count] + 1))];
     [oddsTableView setBackgroundColor:epiInfoLightBlue];
     [outputV addSubview:oddsTableView];
     
