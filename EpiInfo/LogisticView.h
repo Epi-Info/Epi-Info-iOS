@@ -56,6 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
     
     NSMutableArray *outputViewsNSMA;
     float initialOutputViewY;
+    UIView *oddsTableView;
 }
 @end
 

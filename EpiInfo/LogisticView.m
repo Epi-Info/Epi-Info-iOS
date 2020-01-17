@@ -1050,25 +1050,29 @@
     }
 }
 
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return oddsAndRiskTableView;
+}
+
 - (void)doGroupVariableSummaries:(NSArray *)oddsAndRisk OnOutputView:(UIView *)outputV
 {
     if ([oddsAndRisk count] == 0)
         return;
     float cellWidth = 79.0;
-    oddsAndRiskTableView = [[UIScrollView alloc] initWithFrame:CGRectMake(2, initialOutputViewY, MIN(7.0 * (cellWidth + 1.0), outputV.frame.size.width - 4.0), 20.0 * ([oddsAndRisk count] + 1))];
-    [oddsAndRiskTableView setBackgroundColor:epiInfoLightBlue];
-    [oddsAndRiskTableView setContentSize:CGSizeMake(4 * (cellWidth + 1.0), 20.0 * ([oddsAndRisk count] + 1))];
-    [outputV addSubview:oddsAndRiskTableView];
+    oddsTableView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, MIN(7.0 * (cellWidth + 1.0), outputV.frame.size.width - 4.0), 20.0 * ([oddsAndRisk count] + 1))];
+    [oddsTableView setBackgroundColor:epiInfoLightBlue];
+    [outputV addSubview:oddsTableView];
     
-    UIView *underTheFirstColumnView = [[UIView alloc] initWithFrame:CGRectMake(2, initialOutputViewY, cellWidth + 1, 20.0 * ([oddsAndRisk count] + 1))];
+    UIView *underTheFirstColumnView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, cellWidth + 1, 20.0 * ([oddsAndRisk count] + 1))];
     [underTheFirstColumnView setBackgroundColor:epiInfoLightBlue];
     [outputV addSubview:underTheFirstColumnView];
     
-    UIView *rightBorderView = [[UIView alloc] initWithFrame:CGRectMake(outputV.frame.size.width - 3.0, initialOutputViewY, 1, 20.0 * ([oddsAndRisk count] + 1))];
+    UIView *rightBorderView = [[UIView alloc] initWithFrame:CGRectMake(outputV.frame.size.width - 3.0, 2, 1, 20.0 * ([oddsAndRisk count] + 1))];
     [rightBorderView setBackgroundColor:epiInfoLightBlue];
     [outputV addSubview:rightBorderView];
     
-    UIView *rightOfTheTableView = [[UIView alloc] initWithFrame:CGRectMake(outputV.frame.size.width - 2.0, initialOutputViewY, 2, 20.0 * ([oddsAndRisk count] + 1))];
+    UIView *rightOfTheTableView = [[UIView alloc] initWithFrame:CGRectMake(outputV.frame.size.width - 2.0, 2, 2, 20.0 * ([oddsAndRisk count] + 1))];
     [rightOfTheTableView setBackgroundColor:[UIColor whiteColor]];
     [outputV addSubview:rightOfTheTableView];
     
@@ -1087,7 +1091,7 @@
     [columnHeader setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
     [columnHeader setTextAlignment:NSTextAlignmentCenter];
     [columnHeader setText:@"Odds Ratio"];
-    [oddsAndRiskTableView addSubview:columnHeader];
+    [oddsTableView addSubview:columnHeader];
     
     cellPositionAdjustment = 2.0;
     columnHeader = [[UILabel alloc] initWithFrame:CGRectMake(cellPositionAdjustment + cellPositionAdjustment * cellWidth, 1, cellWidth, 18)];
@@ -1096,7 +1100,7 @@
     [columnHeader setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
     [columnHeader setTextAlignment:NSTextAlignmentCenter];
     [columnHeader setText:@"OR LL"];
-    [oddsAndRiskTableView addSubview:columnHeader];
+    [oddsTableView addSubview:columnHeader];
     
     cellPositionAdjustment = 3.0;
     columnHeader = [[UILabel alloc] initWithFrame:CGRectMake(cellPositionAdjustment + cellPositionAdjustment * cellWidth, 1, cellWidth, 18)];
@@ -1105,7 +1109,7 @@
     [columnHeader setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
     [columnHeader setTextAlignment:NSTextAlignmentCenter];
     [columnHeader setText:@"OR UL"];
-    [oddsAndRiskTableView addSubview:columnHeader];
+    [oddsTableView addSubview:columnHeader];
     
     for (int orindex = 0; orindex < [oddsAndRisk count]; orindex++)
     {
@@ -1130,7 +1134,7 @@
         [statValue setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
         [statValue setTextAlignment:NSTextAlignmentCenter];
         [statValue setText:[NSString stringWithFormat:@"%.2f", [[[oddsAndRisk objectAtIndex:orindex] objectAtIndex:1] floatValue]]];
-        [oddsAndRiskTableView addSubview:statValue];
+        [oddsTableView addSubview:statValue];
         
         cellPositionAdjustment = 2.0;
         statValue = [[UILabel alloc] initWithFrame:CGRectMake(cellPositionAdjustment + cellPositionAdjustment * cellWidth, yPos, cellWidth, 19)];
@@ -1139,7 +1143,7 @@
         [statValue setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
         [statValue setTextAlignment:NSTextAlignmentCenter];
         [statValue setText:[NSString stringWithFormat:@"%.2f", [[[oddsAndRisk objectAtIndex:orindex] objectAtIndex:2] floatValue]]];
-        [oddsAndRiskTableView addSubview:statValue];
+        [oddsTableView addSubview:statValue];
         
         cellPositionAdjustment = 3.0;
         statValue = [[UILabel alloc] initWithFrame:CGRectMake(cellPositionAdjustment + cellPositionAdjustment * cellWidth, yPos, cellWidth, 19)];
@@ -1148,7 +1152,7 @@
         [statValue setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
         [statValue setTextAlignment:NSTextAlignmentCenter];
         [statValue setText:[NSString stringWithFormat:@"%.2f", [[[oddsAndRisk objectAtIndex:orindex] objectAtIndex:3] floatValue]]];
-        [oddsAndRiskTableView addSubview:statValue];
+        [oddsTableView addSubview:statValue];
     }
 }
 
@@ -1229,6 +1233,7 @@
             to = [toNSMA objectAtIndex:0];
             summaryTable = [[NSMutableArray alloc] init];
             [summaryTable addObject:[[NSMutableArray alloc] init]];
+            UIView *outputViewZero;
             if ([toNSMA count] > 1)
             {
                 float initialOutputViewX = outputView.frame.origin.x;
@@ -1237,6 +1242,8 @@
                 float initialOutputViewHeight = outputView.frame.size.height;
                 float newOutputViewY = initialOutputViewY + 20.0 * (1.0 + (float)[toNSMA count]) + 4;
                 [outputView setFrame:CGRectMake(initialOutputViewX, newOutputViewY, initialOutputViewWidth, initialOutputViewHeight)];
+                outputViewZero = [[UIView alloc] initWithFrame:CGRectMake(initialOutputViewX, initialOutputViewY, initialOutputViewWidth, 20.0 * (1.0 + (float)[toNSMA count]))];
+                [self addSubview:outputViewZero];
             }
             [self doLogistic:to OnOutputView:outputView StratificationVariable:nil StratificationValue:nil];
             [outputViewsNSMA addObject:outputView];
@@ -1255,11 +1262,11 @@
                 [outputViewsNSMA addObject:outputView];
             }
             if ([summaryTable count] > 1)
-                [self doGroupVariableSummaries:summaryTable OnOutputView:self];
+                [self doGroupVariableSummaries:summaryTable OnOutputView:outputViewZero];
             if (groupOfDummies)
                 [dummiesNSMA removeAllObjects];
-            if ([toNSMA count] > 1)
-                [avc putViewOnEpiInfoScrollView:self];
+//            if ([toNSMA count] > 1)
+//                [avc putViewOnEpiInfoScrollView:self];
         }
         else
         {
