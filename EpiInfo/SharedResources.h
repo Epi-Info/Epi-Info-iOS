@@ -22,4 +22,5 @@
 +(double)ribetafunction:(double)p VariableAlpha:(int)alpha VariableBeta:(int)beta;
 +(double)ribetafunction:(double)p VariableAlpha:(int)alpha VariableBeta:(int)beta UsesChoosey:(BOOL)yn;
 +(double)TfromP:(double)pdblProportion AndDF:(short)pintDF;
++(NSArray *)sortArrayOfArrays:(NSArray *)inArray onIndex:(int)idx;
 @end

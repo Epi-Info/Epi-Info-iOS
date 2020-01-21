@@ -588,4 +588,28 @@ four:
     return ldblX;
 }
 
++ (NSArray *)sortArrayOfArrays:(NSArray *)inArray onIndex:(int)idx
+{
+    NSMutableArray *outArray = [[NSMutableArray alloc] init];
+    [outArray addObject:[inArray objectAtIndex:0]];
+    for (int i = 1; i < [inArray count]; i++)
+    {
+        BOOL continueI = NO;
+        for (int j = 0; j < [outArray count]; j++)
+        {
+            if ([(NSNumber *)[(NSMutableArray *)[inArray objectAtIndex:i] objectAtIndex:idx] floatValue] >
+                [(NSNumber *)[(NSMutableArray *)[outArray objectAtIndex:j] objectAtIndex:idx] floatValue])
+            {
+                [outArray insertObject:[inArray objectAtIndex:i] atIndex:j];
+                continueI = YES;
+                break;
+            }
+        }
+        if (continueI)
+            continue;
+        [outArray addObject:[inArray objectAtIndex:i]];
+    }
+    return outArray;
+}
+
 @end

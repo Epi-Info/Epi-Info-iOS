@@ -1064,6 +1064,7 @@
 {
     if ([oddsAndRisk count] == 0)
         return;
+    oddsAndRisk = [SharedResources sortArrayOfArrays:oddsAndRisk onIndex:2];
     float cellWidth = 79.0;
     oddsTableView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, MIN(4.0 * (cellWidth + 1.0), outputV.frame.size.width - 4.0), 20.0 * ([oddsAndRisk count] + 1))];
     [oddsTableView setBackgroundColor:epiInfoLightBlue];
