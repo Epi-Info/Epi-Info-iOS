@@ -32,7 +32,7 @@
             outputView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
             [outputView setBackgroundColor:[UIColor whiteColor]];
             [self addSubview:outputView];
-            
+
             //Add the input view
             inputView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 204)];
             [inputView setBackgroundColor:epiInfoLightBlue];
@@ -56,7 +56,7 @@
             [chooseOutcomeVariable setDataSource:self];
             [chooseOutcomeVariable setShowsSelectionIndicator:YES];
             [chooseOutcomeVariable addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(chooseOutcomeVariableTapped:)]];
-            
+
             //Add Exposure Variable button and picker
             chosenExposureVariable = [[ShinyButton alloc] initWithFrame:CGRectMake(20, 56, frame.size.width - 40, 44)];
             [chosenExposureVariable setBackgroundColor:epiInfoLightBlue];
@@ -75,6 +75,10 @@
             [chooseExposureVariable setShowsSelectionIndicator:YES];
             [chooseExposureVariable addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(chooseExposureVariableTapped:)]];
             
+            [includeMissingLabel removeFromSuperview];
+            [includeMissingButton removeFromSuperview];
+
+            /*
             //Add Inclued Missing box and label
             includeMissing = NO;
             includeMissingButton = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width / 2.0, 104, 22, 22)];
@@ -91,7 +95,8 @@
             [includeMissingLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
 //            [inputView addSubview:includeMissingLabel];
 //            [inputView sendSubviewToBack:includeMissingLabel];
-            
+             */
+
             //Add Stratification Variable button and picker
             chosenStratificationVariable = [[ShinyButton alloc] initWithFrame:CGRectMake(20, 135, frame.size.width - 40, 44)];
             [chosenStratificationVariable setBackgroundColor:epiInfoLightBlue];
@@ -114,7 +119,7 @@
 //            [inputView addSubview:chooseOutcomeVariable];
 //            [inputView addSubview:chooseExposureVariable];
 //            [inputView addSubview:chooseStratificationVariable];
-            
+
             //Add the white box
             inputViewWhiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 2, inputView.frame.size.width - 4, inputView.frame.size.height - 4)];
             [inputViewWhiteBox setBackgroundColor:[UIColor whiteColor]];
@@ -122,7 +127,7 @@
             [inputView addSubview:inputViewWhiteBox];
             [inputView sendSubviewToBack:inputViewWhiteBox];
             [self addSubview:inputView];
-            
+
             //Add title bar
             titleBar = [[UIView alloc] initWithFrame:CGRectMake(0, -114, frame.size.width, 162)];
             [titleBar setBackgroundColor:[UIColor whiteColor]];
