@@ -559,21 +559,21 @@
                     if (([[outcomeArray objectAtIndex:i] isKindOfClass:[NSNull class]] || [[outcomeArray objectAtIndex:i] isEqualToString:@"(null)"]) &&
                         ([[exposureArray objectAtIndex:i] isKindOfClass:[NSNull class]] || [[exposureArray objectAtIndex:i] isEqualToString:@"(null)"]))
                     {
-                        if (([[self.outcomeValues objectAtIndex:b] isKindOfClass:[NSNull class]] || [[self.outcomeValues objectAtIndex:b] isEqualToString:@"(null)"]) &&
-                            ([[self.exposureValues objectAtIndex:a] isKindOfClass:[NSNull class]] || [[self.exposureValues objectAtIndex:a] isEqualToString:@"(null)"]))
+                        if (([[self.outcomeValues objectAtIndex:b] isKindOfClass:[NSNull class]] || ([[self.outcomeValues objectAtIndex:b] isKindOfClass:[NSString class]] && [[self.outcomeValues objectAtIndex:b] isEqualToString:@"(null)"])) &&
+                            ([[self.exposureValues objectAtIndex:a] isKindOfClass:[NSNull class]] || ([[self.exposureValues objectAtIndex:a] isKindOfClass:[NSString class]] && [[self.exposureValues objectAtIndex:a] isEqualToString:@"(null)"])))
                             counts[j]++;
                     }
                     //If only outcome is null
                     else if ([[outcomeArray objectAtIndex:i] isKindOfClass:[NSNull class]] || [[outcomeArray objectAtIndex:i] isEqualToString:@"(null)"])
                     {
-                        if (([[self.outcomeValues objectAtIndex:b] isKindOfClass:[NSNull class]] || [[self.outcomeValues objectAtIndex:b] isEqualToString:@"(null)"]) &&
+                        if (([[self.outcomeValues objectAtIndex:b] isKindOfClass:[NSNull class]] || ([[self.outcomeValues objectAtIndex:b] isKindOfClass:[NSString class]] && [[self.outcomeValues objectAtIndex:b] isEqualToString:@"(null)"])) &&
                             [[exposureArray objectAtIndex:i] isEqualToString:exposureString])
                             counts[j]++;
                     }
                     //If only exposure is null
                     else
                     {
-                        if (([[self.exposureValues objectAtIndex:a] isKindOfClass:[NSNull class]] || [[self.exposureValues objectAtIndex:a] isEqualToString:@"(null)"]) &&
+                        if (([[self.exposureValues objectAtIndex:a] isKindOfClass:[NSNull class]] || ([[self.exposureValues objectAtIndex:a] isKindOfClass:[NSString class]] && [[self.exposureValues objectAtIndex:a] isEqualToString:@"(null)"])) &&
                             [[outcomeArray objectAtIndex:i] isEqualToString:outcomeString])
                             counts[j]++;
                     }
