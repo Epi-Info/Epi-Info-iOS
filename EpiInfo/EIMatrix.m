@@ -216,7 +216,7 @@
     likelihood = 1.0;
     double ldblweight = 1.0;
     
-    int lIntRow = 1;
+    int lIntRow = 0;
     int lLevels = 0;
     double lLeveldata = 0.0;
     double lDblT0 = 0.0;
@@ -232,11 +232,11 @@
         
         if (s + 1 == self.matchGroupValues)
         {
-            lLevels = nRows - lIntRow + 1;
+            lLevels = nRows - lIntRow + 0;
         }
         else
         {
-            while (lLeveldata == [(NSNumber *)[(NSArray *)[ldblaDataArray objectAtIndex:(lIntRow + lLevels - 1)] objectAtIndex:1] doubleValue])
+            while (lLeveldata == [(NSNumber *)[(NSArray *)[ldblaDataArray objectAtIndex:(lIntRow + lLevels - 0)] objectAtIndex:1] doubleValue])
             {
                 lLevels++;
             }
@@ -245,7 +245,7 @@
         lDblT0 = 0.0;
         cases = 0;
         count = 0;
-        for (int i = lIntRow - 1; i < lLevels + lIntRow - 1; i++)
+        for (int i = lIntRow - 0; i < lLevels + lIntRow - 0; i++)
         {
             if (lintOffset == 3)
             {
