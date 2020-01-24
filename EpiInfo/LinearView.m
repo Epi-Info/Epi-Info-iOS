@@ -1117,6 +1117,11 @@
         NSArray *rowArrayCopy = [NSArray arrayWithArray:(NSArray*)[currentTableMA objectAtIndex:i]];
         for (int j = 0; j < [rowArrayCopy count]; j++)
         {
+            if ([[rowArrayCopy objectAtIndex:j] isKindOfClass:[NSNull class]])
+            {
+                [currentTableMA removeObjectAtIndex:i];
+                break;
+            }
             NSString *cellvalue = (NSString *)[rowArrayCopy objectAtIndex:j];
             if ([cellvalue isEqualToString:@"(null)"])
             {
