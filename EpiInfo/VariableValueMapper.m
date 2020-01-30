@@ -65,7 +65,7 @@
 
     UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.frame.size.height - whiteY - 40, self.frame.size.width / 2.0, 40)];
     [saveButton setBackgroundColor:[UIColor whiteColor]];
-    [saveButton setTitle:@"Save" forState:UIControlStateNormal];
+    [saveButton setTitle:@"Save and Close" forState:UIControlStateNormal];
     [saveButton setTitleColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0] forState:UIControlStateNormal];
     [saveButton setTitleColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:0.1] forState:UIControlStateHighlighted];
     [saveButton addTarget:self action:@selector(saveButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -73,7 +73,7 @@
     
     UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0, self.frame.size.height - whiteY - 40, self.frame.size.width / 2.0, 40)];
     [cancelButton setBackgroundColor:[UIColor whiteColor]];
-    [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+    [cancelButton setTitle:@"Clear and Close" forState:UIControlStateNormal];
     [cancelButton setTitleColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0] forState:UIControlStateNormal];
     [cancelButton setTitleColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:0.1] forState:UIControlStateHighlighted];
     [cancelButton addTarget:self action:@selector(cancelButtonPressed:) forControlEvents:UIControlEventTouchUpInside];

@@ -402,8 +402,11 @@
     mapExposureValuesButton = [[UIButton alloc] initWithFrame:CGRectMake(makeDummyButton.frame.origin.x, groupVariableLVE.frame.origin.y + groupVariableLVE.frame.size.height + 4.0, makeDummyButton.frame.size.width, makeDummyButton.frame.size.height)];
     [mapExposureValuesButton setBackgroundColor:epiInfoLightBlue];
     [mapExposureValuesButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [mapExposureValuesButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:0.1] forState:UIControlStateHighlighted];
     [mapExposureValuesButton setTitle:@"Map Exposure Variable Values" forState:UIControlStateNormal];
     [mapExposureValuesButton addTarget:self action:@selector(mapExposureVariablesButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [mapExposureValuesButton setEnabled:NO];
+    [mapExposureValuesButton setAlpha:0.4];
     [inputView addSubview:mapExposureValuesButton];
 
     avc = (AnalysisViewController *)vc;
@@ -609,12 +612,24 @@
     // REMOVE TO HERE
     if ([exposureVariableString.text length] > 0 && ![exposuresNSMA containsObject:exposureVariableString.text])
     {
+        exposureValueMapper = nil;
         [exposuresNSMA addObject:exposureVariableString.text];
         [exposuresUITV reloadData];
         if (addingAGroup)
             [[exposuresUITV cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] setSelectionStyle:UITableViewCellSelectionStyleNone];
         else
             [[exposuresUITV cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] setSelectionStyle:UITableViewCellSelectionStyleDefault];
+        if ([exposuresNSMA count] == 1)
+        {
+            [mapExposureValuesButton setEnabled:YES];
+            [mapExposureValuesButton setAlpha:1.0];
+        }
+        else
+        {
+            [mapExposureValuesButton setEnabled:NO];
+            [mapExposureValuesButton setAlpha:0.4];
+            previousExposureVariableValue = nil;
+        }
     }
     [self setMakeDummyButtonEnabled:NO];
 }
@@ -639,6 +654,18 @@
         [dummiesNSMA removeObjectAtIndex:[dummiesNSMA indexOfObject:sender.textLabel.text]];
         [dummiesUITV reloadData];
     }
+    if ([exposuresNSMA count] == 1)
+    {
+        [mapExposureValuesButton setEnabled:YES];
+        [mapExposureValuesButton setAlpha:1.0];
+    }
+    else
+    {
+        [mapExposureValuesButton setEnabled:NO];
+        [mapExposureValuesButton setAlpha:0.4];
+        previousExposureVariableValue = nil;
+    }
+    exposureValueMapper = nil;
 }
 - (void)singleTapAction:(UITapGestureRecognizer *)tap
 {
@@ -680,6 +707,18 @@
         }
     }
     [self setMakeDummyButtonEnabled:NO];
+    if ([exposuresNSMA count] == 1)
+    {
+        [mapExposureValuesButton setEnabled:YES];
+        [mapExposureValuesButton setAlpha:1.0];
+    }
+    else
+    {
+        [mapExposureValuesButton setEnabled:NO];
+        [mapExposureValuesButton setAlpha:0.4];
+        previousExposureVariableValue = nil;
+    }
+    exposureValueMapper = nil;
 }
 
 - (void)mapExposureVariablesButtonPressed:(UIButton *)sender
