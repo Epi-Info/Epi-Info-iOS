@@ -398,6 +398,13 @@
     [groupVariableLVE analysisStyle];
     [inputView addSubview:groupVariableLabel];
     [inputView addSubview:groupVariableLVE];
+    
+    mapExposureValuesButton = [[UIButton alloc] initWithFrame:CGRectMake(makeDummyButton.frame.origin.x, groupVariableLVE.frame.origin.y + groupVariableLVE.frame.size.height + 4.0, makeDummyButton.frame.size.width, makeDummyButton.frame.size.height)];
+    [mapExposureValuesButton setBackgroundColor:epiInfoLightBlue];
+    [mapExposureValuesButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [mapExposureValuesButton setTitle:@"Map Exposure Variable Values" forState:UIControlStateNormal];
+    [mapExposureValuesButton addTarget:self action:@selector(mapExposureVariablesButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [inputView addSubview:mapExposureValuesButton];
 
     avc = (AnalysisViewController *)vc;
     avDefaultContentSize = [avc getInitialContentSize];
@@ -441,6 +448,7 @@
                     [inputViewWhiteBox setFrame:CGRectMake(2, 2, inputView.frame.size.width - 4, inputView.frame.size.height - 4)];
                     [includeMissingButton setFrame:CGRectMake(170, 104, 22, 22)];
                     [includeMissingLabel setFrame:CGRectMake(20, 104, 140, 22)];
+                    [mapExposureValuesButton setFrame:CGRectMake(10, groupVariableLVE.frame.origin.y + 60, 300, 44)];
                     [spinner setFrame:CGRectMake(frame.size.width / 2.0 - 20, 118, 40, 40)];
                 }
                 else
@@ -520,6 +528,7 @@
                     [inputViewWhiteBox setFrame:CGRectMake(2, 2, inputView.frame.size.width - 4, inputView.frame.size.height - 4)];
                     [includeMissingLabel setFrame:CGRectMake(chosenExposureVariable.frame.origin.x, 231, 140, 22)];
                     [includeMissingButton setFrame:CGRectMake(includeMissingLabel.frame.origin.x + 150, 231, 22, 22)];
+                    [mapExposureValuesButton setFrame:CGRectMake(10, groupVariableLVE.frame.origin.y + 60, 276, 44)];
                     [spinner setFrame:CGRectMake(frame.size.width / 2.0 - 20, 118, 40, 40)];
                 }
                 else
@@ -671,6 +680,66 @@
         }
     }
     [self setMakeDummyButtonEnabled:NO];
+}
+
+- (void)mapExposureVariablesButtonPressed:(UIButton *)sender
+{
+    if (!exposuresNSMA)
+        return;
+    if ([exposuresNSMA count] != 1)
+        return;
+    UIView *topmostView = [[[[UIApplication sharedApplication] keyWindow] rootViewController] view];
+    float senderY = sender.frame.origin.y;
+    float sendersuperW = [[sender superview] superview].frame.size.width;
+    float sendersuperH = topmostView.frame.size.height;
+    BOOL exposureVariableChanged = YES;
+    if (previousExposureVariableValue)
+    {
+        if ([previousExposureVariableValue isEqualToString:[exposuresNSMA objectAtIndex:0]])
+        {
+            exposureVariableChanged = NO;
+        }
+    }
+    if (exposureVariableChanged)
+    {
+        previousExposureVariableValue = [NSString stringWithString:[exposuresNSMA objectAtIndex:0]];
+        if ([previousExposureVariableValue containsString:@" = GROUP("])
+        {
+            NSMutableArray *variableValuesNSMA = [[NSMutableArray alloc] init];
+            
+            NSRange GROUPrange = [previousExposureVariableValue rangeOfString:@" = GROUP("];
+            int lastPosition = (int)[previousExposureVariableValue length] - 1;
+            NSString *commaSeparatedListOfVariables = [[previousExposureVariableValue substringToIndex:lastPosition] substringFromIndex:GROUPrange.location + GROUPrange.length];
+            NSArray *exposureVariablesNSA = [commaSeparatedListOfVariables componentsSeparatedByString:@", "];
+            for (NSString *nst in exposureVariablesNSA)
+            {
+                FrequencyObject *freqObj = [[FrequencyObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndVariable:nst AndIncludeMissing:YES];
+                NSArray *variableValuesNSA = [freqObj variableValues];
+                for (NSString *nstt in variableValuesNSA)
+                {
+                    if (![variableValuesNSMA containsObject:nstt])
+                    {
+                        [variableValuesNSMA addObject:nstt];
+                    }
+                }
+            }
+            
+            NSArray *variableValuesNSA = [NSArray arrayWithArray:variableValuesNSMA];
+            exposureValueMapper = [[VariableValueMapper alloc] initWithFrame:CGRectMake(0, senderY, sendersuperW, sendersuperH)];
+            [exposureValueMapper setWhiteY:gearButton.frame.origin.y - 2.0 andValueList:variableValuesNSA];
+        }
+        else
+        {
+            FrequencyObject *freqObj = [[FrequencyObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndVariable:previousExposureVariableValue AndIncludeMissing:YES];
+            NSArray *variableValuesNSA = [freqObj variableValues];
+            exposureValueMapper = [[VariableValueMapper alloc] initWithFrame:CGRectMake(0, senderY, sendersuperW, sendersuperH)];
+            [exposureValueMapper setWhiteY:gearButton.frame.origin.y - 2.0 andValueList:variableValuesNSA];
+        }
+    }
+    [topmostView addSubview:exposureValueMapper];
+    [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
+        [exposureValueMapper setFrame:CGRectMake(0, 0, sendersuperW, sendersuperH)];
+    }completion:nil];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -841,6 +910,7 @@
                 [dummiesUITV setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y - 100, chosenExposureVariable.frame.size.width, 44)];
                 [groupVariableLabel setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y - 80, chosenExposureVariable.frame.size.width, 20)];
                 [groupVariableLVE setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y - 80, chosenExposureVariable.frame.size.width, 44)];
+                [mapExposureValuesButton setFrame:CGRectMake(10, chosenExposureVariable.frame.origin.y - 80, chosenExposureVariable.frame.size.width, 44)];
                 [chosenStratificationVariable setFrame:CGRectMake(20, chosenExposureVariable.frame.origin.y - 170, chosenExposureVariable.frame.size.width, 44)];
                 //Move the pickers up if they are in view, otherwise they need to be hidden in case the
                 //ContentSize increases to >1000
@@ -1226,7 +1296,7 @@
                 [allExposures insertObject:[availableOutcomeVariables objectAtIndex:[[groupVariableLVE selectedIndex] intValue]] atIndex:0];
             to = [[LogisticObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:outcomeSelectedIndex] AndExposureVariables:allExposures AndIncludeMissing:includeMissing];
             if ([[groupVariableLVE selectedIndex] intValue] > 0)
-                [to setMatchVariable:[availableOutcomeVariables objectAtIndex:[[groupVariableLVE selectedIndex] intValue] - 1]];
+                [to setMatchVariable:[availableOutcomeVariables objectAtIndex:[[groupVariableLVE selectedIndex] intValue]]];
             [toNSMA addObject:to];
         }
 
@@ -1593,6 +1663,134 @@
         }
     }
     
+    if ([[groupVariableLVE selectedIndex] intValue] == 0)
+    {
+        if ([[mutableCurrentTable objectAtIndex:0] count] == 3 && [independentVariables count] == 1)
+        {
+            if (exposureValueMapper)
+            {
+                if (previousExposureVariableValue)
+                {
+                    if ([previousExposureVariableValue containsString:[independentVariables objectAtIndex:0]])
+                    {
+                        if ([[[exposureValueMapper onesUITV] indexPathsForSelectedRows] count] > 0 &&
+                            [[[exposureValueMapper zerosUITV] indexPathsForSelectedRows] count] > 0)
+                        {
+                            NSArray *onesNSIPs = [[exposureValueMapper onesUITV] indexPathsForSelectedRows];
+                            NSArray *zerosNSIPs = [[exposureValueMapper zerosUITV] indexPathsForSelectedRows];
+                            NSMutableArray *oneStrings = [[NSMutableArray alloc] init];
+                            NSMutableArray *zeroStrings = [[NSMutableArray alloc] init];
+                            for (NSIndexPath *nsip in onesNSIPs)
+                            {
+                                NSString *nss;
+                                NSObject *nso = [[exposureValueMapper onesNSMA] objectAtIndex:nsip.row];
+                                if ([nso isKindOfClass:[NSString class]])
+                                    nss = (NSString *)nso;
+                                else if ([nso isKindOfClass:[NSNumber class]])
+                                    nss = [NSString stringWithFormat:@"%@", (NSNumber *)nso];
+                                else if ([nso isKindOfClass:[NSNull class]])
+                                    nss = @"(null)";
+                                if ([nss isEqualToString:@"<null>"])
+                                    nss = @"(null)";
+                                if (![oneStrings containsObject:nss])
+                                    [oneStrings addObject:nss];
+                            }
+                            for (NSIndexPath *nsip in zerosNSIPs)
+                            {
+                                NSString *nss;
+                                NSObject *nso = [[exposureValueMapper zerosNSMA] objectAtIndex:nsip.row];
+                                if ([nso isKindOfClass:[NSString class]])
+                                    nss = (NSString *)nso;
+                                else if ([nso isKindOfClass:[NSNumber class]])
+                                    nss = [NSString stringWithFormat:@"%@", (NSNumber *)nso];
+                                else if ([nso isKindOfClass:[NSNull class]])
+                                    nss = @"(null)";
+                                if ([nss isEqualToString:@"<null>"])
+                                    nss = @"(null)";
+                                if (![zeroStrings containsObject:nss])
+                                    [zeroStrings addObject:nss];
+                            }
+                            for (int mctindex = 0; mctindex < [mutableCurrentTable count]; mctindex++)
+                            {
+                                if ([oneStrings containsObject:[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:1]] ||
+                                    ([oneStrings containsObject:@"(null)"] && [[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:1] isKindOfClass:[NSNull class]]))
+                                    [mutableCurrentTable setObject:@[[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:0],@"1",[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:2]] atIndexedSubscript:mctindex];
+                                else if ([zeroStrings containsObject:[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:1]] ||
+                                         ([zeroStrings containsObject:@"(null)"] && [[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:1] isKindOfClass:[NSNull class]]))
+                                    [mutableCurrentTable setObject:@[[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:0],@"0",[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:2]] atIndexedSubscript:mctindex];
+                                else
+                                    [mutableCurrentTable setObject:@[[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:0],@"(null)",[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:2]] atIndexedSubscript:mctindex];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    else
+    {
+        if ([[mutableCurrentTable objectAtIndex:0] count] == 4 && [independentVariables count] == 2)
+        {
+            if (exposureValueMapper)
+            {
+                if (previousExposureVariableValue)
+                {
+                    if ([previousExposureVariableValue containsString:[independentVariables objectAtIndex:1]])
+                    {
+                        if ([[[exposureValueMapper onesUITV] indexPathsForSelectedRows] count] > 0 &&
+                            [[[exposureValueMapper zerosUITV] indexPathsForSelectedRows] count] > 0)
+                        {
+                            NSArray *onesNSIPs = [[exposureValueMapper onesUITV] indexPathsForSelectedRows];
+                            NSArray *zerosNSIPs = [[exposureValueMapper zerosUITV] indexPathsForSelectedRows];
+                            NSMutableArray *oneStrings = [[NSMutableArray alloc] init];
+                            NSMutableArray *zeroStrings = [[NSMutableArray alloc] init];
+                            for (NSIndexPath *nsip in onesNSIPs)
+                            {
+                                NSString *nss;
+                                NSObject *nso = [[exposureValueMapper onesNSMA] objectAtIndex:nsip.row];
+                                if ([nso isKindOfClass:[NSString class]])
+                                    nss = (NSString *)nso;
+                                else if ([nso isKindOfClass:[NSNumber class]])
+                                    nss = [NSString stringWithFormat:@"%@", (NSNumber *)nso];
+                                else if ([nso isKindOfClass:[NSNull class]])
+                                    nss = @"(null)";
+                                if ([nss isEqualToString:@"<null>"])
+                                    nss = @"(null)";
+                                if (![oneStrings containsObject:nss])
+                                    [oneStrings addObject:nss];
+                            }
+                            for (NSIndexPath *nsip in zerosNSIPs)
+                            {
+                                NSString *nss;
+                                NSObject *nso = [[exposureValueMapper zerosNSMA] objectAtIndex:nsip.row];
+                                if ([nso isKindOfClass:[NSString class]])
+                                    nss = (NSString *)nso;
+                                else if ([nso isKindOfClass:[NSNumber class]])
+                                    nss = [NSString stringWithFormat:@"%@", (NSNumber *)nso];
+                                else if ([nso isKindOfClass:[NSNull class]])
+                                    nss = @"(null)";
+                                if ([nss isEqualToString:@"<null>"])
+                                    nss = @"(null)";
+                                if (![zeroStrings containsObject:nss])
+                                    [zeroStrings addObject:nss];
+                            }
+                            for (int mctindex = 0; mctindex < [mutableCurrentTable count]; mctindex++)
+                            {
+                                if ([oneStrings containsObject:[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:2]] ||
+                                    ([oneStrings containsObject:@"(null)"] && [[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:2] isKindOfClass:[NSNull class]]))
+                                    [mutableCurrentTable setObject:@[[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:0],[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:1],@"1",[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:3]] atIndexedSubscript:mctindex];
+                                else if ([zeroStrings containsObject:[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:2]] ||
+                                         ([zeroStrings containsObject:@"(null)"] && [[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:2] isKindOfClass:[NSNull class]]))
+                                    [mutableCurrentTable setObject:@[[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:0],[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:1],@"0",[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:3]] atIndexedSubscript:mctindex];
+                                else
+                                    [mutableCurrentTable setObject:@[[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:0],[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:1],@"(null)",[(NSMutableArray *)[mutableCurrentTable objectAtIndex:mctindex] objectAtIndex:3]] atIndexedSubscript:mctindex];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     [self removeRecordsWithNulls:mutableCurrentTable];
     if (![self outcomeOneZero:mutableCurrentTable])
         return NO;
@@ -1877,7 +2075,7 @@
     mMatrixLikelihood = [[EIMatrix alloc] initWithFirst:mboolFirst AndIntercept:mboolIntercept];
     if ([groupVariableLVE.selectedIndex intValue] > 0)
     {
-        [mMatrixLikelihood setMstrMatchVar:[availableOutcomeVariables objectAtIndex:[groupVariableLVE.selectedIndex intValue] - 1]];
+        [mMatrixLikelihood setMstrMatchVar:[availableOutcomeVariables objectAtIndex:[groupVariableLVE.selectedIndex intValue]]];
         lintConditional = 1;
         NumColumns--;
         // Count the number of groups
@@ -2274,16 +2472,22 @@
         //Add the views for each section of statistics
         oddsBasedParametersView = [[UIView alloc] initWithFrame:CGRectMake(2, 2 + stratificationOffset, 313, 44 + 22.0 * (double)([regressionResults.variables count] - 1 + ismatchedanalysis))];
         [oddsBasedParametersView setBackgroundColor:epiInfoLightBlue];
-        [outputV addSubview:oddsBasedParametersView];
+        dispatch_async(dispatch_get_main_queue(), ^{
+           [outputV addSubview:oddsBasedParametersView];
+        });
         
         riskBasedParametersView = [[UIView alloc] initWithFrame:CGRectMake(2, oddsBasedParametersView.frame.origin.y + oddsBasedParametersView.frame.size.height + 4.0, 313, 44 + 22.0 * (double)[regressionResults.variables count])];
         [riskBasedParametersView setBackgroundColor:epiInfoLightBlue];
-        [outputV addSubview:riskBasedParametersView];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+           [outputV addSubview:riskBasedParametersView];
+        });
+
         statisticalTestsView = [[UIView alloc] initWithFrame:CGRectMake(2, riskBasedParametersView.frame.origin.y + riskBasedParametersView.frame.size.height + 4.0, 313, 176)];
         [statisticalTestsView setBackgroundColor:epiInfoLightBlue];
-        [outputV addSubview:statisticalTestsView];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+           [outputV addSubview:statisticalTestsView];
+        });
+
         [avc setContentSize:CGSizeMake(self.frame.size.width, [outputV superview].frame.origin.y + outputV.frame.origin.y + statisticalTestsView.frame.origin.y + statisticalTestsView.frame.size.height + 2.0)];
 
         //Add labels to each of the views

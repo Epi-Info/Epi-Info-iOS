@@ -12,6 +12,7 @@
 #import "InteractionRow.h"
 #import "sqlite3.h"
 #import "EIMatrix.h"
+#import "VariableValueMapper.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -57,6 +58,10 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *outputViewsNSMA;
     float initialOutputViewY;
     UIView *oddsTableView;
+    
+    VariableValueMapper *exposureValueMapper;
+    UIButton *mapExposureValuesButton;
+    NSString *previousExposureVariableValue;
 }
 @end
 

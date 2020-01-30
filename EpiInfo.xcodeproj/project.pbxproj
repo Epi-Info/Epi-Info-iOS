@@ -187,6 +187,7 @@
 		9242CE5F2367266A005DA913 /* ConditionalAssignmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9242CE5E2367266A005DA913 /* ConditionalAssignmentView.m */; };
 		9242CE672369BAA1005DA913 /* ConditionalAssignmentValuesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9242CE662369BAA1005DA913 /* ConditionalAssignmentValuesView.m */; };
 		924368EB1919736200E680BF /* LineList6060.png in Resources */ = {isa = PBXBuildFile; fileRef = 924368EA1919736200E680BF /* LineList6060.png */; };
+		9246478523DF6E6A00BDD5AC /* VariableValueMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9246478423DF6E6A00BDD5AC /* VariableValueMapper.m */; };
 		92469BF1232AAE6B00752ADC /* EncryptionDecryptionKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 92469BF0232AAE6B00752ADC /* EncryptionDecryptionKeys.m */; };
 		924764C018B3E9700046129F /* UploadButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 924764BF18B3E9700046129F /* UploadButton.png */; };
 		924770821C4015EF008F8C90 /* ManageButtonOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 924770811C4015EF008F8C90 /* ManageButtonOrange.png */; };
@@ -743,6 +744,8 @@
 		9242CE652369BAA1005DA913 /* ConditionalAssignmentValuesView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConditionalAssignmentValuesView.h; sourceTree = "<group>"; };
 		9242CE662369BAA1005DA913 /* ConditionalAssignmentValuesView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConditionalAssignmentValuesView.m; sourceTree = "<group>"; };
 		924368EA1919736200E680BF /* LineList6060.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LineList6060.png; sourceTree = "<group>"; };
+		9246478323DF6E6A00BDD5AC /* VariableValueMapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VariableValueMapper.h; sourceTree = "<group>"; };
+		9246478423DF6E6A00BDD5AC /* VariableValueMapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VariableValueMapper.m; sourceTree = "<group>"; };
 		92469BEF232AAE6B00752ADC /* EncryptionDecryptionKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EncryptionDecryptionKeys.h; sourceTree = "<group>"; };
 		92469BF0232AAE6B00752ADC /* EncryptionDecryptionKeys.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EncryptionDecryptionKeys.m; sourceTree = "<group>"; };
 		924764BF18B3E9700046129F /* UploadButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UploadButton.png; sourceTree = "<group>"; };
@@ -1698,6 +1701,8 @@
 				923F2BBC198C045B008A4856 /* ImportCSV.m */,
 				9265FF8E1CB29B9F003AD6E0 /* SQLTool.h */,
 				9265FF8F1CB29B9F003AD6E0 /* SQLTool.m */,
+				9246478323DF6E6A00BDD5AC /* VariableValueMapper.h */,
+				9246478423DF6E6A00BDD5AC /* VariableValueMapper.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -2412,6 +2417,7 @@
 				922D49F01D64F4490090631E /* AssignmentModel.m in Sources */,
 				92EBAD03194A400D000EF983 /* EpiInfoUILabel.m in Sources */,
 				92B8E4CC191A8011007E4ECC /* EpiInfoLineListView.m in Sources */,
+				9246478523DF6E6A00BDD5AC /* VariableValueMapper.m in Sources */,
 				4AE6939A169F5CE700BE2AA3 /* Twox2StrataData.m in Sources */,
 				4A50FF0E16A4443F00A638C4 /* Twox2SummaryData.m in Sources */,
 				92B070CF2332AAC900F27141 /* DownTriangleAnalysisStyle.m in Sources */,
@@ -2580,10 +2586,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Centers for Disease Control and Prevention (J8992FE8QS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Centers for Disease Control and Prevention (J8992FE8QS)";
+				CODE_SIGN_IDENTITY = "Apple Development: John Copeland (JZTF9F25RD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: John Copeland (JZTF9F25RD)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = J8992FE8QS;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2606,7 +2612,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = gov.cdc.csels.EpiInfo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "CDC App Store Distribution";
+				PROVISIONING_PROFILE_SPECIFIER = "John Development Profile";
 				SWIFT_OBJC_BRIDGING_HEADER = "EpiInfo/EpiInfo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -2623,7 +2629,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Centers for Disease Control and Prevention (J8992FE8QS)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Centers for Disease Control and Prevention (J8992FE8QS)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = J8992FE8QS;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
