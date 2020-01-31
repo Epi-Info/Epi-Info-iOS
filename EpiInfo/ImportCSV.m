@@ -36,7 +36,7 @@
         hasAFirstResponder = NO;
         
         formCanvas = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-        [formCanvas setBackgroundColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+        [formCanvas setBackgroundColor:[UIColor colorWithRed:0/255.0 green:129/255.0 blue:126/255.0 alpha:1.0]];
         [self setBackgroundColor:[UIColor whiteColor]];
         
         [self addSubview:formCanvas];
