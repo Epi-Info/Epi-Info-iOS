@@ -176,22 +176,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "71EBE769-226F-4F73-981A-B9AECBCE7073"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EpiInfo/AnalysisDataObject.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "423"
-            endingLineNumber = "423"
-            landmarkName = "-initWithCSVFile:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "37E8BC55-DA0F-4280-856F-DD5A4D6393F7"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -208,22 +192,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "95101175-E1AA-40F8-98BA-118B7B6275BF"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EpiInfo/LogisticView.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1823"
-            endingLineNumber = "1823"
-            landmarkName = "-getRawData"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "EA3F23D0-955A-467B-814E-4C17428DC98F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -233,7 +201,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2034"
             endingLineNumber = "2034"
-            landmarkName = "-makeDummies:OfVariableIndexes:ForValues:VariableNames:"
+            landmarkName = "-checkIndependentVariables:VariableNames:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -249,7 +217,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2027"
             endingLineNumber = "2027"
-            landmarkName = "-makeDummies:OfVariableIndexes:ForValues:VariableNames:"
+            landmarkName = "-checkIndependentVariables:VariableNames:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

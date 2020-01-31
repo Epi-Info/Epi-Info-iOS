@@ -416,7 +416,7 @@
         [self setRootViewController:rvc];
         [self setFakeNavBar:fnb];
         
-        UINavigationBar *uinb = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 20, self.fakeNavBar.frame.size.width, 20)];
+        UINavigationBar *uinb = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.fakeNavBar.frame.size.width, 20)];
         [uinb setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         [uinb setShadowImage:[UIImage new]];
         [uinb setTranslucent:YES];
