@@ -3,7 +3,6 @@
 //  EpiInfo
 //
 //  Created by John Copeland on 7/10/13.
-//  Copyright (c) 2013 John Copeland. All rights reserved.
 //
 
 #import "TablesView.h"
@@ -18,6 +17,15 @@
     AnalysisViewController *avc;
     
     UIActivityIndicatorView *spinner;
+}
+
+- (VariableValueMapper *)outcomeValueMapper
+{
+    return outcomeValueMapper;
+}
+- (VariableValueMapper *)exposureValueMapper
+{
+    return exposureValueMapper;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -354,7 +362,7 @@
     outcomeLVE = [[LegalValuesEnter alloc] initWithFrame:chosenOutcomeVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:outcomeVariableString];
     [outcomeLVE.picker selectRow:0 inComponent:0 animated:YES];
     [outcomeLVE analysisStyle];
-    [outcomeLVE setTag:1957];
+    [outcomeLVE setTag:0x0F1514];
     [inputView addSubview:outcomeLVE];
     NSMutableArray *exposureNSMA = [NSMutableArray arrayWithArray:outcomeNSMA];
     NSArray *groupArray = [sqliteData groups];
@@ -375,6 +383,24 @@
     [inputView addSubview:outcomeVariableLabel];
     [inputView addSubview:exposureVariableLabel];
     [inputView addSubview:stratificationVariableLabel];
+    mapOutcomeValuesButton = [[UIButton alloc] initWithFrame:CGRectMake(8.0, stratificationLVE.frame.origin.y + stratificationLVE.frame.size.height + 4.0, stratificationLVE.frame.size.width - 4.0, 40.0)];
+    [mapOutcomeValuesButton setBackgroundColor:epiInfoLightBlue];
+    [mapOutcomeValuesButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [mapOutcomeValuesButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:0.1] forState:UIControlStateHighlighted];
+    [mapOutcomeValuesButton setTitle:@"Map Outcome Variable Values" forState:UIControlStateNormal];
+    [mapOutcomeValuesButton addTarget:self action:@selector(mapOutcomeValuesButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [mapOutcomeValuesButton setEnabled:NO];
+    [mapOutcomeValuesButton setAlpha:0.4];
+    [inputView addSubview:mapOutcomeValuesButton];
+    mapExposureValuesButton = [[UIButton alloc] initWithFrame:CGRectMake(mapOutcomeValuesButton.frame.origin.x, mapOutcomeValuesButton.frame.origin.y + mapOutcomeValuesButton.frame.size.height + 2.0, mapOutcomeValuesButton.frame.size.width, 40.0)];
+    [mapExposureValuesButton setBackgroundColor:epiInfoLightBlue];
+    [mapExposureValuesButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [mapExposureValuesButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:0.1] forState:UIControlStateHighlighted];
+    [mapExposureValuesButton setTitle:@"Map Exposure Variable Values" forState:UIControlStateNormal];
+    [mapExposureValuesButton addTarget:self action:@selector(mapExposureValuesButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [mapExposureValuesButton setEnabled:NO];
+    [mapExposureValuesButton setAlpha:0.4];
+    [inputView addSubview:mapExposureValuesButton];
     avc = (AnalysisViewController *)vc;
     return self;
 }
@@ -395,7 +421,7 @@
             {
                 if ([avc portraitOrientation])
                 {
-                    [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, 342)];
+                    [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, [avc getZoomingViewFrame].size.height - 100)];
                     [chosenOutcomeVariable setFrame:CGRectMake(20, 8, 276, 44)];
                     [outcomeVariableLabel setFrame:CGRectMake(16, 8, 284, 20)];
                     [outcomeLVE setFrame:CGRectMake(10, 28, 300, 44)];
@@ -533,6 +559,8 @@
             }
         }
     }
+    [mapOutcomeValuesButton setFrame:CGRectMake(stratificationLVE.frame.origin.x + 8.0, stratificationLVE.frame.origin.y + stratificationLVE.frame.size.height + 16.0, stratificationLVE.frame.size.width - 16.0, 40.0)];
+    [mapExposureValuesButton setFrame:CGRectMake(mapOutcomeValuesButton.frame.origin.x, mapOutcomeValuesButton.frame.origin.y + mapOutcomeValuesButton.frame.size.height + 2.0, mapOutcomeValuesButton.frame.size.width, mapOutcomeValuesButton.frame.size.height)];
 }
 
 - (void)fieldResignedFirstResponder:(id)field
@@ -547,6 +575,31 @@
         else
         {
             [stratificationLVE setIsEnabled:YES];
+        }
+        int selInd = [[(LegalValuesEnter *)field selectedIndex] intValue];
+        if (selInd > 0)
+        {
+            [mapExposureValuesButton setEnabled:YES];
+            [mapExposureValuesButton setAlpha:1.0];
+        }
+        else
+        {
+            [mapExposureValuesButton setEnabled:NO];
+            [mapExposureValuesButton setAlpha:0.4];
+        }
+    }
+    else if ([field tag] == 0x0F1514)
+    {
+        int selInd = [[(LegalValuesEnter *)field selectedIndex] intValue];
+        if (selInd > 0)
+        {
+            [mapOutcomeValuesButton setEnabled:YES];
+            [mapOutcomeValuesButton setAlpha:1.0];
+        }
+        else
+        {
+            [mapOutcomeValuesButton setEnabled:NO];
+            [mapOutcomeValuesButton setAlpha:0.4];
         }
     }
 }
@@ -641,6 +694,94 @@
     }];
     [avc replaceChooseAnalysis];
     [avc resetContentSize];
+}
+
+- (void)mapOutcomeValuesButtonPressed:(UIButton *)sender
+{
+    if (!([[outcomeLVE selectedIndex] intValue] > 0))
+        return;
+    UIView *topmostView = [[[[UIApplication sharedApplication] keyWindow] rootViewController] view];
+    float senderY = sender.frame.origin.y;
+    float sendersuperW = [[sender superview] superview].frame.size.width;
+    float sendersuperH = topmostView.frame.size.height;
+    BOOL outcomeVariableChanged = YES;
+    if (previousOutcomeVariableValue)
+    {
+        if ([previousOutcomeVariableValue isEqualToString:[outcomeLVE epiInfoControlValue]])
+        {
+            outcomeVariableChanged = NO;
+        }
+    }
+    if (outcomeVariableChanged)
+    {
+        previousOutcomeVariableValue = [NSString stringWithString:[outcomeLVE epiInfoControlValue]];
+        FrequencyObject *freqObj = [[FrequencyObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndVariable:previousOutcomeVariableValue AndIncludeMissing:YES];
+        NSArray *variableValuesNSA = [freqObj variableValues];
+        outcomeValueMapper = [[VariableValueMapper alloc] initWithFrame:CGRectMake(0, senderY, sendersuperW, sendersuperH)];
+        [outcomeValueMapper setWhiteY:gearButton.frame.origin.y - 2.0 andValueList:variableValuesNSA];
+    }
+    [topmostView addSubview:outcomeValueMapper];
+    [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
+        [outcomeValueMapper setFrame:CGRectMake(0, 0, sendersuperW, sendersuperH)];
+    }completion:nil];
+}
+
+- (void)mapExposureValuesButtonPressed:(UIButton *)sender
+{
+    if (!([[exposureLVE selectedIndex] intValue] > 0))
+        return;
+    UIView *topmostView = [[[[UIApplication sharedApplication] keyWindow] rootViewController] view];
+    float senderY = sender.frame.origin.y;
+    float sendersuperW = [[sender superview] superview].frame.size.width;
+    float sendersuperH = topmostView.frame.size.height;
+    BOOL exposureVariableChanged = YES;
+    if (previousExposureVariableValue)
+    {
+        if ([previousExposureVariableValue isEqualToString:[exposureLVE epiInfoControlValue]])
+        {
+            exposureVariableChanged = NO;
+        }
+    }
+    if (exposureVariableChanged)
+    {
+        previousExposureVariableValue = [NSString stringWithString:[exposureLVE epiInfoControlValue]];
+        if ([previousExposureVariableValue containsString:@" = GROUP("])
+        {
+            NSMutableArray *variableValuesNSMA = [[NSMutableArray alloc] init];
+            
+            NSRange GROUPrange = [previousExposureVariableValue rangeOfString:@" = GROUP("];
+            int lastPosition = (int)[previousExposureVariableValue length] - 1;
+            NSString *commaSeparatedListOfVariables = [[previousExposureVariableValue substringToIndex:lastPosition] substringFromIndex:GROUPrange.location + GROUPrange.length];
+            NSArray *exposureVariablesNSA = [commaSeparatedListOfVariables componentsSeparatedByString:@", "];
+            for (NSString *nst in exposureVariablesNSA)
+            {
+                FrequencyObject *freqObj = [[FrequencyObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndVariable:nst AndIncludeMissing:YES];
+                NSArray *variableValuesNSA = [freqObj variableValues];
+                for (NSString *nstt in variableValuesNSA)
+                {
+                    if (![variableValuesNSMA containsObject:nstt])
+                    {
+                        [variableValuesNSMA addObject:nstt];
+                    }
+                }
+            }
+            
+            NSArray *variableValuesNSA = [NSArray arrayWithArray:variableValuesNSMA];
+            exposureValueMapper = [[VariableValueMapper alloc] initWithFrame:CGRectMake(0, senderY, sendersuperW, sendersuperH)];
+            [exposureValueMapper setWhiteY:gearButton.frame.origin.y - 2.0 andValueList:variableValuesNSA];
+        }
+        else
+        {
+            FrequencyObject *freqObj = [[FrequencyObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndVariable:previousExposureVariableValue AndIncludeMissing:YES];
+            NSArray *variableValuesNSA = [freqObj variableValues];
+            exposureValueMapper = [[VariableValueMapper alloc] initWithFrame:CGRectMake(0, senderY, sendersuperW, sendersuperH)];
+            [exposureValueMapper setWhiteY:gearButton.frame.origin.y - 2.0 andValueList:variableValuesNSA];
+        }
+    }
+    [topmostView addSubview:exposureValueMapper];
+    [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
+        [exposureValueMapper setFrame:CGRectMake(0, 0, sendersuperW, sendersuperH)];
+    }completion:nil];
 }
 
 - (void)gearButtonPressed
@@ -881,7 +1022,7 @@
         {
             if (![availableExposureVariables containsObject:[exposureVariablesNSA objectAtIndex:exposuresindex]])
                 continue;
-            [toNSMA addObject:[[TablesObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:[outcomeLVE selectedIndex].intValue] AndExposureVariable:[exposureVariablesNSA objectAtIndex:exposuresindex] AndIncludeMissing:includeMissing]];
+            [toNSMA addObject:[[TablesObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:[availableOutcomeVariables objectAtIndex:[outcomeLVE selectedIndex].intValue] AndExposureVariable:[exposureVariablesNSA objectAtIndex:exposuresindex] AndIncludeMissing:includeMissing ForTablesView:self]];
         }
         numberOfExposures = (int)[toNSMA count];
         summaryTable = [[NSMutableArray alloc] init];
@@ -983,7 +1124,7 @@
             else
                 whereClause = [NSString stringWithFormat:@"WHERE %@ = %@", stratificationVariableName, [fo.variableValues objectAtIndex:i]];
             
-            TablesObject *to = [[TablesObject alloc] initWithSQLiteData:sqliteData AndWhereClause:whereClause AndOutcomeVariable:outcomeVariableName AndExposureVariable:exposureVariableName AndIncludeMissing:includeMissing];
+            TablesObject *to = [[TablesObject alloc] initWithSQLiteData:sqliteData AndWhereClause:whereClause AndOutcomeVariable:outcomeVariableName AndExposureVariable:exposureVariableName AndIncludeMissing:includeMissing ForTablesView:self];
             
             if (to.exposureValues.count == 2 && to.outcomeValues.count == 2)
             {
@@ -1053,7 +1194,7 @@
             UIView *outputView2 = [[UIView alloc] initWithFrame:CGRectMake(0 + 420.0 * leftSide * (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad), contentSizeHeight - 30 - 642.0 * leftSide * (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad), outputView.frame.size.width, outputView.frame.size.height)];
             [outputView2 setBackgroundColor:[UIColor whiteColor]];
             [self addSubview:outputView2];
-            TablesObject *to = [[TablesObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:outcomeVariableName AndExposureVariable:exposureVariableName AndIncludeMissing:includeMissing];
+            TablesObject *to = [[TablesObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:outcomeVariableName AndExposureVariable:exposureVariableName AndIncludeMissing:includeMissing ForTablesView:self];
             [self doSummary:strataData OutputView:outputView2 TablesObject:to];
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone || rightSide)
                 contentSizeHeight += 680;

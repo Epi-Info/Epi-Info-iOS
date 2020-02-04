@@ -58,10 +58,6 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *outputViewsNSMA;
     float initialOutputViewY;
     UIView *oddsTableView;
-    
-    VariableValueMapper *exposureValueMapper;
-    UIButton *mapExposureValuesButton;
-    NSString *previousExposureVariableValue;
 }
 @end
 
