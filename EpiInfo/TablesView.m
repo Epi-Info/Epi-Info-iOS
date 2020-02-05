@@ -1084,7 +1084,7 @@
                     contentSizeHeight -= contentSizeHeightPlus;
                     contentSizeHeight += MAX(contentSizeHeightPlus, valueToAddToContentSizeHeight);
                 }
-                CGSize avcContentSize = CGSizeMake(self.frame.size.width, contentSizeHeight + 100);
+                CGSize avcContentSize = CGSizeMake(MAX(self.frame.size.width, outputView.frame.size.width + 2.0), contentSizeHeight + 100);
                 [avc setContentSize:avcContentSize];
 //                [avc setContentSize:[self doMxN:to OnOutputView:outputView StratificationVariable:nil StratificationValue:nil]];
             }
@@ -1885,7 +1885,7 @@
     //Set the parent view controller's content size for scrolling
 //    [avc setContentSize:CGSizeMake(MAX(self.frame.size.width, outputTableViewWidth + 4.0), MAX(self.frame.size.height, outputTableViewHeight + 110.0))];
     
-    [outputV setFrame:CGRectMake(outputV.frame.origin.x, outputV.frame.origin.y, outputV.frame.size.width, outputTableViewHeight + outputTableView.frame.origin.y)];
+    [outputV setFrame:CGRectMake(outputV.frame.origin.x, outputV.frame.origin.y, MAX(outputV.frame.size.width, outputTableViewWidth), outputTableViewHeight + outputTableView.frame.origin.y)];
     if (stratVar)
         return CGSizeMake(MAX(self.frame.size.width, outputTableViewWidth + 4.0), outputTableViewHeight + outputTableView.frame.origin.y + 110.0);
 
