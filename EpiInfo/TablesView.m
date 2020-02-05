@@ -1749,7 +1749,7 @@
         EpiInfoUILabel *rowTotal = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, cellWidth, 16)];
         [rowTotal setTextAlignment:NSTextAlignmentCenter];
         [rowTotal setText:[NSString stringWithFormat:@"%d", rowTotals[i]]];
-        [rowTotal setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
+        [rowTotal setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
         [rowTotal setBackgroundColor:[UIColor clearColor]];
         [rowView addSubview:rowTotal];
         EpiInfoUILabel *rowRowPctLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 16, cellWidth - 1, 12)];
@@ -1776,7 +1776,7 @@
         EpiInfoUILabel *columnTotal = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, cellWidth, 16)];
         [columnTotal setTextAlignment:NSTextAlignmentCenter];
         [columnTotal setText:[NSString stringWithFormat:@"%d", columnTotals[j]]];
-        [columnTotal setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
+        [columnTotal setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
         [columnTotal setBackgroundColor:[UIColor clearColor]];
         [columnView addSubview:columnTotal];
         EpiInfoUILabel *colRowPctLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 16, cellWidth - 1, 12)];
@@ -1802,7 +1802,7 @@
     EpiInfoUILabel *totalTotal = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, cellWidth, 16)];
     [totalTotal setTextAlignment:NSTextAlignmentCenter];
     [totalTotal setText:[NSString stringWithFormat:@"%d", grandTotal]];
-    [totalTotal setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
+    [totalTotal setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
     [totalTotal setBackgroundColor:[UIColor clearColor]];
     [totalTotalView addSubview:totalTotal];
     EpiInfoUILabel *totalRowPctLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 16, cellWidth - 1, 12)];
@@ -2082,7 +2082,7 @@
         EpiInfoUILabel *rowOneTotal = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, cellWidth, 16)];
         [rowOneTotal setTextAlignment:NSTextAlignmentCenter];
         [rowOneTotal setText:[NSString stringWithFormat:@"%d", yy + yn]];
-        [rowOneTotal setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
+        [rowOneTotal setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
         [rowOneTotal setBackgroundColor:[UIColor clearColor]];
         [rowOneView addSubview:rowOneTotal];
         EpiInfoUILabel *rowOneRowPctLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 16, cellWidth - 1, 12)];
@@ -2106,7 +2106,7 @@
         EpiInfoUILabel *rowTwoTotal = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, cellWidth, 16)];
         [rowTwoTotal setTextAlignment:NSTextAlignmentCenter];
         [rowTwoTotal setText:[NSString stringWithFormat:@"%d", ny + nn]];
-        [rowTwoTotal setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
+        [rowTwoTotal setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
         [rowTwoTotal setBackgroundColor:[UIColor clearColor]];
         [rowTwoView addSubview:rowTwoTotal];
         EpiInfoUILabel *rowTwoRowPctLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 16, cellWidth - 1, 12)];
@@ -2131,7 +2131,7 @@
         EpiInfoUILabel *columnOneTotal = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, cellWidth, 16)];
         [columnOneTotal setTextAlignment:NSTextAlignmentCenter];
         [columnOneTotal setText:[NSString stringWithFormat:@"%d", yy + ny]];
-        [columnOneTotal setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
+        [columnOneTotal setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
         [columnOneTotal setBackgroundColor:[UIColor clearColor]];
         [columnOneView addSubview:columnOneTotal];
         EpiInfoUILabel *colOneRowPctLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 16, cellWidth - 1, 12)];
@@ -2155,7 +2155,7 @@
         EpiInfoUILabel *columnTwoTotal = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, cellWidth, 16)];
         [columnTwoTotal setTextAlignment:NSTextAlignmentCenter];
         [columnTwoTotal setText:[NSString stringWithFormat:@"%d", yn + nn]];
-        [columnTwoTotal setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
+        [columnTwoTotal setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
         [columnTwoTotal setBackgroundColor:[UIColor clearColor]];
         [columnTwoView addSubview:columnTwoTotal];
         EpiInfoUILabel *colTwoRowPctLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 16, cellWidth - 1, 12)];
@@ -2180,7 +2180,7 @@
         EpiInfoUILabel *totalTotal = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, cellWidth, 16)];
         [totalTotal setTextAlignment:NSTextAlignmentCenter];
         [totalTotal setText:[NSString stringWithFormat:@"%d", yy + yn + ny + nn]];
-        [totalTotal setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
+        [totalTotal setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
         [totalTotal setBackgroundColor:[UIColor clearColor]];
         [totalTotalView addSubview:totalTotal];
         EpiInfoUILabel *totalRowPctLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 16, cellWidth - 1, 12)];
