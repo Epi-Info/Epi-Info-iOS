@@ -664,6 +664,8 @@
         sqlite3_close(analysisDB);
     }
     
+    BOOL outcomeismapped = NO;
+    BOOL exposureismapped = NO;
     if (tablesView)
     {
         if ([tablesView isKindOfClass:[TablesView class]])
@@ -674,6 +676,7 @@
                 if ([[[outcomeValueMapper onesUITV] indexPathsForSelectedRows] count] > 0 &&
                     [[[outcomeValueMapper zerosUITV] indexPathsForSelectedRows] count] > 0)
                 {
+                    outcomeismapped = YES;
                     NSArray *onesNSIPs = [[outcomeValueMapper onesUITV] indexPathsForSelectedRows];
                     NSArray *zerosNSIPs = [[outcomeValueMapper zerosUITV] indexPathsForSelectedRows];
                     NSMutableArray *oneStrings = [[NSMutableArray alloc] init];
@@ -729,6 +732,7 @@
                 if ([[[exposureValueMapper onesUITV] indexPathsForSelectedRows] count] > 0 &&
                     [[[exposureValueMapper zerosUITV] indexPathsForSelectedRows] count] > 0)
                 {
+                    exposureismapped = YES;
                     NSArray *onesNSIPs = [[exposureValueMapper onesUITV] indexPathsForSelectedRows];
                     NSArray *zerosNSIPs = [[exposureValueMapper zerosUITV] indexPathsForSelectedRows];
                     NSMutableArray *oneStrings = [[NSMutableArray alloc] init];
@@ -808,7 +812,7 @@
         
         //Sort the temporary array
         //If it is one/zero, sort it descending; otherwise sort it ascending
-        if ([(NSNumber *)[dataSet.isOneZeroWorking objectAtIndex:outcomeColumnNumber] boolValue])
+        if ([(NSNumber *)[dataSet.isOneZeroWorking objectAtIndex:outcomeColumnNumber] boolValue] || outcomeismapped)
             [oma sortUsingDescriptors:[NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:nil ascending:NO]]];
         else
             [oma sortUsingSelector:@selector(compare:)];
@@ -899,7 +903,7 @@
                 [ema addObject:[NSNumber numberWithInt:[[exposureArray objectAtIndex:i] intValue]]];
         }
         
-        if ([(NSNumber *)[dataSet.isOneZeroWorking objectAtIndex:exposureColumnNumber] boolValue])
+        if ([(NSNumber *)[dataSet.isOneZeroWorking objectAtIndex:exposureColumnNumber] boolValue] || exposureismapped)
             [ema sortUsingDescriptors:[NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:nil ascending:NO]]];
         else
             [ema sortUsingSelector:@selector(compare:)];
