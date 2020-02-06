@@ -220,6 +220,10 @@
             [chooseExposureVariable setShowsSelectionIndicator:YES];
             [chooseExposureVariable addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(chooseExposureVariableTapped:)]];
             
+            [includeMissingLabel removeFromSuperview];
+            [includeMissingButton removeFromSuperview];
+
+            /*
             //Add Inclued Missing box and label
             includeMissing = NO;
             includeMissingButton = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width / 2.0, 104, 22, 22)];
@@ -236,6 +240,7 @@
             [includeMissingLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
 //            [inputView addSubview:includeMissingLabel];
 //            [inputView sendSubviewToBack:includeMissingLabel];
+             */
             
             //Add Stratification Variable button and picker
             chosenStratificationVariable = [[ShinyButton alloc] initWithFrame:CGRectMake(20, 135, frame.size.width - 40, 44)];
