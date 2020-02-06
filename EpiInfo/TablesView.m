@@ -509,7 +509,7 @@
                     [includeMissingButton setFrame:CGRectMake(includeMissingLabel.frame.origin.x + 150, 231, 22, 22)];
                     [outcomeVariableLabel setFrame:CGRectMake(chosenOutcomeVariable.frame.origin.x, chosenOutcomeVariable.frame.origin.y, 284, 20)];
                     [outcomeLVE setFrame:CGRectMake(outcomeVariableLabel.frame.origin.x -6 , outcomeVariableLabel.frame.origin.y + 20, 276, 44)];
-                    [exposureVariableLabel setFrame:CGRectMake(chosenExposureVariable.frame.origin.x, chosenExposureVariable.frame.origin.y, 284, 20)];
+                    [exposureVariableLabel setFrame:CGRectMake(chosenExposureVariable.frame.origin.x - 8.0, chosenExposureVariable.frame.origin.y, 284, 20)];
                     [exposureLVE setFrame:CGRectMake(exposureVariableLabel.frame.origin.x - 6, exposureVariableLabel.frame.origin.y + 20, 276, 44)];
                     [stratificationVariableLabel setFrame:CGRectMake(chosenStratificationVariable.frame.origin.x, chosenStratificationVariable.frame.origin.y, 284, 20)];
                     [stratificationLVE setFrame:CGRectMake(stratificationVariableLabel.frame.origin.x - 6, stratificationVariableLabel.frame.origin.y + 20, 276, 44)];
@@ -1091,6 +1091,7 @@
             to = nil;
         }
         [self doGroupVariableSummaries:summaryTable OnOutputView:outputView];
+        [outputView addSubview:secondOutputViewForIPad];
     }
     if ([[outcomeLVE selectedIndex] intValue] > 0 && [[exposureLVE selectedIndex] intValue] > 0 && [[stratificationLVE selectedIndex] intValue] > 0)
     {
