@@ -601,10 +601,12 @@
     }];
     [avc replaceChooseAnalysis];
     [avc resetContentSize];
+    [avc putViewOnEpiInfoScrollView:self];
 }
 
 - (void)gearButtonPressed
 {
+    [avc putViewOnZoomingView:self];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         [gearButton setEnabled:NO];
@@ -715,6 +717,8 @@
             [gearButton setEnabled:YES];
             [xButton setEnabled:YES];
             [avc setDataSourceEnabled:YES];
+            
+            [avc putViewOnEpiInfoScrollView:self];
         }
         [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
             [self setFrame:CGRectMake(0, 50, avc.view.frame.size.width, avc.view.frame.size.height)];
@@ -813,6 +817,8 @@
             [gearButton setEnabled:YES];
             [xButton setEnabled:YES];
             [avc setDataSourceEnabled:YES];
+            
+            [avc putViewOnEpiInfoScrollView:self];
         }
         [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
             [self setFrame:CGRectMake(0, 50, avc.view.frame.size.width, avc.view.frame.size.height)];

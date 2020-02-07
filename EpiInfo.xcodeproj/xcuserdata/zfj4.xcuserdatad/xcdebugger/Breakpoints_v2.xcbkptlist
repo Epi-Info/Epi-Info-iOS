@@ -221,5 +221,277 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CAE2FC3B-CE51-49AD-B213-FCB319D1EC76"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/LogisticView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1516"
+            endingLineNumber = "1516"
+            landmarkName = "-pickerView:didSelectRow:inComponent:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "CAE2FC3B-CE51-49AD-B213-FCB319D1EC76 - 73ea0e926de4de5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[LogisticView pickerView:didSelectRow:inComponent:]"
+                  moduleName = "EpiInfo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1516"
+                  endingLineNumber = "1516"
+                  offsetFromSymbolStart = "221">
+               </Location>
+               <Location
+                  uuid = "CAE2FC3B-CE51-49AD-B213-FCB319D1EC76 - 4e1e609452c5d05e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__52-[LogisticView pickerView:didSelectRow:inComponent:]_block_invoke"
+                  moduleName = "EpiInfo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1516"
+                  endingLineNumber = "1516"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BFBE3503-7E6D-48BC-BB6D-AF97B5299FF9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/LogisticView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1541"
+            endingLineNumber = "1541"
+            landmarkName = "-pickerView:didSelectRow:inComponent:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BFBE3503-7E6D-48BC-BB6D-AF97B5299FF9 - 73ea0e926de4de5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[LogisticView pickerView:didSelectRow:inComponent:]"
+                  moduleName = "EpiInfo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1541"
+                  endingLineNumber = "1541"
+                  offsetFromSymbolStart = "486">
+               </Location>
+               <Location
+                  uuid = "BFBE3503-7E6D-48BC-BB6D-AF97B5299FF9 - 54d9e04f54352683"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__52-[LogisticView pickerView:didSelectRow:inComponent:]_block_invoke_2"
+                  moduleName = "EpiInfo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1541"
+                  endingLineNumber = "1541"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "007DA7F9-CDF0-4EA7-8703-2A0A6DC4B9ED"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/LogisticView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1570"
+            endingLineNumber = "1570"
+            landmarkName = "-pickerView:didSelectRow:inComponent:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "007DA7F9-CDF0-4EA7-8703-2A0A6DC4B9ED - 73ea0e926de4de5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[LogisticView pickerView:didSelectRow:inComponent:]"
+                  moduleName = "EpiInfo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1570"
+                  endingLineNumber = "1570"
+                  offsetFromSymbolStart = "813">
+               </Location>
+               <Location
+                  uuid = "007DA7F9-CDF0-4EA7-8703-2A0A6DC4B9ED - 54d9e04f54352602"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__52-[LogisticView pickerView:didSelectRow:inComponent:]_block_invoke_3"
+                  moduleName = "EpiInfo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1570"
+                  endingLineNumber = "1570"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D5E42402-A704-470E-8252-C438BD0A97C1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/LogisticView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "844"
+            endingLineNumber = "844"
+            landmarkName = "-chosenOutcomeVariableButtonPressed"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3FCF4104-C383-4CE6-AE22-4DE09DA2FD98"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/LogisticView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "854"
+            endingLineNumber = "854"
+            landmarkName = "-chosenExposureVariableButtonPressed"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "25A0E48A-6959-4492-B8B4-30C8DD45A6C5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/LogisticView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "864"
+            endingLineNumber = "864"
+            landmarkName = "-chosenStratificationVariableButtonPressed"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9191CB64-82C2-4F38-A498-744F6CE5B56F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/LogisticView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "874"
+            endingLineNumber = "874"
+            landmarkName = "-chooseOutcomeVariableTapped:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B8107FA8-CCFC-4ADB-B87F-5B3BA5E993C3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/LogisticView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "884"
+            endingLineNumber = "884"
+            landmarkName = "-chooseExposureVariableTapped:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5475B673-73AA-4F19-A0B1-91A25682AFC3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/LogisticView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "894"
+            endingLineNumber = "894"
+            landmarkName = "-chooseStratificationVariableTapped:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D4F5A665-6B3A-4B68-800F-8067C0C8E950"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/LogisticView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1465"
+            endingLineNumber = "1465"
+            landmarkName = "-pickerView:numberOfRowsInComponent:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "12825177-B56E-4FF3-B13D-7D8D75F76A56"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/LogisticView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1488"
+            endingLineNumber = "1488"
+            landmarkName = "-pickerView:titleForRow:forComponent:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

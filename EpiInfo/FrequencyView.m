@@ -415,6 +415,7 @@
 - (void)xButtonPressed
 {
     [avc resetContentSize];
+    [avc putViewOnEpiInfoScrollView:self];
     [UIView animateWithDuration:0.3 animations:^{
         for (UIView *v in [self subviews])
         {
@@ -443,6 +444,7 @@
 
 - (void)gearButtonPressed
 {
+    [avc putViewOnZoomingView:self];
     [avc resetContentSize];
     if (inputView.frame.size.height > 0)
     {
@@ -670,6 +672,8 @@
             [v removeFromSuperview];
         }
         [avc resetContentSize];
+        
+        [avc putViewOnEpiInfoScrollView:self];
         [UIView animateWithDuration:0.3 animations:^{
             [self setFrame:CGRectMake(0, 50, avc.view.frame.size.width, avc.view.frame.size.height)];
         }];

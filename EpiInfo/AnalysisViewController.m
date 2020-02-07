@@ -1427,6 +1427,7 @@
     //Un-hide the analysisList
     [analysisList setHidden:NO];
     
+    [self resetContentSize];
     
     //Move the analysisList back into view
     [UIView animateWithDuration:0.3 animations:^{
@@ -1942,6 +1943,7 @@
     else
         [self.epiInfoScrollView setContentSize:initialLandscapeContentSize];
     [zoomingView setFrame:CGRectMake(0, 0, self.epiInfoScrollView.frame.size.width, self.epiInfoScrollView.frame.size.height)];
+    [self.epiInfoScrollView setZoomScale:1.0];
 }
 
 - (void)setInitialContentSize:(CGSize)ics

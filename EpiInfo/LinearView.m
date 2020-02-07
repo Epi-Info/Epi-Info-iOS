@@ -705,16 +705,17 @@
     }];
     [avc replaceChooseAnalysis];
     [avc resetContentSize];
+    [avc putViewOnEpiInfoScrollView:self];
 }
 
 - (void)gearButtonPressed
 {
+    [avc putViewOnZoomingView:self];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         [gearButton setEnabled:NO];
         [xButton setEnabled:NO];
         [avc setDataSourceEnabled:NO];
-        [avc putViewOnZoomingView:self];
         if (inputView.frame.size.height > 0)
         {
             inputViewDisplayed = NO;
@@ -917,11 +918,18 @@
             [gearButton setEnabled:YES];
             [xButton setEnabled:YES];
             [avc setDataSourceEnabled:YES];
+            
+            [avc putViewOnEpiInfoScrollView:self];
         }
         [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
             [self setFrame:CGRectMake(0, 50, avc.view.frame.size.width, avc.view.frame.size.height)];
         }completion:nil];
     }
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return oddsAndRiskTableView;
 }
 
 - (void)doInBackground
