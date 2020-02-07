@@ -20,6 +20,11 @@
     return dataSourceName;
 }
 
+- (void)resetZoomScale
+{
+    [self.epiInfoScrollView setZoomScale:1.0];
+}
+
 - (void)setWorkingDataObjectListOfFilters:(NSMutableArray *)lof
 {
     [workingDataObject setListOfFilters:lof];
@@ -1943,7 +1948,6 @@
     else
         [self.epiInfoScrollView setContentSize:initialLandscapeContentSize];
     [zoomingView setFrame:CGRectMake(0, 0, self.epiInfoScrollView.frame.size.width, self.epiInfoScrollView.frame.size.height)];
-    [self.epiInfoScrollView setZoomScale:1.0];
 }
 
 - (void)setInitialContentSize:(CGSize)ics
@@ -2214,6 +2218,7 @@
 - (void)putViewOnEpiInfoScrollView:(UIView *)viewToMove
 {
     [self.epiInfoScrollView addSubview:viewToMove];
+    [self resetZoomScale];
 }
 
 - (void)popCurrentViewController

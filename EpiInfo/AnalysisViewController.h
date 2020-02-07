@@ -125,4 +125,5 @@
 -(NSDictionary *)getWorkingOneZero;
 -(NSDictionary *)getWorkingDates;
 -(FrequencyObject *)getFrequencyObjectForVariable:(NSString *)variableName;
+-(void)resetZoomScale;
 @end
