@@ -1194,6 +1194,8 @@
     UIView *rightBorderView = [[UIView alloc] initWithFrame:CGRectMake(outputV.frame.size.width - 3.0, 2, 1, 20.0 * ([oddsAndRisk count] + 1))];
     [rightBorderView setBackgroundColor:epiInfoLightBlue];
     [outputV addSubview:rightBorderView];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        [rightBorderView setBackgroundColor:[UIColor clearColor]];
     
     UIView *rightOfTheTableView = [[UIView alloc] initWithFrame:CGRectMake(outputV.frame.size.width - 2.0, 2, 2, 20.0 * ([oddsAndRisk count] + 1))];
     [rightOfTheTableView setBackgroundColor:[UIColor whiteColor]];
