@@ -1704,13 +1704,10 @@ void inv(int n, double a[n][n], double invA[n][n])
     float stratificationOffset = 0.0;
     oddsBasedParametersView = [[UIView alloc] initWithFrame:CGRectMake(2, 2 + stratificationOffset, 313, 44 + 22.0 * (double)([regressionResults.variables count]))];
     [oddsBasedParametersView setBackgroundColor:epiInfoLightBlue];
-    [outputV addSubview:oddsBasedParametersView];
     riskBasedParametersView = [[UIView alloc] initWithFrame:CGRectMake(2, oddsBasedParametersView.frame.origin.y + oddsBasedParametersView.frame.size.height + 4.0, 313, 44 + 22.0 * (double)[regressionResults.variables count])];
     [riskBasedParametersView setBackgroundColor:epiInfoLightBlue];
-    [outputV addSubview:riskBasedParametersView];
     statisticalTestsView = [[UIView alloc] initWithFrame:CGRectMake(2, riskBasedParametersView.frame.origin.y + riskBasedParametersView.frame.size.height + 4.0, 313, 176)];
     [statisticalTestsView setBackgroundColor:epiInfoLightBlue];
-    [outputV addSubview:statisticalTestsView];
     [avc setContentSize:CGSizeMake(self.frame.size.width, [outputV superview].frame.origin.y + outputV.frame.origin.y + statisticalTestsView.frame.origin.y + statisticalTestsView.frame.size.height + 2.0)];
    //Add labels to each of the views
     float fourWidth0 = 78;
@@ -2009,6 +2006,12 @@ void inv(int n, double a[n][n], double invA[n][n])
     [gridBox setFont:[UIFont systemFontOfSize:12.0]];
     [gridBox setText:@""];
     [statisticalTestsView addSubview:gridBox];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [outputV addSubview:oddsBasedParametersView];
+        [outputV addSubview:riskBasedParametersView];
+        [outputV addSubview:statisticalTestsView];
+    });
 }
 
 /*

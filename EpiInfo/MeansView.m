@@ -843,7 +843,6 @@
         [outputTableView setBackgroundColor:epiInfoLightBlue];
         [outputTableView setClipsToBounds:YES];
         [outputTableView.layer setCornerRadius:10.0];
-        [outputView addSubview:outputTableView];
         
         EpiInfoUILabel *meansVariableNameLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, outputTableView.frame.size.width, 40)];
         [meansVariableNameLabel setTextAlignment:NSTextAlignmentCenter];
@@ -909,6 +908,10 @@
         [outputTableView setFrame:CGRectMake(outputTableView.frame.origin.x, outputTableView.frame.origin.y, outputTableView.frame.size.width, 40.0 + yValue)];
 
         mo = nil;
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputView addSubview:outputTableView];
+        });
     }
     // With crosstabulation without stratification
     if ([[meansLVE selectedIndex] intValue] > 0 && [[crosstabLVE selectedIndex] intValue] > 0)
@@ -949,7 +952,6 @@
                 [outputTableView setBackgroundColor:epiInfoLightBlue];
                 [outputTableView setClipsToBounds:YES];
                 [outputTableView.layer setCornerRadius:10.0];
-                [outputView addSubview:outputTableView];
                 
                 EpiInfoUILabel *meansVariableNameLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, outputTableView.frame.size.width, 40)];
                 [meansVariableNameLabel setTextAlignment:NSTextAlignmentCenter];
@@ -1013,6 +1015,10 @@
                 
                 [outputTableView setFrame:CGRectMake(outputTableView.frame.origin.x, outputTableView.frame.origin.y, outputTableView.frame.size.width, 40.0 + yValue)];
                 otvyValue += 42.0 + yValue;
+
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [outputView addSubview:outputTableView];
+                });
             }
             else
             {
@@ -1020,7 +1026,6 @@
                 [outputTableView2 setBackgroundColor:epiInfoLightBlue];
                 [outputTableView2 setClipsToBounds:YES];
                 [outputTableView2.layer setCornerRadius:10.0];
-                [outputView addSubview:outputTableView2];
                 
                 EpiInfoUILabel *meansVariableNameLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, outputTableView2.frame.size.width, 40)];
                 [meansVariableNameLabel setTextAlignment:NSTextAlignmentCenter];
@@ -1084,6 +1089,10 @@
                 
                 [outputTableView2 setFrame:CGRectMake(outputTableView.frame.origin.x, outputTableView2.frame.origin.y, outputTableView2.frame.size.width, 40.0 + yValue)];
                 otvyValue += 42.0 + yValue;
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [outputView addSubview:outputTableView2];
+                });
             }
             
             [statisticsInputsArray addObject:[NSArray arrayWithArray:mo.meansVariableFloatValues]];
@@ -1169,7 +1178,6 @@
             [tTestView setBackgroundColor:epiInfoLightBlue];
             [tTestView setClipsToBounds:YES];
             [tTestView.layer setCornerRadius:10.0];
-            [outputView addSubview:tTestView];
             
             EpiInfoUILabel *tTestHeaderLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, tTestView.frame.size.width, 40)];
             [tTestHeaderLabel setTextAlignment:NSTextAlignmentCenter];
@@ -1433,6 +1441,10 @@
             [tTestView addSubview:roundedBox];
             
             statsTableY += tTestView.frame.size.height + 2.0;
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [outputView addSubview:tTestView];
+            });
         }
         
         // Do ANOVA
@@ -1444,7 +1456,6 @@
         [anovaView setBackgroundColor:epiInfoLightBlue];
         [anovaView setClipsToBounds:YES];
         [anovaView.layer setCornerRadius:10.0];
-        [outputView addSubview:anovaView];
         
         EpiInfoUILabel *anovaHeaderLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, anovaView.frame.size.width, 40)];
         [anovaHeaderLabel setTextAlignment:NSTextAlignmentCenter];
@@ -1636,7 +1647,6 @@
         [bartlettView setBackgroundColor:epiInfoLightBlue];
         [bartlettView setClipsToBounds:YES];
         [bartlettView.layer setCornerRadius:10.0];
-        [outputView addSubview:bartlettView];
         
         EpiInfoUILabel *bartlettHeaderLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, bartlettView.frame.size.width, 40)];
         [bartlettHeaderLabel setTextAlignment:NSTextAlignmentCenter];
@@ -1693,7 +1703,6 @@
         [wilcoxonView setBackgroundColor:epiInfoLightBlue];
         [wilcoxonView setClipsToBounds:YES];
         [wilcoxonView.layer setCornerRadius:10.0];
-        [outputView addSubview:wilcoxonView];
         
         EpiInfoUILabel *wilcoxonHeaderLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, wilcoxonView.frame.size.width, 40)];
         [wilcoxonHeaderLabel setTextAlignment:NSTextAlignmentCenter];
@@ -1749,6 +1758,12 @@
         verticalFrequencies = nil;
         allLocalFrequencies = nil;
         recordCount = 0.0;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputView addSubview:anovaView];
+            [outputView addSubview:bartlettView];
+            [outputView addSubview:wilcoxonView];
+        });
     }
     if (NO) // No stratification available (yet?) (meansVariableChosen && crosstabVariableChosen && stratificationVariableChosen)
     {

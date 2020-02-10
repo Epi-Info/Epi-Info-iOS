@@ -1185,21 +1185,17 @@
     float cellWidth = 79.0;
     oddsTableView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, MIN(4.0 * (cellWidth + 1.0), outputV.frame.size.width - 4.0), 20.0 * ([oddsAndRisk count] + 1))];
     [oddsTableView setBackgroundColor:epiInfoLightBlue];
-    [outputV addSubview:oddsTableView];
     
     UIView *underTheFirstColumnView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, cellWidth + 1, 20.0 * ([oddsAndRisk count] + 1))];
     [underTheFirstColumnView setBackgroundColor:epiInfoLightBlue];
-    [outputV addSubview:underTheFirstColumnView];
     
     UIView *rightBorderView = [[UIView alloc] initWithFrame:CGRectMake(outputV.frame.size.width - 3.0, 2, 1, 20.0 * ([oddsAndRisk count] + 1))];
     [rightBorderView setBackgroundColor:epiInfoLightBlue];
-    [outputV addSubview:rightBorderView];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         [rightBorderView setBackgroundColor:[UIColor clearColor]];
     
     UIView *rightOfTheTableView = [[UIView alloc] initWithFrame:CGRectMake(outputV.frame.size.width - 2.0, 2, 2, 20.0 * ([oddsAndRisk count] + 1))];
     [rightOfTheTableView setBackgroundColor:[UIColor whiteColor]];
-    [outputV addSubview:rightOfTheTableView];
     
     UILabel *columnHeader = [[UILabel alloc] initWithFrame:CGRectMake(0 * cellWidth + 1, 1, cellWidth - 1, 18)];
     [columnHeader setBackgroundColor:[UIColor whiteColor]];
@@ -1279,6 +1275,12 @@
         [statValue setText:[NSString stringWithFormat:@"%.2f", [[[oddsAndRisk objectAtIndex:orindex] objectAtIndex:3] floatValue]]];
         [oddsTableView addSubview:statValue];
     }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [outputV addSubview:oddsTableView];
+        [outputV addSubview:underTheFirstColumnView];
+        [outputV addSubview:rightBorderView];
+        [outputV addSubview:rightOfTheTableView];
+    });
 }
 
 - (void)doInBackground
@@ -1361,14 +1363,22 @@
             UIView *outputViewZero;
             if ([toNSMA count] > 1)
             {
+                __block CGRect outputViewFrame;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    outputViewFrame = outputView.frame;
+                });
                 float initialOutputViewX = outputView.frame.origin.x;
                 initialOutputViewY = outputView.frame.origin.y;
                 float initialOutputViewWidth = outputView.frame.size.width;
                 float initialOutputViewHeight = outputView.frame.size.height;
                 float newOutputViewY = initialOutputViewY + 20.0 * (1.0 + (float)[toNSMA count]) + 4;
-                [outputView setFrame:CGRectMake(initialOutputViewX, newOutputViewY, initialOutputViewWidth, initialOutputViewHeight)];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [outputView setFrame:CGRectMake(initialOutputViewX, newOutputViewY, initialOutputViewWidth, initialOutputViewHeight)];
+                });
                 outputViewZero = [[UIView alloc] initWithFrame:CGRectMake(initialOutputViewX, initialOutputViewY, initialOutputViewWidth, 20.0 * (1.0 + (float)[toNSMA count]))];
-                [self addSubview:outputViewZero];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self addSubview:outputViewZero];
+                });
             }
             [self doLogistic:to OnOutputView:outputView StratificationVariable:nil StratificationValue:nil];
             [outputViewsNSMA addObject:outputView];
@@ -1380,7 +1390,9 @@
                 float ovY = outputView.frame.origin.y + ovHeight + 4.0;
                 outputView = [[UIView alloc] initWithFrame:CGRectMake(ovX, ovY, ovWidth, ovHeight)];
                 [outputView setBackgroundColor:[UIColor whiteColor]];
-                [self addSubview:outputView];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self addSubview:outputView];
+                });
                 to = [toNSMA objectAtIndex:toindex];
                 [summaryTable addObject:[[NSMutableArray alloc] init]];
                 [self doLogistic:to OnOutputView:outputView StratificationVariable:nil StratificationValue:[NSString stringWithFormat:@"%d", toindex]];
@@ -1399,7 +1411,9 @@
             [feedbackLabel setTextColor:[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:1.0]];
             [feedbackLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
             [feedbackLabel setText:@"Dependent variable must have 2 values."];
-            [outputView addSubview:feedbackLabel];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [outputView addSubview:feedbackLabel];
+            });
             [spinner setHidden:YES];
             [spinner stopAnimating];
             [gearButton setEnabled:YES];
@@ -2521,21 +2535,12 @@
         //Add the views for each section of statistics
         oddsBasedParametersView = [[UIView alloc] initWithFrame:CGRectMake(2, 2 + stratificationOffset, 313, 44 + 22.0 * (double)([regressionResults.variables count] - 1 + ismatchedanalysis))];
         [oddsBasedParametersView setBackgroundColor:epiInfoLightBlue];
-        dispatch_async(dispatch_get_main_queue(), ^{
-           [outputV addSubview:oddsBasedParametersView];
-        });
         
         riskBasedParametersView = [[UIView alloc] initWithFrame:CGRectMake(2, oddsBasedParametersView.frame.origin.y + oddsBasedParametersView.frame.size.height + 4.0, 313, 44 + 22.0 * (double)[regressionResults.variables count])];
         [riskBasedParametersView setBackgroundColor:epiInfoLightBlue];
-        dispatch_async(dispatch_get_main_queue(), ^{
-           [outputV addSubview:riskBasedParametersView];
-        });
 
         statisticalTestsView = [[UIView alloc] initWithFrame:CGRectMake(2, riskBasedParametersView.frame.origin.y + riskBasedParametersView.frame.size.height + 4.0, 313, 176)];
         [statisticalTestsView setBackgroundColor:epiInfoLightBlue];
-        dispatch_async(dispatch_get_main_queue(), ^{
-           [outputV addSubview:statisticalTestsView];
-        });
 
         [avc setContentSize:CGSizeMake(self.frame.size.width, [outputV superview].frame.origin.y + outputV.frame.origin.y + statisticalTestsView.frame.origin.y + statisticalTestsView.frame.size.height + 2.0)];
 
@@ -2828,6 +2833,12 @@
         [gridBox setFont:[UIFont systemFontOfSize:12.0]];
         [gridBox setText:[NSString stringWithFormat:@"%.4f", regressionResults.LRP]];
         [statisticalTestsView addSubview:gridBox];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputV addSubview:oddsBasedParametersView];
+            [outputV addSubview:riskBasedParametersView];
+            [outputV addSubview:statisticalTestsView];
+        });
     }
     float outputVX = outputV.frame.origin.x;
     float outputVY = outputV.frame.origin.y;

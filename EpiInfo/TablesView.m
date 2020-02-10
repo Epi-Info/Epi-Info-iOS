@@ -1144,7 +1144,9 @@
                     //Add another output view
                     UIView *outputView2 = [[UIView alloc] initWithFrame:CGRectMake(0 + 420.0 * rightSide, contentSizeHeight - amountToSubtract * rightSide, outputView.frame.size.width, 10 * outputView.frame.size.height)];
                     [outputView2 setBackgroundColor:[UIColor whiteColor]];
-                    [self addSubview:outputView2];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                      [self addSubview:outputView2];
+                    });
                     [self doTwoByTwo:to OnOutputView:outputView2 StratificationVariable:stratificationVariableName StratificationValue:[fo.variableValues objectAtIndex:i]];
                 }
                 if (stratum > 0)
@@ -1168,7 +1170,9 @@
                     //Add another output view
                     UIView *outputView2 = [[UIView alloc] initWithFrame:CGRectMake(0, contentSizeHeight - amountToSubtract * rightSide, outputView.frame.size.width, outputView.frame.size.height)];
                     [outputView2 setBackgroundColor:[UIColor whiteColor]];
-                    [self addSubview:outputView2];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                      [self addSubview:outputView2];
+                    });
                     rSize = [self doMxN:to OnOutputView:outputView2 StratificationVariable:stratificationVariableName StratificationValue:[fo.variableValues objectAtIndex:i]];
                     NSLog(@"%@", outputView2);
                     contentSizeHeight += rSize.height * leftSide;
@@ -1200,7 +1204,9 @@
                 contentSizeHeight += 20.0;
             UIView *outputView2 = [[UIView alloc] initWithFrame:CGRectMake(0 + 420.0 * leftSide * (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad), contentSizeHeight - 30 - 642.0 * leftSide * (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad), outputView.frame.size.width, outputView.frame.size.height)];
             [outputView2 setBackgroundColor:[UIColor whiteColor]];
-            [self addSubview:outputView2];
+            dispatch_async(dispatch_get_main_queue(), ^{
+              [self addSubview:outputView2];
+            });
             TablesObject *to = [[TablesObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndOutcomeVariable:outcomeVariableName AndExposureVariable:exposureVariableName AndIncludeMissing:includeMissing ForTablesView:self];
             [self doSummary:strataData OutputView:outputView2 TablesObject:to];
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone || rightSide)
@@ -1401,21 +1407,17 @@
     oddsAndRiskTableView = [[UIScrollView alloc] initWithFrame:CGRectMake(2, 2, MIN(7.0 * (cellWidth + 1.0), outputV.frame.size.width - 4.0), 20.0 * ([oddsAndRisk count] + 1))];
     [oddsAndRiskTableView setBackgroundColor:epiInfoLightBlue];
     [oddsAndRiskTableView setContentSize:CGSizeMake(7 * (cellWidth + 1.0), 20.0 * ([oddsAndRisk count] + 1))];
-    [outputV addSubview:oddsAndRiskTableView];
     
     UIView *underTheFirstColumnView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, cellWidth + 1, 20.0 * ([oddsAndRisk count] + 1))];
     [underTheFirstColumnView setBackgroundColor:epiInfoLightBlue];
-    [outputV addSubview:underTheFirstColumnView];
     
     UIView *rightBorderView = [[UIView alloc] initWithFrame:CGRectMake(outputV.frame.size.width - 3.0, 2, 1, 20.0 * ([oddsAndRisk count] + 1))];
     [rightBorderView setBackgroundColor:epiInfoLightBlue];
-    [outputV addSubview:rightBorderView];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         [rightBorderView setBackgroundColor:[UIColor clearColor]];
 
     UIView *rightOfTheTableView = [[UIView alloc] initWithFrame:CGRectMake(outputV.frame.size.width - 2.0, 2, 2, 20.0 * ([oddsAndRisk count] + 1))];
     [rightOfTheTableView setBackgroundColor:[UIColor whiteColor]];
-    [outputV addSubview:rightOfTheTableView];
     
     UILabel *columnHeader = [[UILabel alloc] initWithFrame:CGRectMake(0 * cellWidth + 1, 1, cellWidth - 1, 18)];
     [columnHeader setBackgroundColor:[UIColor whiteColor]];
@@ -1549,6 +1551,12 @@
         [statValue setText:[NSString stringWithFormat:@"%.2f", [[[oddsAndRisk objectAtIndex:orindex] objectAtIndex:6] floatValue]]];
         [oddsAndRiskTableView addSubview:statValue];
     }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [outputV addSubview:oddsAndRiskTableView];
+        [outputV addSubview:underTheFirstColumnView];
+        [outputV addSubview:rightBorderView];
+        [outputV addSubview:rightOfTheTableView];
+    });
 }
 
 - (CGSize)doMxN:(TablesObject *)to OnOutputView:(UIView *)outputV StratificationVariable:(NSString *)stratVar StratificationValue:(NSString *)stratValue
@@ -1565,7 +1573,9 @@
         [stratumHeader setText:[NSString stringWithFormat:@"%@ = %@", stratVar, stratValue]];
         [stratumHeader setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
         [stratumHeader setTextAlignment:NSTextAlignmentCenter];
-        [outputV addSubview:stratumHeader];
+        dispatch_async(dispatch_get_main_queue(), ^{
+          [outputV addSubview:stratumHeader];
+        });
     }
     else
         stratificationOffset = contentSizeHeight;
@@ -1587,7 +1597,9 @@
     outputTableView = [[UIView alloc] initWithFrame:CGRectMake(2, 2 + stratificationOffset, outputTableViewWidth, outputTableViewHeight)];
     [outputTableView setBackgroundColor:epiInfoLightBlue];
     [outputTableView.layer setCornerRadius:10.0];
-    [outputV addSubview:outputTableView];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [outputV addSubview:outputTableView];
+    });
   
     //Set dimensions for variable labels
     float outcomeVariableLabelWidth = (numberOfOutcomeValues + 1) * cellWidth + numberOfOutcomeValues * 2.0;
@@ -1663,7 +1675,9 @@
     [outcomeVariableLabel setTextColor:[UIColor whiteColor]];
     [outcomeVariableLabel setBackgroundColor:[UIColor clearColor]];
     [outcomeVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:outcomeVariableLabelFontSize]];
-    [outputTableView addSubview:outcomeVariableLabel];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [outputTableView addSubview:outcomeVariableLabel];
+    });
     EpiInfoUILabel *exposureVariableLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(exposureVariableLabelX, exposureVariableLabelY, exposureVariableLabelWidth, 20)];
     [exposureVariableLabel setText:to.exposureVariable];
     [exposureVariableLabel setTextAlignment:NSTextAlignmentRight];
@@ -1671,8 +1685,10 @@
     [exposureVariableLabel setTextColor:[UIColor whiteColor]];
     [exposureVariableLabel setBackgroundColor:[UIColor clearColor]];
     [exposureVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:exposureVariableLabelFontSize]];
-    [outputTableView addSubview:exposureVariableLabel];
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [outputTableView addSubview:exposureVariableLabel];
+    });
+
     int rowTotals[(int)numberOfExposureValues];
     int columnTotals[(int)numberOfOutcomeValues];
     for (int i = 0; i < numberOfExposureValues; i++)
@@ -1702,7 +1718,9 @@
             [exposureValueLabel setText:@"Missing"];
         else
             [exposureValueLabel setText:[NSString stringWithFormat:@"%@", [to.exposureValues objectAtIndex:i]]];
-        [outputTableView addSubview:exposureValueLabel];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:exposureValueLabel];
+        });
         for (int j = 0; j < to.outcomeValues.count; j++)
         {
             if (i == 0)
@@ -1718,7 +1736,9 @@
                     [outcomeValueLabel setText:@"Missing"];
                 else
                     [outcomeValueLabel setText:[NSString stringWithFormat:@"%@", [to.outcomeValues objectAtIndex:j]]];
-                [outputTableView addSubview:outcomeValueLabel];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [outputTableView addSubview:outcomeValueLabel];
+                });
             }
             UIView *countView = [[UIView alloc] initWithFrame:CGRectMake(79 + j * (cellWidth + 2), 42 + i * 42, cellWidth, 40)];
             [countView setBackgroundColor:[UIColor whiteColor]];
@@ -1728,7 +1748,9 @@
             [countLabel setTextAlignment:NSTextAlignmentCenter];
             [countLabel setBackgroundColor:[UIColor clearColor]];
             [countLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-            [countView addSubview:countLabel];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [countView addSubview:countLabel];
+            });
             EpiInfoUILabel *rowPctLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 16, cellWidth - 1, 12)];
             [rowPctLabel setTextAlignment:NSTextAlignmentRight];
             [rowPctLabel setBackgroundColor:[UIColor clearColor]];
@@ -1743,7 +1765,9 @@
             [colPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
             [colPctLabel setText:[NSString stringWithFormat:@"%.2f%%", 100 * [(NSNumber *)[to.cellCounts objectAtIndex:k] floatValue] / (float)columnTotals[j]]];
             [countView addSubview:colPctLabel];
-            [outputTableView addSubview:countView];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [outputTableView addSubview:countView];
+            });
             k++;
         }
     }
@@ -1775,7 +1799,9 @@
         [rowColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [rowColPctLabel setText:[NSString stringWithFormat:@"%.2f%%", 100 * (float)rowTotals[i] / (float)grandTotal]];
         [rowView addSubview:rowColPctLabel];
-        [outputTableView addSubview:rowView];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:rowView];
+        });
     }
     for (int j = 0; j < to.outcomeValues.count; j++)
     {
@@ -1802,7 +1828,9 @@
         [colColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [colColPctLabel setText:@"100%"];
         [columnView addSubview:colColPctLabel];
-        [outputTableView addSubview:columnView];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:columnView];
+        });
     }
     
     UIView *totalTotalView = [[UIView alloc] initWithFrame:CGRectMake(79 + numberOfOutcomeValues * (cellWidth + 2), (numberOfExposureValues + 1.0) * 42.0, cellWidth, 40)];
@@ -1828,7 +1856,9 @@
     [totalColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
     [totalColPctLabel setText:@"100%"];
     [totalTotalView addSubview:totalColPctLabel];
-    [outputTableView addSubview:totalTotalView];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [outputTableView addSubview:totalTotalView];
+    });
     
     //Compute the chi square for the table
     if (to.exposureValues.count > 1 && to.outcomeValues.count > 1)
@@ -1876,7 +1906,9 @@
         [chiSqLabel setAccessibilityLabel:[NSString stringWithFormat:@"Ky Square: %.2f, degrees of freedom: %lu, p-value: %.3f", chiSq, (to.exposureValues.count - 1) * (to.outcomeValues.count - 1), chiSqP]];
         [chiSqLabel setTextAlignment:NSTextAlignmentCenter];
         [chiSqLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
-        [outputV addSubview: chiSqLabel];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputV addSubview: chiSqLabel];
+        });
         outputTableViewHeight += chiSqLabel.frame.size.height;
         if (lowExpectation)
         {
@@ -1886,7 +1918,9 @@
             [lowExpectationLabel setAccessibilityLabel:@"An expected cell count is <5. Ky squared may not be valid."];
             [lowExpectationLabel setTextAlignment:NSTextAlignmentCenter];
             [lowExpectationLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10.0]];
-            [outputV addSubview:lowExpectationLabel];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [outputV addSubview:lowExpectationLabel];
+            });
             outputTableViewHeight += lowExpectationLabel.frame.size.height;
         }
     }
@@ -1918,7 +1952,9 @@
             [stratumHeader setText:[NSString stringWithFormat:@"%@ = %@", stratVar, stratValue]];
             [stratumHeader setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
             [stratumHeader setTextAlignment:NSTextAlignmentCenter];
-            [outputV addSubview:stratumHeader];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [outputV addSubview:stratumHeader];
+            });
         }
         else
             stratificationOffset = contentSizeHeight;
@@ -1928,8 +1964,10 @@
         outputTableView = [[UIView alloc] initWithFrame:CGRectMake(2, 2 + stratificationOffset, 313, 168)];
         [outputTableView setBackgroundColor:epiInfoLightBlue];
         [outputTableView.layer setCornerRadius:10.0];
-        [outputV addSubview:outputTableView];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputV addSubview:outputTableView];
+        });
+
         double cellWidth = 76;
         
         //Set initial font sizes
@@ -1986,7 +2024,9 @@
         [outcomeVariableLabel setTextColor:[UIColor whiteColor]];
         [outcomeVariableLabel setBackgroundColor:[UIColor clearColor]];
         [outcomeVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:outcomeVariableLabelFontSize]];
-        [outputTableView addSubview:outcomeVariableLabel];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:outcomeVariableLabel];
+        });
         EpiInfoUILabel *exposureVariableLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(-45, 70, 120, 20)];
         [exposureVariableLabel setText:to.exposureVariable];
         [exposureVariableLabel setTextAlignment:NSTextAlignmentCenter];
@@ -1994,8 +2034,10 @@
         [exposureVariableLabel setTextColor:[UIColor whiteColor]];
         [exposureVariableLabel setBackgroundColor:[UIColor clearColor]];
         [exposureVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:exposureVariableLabelFontSize]];
-        [outputTableView addSubview:exposureVariableLabel];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:exposureVariableLabel];
+        });
+
         int yy = [(NSNumber *)[to.cellCounts objectAtIndex:0] intValue];
         int yn = [(NSNumber *)[to.cellCounts objectAtIndex:1] intValue];
         int ny = [(NSNumber *)[to.cellCounts objectAtIndex:2] intValue];
@@ -2015,7 +2057,9 @@
                 [exposureValueLabel setText:@"Missing"];
             else
                 [exposureValueLabel setText:[NSString stringWithFormat:@"%@", [to.exposureValues objectAtIndex:i]]];
-            [outputTableView addSubview:exposureValueLabel];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [outputTableView addSubview:exposureValueLabel];
+            });
             for (int j = 0; j < to.outcomeValues.count; j++)
             {
                 if (i == 0)
@@ -2031,7 +2075,9 @@
                         [outcomeValueLabel setText:@"Missing"];
                     else
                         [outcomeValueLabel setText:[NSString stringWithFormat:@"%@", [to.outcomeValues objectAtIndex:j]]];
-                    [outputTableView addSubview:outcomeValueLabel];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [outputTableView addSubview:outcomeValueLabel];
+                    });
                 }
                 UIView *countView = [[UIView alloc] initWithFrame:CGRectMake(79 + j * (cellWidth + 2), 42 + i * 42, cellWidth, 40)];
                 [countView setBackgroundColor:[UIColor whiteColor]];
@@ -2080,7 +2126,9 @@
                         [colPctLabel setText:[NSString stringWithFormat:@"%.2f%%", 100 * (float)nn / (float)(yn + nn)]];
                     }
                 }
-                [outputTableView addSubview:countView];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [outputTableView addSubview:countView];
+                });
                 k++;
             }
         }
@@ -2108,7 +2156,9 @@
         [rowOneColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [rowOneColPctLabel setText:[NSString stringWithFormat:@"%.2f%%", 100 * (float)(yy + yn) / (float)(yy + yn + ny + nn)]];
         [rowOneView addSubview:rowOneColPctLabel];
-        [outputTableView addSubview:rowOneView];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:rowOneView];
+        });
         UIView *rowTwoView = [[UIView alloc] initWithFrame:CGRectMake(79 + 2 * (cellWidth + 2), 84, cellWidth, 40)];
         [rowTwoView setBackgroundColor:[UIColor whiteColor]];
         [rowTwoView.layer setCornerRadius:10.0];
@@ -2132,8 +2182,10 @@
         [rowTwoColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [rowTwoColPctLabel setText:[NSString stringWithFormat:@"%.2f%%", 100 * (float)(ny + nn) / (float)(yy + yn + ny + nn)]];
         [rowTwoView addSubview:rowTwoColPctLabel];
-        [outputTableView addSubview:rowTwoView];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:rowTwoView];
+        });
+
         UIView *columnOneView = [[UIView alloc] initWithFrame:CGRectMake(79, 126, cellWidth, 40)];
         [columnOneView setBackgroundColor:[UIColor whiteColor]];
         [columnOneView.layer setCornerRadius:10.0];
@@ -2157,7 +2209,9 @@
         [colOneColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [colOneColPctLabel setText:@"100%"];
         [columnOneView addSubview:colOneColPctLabel];
-        [outputTableView addSubview:columnOneView];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:columnOneView];
+        });
         UIView *columnTwoView = [[UIView alloc] initWithFrame:CGRectMake(79 + cellWidth + 2, 126, cellWidth, 40)];
         [columnTwoView setBackgroundColor:[UIColor whiteColor]];
         [columnTwoView.layer setCornerRadius:10.0];
@@ -2181,8 +2235,10 @@
         [colTwoColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [colTwoColPctLabel setText:@"100%"];
         [columnTwoView addSubview:colTwoColPctLabel];
-        [outputTableView addSubview:columnTwoView];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:columnTwoView];
+        });
+
         UIView *totalTotalView = [[UIView alloc] initWithFrame:CGRectMake(79 + 2 * (cellWidth + 2), 126, cellWidth, 40)];
         [totalTotalView setBackgroundColor:[UIColor whiteColor]];
         [totalTotalView.layer setCornerRadius:10.0];
@@ -2206,8 +2262,10 @@
         [totalColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [totalColPctLabel setText:@"100%"];
         [totalTotalView addSubview:totalColPctLabel];
-        [outputTableView addSubview:totalTotalView];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:totalTotalView];
+        });
+
         //Compute and display the statistics
         Twox2Compute *computer = [[Twox2Compute alloc] init];
         double oddsRatio = [computer OddsRatioEstimate:yy cellb:yn cellc:ny celld:nn];
@@ -2226,18 +2284,15 @@
         oddsBasedParametersView = [[UIView alloc] initWithFrame:CGRectMake(2, 172 + stratificationOffset, 313, 110)];
         [oddsBasedParametersView setBackgroundColor:epiInfoLightBlue];
         [oddsBasedParametersView.layer setCornerRadius:10.0];
-        [outputV addSubview:oddsBasedParametersView];
-        
+
         riskBasedParametersView = [[UIView alloc] initWithFrame:CGRectMake(2, 284 + stratificationOffset, 313, 88)];
         [riskBasedParametersView setBackgroundColor:epiInfoLightBlue];
         [riskBasedParametersView.layer setCornerRadius:10.0];
-        [outputV addSubview:riskBasedParametersView];
-        
+
         statisticalTestsView = [[UIView alloc] initWithFrame:CGRectMake(2, 374 + stratificationOffset, 313, 176)];
         [statisticalTestsView setBackgroundColor:epiInfoLightBlue];
         [statisticalTestsView.layer setCornerRadius:10.0];
-        [outputV addSubview:statisticalTestsView];
-        
+
         //Add labels to each of the views
         float fourWidth0 = 78;
         float fourWidth1 = 75;
@@ -2673,6 +2728,12 @@
         [ew setBackgroundColor:[UIColor whiteColor]];
         [statisticalTestsView addSubview:ew];
         [statisticalTestsView sendSubviewToBack:ew];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputV addSubview:oddsBasedParametersView];
+            [outputV addSubview:riskBasedParametersView];
+            [outputV addSubview:statisticalTestsView];
+        });
     }
     else
     {
@@ -2689,7 +2750,9 @@
             [stratumHeader setText:[NSString stringWithFormat:@"%@ = %@", stratVar, stratValue]];
             [stratumHeader setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
             [stratumHeader setTextAlignment:NSTextAlignmentCenter];
-            [outputV addSubview:stratumHeader];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [outputV addSubview:stratumHeader];
+            });
         }
         else
             stratificationOffset = contentSizeHeight;
@@ -2698,8 +2761,10 @@
         outputTableView = [[UIView alloc] initWithFrame:CGRectMake(2, 2 + stratificationOffset, 313, 168)];
         [outputTableView setBackgroundColor:epiInfoLightBlue];
         [outputTableView.layer setCornerRadius:10.0];
-        [outputV addSubview:outputTableView];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputV addSubview:outputTableView];
+        });
+
         double cellWidth = 76;
         
         //Set initial font sizes
@@ -2756,7 +2821,9 @@
         [outcomeVariableLabel setTextColor:[UIColor whiteColor]];
         [outcomeVariableLabel setBackgroundColor:[UIColor clearColor]];
         [outcomeVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:outcomeVariableLabelFontSize]];
-        [outputTableView addSubview:outcomeVariableLabel];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:outcomeVariableLabel];
+        });
         EpiInfoUILabel *exposureVariableLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(-45, 70, 120, 20)];
         [exposureVariableLabel setText:to.exposureVariable];
         [exposureVariableLabel setTextAlignment:NSTextAlignmentCenter];
@@ -2764,8 +2831,10 @@
         [exposureVariableLabel setTextColor:[UIColor whiteColor]];
         [exposureVariableLabel setBackgroundColor:[UIColor clearColor]];
         [exposureVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:exposureVariableLabelFontSize]];
-        [outputTableView addSubview:exposureVariableLabel];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:exposureVariableLabel];
+        });
+
         int yy = [(NSNumber *)[to.cellCounts objectAtIndex:0] intValue];
         int yn = [(NSNumber *)[to.cellCounts objectAtIndex:1] intValue];
         int ny = [(NSNumber *)[to.cellCounts objectAtIndex:2] intValue];
@@ -2785,7 +2854,9 @@
                 [exposureValueLabel setText:@"Missing"];
             else
                 [exposureValueLabel setText:[NSString stringWithFormat:@"%@", [to.exposureValues objectAtIndex:i]]];
-            [outputTableView addSubview:exposureValueLabel];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [outputTableView addSubview:exposureValueLabel];
+            });
             for (int j = 0; j < to.outcomeValues.count; j++)
             {
                 if (i == 0)
@@ -2801,7 +2872,9 @@
                         [outcomeValueLabel setText:@"Missing"];
                     else
                         [outcomeValueLabel setText:[NSString stringWithFormat:@"%@", [to.outcomeValues objectAtIndex:j]]];
-                    [outputTableView addSubview:outcomeValueLabel];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [outputTableView addSubview:outcomeValueLabel];
+                    });
                 }
                 UIView *countView = [[UIView alloc] initWithFrame:CGRectMake(79 + j * (cellWidth + 2), 42 + i * 42, cellWidth, 40)];
                 [countView setBackgroundColor:[UIColor whiteColor]];
@@ -2850,7 +2923,9 @@
                         [colPctLabel setText:[NSString stringWithFormat:@"%.2f%%", 100 * (float)nn / (float)(yn + nn)]];
                     }
                 }
-                [outputTableView addSubview:countView];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [outputTableView addSubview:countView];
+                });
                 k++;
             }
         }
@@ -2877,7 +2952,9 @@
         [rowOneColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [rowOneColPctLabel setText:[NSString stringWithFormat:@"%.2f%%", 100 * (float)(yy + yn) / (float)(yy + yn + ny + nn)]];
         [rowOneView addSubview:rowOneColPctLabel];
-        [outputTableView addSubview:rowOneView];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:rowOneView];
+        });
         UIView *rowTwoView = [[UIView alloc] initWithFrame:CGRectMake(79 + 2 * (cellWidth + 2), 84, cellWidth, 40)];
         [rowTwoView setBackgroundColor:[UIColor whiteColor]];
         [rowTwoView.layer setCornerRadius:10.0];
@@ -2900,8 +2977,10 @@
         [rowTwoColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [rowTwoColPctLabel setText:[NSString stringWithFormat:@"%.2f%%", 100 * (float)(ny + nn) / (float)(yy + yn + ny + nn)]];
         [rowTwoView addSubview:rowTwoColPctLabel];
-        [outputTableView addSubview:rowTwoView];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:rowTwoView];
+        });
+
         UIView *columnOneView = [[UIView alloc] initWithFrame:CGRectMake(79, 126, cellWidth, 40)];
         [columnOneView setBackgroundColor:[UIColor whiteColor]];
         [columnOneView.layer setCornerRadius:10.0];
@@ -2924,7 +3003,9 @@
         [colOneColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [colOneColPctLabel setText:@"100%"];
         [columnOneView addSubview:colOneColPctLabel];
-        [outputTableView addSubview:columnOneView];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:columnOneView];
+        });
         UIView *columnTwoView = [[UIView alloc] initWithFrame:CGRectMake(79 + cellWidth + 2, 126, cellWidth, 40)];
         [columnTwoView setBackgroundColor:[UIColor whiteColor]];
         [columnTwoView.layer setCornerRadius:10.0];
@@ -2947,8 +3028,10 @@
         [colTwoColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [colTwoColPctLabel setText:@"100%"];
         [columnTwoView addSubview:colTwoColPctLabel];
-        [outputTableView addSubview:columnTwoView];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:columnTwoView];
+        });
+
         UIView *totalTotalView = [[UIView alloc] initWithFrame:CGRectMake(79 + 2 * (cellWidth + 2), 126, cellWidth, 40)];
         [totalTotalView setBackgroundColor:[UIColor whiteColor]];
         [totalTotalView.layer setCornerRadius:10.0];
@@ -2971,8 +3054,10 @@
         [totalColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [totalColPctLabel setText:@"100%"];
         [totalTotalView addSubview:totalColPctLabel];
-        [outputTableView addSubview:totalTotalView];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:totalTotalView];
+        });
+
         //Compute and display the statistics
         Twox2Compute *computer = [[Twox2Compute alloc] init];
         double oddsRatio = [computer OddsRatioEstimate:yy cellb:yn cellc:ny celld:nn];
@@ -2991,18 +3076,15 @@
         oddsBasedParametersView = [[UIView alloc] initWithFrame:CGRectMake(2, 172 + stratificationOffset, 313, 110)];
         [oddsBasedParametersView setBackgroundColor:epiInfoLightBlue];
         [oddsBasedParametersView.layer setCornerRadius:10.0];
-        [outputV addSubview:oddsBasedParametersView];
-        
+
         riskBasedParametersView = [[UIView alloc] initWithFrame:CGRectMake(2, 284 + stratificationOffset, 313, 88)];
         [riskBasedParametersView setBackgroundColor:epiInfoLightBlue];
         [riskBasedParametersView.layer setCornerRadius:10.0];
-        [outputV addSubview:riskBasedParametersView];
-        
+
         statisticalTestsView = [[UIView alloc] initWithFrame:CGRectMake(2, 374 + stratificationOffset, 313, 176)];
         [statisticalTestsView setBackgroundColor:epiInfoLightBlue];
         [statisticalTestsView.layer setCornerRadius:10.0];
-        [outputV addSubview:statisticalTestsView];
-        
+
         //Add labels to each of the views
         float fourWidth0 = 78;
         float fourWidth1 = 75;
@@ -3438,6 +3520,12 @@
         [ew setBackgroundColor:[UIColor whiteColor]];
         [statisticalTestsView addSubview:ew];
         [statisticalTestsView sendSubviewToBack:ew];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputV addSubview:oddsBasedParametersView];
+            [outputV addSubview:riskBasedParametersView];
+            [outputV addSubview:statisticalTestsView];
+        });
     }
 }
 
@@ -3461,15 +3549,19 @@
         [stratumHeader setText:@"Summary Results"];
         [stratumHeader setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
         [stratumHeader setTextAlignment:NSTextAlignmentCenter];
-        [outputV addSubview:stratumHeader];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputV addSubview:stratumHeader];
+        });
+
         //Make the view for the actual 2x2 table
         float stratificationOffset = 40.0;
         outputTableView = [[UIView alloc] initWithFrame:CGRectMake(2, 2 + stratificationOffset, 313, 168)];
         [outputTableView setBackgroundColor:epiInfoLightBlue];
         [outputTableView.layer setCornerRadius:10.0];
-        [outputV addSubview:outputTableView];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputV addSubview:outputTableView];
+        });
+
         double cellWidth = 76;
         
         //Set initial font sizes
@@ -3526,7 +3618,9 @@
         [outcomeVariableLabel setTextColor:[UIColor whiteColor]];
         [outcomeVariableLabel setBackgroundColor:[UIColor clearColor]];
         [outcomeVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:outcomeVariableLabelFontSize]];
-        [outputTableView addSubview:outcomeVariableLabel];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:outcomeVariableLabel];
+        });
         EpiInfoUILabel *exposureVariableLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(-45, 70, 120, 20)];
         [exposureVariableLabel setText:to.exposureVariable];
         [exposureVariableLabel setTextAlignment:NSTextAlignmentCenter];
@@ -3534,8 +3628,10 @@
         [exposureVariableLabel setTextColor:[UIColor whiteColor]];
         [exposureVariableLabel setBackgroundColor:[UIColor clearColor]];
         [exposureVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:exposureVariableLabelFontSize]];
-        [outputTableView addSubview:exposureVariableLabel];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:exposureVariableLabel];
+        });
+
         int yy = summaryResultsArray[0];
         int yn = summaryResultsArray[1];
         int ny = summaryResultsArray[2];
@@ -3555,7 +3651,9 @@
                 [exposureValueLabel setText:@"Missing"];
             else
                 [exposureValueLabel setText:[NSString stringWithFormat:@"%@", [to.exposureValues objectAtIndex:i]]];
-            [outputTableView addSubview:exposureValueLabel];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [outputTableView addSubview:exposureValueLabel];
+            });
             for (int j = 0; j < to.outcomeValues.count; j++)
             {
                 if (i == 0)
@@ -3571,7 +3669,9 @@
                         [outcomeValueLabel setText:@"Missing"];
                     else
                         [outcomeValueLabel setText:[NSString stringWithFormat:@"%@", [to.outcomeValues objectAtIndex:j]]];
-                    [outputTableView addSubview:outcomeValueLabel];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [outputTableView addSubview:outcomeValueLabel];
+                    });
                 }
                 UIView *countView = [[UIView alloc] initWithFrame:CGRectMake(79 + j * (cellWidth + 2), 42 + i * 42, cellWidth, 40)];
                 [countView setBackgroundColor:[UIColor whiteColor]];
@@ -3620,7 +3720,9 @@
                         [colPctLabel setText:[NSString stringWithFormat:@"%.2f%%", 100 * (float)nn / (float)(yn + nn)]];
                     }
                 }
-                [outputTableView addSubview:countView];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [outputTableView addSubview:countView];
+                });
                 k++;
             }
         }
@@ -3647,7 +3749,9 @@
         [rowOneColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [rowOneColPctLabel setText:[NSString stringWithFormat:@"%.2f%%", 100 * (float)(yy + yn) / (float)(yy + yn + ny + nn)]];
         [rowOneView addSubview:rowOneColPctLabel];
-        [outputTableView addSubview:rowOneView];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:rowOneView];
+        });
         UIView *rowTwoView = [[UIView alloc] initWithFrame:CGRectMake(79 + 2 * (cellWidth + 2), 84, cellWidth, 40)];
         [rowTwoView setBackgroundColor:[UIColor whiteColor]];
         [rowTwoView.layer setCornerRadius:10.0];
@@ -3670,8 +3774,10 @@
         [rowTwoColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [rowTwoColPctLabel setText:[NSString stringWithFormat:@"%.2f%%", 100 * (float)(ny + nn) / (float)(yy + yn + ny + nn)]];
         [rowTwoView addSubview:rowTwoColPctLabel];
-        [outputTableView addSubview:rowTwoView];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:rowTwoView];
+        });
+
         UIView *columnOneView = [[UIView alloc] initWithFrame:CGRectMake(79, 126, cellWidth, 40)];
         [columnOneView setBackgroundColor:[UIColor whiteColor]];
         [columnOneView.layer setCornerRadius:10.0];
@@ -3694,7 +3800,9 @@
         [colOneColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [colOneColPctLabel setText:@"100%"];
         [columnOneView addSubview:colOneColPctLabel];
-        [outputTableView addSubview:columnOneView];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:columnOneView];
+        });
         UIView *columnTwoView = [[UIView alloc] initWithFrame:CGRectMake(79 + cellWidth + 2, 126, cellWidth, 40)];
         [columnTwoView setBackgroundColor:[UIColor whiteColor]];
         [columnTwoView.layer setCornerRadius:10.0];
@@ -3717,8 +3825,10 @@
         [colTwoColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [colTwoColPctLabel setText:@"100%"];
         [columnTwoView addSubview:colTwoColPctLabel];
-        [outputTableView addSubview:columnTwoView];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:columnTwoView];
+        });
+
         UIView *totalTotalView = [[UIView alloc] initWithFrame:CGRectMake(79 + 2 * (cellWidth + 2), 126, cellWidth, 40)];
         [totalTotalView setBackgroundColor:[UIColor whiteColor]];
         [totalTotalView.layer setCornerRadius:10.0];
@@ -3741,29 +3851,27 @@
         [totalColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [totalColPctLabel setText:@"100%"];
         [totalTotalView addSubview:totalColPctLabel];
-        [outputTableView addSubview:totalTotalView];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:totalTotalView];
+        });
+
         //Add the views for each section of statistics
         oddsBasedParametersView = [[UIView alloc] initWithFrame:CGRectMake(2, 172 + stratificationOffset, 313, 154)];
         [oddsBasedParametersView setBackgroundColor:epiInfoLightBlue];
         [oddsBasedParametersView.layer setCornerRadius:10.0];
-        [outputV addSubview:oddsBasedParametersView];
-        
+
         riskBasedParametersView = [[UIView alloc] initWithFrame:CGRectMake(2, 328 + stratificationOffset, 313, 88)];
         [riskBasedParametersView setBackgroundColor:epiInfoLightBlue];
         [riskBasedParametersView.layer setCornerRadius:10.0];
-        [outputV addSubview:riskBasedParametersView];
-        
+
         statisticalTestsView = [[UIView alloc] initWithFrame:CGRectMake(2, 418 + stratificationOffset, 313, 88)];
         [statisticalTestsView setBackgroundColor:epiInfoLightBlue];
         [statisticalTestsView.layer setCornerRadius:10.0];
-        [outputV addSubview:statisticalTestsView];
-        
+
         UIView *homogeneityTestsView = [[UIView alloc] initWithFrame:CGRectMake(2, 508 + stratificationOffset, 313, 110)];
         [homogeneityTestsView setBackgroundColor:epiInfoLightBlue];
         [homogeneityTestsView.layer setCornerRadius:10.0];
-        [outputV addSubview:homogeneityTestsView];
-        
+
         //Add labels to each of the views
         float fourWidth0 = 78;
         float fourWidth1 = 75;
@@ -4282,6 +4390,13 @@
         [ew setBackgroundColor:[UIColor whiteColor]];
         [homogeneityTestsView addSubview:ew];
         [homogeneityTestsView sendSubviewToBack:ew];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputV addSubview:oddsBasedParametersView];
+            [outputV addSubview:riskBasedParametersView];
+            [outputV addSubview:statisticalTestsView];
+            [outputV addSubview:homogeneityTestsView];
+        });
     }
     else
     {
@@ -4301,15 +4416,19 @@
         [stratumHeader setText:@"Summary Results"];
         [stratumHeader setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
         [stratumHeader setTextAlignment:NSTextAlignmentCenter];
-        [outputV addSubview:stratumHeader];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputV addSubview:stratumHeader];
+        });
+
         //Make the view for the actual 2x2 table
         float stratificationOffset = 40.0;
         outputTableView = [[UIView alloc] initWithFrame:CGRectMake(2, 2 + stratificationOffset, 313, 168)];
         [outputTableView setBackgroundColor:epiInfoLightBlue];
         [outputTableView.layer setCornerRadius:10.0];
-        [outputV addSubview:outputTableView];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputV addSubview:outputTableView];
+        });
+
         double cellWidth = 76;
         
         //Set initial font sizes
@@ -4366,7 +4485,9 @@
         [outcomeVariableLabel setTextColor:[UIColor whiteColor]];
         [outcomeVariableLabel setBackgroundColor:[UIColor clearColor]];
         [outcomeVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:outcomeVariableLabelFontSize]];
-        [outputTableView addSubview:outcomeVariableLabel];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:outcomeVariableLabel];
+        });
         EpiInfoUILabel *exposureVariableLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(-45, 70, 120, 20)];
         [exposureVariableLabel setText:to.exposureVariable];
         [exposureVariableLabel setTextAlignment:NSTextAlignmentCenter];
@@ -4374,8 +4495,10 @@
         [exposureVariableLabel setTextColor:[UIColor whiteColor]];
         [exposureVariableLabel setBackgroundColor:[UIColor clearColor]];
         [exposureVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:exposureVariableLabelFontSize]];
-        [outputTableView addSubview:exposureVariableLabel];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:exposureVariableLabel];
+        });
+
         int yy = summaryResultsArray[0];
         int yn = summaryResultsArray[1];
         int ny = summaryResultsArray[2];
@@ -4395,7 +4518,9 @@
                 [exposureValueLabel setText:@"Missing"];
             else
                 [exposureValueLabel setText:[NSString stringWithFormat:@"%@", [to.exposureValues objectAtIndex:i]]];
-            [outputTableView addSubview:exposureValueLabel];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [outputTableView addSubview:exposureValueLabel];
+            });
             for (int j = 0; j < to.outcomeValues.count; j++)
             {
                 if (i == 0)
@@ -4411,7 +4536,9 @@
                         [outcomeValueLabel setText:@"Missing"];
                     else
                         [outcomeValueLabel setText:[NSString stringWithFormat:@"%@", [to.outcomeValues objectAtIndex:j]]];
-                    [outputTableView addSubview:outcomeValueLabel];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [outputTableView addSubview:outcomeValueLabel];
+                    });
                 }
                 UIView *countView = [[UIView alloc] initWithFrame:CGRectMake(79 + j * (cellWidth + 2), 42 + i * 42, cellWidth, 40)];
                 [countView setBackgroundColor:[UIColor whiteColor]];
@@ -4460,7 +4587,9 @@
                         [colPctLabel setText:[NSString stringWithFormat:@"%.2f%%", 100 * (float)nn / (float)(yn + nn)]];
                     }
                 }
-                [outputTableView addSubview:countView];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [outputTableView addSubview:countView];
+                });
                 k++;
             }
         }
@@ -4487,7 +4616,9 @@
         [rowOneColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [rowOneColPctLabel setText:[NSString stringWithFormat:@"%.2f%%", 100 * (float)(yy + yn) / (float)(yy + yn + ny + nn)]];
         [rowOneView addSubview:rowOneColPctLabel];
-        [outputTableView addSubview:rowOneView];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:rowOneView];
+        });
         UIView *rowTwoView = [[UIView alloc] initWithFrame:CGRectMake(79 + 2 * (cellWidth + 2), 84, cellWidth, 40)];
         [rowTwoView setBackgroundColor:[UIColor whiteColor]];
         [rowTwoView.layer setCornerRadius:10.0];
@@ -4510,8 +4641,10 @@
         [rowTwoColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [rowTwoColPctLabel setText:[NSString stringWithFormat:@"%.2f%%", 100 * (float)(ny + nn) / (float)(yy + yn + ny + nn)]];
         [rowTwoView addSubview:rowTwoColPctLabel];
-        [outputTableView addSubview:rowTwoView];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:rowTwoView];
+        });
+
         UIView *columnOneView = [[UIView alloc] initWithFrame:CGRectMake(79, 126, cellWidth, 40)];
         [columnOneView setBackgroundColor:[UIColor whiteColor]];
         [columnOneView.layer setCornerRadius:10.0];
@@ -4534,7 +4667,9 @@
         [colOneColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [colOneColPctLabel setText:@"100%"];
         [columnOneView addSubview:colOneColPctLabel];
-        [outputTableView addSubview:columnOneView];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:columnOneView];
+        });
         UIView *columnTwoView = [[UIView alloc] initWithFrame:CGRectMake(79 + cellWidth + 2, 126, cellWidth, 40)];
         [columnTwoView setBackgroundColor:[UIColor whiteColor]];
         [columnTwoView.layer setCornerRadius:10.0];
@@ -4557,8 +4692,10 @@
         [colTwoColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [colTwoColPctLabel setText:@"100%"];
         [columnTwoView addSubview:colTwoColPctLabel];
-        [outputTableView addSubview:columnTwoView];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:columnTwoView];
+        });
+
         UIView *totalTotalView = [[UIView alloc] initWithFrame:CGRectMake(79 + 2 * (cellWidth + 2), 126, cellWidth, 40)];
         [totalTotalView setBackgroundColor:[UIColor whiteColor]];
         [totalTotalView.layer setCornerRadius:10.0];
@@ -4581,29 +4718,27 @@
         [totalColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
         [totalColPctLabel setText:@"100%"];
         [totalTotalView addSubview:totalColPctLabel];
-        [outputTableView addSubview:totalTotalView];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputTableView addSubview:totalTotalView];
+        });
+
         //Add the views for each section of statistics
         oddsBasedParametersView = [[UIView alloc] initWithFrame:CGRectMake(2, 172 + stratificationOffset, 313, 154)];
         [oddsBasedParametersView setBackgroundColor:epiInfoLightBlue];
         [oddsBasedParametersView.layer setCornerRadius:10.0];
-        [outputV addSubview:oddsBasedParametersView];
-        
+
         riskBasedParametersView = [[UIView alloc] initWithFrame:CGRectMake(2, 328 + stratificationOffset, 313, 88)];
         [riskBasedParametersView setBackgroundColor:epiInfoLightBlue];
         [riskBasedParametersView.layer setCornerRadius:10.0];
-        [outputV addSubview:riskBasedParametersView];
-        
+
         statisticalTestsView = [[UIView alloc] initWithFrame:CGRectMake(2, 418 + stratificationOffset, 313, 88)];
         [statisticalTestsView setBackgroundColor:epiInfoLightBlue];
         [statisticalTestsView.layer setCornerRadius:10.0];
-        [outputV addSubview:statisticalTestsView];
-        
+
         UIView *homogeneityTestsView = [[UIView alloc] initWithFrame:CGRectMake(2, 508 + stratificationOffset, 313, 110)];
         [homogeneityTestsView setBackgroundColor:epiInfoLightBlue];
         [homogeneityTestsView.layer setCornerRadius:10.0];
-        [outputV addSubview:homogeneityTestsView];
-        
+
         //Add labels to each of the views
         float fourWidth0 = 78;
         float fourWidth1 = 75;
@@ -5122,6 +5257,13 @@
         [ew setBackgroundColor:[UIColor whiteColor]];
         [homogeneityTestsView addSubview:ew];
         [homogeneityTestsView sendSubviewToBack:ew];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputV addSubview:oddsBasedParametersView];
+            [outputV addSubview:riskBasedParametersView];
+            [outputV addSubview:statisticalTestsView];
+            [outputV addSubview:homogeneityTestsView];
+        });
     }
 }
 
