@@ -1360,23 +1360,21 @@
             to = [toNSMA objectAtIndex:0];
             summaryTable = [[NSMutableArray alloc] init];
             [summaryTable addObject:[[NSMutableArray alloc] init]];
-            UIView *outputViewZero;
+            __block UIView *outputViewZero;
             if ([toNSMA count] > 1)
             {
                 __block CGRect outputViewFrame;
-                dispatch_async(dispatch_get_main_queue(), ^{
+                dispatch_sync(dispatch_get_main_queue(), ^{
                     outputViewFrame = outputView.frame;
                 });
-                float initialOutputViewX = outputView.frame.origin.x;
-                initialOutputViewY = outputView.frame.origin.y;
-                float initialOutputViewWidth = outputView.frame.size.width;
-                float initialOutputViewHeight = outputView.frame.size.height;
+                float initialOutputViewX = outputViewFrame.origin.x;
+                initialOutputViewY = outputViewFrame.origin.y;
+                float initialOutputViewWidth = outputViewFrame.size.width;
+                float initialOutputViewHeight = outputViewFrame.size.height;
                 float newOutputViewY = initialOutputViewY + 20.0 * (1.0 + (float)[toNSMA count]) + 4;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [outputView setFrame:CGRectMake(initialOutputViewX, newOutputViewY, initialOutputViewWidth, initialOutputViewHeight)];
-                });
-                outputViewZero = [[UIView alloc] initWithFrame:CGRectMake(initialOutputViewX, initialOutputViewY, initialOutputViewWidth, 20.0 * (1.0 + (float)[toNSMA count]))];
-                dispatch_async(dispatch_get_main_queue(), ^{
+                    outputViewZero = [[UIView alloc] initWithFrame:CGRectMake(initialOutputViewX, initialOutputViewY, initialOutputViewWidth, 20.0 * (1.0 + (float)[toNSMA count]))];
                     [self addSubview:outputViewZero];
                 });
             }

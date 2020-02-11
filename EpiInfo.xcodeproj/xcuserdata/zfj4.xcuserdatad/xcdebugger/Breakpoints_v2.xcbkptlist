@@ -231,8 +231,8 @@
             filePath = "EpiInfo/LogisticView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1532"
-            endingLineNumber = "1532"
+            startingLineNumber = "1530"
+            endingLineNumber = "1530"
             landmarkName = "-pickerView:didSelectRow:inComponent:"
             landmarkType = "7">
             <Locations>
@@ -247,8 +247,8 @@
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1532"
-                  endingLineNumber = "1532"
+                  startingLineNumber = "1530"
+                  endingLineNumber = "1530"
                   offsetFromSymbolStart = "216">
                </Location>
                <Location
@@ -262,8 +262,8 @@
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1532"
-                  endingLineNumber = "1532"
+                  startingLineNumber = "1530"
+                  endingLineNumber = "1530"
                   offsetFromSymbolStart = "64">
                </Location>
             </Locations>
@@ -279,8 +279,8 @@
             filePath = "EpiInfo/LogisticView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1557"
-            endingLineNumber = "1557"
+            startingLineNumber = "1555"
+            endingLineNumber = "1555"
             landmarkName = "-pickerView:didSelectRow:inComponent:"
             landmarkType = "7">
             <Locations>
@@ -295,8 +295,8 @@
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1557"
-                  endingLineNumber = "1557"
+                  startingLineNumber = "1555"
+                  endingLineNumber = "1555"
                   offsetFromSymbolStart = "496">
                </Location>
                <Location
@@ -310,8 +310,8 @@
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1557"
-                  endingLineNumber = "1557"
+                  startingLineNumber = "1555"
+                  endingLineNumber = "1555"
                   offsetFromSymbolStart = "64">
                </Location>
             </Locations>
@@ -327,8 +327,8 @@
             filePath = "EpiInfo/LogisticView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1586"
-            endingLineNumber = "1586"
+            startingLineNumber = "1584"
+            endingLineNumber = "1584"
             landmarkName = "-pickerView:didSelectRow:inComponent:"
             landmarkType = "7">
             <Locations>
@@ -343,8 +343,8 @@
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1586"
-                  endingLineNumber = "1586"
+                  startingLineNumber = "1584"
+                  endingLineNumber = "1584"
                   offsetFromSymbolStart = "844">
                </Location>
                <Location
@@ -358,8 +358,8 @@
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1586"
-                  endingLineNumber = "1586"
+                  startingLineNumber = "1584"
+                  endingLineNumber = "1584"
                   offsetFromSymbolStart = "64">
                </Location>
             </Locations>
@@ -471,8 +471,8 @@
             filePath = "EpiInfo/LogisticView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1481"
-            endingLineNumber = "1481"
+            startingLineNumber = "1479"
+            endingLineNumber = "1479"
             landmarkName = "-pickerView:numberOfRowsInComponent:"
             landmarkType = "7">
          </BreakpointContent>
@@ -487,8 +487,8 @@
             filePath = "EpiInfo/LogisticView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1504"
-            endingLineNumber = "1504"
+            startingLineNumber = "1502"
+            endingLineNumber = "1502"
             landmarkName = "-pickerView:titleForRow:forComponent:"
             landmarkType = "7">
          </BreakpointContent>

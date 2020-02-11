@@ -1210,7 +1210,11 @@
         return;
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/"] stringByAppendingString:lvSelected.text] stringByAppendingString:@".xml"];
+    __block NSString *lvSelectedText;
+    dispatch_sync(dispatch_get_main_queue(), ^{
+      lvSelectedText = [lvSelected text];
+    });
+    NSString *path = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/"] stringByAppendingString:lvSelectedText] stringByAppendingString:@".xml"];
     NSURL *url = [NSURL fileURLWithPath:path];
 
     for (int i = 2; i <= [edv pagesArray].count; i++)
