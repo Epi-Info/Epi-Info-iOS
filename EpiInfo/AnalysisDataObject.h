@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSArray *dataSet;
 
 -(NSMutableString *)whereClause;
+-(void)setWhereClause:(NSString *)wc;
 -(id)initWithAnalysisDataObject:(AnalysisDataObject *)analysisDataObject;
 -(id)initWithAnalysisDataObject:(AnalysisDataObject *)analysisDataObject AndTableName:(NSString *)tableName AndFilters:(NSMutableArray *)filters;
 -(id)initWithCSVFile:(NSString *)pathAndFileName;

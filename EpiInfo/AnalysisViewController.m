@@ -38,6 +38,7 @@
     [sqlData makeSQLiteWorkingTableWithWhereClause:whereClause AndNewVariblesList:self.listOfNewVariables];
     [dataSourceLabel setText:[NSString stringWithFormat:@"%@\n(%d/%d Records)", [[[dataSourceLabel text] componentsSeparatedByString:@"\n"] objectAtIndex:0], [sqlData workingTableSize], [sqlData fullTableSize]]];
     [setDataSource setAccessibilityLabel:[NSString stringWithFormat:@"Data Source: %@ (%d of %d Records)", [[[dataSourceLabel text] componentsSeparatedByString:@"\n"] objectAtIndex:0], [sqlData workingTableSize], [sqlData fullTableSize]]];
+    [workingDataObject setWhereClause:whereClause];
 }
 - (NSString *)workingDatasetWhereClause
 {

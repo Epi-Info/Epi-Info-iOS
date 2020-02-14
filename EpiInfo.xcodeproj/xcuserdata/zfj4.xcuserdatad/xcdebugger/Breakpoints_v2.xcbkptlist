@@ -249,7 +249,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1530"
                   endingLineNumber = "1530"
-                  offsetFromSymbolStart = "221">
+                  offsetFromSymbolStart = "216">
                </Location>
                <Location
                   uuid = "CAE2FC3B-CE51-49AD-B213-FCB319D1EC76 - 4e1e609452c5d05e"
@@ -264,7 +264,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1530"
                   endingLineNumber = "1530"
-                  offsetFromSymbolStart = "36">
+                  offsetFromSymbolStart = "64">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -297,7 +297,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1555"
                   endingLineNumber = "1555"
-                  offsetFromSymbolStart = "486">
+                  offsetFromSymbolStart = "496">
                </Location>
                <Location
                   uuid = "BFBE3503-7E6D-48BC-BB6D-AF97B5299FF9 - 54d9e04f54352683"
@@ -312,7 +312,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1555"
                   endingLineNumber = "1555"
-                  offsetFromSymbolStart = "36">
+                  offsetFromSymbolStart = "64">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -345,7 +345,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1584"
                   endingLineNumber = "1584"
-                  offsetFromSymbolStart = "813">
+                  offsetFromSymbolStart = "844">
                </Location>
                <Location
                   uuid = "007DA7F9-CDF0-4EA7-8703-2A0A6DC4B9ED - 54d9e04f54352602"
@@ -360,7 +360,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1584"
                   endingLineNumber = "1584"
-                  offsetFromSymbolStart = "36">
+                  offsetFromSymbolStart = "64">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -490,6 +490,70 @@
             startingLineNumber = "1502"
             endingLineNumber = "1502"
             landmarkName = "-pickerView:titleForRow:forComponent:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4182F3E6-E80C-47AE-9A08-CE71BB51DE91"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/AnalysisDataObject.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "-initWithAnalysisDataObject:AndTableName:AndFilters:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "42BAFFC2-00D4-4C5B-AD2C-0ACD9ED0731B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/NewVariablesView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
+            landmarkName = "-hideSelf"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E928B7C4-53B0-4837-8CD4-E07B623E2F16"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/AnalysisViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "-workingDataSetWithWhereClause:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1B97B770-A2E3-402C-B850-B5D525F9FDFA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/AnalysisFilterView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
+            landmarkName = "-hideSelf"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

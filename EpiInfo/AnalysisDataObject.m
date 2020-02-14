@@ -26,6 +26,10 @@
     else
         return [NSMutableString stringWithString:@""];
 }
+- (void)setWhereClause:(NSString *)wc
+{
+    whereClause = [NSMutableString stringWithString:wc];
+}
 
 - (NSDictionary *)dataDefinitions
 {

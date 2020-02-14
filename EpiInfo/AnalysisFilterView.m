@@ -195,6 +195,8 @@
 //    [avc setWorkingDataObject:[[AnalysisDataObject alloc] initWithAnalysisDataObject:[avc fullDataObject] AndTableName:[avc dataSourceName] AndFilters:listOfValues]];
     NSString *whereClause = [AnalysisDataObject buildWhereClauseFromFilters:listOfValues DataObject:[avc workingDataObject]];
     [avc workingDataSetWithWhereClause:whereClause];
+    [avc setWorkingDataObject:[[AnalysisDataObject alloc] initWithWorkingDataset]];
+    [[avc workingDataObject] setWhereClause:whereClause];
     [avc setWorkingDataObjectListOfFilters:listOfValues];
     [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
         [self setFrame:CGRectMake(self.frame.size.width, self.frame.origin.y, self.frame.size.width, self.frame.size.height)];
