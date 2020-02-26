@@ -10921,20 +10921,22 @@ newStr{
 {
     [NSThread sleepForTimeInterval:0.2];
 
-    [self.rootViewController.view addSubview:self];
-    [self.rootViewController.view bringSubviewToFront:self];
-    
-    for (UIView *v in [self.rootViewController.view subviews])
-    {
-        if ([[v backgroundColor] isEqual:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:0.95]])
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.rootViewController.view addSubview:self];
+        [self.rootViewController.view bringSubviewToFront:self];
+        
+        for (UIView *v in [self.rootViewController.view subviews])
         {
-            [self.rootViewController.view bringSubviewToFront:v];
+            if ([[v backgroundColor] isEqual:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:0.95]])
+            {
+                [self.rootViewController.view bringSubviewToFront:v];
+            }
+            else if ([v isKindOfClass:[UINavigationBar class]])
+            {
+                [self.rootViewController.view bringSubviewToFront:v];
+            }
         }
-        else if ([v isKindOfClass:[UINavigationBar class]])
-        {
-            [self.rootViewController.view bringSubviewToFront:v];
-        }
-    }
+    });
 }
 
 - (void)setElementListArrayIsEnabledForElement:(NSString *)elementName andIsEnabled:(BOOL)enabled
