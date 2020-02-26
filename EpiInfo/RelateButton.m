@@ -1140,6 +1140,7 @@
         // Connect to sqlite and assemble XML
         NSMutableString *xmlFileText = [NSMutableString stringWithString:@"<SurveyResponses>"];
         
+        FeedbackView *feedbackView = [[FeedbackView alloc] initWithFrame:CGRectMake(10, 0, 300, 0)];
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"]])
         {
@@ -1157,7 +1158,6 @@
                 if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
                 {
                     // Give user feedback that package is building.
-                    FeedbackView *feedbackView = [[FeedbackView alloc] initWithFrame:CGRectMake(10, 0, 300, 0)];
                     [feedbackView setTotalRecords:recordsToBeWrittenToPackageFile];
                     NSThread *activityIndicatorThread = [[NSThread alloc] initWithTarget:self selector:@selector(showActivityIndicatorWhileCreatingPackageFile:) object:feedbackView];
                     [activityIndicatorThread start];
@@ -1445,6 +1445,15 @@
             [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
             [(DataEntryViewController *)rootViewController presentViewController:composer animated:YES completion:^(void){
                 mailComposerShown = YES;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (feedbackView)
+                    {
+                        if ([feedbackView superview])
+                        {
+                            [feedbackView removeFromSuperview];
+                        }
+                    }
+                });
             }];
             //            free(buffer);
             [self dismissPrePackageDataView:sender];
@@ -1465,6 +1474,15 @@
         [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
         [(DataEntryViewController *)rootViewController presentViewController:composer animated:YES completion:^(void){
             mailComposerShown = YES;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (feedbackView)
+                {
+                    if ([feedbackView superview])
+                    {
+                        [feedbackView removeFromSuperview];
+                    }
+                }
+            });
         }];
     }
 }
@@ -1725,23 +1743,27 @@
 - (void)showActivityIndicatorWhileCreatingPackageFile:(FeedbackView *)feedbackView
 {
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [feedbackView setFrame:CGRectMake(10, 10, 300, 314)];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [feedbackView setFrame:CGRectMake(10, 10, 300, 314)];
+        });
     } completion:^(BOOL finished){
     }];
-    [feedbackView setBackgroundColor:[UIColor clearColor]];
-    [feedbackView setBlurTintColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0]];
-    [feedbackView.layer setCornerRadius:10.0];
-    [dismissView addSubview:feedbackView];
-    UIActivityIndicatorView *uiavPackage = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(140, 280, 20, 20)];
-    [feedbackView addSubview:uiavPackage];
-    [uiavPackage setColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
-    [uiavPackage startAnimating];
-    [dismissView bringSubviewToFront:feedbackView];
-    
-    feedbackView.percentLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 280, 40)];
-    [feedbackView.percentLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:24]];
-    [feedbackView.percentLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
-    [feedbackView addSubview:feedbackView.percentLabel];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [feedbackView setBackgroundColor:[UIColor clearColor]];
+        [feedbackView setBlurTintColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0]];
+        [feedbackView.layer setCornerRadius:10.0];
+        [dismissView addSubview:feedbackView];
+        UIActivityIndicatorView *uiavPackage = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(140, 280, 20, 20)];
+        [feedbackView addSubview:uiavPackage];
+        [uiavPackage setColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [uiavPackage startAnimating];
+        [dismissView bringSubviewToFront:feedbackView];
+        
+        feedbackView.percentLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 280, 40)];
+        [feedbackView.percentLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:24]];
+        [feedbackView.percentLabel setTextColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [feedbackView addSubview:feedbackView.percentLabel];
+    });
 }
 
 - (void)uploadAllRecords:(UIButton *)sender
