@@ -38,6 +38,7 @@
 #import "IfParser.h"
 #import "FieldsAndStringValues.h"
 #import "DictionaryOfFields.h"
+#import "QRScannerButton.h"
 #import <MicrosoftAzureMobile/MicrosoftAzureMobile.h>
 
 @interface EnterDataView : UIScrollView <NSXMLParserDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UITextViewDelegate>

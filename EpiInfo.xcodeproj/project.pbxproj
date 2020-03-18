@@ -376,6 +376,8 @@
 		92D43A491992C61700B24712 /* RoundDeleteButton60.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D43A481992C61700B24712 /* RoundDeleteButton60.png */; };
 		92D4BB63184F77CC00B2D70C /* CancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D4BB61184F77CC00B2D70C /* CancelButton.png */; };
 		92D4BB64184F77CC00B2D70C /* SaveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D4BB62184F77CC00B2D70C /* SaveButton.png */; };
+		92D4DFEA2422886F00934571 /* ScannerIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D4DFE92422886F00934571 /* ScannerIcon.png */; };
+		92D4DFED24228A0800934571 /* QRScannerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D4DFEC24228A0800934571 /* QRScannerButton.m */; };
 		92DBD603193CC57100A40691 /* EpiInfoOptionField.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DBD602193CC57100A40691 /* EpiInfoOptionField.m */; };
 		92DBD606193CDAFA00A40691 /* EpiInfoUniqueIDField.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DBD605193CDAFA00A40691 /* EpiInfoUniqueIDField.m */; };
 		92E1A83918730614003E58A5 /* EpiInfoTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E1A83818730614003E58A5 /* EpiInfoTextField.m */; };
@@ -1005,6 +1007,9 @@
 		92D43A481992C61700B24712 /* RoundDeleteButton60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RoundDeleteButton60.png; sourceTree = "<group>"; };
 		92D4BB61184F77CC00B2D70C /* CancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CancelButton.png; sourceTree = "<group>"; };
 		92D4BB62184F77CC00B2D70C /* SaveButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SaveButton.png; sourceTree = "<group>"; };
+		92D4DFE92422886F00934571 /* ScannerIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScannerIcon.png; sourceTree = "<group>"; };
+		92D4DFEB24228A0800934571 /* QRScannerButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRScannerButton.h; sourceTree = "<group>"; };
+		92D4DFEC24228A0800934571 /* QRScannerButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRScannerButton.m; sourceTree = "<group>"; };
 		92DBD601193CC57100A40691 /* EpiInfoOptionField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpiInfoOptionField.h; sourceTree = "<group>"; };
 		92DBD602193CC57100A40691 /* EpiInfoOptionField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpiInfoOptionField.m; sourceTree = "<group>"; };
 		92DBD604193CDAFA00A40691 /* EpiInfoUniqueIDField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpiInfoUniqueIDField.h; sourceTree = "<group>"; };
@@ -1235,6 +1240,7 @@
 				92C2BC691E8956380034F85B /* population_survey_icon_blue.png */,
 				92130CFA1CE0FB62001040D6 /* epi_info_logo_full.png */,
 				92130CFB1CE0FB62001040D6 /* epi_info_logo_full_6+.png */,
+				92D4DFE92422886F00934571 /* ScannerIcon.png */,
 				9295FFD61CEE07B00022B75C /* CohortBN.png */,
 				9295FFD71CEE07B00022B75C /* UnmatchN.png */,
 				9295FFD81CEE07B00022B75C /* PopTN.png */,
@@ -1787,6 +1793,8 @@
 				920CD0261EE4B30200415569 /* CheckButton.m */,
 				928F8817200FEF85001F3E03 /* EpiInfoImageField.h */,
 				928F8818200FEF85001F3E03 /* EpiInfoImageField.m */,
+				92D4DFEB24228A0800934571 /* QRScannerButton.h */,
+				92D4DFEC24228A0800934571 /* QRScannerButton.m */,
 				9266C5321846795000739AF2 /* YesNo.h */,
 				9266C5331846795000739AF2 /* YesNo.m */,
 				924B5B7F2125F2DF00B519CE /* DownTriangle.h */,
@@ -2204,6 +2212,7 @@
 				92C2BC561E857E880034F85B /* cohort_icon.png in Resources */,
 				9295FFF81CEE07B00022B75C /* 2x2B0N.png in Resources */,
 				92130CF51CE0F69B001040D6 /* AnalysisButton.png in Resources */,
+				92D4DFEA2422886F00934571 /* ScannerIcon.png in Resources */,
 				92130D0F1CE5112E001040D6 /* iPhone4BackgroundWhite.png in Resources */,
 				68D76A0216A9DDF900D831EB /* ChiT.png in Resources */,
 				68D76A0316A9DDF900D831EB /* MatchedPB.png in Resources */,
@@ -2455,6 +2464,7 @@
 				92CC6086228DBC8200513DC5 /* IfBuilder.m in Sources */,
 				9258D1A9222D8833000376E7 /* FormElementObject.m in Sources */,
 				92AAC01C1C208917005D77F3 /* FeedbackView.m in Sources */,
+				92D4DFED24228A0800934571 /* QRScannerButton.m in Sources */,
 				92DBD606193CDAFA00A40691 /* EpiInfoUniqueIDField.m in Sources */,
 				92385D25227B20DC00079890 /* AssigningFunction.m in Sources */,
 				923A02DC2289A3ED00C33F3B /* Clear.m in Sources */,

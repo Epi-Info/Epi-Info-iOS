@@ -5765,6 +5765,17 @@
                     [tf setIsReadOnly:YES];
                     [tf setIsEnabled:NO];
                 }
+                
+                float marginwidth = formCanvas.frame.size.width - (tf.frame.origin.x + tf.frame.size.width);
+                if (marginwidth < 34)
+                {
+                    float differenceformargin = 34 - marginwidth;
+                    [tf setFrame:CGRectMake(tf.frame.origin.x, tf.frame.origin.y, tf.frame.size.width - differenceformargin, tf.frame.size.height)];
+                }
+                CGRect qrScannerButtonFrame = CGRectMake(tf.frame.origin.x + tf.frame.size.width + 2, tf.frame.origin.y, 30, 30);
+                QRScannerButton *qrsb = [[QRScannerButton alloc] initWithFrame:qrScannerButtonFrame];
+                [qrsb setControl:tf];
+                [formCanvas addSubview:qrsb];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"2"])
             {
@@ -5882,6 +5893,17 @@
                     [tf setIsReadOnly:YES];
                     [tf setIsEnabled:NO];
                 }
+                
+                float marginwidth = formCanvas.frame.size.width - (tf.frame.origin.x + tf.frame.size.width);
+                if (marginwidth < 34)
+                {
+                    float differenceformargin = 34 - marginwidth;
+                    [tf setFrame:CGRectMake(tf.frame.origin.x, tf.frame.origin.y, tf.frame.size.width - differenceformargin, tf.frame.size.height)];
+                }
+                CGRect qrScannerButtonFrame = CGRectMake(tf.frame.origin.x + tf.frame.size.width + 2, tf.frame.origin.y, 30, 30);
+                QRScannerButton *qrsb = [[QRScannerButton alloc] initWithFrame:qrScannerButtonFrame];
+                [qrsb setControl:tf];
+                [formCanvas addSubview:qrsb];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"4"])
             {
@@ -5996,6 +6018,17 @@
                     [tf setIsReadOnly:YES];
                     [tf setIsEnabled:NO];
                 }
+                
+                float marginwidth = formCanvas.frame.size.width - (tf.frame.origin.x + tf.frame.size.width);
+                if (marginwidth < 34)
+                {
+                    float differenceformargin = 34 - marginwidth;
+                    [tf setFrame:CGRectMake(tf.frame.origin.x, tf.frame.origin.y, tf.frame.size.width - differenceformargin, tf.frame.size.height)];
+                }
+                CGRect qrScannerButtonFrame = CGRectMake(tf.frame.origin.x + tf.frame.size.width + 2, tf.frame.origin.y, 30, 30);
+                QRScannerButton *qrsb = [[QRScannerButton alloc] initWithFrame:qrScannerButtonFrame];
+                [qrsb setControl:tf];
+                [formCanvas addSubview:qrsb];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"5"])
             {
