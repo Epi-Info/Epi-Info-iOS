@@ -429,6 +429,7 @@
         [resignAllButton setBackgroundColor:[UIColor clearColor]];
         [resignAllButton addTarget:self action:@selector(resignAll) forControlEvents:UIControlEventTouchUpInside];
         [resignAllButton addTarget:self action:@selector(userSwipedToTheRight) forControlEvents:UIControlEventTouchDownRepeat];
+        [resignAllButton setAccessibilityLabel:@"Tap 4 times to go back to the previous page"];
         //    [resignAllButton addTarget:self action:@selector(userSwipedToTheRight) forControlEvents:UISwipeGestureRecognizerDirectionRight];
         UISwipeGestureRecognizer *leftRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(userSwipedToTheLeft)];
         [leftRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
@@ -446,6 +447,7 @@
         [resignAllButtonRight setBackgroundColor:[UIColor clearColor]];
         [resignAllButtonRight addTarget:self action:@selector(resignAll) forControlEvents:UIControlEventTouchUpInside];
         [resignAllButtonRight addTarget:self action:@selector(userSwipedToTheLeft) forControlEvents:UIControlEventTouchDownRepeat];
+        [resignAllButtonRight setAccessibilityLabel:@"Tap 4 times to advance to the next page"];
         //    [resignAllButton addTarget:self action:@selector(userSwipedToTheRight) forControlEvents:UISwipeGestureRecognizerDirectionRight];
         UISwipeGestureRecognizer *leftRecognizerForRightButton = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(userSwipedToTheLeft)];
         [leftRecognizerForRightButton setDirection:UISwipeGestureRecognizerDirectionLeft];

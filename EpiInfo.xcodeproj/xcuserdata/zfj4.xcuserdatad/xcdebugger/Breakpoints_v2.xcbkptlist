@@ -83,8 +83,8 @@
             timestampString = "590686989.232553"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6660"
-            endingLineNumber = "6660"
+            startingLineNumber = "6662"
+            endingLineNumber = "6662"
             landmarkName = "-parser:didStartElement:namespaceURI:qualifiedName:attributes:"
             landmarkType = "7">
          </BreakpointContent>
@@ -100,8 +100,8 @@
             timestampString = "590686989.232698"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4687"
-            endingLineNumber = "4687"
+            startingLineNumber = "4689"
+            endingLineNumber = "4689"
             landmarkName = "-deleteButtonPressed"
             landmarkType = "7">
          </BreakpointContent>
