@@ -83,8 +83,8 @@
             timestampString = "590686989.232553"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6649"
-            endingLineNumber = "6649"
+            startingLineNumber = "6660"
+            endingLineNumber = "6660"
             landmarkName = "-parser:didStartElement:namespaceURI:qualifiedName:attributes:"
             landmarkType = "7">
          </BreakpointContent>

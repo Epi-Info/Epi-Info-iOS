@@ -100,6 +100,63 @@
             [self setText:[NSString stringWithFormat:@"%.2f", self.minimum]];
 }
 
+- (void)trimNonNumbers
+{
+    NSCharacterSet *validSet;
+    
+    NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
+    [nsnf setMaximumFractionDigits:6];
+    
+    NSNumber *testFloat = [NSNumber numberWithFloat:1.1];
+    NSString *testFloatString = [nsnf stringFromNumber:testFloat];
+    
+    if ([testFloatString characterAtIndex:1] == ',')
+    {
+        validSet = [NSCharacterSet characterSetWithCharactersInString:@"-,0123456789"];
+        if ([[self.text substringToIndex:1] stringByTrimmingCharactersInSet:validSet].length > 0)
+            self.text = [self.text stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@"#"];
+        if ([[self.text substringToIndex:1] isEqualToString:@","])
+            validSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+        else
+            validSet = [NSCharacterSet characterSetWithCharactersInString:@",0123456789"];
+        for (int i = 1; i < self.text.length; i++)
+        {
+            if ([[self.text substringWithRange:NSMakeRange(i, 1)] stringByTrimmingCharactersInSet:validSet].length > 0)
+                self.text = [self.text stringByReplacingCharactersInRange:NSMakeRange(i, 1) withString:@"#"];
+            if ([self.text characterAtIndex:i] == ',')
+                validSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+        }
+        self.text = [self.text stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    }
+    else
+    {
+        if (self.nonNegative)
+            validSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+        else
+            validSet = [NSCharacterSet characterSetWithCharactersInString:@"-0123456789"];
+        if ([[self.text substringToIndex:1] stringByTrimmingCharactersInSet:validSet].length > 0)
+            self.text = [self.text stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@"#"];
+        if ([[self.text substringToIndex:1] isEqualToString:@"."])
+            validSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+        else
+            validSet = [NSCharacterSet characterSetWithCharactersInString:@".0123456789"];
+        for (int i = 1; i < self.text.length; i++)
+        {
+            if ([[self.text substringWithRange:NSMakeRange(i, 1)] stringByTrimmingCharactersInSet:validSet].length > 0)
+                self.text = [self.text stringByReplacingCharactersInRange:NSMakeRange(i, 1) withString:@"#"];
+            if ([self.text characterAtIndex:i] == '.')
+                validSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+        }
+        self.text = [self.text stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    }
+    if (self.hasMaximum)
+        if ([self.text floatValue] > self.maximum)
+            [self setText:[NSString stringWithFormat:@"%.2f", self.maximum]];
+    if (self.hasMinimum)
+        if ([self.text floatValue] < self.minimum)
+            [self setText:[NSString stringWithFormat:@"%.2f", self.minimum]];
+}
+
 - (NSString *)value
 {
     if ([self.text length] == 0)
@@ -176,6 +233,7 @@
         [[(EnterDataView *)[[self superview] superview] fieldsAndStringValues] setObject:value forKey:[self.columnName lowercaseString]];
     }
     [self setText:value];
+    [self trimNonNumbers];
 }
 
 - (void)setIsEnabled:(BOOL)isEnabled

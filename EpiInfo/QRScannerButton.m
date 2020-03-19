@@ -24,13 +24,13 @@
     {
         [self setBackgroundImage:[UIImage imageNamed:@"ScannerIcon.png"] forState:UIControlStateNormal];
         [self addTarget:self action:@selector(selfPressed) forControlEvents:UIControlEventTouchUpInside];
+        [self setAccessibilityLabel:@"Scan value from Q R code or bar code"];
      }
     return self;
 }
 
 - (void)selfPressed
 {
-    NSLog(@"Scanning for %@ value", control.columnName);
     scannerView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.origin.x - 90, self.frame.origin.y, 120, 120)];
     
     if (self.frame.origin.y + 120 > [self superview].frame.size.height)
@@ -89,6 +89,7 @@
     UIButton *stopButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, scannerView.frame.size.width, scannerView.frame.size.height)];
     [stopButton setBackgroundColor:[UIColor clearColor]];
     [stopButton addTarget:self action:@selector(stopReading) forControlEvents:UIControlEventTouchDownRepeat];
+    [stopButton setAccessibilityLabel:@"Scanner: scan a code or tap four times to remove scanner from screen"];
     [scannerView addSubview:stopButton];
     
     AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -107,7 +108,7 @@
     dispatch_queue_t dispatchQueue;
     dispatchQueue = dispatch_queue_create("myQueue", NULL);
     [captureMetadataOutput setMetadataObjectsDelegate:self queue:dispatchQueue];
-    [captureMetadataOutput setMetadataObjectTypes:[NSArray arrayWithObject:AVMetadataObjectTypeQRCode]];
+    [captureMetadataOutput setMetadataObjectTypes:[NSArray arrayWithObjects:AVMetadataObjectTypeQRCode, AVMetadataObjectTypeUPCECode, AVMetadataObjectTypeEAN13Code, nil]];
     
     self.videoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.captureSession];
     [self.videoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
@@ -124,9 +125,8 @@
     if (metadataObjects != nil && [metadataObjects count] > 0)
     {
         AVMetadataMachineReadableCodeObject *metadataObj = [metadataObjects objectAtIndex:0];
-        if ([[metadataObj type] isEqualToString:AVMetadataObjectTypeQRCode])
+        if ([[metadataObj type] isEqualToString:AVMetadataObjectTypeQRCode] || [[metadataObj type] isEqualToString:AVMetadataObjectTypeUPCECode] || [[metadataObj type] isEqualToString:AVMetadataObjectTypeEAN13Code])
         {
-            NSLog(@"\nRead from QR Code:\n%@", [metadataObj stringValue]);
             [self performSelectorOnMainThread:@selector(setControlValue:) withObject:[metadataObj stringValue] waitUntilDone:NO];
             [self performSelectorOnMainThread:@selector(stopReading) withObject:nil waitUntilDone:NO];
             self.isReading = NO;
