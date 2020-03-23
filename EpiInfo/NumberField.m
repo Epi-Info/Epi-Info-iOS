@@ -102,6 +102,9 @@
 
 - (void)trimNonNumbers
 {
+    if ([self.text length] == 0)
+        return;
+    
     NSCharacterSet *validSet;
     
     NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
