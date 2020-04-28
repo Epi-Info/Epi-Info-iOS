@@ -3765,7 +3765,7 @@
     
     UIView *vv = [controlViewGrayBackground viewWithTag:1001001];
     promptText = [(UITextField *)vv text];
-    if ([promptText characterAtIndex:[promptText length] - 1] == ' ')
+    if ([promptText length] > 0 && [promptText characterAtIndex:[promptText length] - 1] == ' ')
         promptText = [promptText substringToIndex:[promptText length] - 1];
     vv = [controlViewGrayBackground viewWithTag:1001002];
     fieldName = [(UITextField *)vv text];
@@ -3868,7 +3868,7 @@
     
     UIView *vv = [controlViewGrayBackground viewWithTag:1001001];
     promptText = [(UITextField *)vv text];
-    if ([promptText characterAtIndex:[promptText length] - 1] == ' ')
+    if ([promptText length] > 0 && [promptText characterAtIndex:[promptText length] - 1] == ' ')
         promptText = [promptText substringToIndex:[promptText length] - 1];
     vv = [controlViewGrayBackground viewWithTag:1001002];
     fieldName = [(UITextField *)vv text];
@@ -3986,7 +3986,7 @@
     
     UIView *vv = [controlViewGrayBackground viewWithTag:1001001];
     promptText = [(UITextField *)vv text];
-    if ([promptText characterAtIndex:[promptText length] - 1] == ' ')
+    if ([promptText length] > 0 && [promptText characterAtIndex:[promptText length] - 1] == ' ')
         promptText = [promptText substringToIndex:[promptText length] - 1];
     vv = [controlViewGrayBackground viewWithTag:1001002];
     fieldName = [(UITextField *)vv text];
@@ -4104,7 +4104,7 @@
     
     UIView *vv = [controlViewGrayBackground viewWithTag:1001001];
     promptText = [(UITextField *)vv text];
-    if ([promptText characterAtIndex:[promptText length] - 1] == ' ')
+    if ([promptText length] > 0 && [promptText characterAtIndex:[promptText length] - 1] == ' ')
         promptText = [promptText substringToIndex:[promptText length] - 1];
     vv = [controlViewGrayBackground viewWithTag:1001002];
     fieldName = [(UITextField *)vv text];
@@ -4222,7 +4222,7 @@
     
     UIView *vv = [controlViewGrayBackground viewWithTag:1001001];
     promptText = [(UITextField *)vv text];
-    if ([promptText characterAtIndex:[promptText length] - 1] == ' ')
+    if ([promptText length] > 0 && [promptText characterAtIndex:[promptText length] - 1] == ' ')
         promptText = [promptText substringToIndex:[promptText length] - 1];
     vv = [controlViewGrayBackground viewWithTag:1001002];
     fieldName = [(UITextField *)vv text];
@@ -4340,7 +4340,7 @@
     
     UIView *vv = [controlViewGrayBackground viewWithTag:1001001];
     promptText = [(UITextField *)vv text];
-    if ([promptText characterAtIndex:[promptText length] - 1] == ' ')
+    if ([promptText length] > 0 && [promptText characterAtIndex:[promptText length] - 1] == ' ')
         promptText = [promptText substringToIndex:[promptText length] - 1];
     vv = [controlViewGrayBackground viewWithTag:1001002];
     fieldName = [(UITextField *)vv text];
@@ -4481,7 +4481,7 @@
     
     vv = [controlViewGrayBackground viewWithTag:1001001];
     promptText = [(UITextField *)vv text];
-    if ([promptText characterAtIndex:[promptText length] - 1] == ' ')
+    if ([promptText length] > 0 && [promptText characterAtIndex:[promptText length] - 1] == ' ')
         promptText = [promptText substringToIndex:[promptText length] - 1];
     
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -4580,7 +4580,7 @@
     
     UIView *vv = [controlViewGrayBackground viewWithTag:1001001];
     promptText = [(UITextField *)vv text];
-    if ([promptText characterAtIndex:[promptText length] - 1] == ' ')
+    if ([promptText length] > 0 && [promptText characterAtIndex:[promptText length] - 1] == ' ')
         promptText = [promptText substringToIndex:[promptText length] - 1];
     vv = [controlViewGrayBackground viewWithTag:1001002];
     fieldName = [(UITextField *)vv text];
@@ -4699,7 +4699,7 @@
     
     UIView *vv = [controlViewGrayBackground viewWithTag:1001001];
     promptText = [(UITextField *)vv text];
-    if ([promptText characterAtIndex:[promptText length] - 1] == ' ')
+    if ([promptText length] > 0 && [promptText characterAtIndex:[promptText length] - 1] == ' ')
         promptText = [promptText substringToIndex:[promptText length] - 1];
     vv = [controlViewGrayBackground viewWithTag:1001002];
     fieldName = [(UITextField *)vv text];
@@ -4836,7 +4836,7 @@
     
     UIView *vv = [controlViewGrayBackground viewWithTag:1001001];
     promptText = [(UITextField *)vv text];
-    if ([promptText characterAtIndex:[promptText length] - 1] == ' ')
+    if ([promptText length] > 0 && [promptText characterAtIndex:[promptText length] - 1] == ' ')
         promptText = [promptText substringToIndex:[promptText length] - 1];
     vv = [controlViewGrayBackground viewWithTag:1001002];
     fieldName = [(UITextField *)vv text];
@@ -4948,7 +4948,7 @@
     
     UIView *vv = [controlViewGrayBackground viewWithTag:1001001];
     promptText = [(UITextField *)vv text];
-    if ([promptText characterAtIndex:[promptText length] - 1] == ' ')
+    if ([promptText length] > 0 && [promptText characterAtIndex:[promptText length] - 1] == ' ')
         promptText = [promptText substringToIndex:[promptText length] - 1];
     vv = [controlViewGrayBackground viewWithTag:1001002];
     fieldName = [(UITextField *)vv text];
@@ -5067,7 +5067,7 @@
     
     UIView *vv = [controlViewGrayBackground viewWithTag:1001001];
     promptText = [(UITextField *)vv text];
-    if ([promptText characterAtIndex:[promptText length] - 1] == ' ')
+    if ([promptText length] > 0 && [promptText characterAtIndex:[promptText length] - 1] == ' ')
         promptText = [promptText substringToIndex:[promptText length] - 1];
     vv = [controlViewGrayBackground viewWithTag:1001002];
     fieldName = [(UITextField *)vv text];
@@ -5204,7 +5204,7 @@
     
     UIView *vv = [controlViewGrayBackground viewWithTag:1001001];
     promptText = [(UITextField *)vv text];
-    if ([promptText characterAtIndex:[promptText length] - 1] == ' ')
+    if ([promptText length] > 0 && [promptText characterAtIndex:[promptText length] - 1] == ' ')
         promptText = [promptText substringToIndex:[promptText length] - 1];
     vv = [controlViewGrayBackground viewWithTag:1001002];
     fieldName = [(UITextField *)vv text];
@@ -5305,7 +5305,7 @@
     
     UIView *vv = [controlViewGrayBackground viewWithTag:1001001];
     promptText = [(UITextField *)vv text];
-    if ([promptText characterAtIndex:[promptText length] - 1] == ' ')
+    if ([promptText length] > 0 && [promptText characterAtIndex:[promptText length] - 1] == ' ')
         promptText = [promptText substringToIndex:[promptText length] - 1];
     vv = [controlViewGrayBackground viewWithTag:1001002];
     fieldName = [(UITextField *)vv text];
@@ -5440,7 +5440,7 @@
     
     UIView *vv = [controlViewGrayBackground viewWithTag:1001001];
     promptText = [(UITextField *)vv text];
-    if ([promptText characterAtIndex:[promptText length] - 1] == ' ')
+    if ([promptText length] > 0 && [promptText characterAtIndex:[promptText length] - 1] == ' ')
         promptText = [promptText substringToIndex:[promptText length] - 1];
     vv = [controlViewGrayBackground viewWithTag:1001002];
     fieldName = [(UITextField *)vv text];
