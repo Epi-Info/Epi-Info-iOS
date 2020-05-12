@@ -41,11 +41,11 @@
     [onOffButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
     if (scannersEnabled)
     {
-        [onOffButton setTitle:@"Disable Scanner" forState:UIControlStateNormal];
+        [onOffButton setTitle:@"Hide Scanners" forState:UIControlStateNormal];
     }
     else
     {
-        [onOffButton setTitle:@"Enable Scanner" forState:UIControlStateNormal];
+        [onOffButton setTitle:@"Show Scanners" forState:UIControlStateNormal];
     }
     [menuView addSubview:onOffButton];
     

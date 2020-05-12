@@ -163,7 +163,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         functionsMenu = [[FunctionsMenuBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"menu_lines20.png"] style:UIBarButtonItemStylePlain target:self action:@selector(functionsMenuButtonPressed:)];
-        [functionsMenu setAccessibilityLabel:@"Turn on or off code scanners"];
+        [functionsMenu setAccessibilityLabel:@"Show or hide code scanners"];
         [functionsMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [functionsMenu setWidth:10.0];
         [functionsMenu setUIVC:self];
@@ -381,7 +381,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         functionsMenu = [[FunctionsMenuBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"menu_lines20.png"] style:UIBarButtonItemStylePlain target:self action:@selector(functionsMenuButtonPressed:)];
-        [functionsMenu setAccessibilityLabel:@"Turn on or off code scanners"];
+        [functionsMenu setAccessibilityLabel:@"Show or hide code scanners"];
         [functionsMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [functionsMenu setWidth:10.0];
         [functionsMenu setUIVC:self];
