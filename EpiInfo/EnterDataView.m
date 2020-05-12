@@ -5778,6 +5778,8 @@
                 QRScannerButton *qrsb = [[QRScannerButton alloc] initWithFrame:qrScannerButtonFrame];
                 [qrsb setControl:tf];
                 [formCanvas addSubview:qrsb];
+                [qrsb setAlpha:0.0];
+                [(DataEntryViewController *)self.rootViewController addButtonToArrayOfScannerButtons:qrsb];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"2"])
             {
@@ -5906,6 +5908,8 @@
                 QRScannerButton *qrsb = [[QRScannerButton alloc] initWithFrame:qrScannerButtonFrame];
                 [qrsb setControl:tf];
                 [formCanvas addSubview:qrsb];
+                [qrsb setAlpha:0.0];
+                [(DataEntryViewController *)self.rootViewController addButtonToArrayOfScannerButtons:qrsb];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"4"])
             {
@@ -6031,6 +6035,8 @@
                 QRScannerButton *qrsb = [[QRScannerButton alloc] initWithFrame:qrScannerButtonFrame];
                 [qrsb setControl:tf];
                 [formCanvas addSubview:qrsb];
+                [qrsb setAlpha:0.0];
+                [(DataEntryViewController *)self.rootViewController addButtonToArrayOfScannerButtons:qrsb];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"5"])
             {
@@ -6181,6 +6187,8 @@
                 QRScannerButton *qrsb = [[QRScannerButton alloc] initWithFrame:qrScannerButtonFrame];
                 [qrsb setControl:tf];
                 [formCanvas addSubview:qrsb];
+                [qrsb setAlpha:0.0];
+                [(DataEntryViewController *)self.rootViewController addButtonToArrayOfScannerButtons:qrsb];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"6"])
             {

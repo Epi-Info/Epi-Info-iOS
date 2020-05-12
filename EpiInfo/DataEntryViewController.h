@@ -18,6 +18,7 @@
 #import "FieldsAndStringValues.h"
 #import "EpiInfoLogManager.h"
 #import "EncryptionDecryptionKeys.h"
+#import "FunctionsMenuBarButtonItem.h"
 #import <CoreImage/CoreImage.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import <CommonCrypto/CommonCrypto.h>
@@ -25,6 +26,9 @@
 
 @interface DataEntryViewController : UIViewController <MFMailComposeViewControllerDelegate, UITextFieldDelegate, UIAlertViewDelegate>
 {
+    FunctionsMenuBarButtonItem *functionsMenu;
+    NSMutableArray *arrayOfScannerButtons;
+    
     UIButton *customBackButton;
     UIBarButtonItem *backToMainMenu;
     
@@ -97,4 +101,6 @@
 -(void)popPageDots;
 -(void)setPageDotsPage:(int)pg;
 -(void)lvReset:(NSString *)newForm;
+-(void)activateFunctionsMenu:(BOOL)active;
+-(void)addButtonToArrayOfScannerButtons:(UIButton *)b;
 @end

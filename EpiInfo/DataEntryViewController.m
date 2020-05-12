@@ -51,6 +51,10 @@
 {
     return deleteRecordBarButtonItems;
 }
+- (void)addButtonToArrayOfScannerButtons:(UIButton *)b
+{
+    [arrayOfScannerButtons addObject:b];
+}
 
 - (void)setUpdateExistingRecord:(BOOL)uer
 {
@@ -60,6 +64,20 @@
 - (UIButton *)openButton
 {
     return openButton;
+}
+
+- (void)activateFunctionsMenu:(BOOL)active
+{
+    if (active)
+    {
+        [functionsMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [self.navigationItem setRightBarButtonItem:functionsMenu];
+        [functionsMenu setEnabled:YES];
+    }
+    else
+    {
+        [self.navigationItem setRightBarButtonItem:backToMainMenu];
+    }
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -129,6 +147,8 @@
             [createEcoliFoodHistorySampleTableThread start];
         }
     }
+    
+    arrayOfScannerButtons = [[NSMutableArray alloc] init];
    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
@@ -142,6 +162,13 @@
 //        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
+        functionsMenu = [[FunctionsMenuBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"menu_lines20.png"] style:UIBarButtonItemStylePlain target:self action:@selector(functionsMenuButtonPressed:)];
+        [functionsMenu setAccessibilityLabel:@"Turn on or off code scanners"];
+        [functionsMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [functionsMenu setWidth:10.0];
+        [functionsMenu setUIVC:self];
+        [functionsMenu setArrayOfScannerButtons:arrayOfScannerButtons];
+
         backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
         [backToMainMenu setAccessibilityLabel:@"Close"];
         [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
@@ -353,6 +380,13 @@
 //        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:customBackButton]];
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
+        functionsMenu = [[FunctionsMenuBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"menu_lines20.png"] style:UIBarButtonItemStylePlain target:self action:@selector(functionsMenuButtonPressed:)];
+        [functionsMenu setAccessibilityLabel:@"Turn on or off code scanners"];
+        [functionsMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [functionsMenu setWidth:10.0];
+        [functionsMenu setUIVC:self];
+        [functionsMenu setArrayOfScannerButtons:arrayOfScannerButtons];
+
         backToMainMenu = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(popCurrentViewController)];
         [backToMainMenu setAccessibilityLabel:@"Close"];
         [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
@@ -1030,6 +1064,8 @@
             [self.view addSubview:edv];
             [self.view bringSubviewToFront:edv];
             
+            [self activateFunctionsMenu:YES];
+            
             [orangeBanner setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:0.95]];
             [self.view addSubview:orangeBanner];
             
@@ -1162,6 +1198,7 @@
 
             // JSON section for Box;
             NSArray *users = [BOXContentClient users];
+            [self activateFunctionsMenu:YES];
             if ([users count] > 0)
             {
                 NSLog(@"Box connection found. Records will be sent to Box as well as stored locally.");
@@ -4577,6 +4614,7 @@
             rotate = CATransform3DRotate(rotate, M_PI * 0.0, 0.0, 1.0, 0.0);
             [self.view.layer setTransform:rotate];
         } completion:^(BOOL finished){
+            [self activateFunctionsMenu:NO];
         }];
     }];
 }
@@ -4590,6 +4628,11 @@
 - (void)popCurrentViewController
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)functionsMenuButtonPressed:(FunctionsMenuBarButtonItem *)sender
+{
+    [sender selfPressed];
 }
 
 - (void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID

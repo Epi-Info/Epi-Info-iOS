@@ -158,6 +158,8 @@
 		9228250B186387DA00DF9493 /* SubmitButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92282507186387DA00DF9493 /* SubmitButton.png */; };
 		9228250C186387DA00DF9493 /* SubmitButtonOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 92282508186387DA00DF9493 /* SubmitButtonOrange.png */; };
 		922920851AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922920841AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift */; };
+		922D259B2469D56100064419 /* EpiInfoBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 922D259A2469D56100064419 /* EpiInfoBarButtonItem.m */; };
+		922D259E246AD23B00064419 /* FunctionsMenuBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 922D259D246AD23B00064419 /* FunctionsMenuBarButtonItem.m */; };
 		922D49ED1D64F3D40090631E /* ParseAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 922D49EC1D64F3D40090631E /* ParseAssignment.m */; };
 		922D49F01D64F4490090631E /* AssignmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 922D49EF1D64F4490090631E /* AssignmentModel.m */; };
 		9232266F1E5381C20099439F /* FullAssignStatementParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9232266E1E5381C20099439F /* FullAssignStatementParser.m */; };
@@ -692,6 +694,10 @@
 		92282507186387DA00DF9493 /* SubmitButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SubmitButton.png; sourceTree = "<group>"; };
 		92282508186387DA00DF9493 /* SubmitButtonOrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SubmitButtonOrange.png; sourceTree = "<group>"; };
 		922920841AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpiInfoMultiLineIndentedUILabel.swift; sourceTree = "<group>"; };
+		922D25992469D56100064419 /* EpiInfoBarButtonItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EpiInfoBarButtonItem.h; sourceTree = "<group>"; };
+		922D259A2469D56100064419 /* EpiInfoBarButtonItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EpiInfoBarButtonItem.m; sourceTree = "<group>"; };
+		922D259C246AD23B00064419 /* FunctionsMenuBarButtonItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FunctionsMenuBarButtonItem.h; sourceTree = "<group>"; };
+		922D259D246AD23B00064419 /* FunctionsMenuBarButtonItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FunctionsMenuBarButtonItem.m; sourceTree = "<group>"; };
 		922D49EB1D64F3D40090631E /* ParseAssignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseAssignment.h; sourceTree = "<group>"; };
 		922D49EC1D64F3D40090631E /* ParseAssignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseAssignment.m; sourceTree = "<group>"; };
 		922D49EE1D64F4490090631E /* AssignmentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignmentModel.h; sourceTree = "<group>"; };
@@ -1767,6 +1773,10 @@
 				92469BF0232AAE6B00752ADC /* EncryptionDecryptionKeys.m */,
 				9266C526184657E900739AF2 /* DataEntryViewController.h */,
 				9266C527184657E900739AF2 /* DataEntryViewController.m */,
+				922D25992469D56100064419 /* EpiInfoBarButtonItem.h */,
+				922D259A2469D56100064419 /* EpiInfoBarButtonItem.m */,
+				922D259C246AD23B00064419 /* FunctionsMenuBarButtonItem.h */,
+				922D259D246AD23B00064419 /* FunctionsMenuBarButtonItem.m */,
 				922825021863821700DF9493 /* EnterDataView.h */,
 				922825031863821700DF9493 /* EnterDataView.m */,
 				847C97D81D427494001E47DD /* UIView+UpdateAutoLayoutConstraints.h */,
@@ -2337,6 +2347,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				922D259B2469D56100064419 /* EpiInfoBarButtonItem.m in Sources */,
 				9242CE672369BAA1005DA913 /* ConditionalAssignmentValuesView.m in Sources */,
 				4AFD8536161F137B00FFBA65 /* main.m in Sources */,
 				92385D352284A37100079890 /* ExistingFunctionsListView.m in Sources */,
@@ -2437,6 +2448,7 @@
 				4A0B99BB174BA98F00FF417B /* ZoomView.m in Sources */,
 				92A25C041939005A003225E1 /* MirrorField.m in Sources */,
 				4A916FD11757B74900FFA5A5 /* ButtonRight.m in Sources */,
+				922D259E246AD23B00064419 /* FunctionsMenuBarButtonItem.m in Sources */,
 				4A916FD41757C0C800FFA5A5 /* ButtonLeft.m in Sources */,
 				84C816851CE22D8D00F408D2 /* ConditionsModel.m in Sources */,
 				4A958652176F6A000017625C /* EpiInfoNavigationController.m in Sources */,
