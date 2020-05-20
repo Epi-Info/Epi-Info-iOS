@@ -525,22 +525,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "00DD6125-2193-4EED-9809-3F425BE06E75"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EpiInfo/EnterDataView.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "9034"
-            endingLineNumber = "9034"
-            landmarkName = "-checkElements:from:page:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "2587D1B3-3CD3-49ED-A661-74EFB50ABD2C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -550,8 +534,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1095"
             endingLineNumber = "1095"
-            landmarkName = "AssignStatementParser"
-            landmarkType = "3">
+            landmarkName = "-__roundFunction"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
