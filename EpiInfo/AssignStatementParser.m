@@ -512,6 +512,17 @@
         [endComponents setMonth:[[endDateString substringToIndex:firstSlash2] intValue]];
         [endComponents setYear:[[endDateString substringFromIndex:secondSlash2 + 1] intValue]];
         
+        NSDate *dateObject = [NSDate date];
+        BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+        if (dmy)
+        {
+            [beginComponents setDay:[[beginDateString substringToIndex:firstSlash1] intValue]];
+            [beginComponents setMonth:[[beginDateString substringWithRange:NSMakeRange(firstSlash1 + 1, secondSlash1 - firstSlash1 - 1)] intValue]];
+            [endComponents setDay:[[endDateString substringToIndex:firstSlash2] intValue]];
+            [endComponents setMonth:[[endDateString substringWithRange:NSMakeRange(firstSlash2 + 1, secondSlash2 - firstSlash2 - 1)] intValue]];
+        }
+
+
         NSDate *beginDate = [[NSCalendar currentCalendar] dateFromComponents:beginComponents];
         NSDate *endDate = [[NSCalendar currentCalendar] dateFromComponents:endComponents];
         
@@ -594,6 +605,16 @@
         [endComponents setMonth:[[endDateString substringToIndex:firstSlash2] intValue]];
         [endComponents setYear:[[endDateString substringFromIndex:secondSlash2 + 1] intValue]];
         
+        NSDate *dateObject = [NSDate date];
+        BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+        if (dmy)
+        {
+            [beginComponents setDay:[[beginDateString substringToIndex:firstSlash1] intValue]];
+            [beginComponents setMonth:[[beginDateString substringWithRange:NSMakeRange(firstSlash1 + 1, secondSlash1 - firstSlash1 - 1)] intValue]];
+            [endComponents setDay:[[endDateString substringToIndex:firstSlash2] intValue]];
+            [endComponents setMonth:[[endDateString substringWithRange:NSMakeRange(firstSlash2 + 1, secondSlash2 - firstSlash2 - 1)] intValue]];
+        }
+
         NSDate *beginDate = [[NSCalendar currentCalendar] dateFromComponents:beginComponents];
         NSDate *endDate = [[NSCalendar currentCalendar] dateFromComponents:endComponents];
         
@@ -676,6 +697,16 @@
         [endComponents setMonth:[[endDateString substringToIndex:firstSlash2] intValue]];
         [endComponents setYear:[[endDateString substringFromIndex:secondSlash2 + 1] intValue]];
         
+        NSDate *dateObject = [NSDate date];
+        BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+        if (dmy)
+        {
+            [beginComponents setDay:[[beginDateString substringToIndex:firstSlash1] intValue]];
+            [beginComponents setMonth:[[beginDateString substringWithRange:NSMakeRange(firstSlash1 + 1, secondSlash1 - firstSlash1 - 1)] intValue]];
+            [endComponents setDay:[[endDateString substringToIndex:firstSlash2] intValue]];
+            [endComponents setMonth:[[endDateString substringWithRange:NSMakeRange(firstSlash2 + 1, secondSlash2 - firstSlash2 - 1)] intValue]];
+        }
+
         NSDate *beginDate = [[NSCalendar currentCalendar] dateFromComponents:beginComponents];
         NSDate *endDate = [[NSCalendar currentCalendar] dateFromComponents:endComponents];
         
@@ -937,6 +968,12 @@
         int todaymonth = (int)[[NSCalendar currentCalendar] component:NSCalendarUnitMonth fromDate:[NSDate date]];
         int todayyear = (int)[[NSCalendar currentCalendar] component:NSCalendarUnitYear fromDate:[NSDate date]];
         NSString *today = [NSString stringWithFormat:@"%d/%d/%d", todaymonth, todayday, todayyear];
+        NSDate *dateObject = [NSDate date];
+        BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+        if (dmy)
+        {
+            today = [NSString stringWithFormat:@"%d/%d/%d", todayday, todaymonth, todayyear];
+        }
         PUSH(today);
         today = [NSString stringWithFormat:@"%d/%d/%d", 10, 9, 2016];
         
