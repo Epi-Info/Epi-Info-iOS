@@ -285,6 +285,13 @@
                     {
                         NSString *properlyFormattedBeginDate = [NSString stringWithFormat:@"substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)", beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate];
                         NSString *properlyFormattedEndDate = [NSString stringWithFormat:@"substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)", endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate];
+                        NSDate *dateObject = [NSDate date];
+                        BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+                        if (dmy)
+                        {
+                            properlyFormattedBeginDate = [NSString stringWithFormat:@"substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)", beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate];
+                            properlyFormattedEndDate = [NSString stringWithFormat:@"substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)", endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate];
+                        }
                         sqlStmt = [NSString stringWithFormat:@"UPDATE INTERMEDIATE_DATASET SET %@ = CASE date(%@) < date(%@) WHEN 1 THEN -1*((date(%@) - date(%@)) - (date(strftime('%%Y', %@)||'-'||strftime('%%m', %@)||'-'||strftime('%%d', %@)) < date(strftime('%%Y', %@)||'-'||strftime('%%m', %@)||'-'||strftime('%%d', %@)))) ELSE (date(%@) - date(%@)) - (date(strftime('%%Y', %@)||'-'||strftime('%%m', %@)||'-'||strftime('%%d', %@)) < date(strftime('%%Y', %@)||'-'||strftime('%%m', %@)||'-'||strftime('%%d', %@))) END",
                                    variableName,
                                    properlyFormattedEndDate,
@@ -330,11 +337,45 @@
                                    beginDate,
                                    beginDate,
                                    beginDate];
+                        NSDate *dateObject = [NSDate date];
+                        BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+                        if (dmy)
+                        {
+                            sqlStmt = [NSString stringWithFormat:@"UPDATE INTERMEDIATE_DATASET SET %@ = julianday(substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)) - julianday(substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2))",
+                                       variableName,
+                                       endDate,
+                                       endDate,
+                                       endDate,
+                                       endDate,
+                                       endDate,
+                                       endDate,
+                                       endDate,
+                                       endDate,
+                                       endDate,
+                                       endDate,
+                                       beginDate,
+                                       beginDate,
+                                       beginDate,
+                                       beginDate,
+                                       beginDate,
+                                       beginDate,
+                                       beginDate,
+                                       beginDate,
+                                       beginDate,
+                                       beginDate];
+                        }
                     }
                     else
                     {
                         NSString *properlyFormattedBeginDate = [NSString stringWithFormat:@"substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)", beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate];
                         NSString *properlyFormattedEndDate = [NSString stringWithFormat:@"substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)", endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate];
+                        NSDate *dateObject = [NSDate date];
+                        BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+                        if (dmy)
+                        {
+                            properlyFormattedBeginDate = [NSString stringWithFormat:@"substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)", beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate];
+                            properlyFormattedEndDate = [NSString stringWithFormat:@"substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)", endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate];
+                        }
                         NSString *monthsBeforeTheDay = [NSString stringWithFormat:@"(strftime('%%m', %@) + 12*strftime('%%Y', %@)) - (strftime('%%m', %@) + 12*strftime('%%Y', %@)) -1", properlyFormattedEndDate, properlyFormattedEndDate, properlyFormattedBeginDate, properlyFormattedBeginDate];
                         NSString *monthsAfterTheDay = [NSString stringWithFormat:@"(strftime('%%m', %@) + 12*strftime('%%Y', %@)) - (strftime('%%m', %@) + 12*strftime('%%Y', %@))", properlyFormattedEndDate, properlyFormattedEndDate, properlyFormattedBeginDate, properlyFormattedBeginDate];
                         sqlStmt = [NSString stringWithFormat:@"UPDATE INTERMEDIATE_DATASET SET %@ = CASE strftime('%%d', %@) > strftime('%%d', %@) WHEN 0 THEN %@ ELSE %@ END", variableName, properlyFormattedBeginDate, properlyFormattedEndDate, monthsAfterTheDay, monthsBeforeTheDay];
