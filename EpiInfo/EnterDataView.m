@@ -1220,7 +1220,9 @@
                         NSString *numberfieldstringvalue = [(NumberField *)v value];
                         double numberfielddoublevalue = [numberfieldstringvalue doubleValue];
                         NSNumber *numberfieldnsnumbervalue = [NSNumber numberWithDouble:numberfielddoublevalue];
-                        [azureDictionary setObject:numberfieldnsnumbervalue forKey:[(NumberField *)v columnName]];
+                        NSDecimal nsd = [numberfieldnsnumbervalue decimalValue];
+                        NSDecimalNumber *nsdn = [NSDecimalNumber decimalNumberWithDecimal:nsd];
+                        [azureDictionary setObject:nsdn forKey:[(NumberField *)v columnName]];
                     }
                 }
                 else if ([v isKindOfClass:[PhoneNumberField class]])
@@ -2002,7 +2004,9 @@
                         NSString *numberfieldstringvalue = [(NumberField *)v value];
                         double numberfielddoublevalue = [numberfieldstringvalue doubleValue];
                         NSNumber *numberfieldnsnumbervalue = [NSNumber numberWithDouble:numberfielddoublevalue];
-                        [azureDictionary setObject:numberfieldnsnumbervalue forKey:[(NumberField *)v columnName]];
+                        NSDecimal nsd = [numberfieldnsnumbervalue decimalValue];
+                        NSDecimalNumber *nsdn = [NSDecimalNumber decimalNumberWithDecimal:nsd];
+                        [azureDictionary setObject:nsdn forKey:[(NumberField *)v columnName]];
                     }
                 }
                 else if ([v isKindOfClass:[PhoneNumberField class]])
@@ -2778,7 +2782,9 @@
                         NSString *numberfieldstringvalue = [(NumberField *)v value];
                         double numberfielddoublevalue = [numberfieldstringvalue doubleValue];
                         NSNumber *numberfieldnsnumbervalue = [NSNumber numberWithDouble:numberfielddoublevalue];
-                        [azureDictionary setObject:numberfieldnsnumbervalue forKey:[(NumberField *)v columnName]];
+                        NSDecimal nsd = [numberfieldnsnumbervalue decimalValue];
+                        NSDecimalNumber *nsdn = [NSDecimalNumber decimalNumberWithDecimal:nsd];
+                        [azureDictionary setObject:nsdn forKey:[(NumberField *)v columnName]];
                     }
                 }
                 else if ([v isKindOfClass:[PhoneNumberField class]])
@@ -3648,7 +3654,9 @@
                         NSString *numberfieldstringvalue = [(NumberField *)v value];
                         double numberfielddoublevalue = [numberfieldstringvalue doubleValue];
                         NSNumber *numberfieldnsnumbervalue = [NSNumber numberWithDouble:numberfielddoublevalue];
-                        [azureDictionary setObject:numberfieldnsnumbervalue forKey:[(NumberField *)v columnName]];
+                        NSDecimal nsd = [numberfieldnsnumbervalue decimalValue];
+                        NSDecimalNumber *nsdn = [NSDecimalNumber decimalNumberWithDecimal:nsd];
+                        [azureDictionary setObject:nsdn forKey:[(NumberField *)v columnName]];
                     }
                 }
                 else if ([v isKindOfClass:[PhoneNumberField class]])
