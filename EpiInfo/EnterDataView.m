@@ -1217,7 +1217,10 @@
                     valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", [(NumberField *)v value]]];
                     if (![[(NumberField *)v value] isEqualToString:@"NULL"])
                     {
-                        [azureDictionary setObject:[NSNumber numberWithFloat:[[(NumberField *)v value] floatValue]] forKey:[(NumberField *)v columnName]];
+                        NSString *numberfieldstringvalue = [(NumberField *)v value];
+                        double numberfielddoublevalue = [numberfieldstringvalue doubleValue];
+                        NSNumber *numberfieldnsnumbervalue = [NSNumber numberWithDouble:numberfielddoublevalue];
+                        [azureDictionary setObject:numberfieldnsnumbervalue forKey:[(NumberField *)v columnName]];
                     }
                 }
                 else if ([v isKindOfClass:[PhoneNumberField class]])
@@ -1996,7 +1999,10 @@
                     valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", [(NumberField *)v value]]];
                     if (![[(NumberField *)v value] isEqualToString:@"NULL"])
                     {
-                        [azureDictionary setObject:[NSNumber numberWithFloat:[[(NumberField *)v value] floatValue]] forKey:[(NumberField *)v columnName]];
+                        NSString *numberfieldstringvalue = [(NumberField *)v value];
+                        double numberfielddoublevalue = [numberfieldstringvalue doubleValue];
+                        NSNumber *numberfieldnsnumbervalue = [NSNumber numberWithDouble:numberfielddoublevalue];
+                        [azureDictionary setObject:numberfieldnsnumbervalue forKey:[(NumberField *)v columnName]];
                     }
                 }
                 else if ([v isKindOfClass:[PhoneNumberField class]])
@@ -2769,7 +2775,10 @@
                     insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", [(NumberField *)v value]]];
                     if (![[(NumberField *)v value] isEqualToString:@"NULL"])
                     {
-                        [azureDictionary setObject:[NSNumber numberWithFloat:[[(NumberField *)v value] floatValue]] forKey:[(NumberField *)v columnName]];
+                        NSString *numberfieldstringvalue = [(NumberField *)v value];
+                        double numberfielddoublevalue = [numberfieldstringvalue doubleValue];
+                        NSNumber *numberfieldnsnumbervalue = [NSNumber numberWithDouble:numberfielddoublevalue];
+                        [azureDictionary setObject:numberfieldnsnumbervalue forKey:[(NumberField *)v columnName]];
                     }
                 }
                 else if ([v isKindOfClass:[PhoneNumberField class]])
@@ -3636,7 +3645,10 @@
                     insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", [(NumberField *)v value]]];
                     if (![[(NumberField *)v value] isEqualToString:@"NULL"])
                     {
-                        [azureDictionary setObject:[NSNumber numberWithFloat:[[(NumberField *)v value] floatValue]] forKey:[(NumberField *)v columnName]];
+                        NSString *numberfieldstringvalue = [(NumberField *)v value];
+                        double numberfielddoublevalue = [numberfieldstringvalue doubleValue];
+                        NSNumber *numberfieldnsnumbervalue = [NSNumber numberWithDouble:numberfielddoublevalue];
+                        [azureDictionary setObject:numberfieldnsnumbervalue forKey:[(NumberField *)v columnName]];
                     }
                 }
                 else if ([v isKindOfClass:[PhoneNumberField class]])
