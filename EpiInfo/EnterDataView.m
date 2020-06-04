@@ -1202,7 +1202,14 @@
                     else
                     {
                         valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
-                        [azureDictionary setObject:[NSString stringWithFormat:@"%d", (int)[[(LegalValuesEnter *)v picker] selectedRowInComponent:0]] forKey:[(LegalValuesEnter *)v columnName]];
+                         if ([v isKindOfClass:[EpiInfoOptionField class]])
+                          {
+                             [azureDictionary setObject:[NSString stringWithFormat:@"%@", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]] forKey:[(LegalValuesEnter *)v columnName]];
+                         }
+                        else
+                         {
+                             [azureDictionary setObject:[NSString stringWithFormat:@"%d", (int)[[(LegalValuesEnter *)v picker] selectedRowInComponent:0]] forKey:[(LegalValuesEnter *)v columnName]];
+                         }
                     }
                 }
                 else if ([v isKindOfClass:[NumberField class]])
@@ -1968,7 +1975,15 @@
                     insertStatement = [insertStatement stringByAppendingString:[(YesNo *)v columnName]];
                     valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", [(YesNo *)v picked]]];
                     if ([[(YesNo *)v picked] length] == 1)
-                        [azureDictionary setObject:[NSNumber numberWithInt:[[(YesNo *)v picked] intValue]] forKey:[(YesNo *)v columnName]];
+                    {
+                        int ynnumval = 2 - [[(YesNo *)v picked] intValue];
+                        [azureDictionary setObject:[NSNumber numberWithInt:ynnumval] forKey:[(YesNo *)v columnName]];
+                    }
+                    else
+                    {
+                        int ynnumval = 0;
+                        [azureDictionary setObject:[NSNumber numberWithInt:ynnumval] forKey:[(YesNo *)v columnName]];
+                    }
                 }
                 else if ([v isKindOfClass:[LegalValuesEnter class]])
                 {
@@ -1986,7 +2001,14 @@
                     else
                     {
                         valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
-                        [azureDictionary setObject:[NSString stringWithFormat:@"%d", (int)[[(LegalValuesEnter *)v picker] selectedRowInComponent:0]] forKey:[(LegalValuesEnter *)v columnName]];
+                        if ([v isKindOfClass:[EpiInfoOptionField class]])
+                         {
+                            [azureDictionary setObject:[NSString stringWithFormat:@"%@", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]] forKey:[(LegalValuesEnter *)v columnName]];
+                        }
+                       else
+                        {
+                            [azureDictionary setObject:[NSString stringWithFormat:@"%d", (int)[[(LegalValuesEnter *)v picker] selectedRowInComponent:0]] forKey:[(LegalValuesEnter *)v columnName]];
+                        }
                     }
                 }
                 else if ([v isKindOfClass:[NumberField class]])
@@ -2764,7 +2786,14 @@
                     else
                     {
                         insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
-                        [azureDictionary setObject:[NSString stringWithFormat:@"%d", (int)[[(LegalValuesEnter *)v picker] selectedRowInComponent:0]] forKey:[(LegalValuesEnter *)v columnName]];
+                         if ([v isKindOfClass:[EpiInfoOptionField class]])
+                          {
+                             [azureDictionary setObject:[NSString stringWithFormat:@"%@", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]] forKey:[(LegalValuesEnter *)v columnName]];
+                         }
+                        else
+                         {
+                             [azureDictionary setObject:[NSString stringWithFormat:@"%d", (int)[[(LegalValuesEnter *)v picker] selectedRowInComponent:0]] forKey:[(LegalValuesEnter *)v columnName]];
+                         }
                     }
                 }
                 else if ([v isKindOfClass:[NumberField class]])
@@ -3618,7 +3647,15 @@
                     insertStatement = [insertStatement stringByAppendingString:[(YesNo *)v columnName]];
                     insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", [(YesNo *)v picked]]];
                     if ([[(YesNo *)v picked] length] == 1)
-                        [azureDictionary setObject:[NSNumber numberWithInt:[[(YesNo *)v picked] intValue]] forKey:[(YesNo *)v columnName]];
+                    {
+                        int ynnumval = 2 - [[(YesNo *)v picked] intValue];
+                        [azureDictionary setObject:[NSNumber numberWithInt:ynnumval] forKey:[(YesNo *)v columnName]];
+                    }
+                    else
+                    {
+                        int ynnumval = 0;
+                        [azureDictionary setObject:[NSNumber numberWithInt:ynnumval] forKey:[(YesNo *)v columnName]];
+                    }
                 }
                 else if ([v isKindOfClass:[LegalValuesEnter class]])
                 {
@@ -3636,7 +3673,14 @@
                     else
                     {
                         insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
-                        [azureDictionary setObject:[NSString stringWithFormat:@"%d", (int)[[(LegalValuesEnter *)v picker] selectedRowInComponent:0]] forKey:[(LegalValuesEnter *)v columnName]];
+                         if ([v isKindOfClass:[EpiInfoOptionField class]])
+                          {
+                             [azureDictionary setObject:[NSString stringWithFormat:@"%@", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]] forKey:[(LegalValuesEnter *)v columnName]];
+                         }
+                        else
+                         {
+                             [azureDictionary setObject:[NSString stringWithFormat:@"%d", (int)[[(LegalValuesEnter *)v picker] selectedRowInComponent:0]] forKey:[(LegalValuesEnter *)v columnName]];
+                         }
                     }
                 }
                 else if ([v isKindOfClass:[NumberField class]])
