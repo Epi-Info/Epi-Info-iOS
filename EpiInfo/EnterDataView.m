@@ -1892,6 +1892,7 @@
 
 - (void)submitButtonPressed
 {
+    BOOL notwo = [(DataEntryViewController *)self.rootViewController notwo];
     guidBeingUpdated = nil;
     BlurryView *bv = [[BlurryView alloc] initWithFrame:CGRectMake(self.superview.frame.size.width - 5.0, self.superview.frame.size.height - 5.0, 10, 10)];
     
@@ -1974,15 +1975,26 @@
                     valuesClauseBegun = YES;
                     insertStatement = [insertStatement stringByAppendingString:[(YesNo *)v columnName]];
                     valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", [(YesNo *)v picked]]];
-                    if ([[(YesNo *)v picked] length] == 1)
+                    if (notwo)
                     {
-                        int ynnumval = 2 - [[(YesNo *)v picked] intValue];
-                        [azureDictionary setObject:[NSNumber numberWithInt:ynnumval] forKey:[(YesNo *)v columnName]];
+                        if ([[(YesNo *)v picked] length] == 1)
+                        {
+                            int ynnumval = 2 - [[(YesNo *)v picked] intValue];
+                            [azureDictionary setObject:[NSNumber numberWithInt:ynnumval] forKey:[(YesNo *)v columnName]];
+                        }
+                        else
+                        {
+                            int ynnumval = 0;
+                            [azureDictionary setObject:[NSNumber numberWithInt:ynnumval] forKey:[(YesNo *)v columnName]];
+                        }
                     }
                     else
                     {
-                        int ynnumval = 0;
-                        [azureDictionary setObject:[NSNumber numberWithInt:ynnumval] forKey:[(YesNo *)v columnName]];
+                        if ([[(YesNo *)v picked] length] == 1)
+                        {
+                            int ynnumval = [[(YesNo *)v picked] intValue];
+                            [azureDictionary setObject:[NSNumber numberWithInt:ynnumval] forKey:[(YesNo *)v columnName]];
+                        }
                     }
                 }
                 else if ([v isKindOfClass:[LegalValuesEnter class]])
@@ -3576,6 +3588,7 @@
 
 - (void)updateButtonPressed
 {
+    BOOL notwo = [(DataEntryViewController *)self.rootViewController notwo];
     guidBeingUpdated = nil;
     BlurryView *bv = [[BlurryView alloc] initWithFrame:CGRectMake(self.superview.frame.size.width - 5.0, self.superview.frame.size.height - 5.0, 10, 10)];
     
@@ -3646,15 +3659,26 @@
                     valuesClauseBegun = YES;
                     insertStatement = [insertStatement stringByAppendingString:[(YesNo *)v columnName]];
                     insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", [(YesNo *)v picked]]];
-                    if ([[(YesNo *)v picked] length] == 1)
+                    if (notwo)
                     {
-                        int ynnumval = 2 - [[(YesNo *)v picked] intValue];
-                        [azureDictionary setObject:[NSNumber numberWithInt:ynnumval] forKey:[(YesNo *)v columnName]];
+                        if ([[(YesNo *)v picked] length] == 1)
+                        {
+                            int ynnumval = 2 - [[(YesNo *)v picked] intValue];
+                            [azureDictionary setObject:[NSNumber numberWithInt:ynnumval] forKey:[(YesNo *)v columnName]];
+                        }
+                        else
+                        {
+                            int ynnumval = 0;
+                            [azureDictionary setObject:[NSNumber numberWithInt:ynnumval] forKey:[(YesNo *)v columnName]];
+                        }
                     }
                     else
                     {
-                        int ynnumval = 0;
-                        [azureDictionary setObject:[NSNumber numberWithInt:ynnumval] forKey:[(YesNo *)v columnName]];
+                        if ([[(YesNo *)v picked] length] == 1)
+                        {
+                            int ynnumval = [[(YesNo *)v picked] intValue];
+                            [azureDictionary setObject:[NSNumber numberWithInt:ynnumval] forKey:[(YesNo *)v columnName]];
+                        }
                     }
                 }
                 else if ([v isKindOfClass:[LegalValuesEnter class]])

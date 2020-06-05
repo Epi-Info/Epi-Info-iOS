@@ -122,7 +122,7 @@
     [hhsImageView setAlpha:0.2];
     
     self.mainMenuMenu = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"menu_lines20.png"] style:UIBarButtonItemStylePlain target:self action:@selector(mainMenuMenuButtonPressed:)];
-    [self.mainMenuMenu setAccessibilityLabel:@"Disclaimers and Privacy Policy"];
+    [self.mainMenuMenu setAccessibilityLabel:@"Disclaimers and Privacy Policy, Logs, and Box Connection"];
     [self.mainMenuMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
     [self.mainMenuMenu setWidth:10.0];
     [self.navigationItem setLeftBarButtonItem:self.mainMenuMenu];

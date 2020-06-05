@@ -81,6 +81,7 @@
 @property NSMutableArray *arrayOfFieldsAllPages;
 @property NSMutableDictionary *alterTableElements;
 @property id geocodingCheckbox;
+-(BOOL)notwo;
 -(UIButton *)openButton;
 -(void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID;
 -(void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID OnEnterDataView:(UIView *)onEdv;

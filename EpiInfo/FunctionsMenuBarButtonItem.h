@@ -13,8 +13,14 @@ NS_ASSUME_NONNULL_BEGIN
 {
     UIViewController *uivc;
     BOOL scannersEnabled;
+    BOOL connectedToBox;
+    BOOL notwo;
 }
 @property NSMutableArray *arrayOfScannerButtons;
+-(void)setConnectedToBox:(BOOL)ctb;
+-(BOOL)connectedToBox;
+-(void)setNotwo:(BOOL)no2;
+-(BOOL)notwo;
 -(void)setUIVC:(UIViewController *)devc;
 -(void)selfPressed;
 @end

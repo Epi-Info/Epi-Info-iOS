@@ -39,6 +39,11 @@
 @synthesize alterTableElements = _alterTableElements;
 @synthesize geocodingCheckbox = _geocodingCheckbox;
 
+- (BOOL)notwo
+{
+    return [functionsMenu notwo];
+}
+
 - (NSMutableArray *)formNavigationItems
 {
     return formNavigationItems;
@@ -163,7 +168,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         functionsMenu = [[FunctionsMenuBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"menu_lines20.png"] style:UIBarButtonItemStylePlain target:self action:@selector(functionsMenuButtonPressed:)];
-        [functionsMenu setAccessibilityLabel:@"Show or hide code scanners"];
+        [functionsMenu setAccessibilityLabel:@"Form Options"];
         [functionsMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [functionsMenu setWidth:10.0];
         [functionsMenu setUIVC:self];
@@ -381,7 +386,7 @@
         [self.navigationItem setHidesBackButton:YES animated:NO];
         
         functionsMenu = [[FunctionsMenuBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"menu_lines20.png"] style:UIBarButtonItemStylePlain target:self action:@selector(functionsMenuButtonPressed:)];
-        [functionsMenu setAccessibilityLabel:@"Show or hide code scanners"];
+        [functionsMenu setAccessibilityLabel:@"Form, options"];
         [functionsMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [functionsMenu setWidth:10.0];
         [functionsMenu setUIVC:self];
@@ -1205,6 +1210,7 @@
                 UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Alert"
                                                                                 message:@"Box connection found. Records will be sent to Box as well as stored locally." preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    [functionsMenu setConnectedToBox:YES];
                 }];
                 [alertC addAction:okAction];
                 [self presentViewController:alertC animated:YES completion:nil];
