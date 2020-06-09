@@ -104,4 +104,5 @@
 -(void)lvReset:(NSString *)newForm;
 -(void)activateFunctionsMenu:(BOOL)active;
 -(void)addButtonToArrayOfScannerButtons:(UIButton *)b;
+-(EnterDataView *)edv;
 @end

@@ -835,8 +835,8 @@
             filePath = "EpiInfo/DataEntryViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3777"
-            endingLineNumber = "3777"
+            startingLineNumber = "3782"
+            endingLineNumber = "3782"
             landmarkName = "-packageAndEmailData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -851,9 +851,25 @@
             filePath = "EpiInfo/DataEntryViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3743"
-            endingLineNumber = "3743"
+            startingLineNumber = "3748"
+            endingLineNumber = "3748"
             landmarkName = "-packageAndEmailData:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F8A754EF-3965-4A35-B2C2-00EC0D510914"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/DataEntryViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "4651"
+            endingLineNumber = "4651"
+            landmarkName = "-populateFieldsWithRecord:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

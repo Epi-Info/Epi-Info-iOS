@@ -6,6 +6,7 @@
 //
 
 #import "EpiInfoBarButtonItem.h"
+#import "BoxData.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -49,7 +49,7 @@
 - (void)selfPressed
 {
     DataEntryViewController *devc = (DataEntryViewController *)uivc;
-    UIView *menuView = [[UIView alloc] initWithFrame:CGRectMake(devc.navigationController.view.frame.size.width, 30, 140, 40)];
+    UIView *menuView = [[UIView alloc] initWithFrame:CGRectMake(devc.navigationController.view.frame.size.width, 30, 180, 40)];
     [menuView setBackgroundColor:[UIColor whiteColor]];
     
     UIButton *onOffButton = [[UIButton alloc] initWithFrame:CGRectMake(4, 8, menuView.frame.size.width - 4, 40 - 16)];
@@ -94,6 +94,19 @@
             [noValueButton setAccessibilityLabel:@"Code No, as two, on Box cloud"];
         }
         [menuView addSubview:noValueButton];
+        
+        ypos = 40.0 * numberofbuttons;
+        numberofbuttons += 1.0;
+        [menuView setFrame:CGRectMake(menuView.frame.origin.x, menuView.frame.origin.y, menuView.frame.size.width, 40.0 * numberofbuttons)];
+        UIButton *sendAllToBoxButton = [[UIButton alloc] initWithFrame:CGRectMake(4, ypos + 8, onOffButton.frame.size.width, onOffButton.frame.size.height)];
+        [sendAllToBoxButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+        [sendAllToBoxButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [sendAllToBoxButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [sendAllToBoxButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [sendAllToBoxButton addTarget:self action:@selector(sendAllToBoxButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [sendAllToBoxButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [sendAllToBoxButton setTitle:@"Send records to Box" forState:UIControlStateNormal];
+        [menuView addSubview:sendAllToBoxButton];
     }
     
     [menuView setFrame:CGRectMake(menuView.frame.origin.x, menuView.frame.origin.y, menuView.frame.size.width, 40.0 * numberofbuttons + 40.0)];
@@ -112,7 +125,7 @@
     [devc.navigationController.view addSubview:menuView];
 
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [menuView setFrame:CGRectMake(devc.navigationController.view.frame.size.width - 140, 30, 140, menuView.frame.size.height)];
+        [menuView setFrame:CGRectMake(devc.navigationController.view.frame.size.width - menuView.frame.size.width, 30, menuView.frame.size.width, menuView.frame.size.height)];
     } completion:^(BOOL finished){
     }];
 }
@@ -135,7 +148,7 @@
     UIView *menuView = [sender superview];
     
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [menuView setFrame:CGRectMake([menuView superview].frame.size.width, 30, 140, menuView.frame.size.height)];
+        [menuView setFrame:CGRectMake([menuView superview].frame.size.width, 30, menuView.frame.size.width, menuView.frame.size.height)];
     } completion:^(BOOL finished){
         [sender removeFromSuperview];
         [menuView removeFromSuperview];
@@ -152,11 +165,41 @@
     UIView *menuView = [sender superview];
     
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [menuView setFrame:CGRectMake([menuView superview].frame.size.width, 30, 140, menuView.frame.size.height)];
+        [menuView setFrame:CGRectMake([menuView superview].frame.size.width, 30, menuView.frame.size.width, menuView.frame.size.height)];
     } completion:^(BOOL finished){
         [sender removeFromSuperview];
         [menuView removeFromSuperview];
     }];
+}
+
+- (void)sendAllToBoxButtonPressed:(UIButton *)sender
+{
+    [self cancelButtonPressed:sender];
+    
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Alert"
+                                                                    message:@"All locally-stored records will be sent to the Box repository, overwriting those with a matching GlobalRecordID." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Send Records" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        BoxData *boxData = [[BoxData alloc] initWithFormName:[[(DataEntryViewController *)uivc edv] formName] AndDictionaryOfPages:[[(DataEntryViewController *)uivc edv] dictionaryOfPages]];
+        if ([boxData sendAllRecordsToBox])
+        {
+            NSLog(@"sendAllRecordsToBox method executed successfully");
+        }
+        else
+        {
+            NSLog(@"sendAllRecordsToBox method not executed successfully");
+        }
+        UIAlertController *alertD = [UIAlertController alertControllerWithTitle:@"Sending"
+                                                                        message:@"Data transmission in progress. See the app's log for results." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okActionD = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        }];
+        [alertD addAction:okActionD];
+        [uivc presentViewController:alertD animated:YES completion:nil];
+    }];
+    [alertC addAction:okAction];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+    }];
+    [alertC addAction:cancelAction];
+    [uivc presentViewController:alertC animated:YES completion:nil];
 }
 
 - (void)cancelButtonPressed:(UIButton *)sender
@@ -164,7 +207,7 @@
     UIView *menuView = [sender superview];
     
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [menuView setFrame:CGRectMake([menuView superview].frame.size.width, 30, 140, menuView.frame.size.height)];
+        [menuView setFrame:CGRectMake([menuView superview].frame.size.width, 30, menuView.frame.size.width, menuView.frame.size.height)];
     } completion:^(BOOL finished){
         [sender removeFromSuperview];
         [menuView removeFromSuperview];

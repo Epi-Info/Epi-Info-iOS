@@ -342,6 +342,7 @@
 		92BA7F9718C773E400841104 /* PackageAndEmailDataButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BA7F9518C773E400841104 /* PackageAndEmailDataButton.png */; };
 		92BA7F9818C773E400841104 /* UploadDataToCloudButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BA7F9618C773E400841104 /* UploadDataToCloudButton.png */; };
 		92BB3C3621AC79BC00D785CD /* EIMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BB3C3521AC79BC00D785CD /* EIMatrix.m */; };
+		92BDFE36248FED11006EF6FA /* BoxData.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BDFE35248FED11006EF6FA /* BoxData.m */; };
 		92BE663E23267DC500F9A5B5 /* CommandButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BE663D23267DC500F9A5B5 /* CommandButton.m */; };
 		92C2BC4D1E857E880034F85B /* 2x2_icon_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC3B1E857E880034F85B /* 2x2_icon_6+.png */; };
 		92C2BC4E1E857E880034F85B /* 2x2_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC3C1E857E880034F85B /* 2x2_icon.png */; };
@@ -970,6 +971,8 @@
 		92BA7F9618C773E400841104 /* UploadDataToCloudButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UploadDataToCloudButton.png; sourceTree = "<group>"; };
 		92BB3C3421AC79BC00D785CD /* EIMatrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EIMatrix.h; sourceTree = "<group>"; };
 		92BB3C3521AC79BC00D785CD /* EIMatrix.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EIMatrix.m; sourceTree = "<group>"; };
+		92BDFE34248FED11006EF6FA /* BoxData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoxData.h; sourceTree = "<group>"; };
+		92BDFE35248FED11006EF6FA /* BoxData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BoxData.m; sourceTree = "<group>"; };
 		92BE663C23267DC500F9A5B5 /* CommandButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandButton.h; sourceTree = "<group>"; };
 		92BE663D23267DC500F9A5B5 /* CommandButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommandButton.m; sourceTree = "<group>"; };
 		92C2BC3B1E857E880034F85B /* 2x2_icon_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2x2_icon_6+.png"; sourceTree = "<group>"; };
@@ -1777,6 +1780,8 @@
 				922D259A2469D56100064419 /* EpiInfoBarButtonItem.m */,
 				922D259C246AD23B00064419 /* FunctionsMenuBarButtonItem.h */,
 				922D259D246AD23B00064419 /* FunctionsMenuBarButtonItem.m */,
+				92BDFE34248FED11006EF6FA /* BoxData.h */,
+				92BDFE35248FED11006EF6FA /* BoxData.m */,
 				922825021863821700DF9493 /* EnterDataView.h */,
 				922825031863821700DF9493 /* EnterDataView.m */,
 				847C97D81D427494001E47DD /* UIView+UpdateAutoLayoutConstraints.h */,
@@ -2448,6 +2453,7 @@
 				4A0B99BB174BA98F00FF417B /* ZoomView.m in Sources */,
 				92A25C041939005A003225E1 /* MirrorField.m in Sources */,
 				4A916FD11757B74900FFA5A5 /* ButtonRight.m in Sources */,
+				92BDFE36248FED11006EF6FA /* BoxData.m in Sources */,
 				922D259E246AD23B00064419 /* FunctionsMenuBarButtonItem.m in Sources */,
 				4A916FD41757C0C800FFA5A5 /* ButtonLeft.m in Sources */,
 				84C816851CE22D8D00F408D2 /* ConditionsModel.m in Sources */,

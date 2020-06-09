@@ -39,6 +39,11 @@
 @synthesize alterTableElements = _alterTableElements;
 @synthesize geocodingCheckbox = _geocodingCheckbox;
 
+- (EnterDataView *)edv
+{
+    return edv;
+}
+
 - (BOOL)notwo
 {
     return [functionsMenu notwo];
