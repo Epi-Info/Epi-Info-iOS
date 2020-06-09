@@ -1947,6 +1947,8 @@
         }
         NSMutableDictionary *azureDictionary = [[NSMutableDictionary alloc] init];
         [azureDictionary setObject:newRecordGUID forKey:@"id"];
+        if (notwo)
+            [azureDictionary setObject:[NSNumber numberWithInt:1003036077] forKey:@"_updateStamp"];
         for (id key in dictionaryOfPages)
         {
             EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
@@ -3631,6 +3633,8 @@
         BOOL valuesClauseBegun = NO;
         NSMutableDictionary *azureDictionary = [[NSMutableDictionary alloc] init];
         [azureDictionary setObject:recordUUID forKey:@"id"];
+        if (notwo)
+            [azureDictionary setObject:[NSNumber numberWithInt:1003036077] forKey:@"_updateStamp"];
         for (id key in dictionaryOfPages)
         {
             EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
