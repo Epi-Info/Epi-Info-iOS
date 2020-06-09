@@ -58,7 +58,7 @@
     [onOffButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
     [onOffButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
     [onOffButton addTarget:self action:@selector(onOffButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [onOffButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
+    [onOffButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     if (scannersEnabled)
     {
         [onOffButton setTitle:@"Hide Scanners" forState:UIControlStateNormal];
@@ -82,7 +82,7 @@
         [noValueButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
         [noValueButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
         [noValueButton addTarget:self action:@selector(noValueButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [noValueButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
+        [noValueButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         if (notwo)
         {
             [noValueButton setTitle:@"Box: No=0" forState:UIControlStateNormal];
@@ -103,7 +103,7 @@
     [cancelButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
     [cancelButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
     [cancelButton addTarget:self action:@selector(cancelButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [cancelButton.titleLabel setTextAlignment:NSTextAlignmentLeft];
+    [cancelButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
     [menuView addSubview:cancelButton];
     
