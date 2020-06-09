@@ -179,7 +179,7 @@
     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Alert"
                                                                     message:@"All locally-stored records will be sent to the Box repository, overwriting those with a matching GlobalRecordID." preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Send Records" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        BoxData *boxData = [[BoxData alloc] initWithFormName:[[(DataEntryViewController *)uivc edv] formName] AndDictionaryOfPages:[[(DataEntryViewController *)uivc edv] dictionaryOfPages]];
+        BoxData *boxData = [[BoxData alloc] initWithFormName:[[(DataEntryViewController *)uivc edv] formName] AndDictionaryOfPages:[[(DataEntryViewController *)uivc edv] dictionaryOfPages] AndNoTwo:[(DataEntryViewController *)uivc notwo]];
         if ([boxData sendAllRecordsToBox])
         {
             NSLog(@"sendAllRecordsToBox method executed successfully");
