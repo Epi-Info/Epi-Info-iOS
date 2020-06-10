@@ -860,16 +860,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F8A754EF-3965-4A35-B2C2-00EC0D510914"
+            uuid = "D3369253-4F7D-490F-94EF-4BC7235EC486"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EpiInfo/DataEntryViewController.m"
+            filePath = "EpiInfo/EnterDataView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4651"
-            endingLineNumber = "4651"
-            landmarkName = "-populateFieldsWithRecord:"
+            startingLineNumber = "3878"
+            endingLineNumber = "3878"
+            landmarkName = "-updateButtonPressed"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EDC863D6-8022-4460-8350-9A48E8B864AC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/EnterDataView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "4023"
+            endingLineNumber = "4023"
+            landmarkName = "-updateButtonPressed"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

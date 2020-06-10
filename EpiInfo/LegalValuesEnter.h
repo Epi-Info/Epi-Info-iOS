@@ -33,6 +33,7 @@
 @property UITableView *tv;
 - (void)setListOfValues:(NSMutableArray *)lov;
 - (NSMutableArray *)listOfValues;
+- (NSArray *)listOfStoredValues;
 - (NSString *)picked;
 - (void)setPicked:(NSString *)pkd;
 - (id)initWithFrame:(CGRect)frame AndListOfValues:(NSMutableArray *)lov;

@@ -30,6 +30,10 @@
 {
     return listOfValues;
 }
+- (NSArray *)listOfStoredValues
+{
+    return [NSArray arrayWithArray:listOfValues];
+}
 - (NSString *)picked
 {
     if ([picked.text length] == 0)
