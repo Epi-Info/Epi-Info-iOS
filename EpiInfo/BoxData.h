@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
     
     NSDictionary *dictionaryOfControls;
     NSArray *arrayOfYesNoFieldNames;
+    NSDictionary *dictionaryOfPages;
 }
 -(id)initWithFormName:(NSString *)fn AndDictionaryOfPages:(NSDictionary *)dop AndNoTwo:(BOOL)no2;
 -(BOOL)sendAllRecordsToBox;
