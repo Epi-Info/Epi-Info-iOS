@@ -67,6 +67,7 @@
             sqlite3_stmt *statement;
             if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
             {
+                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Beginning upload of all %@ records.\n", [NSDate date], formName]];
                 while (sqlite3_step(statement) == SQLITE_ROW)
                 {
                     // SEND FOREIGN KEYS TO BOX IF FORM IS A CHILD FORM
@@ -431,6 +432,7 @@
                     }
                     sleep(1);
                 }
+                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Completed upload of all %@ records.\n", [NSDate date], formName]];
             }
         }
     }
@@ -441,6 +443,90 @@
 
 - (BOOL)retrieveAllRecordsFromBox
 {
+
+    NSArray *users = [BOXContentClient users];
+    if ([users count] > 0)
+    {
+        BOXUser *user0 = [users objectAtIndex:0];
+        BOXContentClient *client0 = [BOXContentClient clientForUser:user0];
+        BOXSearchRequest *searchRequest = [client0 searchRequestWithQuery:@"__EpiInfo" inRange:NSMakeRange(0, 1000)];
+        [searchRequest setType:@"folder"];
+        [searchRequest setContentTypes:@[@"name"]];
+        [searchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *items, NSUInteger totalCount, NSRange range, NSError *error)
+        {
+            if ([items count] > 0)
+            {
+                for (BOXItem *bi in items)
+                {
+                    if ([bi isKindOfClass:[BOXFolder class]])
+                    {
+                        NSString *subfoldername = [NSString stringWithString:formName];
+                        NSString *eiFolderID = [bi modelID];
+                        NSLog(@"folder __EpiInfo exists with ID %@; checking for %@ folder", eiFolderID, subfoldername);
+                        BOXSearchRequest *subfolderSearchRequest = [client0 searchRequestWithQuery:subfoldername inRange:NSMakeRange(0, 1000)];
+                        [subfolderSearchRequest setAncestorFolderIDs:@[eiFolderID]];
+                        [searchRequest setType:@"folder"];
+                        [subfolderSearchRequest setContentTypes:@[@"name"]];
+                        [subfolderSearchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *sitems, NSUInteger totalCount, NSRange range, NSError *error)
+                        {
+                            if ([sitems count] > 0)
+                            {
+                                for (BOXItem *bi in sitems)
+                                {
+                                    if ([bi isKindOfClass:[BOXFolder class]])
+                                    {
+                                        NSString *folderID = [bi modelID];
+                                        NSLog(@"folder %@ exists with ID %@", subfoldername, folderID);
+                                        BOXFolderItemsRequest *listAllInFolder = [client0 folderItemsRequestWithID:folderID];
+                                        [listAllInFolder performRequestWithCompletion:^(NSArray<BOXItem *> *folderItems, NSError *error)
+                                        {
+                                            if ([folderItems count] > 0)
+                                            {
+                                                for (int fi = 0; fi < [folderItems count]; fi++)
+                                                {
+                                                    NSOutputStream *fileOutputStream = [NSOutputStream outputStreamToMemory];
+                                                    BOXFileDownloadRequest *downloadRequest = [client0 fileDownloadRequestWithID:[(BOXFile *)[folderItems objectAtIndex:fi] modelID] toOutputStream:fileOutputStream];
+                                                    [downloadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                        //
+                                                    } completion:^(NSError *error) {
+                                                        NSString *jsonString = [fileOutputStream description];
+                                                        NSLog(@"%@", jsonString);
+                                                        [fileOutputStream open];
+                                                        NSData *jsonData = [fileOutputStream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
+                                                        [fileOutputStream close];
+                                                        NSError *jserror;
+                                                        NSDictionary *boxDictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&jserror];
+                                                        for (NSString *key in boxDictionary)
+                                                        {
+                                                            //
+                                                        }
+                                                    }];
+                                                }
+                                            }
+                                            else
+                                            {
+                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: No records in Box folder %@.\n", [NSDate date], formName]];
+                                            }
+                                        }];
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ not found.\n", [NSDate date], formName]];
+                            }
+                        }];
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ not found.\n", [NSDate date], formName]];
+            }
+        }];
+    }
     return YES;
 }
 

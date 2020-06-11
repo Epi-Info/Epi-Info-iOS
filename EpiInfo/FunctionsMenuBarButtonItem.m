@@ -107,6 +107,19 @@
         [sendAllToBoxButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [sendAllToBoxButton setTitle:@"Send records to Box" forState:UIControlStateNormal];
         [menuView addSubview:sendAllToBoxButton];
+        
+        ypos = 40.0 * numberofbuttons;
+        numberofbuttons += 1.0;
+        [menuView setFrame:CGRectMake(menuView.frame.origin.x, menuView.frame.origin.y, menuView.frame.size.width, 40.0 * numberofbuttons)];
+        UIButton *getAllFromBoxButton = [[UIButton alloc] initWithFrame:CGRectMake(4, ypos + 8, onOffButton.frame.size.width, onOffButton.frame.size.height)];
+        [getAllFromBoxButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+        [getAllFromBoxButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [getAllFromBoxButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [getAllFromBoxButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [getAllFromBoxButton addTarget:self action:@selector(getAllFromBoxButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [getAllFromBoxButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [getAllFromBoxButton setTitle:@"Get records from Box" forState:UIControlStateNormal];
+        [menuView addSubview:getAllFromBoxButton];
     }
     
     [menuView setFrame:CGRectMake(menuView.frame.origin.x, menuView.frame.origin.y, menuView.frame.size.width, 40.0 * numberofbuttons + 40.0)];
@@ -190,6 +203,36 @@
         }
         UIAlertController *alertD = [UIAlertController alertControllerWithTitle:@"Sending"
                                                                         message:@"Data transmission in progress. See the app's log for results." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okActionD = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        }];
+        [alertD addAction:okActionD];
+        [uivc presentViewController:alertD animated:YES completion:nil];
+    }];
+    [alertC addAction:okAction];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+    }];
+    [alertC addAction:cancelAction];
+    [uivc presentViewController:alertC animated:YES completion:nil];
+}
+
+- (void)getAllFromBoxButtonPressed:(UIButton *)sender
+{
+    [self cancelButtonPressed:sender];
+    
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Alert"
+                                                                    message:@"All locally-stored records with a matching GlobalRecordID on Box will be overwritten." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Get Records" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        BoxData *boxData = [[BoxData alloc] initWithFormName:[[(DataEntryViewController *)uivc edv] formName] AndDictionaryOfPages:[[(DataEntryViewController *)uivc edv] dictionaryOfPages] AndNoTwo:[(DataEntryViewController *)uivc notwo]];
+        if ([boxData retrieveAllRecordsFromBox])
+        {
+            NSLog(@"retrieveAllRecordsFromBox method executed successfully");
+        }
+        else
+        {
+            NSLog(@"retrieveAllRecordsFromBox method not executed successfully");
+        }
+        UIAlertController *alertD = [UIAlertController alertControllerWithTitle:@"Retrieving"
+                                                                        message:@"Data retrieval in progress. See the app's log for results." preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okActionD = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         }];
         [alertD addAction:okActionD];
