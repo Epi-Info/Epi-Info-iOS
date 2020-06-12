@@ -433,7 +433,6 @@
                     }
                     sleep(1);
                 }
-                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Completed upload of all %@ records.\n", [NSDate date], formName]];
             }
         }
     }
@@ -443,6 +442,13 @@
 }
 
 - (BOOL)retrieveAllRecordsFromBox
+{
+    NSThread *boxThread = [[NSThread alloc] initWithTarget:self selector:@selector(retrieveAllRecordsFromBoxDoInBackground) object:nil];
+    [boxThread start];
+    return YES;
+}
+
+- (BOOL)retrieveAllRecordsFromBoxDoInBackground
 {
     [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Beginning retrieval of all %@ records.\n", [NSDate date], formName]];
     sqlite3 *epiinfoDB;
@@ -543,7 +549,6 @@
                     {
                         NSString *subfoldername = [NSString stringWithString:formName];
                         NSString *eiFolderID = [bi modelID];
-                        NSLog(@"folder __EpiInfo exists with ID %@; checking for %@ folder", eiFolderID, subfoldername);
                         BOXSearchRequest *subfolderSearchRequest = [client0 searchRequestWithQuery:subfoldername inRange:NSMakeRange(0, 1000)];
                         [subfolderSearchRequest setAncestorFolderIDs:@[eiFolderID]];
                         [searchRequest setType:@"folder"];
@@ -557,7 +562,6 @@
                                     if ([bi isKindOfClass:[BOXFolder class]])
                                     {
                                         NSString *folderID = [bi modelID];
-                                        NSLog(@"folder %@ exists with ID %@", subfoldername, folderID);
                                         BOXFolderItemsRequest *listAllInFolder = [client0 folderItemsRequestWithID:folderID];
                                         [listAllInFolder performRequestWithCompletion:^(NSArray<BOXItem *> *folderItems, NSError *error)
                                         {
@@ -570,8 +574,6 @@
                                                     [downloadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
                                                         //
                                                     } completion:^(NSError *error) {
-                                                        NSString *jsonString = [fileOutputStream description];
-                                                        NSLog(@"%@", jsonString);
                                                         [fileOutputStream open];
                                                         NSData *jsonData = [fileOutputStream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
                                                         [fileOutputStream close];
@@ -584,60 +586,40 @@
                                                         }
                                                         if ([boxDictionary objectForKey:@"id"])
                                                         {
-                                                        NSString *deleteStatement = [NSString stringWithFormat:@"\ndelete from %@", formName];
-                                                        deleteStatement = [deleteStatement stringByAppendingString:[NSString stringWithFormat:@"\nwhere GlobalRecordID = '%@'", [boxDictionary objectForKey:@"id"]]];
-                                                        const char *dbpath = [databasePath UTF8String];
-                                                        sqlite3 *epiinfoboxDB;
-                                                        if (sqlite3_open(dbpath, &epiinfoboxDB) == SQLITE_OK)
-                                                        {
-                                                            char *errMsg;
-                                                            const char *sql_stmt = [deleteStatement UTF8String];
-//                                                            if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
-//                                                            {
-//                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: RETRIEVE: Could not delete row from table: %s :::: %@\n", [NSDate date], errMsg, deleteStatement]];
-//                                                            }
-                                                        }
-                                                        sqlite3_close(epiinfoboxDB);
-                                                        NSString *insertStatement = [NSString stringWithFormat:@"\ninsert into %@(GlobalRecordID", formName];
-                                                        NSString *valuesClause = [NSString stringWithFormat:@" values('%@'", [boxDictionary objectForKey:@"id"]];
-                                                        BOOL valuesClauseBegun = YES;
-                                                        for (id key in dictionaryOfPages)
-                                                        {
-                                                                    EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
-                                                                    for (UIView *v in [[tempedv formCanvas] subviews])
-                                                                    {
-                                                                        if (![v conformsToProtocol:@protocol(EpiInfoControlProtocol)])
-                                                                            continue;
-                                                                        NSString *keyForDictionary = [[(UIView <EpiInfoControlProtocol> *)v columnName] lowercaseString];
-                                                                        if (![boxDictionary objectForKey:keyForDictionary])
-                                                                            continue;
-                                                                        NSString *valueFromBoxDictionary = [boxDictionary objectForKey:keyForDictionary];
-                                                                        if ([v isKindOfClass:[CommandButton class]]) { }
-                                                                        else if ([v isKindOfClass:[Checkbox class]])
+                                                            NSString *deleteStatement = [NSString stringWithFormat:@"delete from %@", formName];
+                                                            deleteStatement = [deleteStatement stringByAppendingString:[NSString stringWithFormat:@"\nwhere GlobalRecordID = '%@'", [boxDictionary objectForKey:@"id"]]];
+                                                            const char *dbpath = [databasePath UTF8String];
+                                                            sqlite3 *epiinfoboxDB;
+                                                            if (sqlite3_open(dbpath, &epiinfoboxDB) == SQLITE_OK)
+                                                            {
+                                                                char *errMsg;
+                                                                const char *sql_stmt = [deleteStatement UTF8String];
+                                                                if (sqlite3_exec(epiinfoboxDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                                                                {
+                                                                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: RETRIEVE: Could not delete row from table: %s :::: %@\n", [NSDate date], errMsg, deleteStatement]];
+                                                                }
+                                                                else
+                                                                {
+                                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Deleted %@ from %@ table.\n", [NSDate date], [boxDictionary objectForKey:@"id"], formName]];
+                                                                }
+                                                            }
+                                                            sqlite3_close(epiinfoboxDB);
+                                                            NSString *insertStatement = [NSString stringWithFormat:@"\ninsert into %@(GlobalRecordID", formName];
+                                                            NSString *valuesClause = [NSString stringWithFormat:@" values('%@'", [boxDictionary objectForKey:@"id"]];
+                                                            BOOL valuesClauseBegun = YES;
+                                                            for (id key in dictionaryOfPages)
+                                                            {
+                                                                        EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
+                                                                        for (UIView *v in [[tempedv formCanvas] subviews])
                                                                         {
-                                                                            if (valuesClauseBegun)
-                                                                            {
-                                                                                insertStatement = [insertStatement stringByAppendingString:@",\n"];
-                                                                                valuesClause = [valuesClause stringByAppendingString:@",\n"];
-                                                                            }
-                                                                            valuesClauseBegun = YES;
-                                                                            insertStatement = [insertStatement stringByAppendingString:[(Checkbox *)v columnName]];
-                                                                            valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", valueFromBoxDictionary]];
-                                                                        }
-                                                                        else if ([v isKindOfClass:[YesNo class]])
-                                                                        {
-                                                                            BOOL ynnonmissing = YES;
-                                                                            if ([boxDictionary objectForKey:@"_updatestatus"])
-                                                                            {
-                                                                                if ([(NSString *)[boxDictionary objectForKey:@"_updatestatus"] length] > 0)
-                                                                                {
-                                                                                    int ynvalue = [valueFromBoxDictionary intValue];
-                                                                                    if (ynvalue == 0) ynnonmissing = NO;
-                                                                                    else if (ynvalue == 2) ynvalue = 0;
-                                                                                    valueFromBoxDictionary = [NSString stringWithFormat:@"%d", ynvalue];
-                                                                                }
-                                                                            }
-                                                                            if (ynnonmissing)
+                                                                            if (![v conformsToProtocol:@protocol(EpiInfoControlProtocol)])
+                                                                                continue;
+                                                                            NSString *keyForDictionary = [[(UIView <EpiInfoControlProtocol> *)v columnName] lowercaseString];
+                                                                            if (![boxDictionary objectForKey:keyForDictionary])
+                                                                                continue;
+                                                                            NSString *valueFromBoxDictionary = [boxDictionary objectForKey:keyForDictionary];
+                                                                            if ([v isKindOfClass:[CommandButton class]]) { }
+                                                                            else if ([v isKindOfClass:[Checkbox class]])
                                                                             {
                                                                                 if (valuesClauseBegun)
                                                                                 {
@@ -645,117 +627,162 @@
                                                                                     valuesClause = [valuesClause stringByAppendingString:@",\n"];
                                                                                 }
                                                                                 valuesClauseBegun = YES;
-                                                                                insertStatement = [insertStatement stringByAppendingString:[(YesNo *)v columnName]];
+                                                                                insertStatement = [insertStatement stringByAppendingString:[(Checkbox *)v columnName]];
                                                                                 valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", valueFromBoxDictionary]];
                                                                             }
-                                                                        }
-                                                                        else if ([v isKindOfClass:[EpiInfoOptionField class]])
-                                                                        {
-                                                                            if (valuesClauseBegun)
+                                                                            else if ([v isKindOfClass:[YesNo class]])
                                                                             {
-                                                                                insertStatement = [insertStatement stringByAppendingString:@",\n"];
-                                                                                valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                                                                                BOOL ynnonmissing = YES;
+                                                                                if ([boxDictionary objectForKey:@"_updatestamp"])
+                                                                                {
+                                                                                    if (YES)
+                                                                                    {
+                                                                                        int ynvalue = [valueFromBoxDictionary intValue];
+                                                                                        if (ynvalue == 0) ynnonmissing = NO;
+                                                                                        else if (ynvalue == 2) ynvalue = 0;
+                                                                                        valueFromBoxDictionary = [NSString stringWithFormat:@"%d", ynvalue];
+                                                                                    }
+                                                                                }
+                                                                                if (ynnonmissing)
+                                                                                {
+                                                                                    if (valuesClauseBegun)
+                                                                                    {
+                                                                                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                                                                                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                                                                                    }
+                                                                                    valuesClauseBegun = YES;
+                                                                                    insertStatement = [insertStatement stringByAppendingString:[(YesNo *)v columnName]];
+                                                                                    valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", valueFromBoxDictionary]];
+                                                                                }
                                                                             }
-                                                                            valuesClauseBegun = YES;
-                                                                            insertStatement = [insertStatement stringByAppendingString:[(LegalValuesEnter *)v columnName]];
-                                                                            valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", valueFromBoxDictionary]];
-                                                                        }
-                                                                        else if ([v isKindOfClass:[LegalValuesEnter class]])
-                                                                        {
-                                                                            NSArray *valuesArray = [(LegalValuesEnter *)v listOfStoredValues];
-                                                                            if ([valuesArray count] > [valueFromBoxDictionary intValue])
+                                                                            else if ([v isKindOfClass:[EpiInfoOptionField class]])
                                                                             {
-                                                                                valueFromBoxDictionary = [valuesArray objectAtIndex:[valueFromBoxDictionary intValue]];
+                                                                                if ([valueFromBoxDictionary intValue] != -1)
+                                                                                {
+                                                                                    if (valuesClauseBegun)
+                                                                                    {
+                                                                                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                                                                                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                                                                                    }
+                                                                                    valuesClauseBegun = YES;
+                                                                                    insertStatement = [insertStatement stringByAppendingString:[(LegalValuesEnter *)v columnName]];
+                                                                                    valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", valueFromBoxDictionary]];
+                                                                                }
+                                                                            }
+                                                                            else if ([v isKindOfClass:[LegalValuesEnter class]])
+                                                                            {
+                                                                                NSArray *valuesArray = [(LegalValuesEnter *)v listOfStoredValues];
+                                                                                if ([valuesArray count] > [valueFromBoxDictionary intValue])
+                                                                                {
+                                                                                    valueFromBoxDictionary = [valuesArray objectAtIndex:[valueFromBoxDictionary intValue]];
+                                                                                    if (valuesClauseBegun)
+                                                                                    {
+                                                                                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                                                                                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                                                                                    }
+                                                                                    valuesClauseBegun = YES;
+                                                                                    insertStatement = [insertStatement stringByAppendingString:[(LegalValuesEnter *)v columnName]];
+                                                                                    valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", valueFromBoxDictionary]];
+                                                                                }
+                                                                            }
+                                                                            else if ([v isKindOfClass:[NumberField class]])
+                                                                            {
                                                                                 if (valuesClauseBegun)
                                                                                 {
                                                                                     insertStatement = [insertStatement stringByAppendingString:@",\n"];
                                                                                     valuesClause = [valuesClause stringByAppendingString:@",\n"];
                                                                                 }
                                                                                 valuesClauseBegun = YES;
-                                                                                insertStatement = [insertStatement stringByAppendingString:[(LegalValuesEnter *)v columnName]];
+                                                                                insertStatement = [insertStatement stringByAppendingString:[(NumberField *)v columnName]];
+                                                                                valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", valueFromBoxDictionary]];
+                                                                            }
+                                                                            else if ([v isKindOfClass:[PhoneNumberField class]])
+                                                                            {
+                                                                                if (valuesClauseBegun)
+                                                                                {
+                                                                                    insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                                                                                    valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                                                                                }
+                                                                                valuesClauseBegun = YES;
+                                                                                insertStatement = [insertStatement stringByAppendingString:[(PhoneNumberField *)v columnName]];
+                                                                                valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", valueFromBoxDictionary]];
+                                                                            }
+                                                                            else if ([v isKindOfClass:[DateField class]])
+                                                                            {
+                                                                                if (valuesClauseBegun)
+                                                                                {
+                                                                                    insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                                                                                    valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                                                                                }
+                                                                                valuesClauseBegun = YES;
+                                                                                insertStatement = [insertStatement stringByAppendingString:[(DateField *)v columnName]];
+                                                                                valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", valueFromBoxDictionary]];
+                                                                            }
+                                                                            else if ([v isKindOfClass:[EpiInfoTextView class]])
+                                                                            {
+                                                                                if (valuesClauseBegun)
+                                                                                {
+                                                                                    insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                                                                                    valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                                                                                }
+                                                                                valuesClauseBegun = YES;
+                                                                                insertStatement = [insertStatement stringByAppendingString:[(EpiInfoTextView *)v columnName]];
+                                                                                valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", valueFromBoxDictionary]];
+                                                                            }
+                                                                            else if ([v isKindOfClass:[EpiInfoTextField class]])
+                                                                            {
+                                                                                if (valuesClauseBegun)
+                                                                                {
+                                                                                    insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                                                                                    valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                                                                                }
+                                                                                valuesClauseBegun = YES;
+                                                                                insertStatement = [insertStatement stringByAppendingString:[(EpiInfoTextField *)v columnName]];
+                                                                                valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", valueFromBoxDictionary]];
+                                                                            }
+                                                                            else if ([v isKindOfClass:[UppercaseTextField class]])
+                                                                            {
+                                                                                if (valuesClauseBegun)
+                                                                                {
+                                                                                    insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                                                                                    valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                                                                                }
+                                                                                valuesClauseBegun = YES;
+                                                                                insertStatement = [insertStatement stringByAppendingString:[(UppercaseTextField *)v columnName]];
                                                                                 valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", valueFromBoxDictionary]];
                                                                             }
                                                                         }
-                                                                        else if ([v isKindOfClass:[NumberField class]])
-                                                                        {
-                                                                            if (valuesClauseBegun)
-                                                                            {
-                                                                                insertStatement = [insertStatement stringByAppendingString:@",\n"];
-                                                                                valuesClause = [valuesClause stringByAppendingString:@",\n"];
-                                                                            }
-                                                                            valuesClauseBegun = YES;
-                                                                            insertStatement = [insertStatement stringByAppendingString:[(NumberField *)v columnName]];
-                                                                            valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", valueFromBoxDictionary]];
-                                                                        }
-                                                                        else if ([v isKindOfClass:[PhoneNumberField class]])
-                                                                        {
-                                                                            if (valuesClauseBegun)
-                                                                            {
-                                                                                insertStatement = [insertStatement stringByAppendingString:@",\n"];
-                                                                                valuesClause = [valuesClause stringByAppendingString:@",\n"];
-                                                                            }
-                                                                            valuesClauseBegun = YES;
-                                                                            insertStatement = [insertStatement stringByAppendingString:[(PhoneNumberField *)v columnName]];
-                                                                            valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", valueFromBoxDictionary]];
-                                                                        }
-                                                                        else if ([v isKindOfClass:[DateField class]])
-                                                                        {
-                                                                            if (valuesClauseBegun)
-                                                                            {
-                                                                                insertStatement = [insertStatement stringByAppendingString:@",\n"];
-                                                                                valuesClause = [valuesClause stringByAppendingString:@",\n"];
-                                                                            }
-                                                                            valuesClauseBegun = YES;
-                                                                            insertStatement = [insertStatement stringByAppendingString:[(DateField *)v columnName]];
-                                                                            valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", valueFromBoxDictionary]];
-                                                                        }
-                                                                        else if ([v isKindOfClass:[EpiInfoTextView class]])
-                                                                        {
-                                                                            if (valuesClauseBegun)
-                                                                            {
-                                                                                insertStatement = [insertStatement stringByAppendingString:@",\n"];
-                                                                                valuesClause = [valuesClause stringByAppendingString:@",\n"];
-                                                                            }
-                                                                            valuesClauseBegun = YES;
-                                                                            insertStatement = [insertStatement stringByAppendingString:[(EpiInfoTextView *)v columnName]];
-                                                                            valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", valueFromBoxDictionary]];
-                                                                        }
-                                                                        else if ([v isKindOfClass:[EpiInfoTextField class]])
-                                                                        {
-                                                                            if (valuesClauseBegun)
-                                                                            {
-                                                                                insertStatement = [insertStatement stringByAppendingString:@",\n"];
-                                                                                valuesClause = [valuesClause stringByAppendingString:@",\n"];
-                                                                            }
-                                                                            valuesClauseBegun = YES;
-                                                                            insertStatement = [insertStatement stringByAppendingString:[(EpiInfoTextField *)v columnName]];
-                                                                            valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", valueFromBoxDictionary]];
-                                                                        }
-                                                                        else if ([v isKindOfClass:[UppercaseTextField class]])
-                                                                        {
-                                                                            if (valuesClauseBegun)
-                                                                            {
-                                                                                insertStatement = [insertStatement stringByAppendingString:@",\n"];
-                                                                                valuesClause = [valuesClause stringByAppendingString:@",\n"];
-                                                                            }
-                                                                            valuesClauseBegun = YES;
-                                                                            insertStatement = [insertStatement stringByAppendingString:[(UppercaseTextField *)v columnName]];
-                                                                            valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", valueFromBoxDictionary]];
-                                                                        }
-                                                                    }
-                                                        }
-                                                        insertStatement = [insertStatement stringByAppendingString:@")"];
-                                                        valuesClause = [valuesClause stringByAppendingString:@")"];
-                                                        insertStatement = [insertStatement stringByAppendingString:valuesClause];
-                                                            sqlite3 *epiinfoinsertDB;
-                                                        if (sqlite3_open([databasePath UTF8String], &epiinfoinsertDB) == SQLITE_OK)
-                                                        {
-                                                            sqlite3_close(epiinfoinsertDB);
-                                                        }
+                                                            }
+                                                            insertStatement = [insertStatement stringByAppendingString:@")"];
+                                                            valuesClause = [valuesClause stringByAppendingString:@")"];
+                                                            insertStatement = [insertStatement stringByAppendingString:valuesClause];
+                                                                sqlite3 *epiinfoinsertDB;
+                                                            if (sqlite3_open([databasePath UTF8String], &epiinfoinsertDB) == SQLITE_OK)
+                                                            {
+                                                                char *errMsg;
+                                                                const char *sql_stmt = [insertStatement UTF8String];
+                                                                if (sqlite3_exec(epiinfoinsertDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                                                                {
+                                                                     [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Could not insert %@ into %@ table.\n", [NSDate date], [boxDictionary objectForKey:@"id"], formName]];
+                                                                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not insert %@ into %@ table.\n", [NSDate date], [boxDictionary objectForKey:@"id"], formName]];
+                                                                }
+                                                                else
+                                                                {
+                                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Inserted %@ into %@ table.\n", [NSDate date], [boxDictionary objectForKey:@"id"], formName]];
+                                                                }
+                                                                sqlite3_close(epiinfoinsertDB);
+                                                            }
+                                                            else
+                                                            {
+                                                                 [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Could not insert %@ into %@ table.\n", [NSDate date], [boxDictionary objectForKey:@"id"], formName]];
+                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not insert %@ into %@ table.\n", [NSDate date], [boxDictionary objectForKey:@"id"], formName]];
+
+                                                            }
                                                         }
                                                         else
                                                         {
-                                                            
+                                                             [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box record without ID variable found in %@ table.\n", [NSDate date], formName]];
+                                                            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Box record without ID variable found in %@ table.\n", [NSDate date], formName]];
                                                         }
                                                     }];
                                                     sleep(1);
