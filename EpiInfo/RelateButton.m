@@ -135,6 +135,7 @@
             url = [NSURL fileURLWithPath:path];
         edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, parentEDV.frame.size.height, parentEDV.frame.size.width, parentEDV.frame.size.height) AndURL:url AndRootViewController:[(EnterDataView *)parentEDV rootViewController] AndNameOfTheForm:relatedViewName AndPageToDisplay:1 AndParentForm:(EnterDataView *)parentEDV];
         rootViewController = [(EnterDataView *)edv rootViewController];
+        [[(DataEntryViewController *)rootViewController edv] setChildEnterDataView:(EnterDataView *)edv];
         
         [(DataEntryViewController *)rootViewController addNewSetOfPageDots:(EnterDataView *)edv];
         
@@ -368,6 +369,7 @@
         [orangeBanner removeFromSuperview];
         orangeBanner = nil;
         
+        [(EnterDataView *)[(DataEntryViewController *)rootViewController edv] setChildEnterDataView:nil];
         [(DataEntryViewController *)rootViewController childFormDismissed];
         [[(DataEntryViewController *)rootViewController formNavigationItems] removeLastObject];
         [[(DataEntryViewController *)rootViewController closeFormBarButtonItems] removeLastObject];

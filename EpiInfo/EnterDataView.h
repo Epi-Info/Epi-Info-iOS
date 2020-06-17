@@ -95,6 +95,8 @@
     UIView *parentEnterDataView;
     NSString *relateButtonName;
     
+    UIView *childEnterDataView;
+    
     NSString *formCheckCodeString;
     
     int tagNum;
@@ -179,6 +181,8 @@
 
 -(void)setParentEnterDataView:(EnterDataView *)parentEDV;
 -(EnterDataView *)parentEnterDataView;
+-(void)setChildEnterDataView:(EnterDataView *)childEDV;
+-(EnterDataView *)childEnterDataView;
 
 -(void)setRelateButtonName:(NSString *)rbn;
 

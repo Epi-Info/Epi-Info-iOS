@@ -192,7 +192,10 @@
     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Alert"
                                                                     message:@"All locally-stored records will be sent to the Box repository, overwriting those with a matching GlobalRecordID." preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Send Records" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        BoxData *boxData = [[BoxData alloc] initWithFormName:[[(DataEntryViewController *)uivc edv] formName] AndDictionaryOfPages:[[(DataEntryViewController *)uivc edv] dictionaryOfPages] AndNoTwo:[(DataEntryViewController *)uivc notwo]];
+        EnterDataView *devcedv = [(DataEntryViewController *)uivc edv];
+        if ([devcedv childEnterDataView])
+            devcedv = [devcedv childEnterDataView];
+        BoxData *boxData = [[BoxData alloc] initWithFormName:[devcedv formName] AndDictionaryOfPages:[devcedv dictionaryOfPages] AndNoTwo:[(DataEntryViewController *)uivc notwo]];
         if ([boxData sendAllRecordsToBox])
         {
             NSLog(@"sendAllRecordsToBox method executed successfully");
@@ -222,7 +225,10 @@
     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Alert"
                                                                     message:@"All locally-stored records with a matching GlobalRecordID on Box will be overwritten." preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Get Records" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        BoxData *boxData = [[BoxData alloc] initWithFormName:[[(DataEntryViewController *)uivc edv] formName] AndDictionaryOfPages:[[(DataEntryViewController *)uivc edv] dictionaryOfPages] AndNoTwo:[(DataEntryViewController *)uivc notwo]];
+        EnterDataView *devcedv = [(DataEntryViewController *)uivc edv];
+        if ([devcedv childEnterDataView])
+            devcedv = [devcedv childEnterDataView];
+        BoxData *boxData = [[BoxData alloc] initWithFormName:[devcedv formName] AndDictionaryOfPages:[devcedv dictionaryOfPages] AndNoTwo:[(DataEntryViewController *)uivc notwo]];
         if ([boxData retrieveAllRecordsFromBox])
         {
             NSLog(@"retrieveAllRecordsFromBox method executed successfully");

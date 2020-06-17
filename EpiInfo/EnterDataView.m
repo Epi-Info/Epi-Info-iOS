@@ -99,6 +99,14 @@
 {
     return (EnterDataView *)parentEnterDataView;
 }
+- (void)setChildEnterDataView:(EnterDataView *)childEDV
+{
+    childEnterDataView = childEDV;
+}
+- (EnterDataView *)childEnterDataView
+{
+    return (EnterDataView *)childEnterDataView;
+}
 
 - (NSArray *)arrayOfGroups
 {

@@ -66,8 +66,8 @@
             timestampString = "590686989.232478"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
             landmarkName = "-setElementsArray:"
             landmarkType = "7">
          </BreakpointContent>
@@ -515,8 +515,8 @@
             filePath = "EpiInfo/EnterDataView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5405"
-            endingLineNumber = "5405"
+            startingLineNumber = "5413"
+            endingLineNumber = "5413"
             landmarkName = "-dismissForm"
             landmarkType = "7">
          </BreakpointContent>
@@ -659,8 +659,8 @@
             filePath = "EpiInfo/EnterDataView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2357"
-            endingLineNumber = "2357"
+            startingLineNumber = "2365"
+            endingLineNumber = "2365"
             landmarkName = "-submitButtonPressed"
             landmarkType = "7">
          </BreakpointContent>
@@ -675,8 +675,8 @@
             filePath = "EpiInfo/EnterDataView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2426"
-            endingLineNumber = "2426"
+            startingLineNumber = "2434"
+            endingLineNumber = "2434"
             landmarkName = "-submitButtonPressed"
             landmarkType = "7">
          </BreakpointContent>
@@ -691,8 +691,8 @@
             filePath = "EpiInfo/EnterDataView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2475"
-            endingLineNumber = "2475"
+            startingLineNumber = "2483"
+            endingLineNumber = "2483"
             landmarkName = "-submitButtonPressed"
             landmarkType = "7">
          </BreakpointContent>
@@ -707,8 +707,8 @@
             filePath = "EpiInfo/EnterDataView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2492"
-            endingLineNumber = "2492"
+            startingLineNumber = "2500"
+            endingLineNumber = "2500"
             landmarkName = "-submitButtonPressed"
             landmarkType = "7">
          </BreakpointContent>
@@ -723,24 +723,8 @@
             filePath = "EpiInfo/EnterDataView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4729"
-            endingLineNumber = "4729"
-            landmarkName = "-deleteButtonPressed"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "383A5671-5200-4D64-AA14-EB718B94E974"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EpiInfo/EnterDataView.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4752"
-            endingLineNumber = "4752"
+            startingLineNumber = "4737"
+            endingLineNumber = "4737"
             landmarkName = "-deleteButtonPressed"
             landmarkType = "7">
          </BreakpointContent>
@@ -755,8 +739,8 @@
             filePath = "EpiInfo/EnterDataView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4783"
-            endingLineNumber = "4783"
+            startingLineNumber = "4791"
+            endingLineNumber = "4791"
             landmarkName = "-deleteButtonPressed"
             landmarkType = "7">
          </BreakpointContent>
@@ -771,8 +755,8 @@
             filePath = "EpiInfo/EnterDataView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4827"
-            endingLineNumber = "4827"
+            startingLineNumber = "4835"
+            endingLineNumber = "4835"
             landmarkName = "-deleteButtonPressed"
             landmarkType = "7">
          </BreakpointContent>
@@ -787,8 +771,8 @@
             filePath = "EpiInfo/EnterDataView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1618"
-            endingLineNumber = "1618"
+            startingLineNumber = "1626"
+            endingLineNumber = "1626"
             landmarkName = "-submitWithoutClearing"
             landmarkType = "7">
          </BreakpointContent>
@@ -803,8 +787,8 @@
             filePath = "EpiInfo/EnterDataView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1667"
-            endingLineNumber = "1667"
+            startingLineNumber = "1675"
+            endingLineNumber = "1675"
             landmarkName = "-submitWithoutClearing"
             landmarkType = "7">
          </BreakpointContent>
@@ -819,8 +803,8 @@
             filePath = "EpiInfo/EnterDataView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1684"
-            endingLineNumber = "1684"
+            startingLineNumber = "1692"
+            endingLineNumber = "1692"
             landmarkName = "-submitWithoutClearing"
             landmarkType = "7">
          </BreakpointContent>
@@ -860,22 +844,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D3369253-4F7D-490F-94EF-4BC7235EC486"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EpiInfo/EnterDataView.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3878"
-            endingLineNumber = "3878"
-            landmarkName = "-updateButtonPressed"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "EDC863D6-8022-4460-8350-9A48E8B864AC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -883,8 +851,8 @@
             filePath = "EpiInfo/EnterDataView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4023"
-            endingLineNumber = "4023"
+            startingLineNumber = "4031"
+            endingLineNumber = "4031"
             landmarkName = "-updateButtonPressed"
             landmarkType = "7">
          </BreakpointContent>
