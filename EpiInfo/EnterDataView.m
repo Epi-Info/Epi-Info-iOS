@@ -1948,13 +1948,14 @@
         //    NSString *recordUUID = CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL)));
         NSString *valuesClause = [NSString stringWithFormat:@" values('%@'", newRecordGUID];
         BOOL valuesClauseBegun = YES;
+        NSMutableDictionary *azureDictionary = [[NSMutableDictionary alloc] init];
+        [azureDictionary setObject:newRecordGUID forKey:@"id"];
         if (parentRecordGUID)
         {
             insertStatement = [insertStatement stringByAppendingString:@",\nFKEY"];
             valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@",\n'%@'", parentRecordGUID]];
+            [azureDictionary setObject:parentRecordGUID forKey:@"FKEY"];
         }
-        NSMutableDictionary *azureDictionary = [[NSMutableDictionary alloc] init];
-        [azureDictionary setObject:newRecordGUID forKey:@"id"];
         if (notwo)
             [azureDictionary setObject:[NSNumber numberWithInt:1003036077] forKey:@"_updateStamp"];
         for (id key in dictionaryOfPages)
@@ -3641,7 +3642,10 @@
         BOOL valuesClauseBegun = NO;
         NSMutableDictionary *azureDictionary = [[NSMutableDictionary alloc] init];
         [azureDictionary setObject:recordUUID forKey:@"id"];
-        if (notwo)
+        if (parentRecordGUID)
+        {
+            [azureDictionary setObject:parentRecordGUID forKey:@"FKEY"];
+        }        if (notwo)
             [azureDictionary setObject:[NSNumber numberWithInt:1003036077] forKey:@"_updateStamp"];
         for (id key in dictionaryOfPages)
         {
