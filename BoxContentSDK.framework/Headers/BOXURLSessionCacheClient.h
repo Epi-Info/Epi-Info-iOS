@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface BOXURLSessionTaskCachedInfo : NSObject
 //@see comments above BOXURLSessionCacheClient for detailed explaination of those properties
 
@@ -67,6 +69,9 @@
  * 2. To keep track of whose user and its associateId the session task belongs to, we save backgroundSessionId and sessionTaskId
  * as a file name under sub-directory users/$userId/$associateId/info with format $backgroundSessionId-$sessionTaskId
  *
+ * We also record a map of background session ID to its associateIDs at backgroundSessionsIndex/$userID/$backgroundSessionID/$associateID
+ * which provides a quick look up of associateIDs given a background session ID.
+ *
  * 3. Once session tasks complete, their cached info under onGoingSessionTasks/$backgroundSessionId/$sessionTaskId dir
  * will be moved into users/$userId/$associateId/completed dir
  *
@@ -104,6 +109,30 @@
  * @return YES if succeeded, NO if failed
  */
 - (BOOL)cacheUserId:(NSString *)userId associateId:(NSString *)associateId backgroundSessionId:(NSString *)backgroundSessionId sessionTaskId:(NSUInteger)sessionTaskId error:(NSError **)error;
+
+/**
+ * Cache that a session task for a given user and associateId has started
+ *
+ * @param userId                Id of user started the session task. Cannot be nil
+ * @param associateId           Id to associate with the session task. Cannot be nil
+ * @param error                 error if fail to cache
+ *
+ * @return YES if succeeded, NO if failed
+ */
+- (BOOL)cacheSessionTaskStartedForUserId:(NSString *)userId
+                             associateId:(NSString *)associateId
+                                   error:(NSError **)error;
+
+/**
+ *  Check whether a session task for a given user and associateId has started
+ *
+ * @param userId                Id of user started the session task. Cannot be nil
+ * @param associateId           Id to associate with the session task. Cannot be nil
+ *
+ * @return YES if succeeded, NO if failed
+ */
+- (BOOL)hasSessionTaskStartedForUserId:(NSString *)userId
+                           associateId:(NSString *)associateId;
 
 /**
  * Cache destinationFilePath of a background download session task
@@ -269,6 +298,30 @@
 - (BOOL)cleanUpOnGoingCachedInfoOfBackgroundSessionId:(NSString *)backgroundSessionId error:(NSError **)error;
 
 /**
+ * Clean up background session index of a given background session
+ *
+ * @param userID    Id of user
+ * @param backgroundSessionID   Id of the background session
+ * @param error                 error if fail to complete
+ *
+ * @return YES if succeeded, NO if failed
+*/
+- (BOOL)cleanUpBackgroundSessionIndexGivenUserID:(NSString * _Nonnull)userID
+                             backgroundSessionID:(NSString * _Nonnull)backgroundSessionID
+                                           error:(NSError * _Nullable * _Nullable)error;
+
+/**
+ * Clean up background session ID from IDs reconnected from extension
+ *
+ * @param backgroundSessionId   Id to clean
+ * @param error error if fail to complete
+ *
+ * @return YES if successfully cleaned up, NO if failed
+ */
+- (BOOL)cleanUpExtensionBackgroundSessionId:(NSString * _Nonnull)backgroundSessionId
+                                      error:(NSError * _Nullable * _Nullable)error;
+
+/**
  * Clean up users/$userId directory if empty. Expected to be used at logout
  * after cleaning up on user's session tasks
  *
@@ -310,10 +363,26 @@
 - (BOOL)cacheBackgroundSessionIdFromExtension:(NSString *)backgroundSessionId error:(NSError **)outError;
 
 /**
- * Return all background session ids known to the app from extensions
- * which were cached previously using cacheBackgroundSessionIdFromExtension:error
+ * Check if backgroundSessionID is associated with userID
+ *
+ * @param backgroundSessionID   Id to check
+ * @param userID    Id of user
+ *
+ * @return YES if associated, NO otherwise
  */
-- (NSArray *)backgroundSessionIdsFromExtensionsWithError:(NSError **)error;
+- (BOOL)isBackgroundSessionID:(NSString * _Nonnull)backgroundSessionID
+         associatedWithUserID:(NSString * _Nonnull)userID;
+
+/**
+ * Return existing background session IDs
+ */
+- (NSArray <NSString *> * _Nullable)backgroundSessionIDsOfUserID:(NSString * _Nonnull)userID
+                                                           error:(NSError * _Nullable * _Nullable)error;
+/**
+ * Return all background session IDs created by the extensions
+ * and reconnected to the app
+ */
+- (NSArray <NSString *> *)backgroundSessionIDsReconnectedToAppWithError:(NSError **)error;
 
 /**
  * Return resumeData of a completed session task associated with the userId and associateId
@@ -336,4 +405,20 @@
  */
 - (BOOL)resumeCompletedDownloadSessionTaskForUserId:(NSString *)userId associateId:(NSString *)associateId error:(NSError **)error;
 
+/**
+ * Get associateIds for a given backgroundSessionId and userId
+ *
+ * @param backgroundSessionId   Id of the background session to look up associateIds for
+ * @param userId                Id of user started the background session tasks
+ * @param error                 error if failed to retrieve
+ *
+ * @return NSArray of associateIds, nil if error
+ */
+- (NSArray <NSString *> * _Nullable)associateIdsOfBackgroundSessionId:(NSString * _Nonnull)backgroundSessionId
+                                                               userId:(NSString * _Nonnull)userId
+                                                                error:(NSError * _Nullable * _Nullable)error;
+
 @end
+
+NS_ASSUME_NONNULL_END
+

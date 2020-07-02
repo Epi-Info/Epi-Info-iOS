@@ -6,6 +6,8 @@
 //
 #import "BOXAPIAccessTokenDelegate.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class BOXAbstractSession;
 @class BOXUser;
 @class BOXUserMini;
@@ -63,7 +65,7 @@ extern NSString *const BOXContentClientBackgroundTempFolder;
  * This property is used to temporarily hold the authentication completion block in the case of
  * App-to-App authentication through the Box app.
  */
-@property (nonatomic, readwrite, copy) void (^authenticationCompletionBlock)(BOXUser *user, NSError *error);
+@property (nonatomic, readwrite, copy) void (^ _Nullable authenticationCompletionBlock)(BOXUser *user, NSError *error);
 
 /**
  * The Box user associated with this SDK client. This will be nil if no user has been authenticated yet.
@@ -84,6 +86,12 @@ extern NSString *const BOXContentClientBackgroundTempFolder;
  * to retrieve a new token.  Passed into your fetchTokenBlock delegate method when a new token is required.
  */
 @property (nonatomic, nullable, readwrite, copy) NSDictionary *fetchTokenBlockInfo;
+
+/**
+ *  Used to set background requests' shouldPerformRequestImmediately provided those requests prepared
+ *  using BOXContentClient. E.g.: BOXFileRequest returned by fileInfoRequestWithID:associateID:
+ */
+@property (nonatomic, readwrite, assign) BOOL shouldBackgroundRequestsPerformImmediately;
 
 /**
  *  The list of Box users that have established a session through the SDK.
@@ -212,6 +220,9 @@ extern NSString *const BOXContentClientBackgroundTempFolder;
  * This method needs to be called once in main app to be ready to
  * support background upload/download tasks.
  * If this method has not been called, all background task creations will fail
+ * Note: This method does not reconnect to previously reconnected background sessions. To do that,
+ *  you can call backgroundSessionIDsReconnectedToAppWithError: to get the list of previously
+ *  reconnected background sessions, then call reconnectWithBackgroundSessionIdFromExtension:completion:
  *
  * @param delegate          used for encrypting/decrypting metadata cached for background session tasks
  * @param rootCacheDir      root directory for caching background session tasks' data
@@ -248,6 +259,51 @@ extern NSString *const BOXContentClientBackgroundTempFolder;
                                            completion:(void (^)(NSError *error))completionBlock;
 
 /**
+ * Get associateIds for a given backgroundSessionId and userId
+ *
+ * @param backgroundSessionId   Id of the background session to look up associateIds for
+ * @param userId                Id of user started the background session tasks
+ * @param error                 error if failed to retrieve
+ *
+ * @return NSArray of associateIds, nil if error
+ */
++ (NSArray <NSString *> * _Nullable)associateIdsOfBackgroundSessionId:(NSString * _Nonnull)backgroundSessionId
+                                                               userId:(NSString * _Nonnull)userId
+                                                                error:(NSError * _Nullable * _Nullable)error;
+
+/**
+ * Clean up background session from cache and invalidate it if possible,
+ * i.e. if the background session to be cleaned up is not the current
+ * background session and has no pending tasks
+ *
+ * @param userID    userID that this session belongs to
+ * @param backgroundSessionID   background session ID to clean up
+ * @param error error cleaning up this background session
+ *
+ * @return YES if successfully clean up, NO otherwise
+*/
++ (BOOL)cleanUpBackgroundSessionIfPossibleGivenUserID:(NSString * _Nonnull)userID
+                                  backgroundSessionID:(NSString * _Nonnull)backgroundSessionID
+                                                error:(NSError * _Nullable * _Nullable)error;
+
+/**
+ * Background session ID of background session
+*/
++ (nullable NSString *)backgroundSessionIdentifier;
+
+/**
+ * Return existing background session IDs
+ */
++ (NSArray <NSString *> * _Nullable)backgroundSessionIDsOfUserID:(NSString * _Nonnull)userID
+                                                           error:(NSError * _Nullable * _Nullable)error;
+
+/**
+ * Return all background session IDs created by the extensions
+ * and reconnected to the app
+ */
++ (NSArray <NSString *> *)backgroundSessionIDsReconnectedToAppWithError:(NSError **)error;
+
+/**
  *  API base URLs.
  **/
 + (NSString *)APIBaseURL;
@@ -261,3 +317,6 @@ extern NSString *const BOXContentClientBackgroundTempFolder;
 + (void)setAPIUploadBaseURL:(NSString *)APIUploadBaseURL;
 
 @end
+
+NS_ASSUME_NONNULL_END
+
