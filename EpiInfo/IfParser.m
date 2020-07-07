@@ -628,6 +628,10 @@
                         if ([fieldsControlValue intValue] < 0)
                             fieldsControlValue = @"";
                     }
+                    if ([field isKindOfClass:[NumberField class]])
+                    {
+                        fieldsControlValue = [fieldsControlValue stringByReplacingOccurrencesOfString:@"," withString:@"."];
+                    }
                     if ([fieldsControlValue componentsSeparatedByString:@" "].count > 1 || [fieldsControlValue componentsSeparatedByString:@"\n"].count > 1)
                         fieldsControlValue = [NSString stringWithFormat:@"\"%@\"", [field epiInfoControlValue]];
                     if (fieldsControlValue.length == 0)

@@ -205,7 +205,10 @@
     if ([[[self superview] superview] isKindOfClass:[EnterDataView class]])
     {
         @try {
-            [[(EnterDataView *)[[self superview] superview] fieldsAndStringValues] setObject:self.text forKey:[self.columnName lowercaseString]];
+            NSScanner *scanner = [NSScanner localizedScannerWithString:[self text]];
+            float selfFloat;
+            [scanner scanFloat:&selfFloat];
+            [[(EnterDataView *)[[self superview] superview] fieldsAndStringValues] setObject:[NSString stringWithFormat:@"%f", selfFloat] forKey:[self.columnName lowercaseString]];
             [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
         } @catch (NSException *exception) {
             //
@@ -219,6 +222,10 @@
 
 - (NSString *)epiInfoControlValue
 {
+    NSScanner *scanner = [NSScanner localizedScannerWithString:[self text]];
+    float selfFloat;
+    [scanner scanFloat:&selfFloat];
+    return [NSString stringWithFormat:@"%f", selfFloat];
     return [self text];
 }
 
@@ -226,6 +233,17 @@
 {
     if (value != nil)
     {
+        NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
+        [nsnf setMaximumFractionDigits:6];
+        
+        NSNumber *testFloat = [NSNumber numberWithFloat:1.1];
+        NSString *testFloatString = [nsnf stringFromNumber:testFloat];
+        
+        if ([testFloatString characterAtIndex:1] == ',')
+            value = [value stringByReplacingOccurrencesOfString:@"." withString:@","];
+        else
+            value = [value stringByReplacingOccurrencesOfString:@"," withString:@"."];
+
         if ([value length] > 1)
         {
             if ([[value substringFromIndex:[value length] - 2] isEqualToString:@".0"])
