@@ -4159,6 +4159,25 @@
                                         NSDateComponents *components = [cal components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:dt];
                                         stringValue = [NSString stringWithFormat:@"%d-%d-%d", (int)[components year], (int)[components month], (int)[components day]];
                                     }
+                                    else if ([controlField isKindOfClass:[DateField class]])
+                                    {
+                                        if (stringValue.length > 0)
+                                        {
+                                            int indexOfFirstSlash = (int)[stringValue rangeOfString:@"/"].location;
+                                            int indexOfSecondSlash = (int)[[stringValue substringFromIndex:indexOfFirstSlash + 1] rangeOfString:@"/"].location + indexOfFirstSlash + 1;
+                                            int month = [[stringValue substringToIndex:indexOfFirstSlash] intValue];
+                                            int day = [[stringValue substringWithRange:NSMakeRange(indexOfFirstSlash + 1, indexOfSecondSlash - indexOfFirstSlash - 1)] intValue];
+                                            int year = [[stringValue substringFromIndex:indexOfSecondSlash + 1] intValue];
+                                            
+                                            if (dmy)
+                                            {
+                                                int dayactually = month;
+                                                month = day;
+                                                day = dayactually;
+                                            }
+                                            stringValue = [NSString stringWithFormat:@"%d-%d-%d", year, month, day];
+                                        }
+                                    }
                                     NSLog(@"%@", stringValue);
                                 }
                                 @catch (NSException *exception) {
