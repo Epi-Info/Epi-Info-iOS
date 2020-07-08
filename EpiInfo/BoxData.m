@@ -525,6 +525,24 @@
                 return NO;
             }
         }
+        // Alter the table to add the _updateStamp column
+        sqlite3 *epiinfoaddupdatestampDB;
+        if (sqlite3_open([databasePath UTF8String], &epiinfoaddupdatestampDB) == SQLITE_OK)
+        {
+            NSString *alterTableStatement = [NSString stringWithFormat:@"alter table %@\nadd _updateStamp text", formName];
+            const char *sql_stmt = [alterTableStatement UTF8String];
+            char *alterErrMsg;
+            if (sqlite3_exec(epiinfoaddupdatestampDB, sql_stmt, NULL, NULL, &alterErrMsg) != SQLITE_OK)
+            {
+                NSLog(@"Failed to alter table: %s :::: %@", alterErrMsg, alterTableStatement);
+                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: SUBMIT: Failed to alter table: %s :::: %@\n", [NSDate date], alterErrMsg, alterTableStatement]];
+            }
+            else
+            {
+                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: SUBMIT: %@ table altered to add _updateStamp\n", [NSDate date], formName]];
+            }
+            sqlite3_close(epiinfoaddupdatestampDB);
+        }
     }
     else
     {
@@ -607,6 +625,11 @@
                                                             sqlite3_close(epiinfoboxDB);
                                                             NSString *insertStatement = [NSString stringWithFormat:@"\ninsert into %@(GlobalRecordID", formName];
                                                             NSString *valuesClause = [NSString stringWithFormat:@" values('%@'", [boxDictionary objectForKey:@"id"]];
+                                                            if ([boxDictionary objectForKey:@"_updatestamp"])
+                                                            {
+                                                                insertStatement = [insertStatement stringByAppendingString:@",\n_updateStamp"];
+                                                                valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@",\n'%@'", [boxDictionary objectForKey:@"_updatestamp"]]];
+                                                            }
                                                             if ([boxDictionary objectForKey:@"fkey"])
                                                             {
                                                                 insertStatement = [insertStatement stringByAppendingString:@",\nFKEY"];

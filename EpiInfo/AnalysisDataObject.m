@@ -769,7 +769,13 @@
                     continue;
                 if ([[[self.dataSet objectAtIndex:j] objectAtIndex:i] isEqualToString:@""])
                 {
-                    [(NSMutableArray *)[self.dataSet objectAtIndex:j] replaceObjectAtIndex:i withObject:[NSNull null]];
+                    @try {
+                        [(NSMutableArray *)[self.dataSet objectAtIndex:j] replaceObjectAtIndex:i withObject:[NSNull null]];
+                    } @catch (NSException *exception) {
+                        //
+                    } @finally {
+                        //
+                    }
                 }
             }
             continue;
