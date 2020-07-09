@@ -3998,12 +3998,42 @@
                 }
             }
             NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+            
+            // Check for _updateStamp variable
+            BOOL has_updateStamp = NO;
+            sqlite3 *epiinfoupdatestatuscheckDB;
+            if (sqlite3_open([databasePath UTF8String], &epiinfoupdatestatuscheckDB) == SQLITE_OK)
+            {
+                NSString *selStmt = [NSString stringWithFormat:@"select * from %@ limit 1", edv.formName];
+                const char *query_stmt = [selStmt UTF8String];
+                sqlite3_stmt *statement;
+                if (sqlite3_prepare_v2(epiinfoupdatestatuscheckDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+                {
+                    int i = 0;
+                    while (sqlite3_column_name(statement, i))
+                    {
+                        NSString *currentColumnName = [[[NSString alloc] initWithUTF8String:sqlite3_column_name(statement, i)] lowercaseString];
+                        if ([currentColumnName isEqualToString:@"_updatestamp"])
+                        {
+                            has_updateStamp = YES;
+                            break;
+                        }
+                        i++;
+                    }
+                }
+                sqlite3_finalize(statement);
+            }
+            sqlite3_close(epiinfoupdatestatuscheckDB);
+            //
+            
             if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
             {
                 NSString *selStmt = @"select GlobalRecordID";
                 for (int k = 0; k < edv.pagesArray.count; k++)
                     for (int l = 0; l < [(NSMutableArray *)[edv.pagesArray objectAtIndex:k] count]; l++)
                         selStmt = [[selStmt stringByAppendingString:@", "] stringByAppendingString:[(NSMutableArray *)[edv.pagesArray objectAtIndex:k] objectAtIndex:l]];
+                if (has_updateStamp)
+                    selStmt = [selStmt stringByAppendingString:@", _updateStamp"];
                 selStmt = [NSString stringWithFormat:@"%@ from %@", selStmt, edv.formName];
                 const char *query_stmt = [selStmt UTF8String];
                 sqlite3_stmt *statement;
