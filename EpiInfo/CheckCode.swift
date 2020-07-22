@@ -24,9 +24,10 @@ class CheckCode: NSObject {
     // Get the owner's class description from the dictionary of fields, using the first CheckCode word
     let ownerClassDescription = (dictionaryOfFields.object(forKey: words.object(at: 0)) as AnyObject).description
     // Get the index of the first colon
-    let idx: Int = ownerClassDescription!.characters.distance(from: ownerClassDescription!.startIndex, to: (ownerClassDescription!.range(of: ":"))!.lowerBound)
+    let idx: Int = ownerClassDescription!.distance(from: ownerClassDescription!.startIndex, to: (ownerClassDescription!.range(of: ":"))!.lowerBound)
     // Start after the initial < and substring to that first colon to get the class of the owner
-    let ownerClass = ownerClassDescription!.substring(with: (ownerClassDescription!.characters.index(ownerClassDescription!.startIndex, offsetBy: 1) ..< ownerClassDescription!.characters.index(ownerClassDescription!.startIndex, offsetBy: idx)))
+//    let ownerClass = ownerClassDescription!.substring(with: (ownerClassDescription!.index(ownerClassDescription!.startIndex, offsetBy: 1) ..< ownerClassDescription!.index(ownerClassDescription!.startIndex, offsetBy: idx)))
+    let ownerClass = String(ownerClassDescription![(ownerClassDescription!.index(ownerClassDescription!.startIndex, offsetBy: 1) ..< ownerClassDescription!.index(ownerClassDescription!.startIndex, offsetBy: idx))])
     
     print("ownerClass name = " + ownerClass)
     print("ownerClass = " + ownerClassDescription!)

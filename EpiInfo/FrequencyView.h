@@ -12,6 +12,7 @@
 #import "FrequencyObject.h"
 #include "ShinyButton.h"
 #include "UIPickerViewWithBlurryBackground.h"
+#import "LegalValuesEnter.h"
 
 @interface FrequencyView : UIView <UIPickerViewDelegate, UIPickerViewDataSource>
 {
@@ -40,6 +41,13 @@
     BOOL stratificationVariableChosen;
     ShinyButton *chosenFrequencyVariable;
     ShinyButton *chosenStratificationVariable;
+    
+    UILabel *frequencyVariableLabel;
+    UITextField *frequencyVariableString;
+    LegalValuesEnter *frequencyLVE;
+    UILabel *stratificationVariableLabel;
+    UITextField *stratificationVariableString;
+    LegalValuesEnter *stratificationLVE;
 
     UIView *outputView;
     

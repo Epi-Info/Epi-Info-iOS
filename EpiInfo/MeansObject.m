@@ -75,6 +75,35 @@
     float max = 0.0;
     BOOL minMaxSet = NO;
     
+    if ([meansArray count] == 0)
+    {
+        [self setMeansVariableValues:@[@"0",
+                                       @"0",
+                                       @"0",
+                                       @"0",
+                                       @"0",
+                                       @"0",
+                                       @"0",
+                                       @"0",
+                                       @"0",
+                                       @"0"
+                                       ]];
+
+        [self setMeansVariableFloatValues:@[[NSNumber numberWithFloat:0.0],
+                                            [NSNumber numberWithFloat:0.0],
+                                            [NSNumber numberWithFloat:0.0],
+                                            [NSNumber numberWithFloat:0.0],
+                                            [NSNumber numberWithFloat:0.0],
+                                            [NSNumber numberWithFloat:0.0],
+                                            [NSNumber numberWithFloat:0.0],
+                                            [NSNumber numberWithFloat:0.0],
+                                            [NSNumber numberWithFloat:0.0],
+                                            [NSNumber numberWithFloat:0.0]
+                                            ]];
+        
+        return self;
+    }
+    
     for (int i = 0; i < meansArray.count; i++)
     {
         if ([[meansArray objectAtIndex:i] isKindOfClass:[NSNull class]])
@@ -104,7 +133,9 @@
         return [(NSNumber *)obj1 compare:(NSNumber *)obj2];
     }];
 
-    float median = ([(NSNumber *)[sortedMeansArray objectAtIndex:medianI0] floatValue] + [(NSNumber *)[sortedMeansArray objectAtIndex:medianI1] floatValue]) / 2.0;
+    float median = [(NSNumber *)[sortedMeansArray objectAtIndex:0] floatValue];
+    if ([sortedMeansArray count] > 1)
+        median = ([(NSNumber *)[sortedMeansArray objectAtIndex:medianI0] floatValue] + [(NSNumber *)[sortedMeansArray objectAtIndex:medianI1] floatValue]) / 2.0;
     
     float ss = 0.0;
     for (int i = 0; i < meansArray.count; i++)

@@ -38,7 +38,7 @@
             [chosenFrequencyVariable.titleLabel setTextAlignment:NSTextAlignmentLeft];
             [chosenFrequencyVariable setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
             [chosenFrequencyVariable addTarget:self action:@selector(chosenFrequencyVariableButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [inputView addSubview:chosenFrequencyVariable];
+//            [inputView addSubview:chosenFrequencyVariable];
             chooseVariable = [[UIPickerViewWithBlurryBackground alloc] initWithFrame:CGRectMake(10, 1000, 300, 162)];
             selectedVariableNumber = 0;
             frequencyVariableChosen = NO;
@@ -46,7 +46,7 @@
             [chooseVariable setDataSource:self];
             [chooseVariable setShowsSelectionIndicator:YES];
             [chooseVariable addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(chooseVariableTapped:)]];
-            [inputView addSubview:chooseVariable];
+//            [inputView addSubview:chooseVariable];
             includeMissing = NO;
             includeMissingButton = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width / 2.0, 104, 22, 22)];
             [includeMissingButton.layer setCornerRadius:6];
@@ -70,8 +70,8 @@
             [chosenStratificationVariable.titleLabel setTextAlignment:NSTextAlignmentLeft];
             [chosenStratificationVariable setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
             [chosenStratificationVariable addTarget:self action:@selector(chosenStratificationVariableButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [inputView addSubview:chosenStratificationVariable];
-            [inputView sendSubviewToBack:chosenStratificationVariable];
+//            [inputView addSubview:chosenStratificationVariable];
+//            [inputView sendSubviewToBack:chosenStratificationVariable];
 
             chooseStratificationVariable = [[UIPickerViewWithBlurryBackground alloc] initWithFrame:CGRectMake(10, 1000, 296, 162)];
             [chooseStratificationVariable setTag:2];
@@ -81,7 +81,7 @@
             [chooseStratificationVariable setDataSource:self];
             [chooseStratificationVariable setShowsSelectionIndicator:YES];
             [chooseStratificationVariable addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(chooseStratificationVariableTapped:)]];
-            [inputView addSubview:chooseStratificationVariable];
+//            [inputView addSubview:chooseStratificationVariable];
             
             // Hide the stratification inputs until wired up.
 //            [chooseStratificationVariable setHidden:YES];
@@ -146,7 +146,7 @@
             [chosenFrequencyVariable.titleLabel setTextAlignment:NSTextAlignmentLeft];
             [chosenFrequencyVariable setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
             [chosenFrequencyVariable addTarget:self action:@selector(chosenFrequencyVariableButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [inputView addSubview:chosenFrequencyVariable];
+//            [inputView addSubview:chosenFrequencyVariable];
             chooseVariable = [[UIPickerViewWithBlurryBackground alloc] initWithFrame:CGRectMake(10, 1000, 748, 162)];
             selectedVariableNumber = 0;
             frequencyVariableChosen = NO;
@@ -154,7 +154,7 @@
             [chooseVariable setDataSource:self];
             [chooseVariable setShowsSelectionIndicator:YES];
             [chooseVariable addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(chooseVariableTapped:)]];
-            [inputView addSubview:chooseVariable];
+//            [inputView addSubview:chooseVariable];
             includeMissing = NO;
             includeMissingButton = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width / 2.0, 104, 22, 22)];
             [includeMissingButton.layer setCornerRadius:6];
@@ -183,7 +183,7 @@
             [chosenStratificationVariable.titleLabel setTextAlignment:NSTextAlignmentLeft];
             [chosenStratificationVariable setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
             [chosenStratificationVariable addTarget:self action:@selector(chosenStratificationVariableButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [inputView addSubview:chosenStratificationVariable];
+//            [inputView addSubview:chosenStratificationVariable];
 //            [inputView sendSubviewToBack:chosenStratificationVariable];
             
             chooseStratificationVariable = [[UIPickerViewWithBlurryBackground alloc] initWithFrame:CGRectMake(10, 1000, 748, 162)];
@@ -194,7 +194,7 @@
             [chooseStratificationVariable setDataSource:self];
             [chooseStratificationVariable setShowsSelectionIndicator:YES];
             [chooseStratificationVariable addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(chooseStratificationVariableTapped:)]];
-            [inputView addSubview:chooseStratificationVariable];
+//            [inputView addSubview:chooseStratificationVariable];
 
             [self addSubview:inputView];
             
@@ -248,6 +248,37 @@
 {
     self = [self initWithFrame:frame];
     sqliteData = dataSource;
+    frequencyVariableLabel = [[UILabel alloc] initWithFrame:chosenFrequencyVariable.frame];
+    [frequencyVariableLabel setBackgroundColor:[UIColor whiteColor]];
+    [frequencyVariableLabel setTextColor:epiInfoLightBlue];
+    [frequencyVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [frequencyVariableLabel setText:@"Frequency Variable"];
+    frequencyVariableString = [[UITextField alloc] init];
+    stratificationVariableLabel = [[UILabel alloc] initWithFrame:chosenStratificationVariable.frame];
+    [stratificationVariableLabel setBackgroundColor:[UIColor whiteColor]];
+    [stratificationVariableLabel setTextColor:epiInfoLightBlue];
+    [stratificationVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [stratificationVariableLabel setText:@"Stratification Variable"];
+    stratificationVariableString = [[UITextField alloc] init];
+    NSMutableArray *outcomeNSMA = [[NSMutableArray alloc] init];
+    [outcomeNSMA addObject:@""];
+    for (NSString *variable in sqliteData.columnNamesWorking)
+    {
+        [outcomeNSMA addObject:variable];
+    }
+    [outcomeNSMA sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    availableVariables = [NSMutableArray arrayWithArray:outcomeNSMA];
+    frequencyLVE = [[LegalValuesEnter alloc] initWithFrame:chosenFrequencyVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:frequencyVariableString];
+    [frequencyLVE.picker selectRow:0 inComponent:0 animated:YES];
+    [frequencyLVE analysisStyle];
+    [inputView addSubview:frequencyLVE];
+    stratificationLVE = [[LegalValuesEnter alloc] initWithFrame:chosenStratificationVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:stratificationVariableString];
+    [stratificationLVE.picker selectRow:0 inComponent:0 animated:YES];
+    [stratificationLVE analysisStyle];
+    [inputView addSubview:stratificationLVE];
+    [chosenFrequencyVariable setTitle:[frequencyVariableString text] forState:UIControlStateNormal];
+    [inputView addSubview:frequencyVariableLabel];
+    [inputView addSubview:stratificationVariableLabel];
     avc = (AnalysisViewController *)vc;
     return self;
 }
@@ -266,14 +297,18 @@
             [outputView setFrame:CGRectMake(0, 46, frame.size.width, 10.0 * frame.size.height - 46)];
             if (inputViewDisplayed)
             {
-                [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, frame.size.height - 50)];
+                [inputView setFrame:CGRectMake(2, 48, frame.size.width - 4, 302)];
                 [chosenFrequencyVariable setFrame:CGRectMake(20, 10, frame.size.width - 40, 44)];
                 [chooseVariable setFrame:CGRectMake(10, 1000, inputView.frame.size.width - 20, 162)];
                 [chosenStratificationVariable setFrame:CGRectMake(20, 124, 276, 44)];
                 [chooseStratificationVariable setFrame:CGRectMake(10, 1000, 296, 162)];
                 [inputViewWhiteBox setFrame:CGRectMake(2, 2, inputView.frame.size.width - 4, inputView.frame.size.height - 4)];
-                [includeMissingButton setFrame:CGRectMake(170, 64, 22, 22)];
-                [includeMissingLabel setFrame:CGRectMake(20, 64, 140, 22)];
+                [frequencyVariableLabel setFrame:CGRectMake(16, 10, 284, 20)];
+                [frequencyLVE setFrame:CGRectMake(10, 30, 300, 44)];
+                [includeMissingButton setFrame:CGRectMake(170, 124, 22, 22)];
+                [includeMissingLabel setFrame:CGRectMake(20, 124, 140, 22)];
+                [stratificationVariableLabel setFrame:CGRectMake(16, includeMissingLabel.frame.origin.y + includeMissingLabel.frame.size.height + 16, 284, 20)];
+                [stratificationLVE setFrame:CGRectMake(10, stratificationVariableLabel.frame.origin.y + stratificationVariableLabel.frame.size.height, 300, 44)];
             }
             else
             {
@@ -307,6 +342,10 @@
                 [inputViewWhiteBox setFrame:CGRectMake(2, 2, inputView.frame.size.width - 4, inputView.frame.size.height - 4)];
                 [includeMissingButton setFrame:CGRectMake(170, 228, 22, 22)];
                 [includeMissingLabel setFrame:CGRectMake(20, 228, 140, 22)];
+                [frequencyVariableLabel setFrame:CGRectMake(chosenFrequencyVariable.frame.origin.x, chosenFrequencyVariable.frame.origin.y, 284, 20)];
+                [frequencyLVE setFrame:CGRectMake(frequencyVariableLabel.frame.origin.x - 6, frequencyVariableLabel.frame.origin.y + 20, 276, 44)];
+                [stratificationVariableLabel setFrame:CGRectMake(chosenStratificationVariable.frame.origin.x, chosenStratificationVariable.frame.origin.y, 284, 20)];
+                [stratificationLVE setFrame:CGRectMake(stratificationVariableLabel.frame.origin.x - 6, stratificationVariableLabel.frame.origin.y + 20, 276, 44)];
             }
             else
             {
@@ -376,6 +415,7 @@
 - (void)xButtonPressed
 {
     [avc resetContentSize];
+    [avc putViewOnEpiInfoScrollView:self];
     [UIView animateWithDuration:0.3 animations:^{
         for (UIView *v in [self subviews])
         {
@@ -404,6 +444,7 @@
 
 - (void)gearButtonPressed
 {
+    [avc putViewOnZoomingView:self];
     [avc resetContentSize];
     if (inputView.frame.size.height > 0)
     {
@@ -411,6 +452,10 @@
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
             [chosenFrequencyVariable setFrame:CGRectMake(20, chosenFrequencyVariable.frame.origin.y - 170, chosenFrequencyVariable.frame.size.width, 44)];
             [chosenStratificationVariable setFrame:CGRectMake(20, chosenFrequencyVariable.frame.origin.y - 170, chosenFrequencyVariable.frame.size.width, 44)];
+            [frequencyLVE setFrame:CGRectMake(10, chosenFrequencyVariable.frame.origin.y, chosenFrequencyVariable.frame.size.width, 44)];
+            [stratificationLVE setFrame:CGRectMake(10, chosenStratificationVariable.frame.origin.y, chosenStratificationVariable.frame.size.width, 44)];
+            [frequencyVariableLabel setFrame:CGRectMake(10, chosenFrequencyVariable.frame.origin.y - 20, chosenFrequencyVariable.frame.size.width, 44)];
+            [stratificationVariableLabel setFrame:CGRectMake(10, chosenStratificationVariable.frame.origin.y - 20, chosenStratificationVariable.frame.size.width, 44)];
             if (chooseVariable.frame.origin.y < 500)
             {
                 float fontSize = 18.0;
@@ -451,7 +496,7 @@
             }
         }];
         
-        if (frequencyVariableChosen)
+        if ([[frequencyLVE selectedIndex] intValue] > 0)
         {
             int strata = 1;
             float outputY = 2.0;
@@ -459,10 +504,10 @@
             UILabel *stratumLabel;
             FrequencyObject *sfo;
             
-            if (stratificationVariableChosen)
+            if ([[stratificationLVE selectedIndex] intValue] > 0)
             {
-                int sfoNumber = (int)selectedStratificationVariableNumber.integerValue;
-                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                int sfoNumber = [[stratificationLVE selectedIndex] intValue];
+                if (NO) // Not after changing to Legal Values controls (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
                     sfoNumber++;
                 sfo = [[FrequencyObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndVariable:[availableVariables objectAtIndex:sfoNumber] AndIncludeMissing:includeMissing];
                 strata = (int)sfo.variableValues.count;
@@ -489,7 +534,7 @@
                         whereClause = [NSString stringWithFormat:@"WHERE %@ = %@", sfo.variableName, [sfo.variableValues objectAtIndex:i]];
                 }
 
-                FrequencyObject *fo = [[FrequencyObject alloc] initWithSQLiteData:sqliteData AndWhereClause:whereClause AndVariable:[availableVariables objectAtIndex:selectedVariableNumber.integerValue] AndIncludeMissing:includeMissing];
+                FrequencyObject *fo = [[FrequencyObject alloc] initWithSQLiteData:sqliteData AndWhereClause:whereClause AndVariable:[availableVariables objectAtIndex:[[frequencyLVE selectedIndex] intValue]] AndIncludeMissing:includeMissing];
                 
                 //Old code from when AnalysisDataObject was used to temporarily store data locally
                 //            FrequencyObject *fo = [[FrequencyObject alloc] initWithAnalysisDataObject:dataObject AndVariable:[availableVariables objectAtIndex:selectedVariableNumber.integerValue] AndIncludeMissing:includeMissing];
@@ -627,6 +672,8 @@
             [v removeFromSuperview];
         }
         [avc resetContentSize];
+        
+        [avc putViewOnEpiInfoScrollView:self];
         [UIView animateWithDuration:0.3 animations:^{
             [self setFrame:CGRectMake(0, 50, avc.view.frame.size.width, avc.view.frame.size.height)];
         }];

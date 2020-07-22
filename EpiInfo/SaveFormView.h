@@ -9,8 +9,9 @@
 #import "LegalValues.h"
 #import "sqlite3.h"
 #import "EpiInfoTextField.h"
+#import "EpiInfoLogManager.h"
 
-@interface SaveFormView : UIView <UITextFieldDelegate>
+@interface SaveFormView : UIView <UITextFieldDelegate, NSXMLParserDelegate>
 {
     UITextField *typeFormName;
     
@@ -19,6 +20,10 @@
     sqlite3 *epiinfoDB;
     
     UILabel *fakeNavBar;
+    
+    NSString *createTableStatement;
+    NSString *alterTableStatement;
+    NSMutableDictionary *dictionaryOfColumnsAndTypes;
 }
 @property NSURL *url;
 @property UIViewController *rootViewController;

@@ -85,8 +85,8 @@
 
 - (void)buttonPressed
 {
-    if ([[[self superview] superview] isKindOfClass:[EnterDataView class]])
-        [(EnterDataView *)[[self superview] superview] checkboxChanged:self];
+//    if ([[[self superview] superview] isKindOfClass:[EnterDataView class]])
+//        [(EnterDataView *)[[self superview] superview] checkboxChanged:self];
     if (value)
     {
         value = NO;

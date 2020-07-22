@@ -17,8 +17,7 @@
 #import "UIView+UpdateAutoLayoutConstraints.h"
 #import "AssignStatementParser.h"
 #import <PEGKit/PEGKit.h>
-
-
+@import BoxContentSDK;
 
 
 #pragma mark * Private Interface
@@ -99,6 +98,14 @@
 - (EnterDataView *)parentEnterDataView
 {
     return (EnterDataView *)parentEnterDataView;
+}
+- (void)setChildEnterDataView:(EnterDataView *)childEDV
+{
+    childEnterDataView = childEDV;
+}
+- (EnterDataView *)childEnterDataView
+{
+    return (EnterDataView *)childEnterDataView;
 }
 
 - (NSArray *)arrayOfGroups
@@ -430,6 +437,7 @@
         [resignAllButton setBackgroundColor:[UIColor clearColor]];
         [resignAllButton addTarget:self action:@selector(resignAll) forControlEvents:UIControlEventTouchUpInside];
         [resignAllButton addTarget:self action:@selector(userSwipedToTheRight) forControlEvents:UIControlEventTouchDownRepeat];
+        [resignAllButton setAccessibilityLabel:@"Tap 4 times to go back to the previous page"];
         //    [resignAllButton addTarget:self action:@selector(userSwipedToTheRight) forControlEvents:UISwipeGestureRecognizerDirectionRight];
         UISwipeGestureRecognizer *leftRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(userSwipedToTheLeft)];
         [leftRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
@@ -447,6 +455,7 @@
         [resignAllButtonRight setBackgroundColor:[UIColor clearColor]];
         [resignAllButtonRight addTarget:self action:@selector(resignAll) forControlEvents:UIControlEventTouchUpInside];
         [resignAllButtonRight addTarget:self action:@selector(userSwipedToTheLeft) forControlEvents:UIControlEventTouchDownRepeat];
+        [resignAllButtonRight setAccessibilityLabel:@"Tap 4 times to advance to the next page"];
         //    [resignAllButton addTarget:self action:@selector(userSwipedToTheRight) forControlEvents:UISwipeGestureRecognizerDirectionRight];
         UISwipeGestureRecognizer *leftRecognizerForRightButton = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(userSwipedToTheLeft)];
         [leftRecognizerForRightButton setDirection:UISwipeGestureRecognizerDirectionLeft];
@@ -808,7 +817,8 @@
 //                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Getting Azure credentials (line 784)\n", [NSDate date]]];
 //                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: self.formName = %@\n", [NSDate date], self.formName]];
 //                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Queried values = %s, %s, %s, %s\n", [NSDate date], sqlite3_column_text(statement, 0), sqlite3_column_text(statement, 1), sqlite3_column_text(statement, 2), sqlite3_column_text(statement, 3)]];
-                                    self.client = [MSClient clientWithApplicationURLString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)]];
+                                    // Azure Removal
+//                                    self.client = [MSClient clientWithApplicationURLString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)]];
                                     self.cloudService = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)];
                                     self.cloudKey = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)];
                                     //                  self.epiinfoService = [[QSEpiInfoService alloc] initWithURL:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)] AndKey:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)]];
@@ -956,7 +966,8 @@
 //                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Getting Azure credentials (line 932)\n", [NSDate date]]];
 //                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: self.formName = %@\n", [NSDate date], self.formName]];
 //                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Queried values = %s, %s, %s, %s\n", [NSDate date], sqlite3_column_text(statement, 0), sqlite3_column_text(statement, 1), sqlite3_column_text(statement, 2), sqlite3_column_text(statement, 3)]];
-                                    self.client = [MSClient clientWithApplicationURLString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)]];
+                                    // Azure Removal
+//                                    self.client = [MSClient clientWithApplicationURLString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)]];
                                     self.cloudService = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)];
                                     self.cloudKey = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)];
                                     //                  self.epiinfoService = [[QSEpiInfoService alloc] initWithURL:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)] AndKey:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)]];
@@ -1038,17 +1049,24 @@
 {
     float lat = [(CLLocation *)[locations objectAtIndex:[locations count] - 1] coordinate].latitude;
     float lon = [(CLLocation *)[locations objectAtIndex:[locations count] - 1] coordinate].longitude;
+    float alt = [(CLLocation *)[locations objectAtIndex:[locations count] - 1] altitude];
     NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
     [nsnf setMaximumFractionDigits:6];
     
-    for (UIView *v in [formCanvas subviews])
-        if ([v isKindOfClass:[NumberField class]])
-        {
-            if ([[(NumberField *)v columnName] isEqualToString:self.latitudeField])
-                [(NumberField *)v setText:[nsnf stringFromNumber:[NSNumber numberWithFloat:lat]]];
-            if ([[(NumberField *)v columnName] isEqualToString:self.longitudeField])
-                [(NumberField *)v setText:[nsnf stringFromNumber:[NSNumber numberWithFloat:lon]]];
-        }
+    for (NSString *thisEDVString in dictionaryOfPages)
+    {
+        EnterDataView *thisEDV = [dictionaryOfPages objectForKey:thisEDVString];
+        for (UIView *v in [[thisEDV formCanvas] subviews])
+            if ([v isKindOfClass:[NumberField class]])
+            {
+                if ([[(NumberField *)v columnName] isEqualToString:self.latitudeField])
+                    [(NumberField *)v setText:[nsnf stringFromNumber:[NSNumber numberWithFloat:lat]]];
+                if ([[(NumberField *)v columnName] isEqualToString:self.longitudeField])
+                    [(NumberField *)v setText:[nsnf stringFromNumber:[NSNumber numberWithFloat:lon]]];
+                if ([[(NumberField *)v columnName] isEqualToString:self.altitudeField])
+                    [(NumberField *)v setText:[nsnf stringFromNumber:[NSNumber numberWithFloat:alt]]];
+            }
+    }
     [self.locationManager stopUpdatingLocation];
 }
 
@@ -1060,7 +1078,7 @@
     {
         if ([[NSThread currentThread] isCancelled])
             [NSThread exit];
-        if (geocodingCheckbox.value && [CLLocationManager locationServicesEnabled])
+        if ((geocodingCheckbox.value || [(Checkbox *)[(DataEntryViewController *)self.rootViewController geocodingCheckbox] value]) && [CLLocationManager locationServicesEnabled])
         {
             [self.locationManager startUpdatingLocation];
         }
@@ -1083,7 +1101,15 @@
     [manager stopUpdatingLocation];
 }
 
-- (void)submitButtonPressed
+- (void)submitOrUpdateWithoutClearing
+{
+    if (guidBeingUpdated != nil && [guidBeingUpdated length] > 0)
+        [self updateWithoutClearing];
+    else
+        [self submitWithoutClearing];
+}
+
+- (void)submitWithoutClearing
 {
     guidBeingUpdated = nil;
     BlurryView *bv = [[BlurryView alloc] initWithFrame:CGRectMake(self.superview.frame.size.width - 5.0, self.superview.frame.size.height - 5.0, 10, 10)];
@@ -1144,7 +1170,8 @@
             EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
             for (UIView *v in [[tempedv formCanvas] subviews])
             {
-                if ([v isKindOfClass:[Checkbox class]])
+                if ([v isKindOfClass:[CommandButton class]]) { }
+                else if ([v isKindOfClass:[Checkbox class]])
                 {
                     if (valuesClauseBegun)
                     {
@@ -1185,7 +1212,14 @@
                     else
                     {
                         valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
-                        [azureDictionary setObject:[NSString stringWithFormat:@"%d", (int)[[(LegalValuesEnter *)v picker] selectedRowInComponent:0]] forKey:[(LegalValuesEnter *)v columnName]];
+                         if ([v isKindOfClass:[EpiInfoOptionField class]])
+                          {
+                             [azureDictionary setObject:[NSString stringWithFormat:@"%@", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]] forKey:[(LegalValuesEnter *)v columnName]];
+                         }
+                        else
+                         {
+                             [azureDictionary setObject:[NSString stringWithFormat:@"%d", (int)[[(LegalValuesEnter *)v picker] selectedRowInComponent:0]] forKey:[(LegalValuesEnter *)v columnName]];
+                         }
                     }
                 }
                 else if ([v isKindOfClass:[NumberField class]])
@@ -1200,7 +1234,827 @@
                     valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", [(NumberField *)v value]]];
                     if (![[(NumberField *)v value] isEqualToString:@"NULL"])
                     {
-                        [azureDictionary setObject:[NSNumber numberWithFloat:[[(NumberField *)v value] floatValue]] forKey:[(NumberField *)v columnName]];
+                        NSString *numberfieldstringvalue = [(NumberField *)v value];
+                        double numberfielddoublevalue = [numberfieldstringvalue doubleValue];
+                        NSNumber *numberfieldnsnumbervalue = [NSNumber numberWithDouble:numberfielddoublevalue];
+                        NSDecimal nsd = [numberfieldnsnumbervalue decimalValue];
+                        NSDecimalNumber *nsdn = [NSDecimalNumber decimalNumberWithDecimal:nsd];
+                        [azureDictionary setObject:nsdn forKey:[(NumberField *)v columnName]];
+                    }
+                }
+                else if ([v isKindOfClass:[PhoneNumberField class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(PhoneNumberField *)v columnName]];
+                    if ([[(PhoneNumberField *)v value] isEqualToString:@"NULL"])
+                    {
+                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
+                    }
+                    else
+                    {
+                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [(PhoneNumberField *)v value]]];
+                        [azureDictionary setObject:[(PhoneNumberField *)v value] forKey:[(PhoneNumberField *)v columnName]];
+                    }
+                }
+                else if ([v isKindOfClass:[DateField class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(DateField *)v columnName]];
+                    if ([[(DateField *)v text] length] == 0)
+                    {
+                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
+                    }
+                    else
+                    {
+                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [(DateField *)v text]]];
+                        [azureDictionary setObject:[(DateField *)v text] forKey:[(DateField *)v columnName]];
+                    }
+                }
+                else if ([v isKindOfClass:[EpiInfoTextView class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(EpiInfoTextView *)v columnName]];
+                    if ([[(EpiInfoTextView *)v text] length] == 0)
+                    {
+                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
+                    }
+                    else
+                    {
+                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [[(EpiInfoTextView *)v text] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
+                        [azureDictionary setObject:[(EpiInfoTextView *)v text] forKey:[(EpiInfoTextView *)v columnName]];
+                    }
+                }
+                else if ([v isKindOfClass:[EpiInfoTextField class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(EpiInfoTextField *)v columnName]];
+                    if ([[(EpiInfoTextField *)v text] length] == 0)
+                    {
+                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
+                    }
+                    else
+                    {
+                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [[(EpiInfoTextField *)v text] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
+                        [azureDictionary setObject:[(EpiInfoTextField *)v text] forKey:[(EpiInfoTextField *)v columnName]];
+                    }
+                }
+                else if ([v isKindOfClass:[EpiInfoImageField class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(EpiInfoImageField *)v columnName]];
+                    if (![(EpiInfoImageField *)v epiInfoImageValue])
+                    {
+                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
+                    }
+                    else
+                    {
+                        UIImage *imageToInsert = [(EpiInfoImageField *)v epiInfoImageValue];
+                        NSString *imageGUID = [(EpiInfoImageField *)v epiInfoControlValue];
+                        if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository"]])
+                        {
+                            [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository"] withIntermediateDirectories:NO attributes:nil error:nil];
+                        }
+                        if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository"]])
+                        {
+                            if (![[NSFileManager defaultManager] fileExistsAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName]])
+                            {
+                                [[NSFileManager defaultManager] createDirectoryAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] withIntermediateDirectories:NO attributes:nil error:nil];
+                            }
+                            if ([[NSFileManager defaultManager] fileExistsAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName]])
+                            {
+                                //                                NSData *binaryImageData = UIImagePNGRepresentation(imageToInsert);
+                                NSData *binaryImageData = UIImageJPEGRepresentation(imageToInsert, 0.9f);
+                                NSString *imageFileToWrite = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.jpg", imageGUID]];
+                                [binaryImageData writeToFile:imageFileToWrite atomically:YES];
+                                valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", imageGUID]];
+                                [azureDictionary setObject:imageGUID forKey:[(EpiInfoImageField *)v columnName]];
+                            }
+                            else
+                            {
+                                valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
+                            }
+                        }
+                        else
+                        {
+                            valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
+                        }
+                    }
+                }
+                else if ([v isKindOfClass:[UppercaseTextField class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(UppercaseTextField *)v columnName]];
+                    if ([[(UppercaseTextField *)v text] length] == 0)
+                    {
+                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
+                    }
+                    else
+                    {
+                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [[[(UppercaseTextField *)v text] uppercaseString] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
+                        [azureDictionary setObject:[(UppercaseTextField *)v text] forKey:[(UppercaseTextField *)v columnName]];
+                    }
+                }
+            }
+        }
+        insertStatement = [insertStatement stringByAppendingString:@")"];
+        valuesClause = [valuesClause stringByAppendingString:@")"];
+        insertStatement = [insertStatement stringByAppendingString:valuesClause];
+        //        [azureDictionary setObject:@NO forKey:@"complete"];
+        //        for (id key in azureDictionary)
+        //        {
+        //            NSLog(@"%@ :: %@", key, [azureDictionary objectForKey:key]);
+        //        }
+        //        NSLog(@"%@", createTableStatement);
+        //        NSLog(@"%@", insertStatement);
+        
+        //Create the new table if necessary
+        int tableAlreadyExists = 0;
+        if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+        {
+            NSString *selStmt = [NSString stringWithFormat:@"select count(name) as n from sqlite_master where name = '%@'", formName];
+            const char *query_stmt = [selStmt UTF8String];
+            sqlite3_stmt *statement;
+            if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+            {
+                if (sqlite3_step(statement) == SQLITE_ROW)
+                    tableAlreadyExists = sqlite3_column_int(statement, 0);
+            }
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(epiinfoDB);
+        if (tableAlreadyExists < 1)
+        {
+            //Convert the databasePath NSString to a char array
+            const char *dbpath = [databasePath UTF8String];
+            
+            //Open sqlite3 analysisDB pointing to the databasePath
+            if (sqlite3_open(dbpath, &epiinfoDB) == SQLITE_OK)
+            {
+                char *errMsg;
+                //Build the CREATE TABLE statement
+                //Convert the sqlStmt to char array
+                if ([dictionaryOfPages count] > 1)
+                {
+                    int pagesindictionary = (int)[dictionaryOfPages count];
+                    pagesindictionary = pagesindictionary;
+                    NSMutableString *tempCreateTableStatement = [NSMutableString stringWithString:@""];
+                    for (int i = 0; i < 1; i++)
+                    {
+                        EnterDataView *edv0 = (EnterDataView *)[dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", i + 1]];
+                        NSString *cts = [edv0 createTableStatement];
+                        [tempCreateTableStatement appendString:cts];
+                    }
+                    createTableStatement = [NSString stringWithString:tempCreateTableStatement];
+                }
+                const char *sql_stmt = [createTableStatement UTF8String];
+                //                const char *sql_stmt = [@"drop table FoodHistory" UTF8String];
+                
+                //Execute the CREATE TABLE statement
+                if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                {
+                    NSLog(@"Failed to create table: %s :::: %@", errMsg, createTableStatement);
+                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: SUBMIT: Failed to create table: %s :::: %@\n", [NSDate date], errMsg, createTableStatement]];
+                }
+                else
+                {
+                    //                    NSLog(@"Table created");
+                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: SUBMIT: %@ table created\n", [NSDate date], formName]];
+                }
+                //Close the sqlite connection
+                sqlite3_close(epiinfoDB);
+            }
+            else
+            {
+                NSLog(@"Failed to open/create database");
+                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: SUBMIT: Failed to open/create database\n", [NSDate date]]];
+            }
+        }
+        
+        // Insert the row
+        tableAlreadyExists = 0;
+        if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+        {
+            NSString *selStmt = [NSString stringWithFormat:@"select count(name) as n from sqlite_master where name = '%@'", formName];
+            const char *query_stmt = [selStmt UTF8String];
+            sqlite3_stmt *statement;
+            if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+            {
+                if (sqlite3_step(statement) == SQLITE_ROW)
+                    tableAlreadyExists = sqlite3_column_int(statement, 0);
+            }
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(epiinfoDB);
+        if (tableAlreadyExists >= 1)
+        {
+            //Convert the databasePath NSString to a char array
+            const char *dbpath = [databasePath UTF8String];
+            
+            //Open sqlite3 analysisDB pointing to the databasePath
+            if (sqlite3_open(dbpath, &epiinfoDB) == SQLITE_OK)
+            {
+                char *errMsg;
+                //Build the INSERT statement
+                //Convert the sqlStmt to char array
+                const char *sql_stmt = [insertStatement UTF8String];
+                //                const char *sql_stmt = [@"delete from FoodHistory where caseid is null" UTF8String];
+                //                const char *sql_stmt = [@"update FoodHistory set DOB = '04/23/1978' where DOB = '04/33/1978'" UTF8String];
+                
+                //Execute the INSERT statement
+                if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                {
+                    if ([[NSString stringWithUTF8String:errMsg] rangeOfString:@"has no column named"].location != NSNotFound)
+                    {
+                        NSString *newColumn = [[NSString stringWithUTF8String:errMsg] substringFromIndex:[[NSString stringWithUTF8String:errMsg] rangeOfString:@"has no column named"].location + 20];
+                        NSString *alterTableStatement = [NSString stringWithFormat:@"alter table %@\nadd %@ %@", formName, newColumn, [alterTableElements objectForKey:newColumn]];
+                        sql_stmt = [alterTableStatement UTF8String];
+                        char *secondErrMsg;
+                        if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &secondErrMsg) != SQLITE_OK)
+                        {
+                            NSLog(@"Failed to alter table: %s :::: %@", secondErrMsg, alterTableStatement);
+                            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: SUBMIT: Failed to alter table: %s :::: %@\n", [NSDate date], secondErrMsg, alterTableStatement]];
+                        }
+                        else
+                        {
+                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: SUBMIT: %@ table altered\n", [NSDate date], formName]];
+                            [self submitButtonPressed];
+                            return;
+                        }
+                    }
+                    NSLog(@"Failed to insert row into table: %s :::: %@", errMsg, insertStatement);
+                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: SUBMIT: Failed to insert row into table: %s :::: %@\n", [NSDate date], errMsg, insertStatement]];
+                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Warning" message:@"Could not insert into local database." preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    }];
+                    [alertC addAction:okAction];
+                    [self.rootViewController presentViewController:alertC animated:YES completion:nil];
+                }
+                else
+                {
+                    [(DataEntryViewController *)self.rootViewController setFooterBarToUpdate];
+                    guidBeingUpdated = [NSString stringWithString:newRecordGUID];
+                    newRecordGUID = nil;
+                    tableBeingUpdated = formName;
+                    recordUIDForUpdate = [NSString stringWithString:guidBeingUpdated];
+                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: SUBMIT: Row added to %@\n", [NSDate date], formName]];
+                    //                    NSLog(@"Row inserted");
+                    // Replace deprecated UIAlertViews
+                    //                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Submit" message:@"Row inserted into local database." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    //                    [alert setTag:42];
+                    //                    [alert show];
+                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Submit" message:@"Row inserted into local database." preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                        // Azure Removal
+                        if (NO)
+                        {
+                            UIAlertController *alertCloud = [UIAlertController alertControllerWithTitle:@"Submit" message:@"See logs for cloud database results." preferredStyle:UIAlertControllerStyleAlert];
+                            UIAlertAction *okActionCloud = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                            }];
+                            [alertCloud addAction:okActionCloud];
+//                            [self.rootViewController presentViewController:alertCloud animated:YES completion:nil];
+                        }
+                    }];
+                    [alertC addAction:okAction];
+//                    [self.rootViewController presentViewController:alertC animated:YES completion:nil];
+                    [areYouSure setText:@"Row inserted into local database."];
+                    [uiaiv setHidden:NO];
+                    [uiaiv startAnimating];
+                    [okButton setEnabled:NO];
+                    
+                    // JSON section for Box;
+                    NSArray *users = [BOXContentClient users];
+                    if ([users count] > 0)
+                    {
+                        NSError *jerror;
+                        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:azureDictionary options:0 error:&jerror];
+                        if (jsonData)
+                        {
+                            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+                            NSLog(@"\n%@", jsonString);
+                        }
+                        else
+                        {
+                            NSLog(@"%@", jerror);
+                        }
+                        BOXUser *user0 = [users objectAtIndex:0];
+                        BOXContentClient *client0 = [BOXContentClient clientForUser:user0];
+                        BOXSearchRequest *searchRequest = [client0 searchRequestWithQuery:@"__EpiInfo" inRange:NSMakeRange(0, 1000)];
+                        [searchRequest setType:@"folder"];
+                        [searchRequest setContentTypes:@[@"name"]];
+                        [searchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *items, NSUInteger totalCount, NSRange range, NSError *error) {
+                            if ([items count] > 0)
+                            {
+                                for (BOXItem *bi in items)
+                                {
+                                    if ([bi isKindOfClass:[BOXFolder class]])
+                                    {
+                                        NSString *subfoldername = [NSString stringWithString:formName];
+                                        NSString *eiFolderID = [bi modelID];
+                                        NSLog(@"folder __EpiInfo exists with ID %@; checking for %@ folder", eiFolderID, subfoldername);
+                                        BOXSearchRequest *subfolderSearchRequest = [client0 searchRequestWithQuery:subfoldername inRange:NSMakeRange(0, 1000)];
+                                        [subfolderSearchRequest setAncestorFolderIDs:@[eiFolderID]];
+                                        [searchRequest setType:@"folder"];
+                                        [subfolderSearchRequest setContentTypes:@[@"name"]];
+                                        [subfolderSearchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *sitems, NSUInteger totalCount, NSRange range, NSError *error) {
+                                            if ([sitems count] > 0)
+                                            {
+                                                for (BOXItem *bi in sitems)
+                                                {
+                                                    if ([bi isKindOfClass:[BOXFolder class]])
+                                                    {
+                                                        NSString *folderID = [bi modelID];
+                                                        NSLog(@"folder %@ exists with ID %@; attempting to add a file", subfoldername, folderID);
+                                                        BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:folderID fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                        [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                            NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                        } completion:^(BOXFile *file, NSError *error) {
+                                                            NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                        }];
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:eiFolderID];
+                                                [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                                    NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
+                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder creation request finished with folder %@, error %@\n", [NSDate date], folder, error]];
+                                                    if (folder && !error)
+                                                    {
+                                                        NSLog(@"folder %@ created; attempting to add a file", subfoldername);
+                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a file\n", [NSDate date], subfoldername]];
+                                                        BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[folder modelID] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                        [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                            NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                        } completion:^(BOXFile *file, NSError *error) {
+                                                            NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                        }];
+                                                    }
+                                                    else
+                                                    {
+                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box could not obtain Directory ID for file storage. Record has been stored locally. Try reloading the record and touching Update.\n", [NSDate date]]];
+                                                        UIAlertController *alertE = [UIAlertController alertControllerWithTitle:@"Alert"
+                                                                                                                        message:@"Box could not obtain Directory ID for file storage. Record has been stored locally. Try reloading the record and touching Update." preferredStyle:UIAlertControllerStyleAlert];
+                                                        UIAlertAction *okActionE = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                        }];
+                                                        [alertE addAction:okActionE];
+                                                        UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                                                        [alertWindow setRootViewController:[[UIViewController alloc] init]];
+                                                        [alertWindow setWindowLevel:UIWindowLevelAlert + 1];
+                                                        [alertWindow makeKeyAndVisible];
+                                                        [[alertWindow rootViewController] presentViewController:alertE animated:YES completion:nil];
+                                                        //[self.rootViewController presentViewController:alertE animated:YES completion:nil];
+                                                    }
+                                                }];
+                                            }
+                                        }];
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                NSString *subfoldername = [NSString stringWithString:formName];
+                                BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:@"__EpiInfo" parentFolderID:BOXAPIFolderIDRoot];
+                                [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                    NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
+                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder creation request finished with folder %@, error %@\n", [NSDate date], folder, error]];
+                                    if (folder && !error)
+                                    {
+                                        NSLog(@"folder %@ created; attempting to add a subfolder", @"__EpiInfo");
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a subfolder\n", [NSDate date], @"__EpiInfo"]];
+                                        BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:[folder modelID]];
+                                        [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                            NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
+                                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder creation request finished with folder %@, error %@\n", [NSDate date], folder, error]];
+                                            if (folder && !error)
+                                            {
+                                                NSLog(@"folder %@ created; attempting to add a file", subfoldername);
+                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a file\n", [NSDate date], subfoldername]];
+                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[folder modelID] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                } completion:^(BOXFile *file, NSError *error) {
+                                                    NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                }];
+                                            }
+                                            else
+                                            {
+                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box could not obtain Directory ID for file storage. Record has been stored locally. Try reloading the record and touching Update.\n", [NSDate date]]];
+                                                UIAlertController *alertE = [UIAlertController alertControllerWithTitle:@"Alert"
+                                                                                                                message:@"Box could not obtain Directory ID for file storage. Record has been stored locally. Try reloading the record and touching Update." preferredStyle:UIAlertControllerStyleAlert];
+                                                UIAlertAction *okActionE = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                }];
+                                                [alertE addAction:okActionE];
+                                                UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                                                [alertWindow setRootViewController:[[UIViewController alloc] init]];
+                                                [alertWindow setWindowLevel:UIWindowLevelAlert + 1];
+                                                [alertWindow makeKeyAndVisible];
+                                                [[alertWindow rootViewController] presentViewController:alertE animated:YES completion:nil];
+                                                //[self.rootViewController presentViewController:alertE animated:YES completion:nil];
+                                            }
+                                        }];
+                                    }
+                                    else
+                                    {
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box could not obtain Directory ID for file storage. Record has been stored locally. Try reloading the record and touching Update.\n", [NSDate date]]];
+                                        UIAlertController *alertD = [UIAlertController alertControllerWithTitle:@"Alert"
+                                                                                                        message:@"Box could not obtain Directory ID for file storage. Record has been stored locally. Try reloading the record and touching Update." preferredStyle:UIAlertControllerStyleAlert];
+                                        UIAlertAction *okActionD = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                        }];
+                                        [alertD addAction:okActionD];
+                                        UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                                        [alertWindow setRootViewController:[[UIViewController alloc] init]];
+                                        [alertWindow setWindowLevel:UIWindowLevelAlert + 1];
+                                        [alertWindow makeKeyAndVisible];
+                                        [[alertWindow rootViewController] presentViewController:alertD animated:YES completion:nil];
+                                        //                                        [self.rootViewController presentViewController:alertD animated:YES completion:nil];
+                                    }
+                                }];
+                            }
+                        }];
+                    }
+
+                    if (self.cloudService)
+                    {
+                        // Write to Azure table using generic NSURLRequest method
+                        NSMutableString *cloudDataString = [[NSMutableString alloc] init];
+                        [cloudDataString appendString:@"{"];
+                        NSString *guidValue = nil;
+                        for (NSString *key in azureDictionary)
+                        {
+                            [cloudDataString appendString:[NSString stringWithFormat:@" \"%@\": \"", key]];
+                            id keyValue = [azureDictionary objectForKey:key];
+                            if ([keyValue isKindOfClass:[NSNumber class]])
+                                keyValue = [(NSNumber *)keyValue stringValue];
+                            [cloudDataString appendString:keyValue];
+                            [cloudDataString appendString:@"\","];
+                            if ([key isEqualToString:@"id"])
+                                guidValue = [azureDictionary objectForKey:key];
+                        }
+                        [cloudDataString deleteCharactersInRange:NSMakeRange([cloudDataString length] - 1, 1)];
+                        [cloudDataString appendString:@" }"];
+                        
+                        NSData *cloudData = [cloudDataString dataUsingEncoding:NSUTF8StringEncoding];
+                        NSString *cloudDataLength = [NSString stringWithFormat:@"%d", (int)[cloudData length]];
+                        
+                        NSMutableURLRequest *getRequest = [[NSMutableURLRequest alloc] init];
+                        [getRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", self.cloudService, self.formName]]];
+                        
+                        [getRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                        [getRequest setValue:self.cloudKey forHTTPHeaderField:@"epi-token"];
+                        [getRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                        [getRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                        [getRequest setValue:self.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                        
+                        [getRequest setHTTPMethod:@"GET"];
+                        
+                        NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                        [[session dataTaskWithRequest:getRequest completionHandler:^(NSData *getData, NSURLResponse *response, NSError *error) {
+                            NSString *requestReply = [[NSString alloc] initWithData:getData encoding:NSASCIIStringEncoding];
+                            if (error)
+                            {
+                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE SUBMIT: Could not read table %@. ERROR=%@\n", [NSDate date], self.formName, error]];
+                            }
+                            else if ([requestReply containsString:guidValue])
+                            {
+                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE SUBMIT: Item found, id: %@\n", [NSDate date], guidValue]];
+                                NSMutableURLRequest *deleteRequest = [[NSMutableURLRequest alloc] init];
+                                [deleteRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@/%@", self.cloudService, self.formName, guidValue]]];
+                                
+                                [deleteRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                                [deleteRequest setValue:self.cloudKey forHTTPHeaderField:@"epi-token"];
+                                [deleteRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                                [deleteRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                                [deleteRequest setValue:self.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                                
+                                [deleteRequest setHTTPMethod:@"DELETE"];
+                                
+                                NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                                [[session dataTaskWithRequest:deleteRequest completionHandler:^(NSData *deleteData, NSURLResponse *deleteResponse, NSError *deleteError) {
+                                    if (deleteError)
+                                    {
+                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE SUBMIT: Could not delete id %@: %@\n", [NSDate date], guidValue, deleteError]];
+                                    }
+                                    else
+                                    {
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE SUBMIT: Item deleted, id: %@\n", [NSDate date], guidValue]];
+                                        NSMutableURLRequest *postRequest = [[NSMutableURLRequest alloc] init];
+                                        [postRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", self.cloudService, self.formName]]];
+                                        
+                                        [postRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                                        [postRequest setValue:self.cloudKey forHTTPHeaderField:@"epi-token"];
+                                        [postRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                                        [postRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                                        [postRequest setValue:self.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                                        
+                                        [postRequest setValue:cloudDataLength forHTTPHeaderField:@"Content-Length"];
+                                        [postRequest setHTTPBody:cloudData];
+                                        
+                                        [postRequest setHTTPMethod:@"POST"];
+                                        
+                                        NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                                        [[session dataTaskWithRequest:postRequest completionHandler:^(NSData *postData, NSURLResponse *response, NSError *postError) {
+                                            if (postError)
+                                            {
+                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE SUBMIT: Insert error with id %@: %@\n", [NSDate date], guidValue, postError]];
+                                            }
+                                            else
+                                            {
+                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE SUBMIT: Item inserted, id: %@\n", [NSDate date], guidValue]];
+                                            }
+                                        }] resume];
+                                    }
+                                }] resume];
+                            }
+                            else
+                            {
+                                NSMutableURLRequest *postRequest = [[NSMutableURLRequest alloc] init];
+                                [postRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", self.cloudService, self.formName]]];
+                                
+                                [postRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                                [postRequest setValue:self.cloudKey forHTTPHeaderField:@"epi-token"];
+                                [postRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                                [postRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                                [postRequest setValue:self.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                                
+                                [postRequest setValue:cloudDataLength forHTTPHeaderField:@"Content-Length"];
+                                [postRequest setHTTPBody:cloudData];
+                                
+                                [postRequest setHTTPMethod:@"POST"];
+                                
+                                NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                                [[session dataTaskWithRequest:postRequest completionHandler:^(NSData *postData, NSURLResponse *response, NSError *postError) {
+                                    if (postError)
+                                    {
+                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE SUBMIT: Insert error with id %@: %@\n", [NSDate date], guidValue, postError]];
+                                    }
+                                    else
+                                    {
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE SUBMIT: Item inserted, id: %@\n", [NSDate date], guidValue]];
+                                    }
+                                }] resume];
+                            }
+                        }] resume];
+                    }
+                    /*
+                     if (self.client)
+                     {
+                     MSTable *itemTable = [self.client tableWithName:formName];
+                     [itemTable insert:azureDictionary completion:^(NSDictionary *insertedItem, NSError *error) {
+                     if (error) {
+                     NSLog(@"Error: %@", error);
+                     [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE SUBMIT: Error: %@\n", [NSDate date], error]];
+                     } else {
+                     NSLog(@"Item inserted, id: %@", [insertedItem objectForKey:@"id"]);
+                     [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE SUBMIT: Item inserted, id: %@\n", [NSDate date], [insertedItem objectForKey:@"id"]]];
+                     }
+                     }];
+                     }
+                     */
+                    //          NSLog(@"%@", self.epiinfoService.applicationURL);
+                    //          if (self.epiinfoService.applicationURL)
+                    //            [self.epiinfoService addItem:[NSDictionary dictionaryWithDictionary:azureDictionary] completion:^(NSUInteger index)
+                    //             {
+                    //               NSString *remoteResult = @"Row inserted into Azure cloud table.";
+                    //               if ((int)index < 0)
+                    //                 remoteResult = @"Could not insert row into Azure cloud table.";
+                    //               [areYouSure setText:[NSString stringWithFormat:@"Row inserted into local database.\n%@", remoteResult]];
+                    //               [uiaiv stopAnimating];
+                    //               [uiaiv setHidden:YES];
+                    //               [okButton setEnabled:YES];
+                    //             }];
+                    //          else
+                    {
+                        [uiaiv stopAnimating];
+                        [uiaiv setHidden:YES];
+                        [okButton setEnabled:YES];
+                    }
+                }
+                //Close the sqlite connection
+                sqlite3_close(epiinfoDB);
+            }
+            else
+            {
+                NSLog(@"Failed to open database or insert record");
+                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: SUBMIT: Failed to open database or insert record\n", [NSDate date]]];
+            }
+        }
+        else
+        {
+            NSLog(@"Could not find table");
+            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: SUBMIT: Could not find table %@\n", [NSDate date], formName]];
+        }
+        
+        //        if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+        //        {
+        //            NSString *selStmt = [NSString stringWithFormat:@"select * from %@", formName];
+        //            const char *query_stmt = [selStmt UTF8String];
+        ////            const char *query_stmt = "SELECT name FROM sqlite_master";
+        //            sqlite3_stmt *statement;
+        //            if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+        //            {
+        //                int columnCount = sqlite3_column_count(statement);
+        //                while (sqlite3_step(statement) == SQLITE_ROW)
+        //                    for (int i = 0; i < columnCount; i++)
+        //                        NSLog(@"%s", sqlite3_column_text(statement, i));
+        //            }
+        //            sqlite3_finalize(statement);
+        //        }
+        //        sqlite3_close(epiinfoDB);
+        if ([[[NSFileManager defaultManager] attributesOfItemAtPath:databasePath error:nil] objectForKey:NSFileProtectionKey] != NSFileProtectionComplete)
+            [[NSFileManager defaultManager] setAttributes:@{NSFileProtectionKey: NSFileProtectionComplete} ofItemAtPath:databasePath error:nil];
+    }
+}
+
+- (void)submitButtonPressed
+{
+    BOOL notwo = [(DataEntryViewController *)self.rootViewController notwo];
+    guidBeingUpdated = nil;
+    BlurryView *bv = [[BlurryView alloc] initWithFrame:CGRectMake(self.superview.frame.size.width - 5.0, self.superview.frame.size.height - 5.0, 10, 10)];
+    
+    UILabel *areYouSure = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    [areYouSure setBackgroundColor:[UIColor clearColor]];
+    [areYouSure setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [areYouSure setNumberOfLines:0];
+    [areYouSure setLineBreakMode:NSLineBreakByWordWrapping];
+    [areYouSure setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+    [areYouSure setTextAlignment:NSTextAlignmentLeft];
+    [bv addSubview:areYouSure];
+    
+    UIActivityIndicatorView *uiaiv = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [uiaiv setColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [uiaiv setHidden:YES];
+    [bv addSubview:uiaiv];
+    
+    //    UIButton *yesButton = [[UIButton alloc] initWithFrame:dismissImageView.frame];
+    UIButton *okButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    [okButton setImage:[UIImage imageNamed:@"OKButton.png"] forState:UIControlStateNormal];
+    [okButton setTitle:@"Yes" forState:UIControlStateNormal];
+    [okButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+    [okButton.layer setMasksToBounds:YES];
+    [okButton.layer setCornerRadius:4.0];
+    [okButton addTarget:self action:@selector(okButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [bv addSubview:okButton];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
+    {
+        [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"] withIntermediateDirectories:NO attributes:nil error:nil];
+    }
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
+    {
+        NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+        
+        //        if ([[NSFileManager defaultManager] fileExistsAtPath:databasePath])
+        //        {
+        //            [[NSFileManager defaultManager] removeItemAtPath:databasePath error:nil];
+        //        }
+        
+        NSString *insertStatement = [NSString stringWithFormat:@"\ninsert into %@(GlobalRecordID", formName];
+        //        NSString *valuesClause = @" values(";
+        // Switched from creating UID at submit time to load-form/clear-form time
+        //    NSString *recordUUID = CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL)));
+        NSString *valuesClause = [NSString stringWithFormat:@" values('%@'", newRecordGUID];
+        BOOL valuesClauseBegun = YES;
+        NSMutableDictionary *azureDictionary = [[NSMutableDictionary alloc] init];
+        [azureDictionary setObject:newRecordGUID forKey:@"id"];
+        if (parentRecordGUID)
+        {
+            insertStatement = [insertStatement stringByAppendingString:@",\nFKEY"];
+            valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@",\n'%@'", parentRecordGUID]];
+            [azureDictionary setObject:parentRecordGUID forKey:@"FKEY"];
+        }
+        if (notwo)
+            [azureDictionary setObject:[NSNumber numberWithInt:1003036077] forKey:@"_updateStamp"];
+        for (id key in dictionaryOfPages)
+        {
+            EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
+            for (UIView *v in [[tempedv formCanvas] subviews])
+            {
+                if ([v isKindOfClass:[CommandButton class]]) { }
+                else if ([v isKindOfClass:[Checkbox class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(Checkbox *)v columnName]];
+                    valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%d", [(Checkbox *)v value]]];
+                    [azureDictionary setObject:[NSNumber numberWithBool:[(Checkbox *)v value]] forKey:[(Checkbox *)v columnName]];
+                }
+                else if ([v isKindOfClass:[YesNo class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(YesNo *)v columnName]];
+                    valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", [(YesNo *)v picked]]];
+                    if (notwo)
+                    {
+                        if ([[(YesNo *)v picked] length] == 1)
+                        {
+                            int ynnumval = 2 - [[(YesNo *)v picked] intValue];
+                            [azureDictionary setObject:[NSNumber numberWithInt:ynnumval] forKey:[(YesNo *)v columnName]];
+                        }
+                        else
+                        {
+                            int ynnumval = 0;
+                            [azureDictionary setObject:[NSNumber numberWithInt:ynnumval] forKey:[(YesNo *)v columnName]];
+                        }
+                    }
+                    else
+                    {
+                        if ([[(YesNo *)v picked] length] == 1)
+                        {
+                            int ynnumval = [[(YesNo *)v picked] intValue];
+                            [azureDictionary setObject:[NSNumber numberWithInt:ynnumval] forKey:[(YesNo *)v columnName]];
+                        }
+                    }
+                }
+                else if ([v isKindOfClass:[LegalValuesEnter class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(LegalValuesEnter *)v columnName]];
+                    if ([[(LegalValuesEnter *)v picked] isEqualToString:@"NULL"])
+                    {
+                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", @"NULL"]];
+                    }
+                    else
+                    {
+                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
+                        if ([v isKindOfClass:[EpiInfoOptionField class]])
+                         {
+                            [azureDictionary setObject:[NSString stringWithFormat:@"%@", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]] forKey:[(LegalValuesEnter *)v columnName]];
+                        }
+                       else
+                        {
+                            [azureDictionary setObject:[NSString stringWithFormat:@"%d", (int)[[(LegalValuesEnter *)v picker] selectedRowInComponent:0]] forKey:[(LegalValuesEnter *)v columnName]];
+                        }
+                    }
+                }
+                else if ([v isKindOfClass:[NumberField class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(NumberField *)v columnName]];
+                    valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"%@", [(NumberField *)v value]]];
+                    if (![[(NumberField *)v value] isEqualToString:@"NULL"])
+                    {
+                        NSString *numberfieldstringvalue = [(NumberField *)v value];
+                        double numberfielddoublevalue = [numberfieldstringvalue doubleValue];
+                        NSNumber *numberfieldnsnumbervalue = [NSNumber numberWithDouble:numberfielddoublevalue];
+                        NSDecimal nsd = [numberfieldnsnumbervalue decimalValue];
+                        NSDecimalNumber *nsdn = [NSDecimalNumber decimalNumberWithDecimal:nsd];
+                        [azureDictionary setObject:nsdn forKey:[(NumberField *)v columnName]];
                     }
                 }
                 else if ([v isKindOfClass:[PhoneNumberField class]])
@@ -1474,6 +2328,11 @@
                     }
                     NSLog(@"Failed to insert row into table: %s :::: %@", errMsg, insertStatement);
                     [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: SUBMIT: Failed to insert row into table: %s :::: %@\n", [NSDate date], errMsg, insertStatement]];
+                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Warning" message:@"Could not insert into local database." preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    }];
+                    [alertC addAction:okAction];
+                    [self.rootViewController presentViewController:alertC animated:YES completion:nil];
                 }
                 else
                 {
@@ -1485,7 +2344,8 @@
 //                    [alert show];
                     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Submit" message:@"Row inserted into local database." preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                        if (self.client)
+                        // Azure Removal
+                        if (NO)
                         {
                             UIAlertController *alertCloud = [UIAlertController alertControllerWithTitle:@"Submit" message:@"See logs for cloud database results." preferredStyle:UIAlertControllerStyleAlert];
                             UIAlertAction *okActionCloud = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
@@ -1500,7 +2360,165 @@
                     [uiaiv setHidden:NO];
                     [uiaiv startAnimating];
                     [okButton setEnabled:NO];
-                    
+
+                    // JSON section for Box;
+                    NSArray *users = [BOXContentClient users];
+                    if ([users count] > 0)
+                    {
+                        NSError *jerror;
+                        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:azureDictionary options:0 error:&jerror];
+                        if (jsonData)
+                        {
+                            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+                            NSLog(@"\n%@", jsonString);
+                        }
+                        else
+                        {
+                            NSLog(@"%@", jerror);
+                        }
+                        BOXUser *user0 = [users objectAtIndex:0];
+                        BOXContentClient *client0 = [BOXContentClient clientForUser:user0];
+                        BOXSearchRequest *searchRequest = [client0 searchRequestWithQuery:@"__EpiInfo" inRange:NSMakeRange(0, 1000)];
+                        [searchRequest setType:@"folder"];
+                        [searchRequest setContentTypes:@[@"name"]];
+                        [searchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *items, NSUInteger totalCount, NSRange range, NSError *error) {
+                            if ([items count] > 0)
+                            {
+                                for (BOXItem *bi in items)
+                                {
+                                    if ([bi isKindOfClass:[BOXFolder class]])
+                                    {
+                                        NSString *subfoldername = [NSString stringWithString:formName];
+                                        NSString *eiFolderID = [bi modelID];
+                                        NSLog(@"folder __EpiInfo exists with ID %@; checking for %@ folder", eiFolderID, subfoldername);
+                                        BOXSearchRequest *subfolderSearchRequest = [client0 searchRequestWithQuery:subfoldername inRange:NSMakeRange(0, 1000)];
+                                        [subfolderSearchRequest setAncestorFolderIDs:@[eiFolderID]];
+                                        [searchRequest setType:@"folder"];
+                                        [subfolderSearchRequest setContentTypes:@[@"name"]];
+                                        [subfolderSearchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *sitems, NSUInteger totalCount, NSRange range, NSError *error) {
+                                            if ([sitems count] > 0)
+                                            {
+                                                for (BOXItem *bi in sitems)
+                                                {
+                                                    if ([bi isKindOfClass:[BOXFolder class]])
+                                                    {
+                                                        NSString *folderID = [bi modelID];
+                                                        NSLog(@"folder %@ exists with ID %@; attempting to add a file", subfoldername, folderID);
+                                                        BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:folderID fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                        [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                            NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                        } completion:^(BOXFile *file, NSError *error) {
+                                                            NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                        }];
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:eiFolderID];
+                                                [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                                    NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
+                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder creation request finished with folder %@, error %@\n", [NSDate date], folder, error]];
+                                                    if (folder && !error)
+                                                    {
+                                                        NSLog(@"folder %@ created; attempting to add a file", subfoldername);
+                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a file\n", [NSDate date], subfoldername]];
+                                                        BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[folder modelID] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                        [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                            NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                        } completion:^(BOXFile *file, NSError *error) {
+                                                            NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                        }];
+                                                    }
+                                                    else
+                                                    {
+                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box could not obtain Directory ID for file storage. Record has been stored locally. Try reloading the record and touching Update.\n", [NSDate date]]];
+                                                        UIAlertController *alertE = [UIAlertController alertControllerWithTitle:@"Alert"
+                                                                                                                        message:@"Box could not obtain Directory ID for file storage. Record has been stored locally. Try reloading the record and touching Update." preferredStyle:UIAlertControllerStyleAlert];
+                                                        UIAlertAction *okActionE = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                        }];
+                                                        [alertE addAction:okActionE];
+                                                        UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                                                        [alertWindow setRootViewController:[[UIViewController alloc] init]];
+                                                        [alertWindow setWindowLevel:UIWindowLevelAlert + 1];
+                                                        [alertWindow makeKeyAndVisible];
+                                                        [[alertWindow rootViewController] presentViewController:alertE animated:YES completion:nil];
+                                                        //[self.rootViewController presentViewController:alertE animated:YES completion:nil];
+                                                    }
+                                                }];
+                                            }
+                                        }];
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                NSString *subfoldername = [NSString stringWithString:formName];
+                                BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:@"__EpiInfo" parentFolderID:BOXAPIFolderIDRoot];
+                                [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                    NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
+                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder creation request finished with folder %@, error %@\n", [NSDate date], folder, error]];
+                                    if (folder && !error)
+                                    {
+                                        NSLog(@"folder %@ created; attempting to add a subfolder", @"__EpiInfo");
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a subfolder\n", [NSDate date], @"__EpiInfo"]];
+                                        BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:[folder modelID]];
+                                        [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                            NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
+                                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder creation request finished with folder %@, error %@\n", [NSDate date], folder, error]];
+                                            if (folder && !error)
+                                            {
+                                                NSLog(@"folder %@ created; attempting to add a file", subfoldername);
+                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a file\n", [NSDate date], subfoldername]];
+                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[folder modelID] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                } completion:^(BOXFile *file, NSError *error) {
+                                                    NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                }];
+                                            }
+                                            else
+                                            {
+                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box could not obtain Directory ID for file storage. Record has been stored locally. Try reloading the record and touching Update.\n", [NSDate date]]];
+                                                UIAlertController *alertE = [UIAlertController alertControllerWithTitle:@"Alert"
+                                                                                                                message:@"Box could not obtain Directory ID for file storage. Record has been stored locally. Try reloading the record and touching Update." preferredStyle:UIAlertControllerStyleAlert];
+                                                UIAlertAction *okActionE = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                }];
+                                                [alertE addAction:okActionE];
+                                                UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                                                [alertWindow setRootViewController:[[UIViewController alloc] init]];
+                                                [alertWindow setWindowLevel:UIWindowLevelAlert + 1];
+                                                [alertWindow makeKeyAndVisible];
+                                                [[alertWindow rootViewController] presentViewController:alertE animated:YES completion:nil];
+                                                //[self.rootViewController presentViewController:alertE animated:YES completion:nil];
+                                            }
+                                        }];
+                                    }
+                                    else
+                                    {
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box could not obtain Directory ID for file storage. Record has been stored locally. Try reloading the record and touching Update.\n", [NSDate date]]];
+                                        UIAlertController *alertD = [UIAlertController alertControllerWithTitle:@"Alert"
+                                                                                                        message:@"Box could not obtain Directory ID for file storage. Record has been stored locally. Try reloading the record and touching Update." preferredStyle:UIAlertControllerStyleAlert];
+                                        UIAlertAction *okActionD = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                        }];
+                                        [alertD addAction:okActionD];
+                                        UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                                        [alertWindow setRootViewController:[[UIViewController alloc] init]];
+                                        [alertWindow setWindowLevel:UIWindowLevelAlert + 1];
+                                        [alertWindow makeKeyAndVisible];
+                                        [[alertWindow rootViewController] presentViewController:alertD animated:YES completion:nil];
+//                                        [self.rootViewController presentViewController:alertD animated:YES completion:nil];
+                                    }
+                                }];
+                            }
+                        }];
+                    }
+
                     if (self.cloudService)
                     {
                         // Write to Azure table using generic NSURLRequest method
@@ -1704,7 +2722,7 @@
     }];
 }
 
-- (void)updateButtonPressed
+- (void)updateWithoutClearing
 {
     guidBeingUpdated = nil;
     BlurryView *bv = [[BlurryView alloc] initWithFrame:CGRectMake(self.superview.frame.size.width - 5.0, self.superview.frame.size.height - 5.0, 10, 10)];
@@ -1753,7 +2771,8 @@
             EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
             for (UIView *v in [[tempedv formCanvas] subviews])
             {
-                if ([v isKindOfClass:[Checkbox class]])
+                if ([v isKindOfClass:[CommandButton class]]) { }
+                else if ([v isKindOfClass:[Checkbox class]])
                 {
                     if (valuesClauseBegun)
                     {
@@ -1794,7 +2813,14 @@
                     else
                     {
                         insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
-                        [azureDictionary setObject:[NSString stringWithFormat:@"%d", (int)[[(LegalValuesEnter *)v picker] selectedRowInComponent:0]] forKey:[(LegalValuesEnter *)v columnName]];
+                         if ([v isKindOfClass:[EpiInfoOptionField class]])
+                          {
+                             [azureDictionary setObject:[NSString stringWithFormat:@"%@", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]] forKey:[(LegalValuesEnter *)v columnName]];
+                         }
+                        else
+                         {
+                             [azureDictionary setObject:[NSString stringWithFormat:@"%d", (int)[[(LegalValuesEnter *)v picker] selectedRowInComponent:0]] forKey:[(LegalValuesEnter *)v columnName]];
+                         }
                     }
                 }
                 else if ([v isKindOfClass:[NumberField class]])
@@ -1809,7 +2835,917 @@
                     insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", [(NumberField *)v value]]];
                     if (![[(NumberField *)v value] isEqualToString:@"NULL"])
                     {
-                        [azureDictionary setObject:[NSNumber numberWithFloat:[[(NumberField *)v value] floatValue]] forKey:[(NumberField *)v columnName]];
+                        NSString *numberfieldstringvalue = [(NumberField *)v value];
+                        double numberfielddoublevalue = [numberfieldstringvalue doubleValue];
+                        NSNumber *numberfieldnsnumbervalue = [NSNumber numberWithDouble:numberfielddoublevalue];
+                        NSDecimal nsd = [numberfieldnsnumbervalue decimalValue];
+                        NSDecimalNumber *nsdn = [NSDecimalNumber decimalNumberWithDecimal:nsd];
+                        [azureDictionary setObject:nsdn forKey:[(NumberField *)v columnName]];
+                    }
+                }
+                else if ([v isKindOfClass:[PhoneNumberField class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(PhoneNumberField *)v columnName]];
+                    if ([[(PhoneNumberField *)v value] isEqualToString:@"NULL"])
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
+                    }
+                    else
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [(PhoneNumberField *)v value]]];
+                        [azureDictionary setObject:[(PhoneNumberField *)v value] forKey:[(PhoneNumberField *)v columnName]];
+                    }
+                }
+                else if ([v isKindOfClass:[DateField class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(DateField *)v columnName]];
+                    if ([[(DateField *)v text] length] == 0)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
+                    }
+                    else
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [(DateField *)v text]]];
+                        [azureDictionary setObject:[(DateField *)v text] forKey:[(DateField *)v columnName]];
+                    }
+                }
+                else if ([v isKindOfClass:[EpiInfoTextView class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(EpiInfoTextView *)v columnName]];
+                    if ([[(EpiInfoTextView *)v text] length] == 0)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
+                    }
+                    else
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [[(EpiInfoTextView *)v text] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
+                        [azureDictionary setObject:[(EpiInfoTextView *)v text] forKey:[(EpiInfoTextView *)v columnName]];
+                    }
+                }
+                else if ([v isKindOfClass:[EpiInfoTextField class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(EpiInfoTextField *)v columnName]];
+                    if ([[(EpiInfoTextField *)v text] length] == 0)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
+                    }
+                    else
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [[(EpiInfoTextField *)v text] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
+                        [azureDictionary setObject:[(EpiInfoTextField *)v text] forKey:[(EpiInfoTextField *)v columnName]];
+                    }
+                }
+                else if ([v isKindOfClass:[EpiInfoImageField class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(EpiInfoImageField *)v columnName]];
+                    if (![(EpiInfoImageField *)v epiInfoImageValue])
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
+                    }
+                    else
+                    {
+                        UIImage *imageToInsert = [(EpiInfoImageField *)v epiInfoImageValue];
+                        NSString *imageGUID = [(EpiInfoImageField *)v epiInfoControlValue];
+                        if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository"]])
+                        {
+                            [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository"] withIntermediateDirectories:NO attributes:nil error:nil];
+                        }
+                        if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository"]])
+                        {
+                            if (![[NSFileManager defaultManager] fileExistsAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName]])
+                            {
+                                [[NSFileManager defaultManager] createDirectoryAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] withIntermediateDirectories:NO attributes:nil error:nil];
+                            }
+                            if ([[NSFileManager defaultManager] fileExistsAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName]])
+                            {
+                                //                                NSData *binaryImageData = UIImagePNGRepresentation(imageToInsert);
+                                NSData *binaryImageData = UIImageJPEGRepresentation(imageToInsert, 0.9f);
+                                NSString *imageFileToWrite = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.jpg", imageGUID]];
+                                [binaryImageData writeToFile:imageFileToWrite atomically:YES];
+                                insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", imageGUID]];
+                                [azureDictionary setObject:imageGUID forKey:[(EpiInfoImageField *)v columnName]];
+                            }
+                            else
+                            {
+                                insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
+                            }
+                        }
+                        else
+                        {
+                            insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
+                        }
+                    }
+                }
+                else if ([v isKindOfClass:[UppercaseTextField class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(UppercaseTextField *)v columnName]];
+                    if ([[(UppercaseTextField *)v text] length] == 0)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
+                    }
+                    else
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [[[(UppercaseTextField *)v text] uppercaseString] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
+                        [azureDictionary setObject:[(UppercaseTextField *)v text] forKey:[(UppercaseTextField *)v columnName]];
+                    }
+                }
+            }
+        }
+        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@"\nwhere GlobalRecordID = '%@'", recordUIDForUpdate]];
+        
+        //        [azureDictionary setObject:@NO forKey:@"complete"];
+        
+        //Create the new table if necessary
+        int tableAlreadyExists = 0;
+        if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+        {
+            NSString *selStmt = [NSString stringWithFormat:@"select count(name) as n from sqlite_master where name = '%@'", formName];
+            const char *query_stmt = [selStmt UTF8String];
+            sqlite3_stmt *statement;
+            if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+            {
+                if (sqlite3_step(statement) == SQLITE_ROW)
+                    tableAlreadyExists = sqlite3_column_int(statement, 0);
+            }
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(epiinfoDB);
+        if (tableAlreadyExists < 1)
+        {
+            //Convert the databasePath NSString to a char array
+            const char *dbpath = [databasePath UTF8String];
+            
+            //Open sqlite3 analysisDB pointing to the databasePath
+            if (sqlite3_open(dbpath, &epiinfoDB) == SQLITE_OK)
+            {
+                char *errMsg;
+                //Build the CREATE TABLE statement
+                //Convert the sqlStmt to char array
+                const char *sql_stmt = [createTableStatement UTF8String];
+                //                const char *sql_stmt = [@"drop table FoodHistory" UTF8String];
+                
+                //Execute the CREATE TABLE statement
+                if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                {
+                    NSLog(@"Failed to create table: %s :::: %@", errMsg, createTableStatement);
+                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: UPDATE: Failed to create table: %s :::: %@\n", [NSDate date], errMsg, createTableStatement]];
+                }
+                else
+                {
+                    //                    NSLog(@"Table created");
+                }
+                //Close the sqlite connection
+                sqlite3_close(epiinfoDB);
+            }
+            else
+            {
+                NSLog(@"Failed to open/create database");
+                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: UPDATE: Failed to open/create database: %@\n", [NSDate date], databasePath]];
+            }
+        }
+        
+        // Update the row
+        tableAlreadyExists = 0;
+        if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+        {
+            NSString *selStmt = [NSString stringWithFormat:@"select count(name) as n from sqlite_master where name = '%@'", formName];
+            const char *query_stmt = [selStmt UTF8String];
+            sqlite3_stmt *statement;
+            if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+            {
+                if (sqlite3_step(statement) == SQLITE_ROW)
+                    tableAlreadyExists = sqlite3_column_int(statement, 0);
+            }
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(epiinfoDB);
+        if (tableAlreadyExists >= 1)
+        {
+            //Convert the databasePath NSString to a char array
+            const char *dbpath = [databasePath UTF8String];
+            
+            //Open sqlite3 analysisDB pointing to the databasePath
+            if (sqlite3_open(dbpath, &epiinfoDB) == SQLITE_OK)
+            {
+                char *errMsg;
+                //Build the CREATE TABLE statement
+                //Convert the sqlStmt to char array
+                const char *sql_stmt = [insertStatement UTF8String];
+                
+                //Execute the UPDATE statement
+                if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                {
+                    if ([[NSString stringWithUTF8String:errMsg] rangeOfString:@"no such column:"].location != NSNotFound)
+                    {
+                        NSString *newColumn = [[NSString stringWithUTF8String:errMsg] substringFromIndex:[[NSString stringWithUTF8String:errMsg] rangeOfString:@"no such column:"].location + 16];
+                        NSString *alterTableStatement = [NSString stringWithFormat:@"alter table %@\nadd %@ %@", formName, newColumn, [alterTableElements objectForKey:newColumn]];
+                        sql_stmt = [alterTableStatement UTF8String];
+                        char *secondErrMsg;
+                        if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &secondErrMsg) != SQLITE_OK)
+                        {
+                            NSLog(@"Failed to alter table: %s :::: %@", secondErrMsg, alterTableStatement);
+                            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: UPDATE: Failed to alter table: %s :::: %@\n", [NSDate date], secondErrMsg, alterTableStatement]];
+                        }
+                        else
+                        {
+                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: UPDATE: %@ table altered\n", [NSDate date], formName]];
+                            [self updateButtonPressed];
+                            return;
+                        }
+                    }
+                    NSLog(@"Failed to update row in table: %s :::: %@", errMsg, insertStatement);
+                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: UPDATE: Failed to update row in table: %s :::: %@\n", [NSDate date], errMsg, insertStatement]];
+                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Warning" message:@"Could not update row in table." preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    }];
+                    [alertC addAction:okAction];
+                    [self.rootViewController presentViewController:alertC animated:YES completion:nil];
+                }
+                else
+                {
+                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: UPDATE: %@ row updated\n", [NSDate date], formName]];
+                    //                    NSLog(@"Row inserted");
+                    [areYouSure setText:@"Local database row updated."];
+                    // Replace deprecated UIAlertViews
+                    //                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update" message:@"Local database row updated." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    //                    [alert setTag:42];
+                    //                    [alert show];
+                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Update" message:@"Local database row updated." preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                        // Azure Removal
+                        if (NO)
+                        {
+                            UIAlertController *alertCloud = [UIAlertController alertControllerWithTitle:@"Update" message:@"See logs for cloud database results." preferredStyle:UIAlertControllerStyleAlert];
+                            UIAlertAction *okActionCloud = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                            }];
+                            [alertCloud addAction:okActionCloud];
+//                            [self.rootViewController presentViewController:alertCloud animated:YES completion:nil];
+                        }
+                    }];
+                    [alertC addAction:okAction];
+//                    [self.rootViewController presentViewController:alertC animated:YES completion:nil];
+                    [uiaiv setHidden:NO];
+                    [uiaiv startAnimating];
+                    [okButton setEnabled:NO];
+
+                    // JSON section for Box;
+                    NSArray *users = [BOXContentClient users];
+                    if ([users count] > 0)
+                    {
+                        NSError *jerror;
+                        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:azureDictionary options:0 error:&jerror];
+                        if (jsonData)
+                        {
+                            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+                            NSLog(@"\n%@", jsonString);
+                        }
+                        else
+                        {
+                            NSLog(@"%@", jerror);
+                        }
+                        BOXUser *user0 = [users objectAtIndex:0];
+                        BOXContentClient *client0 = [BOXContentClient clientForUser:user0];
+                        BOXSearchRequest *searchRequest = [client0 searchRequestWithQuery:@"__EpiInfo" inRange:NSMakeRange(0, 1000)];
+                        [searchRequest setType:@"folder"];
+                        [searchRequest setContentTypes:@[@"name"]];
+                        [searchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *items, NSUInteger totalCount, NSRange range, NSError *error) {
+                            if ([items count] > 0)
+                            {
+                                for (BOXItem *bi in items)
+                                {
+                                    if ([bi isKindOfClass:[BOXFolder class]])
+                                    {
+                                        NSString *subfoldername = [NSString stringWithString:formName];
+                                        NSString *eiFolderID = [bi modelID];
+                                        NSLog(@"folder __EpiInfo exists with ID %@; checking for %@ folder", eiFolderID, subfoldername);
+                                        BOXSearchRequest *subfolderSearchRequest = [client0 searchRequestWithQuery:subfoldername inRange:NSMakeRange(0, 1000)];
+                                        [subfolderSearchRequest setAncestorFolderIDs:@[eiFolderID]];
+                                        [searchRequest setType:@"folder"];
+                                        [subfolderSearchRequest setContentTypes:@[@"name"]];
+                                        [subfolderSearchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *sitems, NSUInteger totalCount, NSRange range, NSError *error) {
+                                            if ([sitems count] > 0)
+                                            {
+                                                for (BOXItem *bi in sitems)
+                                                {
+                                                    if ([bi isKindOfClass:[BOXFolder class]])
+                                                    {
+                                                        NSString *folderID = [bi modelID];
+                                                        NSLog(@"folder %@ exists with ID %@; attempting to remove and re-add a file", subfoldername, folderID);
+                                                        BOXSearchRequest *fileSearchRequest = [client0 searchRequestWithQuery:[NSString stringWithFormat:@"%@", [azureDictionary objectForKey:@"id"]] inRange:NSMakeRange(0, 1000)];
+                                                        [fileSearchRequest setAncestorFolderIDs:@[eiFolderID, folderID]];
+                                                        [fileSearchRequest setType:@"file"];
+                                                        [fileSearchRequest setFileExtensions:@[@"txt"]];
+                                                        [fileSearchRequest setContentTypes:@[@"name"]];
+                                                        [fileSearchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *fileitems, NSUInteger totalCount, NSRange range, NSError *error) {
+                                                            NSLog(@"Found %lu file(s) with that name.", (unsigned long)totalCount);
+                                                            if ([fileitems count] > 0)
+                                                            {
+                                                                for (BOXItem *bifile in fileitems)
+                                                                {
+                                                                    if ([bifile isKindOfClass:[BOXFile class]])
+                                                                    {
+                                                                        BOXFileDeleteRequest *deleteRequest = [client0 fileDeleteRequestWithID:[bifile modelID]];
+                                                                        [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
+                                                                            if (deleteError)
+                                                                            {
+                                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
+                                                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:folderID fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                                                } completion:^(BOXFile *file, NSError *error) {
+                                                                                    NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                                                }];
+                                                                            }
+                                                                        }];
+                                                                    }
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:folderID fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                                } completion:^(BOXFile *file, NSError *error) {
+                                                                    if (error)
+                                                                    {
+                                                                        NSDictionary *thing1 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                                                        NSDictionary *thing2 = [thing1 objectForKey:@"context_info"];
+                                                                        NSDictionary *thing3 = [thing2 objectForKey:@"conflicts"];
+                                                                        BOXFileDeleteRequest *deleteRequest = [client0 fileDeleteRequestWithID:[thing3 objectForKey:@"id"]];
+                                                                        [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
+                                                                            if (deleteError)
+                                                                            {
+                                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
+                                                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:folderID fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                                                } completion:^(BOXFile *file, NSError *error) {
+                                                                                    NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                                                }];
+                                                                            }
+                                                                        }];
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                                    }
+                                                                }];
+                                                            }
+                                                        }];
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:eiFolderID];
+                                                [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                                    if (folder && !error)
+                                                    {
+                                                        NSLog(@"folder %@ created; attempting to add a file", subfoldername);
+                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a file\n", [NSDate date], subfoldername]];
+                                                        BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[folder modelID] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                        [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                            NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                        } completion:^(BOXFile *file, NSError *error) {
+                                                            NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                        }];
+                                                    }
+                                                    else if (error)
+                                                    {
+                                                        NSDictionary *thing11 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                                        NSDictionary *thing12 = [thing11 objectForKey:@"context_info"];
+                                                        NSArray *thing13 = [thing12 objectForKey:@"conflicts"];
+                                                        NSDictionary *thing14 = [thing13 objectAtIndex:0];
+                                                        BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[thing14 objectForKey:@"id"] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                        [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                            NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                        } completion:^(BOXFile *file, NSError *error) {
+                                                            if (error)
+                                                            {
+                                                                NSDictionary *thing1 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                                                NSDictionary *thing2 = [thing1 objectForKey:@"context_info"];
+                                                                NSDictionary *thing3 = [thing2 objectForKey:@"conflicts"];
+                                                                BOXFileDeleteRequest *deleteRequest = [client0 fileDeleteRequestWithID:[thing3 objectForKey:@"id"]];
+                                                                [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
+                                                                    if (deleteError)
+                                                                    {
+                                                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
+                                                                        BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[thing14 objectForKey:@"id"] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                                        [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                                            NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                                        } completion:^(BOXFile *file, NSError *error) {
+                                                                            NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                                        }];
+                                                                    }
+                                                                }];
+                                                            }
+                                                            else
+                                                            {
+                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                            }
+                                                        }];
+                                                    }
+                                                }];
+                                            }
+                                        }];
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                NSString *subfoldername = [NSString stringWithString:formName];
+                                BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:@"__EpiInfo" parentFolderID:BOXAPIFolderIDRoot];
+                                [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                    NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
+                                    if (folder && !error)
+                                    {
+                                        NSLog(@"folder %@ created; attempting to add a subfolder", @"__EpiInfo");
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a subfolder\n", [NSDate date], @"__EpiInfo"]];
+                                        BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:[folder modelID]];
+                                        [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                            if (folder && !error)
+                                            {
+                                                NSLog(@"folder %@ created; attempting to add a file", subfoldername);
+                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a file\n", [NSDate date], subfoldername]];
+                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[folder modelID] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                } completion:^(BOXFile *file, NSError *error) {
+                                                    NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                }];
+                                            }
+                                            else if (error)
+                                            {
+                                                NSDictionary *thing11 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                                NSDictionary *thing12 = [thing11 objectForKey:@"context_info"];
+                                                NSArray *thing13 = [thing12 objectForKey:@"conflicts"];
+                                                NSDictionary *thing14 = [thing13 objectAtIndex:0];
+                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[thing14 objectForKey:@"id"] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                } completion:^(BOXFile *file, NSError *error) {
+                                                    NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                }];
+                                            }
+                                        }];
+                                    }
+                                    else if (error)
+                                    {
+                                        NSDictionary *thing1 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                        NSDictionary *thing2 = [thing1 objectForKey:@"context_info"];
+                                        NSArray *thing3 = [thing2 objectForKey:@"conflicts"];
+                                        NSDictionary *thing4 = [thing3 objectAtIndex:0];
+                                        BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:[thing4 objectForKey:@"id"]];
+                                        [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                            NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
+                                            if (folder && !error)
+                                            {
+                                                NSLog(@"folder %@ created; attempting to add a file", subfoldername);
+                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a file\n", [NSDate date], subfoldername]];
+                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[folder modelID] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                } completion:^(BOXFile *file, NSError *error) {
+                                                    NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                }];
+                                            }
+                                            else if (error)
+                                            {
+                                                NSDictionary *thing11 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                                NSDictionary *thing12 = [thing11 objectForKey:@"context_info"];
+                                                NSArray *thing13 = [thing12 objectForKey:@"conflicts"];
+                                                NSDictionary *thing14 = [thing13 objectAtIndex:0];
+                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[thing14 objectForKey:@"id"] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                } completion:^(BOXFile *file, NSError *error) {
+                                                    if (error)
+                                                    {
+                                                        NSDictionary *thing21 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                                        NSDictionary *thing22 = [thing21 objectForKey:@"context_info"];
+                                                        NSDictionary *thing23 = [thing22 objectForKey:@"conflicts"];
+                                                        BOXFileDeleteRequest *deleteRequest = [client0 fileDeleteRequestWithID:[thing23 objectForKey:@"id"]];
+                                                        [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
+                                                            if (deleteError)
+                                                            {
+                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
+                                                            }
+                                                            else
+                                                            {
+                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
+                                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[thing14 objectForKey:@"id"] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                                } completion:^(BOXFile *file, NSError *error) {
+                                                                    NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                                }];
+                                                            }
+                                                        }];
+                                                    }
+                                                    else
+                                                    {
+                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                    }
+                                                }];
+                                            }
+                                        }];
+                                    }
+                                }];
+                            }
+                        }];
+                    }
+
+                    if (self.cloudService)
+                    {
+                        // Write to Azure table using generic NSURLRequest method
+                        NSMutableString *cloudDataString = [[NSMutableString alloc] init];
+                        [cloudDataString appendString:@"{"];
+                        NSString *guidValue = nil;
+                        for (NSString *key in azureDictionary)
+                        {
+                            [cloudDataString appendString:[NSString stringWithFormat:@" \"%@\": \"", key]];
+                            id keyValue = [azureDictionary objectForKey:key];
+                            if ([keyValue isKindOfClass:[NSNumber class]])
+                                keyValue = [(NSNumber *)keyValue stringValue];
+                            [cloudDataString appendString:keyValue];
+                            [cloudDataString appendString:@"\","];
+                            if ([key isEqualToString:@"id"])
+                                guidValue = [azureDictionary objectForKey:key];
+                        }
+                        [cloudDataString deleteCharactersInRange:NSMakeRange([cloudDataString length] - 1, 1)];
+                        [cloudDataString appendString:@" }"];
+                        
+                        NSData *cloudData = [cloudDataString dataUsingEncoding:NSUTF8StringEncoding];
+                        NSString *cloudDataLength = [NSString stringWithFormat:@"%d", (int)[cloudData length]];
+                        
+                        NSMutableURLRequest *getRequest = [[NSMutableURLRequest alloc] init];
+                        [getRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", self.cloudService, self.formName]]];
+                        
+                        [getRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                        [getRequest setValue:self.cloudKey forHTTPHeaderField:@"epi-token"];
+                        [getRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                        [getRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                        [getRequest setValue:self.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                        
+                        [getRequest setHTTPMethod:@"GET"];
+                        
+                        NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                        [[session dataTaskWithRequest:getRequest completionHandler:^(NSData *getData, NSURLResponse *response, NSError *error) {
+                            NSString *requestReply = [[NSString alloc] initWithData:getData encoding:NSASCIIStringEncoding];
+                            if (error)
+                            {
+                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Could not read table %@. ERROR=%@\n", [NSDate date], self.formName, error]];
+                            }
+                            else if ([requestReply containsString:guidValue])
+                            {
+                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Item found, id: %@\n", [NSDate date], guidValue]];
+                                NSMutableURLRequest *deleteRequest = [[NSMutableURLRequest alloc] init];
+                                [deleteRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@/%@", self.cloudService, self.formName, guidValue]]];
+                                
+                                [deleteRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                                [deleteRequest setValue:self.cloudKey forHTTPHeaderField:@"epi-token"];
+                                [deleteRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                                [deleteRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                                [deleteRequest setValue:self.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                                
+                                [deleteRequest setHTTPMethod:@"DELETE"];
+                                
+                                NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                                [[session dataTaskWithRequest:deleteRequest completionHandler:^(NSData *deleteData, NSURLResponse *deleteResponse, NSError *deleteError) {
+                                    if (deleteError)
+                                    {
+                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Could not delete id %@: %@\n", [NSDate date], guidValue, deleteError]];
+                                    }
+                                    else
+                                    {
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Item deleted, id: %@\n", [NSDate date], guidValue]];
+                                        NSMutableURLRequest *postRequest = [[NSMutableURLRequest alloc] init];
+                                        [postRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", self.cloudService, self.formName]]];
+                                        
+                                        [postRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                                        [postRequest setValue:self.cloudKey forHTTPHeaderField:@"epi-token"];
+                                        [postRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                                        [postRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                                        [postRequest setValue:self.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                                        
+                                        [postRequest setValue:cloudDataLength forHTTPHeaderField:@"Content-Length"];
+                                        [postRequest setHTTPBody:cloudData];
+                                        
+                                        [postRequest setHTTPMethod:@"POST"];
+                                        
+                                        NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                                        [[session dataTaskWithRequest:postRequest completionHandler:^(NSData *postData, NSURLResponse *response, NSError *postError) {
+                                            if (postError)
+                                            {
+                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Insert error with id %@: %@\n", [NSDate date], guidValue, postError]];
+                                            }
+                                            else
+                                            {
+                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Item inserted, id: %@\n", [NSDate date], guidValue]];
+                                            }
+                                        }] resume];
+                                    }
+                                }] resume];
+                            }
+                            else
+                            {
+                                NSMutableURLRequest *postRequest = [[NSMutableURLRequest alloc] init];
+                                [postRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", self.cloudService, self.formName]]];
+                                
+                                [postRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+                                [postRequest setValue:self.cloudKey forHTTPHeaderField:@"epi-token"];
+                                [postRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                                [postRequest setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+                                [postRequest setValue:self.cloudKey forHTTPHeaderField:@"X-ZUMO-APPLICATION"];
+                                
+                                [postRequest setValue:cloudDataLength forHTTPHeaderField:@"Content-Length"];
+                                [postRequest setHTTPBody:cloudData];
+                                
+                                [postRequest setHTTPMethod:@"POST"];
+                                
+                                NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+                                [[session dataTaskWithRequest:postRequest completionHandler:^(NSData *postData, NSURLResponse *response, NSError *postError) {
+                                    if (postError)
+                                    {
+                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Insert error with id %@: %@\n", [NSDate date], guidValue, postError]];
+                                    }
+                                    else
+                                    {
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Item inserted, id: %@\n", [NSDate date], guidValue]];
+                                    }
+                                }] resume];
+                            }
+                        }] resume];
+                    }
+                    /*
+                     if (self.client)
+                     {
+                     MSTable *itemTable = [self.client tableWithName:formName];
+                     [itemTable readWithId:[azureDictionary objectForKey:@"id"] completion:^(NSDictionary *queriedItem, NSError *queryError) {
+                     if (queryError) {
+                     [itemTable insert:azureDictionary completion:^(NSDictionary *insertedItem, NSError *error) {
+                     if (error) {
+                     NSLog(@"Insert error: %@", error);
+                     [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Insert error: %@\n", [NSDate date], error]];
+                     } else {
+                     NSLog(@"Item inserted, id: %@", [insertedItem objectForKey:@"id"]);
+                     [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Item inserted, id: %@\n", [NSDate date], [insertedItem objectForKey:@"id"]]];
+                     }
+                     }];
+                     } else {
+                     NSLog(@"Item found, id: %@", [queriedItem objectForKey:@"id"]);
+                     [itemTable update:azureDictionary completion:^(NSDictionary *updateDictionary, NSError *updateError) {
+                     if (updateError) {
+                     NSLog(@"Update error: %@", updateError);
+                     [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Update error: %@\n", [NSDate date], updateError]];
+                     } else {
+                     NSLog(@"Item updated, id: %@", [updateDictionary objectForKey:@"id"]);
+                     [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: AZURE UPDATE: Item updated, id: %@\n", [NSDate date], [updateDictionary objectForKey:@"id"]]];
+                     }
+                     }];
+                     }
+                     }];
+                     }
+                     */
+                    //          if (self.epiinfoService.applicationURL)
+                    //          {
+                    //            [self.epiinfoService addItem:[NSDictionary dictionaryWithDictionary:azureDictionary] completion:^(NSUInteger index)
+                    //             {
+                    //               NSString *remoteResult = @"Azure cloud table row updated.";
+                    //               if ((int)index < 0)
+                    //                 remoteResult = @"Could not update Azure cloud table.";
+                    //               [areYouSure setText:[NSString stringWithFormat:@"Row inserted into local database.\n%@", remoteResult]];
+                    //               [uiaiv stopAnimating];
+                    //               [uiaiv setHidden:YES];
+                    //               [okButton setEnabled:YES];
+                    //             }];
+                    //          }
+                    //          else
+                    {
+                        [uiaiv stopAnimating];
+                        [uiaiv setHidden:YES];
+                        [okButton setEnabled:YES];
+                    }
+                }
+                //Close the sqlite connection
+                sqlite3_close(epiinfoDB);
+            }
+            else
+            {
+                NSLog(@"Failed to open database or insert record");
+                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: UPDATE: failed to open %@ dataset or insert record\n", [NSDate date], formName]];
+            }
+        }
+        else
+        {
+            NSLog(@"Could not find table");
+            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: UPDATE: could not find table: %@\n", [NSDate date], formName]];
+        }
+    }
+}
+
+- (void)updateButtonPressed
+{
+    BOOL notwo = [(DataEntryViewController *)self.rootViewController notwo];
+    guidBeingUpdated = nil;
+    BlurryView *bv = [[BlurryView alloc] initWithFrame:CGRectMake(self.superview.frame.size.width - 5.0, self.superview.frame.size.height - 5.0, 10, 10)];
+    
+    UILabel *areYouSure = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    [areYouSure setBackgroundColor:[UIColor clearColor]];
+    [areYouSure setTextColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [areYouSure setNumberOfLines:0];
+    [areYouSure setLineBreakMode:NSLineBreakByWordWrapping];
+    [areYouSure setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+    [areYouSure setTextAlignment:NSTextAlignmentLeft];
+    [bv addSubview:areYouSure];
+    
+    UIActivityIndicatorView *uiaiv = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [uiaiv setColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
+    [uiaiv setHidden:YES];
+    [bv addSubview:uiaiv];
+    
+    UIButton *okButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    [okButton setImage:[UIImage imageNamed:@"OKButton.png"] forState:UIControlStateNormal];
+    [okButton setTitle:@"Oh Kay" forState:UIControlStateNormal];
+    [okButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+    [okButton.layer setMasksToBounds:YES];
+    [okButton.layer setCornerRadius:4.0];
+    [okButton addTarget:self action:@selector(okButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [bv addSubview:okButton];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
+    {
+        [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"] withIntermediateDirectories:NO attributes:nil error:nil];
+    }
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
+    {
+        NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+        
+        NSString *insertStatement = [NSString stringWithFormat:@"\nupdate %@\nset ", formName];
+        
+        NSString *recordUUID = [NSString stringWithString:recordUIDForUpdate];
+        NSString *valuesClause = [NSString stringWithFormat:@" values('%@'", recordUUID];
+        BOOL valuesClauseBegun = NO;
+        NSMutableDictionary *azureDictionary = [[NSMutableDictionary alloc] init];
+        [azureDictionary setObject:recordUUID forKey:@"id"];
+        if (parentRecordGUID)
+        {
+            [azureDictionary setObject:parentRecordGUID forKey:@"FKEY"];
+        }        if (notwo)
+            [azureDictionary setObject:[NSNumber numberWithInt:1003036077] forKey:@"_updateStamp"];
+        for (id key in dictionaryOfPages)
+        {
+            EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
+            for (UIView *v in [[tempedv formCanvas] subviews])
+            {
+                if ([v isKindOfClass:[CommandButton class]]) { }
+                else if ([v isKindOfClass:[Checkbox class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(Checkbox *)v columnName]];
+                    insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %d", [(Checkbox *)v value]]];
+                    [azureDictionary setObject:[NSNumber numberWithBool:[(Checkbox *)v value]] forKey:[(Checkbox *)v columnName]];
+                }
+                else if ([v isKindOfClass:[YesNo class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(YesNo *)v columnName]];
+                    insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", [(YesNo *)v picked]]];
+                    if (notwo)
+                    {
+                        if ([[(YesNo *)v picked] length] == 1)
+                        {
+                            int ynnumval = 2 - [[(YesNo *)v picked] intValue];
+                            [azureDictionary setObject:[NSNumber numberWithInt:ynnumval] forKey:[(YesNo *)v columnName]];
+                        }
+                        else
+                        {
+                            int ynnumval = 0;
+                            [azureDictionary setObject:[NSNumber numberWithInt:ynnumval] forKey:[(YesNo *)v columnName]];
+                        }
+                    }
+                    else
+                    {
+                        if ([[(YesNo *)v picked] length] == 1)
+                        {
+                            int ynnumval = [[(YesNo *)v picked] intValue];
+                            [azureDictionary setObject:[NSNumber numberWithInt:ynnumval] forKey:[(YesNo *)v columnName]];
+                        }
+                    }
+                }
+                else if ([v isKindOfClass:[LegalValuesEnter class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(LegalValuesEnter *)v columnName]];
+                    if ([[(LegalValuesEnter *)v picked] isEqualToString:@"NULL"])
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", @"NULL"]];
+                    }
+                    else
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = '%@'", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]]];
+                         if ([v isKindOfClass:[EpiInfoOptionField class]])
+                          {
+                             [azureDictionary setObject:[NSString stringWithFormat:@"%@", [[(LegalValuesEnter *)v picked] stringByReplacingOccurrencesOfString:@"'" withString:@"''"]] forKey:[(LegalValuesEnter *)v columnName]];
+                         }
+                        else
+                         {
+                             [azureDictionary setObject:[NSString stringWithFormat:@"%d", (int)[[(LegalValuesEnter *)v picker] selectedRowInComponent:0]] forKey:[(LegalValuesEnter *)v columnName]];
+                         }
+                    }
+                }
+                else if ([v isKindOfClass:[NumberField class]])
+                {
+                    if (valuesClauseBegun)
+                    {
+                        insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                        valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                    }
+                    valuesClauseBegun = YES;
+                    insertStatement = [insertStatement stringByAppendingString:[(NumberField *)v columnName]];
+                    insertStatement = [insertStatement stringByAppendingString:[NSString stringWithFormat:@" = %@", [(NumberField *)v value]]];
+                    if (![[(NumberField *)v value] isEqualToString:@"NULL"])
+                    {
+                        NSString *numberfieldstringvalue = [(NumberField *)v value];
+                        double numberfielddoublevalue = [numberfieldstringvalue doubleValue];
+                        NSNumber *numberfieldnsnumbervalue = [NSNumber numberWithDouble:numberfielddoublevalue];
+                        NSDecimal nsd = [numberfieldnsnumbervalue decimalValue];
+                        NSDecimalNumber *nsdn = [NSDecimalNumber decimalNumberWithDecimal:nsd];
+                        [azureDictionary setObject:nsdn forKey:[(NumberField *)v columnName]];
                     }
                 }
                 else if ([v isKindOfClass:[PhoneNumberField class]])
@@ -2058,8 +3994,13 @@
                             return;
                         }
                     }
-                    NSLog(@"Failed to insert row into table: %s :::: %@", errMsg, insertStatement);
+                    NSLog(@"Failed to update row in table: %s :::: %@", errMsg, insertStatement);
                     [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: UPDATE: Failed to update row in table: %s :::: %@\n", [NSDate date], errMsg, insertStatement]];
+                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Warning" message:@"Could not update row in table." preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    }];
+                    [alertC addAction:okAction];
+                    [self.rootViewController presentViewController:alertC animated:YES completion:nil];
                 }
                 else
                 {
@@ -2072,7 +4013,8 @@
 //                    [alert show];
                     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Update" message:@"Local database row updated." preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                        if (self.client)
+                        // Azure Removal
+                        if (NO)
                         {
                             UIAlertController *alertCloud = [UIAlertController alertControllerWithTitle:@"Update" message:@"See logs for cloud database results." preferredStyle:UIAlertControllerStyleAlert];
                             UIAlertAction *okActionCloud = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
@@ -2086,7 +4028,296 @@
                     [uiaiv setHidden:NO];
                     [uiaiv startAnimating];
                     [okButton setEnabled:NO];
-                    
+
+                    // JSON section for Box;
+                    NSArray *users = [BOXContentClient users];
+                    if ([users count] > 0)
+                    {
+                        NSError *jerror;
+                        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:azureDictionary options:0 error:&jerror];
+                        if (jsonData)
+                        {
+                            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+                            NSLog(@"\n%@", jsonString);
+                        }
+                        else
+                        {
+                            NSLog(@"%@", jerror);
+                        }
+                        BOXUser *user0 = [users objectAtIndex:0];
+                        BOXContentClient *client0 = [BOXContentClient clientForUser:user0];
+                        BOXSearchRequest *searchRequest = [client0 searchRequestWithQuery:@"__EpiInfo" inRange:NSMakeRange(0, 1000)];
+                        [searchRequest setType:@"folder"];
+                        [searchRequest setContentTypes:@[@"name"]];
+                        [searchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *items, NSUInteger totalCount, NSRange range, NSError *error) {
+                            if ([items count] > 0)
+                            {
+                                for (BOXItem *bi in items)
+                                {
+                                    if ([bi isKindOfClass:[BOXFolder class]])
+                                    {
+                                        NSString *subfoldername = [NSString stringWithString:formName];
+                                        NSString *eiFolderID = [bi modelID];
+                                        NSLog(@"folder __EpiInfo exists with ID %@; checking for %@ folder", eiFolderID, subfoldername);
+                                        BOXSearchRequest *subfolderSearchRequest = [client0 searchRequestWithQuery:subfoldername inRange:NSMakeRange(0, 1000)];
+                                        [subfolderSearchRequest setAncestorFolderIDs:@[eiFolderID]];
+                                        [searchRequest setType:@"folder"];
+                                        [subfolderSearchRequest setContentTypes:@[@"name"]];
+                                        [subfolderSearchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *sitems, NSUInteger totalCount, NSRange range, NSError *error) {
+                                            if ([sitems count] > 0)
+                                            {
+                                                for (BOXItem *bi in sitems)
+                                                {
+                                                    if ([bi isKindOfClass:[BOXFolder class]])
+                                                    {
+                                                        NSString *folderID = [bi modelID];
+                                                        NSLog(@"folder %@ exists with ID %@; attempting to remove and re-add a file", subfoldername, folderID);
+                                                        BOXSearchRequest *fileSearchRequest = [client0 searchRequestWithQuery:[NSString stringWithFormat:@"%@", [azureDictionary objectForKey:@"id"]] inRange:NSMakeRange(0, 1000)];
+                                                        [fileSearchRequest setAncestorFolderIDs:@[eiFolderID, folderID]];
+                                                        [fileSearchRequest setType:@"file"];
+                                                        [fileSearchRequest setFileExtensions:@[@"txt"]];
+                                                        [fileSearchRequest setContentTypes:@[@"name"]];
+                                                        [fileSearchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *fileitems, NSUInteger totalCount, NSRange range, NSError *error) {
+                                                            NSLog(@"Found %lu file(s) with that name.", (unsigned long)totalCount);
+                                                            if ([fileitems count] > 0)
+                                                            {
+                                                                for (BOXItem *bifile in fileitems)
+                                                                {
+                                                                    if ([bifile isKindOfClass:[BOXFile class]])
+                                                                    {
+                                                                        BOXFileDeleteRequest *deleteRequest = [client0 fileDeleteRequestWithID:[bifile modelID]];
+                                                                        [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
+                                                                            if (deleteError)
+                                                                            {
+                                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
+                                                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:folderID fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                                                } completion:^(BOXFile *file, NSError *error) {
+                                                                                    NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                                                }];
+                                                                            }
+                                                                        }];
+                                                                    }
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:folderID fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                                } completion:^(BOXFile *file, NSError *error) {
+                                                                    if (error)
+                                                                    {
+                                                                        NSDictionary *thing1 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                                                        NSDictionary *thing2 = [thing1 objectForKey:@"context_info"];
+                                                                        NSDictionary *thing3 = [thing2 objectForKey:@"conflicts"];
+                                                                        BOXFileDeleteRequest *deleteRequest = [client0 fileDeleteRequestWithID:[thing3 objectForKey:@"id"]];
+                                                                        [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
+                                                                            if (deleteError)
+                                                                            {
+                                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
+                                                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:folderID fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                                                } completion:^(BOXFile *file, NSError *error) {
+                                                                                    NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                                                }];
+                                                                            }
+                                                                        }];
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                                    }
+                                                                }];
+                                                            }
+                                                        }];
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:eiFolderID];
+                                                [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                                    if (folder && !error)
+                                                    {
+                                                        NSLog(@"folder %@ created; attempting to add a file", subfoldername);
+                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a file\n", [NSDate date], subfoldername]];
+                                                        BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[folder modelID] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                        [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                            NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                        } completion:^(BOXFile *file, NSError *error) {
+                                                            NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                        }];
+                                                    }
+                                                    else if (error)
+                                                    {
+                                                        NSDictionary *thing11 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                                        NSDictionary *thing12 = [thing11 objectForKey:@"context_info"];
+                                                        NSArray *thing13 = [thing12 objectForKey:@"conflicts"];
+                                                        NSDictionary *thing14 = [thing13 objectAtIndex:0];
+                                                        BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[thing14 objectForKey:@"id"] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                        [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                            NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                        } completion:^(BOXFile *file, NSError *error) {
+                                                            if (error)
+                                                            {
+                                                                NSDictionary *thing1 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                                                NSDictionary *thing2 = [thing1 objectForKey:@"context_info"];
+                                                                NSDictionary *thing3 = [thing2 objectForKey:@"conflicts"];
+                                                                BOXFileDeleteRequest *deleteRequest = [client0 fileDeleteRequestWithID:[thing3 objectForKey:@"id"]];
+                                                                [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
+                                                                    if (deleteError)
+                                                                    {
+                                                                        [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
+                                                                        BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[thing14 objectForKey:@"id"] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                                        [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                                            NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                                        } completion:^(BOXFile *file, NSError *error) {
+                                                                            NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                                        }];
+                                                                    }
+                                                                }];
+                                                            }
+                                                            else
+                                                            {
+                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                            }
+                                                        }];
+                                                    }
+                                                }];
+                                            }
+                                        }];
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                NSString *subfoldername = [NSString stringWithString:formName];
+                                BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:@"__EpiInfo" parentFolderID:BOXAPIFolderIDRoot];
+                                [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                    NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
+                                    if (folder && !error)
+                                    {
+                                        NSLog(@"folder %@ created; attempting to add a subfolder", @"__EpiInfo");
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a subfolder\n", [NSDate date], @"__EpiInfo"]];
+                                        BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:[folder modelID]];
+                                        [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                            if (folder && !error)
+                                            {
+                                                NSLog(@"folder %@ created; attempting to add a file", subfoldername);
+                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a file\n", [NSDate date], subfoldername]];
+                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[folder modelID] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                } completion:^(BOXFile *file, NSError *error) {
+                                                    NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                }];
+                                            }
+                                            else if (error)
+                                            {
+                                                NSDictionary *thing11 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                                NSDictionary *thing12 = [thing11 objectForKey:@"context_info"];
+                                                NSArray *thing13 = [thing12 objectForKey:@"conflicts"];
+                                                NSDictionary *thing14 = [thing13 objectAtIndex:0];
+                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[thing14 objectForKey:@"id"] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                } completion:^(BOXFile *file, NSError *error) {
+                                                    NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                }];
+                                            }
+                                        }];
+                                    }
+                                    else if (error)
+                                    {
+                                        NSDictionary *thing1 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                        NSDictionary *thing2 = [thing1 objectForKey:@"context_info"];
+                                        NSArray *thing3 = [thing2 objectForKey:@"conflicts"];
+                                        NSDictionary *thing4 = [thing3 objectAtIndex:0];
+                                        BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:[thing4 objectForKey:@"id"]];
+                                        [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                            NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
+                                            if (folder && !error)
+                                            {
+                                                NSLog(@"folder %@ created; attempting to add a file", subfoldername);
+                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a file\n", [NSDate date], subfoldername]];
+                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[folder modelID] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                } completion:^(BOXFile *file, NSError *error) {
+                                                    NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                }];
+                                            }
+                                            else if (error)
+                                            {
+                                                NSDictionary *thing11 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                                NSDictionary *thing12 = [thing11 objectForKey:@"context_info"];
+                                                NSArray *thing13 = [thing12 objectForKey:@"conflicts"];
+                                                NSDictionary *thing14 = [thing13 objectAtIndex:0];
+                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[thing14 objectForKey:@"id"] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                } completion:^(BOXFile *file, NSError *error) {
+                                                    if (error)
+                                                    {
+                                                        NSDictionary *thing21 = [error.userInfo objectForKey:@"com.box.contentsdk.jsonerrorresponse"];
+                                                        NSDictionary *thing22 = [thing21 objectForKey:@"context_info"];
+                                                        NSDictionary *thing23 = [thing22 objectForKey:@"conflicts"];
+                                                        BOXFileDeleteRequest *deleteRequest = [client0 fileDeleteRequestWithID:[thing23 objectForKey:@"id"]];
+                                                        [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
+                                                            if (deleteError)
+                                                            {
+                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
+                                                            }
+                                                            else
+                                                            {
+                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
+                                                                BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:[thing14 objectForKey:@"id"] fromData:jsonData fileName:[NSString stringWithFormat:@"%@.txt", [azureDictionary objectForKey:@"id"]]];
+                                                                [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                                    NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                                } completion:^(BOXFile *file, NSError *error) {
+                                                                    NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                                }];
+                                                            }
+                                                        }];
+                                                    }
+                                                    else
+                                                    {
+                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@, error %@\n", [NSDate date], file, error]];
+                                                    }
+                                                }];
+                                            }
+                                        }];
+                                    }
+                                }];
+                            }
+                        }];
+                    }
+
                     if (self.cloudService)
                     {
                         // Write to Azure table using generic NSURLRequest method
@@ -2369,6 +4600,11 @@
                 {
                     NSLog(@"Failed to delete row from table: %s :::: %@", errMsg, insertStatement);
                     [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: DELETE: Could not delete row from table: %s :::: %@\n", [NSDate date], errMsg, insertStatement]];
+                    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Warning" message:@"Could not delete row from table." preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                    }];
+                    [alertC addAction:okAction];
+                    [self.rootViewController presentViewController:alertC animated:YES completion:nil];
                 }
                 else
                 {
@@ -2445,6 +4681,184 @@
                         [self.rootViewController presentViewController:alertC animated:YES completion:nil];
                     }
                      */
+
+                    // JSON section for Box;
+                    NSArray *users = [BOXContentClient users];
+                    if ([users count] > 0)
+                    {
+                        NSError *jerror;
+                        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:azureDictionary options:0 error:&jerror];
+                        if (jsonData)
+                        {
+                            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+                            NSLog(@"\n%@", jsonString);
+                        }
+                        else
+                        {
+                            NSLog(@"%@", jerror);
+                        }
+                        BOXUser *user0 = [users objectAtIndex:0];
+                        BOXContentClient *client0 = [BOXContentClient clientForUser:user0];
+                        BOXSearchRequest *searchRequest = [client0 searchRequestWithQuery:@"__EpiInfo" inRange:NSMakeRange(0, 1000)];
+                        [searchRequest setType:@"folder"];
+                        [searchRequest setContentTypes:@[@"name"]];
+                        [searchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *items, NSUInteger totalCount, NSRange range, NSError *error) {
+                            if ([items count] > 0)
+                            {
+                                for (BOXItem *bi in items)
+                                {
+                                    if ([bi isKindOfClass:[BOXFolder class]])
+                                    {
+                                        NSString *subfoldername = [NSString stringWithString:formName];
+                                        NSString *eiFolderID = [bi modelID];
+                                        NSLog(@"folder __EpiInfo exists with ID %@; checking for %@ folder", eiFolderID, subfoldername);
+                                        BOXSearchRequest *subfolderSearchRequest = [client0 searchRequestWithQuery:subfoldername inRange:NSMakeRange(0, 1000)];
+                                        [subfolderSearchRequest setAncestorFolderIDs:@[eiFolderID]];
+                                        [searchRequest setType:@"folder"];
+                                        [subfolderSearchRequest setContentTypes:@[@"name"]];
+                                        [subfolderSearchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *sitems, NSUInteger totalCount, NSRange range, NSError *error) {
+                                            if ([sitems count] > 0)
+                                            {
+                                                for (BOXItem *bi in sitems)
+                                                {
+                                                    if ([bi isKindOfClass:[BOXFolder class]])
+                                                    {
+                                                        NSString *folderID = [bi modelID];
+                                                        NSLog(@"folder %@ exists with ID %@; attempting to remove and re-add a file", subfoldername, folderID);
+                                                        BOXSearchRequest *fileSearchRequest = [client0 searchRequestWithQuery:[NSString stringWithFormat:@"%@", [azureDictionary objectForKey:@"id"]] inRange:NSMakeRange(0, 1000)];
+                                                        [fileSearchRequest setAncestorFolderIDs:@[eiFolderID, folderID]];
+                                                        [fileSearchRequest setType:@"file"];
+                                                        [fileSearchRequest setFileExtensions:@[@"txt"]];
+                                                        [fileSearchRequest setContentTypes:@[@"name"]];
+                                                        [fileSearchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *fileitems, NSUInteger totalCount, NSRange range, NSError *error) {
+                                                            NSLog(@"Found %lu file(s) with that name.", (unsigned long)totalCount);
+                                                            if ([fileitems count] > 0)
+                                                            {
+                                                                for (BOXItem *bifile in fileitems)
+                                                                {
+                                                                    if ([bifile isKindOfClass:[BOXFile class]])
+                                                                    {
+                                                                        BOXFileDeleteRequest *deleteRequest = [client0 fileDeleteRequestWithID:[bifile modelID]];
+                                                                        [deleteRequest performRequestWithCompletion:^(NSError *deleteError) {
+                                                                            if (deleteError)
+                                                                            {
+                                                                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Could not delete existing Box file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
+                                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box file %@ not found so no delete performed. If the file does exist, use the Box web interface to delete it manually.\n", [NSDate date], [azureDictionary objectForKey:@"id"]]];
+                                                                                UIAlertController *alertD = [UIAlertController alertControllerWithTitle:@"Alert"
+                                                                                                                                                message:[NSString stringWithFormat:@"Box file %@ not found so no delete performed. If the file does exist, use the Box web interface to delete it manually.\n", [azureDictionary objectForKey:@"id"]] preferredStyle:UIAlertControllerStyleAlert];
+                                                                                UIAlertAction *okActionD = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                                                }];
+                                                                                [alertD addAction:okActionD];
+                                                                                UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                                                                                [alertWindow setRootViewController:[[UIViewController alloc] init]];
+                                                                                [alertWindow setWindowLevel:UIWindowLevelAlert + 1];
+                                                                                [alertWindow makeKeyAndVisible];
+                                                                                [[alertWindow rootViewController] presentViewController:alertD animated:YES completion:nil];
+                                                                                //[self.rootViewController presentViewController:alertD animated:YES completion:nil];
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box delete request finished with file %@, error %@\n", [NSDate date], [azureDictionary objectForKey:@"id"], deleteError]];
+                                                                            }
+                                                                        }];
+                                                                    }
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box file %@ not found so no delete performed. If the file does exist, use the Box web interface to delete it manually.\n", [NSDate date], [azureDictionary objectForKey:@"id"]]];
+                                                                UIAlertController *alertD = [UIAlertController alertControllerWithTitle:@"Alert"
+                                                                                                                                message:[NSString stringWithFormat:@"Box file %@ not found so no delete performed. If the file does exist, use the Box web interface to delete it manually.\n", [azureDictionary objectForKey:@"id"]] preferredStyle:UIAlertControllerStyleAlert];
+                                                                UIAlertAction *okActionD = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                                }];
+                                                                [alertD addAction:okActionD];
+                                                                UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                                                                [alertWindow setRootViewController:[[UIViewController alloc] init]];
+                                                                [alertWindow setWindowLevel:UIWindowLevelAlert + 1];
+                                                                [alertWindow makeKeyAndVisible];
+                                                                [[alertWindow rootViewController] presentViewController:alertD animated:YES completion:nil];
+                                                                //[self.rootViewController presentViewController:alertD animated:YES completion:nil];
+                                                            }
+                                                        }];
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:eiFolderID];
+                                                [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                                    NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
+                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder creation request finished with folder %@, error %@\n", [NSDate date], folder, error]];
+                                                    if (folder && !error)
+                                                    {
+                                                        NSLog(@"folder %@ created", subfoldername);
+                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created\n", [NSDate date], subfoldername]];
+                                                    }
+                                                    else
+                                                    {
+                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box file %@ not found so no delete performed. If the file does exist, use the Box web interface to delete it manually.\n", [NSDate date], [azureDictionary objectForKey:@"id"]]];
+                                                        UIAlertController *alertD = [UIAlertController alertControllerWithTitle:@"Alert"
+                                                                                                                        message:[NSString stringWithFormat:@"Box file %@ not found so no delete performed. If the file does exist, use the Box web interface to delete it manually.\n", [azureDictionary objectForKey:@"id"]] preferredStyle:UIAlertControllerStyleAlert];
+                                                        UIAlertAction *okActionD = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                        }];
+                                                        [alertD addAction:okActionD];
+                                                        UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                                                        [alertWindow setRootViewController:[[UIViewController alloc] init]];
+                                                        [alertWindow setWindowLevel:UIWindowLevelAlert + 1];
+                                                        [alertWindow makeKeyAndVisible];
+                                                        [[alertWindow rootViewController] presentViewController:alertD animated:YES completion:nil];
+                                                        //[self.rootViewController presentViewController:alertD animated:YES completion:nil];
+                                                    }
+                                                }];
+                                            }
+                                        }];
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                NSString *subfoldername = [NSString stringWithString:formName];
+                                BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:@"__EpiInfo" parentFolderID:BOXAPIFolderIDRoot];
+                                [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                    NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
+                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder creation request finished with folder %@, error %@\n", [NSDate date], folder, error]];
+                                    if (folder && !error)
+                                    {
+                                        NSLog(@"folder %@ created; attempting to add a subfolder", @"__EpiInfo");
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a subfolder\n", [NSDate date], @"__EpiInfo"]];
+                                        BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:[folder modelID]];
+                                        [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                            NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
+                                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder creation request finished with folder %@, error %@\n", [NSDate date], folder, error]];
+                                            if (folder && !error)
+                                            {
+                                                NSLog(@"folder %@ created", subfoldername);
+                                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; nothing to delete\n", [NSDate date], subfoldername]];
+                                            }
+                                        }];
+                                    }
+                                    else
+                                    {
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box file %@ not found so no delete performed. If the file does exist, use the Box web interface to delete it manually.\n", [NSDate date], [azureDictionary objectForKey:@"id"]]];
+                                        UIAlertController *alertD = [UIAlertController alertControllerWithTitle:@"Alert"
+                                                                                                        message:[NSString stringWithFormat:@"Box file %@ not found so no delete performed. If the file does exist, use the Box web interface to delete it manually.\n", [azureDictionary objectForKey:@"id"]] preferredStyle:UIAlertControllerStyleAlert];
+                                        UIAlertAction *okActionD = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                        }];
+                                        [alertD addAction:okActionD];
+                                        UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                                        [alertWindow setRootViewController:[[UIViewController alloc] init]];
+                                        [alertWindow setWindowLevel:UIWindowLevelAlert + 1];
+                                        [alertWindow makeKeyAndVisible];
+                                        [[alertWindow rootViewController] presentViewController:alertD animated:YES completion:nil];
+                                        //[self.rootViewController presentViewController:alertD animated:YES completion:nil];
+                                    }
+                                }];
+                            }
+                        }];
+                    }
+
                     if (self.cloudService)
                     {
                         // Write to Azure table using generic NSURLRequest method
@@ -2556,7 +4970,8 @@
                     [uiaiv setHidden:NO];
                     [uiaiv startAnimating];
                     [okButton setEnabled:NO];
-                    if (self.client)
+                    // Azure Removal
+                    if (NO)
                     {
                     }
                     //          if (self.epiinfoService.applicationURL)
@@ -2881,7 +5296,7 @@
         else if (!populateInstructionCameFromLineList)
         {
             [tempedv removeFromSuperview];
-       }
+        }
         for (UIView *v in [self.rootViewController.view subviews])
         {
             if ([[v backgroundColor] isEqual:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:0.95]] && v == myOrangeBanner)
@@ -3138,7 +5553,9 @@
             //      [self.epiinfoService setTableName:formName];
             
             //      createTableStatement = [NSString stringWithFormat:@"create table %@(GlobalRecordID text", formName];
-            alterTableElements = [[NSMutableDictionary alloc] init];
+            if (!((DataEntryViewController *)self.rootViewController).alterTableElements)
+                ((DataEntryViewController *)self.rootViewController).alterTableElements = [[NSMutableDictionary alloc] init];
+            alterTableElements = ((DataEntryViewController *)self.rootViewController).alterTableElements;
             beginColumList = NO;
             
             if ([attributeDict objectForKey:@"CheckCode"])
@@ -3296,9 +5713,9 @@
                 
                 [formCanvas addSubview:elementLabel];
                 
-                if ([elementLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]}].width > self.frame.size.width - 40.0)
+                if ([elementLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]}].width > self.frame.size.width - 80.0)
                 {
-                    elementLabelHeight = 20.0 * (fontsize / 14.0) * ((float)((int)([elementLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]}].width / (self.frame.size.width - 40.0))) + 1.0);
+                    elementLabelHeight = 20.0 * (fontsize / 14.0) * ((float)((int)([elementLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]}].width / (self.frame.size.width - 80.0))) + 1.0);
                     [elementLabel setFrame:CGRectMake(20, contentSizeHeight, self.frame.size.width - 40.0, elementLabelHeight)];
                     contentSizeHeight += (elementLabelHeight - 40.0);
                 }
@@ -3317,13 +5734,17 @@
                 }
                 if (carriageReturns > (int)(elementLabelHeight / 20.0))
                 {
-                    elementLabelHeight += 20.0 * (float)(carriageReturns - (int)(elementLabelHeight / 20.0));
-                    [elementLabel setFrame:CGRectMake(20, contentSizeHeight, self.frame.size.width - 40.0, elementLabelHeight)];
-                    contentSizeHeight += 20.0 * (float)(carriageReturns - (int)(elementLabelHeight / 20.0));
+                    float carriageReturnHeightMultiplier = 20.0;
+                    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                        carriageReturnHeightMultiplier *= (24.0 / 14.0);
+                    int elementLabelY = contentSizeHeight;
+                    contentSizeHeight += carriageReturnHeightMultiplier * (float)(carriageReturns - (int)(elementLabelHeight / 20.0));
+                    elementLabelHeight += carriageReturnHeightMultiplier * (float)(carriageReturns - (int)(elementLabelHeight / 20.0));
+                    [elementLabel setFrame:CGRectMake(20, elementLabelY, self.frame.size.width - 40.0, elementLabelHeight)];
                 }
                 
             }
-
+            
             if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"1"])
             {
                 EpiInfoTextField *tf;
@@ -3438,7 +5859,7 @@
                         if (checkCodeFieldName)
                         {
                             [tf setCheckcode:[[CheckCode alloc] init]];
-                            [(CheckCode *)[tf checkcode] setTheWords:(NSArray *)checkCodeFieldName];
+//                            [(CheckCode *)[tf checkcode] setTheWords:(NSArray *)checkCodeFieldName];
                         }
                     }
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -3457,6 +5878,19 @@
                     [tf setIsReadOnly:YES];
                     [tf setIsEnabled:NO];
                 }
+                
+                float marginwidth = formCanvas.frame.size.width - (tf.frame.origin.x + tf.frame.size.width);
+                if (marginwidth < 34)
+                {
+                    float differenceformargin = 34 - marginwidth;
+                    [tf setFrame:CGRectMake(tf.frame.origin.x, tf.frame.origin.y, tf.frame.size.width - differenceformargin, tf.frame.size.height)];
+                }
+                CGRect qrScannerButtonFrame = CGRectMake(tf.frame.origin.x + tf.frame.size.width + 2, tf.frame.origin.y, 30, 30);
+                QRScannerButton *qrsb = [[QRScannerButton alloc] initWithFrame:qrScannerButtonFrame];
+                [qrsb setControl:tf];
+                [formCanvas addSubview:qrsb];
+                [qrsb setAlpha:0.0];
+                [(DataEntryViewController *)self.rootViewController addButtonToArrayOfScannerButtons:qrsb];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"2"])
             {
@@ -3574,6 +6008,19 @@
                     [tf setIsReadOnly:YES];
                     [tf setIsEnabled:NO];
                 }
+                
+                float marginwidth = formCanvas.frame.size.width - (tf.frame.origin.x + tf.frame.size.width);
+                if (marginwidth < 34)
+                {
+                    float differenceformargin = 34 - marginwidth;
+                    [tf setFrame:CGRectMake(tf.frame.origin.x, tf.frame.origin.y, tf.frame.size.width - differenceformargin, tf.frame.size.height)];
+                }
+                CGRect qrScannerButtonFrame = CGRectMake(tf.frame.origin.x + tf.frame.size.width + 2, tf.frame.origin.y, 30, 30);
+                QRScannerButton *qrsb = [[QRScannerButton alloc] initWithFrame:qrScannerButtonFrame];
+                [qrsb setControl:tf];
+                [formCanvas addSubview:qrsb];
+                [qrsb setAlpha:0.0];
+                [(DataEntryViewController *)self.rootViewController addButtonToArrayOfScannerButtons:qrsb];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"4"])
             {
@@ -3688,6 +6135,19 @@
                     [tf setIsReadOnly:YES];
                     [tf setIsEnabled:NO];
                 }
+                
+                float marginwidth = formCanvas.frame.size.width - (tf.frame.origin.x + tf.frame.size.width);
+                if (marginwidth < 34)
+                {
+                    float differenceformargin = 34 - marginwidth;
+                    [tf setFrame:CGRectMake(tf.frame.origin.x, tf.frame.origin.y, tf.frame.size.width - differenceformargin, tf.frame.size.height)];
+                }
+                CGRect qrScannerButtonFrame = CGRectMake(tf.frame.origin.x + tf.frame.size.width + 2, tf.frame.origin.y, 30, 30);
+                QRScannerButton *qrsb = [[QRScannerButton alloc] initWithFrame:qrScannerButtonFrame];
+                [qrsb setControl:tf];
+                [formCanvas addSubview:qrsb];
+                [qrsb setAlpha:0.0];
+                [(DataEntryViewController *)self.rootViewController addButtonToArrayOfScannerButtons:qrsb];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"5"])
             {
@@ -3794,8 +6254,8 @@
                         if (checkCodeFieldName)
                         {
                             [tf setCheckcode:[[CheckCode alloc] init]];
-                            [(CheckCode *)[tf checkcode] setTheWords:(NSArray *)checkCodeFieldName];
-                            [(CheckCode *)[tf checkcode] setDictionaryOfFields:self.dictionaryOfFields.nsmd];
+//                            [(CheckCode *)[tf checkcode] setTheWords:(NSArray *)checkCodeFieldName];
+//                            [(CheckCode *)[tf checkcode] setDictionaryOfFields:self.dictionaryOfFields.nsmd];
                         }
                     }
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -3809,6 +6269,7 @@
                         contentSizeHeight += 40.0;
                         UIView *hideTheGeocodeCheckbox = [[UIView alloc] initWithFrame:CGRectMake(20, contentSizeHeight + 5, 160, 30)];
                         geocodingCheckbox = [[Checkbox alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+                        [(DataEntryViewController *)self.rootViewController setGeocodingCheckbox:geocodingCheckbox];
                         [hideTheGeocodeCheckbox addSubview:geocodingCheckbox];
                         UILabel *useDeviceLocation = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, 120, 30)];
                         [useDeviceLocation setText:@"Use device location"];
@@ -3826,6 +6287,19 @@
                     [tf setIsReadOnly:YES];
                     [tf setIsEnabled:NO];
                 }
+                
+                float marginwidth = formCanvas.frame.size.width - (tf.frame.origin.x + tf.frame.size.width);
+                if (marginwidth < 34)
+                {
+                    float differenceformargin = 34 - marginwidth;
+                    [tf setFrame:CGRectMake(tf.frame.origin.x, tf.frame.origin.y, tf.frame.size.width - differenceformargin, tf.frame.size.height)];
+                }
+                CGRect qrScannerButtonFrame = CGRectMake(tf.frame.origin.x + tf.frame.size.width + 2, tf.frame.origin.y, 30, 30);
+                QRScannerButton *qrsb = [[QRScannerButton alloc] initWithFrame:qrScannerButtonFrame];
+                [qrsb setControl:tf];
+                [formCanvas addSubview:qrsb];
+                [qrsb setAlpha:0.0];
+                [(DataEntryViewController *)self.rootViewController addButtonToArrayOfScannerButtons:qrsb];
             }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"6"])
             {
@@ -4389,7 +6863,7 @@
                         if (checkCodeFieldName)
                         {
                             [cb setCheckcode:[[CheckCode alloc] init]];
-                            [(CheckCode *)[cb checkcode] setTheWords:(NSArray *)checkCodeFieldName];
+//                            [(CheckCode *)[cb checkcode] setTheWords:(NSArray *)checkCodeFieldName];
                         }
                     }
                 }
@@ -5179,6 +7653,124 @@
                     [tf setIsEnabled:NO];
                 }
             }
+            else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"13"])
+            {
+                CommandButton *cb;
+                if (isCurrentPage)
+                {
+                    float fieldWidth = 768 - 100;
+                    float checkboxLines = 3.0;
+                    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && fieldWidth > 260.0)
+                        fieldWidth = 260.0;
+                    else
+                    {
+                        fontsize = 24.0;
+                        checkboxLines = 2.0;
+                    }
+                    [elementLabel setFrame:CGRectMake(60, contentSizeHeight - 10, fieldWidth, 60)];
+                    while ([elementLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]}].width > checkboxLines * (fieldWidth - 18))
+                        fontsize -= 0.1;
+                    [elementLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]];
+                    
+                    cb = [[CommandButton alloc] initWithFrame:CGRectMake(20, contentSizeHeight + 5, 30, 30) AndPromptText:[attributeDict objectForKey:@"PromptText"]];
+                    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                    {
+                        [cb setFrame:CGRectMake(40, cb.frame.origin.y, 30, 30)];
+                        [elementLabel setFrame:CGRectMake(80, contentSizeHeight - 20, fieldWidth, 80)];
+                    }
+                    
+                    /*CHECK*/
+                    
+                    cb.tag = tagNum;
+                }
+                BOOL required;
+                if ([[attributeDict objectForKey:@"IsRequired"]caseInsensitiveCompare:@"true"]==NSOrderedSame)
+                {
+                    required = YES;
+                }
+                else
+                {
+                    required = NO;
+                }
+                epc.req = required;
+                epc.elementName = [attributeDict objectForKey:@"Name"];
+                epc.type = 10;
+                epc.tag = tagNum;
+                epc.enable= YES;
+                epc.hide = NO;
+                epc.highlight = NO;
+                epc.page = [attributeDict objectForKey:@"PageId"];
+                tagNum++;
+                epc.promptText = [attributeDict objectForKey:@"PromptText"];
+                if (![elmArray containsObject:[[attributeDict objectForKey:@"Name"] lowercaseString]])
+                {
+                    [elementListArray addObject:epc];
+                    [elmArray addObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                }
+                else
+                {
+                    int indexofcontrol = (int)[elmArray indexOfObject:[[attributeDict objectForKey:@"Name"] lowercaseString]];
+                    [(ElementsModel *)[elementListArray objectAtIndex:indexofcontrol] setTag:epc.tag];
+                }
+                
+                /*END-CHECK*/
+                
+                
+                if (isCurrentPage)
+                {
+                    if ([self isEnableName:epc.elementName])
+                    {
+                        [cb setUserInteractionEnabled:NO];
+                        NSLog(@"enb no");
+                    }
+                    else
+                    {
+                        [cb setUserInteractionEnabled:YES];
+                    }
+                    if ([self ishideName:epc.elementName])
+                    {
+                        [cb hideByHeight:YES];
+                        NSLog(@"hide yes");
+                        
+                    }
+                    else
+                    {
+                        [cb hideByHeight:NO];
+                    }
+                    if ([self ishighlightName:epc.elementName])
+                    {
+                        [cb setBackgroundColor:[UIColor colorWithRed:255/255.0 green:240/255.0 blue:194/255.0 alpha:1]];
+                        NSLog(@"hig yes");
+                        
+                    }
+                    else
+                    {
+                        [cb setBackgroundColor:[UIColor blackColor]];
+                    }
+                    
+                    [formCanvas addSubview:cb];
+                    [alterTableElements setObject:@"integer" forKey:[attributeDict objectForKey:@"Name"]];
+                    [cb setColumnName:[attributeDict objectForKey:@"Name"]];
+                    [cb setCheckboxAccessibilityLabel:[attributeDict objectForKey:@"Name"]];
+                    //        [self.checkboxes setObject:@"A" forKey:[attributeDict objectForKey:@"Name"]];
+                    beginColumList = YES;
+                    [self.dictionaryOfFields setObject:cb forKey:[attributeDict objectForKey:@"Name"]];
+                    if (self.dictionaryOfWordsArrays)
+                    {
+                        NSString *checkCodeFieldName = [self.dictionaryOfWordsArrays objectForKey:[attributeDict objectForKey:@"Name"]];
+                        if (checkCodeFieldName)
+                        {
+                            [cb setCheckcode:[[CheckCode alloc] init]];
+                            //                            [(CheckCode *)[cb checkcode] setTheWords:(NSArray *)checkCodeFieldName];
+                        }
+                    }
+                }
+                if ([[attributeDict objectForKey:@"IsReadOnly"]caseInsensitiveCompare:@"true"] == NSOrderedSame)
+                {
+                    [cb setIsReadOnly:YES];
+                    [cb setIsEnabled:NO];
+                }
+            }
             else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"20"])
             {
                 RelateButton *tf;
@@ -5444,6 +8036,9 @@
         EnterDataView *tempedv = (EnterDataView *)[dictionaryOfPages objectForKey:key];
         for (UIView *v in [[tempedv formCanvas] subviews])
         {
+            if ([v conformsToProtocol:@protocol(EpiInfoControlProtocol)])
+                if (![queriedColumnsAndValues objectForKey:[[(id<EpiInfoControlProtocol>)v columnName] lowercaseString]])
+                    continue;
             if ([v isKindOfClass:[EpiInfoTextField class]])
                 [(EpiInfoTextField *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(EpiInfoTextField *)v columnName] lowercaseString]]];
             else if ([v isKindOfClass:[EpiInfoTextView class]])
@@ -5452,6 +8047,7 @@
             {
                 [(EpiInfoImageField *)v assignValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(EpiInfoTextView *)v columnName] lowercaseString]]];
             }
+            else if ([v isKindOfClass:[CommandButton class]]) { }
             else if ([v isKindOfClass:[Checkbox class]])
                 [(Checkbox *)v setFormFieldValue:(NSString *)[queriedColumnsAndValues objectForKey:[[(Checkbox *)v columnName] lowercaseString]]];
             else if ([v isKindOfClass:[YesNo class]])
@@ -5609,7 +8205,8 @@
         [self checkElements:[etf columnName] from:@"before" page:pageName];
         
     }
-    if ([field isKindOfClass:[Checkbox class]])
+    if ([field isKindOfClass:[CommandButton class]]) { }
+    else if ([field isKindOfClass:[Checkbox class]])
     {
         Checkbox *etf = (Checkbox *)field;
         //  NSLog(@"%@",[etf columnName]);
@@ -5777,59 +8374,6 @@
         substringStartPosition += actualPageStringLength;
     }
     return [NSString stringWithString:xmlText];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch ([alertView tag]) {
-        case 0:
-            switch (buttonIndex) {
-                case 0:
-                    break;
-                    
-                case 1:
-                    [self submitButtonPressed];
-                    break;
-            }
-            break;
-            
-        case 1:
-            switch (buttonIndex) {
-                case 0:
-                    break;
-                    
-                case 1:
-                    [self updateButtonPressed];
-                    break;
-            }
-            break;
-            
-        case 2:
-            switch (buttonIndex) {
-                case 0:
-                    break;
-                    
-                case 1:
-                    [self deleteButtonPressed];
-                    break;
-            }
-            break;
-            
-        case 3:
-            switch (buttonIndex) {
-                case 0:
-                    break;
-                    
-                case 1:
-                    updatevisibleScreenOnly = NO;
-                    [self clearButtonPressed];
-                    break;
-            }
-            break;
-            
-        default:
-            break;
-    }
 }
 
 /*
@@ -6120,6 +8664,14 @@
                         ConditionsModel *cModel = [[ConditionsModel alloc]initWithPage:pageName from:conditionWord name:conditionWordOne element:[[eleSp componentsSeparatedByString:@" "]objectAtIndex:j+1] beforeAfter:epc.condition condition:@"unhidden"];
                         [conditionsArray addObject:cModel];
                         lastElmt = @"unhidden";
+                        j++;
+                    }
+                    else if ([elmt isEqualToString:@"execute"])
+                    {
+                        ConditionsModel *cModel = [[ConditionsModel alloc]initWithPage:pageName from:conditionWord name:conditionWordOne element:eleSp beforeAfter:epc.condition condition:@"unhidden"];
+                        [conditionsArray addObject:cModel];
+                        lastElmt = @"unhidden";
+                        j++;
                         j++;
                     }
                     else if ([elmt isEqualToString:@"if"])
@@ -6510,7 +9062,7 @@
         {
             if([cpm.beforeAfter isEqualToString:@"before"])//check CM cond
             {
-                if (([cpm.element caseInsensitiveCompare:name] == NSOrderedSame)) //check for element match
+                if (([cpm.name caseInsensitiveCompare:name] == NSOrderedSame)) //check for element match
                 {
                     if ([elmArray containsObject:cpm.element]) //check for elements list todo check elm array
                     {
@@ -6734,7 +9286,8 @@
                             
                         }
                     }
-                    
+                    else if ([cpm.element caseInsensitiveCompare:@"execute nowaitforexit \"save\""] == NSOrderedSame)
+                        [self submitOrUpdateWithoutClearing];
                 }
             }
         }
@@ -7819,6 +10372,7 @@ newStr{
         case 10:
         {
             Checkbox *utf = (Checkbox *)[formCanvas viewWithTag:eleTag];
+            utf = (Checkbox *)[formCanvas viewWithTag:eleTag];
 //            [utf setBackgroundColor:[UIColor blackColor]];
             
             break;
@@ -8532,20 +11086,22 @@ newStr{
 {
     [NSThread sleepForTimeInterval:0.2];
 
-    [self.rootViewController.view addSubview:self];
-    [self.rootViewController.view bringSubviewToFront:self];
-    
-    for (UIView *v in [self.rootViewController.view subviews])
-    {
-        if ([[v backgroundColor] isEqual:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:0.95]])
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.rootViewController.view addSubview:self];
+        [self.rootViewController.view bringSubviewToFront:self];
+        
+        for (UIView *v in [self.rootViewController.view subviews])
         {
-            [self.rootViewController.view bringSubviewToFront:v];
+            if ([[v backgroundColor] isEqual:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:0.95]])
+            {
+                [self.rootViewController.view bringSubviewToFront:v];
+            }
+            else if ([v isKindOfClass:[UINavigationBar class]])
+            {
+                [self.rootViewController.view bringSubviewToFront:v];
+            }
         }
-        else if ([v isKindOfClass:[UINavigationBar class]])
-        {
-            [self.rootViewController.view bringSubviewToFront:v];
-        }
-    }
+    });
 }
 
 - (void)setElementListArrayIsEnabledForElement:(NSString *)elementName andIsEnabled:(BOOL)enabled

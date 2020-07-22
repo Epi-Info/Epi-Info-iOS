@@ -11,6 +11,24 @@
 @implementation SQLiteData
 @synthesize databaseButton = _databaseButton;
 
+- (NSArray *)groups
+{
+    if (groupsNSMA)
+        return [NSArray arrayWithArray:groupsNSMA];
+    return [[NSArray alloc] init];
+}
+- (void)removeGroupFromGroups:(NSString *)grp
+{
+    if (groupsNSMA && [groupsNSMA containsObject:grp])
+        [groupsNSMA removeObject:grp];
+}
+- (void)addGroupToGroups:(NSString *)grp
+{
+    if (!groupsNSMA)
+        groupsNSMA = [[NSMutableArray alloc] init];
+    [groupsNSMA addObject:grp];
+}
+
 - (void)makeSQLiteFullTable:(AnalysisDataObject *)ado ProvideUpdatesTo:(UIButton *)button
 {
     NSString *buttonText;
@@ -152,6 +170,291 @@
     [self.databaseButton setTitle:buttonLabel forState:UIControlStateHighlighted];
 }
 
+- (void)makeSQLiteWorkingTableWithWhereClause:(NSString *)whereClause AndNewVariblesList:(NSArray *)newVariablesList
+{
+    //This method is called when WORKING_DATASET is to be a subset of FULL_DATASET
+    
+    //Get the path to the database
+    NSString *databasePath = [[NSString alloc] initWithString:[NSTemporaryDirectory() stringByAppendingString:@"EpiInfo.db"]];
+    
+    //If it exists, create the WORKING_DATASET table
+    if ([[NSFileManager defaultManager] fileExistsAtPath:databasePath])
+    {
+        //Convert the databasePath NSString to a char array
+        const char *dbpath = [databasePath UTF8String];
+        
+        //Open the sqlite analysisDB pointing to the database path
+        if (sqlite3_open(dbpath, &analysisDB) == SQLITE_OK)
+        {
+            char *errMsg;
+            const char *sql_stmt = "DROP TABLE WORKING_DATASET";
+            if (sqlite3_exec(analysisDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+            {
+                NSLog(@"Failed to drop working table");
+            }
+            //Create and execute the CREATE TABLE statement for intermediate dataset new variables
+            NSString *sqlStmt = [NSString stringWithFormat:@"CREATE TABLE INTERMEDIATE_DATASET AS SELECT * FROM FULL_DATASET"];
+            sql_stmt = [sqlStmt UTF8String];
+            if (sqlite3_exec(analysisDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+            {
+                NSLog(@"Failed to create working table");
+            }
+            [self setColumnNamesWorking:[NSMutableArray arrayWithArray:self.columnNamesFull]];
+            [self setDataTypesWorking:[NSMutableArray arrayWithArray:self.dataTypesFull]];
+            [self setIsBinaryWorking:[NSMutableArray arrayWithArray:self.isBinaryFull]];
+            [self setIsOneZeroWorking:[NSMutableArray arrayWithArray:self.isOneZeroFull]];
+            [self setIsTrueFalseWorking:[NSMutableArray arrayWithArray:self.isTrueFalseFull]];
+            [self setIsYesNoWorking:[NSMutableArray arrayWithArray:self.isYesNoFull]];
+            // Alter the intermediate dataset with new variables
+            for (int v = 0; v < [newVariablesList count]; v++)
+            {
+                NSString *newVariableFullString = (NSString *)[newVariablesList objectAtIndex:v];
+                if (![newVariableFullString containsString:@" |~| "] || ![newVariableFullString containsString:@" = "])
+                {
+                    if ([newVariableFullString containsString:@"GROUP("])
+                    {
+                        if (!groupsNSMA)
+                            groupsNSMA = [[NSMutableArray alloc] init];
+                        if (![groupsNSMA containsObject:newVariableFullString])
+                            	[groupsNSMA addObject:newVariableFullString];
+                    }
+                    continue;
+                }
+                NSString *variableType = [[newVariableFullString componentsSeparatedByString:@" |~| "] objectAtIndex:1];
+                NSString *variableName = [[newVariableFullString componentsSeparatedByString:@" = "] objectAtIndex:0];
+                NSString *variableFunction = [[[[newVariableFullString componentsSeparatedByString:@" = "] objectAtIndex:1] componentsSeparatedByString:@" |~| "] objectAtIndex:0];
+                NSString *columnType = @"NUM";
+                NSString *beginDate = @"DOB";
+                NSString *endDate = @"'5/5/2013'";
+                if (![variableType isEqualToString:@"Number"])
+                    columnType = @"CHAR";
+                sqlStmt = [NSString stringWithFormat:@"ALTER TABLE INTERMEDIATE_DATASET ADD %@ %@", variableName, columnType];
+                sql_stmt = [sqlStmt UTF8String];
+                if (sqlite3_exec(analysisDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                {
+                    NSLog(@"Failed to alter table");
+                }
+                else
+                {
+                    [self.columnNamesWorking addObject:variableName];
+                    if ([variableType isEqualToString:@"Yes/No"])
+                    {
+                        [self.dataTypesWorking addObject:[NSNumber numberWithInt:2]];
+                        [self.isBinaryWorking addObject:[NSNumber numberWithBool:YES]];
+                        [self.isOneZeroWorking addObject:[NSNumber numberWithBool:NO]];
+                        [self.isTrueFalseWorking addObject:[NSNumber numberWithBool:NO]];
+                        [self.isYesNoWorking addObject:[NSNumber numberWithBool:YES]];
+                    }
+                    else if ([variableType isEqualToString:@"Number"])
+                    {
+                        [self.dataTypesWorking addObject:[NSNumber numberWithInt:1]];
+                        [self.isBinaryWorking addObject:[NSNumber numberWithBool:NO]];
+                        [self.isOneZeroWorking addObject:[NSNumber numberWithBool:NO]];
+                        [self.isTrueFalseWorking addObject:[NSNumber numberWithBool:NO]];
+                        [self.isYesNoWorking addObject:[NSNumber numberWithBool:NO]];
+                    }
+                    else
+                    {
+                        [self.dataTypesWorking addObject:[NSNumber numberWithInt:2]];
+                        [self.isBinaryWorking addObject:[NSNumber numberWithBool:NO]];
+                        [self.isOneZeroWorking addObject:[NSNumber numberWithBool:NO]];
+                        [self.isTrueFalseWorking addObject:[NSNumber numberWithBool:NO]];
+                        [self.isYesNoWorking addObject:[NSNumber numberWithBool:NO]];
+                    }
+                }
+                if (([variableFunction containsString:@"Years("] && [[variableFunction substringToIndex:6] isEqualToString:@"Years("]) ||
+                    ([variableFunction containsString:@"Months("] && [[variableFunction substringToIndex:7] isEqualToString:@"Months("]) ||
+                    ([variableFunction containsString:@"Days("] && [[variableFunction substringToIndex:5] isEqualToString:@"Days("]))
+                {
+                    NSString *firstArgument = [[[[variableFunction componentsSeparatedByString:@"("] objectAtIndex:1] componentsSeparatedByString:@", "] objectAtIndex:0];
+                    NSString *secondArgument = [[[[variableFunction componentsSeparatedByString:@", "] objectAtIndex:1] componentsSeparatedByString:@")"] objectAtIndex:0];
+                    beginDate = firstArgument;
+                    endDate = secondArgument;
+                    NSCharacterSet *validSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789/"];
+                    if ([[firstArgument stringByTrimmingCharactersInSet:validSet] length] == 0)
+                    {
+                        beginDate = [NSString stringWithFormat:@"'%@'", firstArgument];
+                    }
+                    if ([[secondArgument stringByTrimmingCharactersInSet:validSet] length] == 0)
+                    {
+                        endDate = [NSString stringWithFormat:@"'%@'", secondArgument];
+                    }
+                    BOOL functionyears = ([[[variableFunction componentsSeparatedByString:@"("] objectAtIndex:0] isEqualToString:@"Years"]);
+                    BOOL functiondays = ([[[variableFunction componentsSeparatedByString:@"("] objectAtIndex:0] isEqualToString:@"Days"]);
+                    if (functionyears)
+                    {
+                        NSString *properlyFormattedBeginDate = [NSString stringWithFormat:@"substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)", beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate];
+                        NSString *properlyFormattedEndDate = [NSString stringWithFormat:@"substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)", endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate];
+                        NSDate *dateObject = [NSDate date];
+                        BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+                        if (dmy)
+                        {
+                            properlyFormattedBeginDate = [NSString stringWithFormat:@"substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)", beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate];
+                            properlyFormattedEndDate = [NSString stringWithFormat:@"substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)", endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate];
+                        }
+                        sqlStmt = [NSString stringWithFormat:@"UPDATE INTERMEDIATE_DATASET SET %@ = CASE date(%@) < date(%@) WHEN 1 THEN -1*((date(%@) - date(%@)) - (date(strftime('%%Y', %@)||'-'||strftime('%%m', %@)||'-'||strftime('%%d', %@)) < date(strftime('%%Y', %@)||'-'||strftime('%%m', %@)||'-'||strftime('%%d', %@)))) ELSE (date(%@) - date(%@)) - (date(strftime('%%Y', %@)||'-'||strftime('%%m', %@)||'-'||strftime('%%d', %@)) < date(strftime('%%Y', %@)||'-'||strftime('%%m', %@)||'-'||strftime('%%d', %@))) END",
+                                   variableName,
+                                   properlyFormattedEndDate,
+                                   properlyFormattedBeginDate,
+                                   properlyFormattedBeginDate,
+                                   properlyFormattedEndDate,
+                                   @"'2012-10-21'",
+                                   properlyFormattedBeginDate,
+                                   properlyFormattedBeginDate,
+                                   @"'2012-10-21'",
+                                   properlyFormattedEndDate,
+                                   properlyFormattedEndDate,
+                                   properlyFormattedEndDate,
+                                   properlyFormattedBeginDate,
+                                   @"'2012-10-21'",
+                                   properlyFormattedEndDate,
+                                   properlyFormattedEndDate,
+                                   @"'2012-10-21'",
+                                   properlyFormattedBeginDate,
+                                   properlyFormattedBeginDate];
+                    }
+                    else if (functiondays)
+                    {
+                        sqlStmt = [NSString stringWithFormat:@"UPDATE INTERMEDIATE_DATASET SET %@ = julianday(substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)) - julianday(substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2))",
+                                   variableName,
+                                   endDate,
+                                   endDate,
+                                   endDate,
+                                   endDate,
+                                   endDate,
+                                   endDate,
+                                   endDate,
+                                   endDate,
+                                   endDate,
+                                   endDate,
+                                   beginDate,
+                                   beginDate,
+                                   beginDate,
+                                   beginDate,
+                                   beginDate,
+                                   beginDate,
+                                   beginDate,
+                                   beginDate,
+                                   beginDate,
+                                   beginDate];
+                        NSDate *dateObject = [NSDate date];
+                        BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+                        if (dmy)
+                        {
+                            sqlStmt = [NSString stringWithFormat:@"UPDATE INTERMEDIATE_DATASET SET %@ = julianday(substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)) - julianday(substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2))",
+                                       variableName,
+                                       endDate,
+                                       endDate,
+                                       endDate,
+                                       endDate,
+                                       endDate,
+                                       endDate,
+                                       endDate,
+                                       endDate,
+                                       endDate,
+                                       endDate,
+                                       beginDate,
+                                       beginDate,
+                                       beginDate,
+                                       beginDate,
+                                       beginDate,
+                                       beginDate,
+                                       beginDate,
+                                       beginDate,
+                                       beginDate,
+                                       beginDate];
+                        }
+                    }
+                    else
+                    {
+                        NSString *properlyFormattedBeginDate = [NSString stringWithFormat:@"substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)", beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate];
+                        NSString *properlyFormattedEndDate = [NSString stringWithFormat:@"substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)", endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate];
+                        NSDate *dateObject = [NSDate date];
+                        BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+                        if (dmy)
+                        {
+                            properlyFormattedBeginDate = [NSString stringWithFormat:@"substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)", beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate, beginDate];
+                            properlyFormattedEndDate = [NSString stringWithFormat:@"substr(substr(%@,instr(%@, '/')+1),instr(substr(%@,instr(%@, '/')+1),'/')+1,4)||'-'||substr('00'||substr(substr(%@,instr(%@, '/')+1),1,instr(substr(%@,instr(%@, '/')+1),'/')-1),-2)||'-'||substr('00'||substr(%@,1,instr(%@, '/')-1),-2)", endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate, endDate];
+                        }
+                        NSString *monthsBeforeTheDay = [NSString stringWithFormat:@"(strftime('%%m', %@) + 12*strftime('%%Y', %@)) - (strftime('%%m', %@) + 12*strftime('%%Y', %@)) -1", properlyFormattedEndDate, properlyFormattedEndDate, properlyFormattedBeginDate, properlyFormattedBeginDate];
+                        NSString *monthsAfterTheDay = [NSString stringWithFormat:@"(strftime('%%m', %@) + 12*strftime('%%Y', %@)) - (strftime('%%m', %@) + 12*strftime('%%Y', %@))", properlyFormattedEndDate, properlyFormattedEndDate, properlyFormattedBeginDate, properlyFormattedBeginDate];
+                        sqlStmt = [NSString stringWithFormat:@"UPDATE INTERMEDIATE_DATASET SET %@ = CASE strftime('%%d', %@) > strftime('%%d', %@) WHEN 0 THEN %@ ELSE %@ END", variableName, properlyFormattedBeginDate, properlyFormattedEndDate, monthsAfterTheDay, monthsBeforeTheDay];
+                        sqlStmt = [NSString stringWithFormat:@"UPDATE INTERMEDIATE_DATASET SET %@ = CASE date(%@) < date(%@) WHEN 1 THEN CASE strftime('%%d', %@) >= strftime('%%d', %@) WHEN 0 THEN %@+1 ELSE %@+1 END ELSE CASE strftime('%%d', %@) > strftime('%%d', %@) WHEN 0 THEN %@ ELSE %@ END END", variableName, properlyFormattedEndDate, properlyFormattedBeginDate, properlyFormattedBeginDate, properlyFormattedEndDate, monthsAfterTheDay, monthsBeforeTheDay, properlyFormattedBeginDate, properlyFormattedEndDate, monthsAfterTheDay, monthsBeforeTheDay];
+//                        sqlStmt = [NSString stringWithFormat:@"UPDATE INTERMEDIATE_DATASET SET %@ = strftime('%%d', %@)||', '||strftime('%%d', %@)||': '||(strftime('%%d', %@) < strftime('%%d', %@))", variableName, properlyFormattedBeginDate, properlyFormattedEndDate, properlyFormattedBeginDate, properlyFormattedEndDate];
+                    }
+                }
+                else if ([variableType isEqualToString:@"Yes/No"])
+                {
+                    sqlStmt = [NSString stringWithFormat:@"UPDATE INTERMEDIATE_DATASET SET %@ = CASE %@ END", variableName, [[[[[[[[variableFunction stringByReplacingOccurrencesOfString:@" equals " withString:@" = "] stringByReplacingOccurrencesOfString:@" is missing " withString:@" is null "] stringByReplacingOccurrencesOfString:@" is not missing " withString:@" is not null "] stringByReplacingOccurrencesOfString:@" is not equal to " withString:@" <> "] stringByReplacingOccurrencesOfString:@" is less than or equal to " withString:@" <= "] stringByReplacingOccurrencesOfString:@" is less than " withString:@" < "] stringByReplacingOccurrencesOfString:@" is greater than or equal to " withString:@" >= "] stringByReplacingOccurrencesOfString:@" is greater than " withString:@" > "]];
+                }
+                sql_stmt = [sqlStmt UTF8String];
+                if (sqlite3_exec(analysisDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                {
+                    NSLog(@"Failed to update table");
+                }
+            }
+            //Create and execute the CREATE TABLE statement for working dataset
+            sqlStmt = [NSString stringWithFormat:@"CREATE TABLE WORKING_DATASET AS SELECT * FROM INTERMEDIATE_DATASET %@", whereClause];
+            sql_stmt = [sqlStmt UTF8String];
+            if (sqlite3_exec(analysisDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+            {
+                NSLog(@"Failed to create working table");
+            }
+            // Now drop the intermediate table
+            sql_stmt = "DROP TABLE INTERMEDIATE_DATASET";
+            if (sqlite3_exec(analysisDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+            {
+                NSLog(@"Failed to drop intermetiate table");
+            }
+            //Close the database connection
+            sqlite3_close(analysisDB);
+        }
+        else
+        {
+            NSLog(@"Failed to open database");
+        }
+    }
+}
+
+- (void)makeSQLiteWorkingTableWithWhereClause:(NSString *)whereClause
+{
+    //This method is called when WORKING_DATASET is to be a subset of FULL_DATASET
+    
+    //Get the path to the database
+    NSString *databasePath = [[NSString alloc] initWithString:[NSTemporaryDirectory() stringByAppendingString:@"EpiInfo.db"]];
+    
+    //If it exists, create the WORKING_DATASET table
+    if ([[NSFileManager defaultManager] fileExistsAtPath:databasePath])
+    {
+        //Convert the databasePath NSString to a char array
+        const char *dbpath = [databasePath UTF8String];
+        
+        //Open the sqlite analysisDB pointing to the database path
+        if (sqlite3_open(dbpath, &analysisDB) == SQLITE_OK)
+        {
+            char *errMsg;
+            const char *sql_stmt = "DROP TABLE WORKING_DATASET";
+            if (sqlite3_exec(analysisDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+            {
+                NSLog(@"Failed to drop working table");
+            }
+            //Create and execute the CREATE TABLE statement
+            NSString *sqlStmt = [NSString stringWithFormat:@"CREATE TABLE WORKING_DATASET AS SELECT * FROM FULL_DATASET %@", whereClause];
+            sql_stmt = [sqlStmt UTF8String];
+            if (sqlite3_exec(analysisDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+            {
+                NSLog(@"Failed to create working table");
+            }
+            //Close the database connection
+            sqlite3_close(analysisDB);
+        }
+        else
+        {
+            NSLog(@"Failed to open database");
+        }
+    }
+}
+
 - (void)makeSQLiteWorkingTable
 {
     //This method is called when WORKING_DATASET is to be the same as FULL_DATASET
@@ -254,6 +557,32 @@
         if (sqlite3_open(dbpath, &analysisDB) == SQLITE_OK)
         {
             const char *query_stmt = "SELECT COUNT(*) AS N FROM WORKING_DATASET";
+            if (sqlite3_prepare_v2(analysisDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+            {
+                if (sqlite3_step(statement) == SQLITE_ROW)
+                    size = sqlite3_column_int(statement, 0);
+            }
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(analysisDB);
+    }
+    
+    return size;
+}
+
+- (int)fullTableSize
+{
+    //This method gets and returns the size of WORKING_DATASET by submitting SELECT COUNT(*)
+    int size = -1;
+    
+    NSString *databasePath = [[NSString alloc] initWithString:[NSTemporaryDirectory() stringByAppendingString:@"EpiInfo.db"]];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:databasePath])
+    {
+        const char *dbpath = [databasePath UTF8String];
+        sqlite3_stmt *statement;
+        if (sqlite3_open(dbpath, &analysisDB) == SQLITE_OK)
+        {
+            const char *query_stmt = "SELECT COUNT(*) AS N FROM FULL_DATASET";
             if (sqlite3_prepare_v2(analysisDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
             {
                 if (sqlite3_step(statement) == SQLITE_ROW)

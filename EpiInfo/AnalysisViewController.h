@@ -2,8 +2,7 @@
 //  AnalysisViewController.h
 //  EpiInfo
 //
-//  Created by labuser on 3/15/13.
-//  Copyright (c) 2013 John Copeland. All rights reserved.
+//  Created by John Copeland on 3/15/13.
 //
 
 #import <UIKit/UIKit.h>
@@ -17,6 +16,9 @@
 #import "FrequencyView.h"
 #import "TablesView.h"
 #import "MeansView.h"
+#import "LogisticObject.h"
+#import "LogisticView.h"
+#import "LinearView.h"
 //#import "AWSSimpleDBConnectionInfo.h"
 #import "ChooseAnalysisButton.h"
 #import "AnalysisList.h"
@@ -36,7 +38,7 @@
 #define ACCESS_KEY_ID_2              @"AKIAIVE6TVDQRLCT65VQ"
 #define SECRET_KEY_2                 @"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"
 
-@interface AnalysisViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate>
+@interface AnalysisViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, NSXMLParserDelegate>
 {
     UIButton *customBackButton;
     
@@ -49,6 +51,7 @@
     
     UILabel *analyzeDataLabel;
     UIButton *setDataSource;
+    NSString *dataSourceName;
     UILabel *dataSourceLabel;
     UIView *dataSourceBorder;
     
@@ -56,7 +59,7 @@
     
     UIView *dataTypeList;
     
-    UIView *dataSourceList;
+    UIScrollView *dataSourceList;
     NSDirectoryEnumerator *directoryEnumerator;
     int numberOfFiles;
     float numberOfDataTypes;
@@ -92,11 +95,35 @@
     
     UIButton *datasetButton;
 }
-- (void)replaceChooseAnalysis;
-- (void)setContentSize:(CGSize)size;
-- (void)resetContentSize;
-- (BOOL)portraitOrientation;
-- (CGRect)getZoomingViewFrame;
+@property NSMutableArray *listOfNewVariables;
+
+-(void)setWorkingDataObjectListOfFilters:(NSMutableArray *)lof;
+-(NSString *)dataSourceName;
+-(void)setWorkingDataObject:(AnalysisDataObject *)wdo;
+-(void)workingDataSetWithWhereClause:(NSString *)whereClause;
+-(NSString *)workingDatasetWhereClause;
+-(AnalysisDataObject *)fullDataObject;
+-(AnalysisDataObject *)workingDataObject;
+-(void)replaceChooseAnalysis;
+-(void)setContentSize:(CGSize)size;
+-(void)resetContentSize;
+-(BOOL)portraitOrientation;
+-(CGRect)getZoomingViewFrame;
 //- (void)lookupSimpleDBSources;
-- (void)setDataSourceEnabled:(BOOL)isEnabled;
+-(void)setDataSourceEnabled:(BOOL)isEnabled;
+-(void)setInitialContentSize:(CGSize)ics;
+-(CGSize)getInitialContentSize;
+-(void)putViewOnZoomingView:(UIView *)viewToMove;
+-(void)putViewOnEpiInfoScrollView:(UIView *)viewToMove;
+-(NSArray *)getSQLiteColumnNames;
+-(NSArray *)getSQLiteColumnTypes;
+-(NSDictionary *)getWorkingColumnNames;
+-(NSDictionary *)getWorkingColumnTypes;
+-(NSDictionary *)getWorkingYesNo;
+-(NSDictionary *)getWorkingTrueFalse;
+-(NSDictionary *)getWorkingBinary;
+-(NSDictionary *)getWorkingOneZero;
+-(NSDictionary *)getWorkingDates;
+-(FrequencyObject *)getFrequencyObjectForVariable:(NSString *)variableName;
+-(void)resetZoomScale;
 @end

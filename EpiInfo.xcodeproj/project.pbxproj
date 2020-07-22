@@ -114,6 +114,8 @@
 		92095BE31835682400B7A0ED /* Default-1024h.png in Resources */ = {isa = PBXBuildFile; fileRef = 92095BE21835682400B7A0ED /* Default-1024h.png */; };
 		92095BE51835686200B7A0ED /* Default-1024h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92095BE41835686200B7A0ED /* Default-1024h@2x.png */; };
 		920AE61019C88D71001C96CE /* EpiInfoViewForRounding.m in Sources */ = {isa = PBXBuildFile; fileRef = 920AE60F19C88D71001C96CE /* EpiInfoViewForRounding.m */; };
+		920BCE3521760F6F00BF050A /* LogisticObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 920BCE3421760F6F00BF050A /* LogisticObject.m */; };
+		920BCE3D2178F0AA00BF050A /* FormFromGoogleSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 920BCE3C2178F0AA00BF050A /* FormFromGoogleSheetView.m */; };
 		920CD0271EE4B30200415569 /* CheckButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 920CD0261EE4B30200415569 /* CheckButton.m */; };
 		92119A601923FBD3008155F7 /* EpiInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92119A5F1923FBD3008155F7 /* EpiInfoViewController.m */; };
 		9211F6EF1D53758F002583D4 /* AssignModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9211F6EE1D53758F002583D4 /* AssignModel.m */; };
@@ -141,6 +143,7 @@
 		921500851EAA39CF00E2CF9A /* PrivacyAndDisclaimerPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 921500841EAA39CF00E2CF9A /* PrivacyAndDisclaimerPresenter.m */; };
 		921500871EAA3E8D00E2CF9A /* BarButtonBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 921500861EAA3E8D00E2CF9A /* BarButtonBack.png */; };
 		9218EA5B1869D37500A4E2D9 /* ClickingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9218EA5A1869D37500A4E2D9 /* ClickingView.m */; };
+		921E6B572277593D00C46A72 /* CheckCodeWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 921E6B562277593D00C46A72 /* CheckCodeWriter.m */; };
 		921ED31E1C7F7043004C6091 /* RelateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 921ED31D1C7F7043004C6091 /* RelateButton.m */; };
 		921ED3201C7F7462004C6091 /* PlainPurpleButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 921ED31F1C7F7462004C6091 /* PlainPurpleButton.png */; };
 		922227B419BA1DCF002CD855 /* iPhone4Launch.png in Resources */ = {isa = PBXBuildFile; fileRef = 922227B319BA1DCF002CD855 /* iPhone4Launch.png */; };
@@ -155,11 +158,25 @@
 		9228250B186387DA00DF9493 /* SubmitButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92282507186387DA00DF9493 /* SubmitButton.png */; };
 		9228250C186387DA00DF9493 /* SubmitButtonOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 92282508186387DA00DF9493 /* SubmitButtonOrange.png */; };
 		922920851AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922920841AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift */; };
+		922D259B2469D56100064419 /* EpiInfoBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 922D259A2469D56100064419 /* EpiInfoBarButtonItem.m */; };
+		922D259E246AD23B00064419 /* FunctionsMenuBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 922D259D246AD23B00064419 /* FunctionsMenuBarButtonItem.m */; };
 		922D49ED1D64F3D40090631E /* ParseAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 922D49EC1D64F3D40090631E /* ParseAssignment.m */; };
 		922D49F01D64F4490090631E /* AssignmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 922D49EF1D64F4490090631E /* AssignmentModel.m */; };
 		9232266F1E5381C20099439F /* FullAssignStatementParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9232266E1E5381C20099439F /* FullAssignStatementParser.m */; };
 		923226771E53825E0099439F /* ExpressionActionParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 923226761E53825E0099439F /* ExpressionActionParser.m */; };
 		9232267A1E53829E0099439F /* IfParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 923226791E53829E0099439F /* IfParser.m */; };
+		92385D22227A31B800079890 /* Years.m in Sources */ = {isa = PBXBuildFile; fileRef = 92385D21227A31B800079890 /* Years.m */; };
+		92385D25227B20DC00079890 /* AssigningFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 92385D24227B20DC00079890 /* AssigningFunction.m */; };
+		92385D29227B29B600079890 /* DateMathFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 92385D28227B29B600079890 /* DateMathFunction.m */; };
+		92385D2C227B2AB100079890 /* Months.m in Sources */ = {isa = PBXBuildFile; fileRef = 92385D2B227B2AB100079890 /* Months.m */; };
+		92385D2F227B2AD100079890 /* Days.m in Sources */ = {isa = PBXBuildFile; fileRef = 92385D2E227B2AD100079890 /* Days.m */; };
+		92385D322280A55600079890 /* CETextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 92385D312280A55600079890 /* CETextField.m */; };
+		92385D352284A37100079890 /* ExistingFunctionsListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92385D342284A37100079890 /* ExistingFunctionsListView.m */; };
+		923A02CD2289A07300C33F3B /* EnableDisableClear.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A02CC2289A07300C33F3B /* EnableDisableClear.m */; };
+		923A02D62289A3BF00C33F3B /* Enable.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A02D52289A3BF00C33F3B /* Enable.m */; };
+		923A02D92289A3DA00C33F3B /* Disable.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A02D82289A3DA00C33F3B /* Disable.m */; };
+		923A02DC2289A3ED00C33F3B /* Clear.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A02DB2289A3ED00C33F3B /* Clear.m */; };
+		923A02DF228B2DD000C33F3B /* PageCheckCodeWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A02DE228B2DD000C33F3B /* PageCheckCodeWriter.m */; };
 		923A263817B41BCE00DCBCD5 /* AnalysisFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A263717B41BCE00DCBCD5 /* AnalysisFilterView.m */; };
 		923A263B17B4265D00DCBCD5 /* FilterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A263A17B4265D00DCBCD5 /* FilterButton.m */; };
 		923A49F617B56636000FFC0C /* NewVariablesButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 923A49F517B56636000FFC0C /* NewVariablesButton.m */; };
@@ -169,17 +186,31 @@
 		9240E95E195481DA006345FE /* hcageinf.csv in Resources */ = {isa = PBXBuildFile; fileRef = 9240E95C195481DA006345FE /* hcageinf.csv */; };
 		9240E95F195481DA006345FE /* wtageinf.csv in Resources */ = {isa = PBXBuildFile; fileRef = 9240E95D195481DA006345FE /* wtageinf.csv */; };
 		9240E96219548243006345FE /* GrowthPercentilesCompute.m in Sources */ = {isa = PBXBuildFile; fileRef = 9240E96119548243006345FE /* GrowthPercentilesCompute.m */; };
+		9242CE5F2367266A005DA913 /* ConditionalAssignmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9242CE5E2367266A005DA913 /* ConditionalAssignmentView.m */; };
+		9242CE672369BAA1005DA913 /* ConditionalAssignmentValuesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9242CE662369BAA1005DA913 /* ConditionalAssignmentValuesView.m */; };
 		924368EB1919736200E680BF /* LineList6060.png in Resources */ = {isa = PBXBuildFile; fileRef = 924368EA1919736200E680BF /* LineList6060.png */; };
+		9246478523DF6E6A00BDD5AC /* VariableValueMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9246478423DF6E6A00BDD5AC /* VariableValueMapper.m */; };
+		92469BF1232AAE6B00752ADC /* EncryptionDecryptionKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 92469BF0232AAE6B00752ADC /* EncryptionDecryptionKeys.m */; };
 		924764C018B3E9700046129F /* UploadButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 924764BF18B3E9700046129F /* UploadButton.png */; };
 		924770821C4015EF008F8C90 /* ManageButtonOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 924770811C4015EF008F8C90 /* ManageButtonOrange.png */; };
 		9247F20F181ADB4E00C96F94 /* BlurryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9247F20E181ADB4E00C96F94 /* BlurryView.m */; };
 		9248261D19CB40E300A0C1DD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9248261C19CB40E300A0C1DD /* Images.xcassets */; };
+		9249822622C2C57800C36CF3 /* BoxContentSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9249822522C2C57700C36CF3 /* BoxContentSDK.framework */; };
+		9249822722C2C5B100C36CF3 /* BoxContentSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9249822522C2C57700C36CF3 /* BoxContentSDK.framework */; };
+		9249822822C2C5B100C36CF3 /* BoxContentSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9249822522C2C57700C36CF3 /* BoxContentSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		924A7D1419C21D2900F168A0 /* MeansCrosstabCompute.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A7D1319C21D2900F168A0 /* MeansCrosstabCompute.m */; };
 		924B5B812125F2DF00B519CE /* DownTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 924B5B802125F2DF00B519CE /* DownTriangle.m */; };
-		924D8AAA1AAE2BA1005A6253 /* CohortSimulationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924D8AA91AAE2BA1005A6253 /* CohortSimulationModel.swift */; };
+		924CF54F239AD8A500372E8B /* VariablesInGroupSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 924CF54E239AD8A500372E8B /* VariablesInGroupSelector.m */; };
+		92502392225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.m in Sources */ = {isa = PBXBuildFile; fileRef = 92502391225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.m */; };
 		9252017E17D0C89A0071C754 /* ShinyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9252017D17D0C89A0071C754 /* ShinyButton.m */; };
 		9252018017D0CC930071C754 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9252017F17D0CC930071C754 /* QuartzCore.framework */; };
 		92524A8C184E50BE003C820B /* SaveFormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92524A8B184E50BE003C820B /* SaveFormView.m */; };
+		9253C7762195F42400DC084B /* LogisticView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253C7752195F42400DC084B /* LogisticView.m */; };
+		9258D1A122148EF1000376E7 /* FormDesigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 9258D1A022148EF1000376E7 /* FormDesigner.m */; };
+		9258D1A9222D8833000376E7 /* FormElementObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9258D1A8222D8833000376E7 /* FormElementObject.m */; };
+		9258D1AD222FF10F000376E7 /* TextFieldDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 9258D1AC222FF10F000376E7 /* TextFieldDisplay.m */; };
+		9258D1B022428863000376E7 /* SyncView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9258D1AF22428862000376E7 /* SyncView.m */; };
+		9258D1B222562CAF000376E7 /* Reserved_Words.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9258D1B122562CAF000376E7 /* Reserved_Words.txt */; };
 		9259D2E61C9327D200AE9181 /* ChildFormFieldAssignments.m in Sources */ = {isa = PBXBuildFile; fileRef = 9259D2E51C9327D200AE9181 /* ChildFormFieldAssignments.m */; };
 		925A5DAF1858C0E2000C2E9E /* PlainOrangeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 925A5DAD1858C0E2000C2E9E /* PlainOrangeButton.png */; };
 		925A5DB01858C0E2000C2E9E /* PlainOrangeButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 925A5DAE1858C0E2000C2E9E /* PlainOrangeButtonNR.png */; };
@@ -207,7 +238,6 @@
 		9266C54318468CCF00739AF2 /* LegalValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 9266C54218468CCF00739AF2 /* LegalValues.m */; };
 		926817841AA8C54E00935BE9 /* SimulateCohort.png in Resources */ = {isa = PBXBuildFile; fileRef = 926817821AA8C54E00935BE9 /* SimulateCohort.png */; };
 		926817851AA8C54E00935BE9 /* SimulateCohortNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 926817831AA8C54E00935BE9 /* SimulateCohortNR.png */; };
-		9268178B1AA8D27900935BE9 /* CohortSimulationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9268178A1AA8D27900935BE9 /* CohortSimulationView.swift */; };
 		926A0F0918340A7400D49165 /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 926A0F0718340A7400D49165 /* Default-Portrait.png */; };
 		926A0F0A18340A7400D49165 /* Default-Portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 926A0F0818340A7400D49165 /* Default-Portrait@2x.png */; };
 		926C9D561A7AA8FE004A6ADD /* SimulationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926C9D551A7AA8FE004A6ADD /* SimulationsViewController.m */; };
@@ -220,9 +250,8 @@
 		926DFB411832772800FACCD2 /* PopulationSSNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 926DFB3D1832772800FACCD2 /* PopulationSSNR.png */; };
 		926DFB531832AA5500FACCD2 /* iPhone5RetinaLaunch.png in Resources */ = {isa = PBXBuildFile; fileRef = 926DFB521832AA5500FACCD2 /* iPhone5RetinaLaunch.png */; };
 		926DFB551832B0A400FACCD2 /* iPhone4RetinaLaunch.png in Resources */ = {isa = PBXBuildFile; fileRef = 926DFB541832B0A400FACCD2 /* iPhone4RetinaLaunch.png */; };
+		926F47DA237F2193003AC1F7 /* GroupOfVariablesInputs.m in Sources */ = {isa = PBXBuildFile; fileRef = 926F47D9237F2193003AC1F7 /* GroupOfVariablesInputs.m */; };
 		926F4AA11946361200F476C3 /* UIPickerViewWithBlurryBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 926F4AA01946361200F476C3 /* UIPickerViewWithBlurryBackground.m */; };
-		926F55041AC5CDF200790628 /* CaseControlSimulationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926F55031AC5CDF200790628 /* CaseControlSimulationModel.swift */; };
-		926F55061AC5D09900790628 /* CaseControlSimulationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926F55051AC5D09900790628 /* CaseControlSimulationView.swift */; };
 		926F55091AC5D13200790628 /* SimulateCaseControlNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 926F55071AC5D13200790628 /* SimulateCaseControlNR.png */; };
 		926F550A1AC5D13200790628 /* SimulateCaseControl.png in Resources */ = {isa = PBXBuildFile; fileRef = 926F55081AC5D13200790628 /* SimulateCaseControl.png */; };
 		926F550D1AC5E01700790628 /* Simulations5.png in Resources */ = {isa = PBXBuildFile; fileRef = 926F550B1AC5E01700790628 /* Simulations5.png */; };
@@ -245,11 +274,14 @@
 		928FCEF219E5692000641A95 /* VHFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 928FCEF119E5692000641A95 /* VHFViewController.m */; };
 		928FCEF519E570B300641A95 /* VHFButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 928FCEF319E570B300641A95 /* VHFButton.png */; };
 		928FCEF619E570B300641A95 /* VHFButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 928FCEF419E570B300641A95 /* VHFButtonNR.png */; };
-		9291F43E1AA779C60041DE6E /* SimulationsViewControllerSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9291F43D1AA779C60041DE6E /* SimulationsViewControllerSwift.swift */; };
 		92921B9619A63E0000AA9477 /* MeansObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 92921B9519A63E0000AA9477 /* MeansObject.m */; };
 		92921B9919A6427000AA9477 /* MeansView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92921B9819A6427000AA9477 /* MeansView.m */; };
-		929230151EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 929230141EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework */; };
-		9292301B1EC4F3EE0078D9C2 /* WindowsAzureMobileServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921974961880583D007F6DFA /* WindowsAzureMobileServices.framework */; };
+		9292B6E12298384700802240 /* FormFieldsLegalValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 9292B6E02298384700802240 /* FormFieldsLegalValues.m */; };
+		92936298234FABD600949AF4 /* NewVariableInputs.m in Sources */ = {isa = PBXBuildFile; fileRef = 92936297234FABD600949AF4 /* NewVariableInputs.m */; };
+		9293629B234FAE2400949AF4 /* DateMathFunctionInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 9293629A234FAE2400949AF4 /* DateMathFunctionInput.m */; };
+		9294A5CD2208CD1B008695AD /* LinearObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9294A5CC2208CD1B008695AD /* LinearObject.m */; };
+		9294A5D52208CD6F008695AD /* LinearView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9294A5D42208CD6F008695AD /* LinearView.m */; };
+		9294A5D82208CDD3008695AD /* LinearRegressionResults.m in Sources */ = {isa = PBXBuildFile; fileRef = 9294A5D72208CDD3008695AD /* LinearRegressionResults.m */; };
 		92955547192B963F008DEC5C /* ConverterMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 92955546192B963F008DEC5C /* ConverterMethods.m */; };
 		9295554A192BC8C5008DEC5C /* DatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 92955549192BC8C5008DEC5C /* DatePicker.m */; };
 		9295FFCF1CEB8F4B0022B75C /* ArrowFull.png in Resources */ = {isa = PBXBuildFile; fileRef = 9295FFCC1CEB8F4B0022B75C /* ArrowFull.png */; };
@@ -277,6 +309,9 @@
 		9295FFF91CEE07B00022B75C /* 2x2BN.png in Resources */ = {isa = PBXBuildFile; fileRef = 9295FFE71CEE07B00022B75C /* 2x2BN.png */; };
 		9296747C19E5CC3B0040CB9D /* VHF.png in Resources */ = {isa = PBXBuildFile; fileRef = 9296747B19E5CC3B0040CB9D /* VHF.png */; };
 		9296747E19E5CCCB0040CB9D /* VHF4.png in Resources */ = {isa = PBXBuildFile; fileRef = 9296747D19E5CCCB0040CB9D /* VHF4.png */; };
+		929E47AF21A5D16900D88EF0 /* LogisticRegressionResults.m in Sources */ = {isa = PBXBuildFile; fileRef = 929E47AE21A5D16900D88EF0 /* LogisticRegressionResults.m */; };
+		929E47B721A5DA3900D88EF0 /* VariableRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 929E47B621A5DA3900D88EF0 /* VariableRow.m */; };
+		929E47BA21A5DA6200D88EF0 /* InteractionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 929E47B921A5DA6200D88EF0 /* InteractionRow.m */; };
 		92A192501C690DD40095E69F /* NextPage.png in Resources */ = {isa = PBXBuildFile; fileRef = 92A1924E1C690DD40095E69F /* NextPage.png */; };
 		92A192511C690DD40095E69F /* PreviousPage.png in Resources */ = {isa = PBXBuildFile; fileRef = 92A1924F1C690DD40095E69F /* PreviousPage.png */; };
 		92A1F68F1B03E9A4004654B8 /* CheckCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A1F68E1B03E9A4004654B8 /* CheckCode.swift */; };
@@ -292,6 +327,8 @@
 		92AED73E186E09D5004A4DB9 /* StAndrewXButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92AED73C186E09D5004A4DB9 /* StAndrewXButton.png */; };
 		92AED73F186E09D5004A4DB9 /* XButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92AED73D186E09D5004A4DB9 /* XButton.png */; };
 		92AED741186E0CF9004A4DB9 /* StAndrewXButtonWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 92AED740186E0CF9004A4DB9 /* StAndrewXButtonWhite.png */; };
+		92B070CF2332AAC900F27141 /* DownTriangleAnalysisStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B070CE2332AAC900F27141 /* DownTriangleAnalysisStyle.m */; };
+		92B070D72332C09100F27141 /* DataManagementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B070D62332C09100F27141 /* DataManagementView.m */; };
 		92B258271820376A008D88FC /* CohortCrossSectional.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B258221820376A008D88FC /* CohortCrossSectional.png */; };
 		92B258291820376A008D88FC /* PopulationStudy.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B258241820376A008D88FC /* PopulationStudy.png */; };
 		92B2582A1820376A008D88FC /* UnmatchedCaseControl.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B258251820376A008D88FC /* UnmatchedCaseControl.png */; };
@@ -302,6 +339,9 @@
 		92BA2E1718AA6B0200E2CC33 /* MSAzureBluePhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BA2E1418AA6B0200E2CC33 /* MSAzureBluePhone.png */; };
 		92BA7F9718C773E400841104 /* PackageAndEmailDataButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BA7F9518C773E400841104 /* PackageAndEmailDataButton.png */; };
 		92BA7F9818C773E400841104 /* UploadDataToCloudButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BA7F9618C773E400841104 /* UploadDataToCloudButton.png */; };
+		92BB3C3621AC79BC00D785CD /* EIMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BB3C3521AC79BC00D785CD /* EIMatrix.m */; };
+		92BDFE36248FED11006EF6FA /* BoxData.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BDFE35248FED11006EF6FA /* BoxData.m */; };
+		92BE663E23267DC500F9A5B5 /* CommandButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BE663D23267DC500F9A5B5 /* CommandButton.m */; };
 		92C2BC4D1E857E880034F85B /* 2x2_icon_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC3B1E857E880034F85B /* 2x2_icon_6+.png */; };
 		92C2BC4E1E857E880034F85B /* 2x2_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC3C1E857E880034F85B /* 2x2_icon.png */; };
 		92C2BC4F1E857E880034F85B /* binomial_icon_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC3D1E857E880034F85B /* binomial_icon_6+.png */; };
@@ -327,11 +367,18 @@
 		92C2BC6E1E8956380034F85B /* population_survey_icon_blue_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC681E8956380034F85B /* population_survey_icon_blue_6+.png */; };
 		92C2BC6F1E8956380034F85B /* population_survey_icon_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC691E8956380034F85B /* population_survey_icon_blue.png */; };
 		92C419D91921595000FA46EA /* DeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C419D81921595000FA46EA /* DeleteButton.png */; };
+		92CC6086228DBC8200513DC5 /* IfBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC6085228DBC8200513DC5 /* IfBuilder.m */; };
+		92CC608F228ED03A00513DC5 /* IfText.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC608E228ED03A00513DC5 /* IfText.m */; };
+		92CC6092228ED12A00513DC5 /* ConditionText.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC6091228ED12A00513DC5 /* ConditionText.m */; };
+		92CC6095228F20F300513DC5 /* ThenText.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC6094228F20F300513DC5 /* ThenText.m */; };
+		92CC6098228F217B00513DC5 /* ElseText.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC6097228F217B00513DC5 /* ElseText.m */; };
 		92D30F5B1899726100CEBCAE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92D30F5A1899726100CEBCAE /* CoreLocation.framework */; };
 		92D43A471992A5BD00B24712 /* ConfirmDeleteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D43A461992A5BD00B24712 /* ConfirmDeleteButton.m */; };
 		92D43A491992C61700B24712 /* RoundDeleteButton60.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D43A481992C61700B24712 /* RoundDeleteButton60.png */; };
 		92D4BB63184F77CC00B2D70C /* CancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D4BB61184F77CC00B2D70C /* CancelButton.png */; };
 		92D4BB64184F77CC00B2D70C /* SaveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D4BB62184F77CC00B2D70C /* SaveButton.png */; };
+		92D4DFEA2422886F00934571 /* ScannerIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D4DFE92422886F00934571 /* ScannerIcon.png */; };
+		92D4DFED24228A0800934571 /* QRScannerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D4DFEC24228A0800934571 /* QRScannerButton.m */; };
 		92DBD603193CC57100A40691 /* EpiInfoOptionField.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DBD602193CC57100A40691 /* EpiInfoOptionField.m */; };
 		92DBD606193CDAFA00A40691 /* EpiInfoUniqueIDField.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DBD605193CDAFA00A40691 /* EpiInfoUniqueIDField.m */; };
 		92E1A83918730614003E58A5 /* EpiInfoTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E1A83818730614003E58A5 /* EpiInfoTextField.m */; };
@@ -416,6 +463,20 @@
 			remoteInfo = PEGKitiOS;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9249822422C2B82D00C36CF3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9249822822C2C5B100C36CF3 /* BoxContentSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4A071E871639C2E3002C05E9 /* BinomialCalculatorCompute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinomialCalculatorCompute.h; sourceTree = "<group>"; };
@@ -574,6 +635,10 @@
 		92095BE41835686200B7A0ED /* Default-1024h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-1024h@2x.png"; sourceTree = "<group>"; };
 		920AE60E19C88D71001C96CE /* EpiInfoViewForRounding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpiInfoViewForRounding.h; sourceTree = "<group>"; };
 		920AE60F19C88D71001C96CE /* EpiInfoViewForRounding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpiInfoViewForRounding.m; sourceTree = "<group>"; };
+		920BCE3321760F6F00BF050A /* LogisticObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticObject.h; sourceTree = "<group>"; };
+		920BCE3421760F6F00BF050A /* LogisticObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticObject.m; sourceTree = "<group>"; };
+		920BCE3B2178F0AA00BF050A /* FormFromGoogleSheetView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFromGoogleSheetView.h; sourceTree = "<group>"; };
+		920BCE3C2178F0AA00BF050A /* FormFromGoogleSheetView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormFromGoogleSheetView.m; sourceTree = "<group>"; };
 		920CD0251EE4B30200415569 /* CheckButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckButton.h; sourceTree = "<group>"; };
 		920CD0261EE4B30200415569 /* CheckButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckButton.m; sourceTree = "<group>"; };
 		92119A5F1923FBD3008155F7 /* EpiInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpiInfoViewController.m; sourceTree = "<group>"; };
@@ -607,9 +672,10 @@
 		921500861EAA3E8D00E2CF9A /* BarButtonBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BarButtonBack.png; sourceTree = "<group>"; };
 		9218EA591869D37500A4E2D9 /* ClickingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClickingView.h; sourceTree = "<group>"; };
 		9218EA5A1869D37500A4E2D9 /* ClickingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClickingView.m; sourceTree = "<group>"; };
-		921974961880583D007F6DFA /* WindowsAzureMobileServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WindowsAzureMobileServices.framework; sourceTree = "<group>"; };
 		9219749918805915007F6DFA /* QSEpiInfoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSEpiInfoService.h; sourceTree = "<group>"; };
 		9219749A18805915007F6DFA /* QSEpiInfoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSEpiInfoService.m; sourceTree = "<group>"; };
+		921E6B552277593C00C46A72 /* CheckCodeWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckCodeWriter.h; sourceTree = "<group>"; };
+		921E6B562277593D00C46A72 /* CheckCodeWriter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckCodeWriter.m; sourceTree = "<group>"; };
 		921ED31C1C7F7043004C6091 /* RelateButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelateButton.h; sourceTree = "<group>"; };
 		921ED31D1C7F7043004C6091 /* RelateButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelateButton.m; sourceTree = "<group>"; };
 		921ED31F1C7F7462004C6091 /* PlainPurpleButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlainPurpleButton.png; sourceTree = "<group>"; };
@@ -626,6 +692,10 @@
 		92282507186387DA00DF9493 /* SubmitButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SubmitButton.png; sourceTree = "<group>"; };
 		92282508186387DA00DF9493 /* SubmitButtonOrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SubmitButtonOrange.png; sourceTree = "<group>"; };
 		922920841AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpiInfoMultiLineIndentedUILabel.swift; sourceTree = "<group>"; };
+		922D25992469D56100064419 /* EpiInfoBarButtonItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EpiInfoBarButtonItem.h; sourceTree = "<group>"; };
+		922D259A2469D56100064419 /* EpiInfoBarButtonItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EpiInfoBarButtonItem.m; sourceTree = "<group>"; };
+		922D259C246AD23B00064419 /* FunctionsMenuBarButtonItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FunctionsMenuBarButtonItem.h; sourceTree = "<group>"; };
+		922D259D246AD23B00064419 /* FunctionsMenuBarButtonItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FunctionsMenuBarButtonItem.m; sourceTree = "<group>"; };
 		922D49EB1D64F3D40090631E /* ParseAssignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseAssignment.h; sourceTree = "<group>"; };
 		922D49EC1D64F3D40090631E /* ParseAssignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseAssignment.m; sourceTree = "<group>"; };
 		922D49EE1D64F4490090631E /* AssignmentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignmentModel.h; sourceTree = "<group>"; };
@@ -636,6 +706,30 @@
 		923226761E53825E0099439F /* ExpressionActionParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionActionParser.m; sourceTree = "<group>"; };
 		923226781E53829E0099439F /* IfParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IfParser.h; sourceTree = "<group>"; };
 		923226791E53829E0099439F /* IfParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IfParser.m; sourceTree = "<group>"; };
+		92385D20227A31B800079890 /* Years.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Years.h; sourceTree = "<group>"; };
+		92385D21227A31B800079890 /* Years.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Years.m; sourceTree = "<group>"; };
+		92385D23227B20DC00079890 /* AssigningFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AssigningFunction.h; sourceTree = "<group>"; };
+		92385D24227B20DC00079890 /* AssigningFunction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssigningFunction.m; sourceTree = "<group>"; };
+		92385D27227B29B600079890 /* DateMathFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DateMathFunction.h; sourceTree = "<group>"; };
+		92385D28227B29B600079890 /* DateMathFunction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DateMathFunction.m; sourceTree = "<group>"; };
+		92385D2A227B2AB100079890 /* Months.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Months.h; sourceTree = "<group>"; };
+		92385D2B227B2AB100079890 /* Months.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Months.m; sourceTree = "<group>"; };
+		92385D2D227B2AD100079890 /* Days.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Days.h; sourceTree = "<group>"; };
+		92385D2E227B2AD100079890 /* Days.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Days.m; sourceTree = "<group>"; };
+		92385D302280A55600079890 /* CETextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CETextField.h; sourceTree = "<group>"; };
+		92385D312280A55600079890 /* CETextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CETextField.m; sourceTree = "<group>"; };
+		92385D332284A37100079890 /* ExistingFunctionsListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExistingFunctionsListView.h; sourceTree = "<group>"; };
+		92385D342284A37100079890 /* ExistingFunctionsListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExistingFunctionsListView.m; sourceTree = "<group>"; };
+		923A02CB2289A07300C33F3B /* EnableDisableClear.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EnableDisableClear.h; sourceTree = "<group>"; };
+		923A02CC2289A07300C33F3B /* EnableDisableClear.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EnableDisableClear.m; sourceTree = "<group>"; };
+		923A02D42289A3BF00C33F3B /* Enable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Enable.h; sourceTree = "<group>"; };
+		923A02D52289A3BF00C33F3B /* Enable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Enable.m; sourceTree = "<group>"; };
+		923A02D72289A3DA00C33F3B /* Disable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Disable.h; sourceTree = "<group>"; };
+		923A02D82289A3DA00C33F3B /* Disable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Disable.m; sourceTree = "<group>"; };
+		923A02DA2289A3ED00C33F3B /* Clear.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Clear.h; sourceTree = "<group>"; };
+		923A02DB2289A3ED00C33F3B /* Clear.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Clear.m; sourceTree = "<group>"; };
+		923A02DD228B2DD000C33F3B /* PageCheckCodeWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PageCheckCodeWriter.h; sourceTree = "<group>"; };
+		923A02DE228B2DD000C33F3B /* PageCheckCodeWriter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PageCheckCodeWriter.m; sourceTree = "<group>"; };
 		923A263617B41BCE00DCBCD5 /* AnalysisFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalysisFilterView.h; sourceTree = "<group>"; };
 		923A263717B41BCE00DCBCD5 /* AnalysisFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalysisFilterView.m; sourceTree = "<group>"; };
 		923A263917B4265D00DCBCD5 /* FilterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterButton.h; sourceTree = "<group>"; };
@@ -651,22 +745,45 @@
 		9240E95D195481DA006345FE /* wtageinf.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wtageinf.csv; sourceTree = "<group>"; };
 		9240E96019548243006345FE /* GrowthPercentilesCompute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowthPercentilesCompute.h; sourceTree = "<group>"; };
 		9240E96119548243006345FE /* GrowthPercentilesCompute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrowthPercentilesCompute.m; sourceTree = "<group>"; };
+		9242CE5D2367266A005DA913 /* ConditionalAssignmentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConditionalAssignmentView.h; sourceTree = "<group>"; };
+		9242CE5E2367266A005DA913 /* ConditionalAssignmentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConditionalAssignmentView.m; sourceTree = "<group>"; };
+		9242CE652369BAA1005DA913 /* ConditionalAssignmentValuesView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConditionalAssignmentValuesView.h; sourceTree = "<group>"; };
+		9242CE662369BAA1005DA913 /* ConditionalAssignmentValuesView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConditionalAssignmentValuesView.m; sourceTree = "<group>"; };
 		924368EA1919736200E680BF /* LineList6060.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LineList6060.png; sourceTree = "<group>"; };
+		9246478323DF6E6A00BDD5AC /* VariableValueMapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VariableValueMapper.h; sourceTree = "<group>"; };
+		9246478423DF6E6A00BDD5AC /* VariableValueMapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VariableValueMapper.m; sourceTree = "<group>"; };
+		92469BEF232AAE6B00752ADC /* EncryptionDecryptionKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EncryptionDecryptionKeys.h; sourceTree = "<group>"; };
+		92469BF0232AAE6B00752ADC /* EncryptionDecryptionKeys.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EncryptionDecryptionKeys.m; sourceTree = "<group>"; };
 		924764BF18B3E9700046129F /* UploadButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UploadButton.png; sourceTree = "<group>"; };
 		924770811C4015EF008F8C90 /* ManageButtonOrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ManageButtonOrange.png; sourceTree = "<group>"; };
 		9247F20D181ADB4E00C96F94 /* BlurryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlurryView.h; sourceTree = "<group>"; };
 		9247F20E181ADB4E00C96F94 /* BlurryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlurryView.m; sourceTree = "<group>"; };
 		9248261C19CB40E300A0C1DD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		9249822522C2C57700C36CF3 /* BoxContentSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BoxContentSDK.framework; sourceTree = "<group>"; };
 		924A7D1219C21D2900F168A0 /* MeansCrosstabCompute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeansCrosstabCompute.h; sourceTree = "<group>"; };
 		924A7D1319C21D2900F168A0 /* MeansCrosstabCompute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeansCrosstabCompute.m; sourceTree = "<group>"; };
 		924B5B7F2125F2DF00B519CE /* DownTriangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownTriangle.h; sourceTree = "<group>"; };
 		924B5B802125F2DF00B519CE /* DownTriangle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownTriangle.m; sourceTree = "<group>"; };
-		924D8AA91AAE2BA1005A6253 /* CohortSimulationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CohortSimulationModel.swift; sourceTree = "<group>"; };
+		924CF54D239AD8A500372E8B /* VariablesInGroupSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VariablesInGroupSelector.h; sourceTree = "<group>"; };
+		924CF54E239AD8A500372E8B /* VariablesInGroupSelector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VariablesInGroupSelector.m; sourceTree = "<group>"; };
+		92502390225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormDesignerFieldDisplayPrompt.h; sourceTree = "<group>"; };
+		92502391225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormDesignerFieldDisplayPrompt.m; sourceTree = "<group>"; };
 		9252017C17D0C89A0071C754 /* ShinyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShinyButton.h; sourceTree = "<group>"; };
 		9252017D17D0C89A0071C754 /* ShinyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShinyButton.m; sourceTree = "<group>"; };
 		9252017F17D0CC930071C754 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		92524A8A184E50BE003C820B /* SaveFormView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveFormView.h; sourceTree = "<group>"; };
 		92524A8B184E50BE003C820B /* SaveFormView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveFormView.m; sourceTree = "<group>"; };
+		9253C7742195F42400DC084B /* LogisticView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticView.h; sourceTree = "<group>"; };
+		9253C7752195F42400DC084B /* LogisticView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticView.m; sourceTree = "<group>"; };
+		9258D19F22148EF1000376E7 /* FormDesigner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormDesigner.h; sourceTree = "<group>"; };
+		9258D1A022148EF1000376E7 /* FormDesigner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormDesigner.m; sourceTree = "<group>"; };
+		9258D1A7222D8833000376E7 /* FormElementObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormElementObject.h; sourceTree = "<group>"; };
+		9258D1A8222D8833000376E7 /* FormElementObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormElementObject.m; sourceTree = "<group>"; };
+		9258D1AB222FF10F000376E7 /* TextFieldDisplay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextFieldDisplay.h; sourceTree = "<group>"; };
+		9258D1AC222FF10F000376E7 /* TextFieldDisplay.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextFieldDisplay.m; sourceTree = "<group>"; };
+		9258D1AE22428862000376E7 /* SyncView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyncView.h; sourceTree = "<group>"; };
+		9258D1AF22428862000376E7 /* SyncView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SyncView.m; sourceTree = "<group>"; };
+		9258D1B122562CAF000376E7 /* Reserved_Words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Reserved_Words.txt; sourceTree = "<group>"; };
 		9259D2E41C9327D200AE9181 /* ChildFormFieldAssignments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildFormFieldAssignments.h; sourceTree = "<group>"; };
 		9259D2E51C9327D200AE9181 /* ChildFormFieldAssignments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildFormFieldAssignments.m; sourceTree = "<group>"; };
 		925A5DAD1858C0E2000C2E9E /* PlainOrangeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlainOrangeButton.png; sourceTree = "<group>"; };
@@ -710,7 +827,6 @@
 		9266C54218468CCF00739AF2 /* LegalValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegalValues.m; sourceTree = "<group>"; };
 		926817821AA8C54E00935BE9 /* SimulateCohort.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SimulateCohort.png; sourceTree = "<group>"; };
 		926817831AA8C54E00935BE9 /* SimulateCohortNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SimulateCohortNR.png; sourceTree = "<group>"; };
-		9268178A1AA8D27900935BE9 /* CohortSimulationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CohortSimulationView.swift; sourceTree = "<group>"; };
 		926A0F0718340A7400D49165 /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
 		926A0F0818340A7400D49165 /* Default-Portrait@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x.png"; sourceTree = "<group>"; };
 		926C9D541A7AA8FE004A6ADD /* SimulationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimulationsViewController.h; sourceTree = "<group>"; };
@@ -724,10 +840,10 @@
 		926DFB3D1832772800FACCD2 /* PopulationSSNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopulationSSNR.png; sourceTree = "<group>"; };
 		926DFB521832AA5500FACCD2 /* iPhone5RetinaLaunch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone5RetinaLaunch.png; sourceTree = "<group>"; };
 		926DFB541832B0A400FACCD2 /* iPhone4RetinaLaunch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone4RetinaLaunch.png; sourceTree = "<group>"; };
+		926F47D8237F2193003AC1F7 /* GroupOfVariablesInputs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupOfVariablesInputs.h; sourceTree = "<group>"; };
+		926F47D9237F2193003AC1F7 /* GroupOfVariablesInputs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupOfVariablesInputs.m; sourceTree = "<group>"; };
 		926F4A9F1946361200F476C3 /* UIPickerViewWithBlurryBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPickerViewWithBlurryBackground.h; sourceTree = "<group>"; };
 		926F4AA01946361200F476C3 /* UIPickerViewWithBlurryBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPickerViewWithBlurryBackground.m; sourceTree = "<group>"; };
-		926F55031AC5CDF200790628 /* CaseControlSimulationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaseControlSimulationModel.swift; sourceTree = "<group>"; };
-		926F55051AC5D09900790628 /* CaseControlSimulationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaseControlSimulationView.swift; sourceTree = "<group>"; };
 		926F55071AC5D13200790628 /* SimulateCaseControlNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SimulateCaseControlNR.png; sourceTree = "<group>"; };
 		926F55081AC5D13200790628 /* SimulateCaseControl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SimulateCaseControl.png; sourceTree = "<group>"; };
 		926F550B1AC5E01700790628 /* Simulations5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Simulations5.png; sourceTree = "<group>"; };
@@ -760,12 +876,22 @@
 		928FCEF319E570B300641A95 /* VHFButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VHFButton.png; sourceTree = "<group>"; };
 		928FCEF419E570B300641A95 /* VHFButtonNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VHFButtonNR.png; sourceTree = "<group>"; };
 		9291F43C1AA779C60041DE6E /* EpiInfo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EpiInfo-Bridging-Header.h"; sourceTree = "<group>"; };
-		9291F43D1AA779C60041DE6E /* SimulationsViewControllerSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulationsViewControllerSwift.swift; sourceTree = "<group>"; };
 		92921B9419A63E0000AA9477 /* MeansObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeansObject.h; sourceTree = "<group>"; };
 		92921B9519A63E0000AA9477 /* MeansObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeansObject.m; sourceTree = "<group>"; };
 		92921B9719A6427000AA9477 /* MeansView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeansView.h; sourceTree = "<group>"; };
 		92921B9819A6427000AA9477 /* MeansView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeansView.m; sourceTree = "<group>"; };
-		929230141EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MicrosoftAzureMobile.framework; sourceTree = "<group>"; };
+		9292B6DF2298384700802240 /* FormFieldsLegalValues.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFieldsLegalValues.h; sourceTree = "<group>"; };
+		9292B6E02298384700802240 /* FormFieldsLegalValues.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormFieldsLegalValues.m; sourceTree = "<group>"; };
+		92936296234FABD600949AF4 /* NewVariableInputs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewVariableInputs.h; sourceTree = "<group>"; };
+		92936297234FABD600949AF4 /* NewVariableInputs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewVariableInputs.m; sourceTree = "<group>"; };
+		92936299234FAE2400949AF4 /* DateMathFunctionInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DateMathFunctionInput.h; sourceTree = "<group>"; };
+		9293629A234FAE2400949AF4 /* DateMathFunctionInput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DateMathFunctionInput.m; sourceTree = "<group>"; };
+		9294A5CB2208CD1B008695AD /* LinearObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinearObject.h; sourceTree = "<group>"; };
+		9294A5CC2208CD1B008695AD /* LinearObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinearObject.m; sourceTree = "<group>"; };
+		9294A5D32208CD6F008695AD /* LinearView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinearView.h; sourceTree = "<group>"; };
+		9294A5D42208CD6F008695AD /* LinearView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinearView.m; sourceTree = "<group>"; };
+		9294A5D62208CDD3008695AD /* LinearRegressionResults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinearRegressionResults.h; sourceTree = "<group>"; };
+		9294A5D72208CDD3008695AD /* LinearRegressionResults.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinearRegressionResults.m; sourceTree = "<group>"; };
 		92955545192B963F008DEC5C /* ConverterMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConverterMethods.h; sourceTree = "<group>"; };
 		92955546192B963F008DEC5C /* ConverterMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConverterMethods.m; sourceTree = "<group>"; };
 		92955548192BC8C5008DEC5C /* DatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePicker.h; sourceTree = "<group>"; };
@@ -795,6 +921,12 @@
 		9295FFE71CEE07B00022B75C /* 2x2BN.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2x2BN.png; sourceTree = "<group>"; };
 		9296747B19E5CC3B0040CB9D /* VHF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VHF.png; sourceTree = "<group>"; };
 		9296747D19E5CCCB0040CB9D /* VHF4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VHF4.png; sourceTree = "<group>"; };
+		929E47AD21A5D16900D88EF0 /* LogisticRegressionResults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogisticRegressionResults.h; sourceTree = "<group>"; };
+		929E47AE21A5D16900D88EF0 /* LogisticRegressionResults.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogisticRegressionResults.m; sourceTree = "<group>"; };
+		929E47B521A5DA3900D88EF0 /* VariableRow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VariableRow.h; sourceTree = "<group>"; };
+		929E47B621A5DA3900D88EF0 /* VariableRow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VariableRow.m; sourceTree = "<group>"; };
+		929E47B821A5DA6200D88EF0 /* InteractionRow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InteractionRow.h; sourceTree = "<group>"; };
+		929E47B921A5DA6200D88EF0 /* InteractionRow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InteractionRow.m; sourceTree = "<group>"; };
 		92A1924E1C690DD40095E69F /* NextPage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NextPage.png; sourceTree = "<group>"; };
 		92A1924F1C690DD40095E69F /* PreviousPage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PreviousPage.png; sourceTree = "<group>"; };
 		92A1F68E1B03E9A4004654B8 /* CheckCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckCode.swift; sourceTree = "<group>"; };
@@ -817,6 +949,10 @@
 		92AED73C186E09D5004A4DB9 /* StAndrewXButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StAndrewXButton.png; sourceTree = "<group>"; };
 		92AED73D186E09D5004A4DB9 /* XButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = XButton.png; sourceTree = "<group>"; };
 		92AED740186E0CF9004A4DB9 /* StAndrewXButtonWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StAndrewXButtonWhite.png; sourceTree = "<group>"; };
+		92B070CD2332AAC900F27141 /* DownTriangleAnalysisStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownTriangleAnalysisStyle.h; sourceTree = "<group>"; };
+		92B070CE2332AAC900F27141 /* DownTriangleAnalysisStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownTriangleAnalysisStyle.m; sourceTree = "<group>"; };
+		92B070D52332C09100F27141 /* DataManagementView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataManagementView.h; sourceTree = "<group>"; };
+		92B070D62332C09100F27141 /* DataManagementView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataManagementView.m; sourceTree = "<group>"; };
 		92B258221820376A008D88FC /* CohortCrossSectional.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CohortCrossSectional.png; sourceTree = "<group>"; };
 		92B258241820376A008D88FC /* PopulationStudy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PopulationStudy.png; sourceTree = "<group>"; };
 		92B258251820376A008D88FC /* UnmatchedCaseControl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UnmatchedCaseControl.png; sourceTree = "<group>"; };
@@ -829,6 +965,12 @@
 		92BA2E1418AA6B0200E2CC33 /* MSAzureBluePhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MSAzureBluePhone.png; sourceTree = "<group>"; };
 		92BA7F9518C773E400841104 /* PackageAndEmailDataButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PackageAndEmailDataButton.png; sourceTree = "<group>"; };
 		92BA7F9618C773E400841104 /* UploadDataToCloudButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UploadDataToCloudButton.png; sourceTree = "<group>"; };
+		92BB3C3421AC79BC00D785CD /* EIMatrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EIMatrix.h; sourceTree = "<group>"; };
+		92BB3C3521AC79BC00D785CD /* EIMatrix.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EIMatrix.m; sourceTree = "<group>"; };
+		92BDFE34248FED11006EF6FA /* BoxData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoxData.h; sourceTree = "<group>"; };
+		92BDFE35248FED11006EF6FA /* BoxData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BoxData.m; sourceTree = "<group>"; };
+		92BE663C23267DC500F9A5B5 /* CommandButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandButton.h; sourceTree = "<group>"; };
+		92BE663D23267DC500F9A5B5 /* CommandButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommandButton.m; sourceTree = "<group>"; };
 		92C2BC3B1E857E880034F85B /* 2x2_icon_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2x2_icon_6+.png"; sourceTree = "<group>"; };
 		92C2BC3C1E857E880034F85B /* 2x2_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2x2_icon.png; sourceTree = "<group>"; };
 		92C2BC3D1E857E880034F85B /* binomial_icon_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "binomial_icon_6+.png"; sourceTree = "<group>"; };
@@ -854,12 +996,25 @@
 		92C2BC681E8956380034F85B /* population_survey_icon_blue_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "population_survey_icon_blue_6+.png"; sourceTree = "<group>"; };
 		92C2BC691E8956380034F85B /* population_survey_icon_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = population_survey_icon_blue.png; sourceTree = "<group>"; };
 		92C419D81921595000FA46EA /* DeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeleteButton.png; sourceTree = "<group>"; };
+		92CC6084228DBC8200513DC5 /* IfBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IfBuilder.h; sourceTree = "<group>"; };
+		92CC6085228DBC8200513DC5 /* IfBuilder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IfBuilder.m; sourceTree = "<group>"; };
+		92CC608D228ED03A00513DC5 /* IfText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IfText.h; sourceTree = "<group>"; };
+		92CC608E228ED03A00513DC5 /* IfText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IfText.m; sourceTree = "<group>"; };
+		92CC6090228ED12A00513DC5 /* ConditionText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConditionText.h; sourceTree = "<group>"; };
+		92CC6091228ED12A00513DC5 /* ConditionText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConditionText.m; sourceTree = "<group>"; };
+		92CC6093228F20F300513DC5 /* ThenText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThenText.h; sourceTree = "<group>"; };
+		92CC6094228F20F300513DC5 /* ThenText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThenText.m; sourceTree = "<group>"; };
+		92CC6096228F217B00513DC5 /* ElseText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ElseText.h; sourceTree = "<group>"; };
+		92CC6097228F217B00513DC5 /* ElseText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ElseText.m; sourceTree = "<group>"; };
 		92D30F5A1899726100CEBCAE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		92D43A451992A5BD00B24712 /* ConfirmDeleteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmDeleteButton.h; sourceTree = "<group>"; };
 		92D43A461992A5BD00B24712 /* ConfirmDeleteButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmDeleteButton.m; sourceTree = "<group>"; };
 		92D43A481992C61700B24712 /* RoundDeleteButton60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RoundDeleteButton60.png; sourceTree = "<group>"; };
 		92D4BB61184F77CC00B2D70C /* CancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CancelButton.png; sourceTree = "<group>"; };
 		92D4BB62184F77CC00B2D70C /* SaveButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SaveButton.png; sourceTree = "<group>"; };
+		92D4DFE92422886F00934571 /* ScannerIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScannerIcon.png; sourceTree = "<group>"; };
+		92D4DFEB24228A0800934571 /* QRScannerButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRScannerButton.h; sourceTree = "<group>"; };
+		92D4DFEC24228A0800934571 /* QRScannerButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRScannerButton.m; sourceTree = "<group>"; };
 		92DBD601193CC57100A40691 /* EpiInfoOptionField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpiInfoOptionField.h; sourceTree = "<group>"; };
 		92DBD602193CC57100A40691 /* EpiInfoOptionField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpiInfoOptionField.m; sourceTree = "<group>"; };
 		92DBD604193CDAFA00A40691 /* EpiInfoUniqueIDField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpiInfoUniqueIDField.h; sourceTree = "<group>"; };
@@ -908,15 +1063,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9292301B1EC4F3EE0078D9C2 /* WindowsAzureMobileServices.framework in Frameworks */,
 				C39E67AD1E03381A0002A4EF /* libPEGKitIOS.a in Frameworks */,
 				92A5D8D018CF91820048C160 /* Security.framework in Frameworks */,
 				9224991018C66FB500D8105E /* MessageUI.framework in Frameworks */,
 				927B555C18B65281000AB7B1 /* SystemConfiguration.framework in Frameworks */,
 				92D30F5B1899726100CEBCAE /* CoreLocation.framework in Frameworks */,
 				92001B97186C8C2E00B87D21 /* CoreImage.framework in Frameworks */,
+				9249822622C2C57800C36CF3 /* BoxContentSDK.framework in Frameworks */,
 				9252018017D0CC930071C754 /* QuartzCore.framework in Frameworks */,
-				929230151EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework in Frameworks */,
+				9249822722C2C5B100C36CF3 /* BoxContentSDK.framework in Frameworks */,
 				9284E8ED17B94BDB00158139 /* libsqlite3.dylib in Frameworks */,
 				4AFD852A161F137B00FFBA65 /* UIKit.framework in Frameworks */,
 				4AFD852C161F137B00FFBA65 /* Foundation.framework in Frameworks */,
@@ -1008,14 +1163,13 @@
 		4AFD8528161F137B00FFBA65 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				929230141EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework */,
+				9249822522C2C57700C36CF3 /* BoxContentSDK.framework */,
 				92A5D8CF18CF91820048C160 /* Security.framework */,
 				92DE0E1E18CA4770000D388E /* libcorecrypto.dylib */,
 				92DE0E1C18CA46D3000D388E /* libcommonCrypto.dylib */,
 				9224990F18C66FB500D8105E /* MessageUI.framework */,
 				927B555B18B65281000AB7B1 /* SystemConfiguration.framework */,
 				92D30F5A1899726100CEBCAE /* CoreLocation.framework */,
-				921974961880583D007F6DFA /* WindowsAzureMobileServices.framework */,
 				92001B96186C8C2E00B87D21 /* CoreImage.framework */,
 				4AFD8529161F137B00FFBA65 /* UIKit.framework */,
 				4AFD852B161F137B00FFBA65 /* Foundation.framework */,
@@ -1087,6 +1241,7 @@
 				92C2BC691E8956380034F85B /* population_survey_icon_blue.png */,
 				92130CFA1CE0FB62001040D6 /* epi_info_logo_full.png */,
 				92130CFB1CE0FB62001040D6 /* epi_info_logo_full_6+.png */,
+				92D4DFE92422886F00934571 /* ScannerIcon.png */,
 				9295FFD61CEE07B00022B75C /* CohortBN.png */,
 				9295FFD71CEE07B00022B75C /* UnmatchN.png */,
 				9295FFD81CEE07B00022B75C /* PopTN.png */,
@@ -1425,6 +1580,66 @@
 			name = "Launch Images";
 			sourceTree = "<group>";
 		};
+		92385D18227A30C400079890 /* CheckCode */ = {
+			isa = PBXGroup;
+			children = (
+				92385D1E227A316000079890 /* Functions */,
+				921E6B552277593C00C46A72 /* CheckCodeWriter.h */,
+				921E6B562277593D00C46A72 /* CheckCodeWriter.m */,
+				923A02DD228B2DD000C33F3B /* PageCheckCodeWriter.h */,
+				923A02DE228B2DD000C33F3B /* PageCheckCodeWriter.m */,
+				92385D302280A55600079890 /* CETextField.h */,
+				92385D312280A55600079890 /* CETextField.m */,
+				9292B6DF2298384700802240 /* FormFieldsLegalValues.h */,
+				9292B6E02298384700802240 /* FormFieldsLegalValues.m */,
+			);
+			path = CheckCode;
+			sourceTree = "<group>";
+		};
+		92385D1E227A316000079890 /* Functions */ = {
+			isa = PBXGroup;
+			children = (
+				92CC608C228ECF5400513DC5 /* IF-THEN-ELSE */,
+				92385D23227B20DC00079890 /* AssigningFunction.h */,
+				92385D24227B20DC00079890 /* AssigningFunction.m */,
+				923A02CB2289A07300C33F3B /* EnableDisableClear.h */,
+				923A02CC2289A07300C33F3B /* EnableDisableClear.m */,
+				92385D332284A37100079890 /* ExistingFunctionsListView.h */,
+				92385D342284A37100079890 /* ExistingFunctionsListView.m */,
+				92385D1F227A319100079890 /* DateMath */,
+				923A02D32289A38700C33F3B /* Actions */,
+			);
+			path = Functions;
+			sourceTree = "<group>";
+		};
+		92385D1F227A319100079890 /* DateMath */ = {
+			isa = PBXGroup;
+			children = (
+				92385D27227B29B600079890 /* DateMathFunction.h */,
+				92385D28227B29B600079890 /* DateMathFunction.m */,
+				92385D20227A31B800079890 /* Years.h */,
+				92385D21227A31B800079890 /* Years.m */,
+				92385D2A227B2AB100079890 /* Months.h */,
+				92385D2B227B2AB100079890 /* Months.m */,
+				92385D2D227B2AD100079890 /* Days.h */,
+				92385D2E227B2AD100079890 /* Days.m */,
+			);
+			path = DateMath;
+			sourceTree = "<group>";
+		};
+		923A02D32289A38700C33F3B /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				923A02D42289A3BF00C33F3B /* Enable.h */,
+				923A02D52289A3BF00C33F3B /* Enable.m */,
+				923A02D72289A3DA00C33F3B /* Disable.h */,
+				923A02D82289A3DA00C33F3B /* Disable.m */,
+				923A02DA2289A3ED00C33F3B /* Clear.h */,
+				923A02DB2289A3ED00C33F3B /* Clear.m */,
+			);
+			path = Actions;
+			sourceTree = "<group>";
+		};
 		923A263C17B42C7F00DCBCD5 /* Analyses */ = {
 			isa = PBXGroup;
 			children = (
@@ -1434,12 +1649,30 @@
 				92921B9519A63E0000AA9477 /* MeansObject.m */,
 				68DAD2B61781F35D00BD6947 /* TablesObject.h */,
 				68DAD2B71781F35D00BD6947 /* TablesObject.m */,
+				920BCE3321760F6F00BF050A /* LogisticObject.h */,
+				920BCE3421760F6F00BF050A /* LogisticObject.m */,
+				9294A5CB2208CD1B008695AD /* LinearObject.h */,
+				9294A5CC2208CD1B008695AD /* LinearObject.m */,
 				4AC04F47178B37610001F3DC /* FrequencyView.h */,
 				4AC04F48178B37610001F3DC /* FrequencyView.m */,
 				92921B9719A6427000AA9477 /* MeansView.h */,
 				92921B9819A6427000AA9477 /* MeansView.m */,
 				4A556865178DA09400B79542 /* TablesView.h */,
 				4A556866178DA09400B79542 /* TablesView.m */,
+				9253C7742195F42400DC084B /* LogisticView.h */,
+				9253C7752195F42400DC084B /* LogisticView.m */,
+				9294A5D32208CD6F008695AD /* LinearView.h */,
+				9294A5D42208CD6F008695AD /* LinearView.m */,
+				929E47AD21A5D16900D88EF0 /* LogisticRegressionResults.h */,
+				929E47AE21A5D16900D88EF0 /* LogisticRegressionResults.m */,
+				9294A5D62208CDD3008695AD /* LinearRegressionResults.h */,
+				9294A5D72208CDD3008695AD /* LinearRegressionResults.m */,
+				92BB3C3421AC79BC00D785CD /* EIMatrix.h */,
+				92BB3C3521AC79BC00D785CD /* EIMatrix.m */,
+				929E47B521A5DA3900D88EF0 /* VariableRow.h */,
+				929E47B621A5DA3900D88EF0 /* VariableRow.m */,
+				929E47B821A5DA6200D88EF0 /* InteractionRow.h */,
+				929E47B921A5DA6200D88EF0 /* InteractionRow.m */,
 			);
 			name = Analyses;
 			sourceTree = "<group>";
@@ -1451,6 +1684,8 @@
 				9276EEB817B028AE0050858B /* ChooseAnalysisButton.m */,
 				9276EEBA17B029E60050858B /* AnalysisList.h */,
 				9276EEBB17B029E60050858B /* AnalysisList.m */,
+				92B070D52332C09100F27141 /* DataManagementView.h */,
+				92B070D62332C09100F27141 /* DataManagementView.m */,
 				923A263617B41BCE00DCBCD5 /* AnalysisFilterView.h */,
 				923A263717B41BCE00DCBCD5 /* AnalysisFilterView.m */,
 				923A263917B4265D00DCBCD5 /* FilterButton.h */,
@@ -1459,12 +1694,43 @@
 				923A49F517B56636000FFC0C /* NewVariablesButton.m */,
 				923A49F717B57624000FFC0C /* NewVariablesView.h */,
 				923A49F817B57624000FFC0C /* NewVariablesView.m */,
+				92936296234FABD600949AF4 /* NewVariableInputs.h */,
+				92936297234FABD600949AF4 /* NewVariableInputs.m */,
+				926F47D8237F2193003AC1F7 /* GroupOfVariablesInputs.h */,
+				926F47D9237F2193003AC1F7 /* GroupOfVariablesInputs.m */,
+				9242CE5D2367266A005DA913 /* ConditionalAssignmentView.h */,
+				9242CE5E2367266A005DA913 /* ConditionalAssignmentView.m */,
+				9242CE652369BAA1005DA913 /* ConditionalAssignmentValuesView.h */,
+				9242CE662369BAA1005DA913 /* ConditionalAssignmentValuesView.m */,
+				92936299234FAE2400949AF4 /* DateMathFunctionInput.h */,
+				9293629A234FAE2400949AF4 /* DateMathFunctionInput.m */,
 				923F2BBB198C045B008A4856 /* ImportCSV.h */,
 				923F2BBC198C045B008A4856 /* ImportCSV.m */,
 				9265FF8E1CB29B9F003AD6E0 /* SQLTool.h */,
 				9265FF8F1CB29B9F003AD6E0 /* SQLTool.m */,
+				9246478323DF6E6A00BDD5AC /* VariableValueMapper.h */,
+				9246478423DF6E6A00BDD5AC /* VariableValueMapper.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		9258D1AA222FE8E3000376E7 /* FormDesigner */ = {
+			isa = PBXGroup;
+			children = (
+				92385D18227A30C400079890 /* CheckCode */,
+				9258D19F22148EF1000376E7 /* FormDesigner.h */,
+				9258D1A022148EF1000376E7 /* FormDesigner.m */,
+				924CF54D239AD8A500372E8B /* VariablesInGroupSelector.h */,
+				924CF54E239AD8A500372E8B /* VariablesInGroupSelector.m */,
+				9258D1A7222D8833000376E7 /* FormElementObject.h */,
+				9258D1A8222D8833000376E7 /* FormElementObject.m */,
+				9258D1AB222FF10F000376E7 /* TextFieldDisplay.h */,
+				9258D1AC222FF10F000376E7 /* TextFieldDisplay.m */,
+				9258D1B122562CAF000376E7 /* Reserved_Words.txt */,
+				92502390225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.h */,
+				92502391225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.m */,
+			);
+			path = FormDesigner;
 			sourceTree = "<group>";
 		};
 		925C894B19535A8900F3DCE7 /* Growth Data */ = {
@@ -1495,10 +1761,19 @@
 		9266C5251846571B00739AF2 /* Entry */ = {
 			isa = PBXGroup;
 			children = (
+				9258D1AA222FE8E3000376E7 /* FormDesigner */,
 				84C816791CE22D7800F408D2 /* CheckCode */,
 				92E9801218A538B40011CC8B /* ButtonImages */,
+				92469BEF232AAE6B00752ADC /* EncryptionDecryptionKeys.h */,
+				92469BF0232AAE6B00752ADC /* EncryptionDecryptionKeys.m */,
 				9266C526184657E900739AF2 /* DataEntryViewController.h */,
 				9266C527184657E900739AF2 /* DataEntryViewController.m */,
+				922D25992469D56100064419 /* EpiInfoBarButtonItem.h */,
+				922D259A2469D56100064419 /* EpiInfoBarButtonItem.m */,
+				922D259C246AD23B00064419 /* FunctionsMenuBarButtonItem.h */,
+				922D259D246AD23B00064419 /* FunctionsMenuBarButtonItem.m */,
+				92BDFE34248FED11006EF6FA /* BoxData.h */,
+				92BDFE35248FED11006EF6FA /* BoxData.m */,
 				922825021863821700DF9493 /* EnterDataView.h */,
 				922825031863821700DF9493 /* EnterDataView.m */,
 				847C97D81D427494001E47DD /* UIView+UpdateAutoLayoutConstraints.h */,
@@ -1507,6 +1782,10 @@
 				92B8E4CB191A8011007E4ECC /* EpiInfoLineListView.m */,
 				9266C5291846613000739AF2 /* FormView.h */,
 				9266C52A1846613000739AF2 /* FormView.m */,
+				9258D1AE22428862000376E7 /* SyncView.h */,
+				9258D1AF22428862000376E7 /* SyncView.m */,
+				920BCE3B2178F0AA00BF050A /* FormFromGoogleSheetView.h */,
+				920BCE3C2178F0AA00BF050A /* FormFromGoogleSheetView.m */,
 				92524A8A184E50BE003C820B /* SaveFormView.h */,
 				92524A8B184E50BE003C820B /* SaveFormView.m */,
 				92E1A83718730614003E58A5 /* EpiInfoTextField.h */,
@@ -1515,14 +1794,20 @@
 				92E1A83B18730974003E58A5 /* EpiInfoTextView.m */,
 				9266C52F18466ED600739AF2 /* Checkbox.h */,
 				9266C53018466ED600739AF2 /* Checkbox.m */,
+				92BE663C23267DC500F9A5B5 /* CommandButton.h */,
+				92BE663D23267DC500F9A5B5 /* CommandButton.m */,
 				920CD0251EE4B30200415569 /* CheckButton.h */,
 				920CD0261EE4B30200415569 /* CheckButton.m */,
 				928F8817200FEF85001F3E03 /* EpiInfoImageField.h */,
 				928F8818200FEF85001F3E03 /* EpiInfoImageField.m */,
+				92D4DFEB24228A0800934571 /* QRScannerButton.h */,
+				92D4DFEC24228A0800934571 /* QRScannerButton.m */,
 				9266C5321846795000739AF2 /* YesNo.h */,
 				9266C5331846795000739AF2 /* YesNo.m */,
 				924B5B7F2125F2DF00B519CE /* DownTriangle.h */,
 				924B5B802125F2DF00B519CE /* DownTriangle.m */,
+				92B070CD2332AAC900F27141 /* DownTriangleAnalysisStyle.h */,
+				92B070CE2332AAC900F27141 /* DownTriangleAnalysisStyle.m */,
 				9266C5351846848800739AF2 /* NumberField.h */,
 				9266C5361846848800739AF2 /* NumberField.m */,
 				9266C538184684B200739AF2 /* PhoneNumberField.h */,
@@ -1577,11 +1862,6 @@
 				9291F43C1AA779C60041DE6E /* EpiInfo-Bridging-Header.h */,
 				926C9D541A7AA8FE004A6ADD /* SimulationsViewController.h */,
 				926C9D551A7AA8FE004A6ADD /* SimulationsViewController.m */,
-				9291F43D1AA779C60041DE6E /* SimulationsViewControllerSwift.swift */,
-				9268178A1AA8D27900935BE9 /* CohortSimulationView.swift */,
-				924D8AA91AAE2BA1005A6253 /* CohortSimulationModel.swift */,
-				926F55051AC5D09900790628 /* CaseControlSimulationView.swift */,
-				926F55031AC5CDF200790628 /* CaseControlSimulationModel.swift */,
 			);
 			name = Simulations;
 			sourceTree = "<group>";
@@ -1600,6 +1880,23 @@
 			children = (
 			);
 			name = Logs;
+			sourceTree = "<group>";
+		};
+		92CC608C228ECF5400513DC5 /* IF-THEN-ELSE */ = {
+			isa = PBXGroup;
+			children = (
+				92CC6084228DBC8200513DC5 /* IfBuilder.h */,
+				92CC6085228DBC8200513DC5 /* IfBuilder.m */,
+				92CC608D228ED03A00513DC5 /* IfText.h */,
+				92CC608E228ED03A00513DC5 /* IfText.m */,
+				92CC6090228ED12A00513DC5 /* ConditionText.h */,
+				92CC6091228ED12A00513DC5 /* ConditionText.m */,
+				92CC6093228F20F300513DC5 /* ThenText.h */,
+				92CC6094228F20F300513DC5 /* ThenText.m */,
+				92CC6096228F217B00513DC5 /* ElseText.h */,
+				92CC6097228F217B00513DC5 /* ElseText.m */,
+			);
+			path = "IF-THEN-ELSE";
 			sourceTree = "<group>";
 		};
 		92D4BB60184F77BD00B2D70C /* Button Images */ = {
@@ -1687,6 +1984,8 @@
 				4AFD8521161F137B00FFBA65 /* Sources */,
 				4AFD8522161F137B00FFBA65 /* Frameworks */,
 				4AFD8523161F137B00FFBA65 /* Resources */,
+				9249822422C2B82D00C36CF3 /* Embed Frameworks */,
+				9298FBBD22C5499E0063CA17 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1711,8 +2010,8 @@
 				TargetAttributes = {
 					4AFD8524161F137B00FFBA65 = {
 						DevelopmentTeam = J8992FE8QS;
-						LastSwiftMigration = 0810;
-						ProvisioningStyle = Automatic;
+						LastSwiftMigration = 1020;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.DataProtection = {
 								enabled = 1;
@@ -1726,6 +2025,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 4AFD851A161F137B00FFBA65;
@@ -1899,6 +2199,7 @@
 				92D4BB63184F77CC00B2D70C /* CancelButton.png in Resources */,
 				924764C018B3E9700046129F /* UploadButton.png in Resources */,
 				9295FFEB1CEE07B00022B75C /* PopBN.png in Resources */,
+				9258D1B222562CAF000376E7 /* Reserved_Words.txt in Resources */,
 				9295FFEE1CEE07B00022B75C /* PoissonBN.png in Resources */,
 				92F520EB1CD3BFAC0058F352 /* icon-58.png in Resources */,
 				92C2BC571E857E880034F85B /* growth_percentiles_icon_6+.png in Resources */,
@@ -1918,6 +2219,7 @@
 				92C2BC561E857E880034F85B /* cohort_icon.png in Resources */,
 				9295FFF81CEE07B00022B75C /* 2x2B0N.png in Resources */,
 				92130CF51CE0F69B001040D6 /* AnalysisButton.png in Resources */,
+				92D4DFEA2422886F00934571 /* ScannerIcon.png in Resources */,
 				92130D0F1CE5112E001040D6 /* iPhone4BackgroundWhite.png in Resources */,
 				68D76A0216A9DDF900D831EB /* ChiT.png in Resources */,
 				68D76A0316A9DDF900D831EB /* MatchedPB.png in Resources */,
@@ -2017,18 +2319,45 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9298FBBD22C5499E0063CA17 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nAPP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\n# This script loops through the frameworks embedded in the application and\n# removes unused architectures.\nfind \"$APP_PATH\" -name '*.framework' -type d | while read -r FRAMEWORK\ndo\nFRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\nFRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\necho \"Executable is $FRAMEWORK_EXECUTABLE_PATH\"\n\nEXTRACTED_ARCHS=()\n\nfor ARCH in $ARCHS\ndo\necho \"Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME\"\nlipo -extract \"$ARCH\" \"$FRAMEWORK_EXECUTABLE_PATH\" -o \"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\"\nEXTRACTED_ARCHS+=(\"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\")\ndone\n\necho \"Merging extracted architectures: ${ARCHS}\"\nlipo -o \"$FRAMEWORK_EXECUTABLE_PATH-merged\" -create \"${EXTRACTED_ARCHS[@]}\"\nrm \"${EXTRACTED_ARCHS[@]}\"\n\necho \"Replacing original executable with thinned version\"\nrm \"$FRAMEWORK_EXECUTABLE_PATH\"\nmv \"$FRAMEWORK_EXECUTABLE_PATH-merged\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n\ndone\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4AFD8521161F137B00FFBA65 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				922D259B2469D56100064419 /* EpiInfoBarButtonItem.m in Sources */,
+				9242CE672369BAA1005DA913 /* ConditionalAssignmentValuesView.m in Sources */,
 				4AFD8536161F137B00FFBA65 /* main.m in Sources */,
+				92385D352284A37100079890 /* ExistingFunctionsListView.m in Sources */,
+				9292B6E12298384700802240 /* FormFieldsLegalValues.m in Sources */,
 				92EB1ACF1DCA77B900694282 /* DictionaryOfFields.m in Sources */,
+				9253C7762195F42400DC084B /* LogisticView.m in Sources */,
+				92385D322280A55600079890 /* CETextField.m in Sources */,
 				4AFD853A161F137B00FFBA65 /* EpiInfoAppDelegate.m in Sources */,
 				9211F6F21D54C02F002583D4 /* AssignParse.c in Sources */,
 				4AFD854F161F142600FFBA65 /* StatCalcViewController.m in Sources */,
 				92A1F68F1B03E9A4004654B8 /* CheckCode.swift in Sources */,
 				920AE61019C88D71001C96CE /* EpiInfoViewForRounding.m in Sources */,
+				923A02D92289A3DA00C33F3B /* Disable.m in Sources */,
 				4AFD8557161F179600FFBA65 /* StatCalc2x2ViewController.m in Sources */,
 				4AFD8558161F179600FFBA65 /* Twox2CalculatorView.m in Sources */,
 				921ED31E1C7F7043004C6091 /* RelateButton.m in Sources */,
@@ -2037,19 +2366,26 @@
 				9295554A192BC8C5008DEC5C /* DatePicker.m in Sources */,
 				4AFD855E161F17B000FFBA65 /* MatchedPairCalculatorViewController.m in Sources */,
 				9240E96219548243006345FE /* GrowthPercentilesCompute.m in Sources */,
+				92BE663E23267DC500F9A5B5 /* CommandButton.m in Sources */,
 				84C816871CE22D8D00F408D2 /* ElementPairsCheck.m in Sources */,
 				92921B9619A63E0000AA9477 /* MeansObject.m in Sources */,
+				9258D1AD222FF10F000376E7 /* TextFieldDisplay.m in Sources */,
 				4AFD8563161F17D900FFBA65 /* MatchedPairCompute.m in Sources */,
-				9291F43E1AA779C60041DE6E /* SimulationsViewControllerSwift.swift in Sources */,
 				9247F20F181ADB4E00C96F94 /* BlurryView.m in Sources */,
+				9294A5D82208CDD3008695AD /* LinearRegressionResults.m in Sources */,
 				92DBD603193CC57100A40691 /* EpiInfoOptionField.m in Sources */,
 				4AFD8564161F17D900FFBA65 /* Twox2Compute.m in Sources */,
 				4AFD8567161F413B00FFBA65 /* SharedResources.m in Sources */,
+				92BB3C3621AC79BC00D785CD /* EIMatrix.m in Sources */,
 				92E1A83C18730974003E58A5 /* EpiInfoTextView.m in Sources */,
 				84C816841CE22D8D00F408D2 /* CheckCodeParser.m in Sources */,
+				92CC6098228F217B00513DC5 /* ElseText.m in Sources */,
 				922920851AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift in Sources */,
-				926F55041AC5CDF200790628 /* CaseControlSimulationModel.swift in Sources */,
+				92B070D72332C09100F27141 /* DataManagementView.m in Sources */,
+				9258D1A122148EF1000376E7 /* FormDesigner.m in Sources */,
 				928FCEF219E5692000641A95 /* VHFViewController.m in Sources */,
+				92385D2F227B2AD100079890 /* Days.m in Sources */,
+				92385D22227A31B800079890 /* Years.m in Sources */,
 				4AFD8571161F524E00FFBA65 /* PopulationSurveyViewController.m in Sources */,
 				4AFD8574161F531400FFBA65 /* PopulationSurveyView.m in Sources */,
 				4AFD8577161F563100FFBA65 /* SampleSizeAndPowerViewController.m in Sources */,
@@ -2059,42 +2395,58 @@
 				4A409A6D161F6CFB0038F572 /* PopulationSurveySampleSizeCompute.m in Sources */,
 				4AC7D6241625BD640056A8AC /* CohortSampleSizeViewController.m in Sources */,
 				9266C53D184684CA00739AF2 /* DateField.m in Sources */,
+				9294A5D52208CD6F008695AD /* LinearView.m in Sources */,
 				92ABAA1D1D22F727000C5B60 /* PageDots.m in Sources */,
 				92F25A3C1ECB558400638DF9 /* EpiInfoLogManager.m in Sources */,
+				9242CE5F2367266A005DA913 /* ConditionalAssignmentView.m in Sources */,
 				4AC7D6301625C0C80056A8AC /* UnmatchedCaseControlSampleSizeViewController.m in Sources */,
+				926F47DA237F2193003AC1F7 /* GroupOfVariablesInputs.m in Sources */,
+				929E47AF21A5D16900D88EF0 /* LogisticRegressionResults.m in Sources */,
+				923A02CD2289A07300C33F3B /* EnableDisableClear.m in Sources */,
+				92936298234FABD600949AF4 /* NewVariableInputs.m in Sources */,
 				923226771E53825E0099439F /* ExpressionActionParser.m in Sources */,
 				921500821EA92A2100E2CF9A /* MainMenuMenu.m in Sources */,
 				92A25C011938E0AC003225E1 /* TimeField.m in Sources */,
 				4A977F381627097C0009E572 /* CohortSampleSizeCompute.m in Sources */,
 				4AB23ED016284B6B00AE47C0 /* EpiInfoScrollView.m in Sources */,
+				921E6B572277593D00C46A72 /* CheckCodeWriter.m in Sources */,
 				92605C5119C36E1300827CB0 /* EpiInfoNumberFormatter.m in Sources */,
 				922825041863821700DF9493 /* EnterDataView.m in Sources */,
 				4AB23ED316284EE600AE47C0 /* UnmatchedCaseControlSampleSizeCompute.m in Sources */,
 				9259D2E61C9327D200AE9181 /* ChildFormFieldAssignments.m in Sources */,
 				92E1A83918730614003E58A5 /* EpiInfoTextField.m in Sources */,
-				924D8AAA1AAE2BA1005A6253 /* CohortSimulationModel.swift in Sources */,
 				922D49ED1D64F3D40090631E /* ParseAssignment.m in Sources */,
+				923A02D62289A3BF00C33F3B /* Enable.m in Sources */,
+				929E47B721A5DA3900D88EF0 /* VariableRow.m in Sources */,
+				92502392225E3C2D00F3A5EE /* FormDesignerFieldDisplayPrompt.m in Sources */,
+				920BCE3521760F6F00BF050A /* LogisticObject.m in Sources */,
 				92921B9919A6427000AA9477 /* MeansView.m in Sources */,
 				847C97D71D427301001E47DD /* LegalValuesEnter.m in Sources */,
+				92CC608F228ED03A00513DC5 /* IfText.m in Sources */,
 				4AB23ED616288B9900AE47C0 /* ChiSquareCalculatorViewController.m in Sources */,
 				4AB23ED916288CB800AE47C0 /* BinomialCalculatorViewController.m in Sources */,
 				4AB23EDC16288D3600AE47C0 /* PoissonCalculatorViewController.m in Sources */,
 				9232267A1E53829E0099439F /* IfParser.m in Sources */,
 				4AB23EDF16289C8C00AE47C0 /* PoissonCalculatorCompute.m in Sources */,
 				4A071E891639C2E3002C05E9 /* BinomialCalculatorCompute.m in Sources */,
+				923A02DF228B2DD000C33F3B /* PageCheckCodeWriter.m in Sources */,
 				4A943006163F144400138E0A /* ChiSquareCalculatorCompute.m in Sources */,
 				922D49F01D64F4490090631E /* AssignmentModel.m in Sources */,
 				92EBAD03194A400D000EF983 /* EpiInfoUILabel.m in Sources */,
 				92B8E4CC191A8011007E4ECC /* EpiInfoLineListView.m in Sources */,
-				9268178B1AA8D27900935BE9 /* CohortSimulationView.swift in Sources */,
+				9246478523DF6E6A00BDD5AC /* VariableValueMapper.m in Sources */,
 				4AE6939A169F5CE700BE2AA3 /* Twox2StrataData.m in Sources */,
 				4A50FF0E16A4443F00A638C4 /* Twox2SummaryData.m in Sources */,
+				92B070CF2332AAC900F27141 /* DownTriangleAnalysisStyle.m in Sources */,
 				9262713B18213D5D002C1C73 /* EpiInfoIconSegue.m in Sources */,
+				92385D29227B29B600079890 /* DateMathFunction.m in Sources */,
 				6878E46C16EF55840081F949 /* DrawCurveView.m in Sources */,
 				6836D0AA16F3478400AC190E /* AnalysisViewController.m in Sources */,
 				4A0B99BB174BA98F00FF417B /* ZoomView.m in Sources */,
 				92A25C041939005A003225E1 /* MirrorField.m in Sources */,
 				4A916FD11757B74900FFA5A5 /* ButtonRight.m in Sources */,
+				92BDFE36248FED11006EF6FA /* BoxData.m in Sources */,
+				922D259E246AD23B00064419 /* FunctionsMenuBarButtonItem.m in Sources */,
 				4A916FD41757C0C800FFA5A5 /* ButtonLeft.m in Sources */,
 				84C816851CE22D8D00F408D2 /* ConditionsModel.m in Sources */,
 				4A958652176F6A000017625C /* EpiInfoNavigationController.m in Sources */,
@@ -2102,6 +2454,7 @@
 				4A1E42CC177CBCDE00946472 /* FrequencyObject.m in Sources */,
 				924A7D1419C21D2900F168A0 /* MeansCrosstabCompute.m in Sources */,
 				9218EA5B1869D37500A4E2D9 /* ClickingView.m in Sources */,
+				92CC6095228F20F300513DC5 /* ThenText.m in Sources */,
 				923F2BBD198C045B008A4856 /* ImportCSV.m in Sources */,
 				68DAD2B81781F35D00BD6947 /* TablesObject.m in Sources */,
 				4AC04F49178B37610001F3DC /* FrequencyView.m in Sources */,
@@ -2110,29 +2463,42 @@
 				9211F6EF1D53758F002583D4 /* AssignModel.m in Sources */,
 				92EB1ACC1DCA660100694282 /* FieldsAndStringValues.m in Sources */,
 				92D43A471992A5BD00B24712 /* ConfirmDeleteButton.m in Sources */,
+				9293629B234FAE2400949AF4 /* DateMathFunctionInput.m in Sources */,
 				847C97DA1D427494001E47DD /* UIView+UpdateAutoLayoutConstraints.m in Sources */,
 				926C9D561A7AA8FE004A6ADD /* SimulationsViewController.m in Sources */,
 				9266C54318468CCF00739AF2 /* LegalValues.m in Sources */,
+				92385D2C227B2AB100079890 /* Months.m in Sources */,
 				84C816881CE22D8D00F408D2 /* ElementsModel.m in Sources */,
 				9266C53A184684B200739AF2 /* PhoneNumberField.m in Sources */,
 				925C895519535B9700F3DCE7 /* GrowthPercentilesViewController.m in Sources */,
+				92CC6086228DBC8200513DC5 /* IfBuilder.m in Sources */,
+				9258D1A9222D8833000376E7 /* FormElementObject.m in Sources */,
 				92AAC01C1C208917005D77F3 /* FeedbackView.m in Sources */,
+				92D4DFED24228A0800934571 /* QRScannerButton.m in Sources */,
 				92DBD606193CDAFA00A40691 /* EpiInfoUniqueIDField.m in Sources */,
+				92385D25227B20DC00079890 /* AssigningFunction.m in Sources */,
+				923A02DC2289A3ED00C33F3B /* Clear.m in Sources */,
+				92CC6092228ED12A00513DC5 /* ConditionText.m in Sources */,
 				927B555F18B6533B000AB7B1 /* Reachability.m in Sources */,
 				4A556867178DA09400B79542 /* TablesView.m in Sources */,
+				92469BF1232AAE6B00752ADC /* EncryptionDecryptionKeys.m in Sources */,
 				9276EEB917B028AE0050858B /* ChooseAnalysisButton.m in Sources */,
+				920BCE3D2178F0AA00BF050A /* FormFromGoogleSheetView.m in Sources */,
+				9294A5CD2208CD1B008695AD /* LinearObject.m in Sources */,
 				9276EEBC17B029E60050858B /* AnalysisList.m in Sources */,
+				929E47BA21A5DA6200D88EF0 /* InteractionRow.m in Sources */,
 				9266C52B1846613000739AF2 /* FormView.m in Sources */,
 				923A263817B41BCE00DCBCD5 /* AnalysisFilterView.m in Sources */,
 				92B3A7FD1EDDEA9700234CB1 /* EICalendar.m in Sources */,
 				92A25BFE1938DAD2003225E1 /* TimePicker.m in Sources */,
 				923A263B17B4265D00DCBCD5 /* FilterButton.m in Sources */,
-				926F55061AC5D09900790628 /* CaseControlSimulationView.swift in Sources */,
 				9265FF901CB29B9F003AD6E0 /* SQLTool.m in Sources */,
 				920CD0271EE4B30200415569 /* CheckButton.m in Sources */,
 				84C816861CE22D8D00F408D2 /* DialogModel.m in Sources */,
 				92524A8C184E50BE003C820B /* SaveFormView.m in Sources */,
+				924CF54F239AD8A500372E8B /* VariablesInGroupSelector.m in Sources */,
 				9266C540184684FD00739AF2 /* UppercaseTextField.m in Sources */,
+				9258D1B022428863000376E7 /* SyncView.m in Sources */,
 				9266C5371846848800739AF2 /* NumberField.m in Sources */,
 				923A49F617B56636000FFC0C /* NewVariablesButton.m in Sources */,
 				923A49F917B57624000FFC0C /* NewVariablesView.m in Sources */,
@@ -2207,6 +2573,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -2229,6 +2596,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -2238,15 +2606,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development: John Copeland (JZTF9F25RD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: John Copeland (JZTF9F25RD)";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = J8992FE8QS;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EpiInfo/EpiInfo-Prefix.pch";
@@ -2258,13 +2628,14 @@
 					"$(SRCROOT)",
 					"$(SDKROOT)/usr/lib/system",
 				);
+				MARKETING_VERSION = 5.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = gov.cdc.csels.EpiInfo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "John Development Profile";
 				SWIFT_OBJC_BRIDGING_HEADER = "EpiInfo/EpiInfo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2275,15 +2646,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Centers for Disease Control and Prevention (J8992FE8QS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Centers for Disease Control and Prevention (J8992FE8QS)";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = J8992FE8QS;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EpiInfo/EpiInfo-Prefix.pch";
@@ -2295,12 +2668,13 @@
 					"$(SRCROOT)",
 					"$(SDKROOT)/usr/lib/system",
 				);
+				MARKETING_VERSION = 5.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = gov.cdc.csels.EpiInfo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "CDC App Store Distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "EpiInfo/EpiInfo-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

@@ -9,6 +9,7 @@
 #import "EpiInfoTextField.h"
 #import "EpiInfoTextView.h"
 #import "Checkbox.h"
+#import "CommandButton.h"
 #import "EpiInfoImageField.h"
 #import "YesNo.h"
 #import "NumberField.h"
@@ -37,9 +38,11 @@
 #import "IfParser.h"
 #import "FieldsAndStringValues.h"
 #import "DictionaryOfFields.h"
-#import <MicrosoftAzureMobile/MicrosoftAzureMobile.h>
+#import "QRScannerButton.h"
+// Azure Removal
+//#import <MicrosoftAzureMobile/MicrosoftAzureMobile.h>
 
-@interface EnterDataView : UIScrollView <NSXMLParserDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UITextViewDelegate, UIAlertViewDelegate>
+@interface EnterDataView : UIScrollView <NSXMLParserDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UITextViewDelegate>
 {
     BOOL firstParse;
     BOOL firstElement;
@@ -93,6 +96,8 @@
     UIView *parentEnterDataView;
     NSString *relateButtonName;
     
+    UIView *childEnterDataView;
+    
     NSString *formCheckCodeString;
     
     int tagNum;
@@ -130,6 +135,7 @@
 
 @property NSString *latitudeField;
 @property NSString *longitudeField;
+@property NSString *altitudeField;
 
 @property NSString *nameOfTheForm;
 
@@ -155,7 +161,8 @@
 @property(strong) NSMutableArray *elmArray;
 //@property(nonatomic) BOOL firstEdit;
 
-@property (strong, nonatomic) MSClient *client;
+// Azure Removal
+//@property (strong, nonatomic) MSClient *client;
 @property (strong, nonatomic) NSString *cloudService;
 @property (strong, nonatomic) NSString *cloudKey;
 
@@ -176,6 +183,8 @@
 
 -(void)setParentEnterDataView:(EnterDataView *)parentEDV;
 -(EnterDataView *)parentEnterDataView;
+-(void)setChildEnterDataView:(EnterDataView *)childEDV;
+-(EnterDataView *)childEnterDataView;
 
 -(void)setRelateButtonName:(NSString *)rbn;
 
@@ -229,6 +238,7 @@
 -(void)setElementListArrayIsEnabledForElement:(NSString *)elementName andIsEnabled:(BOOL)enabled;
 
 -(void)clearButtonPressedAction;
+-(void)clearButtonPressed;
 
 -(void)syncPageDots;
 

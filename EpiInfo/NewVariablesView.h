@@ -10,8 +10,22 @@
 #import <QuartzCore/QuartzCore.h>
 #import "SQLiteData.h"
 #import "ShinyButton.h"
+#import "DataManagementView.h"
+#import "LegalValuesEnter.h"
 
-@interface NewVariablesView : UIView <UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
-- (id)initWithViewController:(UIViewController *)vc;
-- (id)initWithViewController:(UIViewController *)vc AndSQLiteData:(SQLiteData *)sqliteData;
+@interface NewVariablesView : DataManagementView <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
+{
+    UITextField *newVariableName;
+    LegalValuesEnter *selectVariableType;
+    LegalValuesEnter *selectFunction;
+    
+    NSMutableArray *listOfAllVariables;
+
+    NSMutableArray *listOfNewVariables;
+    UITableView *newVariableList;
+}
+-(void)setListOfNewVariables:(NSMutableArray *)loav;
+-(void)addToListOfAllVariables:(NSString *)var;
+-(id)initWithViewController:(UIViewController *)vc;
+-(id)initWithViewController:(UIViewController *)vc AndSQLiteData:(SQLiteData *)sqliteData;
 @end

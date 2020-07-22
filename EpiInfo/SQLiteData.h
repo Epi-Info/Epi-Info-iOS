@@ -13,6 +13,7 @@
 @interface SQLiteData : NSObject
 {
     sqlite3 *analysisDB;
+    NSMutableArray *groupsNSMA;
 }
 
 @property (nonatomic, strong) NSArray *columnNamesFull;
@@ -31,6 +32,12 @@
 
 - (void)makeSQLiteFullTable:(AnalysisDataObject *)ado ProvideUpdatesTo:(UIButton *)button;
 - (void)makeSQLiteWorkingTable;
+- (void)makeSQLiteWorkingTableWithWhereClause:(NSString *)whereClause;
+- (void)makeSQLiteWorkingTableWithWhereClause:(NSString *)whereClause AndNewVariblesList:(NSArray *)newVariablesList;
 - (int)addColumnToWorkingTable:(NSString *)columnName ColumnType:(NSNumber *)columnType;
 - (int)workingTableSize;
+- (int)fullTableSize;
+- (NSArray *)groups;
+- (void)removeGroupFromGroups:(NSString *)grp;
+- (void)addGroupToGroups:(NSString *)grp;
 @end

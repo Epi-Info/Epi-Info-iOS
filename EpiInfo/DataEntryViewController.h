@@ -17,6 +17,8 @@
 #import "sqlite3.h"
 #import "FieldsAndStringValues.h"
 #import "EpiInfoLogManager.h"
+#import "EncryptionDecryptionKeys.h"
+#import "FunctionsMenuBarButtonItem.h"
 #import <CoreImage/CoreImage.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import <CommonCrypto/CommonCrypto.h>
@@ -24,6 +26,9 @@
 
 @interface DataEntryViewController : UIViewController <MFMailComposeViewControllerDelegate, UITextFieldDelegate, UIAlertViewDelegate>
 {
+    FunctionsMenuBarButtonItem *functionsMenu;
+    NSMutableArray *arrayOfScannerButtons;
+    
     UIButton *customBackButton;
     UIBarButtonItem *backToMainMenu;
     
@@ -33,6 +38,8 @@
     UIButton *openButton;
     UIButton *manageButton;
     UITextField *lvSelected;
+    UIButton *googleSheetButton;
+    UIButton *formDesignerButton;
     
     EnterDataView *edv;
     UIView *orangeBanner;
@@ -72,6 +79,9 @@
 @property FieldsAndStringValues *fieldsAndStringValues;
 @property BOOL didShowProjectTemplateWarning;
 @property NSMutableArray *arrayOfFieldsAllPages;
+@property NSMutableDictionary *alterTableElements;
+@property id geocodingCheckbox;
+-(BOOL)notwo;
 -(UIButton *)openButton;
 -(void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID;
 -(void)populateFieldsWithRecord:(NSArray *)tableNameAndGUID OnEnterDataView:(UIView *)onEdv;
@@ -91,4 +101,8 @@
 -(void)addNewSetOfPageDots:(EnterDataView *)newedv;
 -(void)popPageDots;
 -(void)setPageDotsPage:(int)pg;
+-(void)lvReset:(NSString *)newForm;
+-(void)activateFunctionsMenu:(BOOL)active;
+-(void)addButtonToArrayOfScannerButtons:(UIButton *)b;
+-(EnterDataView *)edv;
 @end

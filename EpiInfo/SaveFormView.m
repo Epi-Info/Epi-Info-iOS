@@ -135,8 +135,8 @@
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         {
             UIButton *azureButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, repositoryButtonsView0.frame.size.width - 40, 40)];
-            [azureButton setTitle:@"MS Azure" forState:UIControlStateNormal];
-            [azureButton setAccessibilityLabel:@"Microsoft Azure Cloud Database"];
+            [azureButton setTitle:@"Cloud Database" forState:UIControlStateNormal];
+            [azureButton setAccessibilityLabel:@"Cloud Database Credentials"];
             [azureButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
             [azureButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
             [azureButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -150,8 +150,8 @@
         {
             [repositoryButtonsView0 setFrame:CGRectMake(0, repositoriesLabel.frame.origin.y + 40, self.frame.size.width, 96)];
             UIButton *azureButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, 280, 40)];
-            [azureButton setTitle:@"MS Azure" forState:UIControlStateNormal];
-            [azureButton setAccessibilityLabel:@"Microsoft Azure Cloud Database"];
+            [azureButton setTitle:@"Cloud Database" forState:UIControlStateNormal];
+            [azureButton setAccessibilityLabel:@"Cloud Database Credentials"];
             [azureButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
             [azureButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
             [azureButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -438,7 +438,116 @@
                         NSLog(@"Could not find table");
                     }
                 }
+                //
+                // Write the Google sheet info to the Google sheet database
+                // Create the database if it doesn't exist
+                if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/GoogleSheetDatabase"]])
+                {
+                    [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/GoogleSheetDatabase"] withIntermediateDirectories:NO attributes:nil error:nil];
+                }
+                if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/GoogleSheetDatabase"]])
+                {
+                    NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/GoogleSheetDatabase/GoogleSheetInfo.db"];
+                    
+                    //Create the new table if necessary
+                    int tableAlreadyExists = 0;
+                    if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+                    {
+                        NSString *selStmt = @"select count(name) as n from sqlite_master where name = 'GoogleSheets'";
+                        const char *query_stmt = [selStmt UTF8String];
+                        sqlite3_stmt *statement;
+                        if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+                        {
+                            if (sqlite3_step(statement) == SQLITE_ROW)
+                                tableAlreadyExists = sqlite3_column_int(statement, 0);
+                        }
+                        sqlite3_finalize(statement);
+                    }
+                    sqlite3_close(epiinfoDB);
+                    if (tableAlreadyExists < 1)
+                    {
+                        //Convert the databasePath NSString to a char array
+                        const char *dbpath = [databasePath UTF8String];
+                        
+                        //Open sqlite3 analysisDB pointing to the databasePath
+                        if (sqlite3_open(dbpath, &epiinfoDB) == SQLITE_OK)
+                        {
+                            char *errMsg;
+                            //Build the CREATE TABLE statement
+                            //Convert the sqlStmt to char array
+                            NSString *createTableStatement = @"create table GoogleSheets(FormName text, GoogleSheetURL text)";
+                            const char *sql_stmt = [createTableStatement UTF8String];
+                            
+                            //Execute the CREATE TABLE statement
+                            if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                            {
+                                NSLog(@"Failed to create table: %s :::: %@", errMsg, createTableStatement);
+                            }
+                            else
+                            {
+                                NSLog(@"Table created");
+                            }
+                            //Close the sqlite connection
+                            sqlite3_close(epiinfoDB);
+                        }
+                        else
+                        {
+                            NSLog(@"Failed to open/create database");
+                        }
+                    }
+                    
+                    // Insert the row
+                    tableAlreadyExists = 0;
+                    if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+                    {
+                        NSString *selStmt = @"select count(name) as n from sqlite_master where name = 'GoogleSheets'";
+                        const char *query_stmt = [selStmt UTF8String];
+                        sqlite3_stmt *statement;
+                        if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+                        {
+                            if (sqlite3_step(statement) == SQLITE_ROW)
+                                tableAlreadyExists = sqlite3_column_int(statement, 0);
+                        }
+                        sqlite3_finalize(statement);
+                    }
+                    sqlite3_close(epiinfoDB);
+                    if (tableAlreadyExists >= 1)
+                    {
+                        //Convert the databasePath NSString to a char array
+                        const char *dbpath = [databasePath UTF8String];
+                        
+                        //Open sqlite3 analysisDB pointing to the databasePath
+                        if (sqlite3_open(dbpath, &epiinfoDB) == SQLITE_OK)
+                        {
+                            char *errMsg;
+                            NSString *insertStatement = [NSString stringWithFormat:@"delete from GoogleSheets where FormName = '%@'", typeFormName.text];
+                            const char *sql_stmt = [insertStatement UTF8String];
+                            
+                            //Execute the CREATE TABLE statement
+                            if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                            {
+                                NSLog(@"Failed to remove row from table: %s :::: %@", errMsg, insertStatement);
+                            }
+                            else
+                            {
+                                NSLog(@"Row removed");
+                            }
+                            //Close the sqlite connection
+                            sqlite3_close(epiinfoDB);
+                        }
+                        else
+                        {
+                            NSLog(@"Failed to open database or insert record");
+                        }
+                    }
+                    else
+                    {
+                        NSLog(@"Could not find table");
+                    }
+                }
+                // Finished with the Google sheet database
             }
+            [self createOrAlterSQLTable];
         }];
     }];
 }
@@ -492,6 +601,222 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     return [textField resignFirstResponder];
+}
+
+- (void)createOrAlterSQLTable
+{
+    createTableStatement = @"";
+    dictionaryOfColumnsAndTypes = [[NSMutableDictionary alloc] init];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]] && typeFormName.text.length > 0)
+    {
+        NSString *filePathAndName = [[[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] stringByAppendingString:@"/"] stringByAppendingString:typeFormName.text] stringByAppendingString:@".xml"];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:filePathAndName])
+        {
+            NSURL *templateFile = [[NSURL alloc] initWithString:[@"file://" stringByAppendingString:filePathAndName]];
+            NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:templateFile];
+            [parser setDelegate:self];
+            [parser setShouldResolveExternalEntities:YES];
+            BOOL success = [parser parse];
+            if (success)
+            {
+                NSMutableArray *existingColumns = [[NSMutableArray alloc] init];
+                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
+                {
+                    NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+                    
+                    if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+                    {
+                        NSString *selStmt = [NSString stringWithFormat:@"select * from %@", [typeFormName text]];
+                        const char *query_stmt = [selStmt UTF8String];
+                        sqlite3_stmt *statement;
+                        if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+                        {
+                            int i = 0;
+                            while (sqlite3_column_name(statement, i))
+                            {
+                                [existingColumns addObject:[[[NSString alloc] initWithUTF8String:sqlite3_column_name(statement, i)] lowercaseString]];
+                                i++;
+                            }
+                        }
+                        else
+                        {
+                            createTableStatement = [createTableStatement stringByAppendingString:@")"];
+                            char *errMsg;
+                            const char *sql_stmt = [createTableStatement UTF8String];
+                            if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+                            {
+                                NSLog(@"Failed to create table: %s :::: %@", errMsg, createTableStatement);
+                                [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: SUBMIT: Failed to create table: %s :::: %@\n", [NSDate date], errMsg, createTableStatement]];
+                            }
+                            else
+                            {
+                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: SUBMIT: %@ table created\n", [NSDate date], [typeFormName text]]];
+                            }
+                        }
+                        if ([existingColumns count] > 0)
+                        {
+                            NSMutableArray *newColumns = [[NSMutableArray alloc] init];
+                            for (NSString *str in dictionaryOfColumnsAndTypes)
+                            {
+                                if (![existingColumns containsObject:[str lowercaseString]])
+                                    [newColumns addObject:str];
+                            }
+                            if ([newColumns count] > 0)
+                            {
+                                NSMutableString *alterClause = [NSMutableString stringWithFormat:@"alter table %@ add", [typeFormName text]];
+                                for (int i = 0; i < [newColumns count]; i++)
+                                {
+                                    if (i > 0)
+                                        [alterClause appendString:@","];
+                                    [alterClause appendFormat:@" %@ ", [newColumns objectAtIndex:i]];
+                                    int varType = [(NSNumber *)[dictionaryOfColumnsAndTypes objectForKey:[newColumns objectAtIndex:i]] intValue];
+                                    if (varType == 0)
+                                        [alterClause appendString:@"integer"];
+                                    else if (varType == 1)
+                                        [alterClause appendString:@"real"];
+                                    else
+                                        [alterClause appendString:@"text"];
+                                }
+                                const char *sql_stmt = [alterClause UTF8String];
+                                char *secondErrMsg;
+                                if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &secondErrMsg) != SQLITE_OK)
+                                {
+                                    NSLog(@"Failed to alter table: %s :::: %@", secondErrMsg, alterTableStatement);
+                                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: SUBMIT: Failed to alter table: %s :::: %@\n", [NSDate date], secondErrMsg, alterTableStatement]];
+                                }
+                                else
+                                {
+                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: SUBMIT: %@ table altered\n", [NSDate date], [typeFormName text]]];
+                                }
+                            }
+                        }
+                        sqlite3_finalize(statement);
+                    }
+                    sqlite3_close(epiinfoDB);
+                }
+            }
+        }
+    }
+}
+
+#pragma mark XML Parsing Methods
+
+- (void)parserDidStartDocument:(NSXMLParser *)parser
+{
+}
+
+- (void)parserDidEndDocument:(NSXMLParser *)parser
+{
+}
+
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
+{
+    if ([elementName isEqualToString:@"Field"])
+    {
+        if (createTableStatement == nil)
+        {
+            createTableStatement = @"";
+        }
+        if (dictionaryOfColumnsAndTypes == nil)
+        {
+            dictionaryOfColumnsAndTypes = [[NSMutableDictionary alloc] init];
+        }
+        if ([createTableStatement length] == 0)
+        {
+            createTableStatement = [NSString stringWithFormat:@"create table %@(GlobalRecordID text", [typeFormName text]];
+        }
+        if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"1"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"2"])
+        {
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"3"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"4"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"5"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ real", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:1] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"6"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"7"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:3] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"8"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"9"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"10"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ integer", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:0] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"11"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ integer", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:0] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"15"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"17"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"18"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"19"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"14"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"12"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+        else if ([[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"25"])
+        {
+            createTableStatement = [createTableStatement stringByAppendingString:[NSString stringWithFormat:@",\n%@ text", [attributeDict objectForKey:@"Name"]]];
+            [dictionaryOfColumnsAndTypes setObject:[NSNumber numberWithInt:2] forKey:[attributeDict objectForKey:@"Name"]];
+        }
+    }
 }
 
 /*

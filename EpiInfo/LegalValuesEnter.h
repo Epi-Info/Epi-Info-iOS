@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "EpiInfoControlProtocol.h"
 #import "DownTriangle.h"
+#import "DownTriangleAnalysisStyle.h"
 
 @interface LegalValuesEnter : UIView <UIPickerViewDelegate, UIPickerViewDataSource, EpiInfoControlProtocol, UITableViewDelegate, UITableViewDataSource>
 {
@@ -19,6 +20,8 @@
     NSMutableArray *listOfValues;
     UIView *valueButtonView;
     UIView *shield;
+    
+    BOOL isAnalysisStyle;
 }
 @property NSString *columnName;
 @property BOOL isReadOnly;
@@ -30,6 +33,7 @@
 @property UITableView *tv;
 - (void)setListOfValues:(NSMutableArray *)lov;
 - (NSMutableArray *)listOfValues;
+- (NSArray *)listOfStoredValues;
 - (NSString *)picked;
 - (void)setPicked:(NSString *)pkd;
 - (id)initWithFrame:(CGRect)frame AndListOfValues:(NSMutableArray *)lov;
@@ -43,4 +47,6 @@
 -(void)setFormFieldValue:(NSString *)formFieldValue;
 -(void)removeValueButtonViewFromSuperview;
 -(float)contentSizeHeightAdjustment;
+-(void)analysisStyle;
+-(void)valueButtonPressed:(id)sender;
 @end

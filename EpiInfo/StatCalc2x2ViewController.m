@@ -1255,7 +1255,7 @@
     
     for (int i = 0; i < [event.subviews count]; i++)
     {
-        if ([[event.subviews objectAtIndex:i] isSelected])
+        if ([event selectedSegmentIndex] == i)
         {
             [[event.subviews objectAtIndex:i] setTintColor:[UIColor blackColor]];
         }

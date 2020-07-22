@@ -100,6 +100,66 @@
             [self setText:[NSString stringWithFormat:@"%.2f", self.minimum]];
 }
 
+- (void)trimNonNumbers
+{
+    if ([self.text length] == 0)
+        return;
+    
+    NSCharacterSet *validSet;
+    
+    NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
+    [nsnf setMaximumFractionDigits:6];
+    
+    NSNumber *testFloat = [NSNumber numberWithFloat:1.1];
+    NSString *testFloatString = [nsnf stringFromNumber:testFloat];
+    
+    if ([testFloatString characterAtIndex:1] == ',')
+    {
+        validSet = [NSCharacterSet characterSetWithCharactersInString:@"-,0123456789"];
+        if ([[self.text substringToIndex:1] stringByTrimmingCharactersInSet:validSet].length > 0)
+            self.text = [self.text stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@"#"];
+        if ([[self.text substringToIndex:1] isEqualToString:@","])
+            validSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+        else
+            validSet = [NSCharacterSet characterSetWithCharactersInString:@",0123456789"];
+        for (int i = 1; i < self.text.length; i++)
+        {
+            if ([[self.text substringWithRange:NSMakeRange(i, 1)] stringByTrimmingCharactersInSet:validSet].length > 0)
+                self.text = [self.text stringByReplacingCharactersInRange:NSMakeRange(i, 1) withString:@"#"];
+            if ([self.text characterAtIndex:i] == ',')
+                validSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+        }
+        self.text = [self.text stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    }
+    else
+    {
+        if (self.nonNegative)
+            validSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+        else
+            validSet = [NSCharacterSet characterSetWithCharactersInString:@"-0123456789"];
+        if ([[self.text substringToIndex:1] stringByTrimmingCharactersInSet:validSet].length > 0)
+            self.text = [self.text stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@"#"];
+        if ([[self.text substringToIndex:1] isEqualToString:@"."])
+            validSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+        else
+            validSet = [NSCharacterSet characterSetWithCharactersInString:@".0123456789"];
+        for (int i = 1; i < self.text.length; i++)
+        {
+            if ([[self.text substringWithRange:NSMakeRange(i, 1)] stringByTrimmingCharactersInSet:validSet].length > 0)
+                self.text = [self.text stringByReplacingCharactersInRange:NSMakeRange(i, 1) withString:@"#"];
+            if ([self.text characterAtIndex:i] == '.')
+                validSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+        }
+        self.text = [self.text stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    }
+    if (self.hasMaximum)
+        if ([self.text floatValue] > self.maximum)
+            [self setText:[NSString stringWithFormat:@"%.2f", self.maximum]];
+    if (self.hasMinimum)
+        if ([self.text floatValue] < self.minimum)
+            [self setText:[NSString stringWithFormat:@"%.2f", self.minimum]];
+}
+
 - (NSString *)value
 {
     if ([self.text length] == 0)
@@ -140,12 +200,15 @@
 - (BOOL)resignFirstResponder
 {
     NSLog(@"%@ resigning first responder", self.columnName);
-    [(CheckCode *)checkcode ownerDidResign];
+//    [(CheckCode *)checkcode ownerDidResign];
     BOOL retVal = [super resignFirstResponder];
     if ([[[self superview] superview] isKindOfClass:[EnterDataView class]])
     {
         @try {
-            [[(EnterDataView *)[[self superview] superview] fieldsAndStringValues] setObject:self.text forKey:[self.columnName lowercaseString]];
+            NSScanner *scanner = [NSScanner localizedScannerWithString:[self text]];
+            float selfFloat;
+            [scanner scanFloat:&selfFloat];
+            [[(EnterDataView *)[[self superview] superview] fieldsAndStringValues] setObject:[NSString stringWithFormat:@"%f", selfFloat] forKey:[self.columnName lowercaseString]];
             [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
         } @catch (NSException *exception) {
             //
@@ -159,6 +222,10 @@
 
 - (NSString *)epiInfoControlValue
 {
+    NSScanner *scanner = [NSScanner localizedScannerWithString:[self text]];
+    float selfFloat;
+    [scanner scanFloat:&selfFloat];
+    return [NSString stringWithFormat:@"%f", selfFloat];
     return [self text];
 }
 
@@ -166,6 +233,17 @@
 {
     if (value != nil)
     {
+        NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
+        [nsnf setMaximumFractionDigits:6];
+        
+        NSNumber *testFloat = [NSNumber numberWithFloat:1.1];
+        NSString *testFloatString = [nsnf stringFromNumber:testFloat];
+        
+        if ([testFloatString characterAtIndex:1] == ',')
+            value = [value stringByReplacingOccurrencesOfString:@"." withString:@","];
+        else
+            value = [value stringByReplacingOccurrencesOfString:@"," withString:@"."];
+
         if ([value length] > 1)
         {
             if ([[value substringFromIndex:[value length] - 2] isEqualToString:@".0"])
@@ -176,6 +254,7 @@
         [[(EnterDataView *)[[self superview] superview] fieldsAndStringValues] setObject:value forKey:[self.columnName lowercaseString]];
     }
     [self setText:value];
+    [self trimNonNumbers];
 }
 
 - (void)setIsEnabled:(BOOL)isEnabled
@@ -183,7 +262,8 @@
     [self setEnabled:isEnabled];
     [self setUserInteractionEnabled:isEnabled];
     [self setAlpha:0.5 + 0.5 * (int)isEnabled];
-    [(EnterDataView *)[[self superview] superview] setElementListArrayIsEnabledForElement:self.columnName andIsEnabled:isEnabled];
+    if ([[[self superview] superview] isKindOfClass:[EnterDataView class]])
+        [(EnterDataView *)[[self superview] superview] setElementListArrayIsEnabledForElement:self.columnName andIsEnabled:isEnabled];
 }
 
 - (void)selfFocus

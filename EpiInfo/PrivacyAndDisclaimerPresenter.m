@@ -6,6 +6,7 @@
 //
 
 #import "PrivacyAndDisclaimerPresenter.h"
+#include <sys/sysctl.h>
 
 @implementation PrivacyAndDisclaimerPresenter
 - (id)initWithFrame:(CGRect)frame andTag:(NSInteger)tag
@@ -21,7 +22,12 @@
         [self addSubview:bannerBack];
         
         float bannerY = -4.0;
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        size_t size;
+        sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+        char *machine = malloc(size);
+        sysctlbyname("hw.machine", machine, &size, NULL, 0);
+        NSString *platform = [NSString stringWithUTF8String:machine];
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad &&([platform isEqualToString:@"iPad2,5"] || [platform isEqualToString:@"iPad2,6"] || [platform isEqualToString:@"iPad2,7"]))
             bannerY = 8.0;
         UINavigationBar *banner = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, bannerY, frame.size.width, 32)];
         [banner setBackgroundColor:[UIColor clearColor]];

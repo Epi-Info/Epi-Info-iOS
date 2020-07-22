@@ -7,6 +7,9 @@
 
 #import "LegalValuesEnter.h"
 #import "EnterDataView.h"
+#import "DataManagementView.h"
+#import "NewVariableInputs.h"
+#import "TablesView.h"
 
 @implementation LegalValuesEnter
 @synthesize columnName = _columnName;
@@ -21,10 +24,15 @@
 {
     listOfValues = [NSMutableArray arrayWithArray:lov];
     [self.picker reloadAllComponents];
+    [self.tv reloadData];
 }
 - (NSMutableArray *)listOfValues
 {
     return listOfValues;
+}
+- (NSArray *)listOfStoredValues
+{
+    return [NSArray arrayWithArray:listOfValues];
 }
 - (NSString *)picked
 {
@@ -40,6 +48,25 @@
 {
     return self.frame.size.height - 20.0;
 }
+- (void)analysisStyle
+{
+    isAnalysisStyle = YES;
+    [self.valueButton.layer setBorderColor:[[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0] CGColor]];
+    DownTriangle *tempDT;
+    for (UIView *v in [self.valueButton subviews])
+    {
+        if ([v isKindOfClass:[DownTriangle class]])
+        {
+            tempDT = (DownTriangle *)v;
+            break;
+        }
+    }
+    DownTriangleAnalysisStyle *dtas = [[DownTriangleAnalysisStyle alloc] initWithFrame:tempDT.frame];
+    [dtas setBackgroundColor:[UIColor whiteColor]];
+    [dtas addTarget:self action:@selector(valueButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.valueButton addSubview:dtas];
+    [tempDT removeFromSuperview];
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -52,6 +79,7 @@
             // Fallback on earlier versions
         }
         [self setSelectedIndex:[NSNumber numberWithInt:0]];
+        isAnalysisStyle = NO;
     }
     return self;
 }
@@ -248,7 +276,17 @@
     }
     if ([[[self superview] superview] isKindOfClass:[EnterDataView class]])
         [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
-    
+    else if ([[[[self superview] superview] superview] isKindOfClass:[DataManagementView class]])
+        [(DataManagementView *)[[[self superview] superview] superview] fieldResignedFirstResponder:self];
+    else if ([[self superview] isKindOfClass:[DataManagementView class]])
+        [(DataManagementView *)[self superview] fieldResignedFirstResponder:self];
+    else if ([[self superview] isKindOfClass:[NewVariableInputs class]])
+        [(NewVariableInputs *)[self superview] fieldResignedFirstResponder:self];
+    else if ([[[[self superview] superview] superview] isKindOfClass:[NewVariableInputs class]])
+        [(NewVariableInputs *)[[[self superview] superview] superview] fieldResignedFirstResponder:self];
+    else if ([[[self superview] superview] isKindOfClass:[TablesView class]])
+        [(TablesView *)[[self superview] superview] fieldResignedFirstResponder:self];
+
 }
 
 - (void)setSelectedLegalValue:(NSString *)selectedLegalValue
@@ -335,7 +373,11 @@
     //
     [self setPicked:value];
     [self setFormFieldValue:value];
-    [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+    @try {
+        [(EnterDataView *)[[self superview] superview] fieldResignedFirstResponder:self];
+    } @catch (NSException *exception) {
+    } @finally {
+    }
 }
 
 - (void)setIsEnabled:(BOOL)isEnabled
@@ -400,7 +442,7 @@
 {
     NSUInteger nsui = [indexPath item];
     [self.picker selectRow:nsui inComponent:0 animated:NO];
-    [self.textFieldToUpdate setText:[NSString stringWithFormat:@"%ld", (long)nsui]];
+//    [self.textFieldToUpdate setText:[NSString stringWithFormat:@"%ld", (long)nsui]];
     [self pickerView:self.picker didSelectRow:nsui inComponent:0];
     [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [self.tv setFrame:CGRectMake(topX, topY, self.valueButton.frame.size.width, 0)];
@@ -420,10 +462,13 @@
 
 - (void)valueButtonPressed:(id)sender
 {
+    [self.tv setHidden:NO];
     UIView *topView = [[UIApplication sharedApplication].keyWindow.rootViewController view];
     topX = [self.valueButton convertRect:self.valueButton.bounds toView:nil].origin.x;
     topY = [self.valueButton convertRect:self.valueButton.bounds toView:nil].origin.y;
     finalTopY = topView.frame.size.height - 16.0 - (180.0 - 16);
+    if ([self tag] == 1957 || isAnalysisStyle)
+        finalTopY = topView.frame.size.height - 16.0 - (360.0 - 16);
     if (topY < finalTopY)
         finalTopY = topY;
     [self.tv setFrame:CGRectMake(topX, topY, self.tv.frame.size.width, 0.0)];
@@ -437,7 +482,7 @@
     
     [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [self.tv setFrame:CGRectMake(topX, finalTopY, self.valueButton.frame.size.width, 180 - 16)];
-        if ([self tag] == 1957)
+        if ([self tag] == 1957 || isAnalysisStyle)
             [self.tv setFrame:CGRectMake(topX, finalTopY, self.valueButton.frame.size.width, 360 - 16)];
     } completion:^(BOOL finished){
     }];

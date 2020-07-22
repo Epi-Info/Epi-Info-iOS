@@ -24,4 +24,5 @@
 
 -(id)initWithAnalysisDataObject:(AnalysisDataObject *)dataSet AndOutcomeVariable:(NSString *)outcomeVariable AndExposureVariable:(NSString *)exposureVariable AndIncludeMissing:(BOOL)includeMissing;
 -(id)initWithSQLiteData:(SQLiteData *)dataSet AndWhereClause:(NSString *)whereClause AndOutcomeVariable:(NSString *)outcomeVariable AndExposureVariable:(NSString *)exposureVariable AndIncludeMissing:(BOOL)includeMissing;
+-(id)initWithSQLiteData:(SQLiteData *)dataSet AndWhereClause:(NSString *)whereClause AndOutcomeVariable:(NSString *)outcomeVariable AndExposureVariable:(NSString *)exposureVariable AndIncludeMissing:(BOOL)includeMissing ForTablesView:(UIView *)tablesView;
 @end

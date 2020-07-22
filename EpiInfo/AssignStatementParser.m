@@ -81,6 +81,7 @@
 @property (nonatomic, retain) NSMutableDictionary *trigFunction_memo;
 @property (nonatomic, retain) NSMutableDictionary *syslatitudeFunction_memo;
 @property (nonatomic, retain) NSMutableDictionary *syslongitudeFunction_memo;
+@property (nonatomic, retain) NSMutableDictionary *sysaltitudeFunction_memo;
 @property (nonatomic, retain) NSMutableDictionary *sineFunction_memo;
 @property (nonatomic, retain) NSMutableDictionary *cosineFunction_memo;
 @property (nonatomic, retain) NSMutableDictionary *tangentFunction_memo;
@@ -154,6 +155,7 @@
         self.trigFunction_memo = [NSMutableDictionary dictionary];
         self.syslatitudeFunction_memo = [NSMutableDictionary dictionary];
         self.syslongitudeFunction_memo = [NSMutableDictionary dictionary];
+        self.sysaltitudeFunction_memo = [NSMutableDictionary dictionary];
         self.sineFunction_memo = [NSMutableDictionary dictionary];
         self.cosineFunction_memo = [NSMutableDictionary dictionary];
         self.tangentFunction_memo = [NSMutableDictionary dictionary];
@@ -202,6 +204,7 @@
     [_trigFunction_memo removeAllObjects];
     [_syslatitudeFunction_memo removeAllObjects];
     [_syslongitudeFunction_memo removeAllObjects];
+    [_sysaltitudeFunction_memo removeAllObjects];
     [_sineFunction_memo removeAllObjects];
     [_cosineFunction_memo removeAllObjects];
     [_tangentFunction_memo removeAllObjects];
@@ -509,6 +512,17 @@
         [endComponents setMonth:[[endDateString substringToIndex:firstSlash2] intValue]];
         [endComponents setYear:[[endDateString substringFromIndex:secondSlash2 + 1] intValue]];
         
+        NSDate *dateObject = [NSDate date];
+        BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+        if (dmy)
+        {
+            [beginComponents setDay:[[beginDateString substringToIndex:firstSlash1] intValue]];
+            [beginComponents setMonth:[[beginDateString substringWithRange:NSMakeRange(firstSlash1 + 1, secondSlash1 - firstSlash1 - 1)] intValue]];
+            [endComponents setDay:[[endDateString substringToIndex:firstSlash2] intValue]];
+            [endComponents setMonth:[[endDateString substringWithRange:NSMakeRange(firstSlash2 + 1, secondSlash2 - firstSlash2 - 1)] intValue]];
+        }
+
+
         NSDate *beginDate = [[NSCalendar currentCalendar] dateFromComponents:beginComponents];
         NSDate *endDate = [[NSCalendar currentCalendar] dateFromComponents:endComponents];
         
@@ -591,6 +605,16 @@
         [endComponents setMonth:[[endDateString substringToIndex:firstSlash2] intValue]];
         [endComponents setYear:[[endDateString substringFromIndex:secondSlash2 + 1] intValue]];
         
+        NSDate *dateObject = [NSDate date];
+        BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+        if (dmy)
+        {
+            [beginComponents setDay:[[beginDateString substringToIndex:firstSlash1] intValue]];
+            [beginComponents setMonth:[[beginDateString substringWithRange:NSMakeRange(firstSlash1 + 1, secondSlash1 - firstSlash1 - 1)] intValue]];
+            [endComponents setDay:[[endDateString substringToIndex:firstSlash2] intValue]];
+            [endComponents setMonth:[[endDateString substringWithRange:NSMakeRange(firstSlash2 + 1, secondSlash2 - firstSlash2 - 1)] intValue]];
+        }
+
         NSDate *beginDate = [[NSCalendar currentCalendar] dateFromComponents:beginComponents];
         NSDate *endDate = [[NSCalendar currentCalendar] dateFromComponents:endComponents];
         
@@ -673,6 +697,16 @@
         [endComponents setMonth:[[endDateString substringToIndex:firstSlash2] intValue]];
         [endComponents setYear:[[endDateString substringFromIndex:secondSlash2 + 1] intValue]];
         
+        NSDate *dateObject = [NSDate date];
+        BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+        if (dmy)
+        {
+            [beginComponents setDay:[[beginDateString substringToIndex:firstSlash1] intValue]];
+            [beginComponents setMonth:[[beginDateString substringWithRange:NSMakeRange(firstSlash1 + 1, secondSlash1 - firstSlash1 - 1)] intValue]];
+            [endComponents setDay:[[endDateString substringToIndex:firstSlash2] intValue]];
+            [endComponents setMonth:[[endDateString substringWithRange:NSMakeRange(firstSlash2 + 1, secondSlash2 - firstSlash2 - 1)] intValue]];
+        }
+
         NSDate *beginDate = [[NSCalendar currentCalendar] dateFromComponents:beginComponents];
         NSDate *endDate = [[NSCalendar currentCalendar] dateFromComponents:endComponents];
         
@@ -733,6 +767,7 @@
         {
             NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
             int tableAlreadyExists = 0;
+            tableAlreadyExists = 0;
             if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
             {
                 NSString *selStmt = [NSString stringWithFormat:@"select count(name) as n from sqlite_master where name = '%@'", formName];
@@ -811,6 +846,33 @@
 
 - (void)dateLiteral_ {
     [self parseRule:@selector(__dateLiteral) withMemo:_dateLiteral_memo];
+}
+
+- (void)__sysaltitudeFunction {
+    
+    [self testAndThrow:(id)^{ return MATCHES_IGNORE_CASE(LS(1), @"sysaltitude"); }];
+    [self matchWord:YES];
+    [self execute:(id)^{
+        
+        NSString *latString = POP_STR();
+        latString = latString;
+        CLLocationManager *locMan = [[CLLocationManager alloc] init];
+        [locMan setDelegate:self];
+        [locMan setDistanceFilter:kCLDistanceFilterNone];
+        [locMan setDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
+        [locMan startUpdatingLocation];
+        NSNumberFormatter *nsnf = [[NSNumberFormatter alloc] init];
+        [nsnf setMaximumFractionDigits:6];
+        NSString *latStr = [nsnf stringFromNumber:[NSNumber numberWithFloat:locMan.location.altitude]];
+        PUSH(latStr);
+        
+    }];
+    
+    [self fireDelegateSelector:@selector(parser:didMatchSysaltitudeFunction:)];
+}
+
+- (void)sysaltitudeFunction_ {
+    [self parseRule:@selector(__sysaltitudeFunction) withMemo:_sysaltitudeFunction_memo];
 }
 
 - (void)__syslatitudeFunction {
@@ -906,6 +968,12 @@
         int todaymonth = (int)[[NSCalendar currentCalendar] component:NSCalendarUnitMonth fromDate:[NSDate date]];
         int todayyear = (int)[[NSCalendar currentCalendar] component:NSCalendarUnitYear fromDate:[NSDate date]];
         NSString *today = [NSString stringWithFormat:@"%d/%d/%d", todaymonth, todayday, todayyear];
+        NSDate *dateObject = [NSDate date];
+        BOOL dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+        if (dmy)
+        {
+            today = [NSString stringWithFormat:@"%d/%d/%d", todayday, todaymonth, todayyear];
+        }
         PUSH(today);
         today = [NSString stringWithFormat:@"%d/%d/%d", 10, 9, 2016];
         
@@ -1265,6 +1333,8 @@
         [self syslatitudeFunction_];
     } else if ([self speculate:^{ [self syslongitudeFunction_]; }]) {
         [self syslongitudeFunction_];
+    } else if ([self speculate:^{ [self sysaltitudeFunction_]; }]) {
+        [self sysaltitudeFunction_];
     } else if ([self speculate:^{ [self primary_]; }]) {
         [self primary_];
     } else {

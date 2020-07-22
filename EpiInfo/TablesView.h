@@ -3,7 +3,6 @@
 //  EpiInfo
 //
 //  Created by John Copeland on 7/10/13.
-//  Copyright (c) 2013 John Copeland. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -13,8 +12,11 @@
 #import "ShinyButton.h"
 #import "EpiInfoUILabel.h"
 #import "UIPickerViewWithBlurryBackground.h"
+#import "LegalValuesEnter.h"
+#import "EpiInfoTextField.h"
+#import "VariableValueMapper.h"
 
-@interface TablesView : UIView <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface TablesView : UIView <UIPickerViewDelegate, UIPickerViewDataSource, UIScrollViewDelegate>
 {
     UIColor *epiInfoLightBlue;
     
@@ -45,8 +47,19 @@
     ShinyButton *chosenExposureVariable;
     ShinyButton *chosenStratificationVariable;
     
+    UILabel *outcomeVariableLabel;
+    UITextField *outcomeVariableString;
+    LegalValuesEnter *outcomeLVE;
+    UILabel *exposureVariableLabel;
+    EpiInfoTextField *exposureVariableString;
+    LegalValuesEnter *exposureLVE;
+    UILabel *stratificationVariableLabel;
+    UITextField *stratificationVariableString;
+    LegalValuesEnter *stratificationLVE;
+
     UIView *outputView;
-    
+    UIView *secondOutputViewForIPad;
+
     AnalysisDataObject *dataObject;
     SQLiteData *sqliteData;
     
@@ -65,9 +78,25 @@
     int stratum;
     
     float leftSide;
+    
+    int numberOfExposures;
+    int workingExposure;
+    NSMutableArray *summaryTable;
+    UIScrollView *oddsAndRiskTableView;
+    float contentSizeHeight;
+    
+    VariableValueMapper *outcomeValueMapper;
+    UIButton *mapOutcomeValuesButton;
+    NSString *previousOutcomeVariableValue;
+    VariableValueMapper *exposureValueMapper;
+    UIButton *mapExposureValuesButton;
+    NSString *previousExposureVariableValue;
 }
 
 -(id)initWithFrame:(CGRect)frame AndDataSource:(AnalysisDataObject *)dataSource AndViewController:(UIViewController *)vc;
 -(id)initWithFrame:(CGRect)frame AndSQLiteData:(SQLiteData *)dataSource AndViewController:(UIViewController *)vc;
+-(void)fieldResignedFirstResponder:(id)field;
 -(void)xButtonPressed;
+-(VariableValueMapper *)outcomeValueMapper;
+-(VariableValueMapper *)exposureValueMapper;
 @end

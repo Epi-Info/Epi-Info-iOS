@@ -46,7 +46,7 @@
             [chosenMeansVariable.titleLabel setTextAlignment:NSTextAlignmentLeft];
             [chosenMeansVariable setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
             [chosenMeansVariable addTarget:self action:@selector(chosenMeansVariableButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [inputView addSubview:chosenMeansVariable];
+//            [inputView addSubview:chosenMeansVariable];
             chooseMeansVariable = [[UIPickerViewWithBlurryBackground alloc] initWithFrame:CGRectMake(10, 1000, 296, 162)];
             [chooseMeansVariable.layer setCornerRadius:10.0];
             [chooseMeansVariable setTag:0];
@@ -65,7 +65,7 @@
             [chosenCrosstabVariable.titleLabel setTextAlignment:NSTextAlignmentLeft];
             [chosenCrosstabVariable setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
             [chosenCrosstabVariable addTarget:self action:@selector(chosenCrosstabVariableButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [inputView addSubview:chosenCrosstabVariable];
+//            [inputView addSubview:chosenCrosstabVariable];
             chooseCrosstabVariable = [[UIPickerViewWithBlurryBackground alloc] initWithFrame:CGRectMake(10, 1000, 296, 162)];
             [chooseCrosstabVariable setTag:1];
             crosstabVariableChosen = NO;
@@ -100,8 +100,8 @@
             //            [chosenStratificationVariable setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
             //            [chosenStratificationVariable addTarget:self action:@selector(chosenStratificationVariableButtonPressed) forControlEvents:UIControlEventTouchUpInside];
             //            [inputView addSubview:chosenStratificationVariable];
-            [inputView bringSubviewToFront:chooseMeansVariable];
-            [inputView bringSubviewToFront:chooseCrosstabVariable];
+//            [inputView bringSubviewToFront:chooseMeansVariable];
+//            [inputView bringSubviewToFront:chooseCrosstabVariable];
             //            chooseStratificationVariable = [[UIPickerViewWithBlurryBackground alloc] initWithFrame:CGRectMake(10, 1000, 296, 162)];
             //            [chooseStratificationVariable setTag:2];
             stratificationVariableChosen = NO;
@@ -110,8 +110,8 @@
             //            [chooseStratificationVariable setDataSource:self];
             //            [chooseStratificationVariable setShowsSelectionIndicator:YES];
             //            [chooseStratificationVariable addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(chooseStratificationVariableTapped:)]];
-            [inputView addSubview:chooseMeansVariable];
-            [inputView addSubview:chooseCrosstabVariable];
+//            [inputView addSubview:chooseMeansVariable];
+//            [inputView addSubview:chooseCrosstabVariable];
             //            [inputView addSubview:chooseStratificationVariable];
             
             //Add the white box
@@ -185,7 +185,7 @@
             [chosenMeansVariable.titleLabel setTextAlignment:NSTextAlignmentLeft];
             [chosenMeansVariable setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
             [chosenMeansVariable addTarget:self action:@selector(chosenMeansVariableButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [inputView addSubview:chosenMeansVariable];
+//            [inputView addSubview:chosenMeansVariable];
             chooseMeansVariable = [[UIPickerViewWithBlurryBackground alloc] initWithFrame:CGRectMake(10, 1000, 296, 162)];
             [chooseMeansVariable.layer setCornerRadius:10.0];
             [chooseMeansVariable setTag:0];
@@ -204,7 +204,7 @@
             [chosenCrosstabVariable.titleLabel setTextAlignment:NSTextAlignmentLeft];
             [chosenCrosstabVariable setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
             [chosenCrosstabVariable addTarget:self action:@selector(chosenCrosstabVariableButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-            [inputView addSubview:chosenCrosstabVariable];
+//            [inputView addSubview:chosenCrosstabVariable];
             chooseCrosstabVariable = [[UIPickerViewWithBlurryBackground alloc] initWithFrame:CGRectMake(10, 1000, 296, 162)];
             [chooseCrosstabVariable setTag:1];
             crosstabVariableChosen = NO;
@@ -239,8 +239,8 @@
             //            [chosenStratificationVariable setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] forState:UIControlStateHighlighted];
             //            [chosenStratificationVariable addTarget:self action:@selector(chosenStratificationVariableButtonPressed) forControlEvents:UIControlEventTouchUpInside];
             //            [inputView addSubview:chosenStratificationVariable];
-            [inputView bringSubviewToFront:chooseMeansVariable];
-            [inputView bringSubviewToFront:chooseCrosstabVariable];
+//            [inputView bringSubviewToFront:chooseMeansVariable];
+//            [inputView bringSubviewToFront:chooseCrosstabVariable];
             //            chooseStratificationVariable = [[UIPickerViewWithBlurryBackground alloc] initWithFrame:CGRectMake(10, 1000, 296, 162)];
             //            [chooseStratificationVariable setTag:2];
             stratificationVariableChosen = NO;
@@ -249,8 +249,8 @@
             //            [chooseStratificationVariable setDataSource:self];
             //            [chooseStratificationVariable setShowsSelectionIndicator:YES];
             //            [chooseStratificationVariable addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(chooseStratificationVariableTapped:)]];
-            [inputView addSubview:chooseMeansVariable];
-            [inputView addSubview:chooseCrosstabVariable];
+//            [inputView addSubview:chooseMeansVariable];
+//            [inputView addSubview:chooseCrosstabVariable];
             //            [inputView addSubview:chooseStratificationVariable];
             
             //Add the white box
@@ -320,6 +320,37 @@
 {
     self = [self initWithFrame:frame];
     sqliteData = dataSource;
+    meansVariableLabel = [[UILabel alloc] initWithFrame:chosenMeansVariable.frame];
+    [meansVariableLabel setBackgroundColor:[UIColor whiteColor]];
+    [meansVariableLabel setTextColor:epiInfoLightBlue];
+    [meansVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [meansVariableLabel setText:@"Means Variable"];
+    meansVariableString = [[UITextField alloc] init];
+    crosstabVariableLabel = [[UILabel alloc] initWithFrame:chosenCrosstabVariable.frame];
+    [crosstabVariableLabel setBackgroundColor:[UIColor whiteColor]];
+    [crosstabVariableLabel setTextColor:epiInfoLightBlue];
+    [crosstabVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    [crosstabVariableLabel setText:@"Crosstab Variable"];
+    crosstabVariableString = [[UITextField alloc] init];
+    NSMutableArray *outcomeNSMA = [[NSMutableArray alloc] init];
+    [outcomeNSMA addObject:@""];
+    for (NSString *variable in sqliteData.columnNamesWorking)
+    {
+        [outcomeNSMA addObject:variable];
+    }
+    [outcomeNSMA sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    availableOutcomeVariables = [NSMutableArray arrayWithArray:outcomeNSMA];
+    meansLVE = [[LegalValuesEnter alloc] initWithFrame:chosenMeansVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:meansVariableString];
+    [meansLVE.picker selectRow:0 inComponent:0 animated:YES];
+    [meansLVE analysisStyle];
+    [inputView addSubview:meansLVE];
+    crosstabLVE = [[LegalValuesEnter alloc] initWithFrame:chosenCrosstabVariable.frame AndListOfValues:outcomeNSMA AndTextFieldToUpdate:crosstabVariableString];
+    [crosstabLVE.picker selectRow:0 inComponent:0 animated:YES];
+    [crosstabLVE analysisStyle];
+    [inputView addSubview:crosstabLVE];
+    [chosenMeansVariable setTitle:[meansVariableString text] forState:UIControlStateNormal];
+    [inputView addSubview:meansVariableLabel];
+    [inputView addSubview:crosstabVariableLabel];
     avc = (AnalysisViewController *)vc;
     return self;
 }
@@ -348,8 +379,12 @@
                     [chooseCrosstabVariable setFrame:CGRectMake(10, 1000, 296, 162)];
                     [chooseStratificationVariable setFrame:CGRectMake(10, 1000, 296, 162)];
                     [inputViewWhiteBox setFrame:CGRectMake(2, 2, inputView.frame.size.width - 4, inputView.frame.size.height - 4)];
-                    [includeMissingButton setFrame:CGRectMake(170, 104, 22, 22)];
-                    [includeMissingLabel setFrame:CGRectMake(20, 104, 140, 22)];
+                    [meansVariableLabel setFrame:CGRectMake(16, 8, 284, 20)];
+                    [meansLVE setFrame:CGRectMake(10, 28, 300, 44)];
+                    [includeMissingButton setFrame:CGRectMake(170, 124, 22, 22)];
+                    [includeMissingLabel setFrame:CGRectMake(20, 124, 140, 22)];
+                    [crosstabVariableLabel setFrame:CGRectMake(16, 94, 284, 20)];
+                    [crosstabLVE setFrame:CGRectMake(10, 114, 300, 44)];
                     [spinner setFrame:CGRectMake(frame.size.width / 2.0 - 20, 118, 40, 40)];
                 }
                 else
@@ -419,6 +454,10 @@
                     [inputViewWhiteBox setFrame:CGRectMake(2, 2, inputView.frame.size.width - 4, inputView.frame.size.height - 4)];
                     [includeMissingLabel setFrame:CGRectMake(chosenCrosstabVariable.frame.origin.x, 231, 140, 22)];
                     [includeMissingButton setFrame:CGRectMake(includeMissingLabel.frame.origin.x + 150, 231, 22, 22)];
+                    [meansVariableLabel setFrame:CGRectMake(chosenMeansVariable.frame.origin.x, chosenMeansVariable.frame.origin.y, 284, 20)];
+                    [meansLVE setFrame:CGRectMake(meansVariableLabel.frame.origin.x - 6, meansVariableLabel.frame.origin.y + 20, 276, 44)];
+                    [crosstabVariableLabel setFrame:CGRectMake(chosenCrosstabVariable.frame.origin.x - 32, chosenCrosstabVariable.frame.origin.y, 284, 20)];
+                    [crosstabLVE setFrame:CGRectMake(crosstabVariableLabel.frame.origin.x - 6, crosstabVariableLabel.frame.origin.y + 20, 276, 44)];
                     [spinner setFrame:CGRectMake(frame.size.width / 2.0 - 20, 118, 40, 40)];
                 }
                 else
@@ -562,10 +601,12 @@
     }];
     [avc replaceChooseAnalysis];
     [avc resetContentSize];
+    [avc putViewOnEpiInfoScrollView:self];
 }
 
 - (void)gearButtonPressed
 {
+    [avc putViewOnZoomingView:self];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         [gearButton setEnabled:NO];
@@ -578,6 +619,10 @@
                 [chosenMeansVariable setFrame:CGRectMake(20, chosenMeansVariable.frame.origin.y - 170, chosenMeansVariable.frame.size.width, 44)];
                 [chosenCrosstabVariable setFrame:CGRectMake(20, chosenCrosstabVariable.frame.origin.y - 170, chosenCrosstabVariable.frame.size.width, 44)];
                 [chosenStratificationVariable setFrame:CGRectMake(20, chosenCrosstabVariable.frame.origin.y - 170, chosenCrosstabVariable.frame.size.width, 44)];
+                [meansLVE setFrame:CGRectMake(10, chosenMeansVariable.frame.origin.y, chosenMeansVariable.frame.size.width, 44)];
+                [crosstabLVE setFrame:CGRectMake(10, chosenCrosstabVariable.frame.origin.y, chosenCrosstabVariable.frame.size.width, 44)];
+                [meansVariableLabel setFrame:CGRectMake(10, chosenMeansVariable.frame.origin.y - 20, chosenMeansVariable.frame.size.width, 44)];
+                [crosstabVariableLabel setFrame:CGRectMake(10, chosenCrosstabVariable.frame.origin.y - 20, chosenCrosstabVariable.frame.size.width, 44)];
                 //Move the pickers up if they are in view, otherwise they need to be hidden in case the
                 //ContentSize increases to >1000
                 if (chooseMeansVariable.frame.origin.y < 500)
@@ -672,6 +717,8 @@
             [gearButton setEnabled:YES];
             [xButton setEnabled:YES];
             [avc setDataSourceEnabled:YES];
+            
+            [avc putViewOnEpiInfoScrollView:self];
         }
         [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
             [self setFrame:CGRectMake(0, 50, avc.view.frame.size.width, avc.view.frame.size.height)];
@@ -770,6 +817,8 @@
             [gearButton setEnabled:YES];
             [xButton setEnabled:YES];
             [avc setDataSourceEnabled:YES];
+            
+            [avc putViewOnEpiInfoScrollView:self];
         }
         [UIView animateWithDuration:0.3 delay:0.0 options:nil animations:^{
             [self setFrame:CGRectMake(0, 50, avc.view.frame.size.width, avc.view.frame.size.height)];
@@ -784,17 +833,16 @@
     
     // Do calculations and display results
     // No crosstabulation or stratification
-    if (meansVariableChosen && !crosstabVariableChosen && !stratificationVariableChosen)
+    if ([[meansLVE selectedIndex] intValue] > 0 && [[crosstabLVE selectedIndex] intValue] == 0)
     {
         outputViewDisplayed = YES;
         stratum = 0;
-        MeansObject *mo = [[MeansObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndMeansVariable:[availableOutcomeVariables objectAtIndex:selectedMeansVariableNumber.integerValue] AndIncludeMissing:includeMissing];
+        MeansObject *mo = [[MeansObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndMeansVariable:[availableOutcomeVariables objectAtIndex:[[meansLVE selectedIndex] intValue]] AndIncludeMissing:includeMissing];
         
         outputTableView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, outputView.frame.size.width - 4.0, outputView.frame.size.height - 4.0)];
         [outputTableView setBackgroundColor:epiInfoLightBlue];
         [outputTableView setClipsToBounds:YES];
         [outputTableView.layer setCornerRadius:10.0];
-        [outputView addSubview:outputTableView];
         
         EpiInfoUILabel *meansVariableNameLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, outputTableView.frame.size.width, 40)];
         [meansVariableNameLabel setTextAlignment:NSTextAlignmentCenter];
@@ -860,13 +908,17 @@
         [outputTableView setFrame:CGRectMake(outputTableView.frame.origin.x, outputTableView.frame.origin.y, outputTableView.frame.size.width, 40.0 + yValue)];
 
         mo = nil;
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputView addSubview:outputTableView];
+        });
     }
     // With crosstabulation without stratification
-    if (meansVariableChosen && crosstabVariableChosen && !stratificationVariableChosen)
+    if ([[meansLVE selectedIndex] intValue] > 0 && [[crosstabLVE selectedIndex] intValue] > 0)
     {
         NSMutableArray *statisticsInputsArray = [[NSMutableArray alloc] init];
 
-        NSString *crosstabVariableName = [availableOutcomeVariables objectAtIndex:[selectedCrosstabVariableNumber intValue]];
+        NSString *crosstabVariableName = [availableOutcomeVariables objectAtIndex:[[crosstabLVE selectedIndex] intValue]];
         FrequencyObject *fo = [[FrequencyObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndVariable:crosstabVariableName AndIncludeMissing:includeMissing];
         
         outputViewDisplayed = YES;
@@ -892,7 +944,7 @@
             else
                 whereClause = [NSString stringWithFormat:@"WHERE %@ = %@", crosstabVariableName, [fo.variableValues objectAtIndex:i]];
             
-            MeansObject *mo = [[MeansObject alloc] initWithSQLiteData:sqliteData AndWhereClause:whereClause AndMeansVariable:[availableOutcomeVariables objectAtIndex:selectedMeansVariableNumber.integerValue] AndIncludeMissing:includeMissing];
+            MeansObject *mo = [[MeansObject alloc] initWithSQLiteData:sqliteData AndWhereClause:whereClause AndMeansVariable:[availableOutcomeVariables objectAtIndex:[[meansLVE selectedIndex] intValue]] AndIncludeMissing:includeMissing];
             
             if (i == 0)
             {
@@ -900,7 +952,6 @@
                 [outputTableView setBackgroundColor:epiInfoLightBlue];
                 [outputTableView setClipsToBounds:YES];
                 [outputTableView.layer setCornerRadius:10.0];
-                [outputView addSubview:outputTableView];
                 
                 EpiInfoUILabel *meansVariableNameLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, outputTableView.frame.size.width, 40)];
                 [meansVariableNameLabel setTextAlignment:NSTextAlignmentCenter];
@@ -964,6 +1015,10 @@
                 
                 [outputTableView setFrame:CGRectMake(outputTableView.frame.origin.x, outputTableView.frame.origin.y, outputTableView.frame.size.width, 40.0 + yValue)];
                 otvyValue += 42.0 + yValue;
+
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [outputView addSubview:outputTableView];
+                });
             }
             else
             {
@@ -971,7 +1026,6 @@
                 [outputTableView2 setBackgroundColor:epiInfoLightBlue];
                 [outputTableView2 setClipsToBounds:YES];
                 [outputTableView2.layer setCornerRadius:10.0];
-                [outputView addSubview:outputTableView2];
                 
                 EpiInfoUILabel *meansVariableNameLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, outputTableView2.frame.size.width, 40)];
                 [meansVariableNameLabel setTextAlignment:NSTextAlignmentCenter];
@@ -1035,6 +1089,10 @@
                 
                 [outputTableView2 setFrame:CGRectMake(outputTableView.frame.origin.x, outputTableView2.frame.origin.y, outputTableView2.frame.size.width, 40.0 + yValue)];
                 otvyValue += 42.0 + yValue;
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [outputView addSubview:outputTableView2];
+                });
             }
             
             [statisticsInputsArray addObject:[NSArray arrayWithArray:mo.meansVariableFloatValues]];
@@ -1051,7 +1109,7 @@
              [verticalFrequencies addObject:[NSNumber numberWithInt:[(NSNumber *)[(NSArray *)[statisticsInputsArray objectAtIndex:z] objectAtIndex:0] intValue]]];
         
         // allLocalFrequencies
-        FrequencyObject *meansVariableFrequency = [[FrequencyObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndVariable:[availableOutcomeVariables objectAtIndex:selectedMeansVariableNumber.integerValue] AndIncludeMissing:includeMissing];
+        FrequencyObject *meansVariableFrequency = [[FrequencyObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndVariable:[availableOutcomeVariables objectAtIndex:[[meansLVE selectedIndex] intValue]] AndIncludeMissing:includeMissing];
         NSArray *vFreqValues = [NSArray arrayWithArray:meansVariableFrequency.variableValues];
         NSArray *sortedArray = [vFreqValues sortedArrayUsingComparator:^NSComparisonResult(NSString *a, NSString *b) {
             NSNumber *first = [NSNumber numberWithFloat:[a floatValue]];
@@ -1071,7 +1129,7 @@
             }
             else
                 whereClause = [NSString stringWithFormat:@"WHERE %@ = %@", crosstabVariableName, [fo.variableValues objectAtIndex:z]];
-            FrequencyObject *meansVariableFrequencyStratum = [[FrequencyObject alloc] initWithSQLiteData:sqliteData AndWhereClause:whereClause AndVariable:[availableOutcomeVariables objectAtIndex:selectedMeansVariableNumber.integerValue] AndIncludeMissing:includeMissing];
+            FrequencyObject *meansVariableFrequencyStratum = [[FrequencyObject alloc] initWithSQLiteData:sqliteData AndWhereClause:whereClause AndVariable:[availableOutcomeVariables objectAtIndex:[[meansLVE selectedIndex] intValue]] AndIncludeMissing:includeMissing];
             NSMutableDictionary *nsmd = [[NSMutableDictionary alloc] init];
             for (int y = 0; y < meansVariableFrequencyStratum.cellCounts.count; y++)
             {
@@ -1120,7 +1178,6 @@
             [tTestView setBackgroundColor:epiInfoLightBlue];
             [tTestView setClipsToBounds:YES];
             [tTestView.layer setCornerRadius:10.0];
-            [outputView addSubview:tTestView];
             
             EpiInfoUILabel *tTestHeaderLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, tTestView.frame.size.width, 40)];
             [tTestHeaderLabel setTextAlignment:NSTextAlignmentCenter];
@@ -1384,6 +1441,10 @@
             [tTestView addSubview:roundedBox];
             
             statsTableY += tTestView.frame.size.height + 2.0;
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [outputView addSubview:tTestView];
+            });
         }
         
         // Do ANOVA
@@ -1395,7 +1456,6 @@
         [anovaView setBackgroundColor:epiInfoLightBlue];
         [anovaView setClipsToBounds:YES];
         [anovaView.layer setCornerRadius:10.0];
-        [outputView addSubview:anovaView];
         
         EpiInfoUILabel *anovaHeaderLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, anovaView.frame.size.width, 40)];
         [anovaHeaderLabel setTextAlignment:NSTextAlignmentCenter];
@@ -1587,7 +1647,6 @@
         [bartlettView setBackgroundColor:epiInfoLightBlue];
         [bartlettView setClipsToBounds:YES];
         [bartlettView.layer setCornerRadius:10.0];
-        [outputView addSubview:bartlettView];
         
         EpiInfoUILabel *bartlettHeaderLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, bartlettView.frame.size.width, 40)];
         [bartlettHeaderLabel setTextAlignment:NSTextAlignmentCenter];
@@ -1644,7 +1703,6 @@
         [wilcoxonView setBackgroundColor:epiInfoLightBlue];
         [wilcoxonView setClipsToBounds:YES];
         [wilcoxonView.layer setCornerRadius:10.0];
-        [outputView addSubview:wilcoxonView];
         
         EpiInfoUILabel *wilcoxonHeaderLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, wilcoxonView.frame.size.width, 40)];
         [wilcoxonHeaderLabel setTextAlignment:NSTextAlignmentCenter];
@@ -1700,8 +1758,14 @@
         verticalFrequencies = nil;
         allLocalFrequencies = nil;
         recordCount = 0.0;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [outputView addSubview:anovaView];
+            [outputView addSubview:bartlettView];
+            [outputView addSubview:wilcoxonView];
+        });
     }
-    if (meansVariableChosen && crosstabVariableChosen && stratificationVariableChosen)
+    if (NO) // No stratification available (yet?) (meansVariableChosen && crosstabVariableChosen && stratificationVariableChosen)
     {
         NSString *stratificationVariableName = [availableStratificationVariables objectAtIndex:[selectedStratificationVariableNumber intValue] + 1];
         NSString *outcomeVariableName = [availableOutcomeVariables objectAtIndex:selectedMeansVariableNumber.integerValue];

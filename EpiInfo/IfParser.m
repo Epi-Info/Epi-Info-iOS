@@ -196,7 +196,7 @@
                         NSMutableArray *controlsToAlter = [NSMutableArray arrayWithArray:[statement componentsSeparatedByString:@" "]];
                         for (int cto = 1; cto < controlsToAlter.count; cto++)
                         {
-                            if (![((DataEntryViewController *)[self rootViewController]).arrayOfFieldsAllPages containsObject:[[controlsToAlter objectAtIndex:cto] lowercaseString]])
+                            if (!(([((DataEntryViewController *)[self rootViewController]).arrayOfFieldsAllPages containsObject:[[controlsToAlter objectAtIndex:cto] lowercaseString]]) || ([(NSDictionary *)[(EnterDataView *)[self.dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", 1]] dictionaryOfGroupsAndLists] objectForKey:[controlsToAlter objectAtIndex:cto]])))
                                 continue;
                             BOOL pageAlreadyExists = NO;
                             int pageTurns = 0;
@@ -263,7 +263,7 @@
                         NSMutableArray *controlsToAlter = [NSMutableArray arrayWithArray:[statement componentsSeparatedByString:@" "]];
                         for (int cto = 1; cto < controlsToAlter.count; cto++)
                         {
-                            if (![((DataEntryViewController *)[self rootViewController]).arrayOfFieldsAllPages containsObject:[[controlsToAlter objectAtIndex:cto] lowercaseString]])
+                            if (!(([((DataEntryViewController *)[self rootViewController]).arrayOfFieldsAllPages containsObject:[[controlsToAlter objectAtIndex:cto] lowercaseString]]) || ([(NSDictionary *)[(EnterDataView *)[self.dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", 1]] dictionaryOfGroupsAndLists] objectForKey:[controlsToAlter objectAtIndex:cto]])))
                                 continue;
                             BOOL pageAlreadyExists = NO;
                             int pageTurns = 0;
@@ -330,7 +330,7 @@
                         NSMutableArray *controlsToAlter = [NSMutableArray arrayWithArray:[statement componentsSeparatedByString:@" "]];
                         for (int cto = 1; cto < controlsToAlter.count; cto++)
                         {
-                            if (![((DataEntryViewController *)[self rootViewController]).arrayOfFieldsAllPages containsObject:[[controlsToAlter objectAtIndex:cto] lowercaseString]])
+                            if (!(([((DataEntryViewController *)[self rootViewController]).arrayOfFieldsAllPages containsObject:[[controlsToAlter objectAtIndex:cto] lowercaseString]]) || ([(NSDictionary *)[(EnterDataView *)[self.dictionaryOfPages objectForKey:[NSString stringWithFormat:@"Page%d", 1]] dictionaryOfGroupsAndLists] objectForKey:[controlsToAlter objectAtIndex:cto]])))
                                 continue;
                             BOOL pageAlreadyExists = NO;
                             int pageTurns = 0;
@@ -603,7 +603,7 @@
                     if ([field isKindOfClass:[LegalValuesEnter class]])
                     {
                         if ([[NSScanner scannerWithString:[NSString stringWithFormat:@"%c", [fieldsControlValue characterAtIndex:0]]] scanFloat:nil] ||
-                            [[NSScanner scannerWithString:[NSString stringWithFormat:@"%c%c", [fieldsControlValue characterAtIndex:0], [fieldsControlValue characterAtIndex:1]]] scanFloat:nil])
+                            ([fieldsControlValue length] > 1 && [[NSScanner scannerWithString:[NSString stringWithFormat:@"%c%c", [fieldsControlValue characterAtIndex:0], [fieldsControlValue characterAtIndex:1]]] scanFloat:nil]))
                         {
                             bool canBeQuoted = false;
                             NSCharacterSet *justNumbers = [NSCharacterSet characterSetWithCharactersInString:[NSString stringWithFormat:@"%@0123456789", [[[NSNumberFormatter alloc] init] decimalSeparator]]];
@@ -624,9 +624,13 @@
                     //
                     if ([field isKindOfClass:[EpiInfoOptionField class]])
                     {
-                        fieldsControlValue = [NSString stringWithFormat:@"%d", [fieldsControlValue intValue] - 1];
+//                        fieldsControlValue = [NSString stringWithFormat:@"%d", [fieldsControlValue intValue] - 1];
                         if ([fieldsControlValue intValue] < 0)
                             fieldsControlValue = @"";
+                    }
+                    if ([field isKindOfClass:[NumberField class]])
+                    {
+                        fieldsControlValue = [fieldsControlValue stringByReplacingOccurrencesOfString:@"," withString:@"."];
                     }
                     if ([fieldsControlValue componentsSeparatedByString:@" "].count > 1 || [fieldsControlValue componentsSeparatedByString:@"\n"].count > 1)
                         fieldsControlValue = [NSString stringWithFormat:@"\"%@\"", [field epiInfoControlValue]];

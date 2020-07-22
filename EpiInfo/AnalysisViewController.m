@@ -2,8 +2,7 @@
 //  AnalysisViewController.m
 //  EpiInfo
 //
-//  Created by labuser on 3/15/13.
-//  Copyright (c) 2013 John Copeland. All rights reserved.
+//  Created by John Copeland on 3/15/13.
 //
 
 #import "AnalysisViewController.h"
@@ -14,6 +13,87 @@
 @end
 
 @implementation AnalysisViewController
+@synthesize listOfNewVariables = _listOfNewVariables;
+
+- (NSString *)dataSourceName
+{
+    return dataSourceName;
+}
+
+- (void)resetZoomScale
+{
+    [self.epiInfoScrollView setZoomScale:1.0];
+}
+
+- (void)setWorkingDataObjectListOfFilters:(NSMutableArray *)lof
+{
+    [workingDataObject setListOfFilters:lof];
+}
+- (void)setWorkingDataObject:(AnalysisDataObject *)wdo
+{
+    workingDataObject = wdo;
+}
+- (void)workingDataSetWithWhereClause:(NSString *)whereClause
+{
+    [sqlData makeSQLiteWorkingTableWithWhereClause:whereClause AndNewVariblesList:self.listOfNewVariables];
+    [dataSourceLabel setText:[NSString stringWithFormat:@"%@\n(%d/%d Records)", [[[dataSourceLabel text] componentsSeparatedByString:@"\n"] objectAtIndex:0], [sqlData workingTableSize], [sqlData fullTableSize]]];
+    [setDataSource setAccessibilityLabel:[NSString stringWithFormat:@"Data Source: %@ (%d of %d Records)", [[[dataSourceLabel text] componentsSeparatedByString:@"\n"] objectAtIndex:0], [sqlData workingTableSize], [sqlData fullTableSize]]];
+    [workingDataObject setWhereClause:whereClause];
+}
+- (NSString *)workingDatasetWhereClause
+{
+    return [workingDataObject whereClause];
+}
+- (AnalysisDataObject *)fullDataObject
+{
+    return fullDataObject;
+}
+- (AnalysisDataObject *)workingDataObject
+{
+    return workingDataObject;
+}
+
+- (NSArray *)getSQLiteColumnNames
+{
+    return sqlData.columnNamesWorking;
+}
+- (NSArray *)getSQLiteColumnTypes
+{
+    return sqlData.dataTypesWorking;
+}
+- (NSDictionary *)getWorkingColumnNames
+{
+    return workingDataObject.columnNames;
+}
+- (NSDictionary *)getWorkingColumnTypes
+{
+    NSLog(@"Getting WDO Types");
+    return workingDataObject.dataTypes;
+}
+- (NSDictionary *)getWorkingYesNo
+{
+    return workingDataObject.isYesNo;
+}
+- (NSDictionary *)getWorkingTrueFalse
+{
+    return workingDataObject.isTrueFalse;
+}
+- (NSDictionary *)getWorkingOneZero
+{
+    return workingDataObject.isOneZero;
+}
+- (NSDictionary *)getWorkingBinary
+{
+    return workingDataObject.isBinary;
+}
+- (NSDictionary *)getWorkingDates
+{
+    return [workingDataObject isDate];
+}
+- (FrequencyObject *)getFrequencyObjectForVariable:(NSString *)variableName
+{
+    return [[FrequencyObject alloc] initWithAnalysisDataObject:workingDataObject AndVariable:variableName AndIncludeMissing:NO];
+}
 
 -(void)setEpiInfoScrollView:(EpiInfoScrollView *)epiInfoScrollView
 {
@@ -47,6 +127,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self setTitle:@""];
+    dataSourceName = @"";
+    self.listOfNewVariables = [[NSMutableArray alloc] init];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         [self.epiInfoScrollView setFrame:CGRectMake(0, 0, 768, 1024)];
@@ -117,6 +199,7 @@
         chooseAnalysis = [[ChooseAnalysisButton alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50)];
         [chooseAnalysis setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
         [chooseAnalysis setTitle:@"Add Analysis" forState:UIControlStateNormal];
+        [chooseAnalysis setAccessibilityLabel:@"Add, Analysis"];
         [chooseAnalysis setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [chooseAnalysis setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
         [chooseAnalysis addTarget:self action:@selector(showAnalysisList) forControlEvents:UIControlEventTouchUpInside];
@@ -138,7 +221,7 @@
         UIView *newVariablesButtonSideLine = [[UIView alloc] initWithFrame:CGRectMake(newVariablesButton.frame.size.width - 1, 0, 1, newVariablesButton.frame.size.height)];
         [newVariablesButtonSideLine setBackgroundColor:[UIColor blackColor]];
         [newVariablesButton addSubview:newVariablesButtonSideLine];
-        //        [self.view addSubview:newVariablesButton];
+        [self.view addSubview:newVariablesButton];
         UILabel *newVariablesButtonLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, newVariablesButton.frame.size.height / 2 - 25, 50, 50)];
         [newVariablesButtonLabel setText:@"Add Variables"];
         [newVariablesButtonLabel setBackgroundColor:[UIColor clearColor]];
@@ -162,7 +245,8 @@
         UIView *filterButtonSideLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, filterButton.frame.size.height)];
         [filterButtonSideLine setBackgroundColor:[UIColor blackColor]];
         [filterButton addSubview:filterButtonSideLine];
-        //        [self.view addSubview:filterButton];
+        [self.view addSubview:filterButton];
+        [filterButton setAlpha:0.0];
         UILabel *filterButtonLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, filterButton.frame.size.height / 2 - 25, 50, 50)];
         [filterButtonLabel setText:@"Filter"];
         [filterButtonLabel setBackgroundColor:[UIColor clearColor]];
@@ -172,7 +256,7 @@
         [filterButton.titleLabel removeFromSuperview];
         
         //initial set-up of analysis list
-        availableAnalyses = 4.0;
+        availableAnalyses = 6.0;
         analysisList = [[AnalysisList alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50 * availableAnalyses)];
         [analysisList setBackgroundColor:[UIColor whiteColor]];
         [self.view addSubview:analysisList];
@@ -202,6 +286,7 @@
         //Add the tables button to the list
         UIButton *doTablesAnalysisButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 100, zoomingView.frame.size.width, 50)];
         [doTablesAnalysisButton setTitle:@"  Tables (2x2, MxN)" forState:UIControlStateNormal];
+        [doTablesAnalysisButton setAccessibilityLabel:@"Tables (2 by 2, M by N)"];
         [doTablesAnalysisButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [doTablesAnalysisButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
         [doTablesAnalysisButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -221,6 +306,28 @@
         [topLineView setBackgroundColor:[UIColor blackColor]];
         [doMeansAnalysisButton addSubview:topLineView];
         [analysisList addSubview:doMeansAnalysisButton];
+        //Add the linear button to the list
+        UIButton *doLinearAnalysisButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 200, zoomingView.frame.size.width, 50)];
+        [doLinearAnalysisButton setTitle:@"  Linear Regression" forState:UIControlStateNormal];
+        [doLinearAnalysisButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [doLinearAnalysisButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [doLinearAnalysisButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [doLinearAnalysisButton addTarget:self action:@selector(linearAnalysisSelected) forControlEvents:UIControlEventTouchUpInside];
+        topLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, doLinearAnalysisButton.frame.size.width, 1)];
+        [topLineView setBackgroundColor:[UIColor blackColor]];
+        [doLinearAnalysisButton addSubview:topLineView];
+        [analysisList addSubview:doLinearAnalysisButton];
+        //Add the logistic button to the list
+        UIButton *doLogisticAnalysisButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 250, zoomingView.frame.size.width, 50)];
+        [doLogisticAnalysisButton setTitle:@"  Logistic Regression" forState:UIControlStateNormal];
+        [doLogisticAnalysisButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [doLogisticAnalysisButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [doLogisticAnalysisButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [doLogisticAnalysisButton addTarget:self action:@selector(logisticAnalysisSelected) forControlEvents:UIControlEventTouchUpInside];
+        topLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, doLogisticAnalysisButton.frame.size.width, 1)];
+        [topLineView setBackgroundColor:[UIColor blackColor]];
+        [doLogisticAnalysisButton addSubview:topLineView];
+        [analysisList addSubview:doLogisticAnalysisButton];
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
         {
             BlurryView *blurryView = [BlurryView new];
@@ -238,7 +345,7 @@
         schemaList = [[UIView alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 50)];
         [schemaList setBackgroundColor:[UIColor whiteColor]];
         [self.view addSubview:schemaList];
-        dataSourceList = [[UIView alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 50)];
+        dataSourceList = [[UIScrollView alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 50)];
         [dataSourceList setBackgroundColor:[UIColor whiteColor]];
         [self.view addSubview:dataSourceList];
     }
@@ -317,6 +424,7 @@
         chooseAnalysis = [[ChooseAnalysisButton alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50)];
         [chooseAnalysis setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
         [chooseAnalysis setTitle:@"Add Analysis" forState:UIControlStateNormal];
+        [chooseAnalysis setAccessibilityLabel:@"Add, Analysis"];
         [chooseAnalysis setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [chooseAnalysis setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
         [chooseAnalysis addTarget:self action:@selector(showAnalysisList) forControlEvents:UIControlEventTouchUpInside];
@@ -338,7 +446,7 @@
         UIView *newVariablesButtonSideLine = [[UIView alloc] initWithFrame:CGRectMake(newVariablesButton.frame.size.width - 1, 0, 1, newVariablesButton.frame.size.height)];
         [newVariablesButtonSideLine setBackgroundColor:[UIColor blackColor]];
         [newVariablesButton addSubview:newVariablesButtonSideLine];
-//        [self.view addSubview:newVariablesButton];
+        [self.view addSubview:newVariablesButton];
         UILabel *newVariablesButtonLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, newVariablesButton.frame.size.height / 2 - 25, 50, 50)];
         [newVariablesButtonLabel setText:@"Add Variables"];
         [newVariablesButtonLabel setBackgroundColor:[UIColor clearColor]];
@@ -362,7 +470,8 @@
         UIView *filterButtonSideLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, filterButton.frame.size.height)];
         [filterButtonSideLine setBackgroundColor:[UIColor blackColor]];
         [filterButton addSubview:filterButtonSideLine];
-//        [self.view addSubview:filterButton];
+        [self.view addSubview:filterButton];
+        [filterButton setAlpha:0.0];
         UILabel *filterButtonLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, filterButton.frame.size.height / 2 - 25, 50, 50)];
         [filterButtonLabel setText:@"Filter"];
         [filterButtonLabel setBackgroundColor:[UIColor clearColor]];
@@ -372,7 +481,7 @@
         [filterButton.titleLabel removeFromSuperview];
         
         //initial set-up of analysis list
-        availableAnalyses = 4.0;
+        availableAnalyses = 6.0;
         analysisList = [[AnalysisList alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50 * availableAnalyses)];
         [analysisList setBackgroundColor:[UIColor whiteColor]];
         [self.view addSubview:analysisList];
@@ -402,6 +511,7 @@
         //Add the tables button to the list
         UIButton *doTablesAnalysisButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 100, zoomingView.frame.size.width, 50)];
         [doTablesAnalysisButton setTitle:@"  Tables (2x2, MxN)" forState:UIControlStateNormal];
+        [doTablesAnalysisButton setAccessibilityLabel:@"Tables (2 by 2, M by N)"];
         [doTablesAnalysisButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [doTablesAnalysisButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
         [doTablesAnalysisButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -421,6 +531,28 @@
         [topLineView setBackgroundColor:[UIColor blackColor]];
         [doMeansAnalysisButton addSubview:topLineView];
         [analysisList addSubview:doMeansAnalysisButton];
+        //Add the linear button to the list
+        UIButton *doLinearAnalysisButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 200, zoomingView.frame.size.width, 50)];
+        [doLinearAnalysisButton setTitle:@"  Linear Regression" forState:UIControlStateNormal];
+        [doLinearAnalysisButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [doLinearAnalysisButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [doLinearAnalysisButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [doLinearAnalysisButton addTarget:self action:@selector(linearAnalysisSelected) forControlEvents:UIControlEventTouchUpInside];
+        topLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, doLinearAnalysisButton.frame.size.width, 1)];
+        [topLineView setBackgroundColor:[UIColor blackColor]];
+        [doLinearAnalysisButton addSubview:topLineView];
+        [analysisList addSubview:doLinearAnalysisButton];
+        //Add the logistic button to the list
+        UIButton *doLogisticAnalysisButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 250, zoomingView.frame.size.width, 50)];
+        [doLogisticAnalysisButton setTitle:@"  Logistic Regression" forState:UIControlStateNormal];
+        [doLogisticAnalysisButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [doLogisticAnalysisButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [doLogisticAnalysisButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [doLogisticAnalysisButton addTarget:self action:@selector(logisticAnalysisSelected) forControlEvents:UIControlEventTouchUpInside];
+        topLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, doLogisticAnalysisButton.frame.size.width, 1)];
+        [topLineView setBackgroundColor:[UIColor blackColor]];
+        [doLogisticAnalysisButton addSubview:topLineView];
+        [analysisList addSubview:doLogisticAnalysisButton];
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
         {
             BlurryView *blurryView = [BlurryView new];
@@ -438,7 +570,7 @@
         schemaList = [[UIView alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 50)];
         [schemaList setBackgroundColor:[UIColor whiteColor]];
         [self.view addSubview:schemaList];
-        dataSourceList = [[UIView alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 50)];
+        dataSourceList = [[UIScrollView alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 50)];
         [dataSourceList setBackgroundColor:[UIColor whiteColor]];
         [self.view addSubview:dataSourceList];
         
@@ -451,6 +583,40 @@
         {
             initialContentSize = CGSizeMake(320, 416);
             initialLandscapeContentSize = CGSizeMake(480, 268);
+        }
+    }
+    [filterButton setAccessibilityLabel:@"Add, or, remove, data filters"];
+    [newVariablesButton setAccessibilityLabel:@"Add, temporary, variables, to dataset."];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
+    {
+        [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"] withIntermediateDirectories:NO attributes:nil error:nil];
+    }
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
+    {
+        NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+        
+        int tableAlreadyExists = 0;
+        if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
+        {
+            NSString *selStmt = [NSString stringWithFormat:@"select count(name) as n from sqlite_master where name = '%@'", @"Sample_MatchedCaseControl"];
+            const char *query_stmt = [selStmt UTF8String];
+            sqlite3_stmt *statement;
+            if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
+            {
+                if (sqlite3_step(statement) == SQLITE_ROW)
+                {
+                    tableAlreadyExists = sqlite3_column_int(statement, 0);
+                }
+            }
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(epiinfoDB);
+        if (tableAlreadyExists == 0)
+        {
+            NSThread *createMatchedCaseControlSampleTableThread = [[NSThread alloc] initWithTarget:self selector:@selector(createMatchedCaseControlSampleTable) object:nil];
+            [createMatchedCaseControlSampleTableThread start];
         }
     }
 }
@@ -470,6 +636,8 @@
                 [newVariablesButton setFrame:CGRectMake(-50, 60, 50, self.view.frame.size.height - 120)];
                 //newVariableButton starts out invisible until view is in place
                 [newVariablesButton setAlpha:1];
+                } completion:^(BOOL finished){
+                    [filterButton setAlpha:0.0];
             }];
         }
         else
@@ -483,6 +651,8 @@
                 [newVariablesButton setFrame:CGRectMake(-50, 100, 50, self.view.frame.size.height - 200)];
                 //newVariableButton starts out invisible until view is in place
                 [newVariablesButton setAlpha:1];
+                } completion:^(BOOL finished){
+                    [filterButton setAlpha:1.0];
             }];
         }
         //Re-size the zoomingView
@@ -502,6 +672,8 @@
                 [newVariablesButton setFrame:CGRectMake(-50, 60, 50, self.view.frame.size.height - 120)];
                 //newVariableButton starts out invisible until view is in place
                 [newVariablesButton setAlpha:1];
+                } completion:^(BOOL finished){
+                    [filterButton setAlpha:0.0];
             }];
         }
         else
@@ -515,6 +687,8 @@
                 [newVariablesButton setFrame:CGRectMake(-50, 100, 50, self.view.frame.size.height - 200)];
                 //newVariableButton starts out invisible until view is in place
                 [newVariablesButton setAlpha:1];
+            } completion:^(BOOL finished){
+                [filterButton setAlpha:1.0];
             }];
         }
         //Re-size the zoomingView
@@ -550,6 +724,225 @@
 //    To here
 }
 
+- (void)createMatchedCaseControlSampleTable
+{
+    NSString *createTableStatement = @"create table Sample_MatchedCaseControl(UID text, Ill integer, MatchGroup integer, Age integer, Sex integer, State integer, Chicken integer, Eggs integer, Iceberg integer, PeanutButter integer, Romaine integer)";
+    
+    NSArray *arrayOfInsertStatements = @[@"insert into Sample_MatchedCaseControl values('CA___M08X04696_',1,1,8,1,5,1,0,1,1,0)",
+    @"insert into Sample_MatchedCaseControl values('CA___M08X04696_1',0,1,8,1,5,1,0,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('CA___M08X04710_',1,2,13,1,5,0,0,0,0,0)",
+    @"insert into Sample_MatchedCaseControl values('CA___M08X04710_1',0,2,10,2,26,1,0,0,0,0)",
+    @"insert into Sample_MatchedCaseControl values('CO___HUM-2008005787_',1,3,34,2,6,0,0,0,0,0)",
+    @"insert into Sample_MatchedCaseControl values('CO___HUM-2008005787_1',0,3,37,2,6,1,1,1,1,0)",
+    @"insert into Sample_MatchedCaseControl values('CO___HUM-2008006115_',1,4,46,2,6,0,1,1,null,1)",
+    @"insert into Sample_MatchedCaseControl values('CO___HUM-2008006115_1',0,4,55,2,6,1,0,0,0,0)",
+    @"insert into Sample_MatchedCaseControl values('CT___02033336_',1,5,13,1,7,1,0,0,0,9)",
+    @"insert into Sample_MatchedCaseControl values('CT___02033336_1',0,5,8,1,7,1,1,9,1,0)",
+    @"insert into Sample_MatchedCaseControl values('CT___02033366_',1,6,14,1,7,1,0,0,0,0)",
+    @"insert into Sample_MatchedCaseControl values('CT___02033366_1',0,6,2,1,7,1,0,0,0,0)",
+    @"insert into Sample_MatchedCaseControl values('CT___02033391_',1,7,52,1,7,0,0,0,1,0)",
+    @"insert into Sample_MatchedCaseControl values('CT___02033391_1',0,7,86,2,7,1,0,0,0,0)",
+    @"insert into Sample_MatchedCaseControl values('CT___02033393_',1,8,39,1,7,1,0,1,1,0)",
+    @"insert into Sample_MatchedCaseControl values('CT___02033393_1',0,8,64,1,7,1,0,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('LAC__Z25365_',1,9,2,1,5,1,9,0,9,9)",
+    @"insert into Sample_MatchedCaseControl values('LAC__Z25365_1',0,9,11,2,5,0,0,1,1,0)",
+    @"insert into Sample_MatchedCaseControl values('LAC__Z25533_',1,10,2,1,5,1,0,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('LAC__Z25533_1',0,10,2,1,5,0,0,0,1,0)",
+    @"insert into Sample_MatchedCaseControl values('LAC__Z25581_',1,11,7,2,5,1,0,0,0,0)",
+    @"insert into Sample_MatchedCaseControl values('LAC__Z25581_2',0,11,9,2,5,1,0,0,9,0)",
+    @"insert into Sample_MatchedCaseControl values('LAC__Z25589_',1,12,15,2,5,1,0,0,1,0)",
+    @"insert into Sample_MatchedCaseControl values('LAC__Z25589_1',0,12,13,2,5,0,0,0,0,0)",
+    @"insert into Sample_MatchedCaseControl values('LAC__Z25599_',1,13,6,1,5,1,0,0,0,0)",
+    @"insert into Sample_MatchedCaseControl values('LAC__Z25599_1',0,13,16,1,5,0,0,0,0,0)",
+    @"insert into Sample_MatchedCaseControl values('MI___08ST001401_',1,14,47,2,23,1,0,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('MI___08ST001401_1',0,14,67,1,23,1,0,0,1,0)",
+    @"insert into Sample_MatchedCaseControl values('MI___08ST001409_',1,15,26,1,23,0,0,9,9,0)",
+    @"insert into Sample_MatchedCaseControl values('MI___08ST001409_1',0,15,57,2,23,1,0,1,1,0)",
+    @"insert into Sample_MatchedCaseControl values('MI___08ST001474_',1,16,19,2,23,1,1,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('MI___08ST001474_1',0,16,47,2,23,1,0,1,0,1)",
+    @"insert into Sample_MatchedCaseControl values('MI___08ST001516_',1,17,0,1,23,0,0,0,0,0)",
+    @"insert into Sample_MatchedCaseControl values('MI___08ST001516_1',0,17,14,1,23,0,0,0,1,0)",
+    @"insert into Sample_MatchedCaseControl values('MI___08ST001519_',1,18,2,1,23,0,9,9,0,9)",
+    @"insert into Sample_MatchedCaseControl values('MI___08ST001519_1',0,18,8,1,23,0,9,0,9,1)",
+    @"insert into Sample_MatchedCaseControl values('MI___08ST001557_',1,19,32,1,23,1,1,0,1,1)",
+    @"insert into Sample_MatchedCaseControl values('MI___08ST001557_1',0,19,62,2,23,1,0,1,null,0)",
+    @"insert into Sample_MatchedCaseControl values('MI___08ST001559_',1,20,7,2,23,9,0,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('MI___08ST001559_1',0,20,8,1,23,1,0,1,1,0)",
+    @"insert into Sample_MatchedCaseControl values('MI___08ST001570_',1,21,6,2,23,1,0,1,1,1)",
+    @"insert into Sample_MatchedCaseControl values('MI___08ST001570_1',0,21,7,1,23,0,1,null,1,1)",
+    @"insert into Sample_MatchedCaseControl values('MI___08ST001588_',1,22,73,2,23,1,1,1,0,null)",
+    @"insert into Sample_MatchedCaseControl values('MI___08ST001588_1',0,22,61,2,23,0,0,1,1,1)",
+    @"insert into Sample_MatchedCaseControl values('MI___08ST001630_',1,23,11,1,23,1,0,1,1,0)",
+    @"insert into Sample_MatchedCaseControl values('MI___08ST001630_1',0,23,11,1,23,1,0,1,1,0)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002730_',1,24,44,1,24,1,0,1,1,1)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002730_1',0,24,62,2,24,0,0,0,9,1)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002879_',1,25,18,9,24,1,0,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002879_1',0,25,51,2,24,1,0,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002884_',1,26,8,1,24,1,1,1,1,1)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002884_1',0,26,12,2,24,0,0,1,1,0)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002888_',1,27,19,1,24,0,0,1,9,0)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002888_1',0,27,27,1,24,1,0,1,1,0)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002893_',1,28,64,2,24,1,0,1,1,0)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002893_1',0,28,61,1,24,1,0,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002895_',1,29,33,1,24,1,0,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002895_1',0,29,57,1,24,null,0,0,1,0)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002915_',1,30,30,2,24,1,0,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002915_1',0,30,62,2,24,1,0,1,1,null)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002940_',1,31,45,1,24,1,0,1,9,9)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002940_1',0,31,23,1,24,1,0,0,0,1)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002941_',1,32,12,2,24,1,0,1,9,1)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002941_1',0,32,9,2,24,1,0,1,0,1)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002942_',1,33,10,2,24,null,0,1,0,1)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002942_1',0,33,11,2,24,1,0,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002944_',1,34,20,1,24,0,0,1,1,0)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002944_1',0,34,30,1,24,0,0,0,1,1)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002959_',1,35,23,2,24,1,9,1,0,1)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002959_1',0,35,26,2,24,1,0,0,1,1)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002993_',1,36,11,1,24,1,1,1,0,1)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008002993_1',0,36,13,1,24,1,0,1,1,1)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008003003_',1,37,21,2,24,1,0,0,0,1)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008003003_1',0,37,62,2,24,1,1,0,0,0)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008003005_',1,38,55,2,24,1,0,1,1,1)",
+    @"insert into Sample_MatchedCaseControl values('MN___E2008003005_1',0,38,72,2,24,1,0,0,1,0)",
+    @"insert into Sample_MatchedCaseControl values('MO___MOENT1809-08_',1,39,37,1,26,1,0,1,null,1)",
+    @"insert into Sample_MatchedCaseControl values('MO___MOENT1809-08_1',0,39,52,2,26,1,0,0,0,1)",
+    @"insert into Sample_MatchedCaseControl values('MO___MOENT1813-08_',1,40,12,2,24,1,9,1,1,0)",
+    @"insert into Sample_MatchedCaseControl values('MO___MOENT1813-08_1',0,40,11,1,24,0,0,0,1,1)",
+    @"insert into Sample_MatchedCaseControl values('MO___MOENT1821-08_',1,41,61,2,26,0,0,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('MO___MOENT1821-08_1',0,41,47,1,26,1,0,0,1,0)",
+    @"insert into Sample_MatchedCaseControl values('MO___MOENT1875-08_',1,42,9,1,26,1,9,1,0,1)",
+    @"insert into Sample_MatchedCaseControl values('MO___MOENT1875-08_1',0,42,8,2,26,0,1,1,1,0)",
+    @"insert into Sample_MatchedCaseControl values('NJ___802779_',1,43,49,2,31,1,0,1,1,1)",
+    @"insert into Sample_MatchedCaseControl values('NJ___802779_1',0,43,53,1,31,1,1,1,1,1)",
+    @"insert into Sample_MatchedCaseControl values('NJ___802805_',1,44,23,2,31,1,0,0,1,0)",
+    @"insert into Sample_MatchedCaseControl values('NJ___802805_1',0,44,52,1,31,0,0,0,0,0)",
+    @"insert into Sample_MatchedCaseControl values('NJ___802838_',1,45,71,2,31,0,1,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('NJ___802838_1',0,45,47,2,31,0,0,0,1,0)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008103147_',1,46,7,2,36,1,1,1,9,1)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008103147_1',0,46,6,2,36,0,0,1,1,1)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008103156_',1,47,26,1,36,0,1,0,9,0)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008103156_1',0,47,59,1,36,0,1,1,1,0)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008103951_',1,48,9,2,36,1,0,1,0,9)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008103951_1',0,48,4,1,36,1,1,0,1,1)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008104459_',1,49,11,1,36,1,1,0,0,9)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008104459_1',0,49,17,2,36,1,0,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008105486_',1,50,71,1,36,1,0,1,1,0)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008105486_1',0,50,57,2,36,1,0,0,1,0)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008106364_',1,51,5,1,36,1,0,1,0,9)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008106364_1',0,51,7,2,36,1,0,0,1,1)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008106369_',1,52,17,2,36,1,0,1,0,9)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008106369_1',0,52,9,1,36,0,0,1,9,0)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008106371_',1,53,13,1,36,9,9,0,1,1)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008106371_1',0,53,13,1,36,0,1,1,1,1)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008107067_',1,54,65,2,36,9,0,0,1,0)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008107067_1',0,54,65,2,36,0,0,0,1,0)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008108299_',1,55,6,2,36,1,1,1,0,9)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008108299_1',0,55,6,1,36,1,1,0,1,0)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008108302_',1,56,19,2,36,1,0,1,0,1)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008108302_1',0,56,81,2,36,null,null,null,null,null)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008108721_',1,57,46,1,36,0,0,0,0,0)",
+    @"insert into Sample_MatchedCaseControl values('OH___2008108721_1',0,57,51,2,36,0,0,0,1,0)",
+    @"insert into Sample_MatchedCaseControl values('OR___G08-1149_',1,58,10,1,38,0,9,0,1,1)",
+    @"insert into Sample_MatchedCaseControl values('OR___G08-1149_1',0,58,16,1,38,0,0,1,0,1)",
+    @"insert into Sample_MatchedCaseControl values('OR___G08-1172_',1,59,8,1,38,null,0,1,1,1)",
+    @"insert into Sample_MatchedCaseControl values('OR___G08-1172_1',0,59,11,2,38,1,0,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('OR___G08-1180_',1,60,16,1,38,1,1,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('OR___G08-1180_1',0,60,7,2,38,1,1,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('OR___G08-1210_',1,61,17,2,38,1,1,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('OR___G08-1210_1',0,61,13,1,38,1,0,0,0,0)",
+    @"insert into Sample_MatchedCaseControl values('PA___08E02451_',1,62,5,2,31,1,0,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('PA___08E02451_1',0,62,5,2,39,1,1,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('VT___09BAC0533_',1,63,7,1,46,null,1,1,1,1)",
+    @"insert into Sample_MatchedCaseControl values('VT___09BAC0533_1',0,63,7,2,46,0,1,1,0,1)",
+    @"insert into Sample_MatchedCaseControl values('VT___09BAC0596_',1,64,3,2,46,1,1,1,0,0)",
+    @"insert into Sample_MatchedCaseControl values('VT___09BAC0596_1',0,64,2,2,46,1,0,0,0,0)",
+    @"insert into Sample_MatchedCaseControl values('WI___08BC006125_',1,65,24,2,50,0,0,0,1,9)",
+    @"insert into Sample_MatchedCaseControl values('WI___08BC006125_1',0,65,65,2,50,1,0,1,1,0)"];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *databasePath = [[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"];
+    //Convert the databasePath NSString to a char array
+    const char *dbpath = [databasePath UTF8String];
+    
+    //Open sqlite3 analysisDB pointing to the databasePath
+    if (sqlite3_open(dbpath, &epiinfoDB) == SQLITE_OK)
+    {
+        char *errMsg;
+        //Build the CREATE TABLE statement
+        //Convert the sqlStmt to char array
+        const char *sql_stmt = [createTableStatement UTF8String];
+        //                const char *sql_stmt = [@"drop table FoodHistory" UTF8String];
+        
+        //Execute the CREATE TABLE statement
+        if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+        {
+            NSLog(@"Failed to create table: %s :::: %@", errMsg, createTableStatement);
+            return;
+        }
+        else
+        {
+            //                                    NSLog(@"Table created");
+        }
+        //Close the sqlite connection
+        sqlite3_close(epiinfoDB);
+    }
+    else
+    {
+        NSLog(@"Failed to open/create database");
+        return;
+    }
+    
+    for (int i = 0; i < [arrayOfInsertStatements count]; i++)
+    {
+        NSString *insertStatement = [arrayOfInsertStatements objectAtIndex:i];
+        
+        //Open sqlite3 analysisDB pointing to the databasePath
+        if (sqlite3_open(dbpath, &epiinfoDB) == SQLITE_OK)
+        {
+            char *errMsg;
+            //Build the INSERT statement
+            //Convert the sqlStmt to char array
+            const char *sql_stmt = [insertStatement UTF8String];
+            //                const char *sql_stmt = [@"delete from FoodHistory where caseid is null" UTF8String];
+            //                const char *sql_stmt = [@"update FoodHistory set DOB = '04/23/1978' where DOB = '04/33/1978'" UTF8String];
+            
+            //Execute the INSERT statement
+            if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
+            {
+                NSLog(@"Failed to insert row into table: %s :::: %@", errMsg, insertStatement);
+            }
+            else
+            {
+                //                    NSLog(@"Row(s) inserted");
+            }
+            //Close the sqlite connection
+            sqlite3_close(epiinfoDB);
+        }
+        else
+        {
+            NSLog(@"Failed to open database or insert record");
+        }
+    }
+    NSLog(@"End of loop");
+}
+
+- (void)parserDidStartDocument:(NSXMLParser *)parser
+{
+}
+
+- (void)parserDidEndDocument:(NSXMLParser *)parser
+{
+}
+
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
+{
+    if ([elementName isEqualToString:@"Field"] && [[attributeDict objectForKey:@"FieldTypeId"] isEqualToString:@"21"])
+    {
+        NSMutableString *groupNSMS = [NSMutableString stringWithFormat:@"%@ = GROUP(%@)", [attributeDict objectForKey:@"Name"], [[[attributeDict objectForKey:@"List"] stringByReplacingOccurrencesOfString:@"," withString:@", "] stringByReplacingOccurrencesOfString:@"  " withString:@" "]];
+        [sqlData addGroupToGroups:[NSString stringWithString:groupNSMS]];
+    }
+}
+
 - (void)setDataSourceEnabled:(BOOL)isEnabled
 {
     [setDataSource setEnabled:isEnabled];
@@ -558,6 +951,7 @@
 - (void)newVariablesButtonPressed
 {
     newVariableswView = [[NewVariablesView alloc] initWithViewController:self AndSQLiteData:sqlData];
+    [newVariableswView setListOfNewVariables:self.listOfNewVariables];
     [self.view addSubview:newVariableswView];
 }
 
@@ -565,6 +959,11 @@
 {
     filterView = [[AnalysisFilterView alloc] initWithViewController:self];
     [self.view addSubview:filterView];
+    if (workingDataObject.listOfFilters)
+        if ([workingDataObject.listOfFilters count] > 0)
+        {
+            [filterView setListOfValues:workingDataObject.listOfFilters];
+        }
 }
 
 - (void)selectDataType
@@ -670,7 +1069,7 @@
     dataSourceList = nil;
     
     //Re-allocate and instantiate dataSourceList
-    dataSourceList = [[UIView alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 50)];
+    dataSourceList = [[UIScrollView alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 50)];
     [dataSourceList setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:dataSourceList];
 
@@ -693,7 +1092,7 @@
             
             if (sqlite3_open([databasePath UTF8String], &epiinfoDB) == SQLITE_OK)
             {
-                NSString *selStmt = [NSString stringWithFormat:@"select count(name), name as n from sqlite_master group by name order by name"];
+                NSString *selStmt = [NSString stringWithFormat:@"select count(name), name as n from sqlite_master where name <> '__sqlite_recall_table__' group by name order by name"];
                 const char *query_stmt = [selStmt UTF8String];
                 sqlite3_stmt *statement;
                 if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
@@ -755,8 +1154,11 @@
     
     //Move the dataSourceList into view
     [UIView animateWithDuration:0.3 delay:0.3 options:nil animations:^{
-        [dataSourceList setFrame:CGRectMake(0, 0, zoomingView.frame.size.width, 50.0 * (numberOfFiles + 1))];
-    }completion:nil];
+        float menuheight = self.view.frame.size.height;
+        [dataSourceList setFrame:CGRectMake(0, 0, zoomingView.frame.size.width, menuheight)];
+    } completion:^(BOOL finished){
+        [dataSourceList setContentSize:CGSizeMake(zoomingView.frame.size.width, 50.0 * (numberOfFiles + 1))];
+    }];
 }
 
 - (void)loadSqlTool:(UIButton *)sender
@@ -1031,6 +1433,7 @@
     //Un-hide the analysisList
     [analysisList setHidden:NO];
     
+    [self resetContentSize];
     
     //Move the analysisList back into view
     [UIView animateWithDuration:0.3 animations:^{
@@ -1137,6 +1540,88 @@
     }];
 }
 
+- (void)linearAnalysisSelected
+{
+    //User selected Linear from analysisList
+    
+    //Enable the other three buttons
+    [setDataSource setEnabled:YES];
+    [filterButton setEnabled:YES];
+    [newVariablesButton setEnabled:YES];
+    
+    //Move analysisList below the bottom of the screen
+    [UIView animateWithDuration:0.3 animations:^{
+        [analysisList setFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50 * availableAnalyses)];
+    }];
+    //Wait 0.3 seconds and then set the analysisList to hidden
+    [self performSelector:@selector(hideAnalysisList) withObject:nil afterDelay:0.3];
+    
+    //Allocate and initialize the TablesView, color it white, and add it to the zoomingView
+    //TablesView is initially in the center of the screen and size 1 pixel by 1 pixel
+    tv = [[LinearView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0, 1, 1) AndSQLiteData:sqlData AndViewController:self];
+    //    tv = [[TablesView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0, 1, 1) AndDataSource:workingDataObject AndViewController:self];
+    [tv setBackgroundColor:[UIColor whiteColor]];
+    [self.epiInfoScrollView addSubview:tv];
+    
+    //Animate the TablesView to the proper size
+    //Move the chooseAnalysisButton off the bottom of the screen
+    [UIView animateWithDuration:0.5 animations:^{
+        [tv setFrame:CGRectMake(0, 50, zoomingView.frame.size.width, zoomingView.frame.size.height - 50)];
+        [chooseAnalysis setFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50)];
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
+        {
+            [filterButton setFrame:CGRectMake(self.view.frame.size.width, 100, 50, self.view.frame.size.height - 200)];
+            [newVariablesButton setFrame:CGRectMake(-50, 100, 50, self.view.frame.size.height - 200)];
+        }
+        else
+        {
+            [filterButton setFrame:CGRectMake(self.view.frame.size.width, 60, 50, self.view.frame.size.height - 120)];
+            [newVariablesButton setFrame:CGRectMake(-50, 60, 50, self.view.frame.size.height - 120)];
+        }
+    }];
+}
+
+- (void)logisticAnalysisSelected
+{
+    //User selected Logistic from analysisList
+    
+    //Enable the other three buttons
+    [setDataSource setEnabled:YES];
+    [filterButton setEnabled:YES];
+    [newVariablesButton setEnabled:YES];
+    
+    //Move analysisList below the bottom of the screen
+    [UIView animateWithDuration:0.3 animations:^{
+        [analysisList setFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50 * availableAnalyses)];
+    }];
+    //Wait 0.3 seconds and then set the analysisList to hidden
+    [self performSelector:@selector(hideAnalysisList) withObject:nil afterDelay:0.3];
+    
+    //Allocate and initialize the TablesView, color it white, and add it to the zoomingView
+    //TablesView is initially in the center of the screen and size 1 pixel by 1 pixel
+    tv = [[LogisticView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0, 1, 1) AndSQLiteData:sqlData AndViewController:self];
+    //    tv = [[TablesView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0, 1, 1) AndDataSource:workingDataObject AndViewController:self];
+    [tv setBackgroundColor:[UIColor whiteColor]];
+    [self.epiInfoScrollView addSubview:tv];
+    
+    //Animate the TablesView to the proper size
+    //Move the chooseAnalysisButton off the bottom of the screen
+    [UIView animateWithDuration:0.5 animations:^{
+        [tv setFrame:CGRectMake(0, 50, zoomingView.frame.size.width, zoomingView.frame.size.height - 50)];
+        [chooseAnalysis setFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50)];
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]))
+        {
+            [filterButton setFrame:CGRectMake(self.view.frame.size.width, 100, 50, self.view.frame.size.height - 200)];
+            [newVariablesButton setFrame:CGRectMake(-50, 100, 50, self.view.frame.size.height - 200)];
+        }
+        else
+        {
+            [filterButton setFrame:CGRectMake(self.view.frame.size.width, 60, 50, self.view.frame.size.height - 120)];
+            [newVariablesButton setFrame:CGRectMake(-50, 60, 50, self.view.frame.size.height - 120)];
+        }
+    }];
+}
+
 - (void)meansAnalysisSelected
 {
     //User selected 2x2/MxN Table from analysisList
@@ -1222,6 +1707,9 @@
     
     //Set the dataSourceLabel (on the setDataSource button) to the name of the selected file
     [dataSourceLabel setText:[NSString stringWithFormat:@"%@\n(%d Records)", [b.titleLabel.text substringFromIndex:2], recordCount]];
+    
+    //Record the name of the data source
+    dataSourceName = [NSString stringWithString:b.titleLabel.text];
     
     //Change the title of the setDataSource button itself (if necessary) to indicate
     //that a source has been selected
@@ -1420,6 +1908,24 @@
     sqlData = [[SQLiteData alloc] init];
     [sqlData makeSQLiteFullTable:fullDataObject ProvideUpdatesTo:datasetButton];
     [sqlData makeSQLiteWorkingTable];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
+    {
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/"] stringByAppendingString:tableName] stringByAppendingString:@".xml"]])
+        {
+            NSString *path = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/"] stringByAppendingString:tableName] stringByAppendingString:@".xml"];
+            NSURL *url = [NSURL fileURLWithPath:path];
+            NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+            [xmlParser setDelegate:self];
+            [xmlParser setShouldResolveExternalEntities:YES];
+            BOOL success = [xmlParser parse];
+            if (!success)
+            {
+            }
+        }
+    }
+
     return [sqlData workingTableSize];
 }
 
@@ -1437,10 +1943,21 @@
 - (void)resetContentSize
 {
     if ([self portraitOrientation])
+    {
         [self.epiInfoScrollView setContentSize:initialContentSize];
+    }
     else
         [self.epiInfoScrollView setContentSize:initialLandscapeContentSize];
     [zoomingView setFrame:CGRectMake(0, 0, self.epiInfoScrollView.frame.size.width, self.epiInfoScrollView.frame.size.height)];
+}
+
+- (void)setInitialContentSize:(CGSize)ics
+{
+    initialContentSize = ics;
+}
+- (CGSize)getInitialContentSize
+{
+    return initialContentSize;
 }
 
 - (void)setContentSize:(CGSize)size
@@ -1693,6 +2210,16 @@
             NSLog(@"Failed to open/create database");
         }
     }
+}
+
+- (void)putViewOnZoomingView:(UIView *)viewToMove
+{
+    [zoomingView addSubview:viewToMove];
+}
+- (void)putViewOnEpiInfoScrollView:(UIView *)viewToMove
+{
+    [self.epiInfoScrollView addSubview:viewToMove];
+    [self resetZoomScale];
 }
 
 - (void)popCurrentViewController

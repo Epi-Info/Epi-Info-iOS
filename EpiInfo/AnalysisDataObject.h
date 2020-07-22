@@ -2,8 +2,7 @@
 //  AnalysisDataObject.h
 //  EpiInfo
 //
-//  Created by labuser on 6/24/13.
-//  Copyright (c) 2013 John Copeland. All rights reserved.
+//  Created by John Copeland on 6/24/13.
 //
 
 #import "sqlite3.h"
@@ -12,7 +11,9 @@
 @interface AnalysisDataObject : NSObject
 {
     sqlite3 *epiinfoDB;
+    NSMutableString *whereClause;
 }
+@property (nonatomic, strong) NSMutableArray *listOfFilters;
 @property (nonatomic, strong) NSDictionary *dataDefinitions;
 @property (nonatomic, strong) NSDictionary *columnNames;
 @property (nonatomic, strong) NSDictionary *dataTypes;
@@ -20,10 +21,16 @@
 @property (nonatomic, strong) NSDictionary *isOneZero;
 @property (nonatomic, strong) NSDictionary *isYesNo;
 @property (nonatomic, strong) NSDictionary *isTrueFalse;
+@property (nonatomic, strong) NSDictionary *isDate;
 @property (nonatomic, strong) NSArray *dataSet;
 
+-(NSMutableString *)whereClause;
+-(void)setWhereClause:(NSString *)wc;
 -(id)initWithAnalysisDataObject:(AnalysisDataObject *)analysisDataObject;
+-(id)initWithAnalysisDataObject:(AnalysisDataObject *)analysisDataObject AndTableName:(NSString *)tableName AndFilters:(NSMutableArray *)filters;
 -(id)initWithCSVFile:(NSString *)pathAndFileName;
+-(id)initWithWorkingDataset;
 -(id)initWithStoredDataTable:(NSString *)tableName;
 -(id)initWithVariablesArray:(NSMutableArray *)variables AndDataArray:(NSMutableArray *)data;
++(NSString *)buildWhereClauseFromFilters:(NSMutableArray *)filters DataObject:(AnalysisDataObject *)dataObject;
 @end

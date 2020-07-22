@@ -53,7 +53,18 @@
         initialMonth = month;
         initialYear = year;
         
-        NSString *wordMonth = [[[[NSDateFormatter alloc] init] monthSymbols] objectAtIndex:month - 1];
+        NSString *wordMonth = [[[[NSDateFormatter alloc] init] monthSymbols] objectAtIndex:((int)[[[NSCalendar currentCalendar] components:NSCalendarUnitMonth fromDate:dateObject] month]) - 1];
+        
+        @try {
+            wordMonth = [[[[NSDateFormatter alloc] init] monthSymbols] objectAtIndex:month - 1];
+        } @catch (NSException *exception) {
+            int dayactually = month;
+            month = day;
+            day = dayactually;
+            initialMonth = month;
+            wordMonth = [[[[NSDateFormatter alloc] init] monthSymbols] objectAtIndex:month - 1];
+        } @finally {
+        }
         
         whiteView = [[UIView alloc] initWithFrame:CGRectMake(1, 1, frame.size.width - 2.0, frame.size.height - 2.0)];
         [whiteView setBackgroundColor:[UIColor whiteColor]];

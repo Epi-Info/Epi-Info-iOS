@@ -10,6 +10,24 @@
 
 @implementation CommentLegal
 
+- (NSArray *)listOfStoredValues
+{
+    NSMutableArray *listOfStoredValues = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [listOfValues count]; i++)
+    {
+        NSString *stringAtIndex = [listOfValues objectAtIndex:i];
+        if (![stringAtIndex containsString:@"-"])
+        {
+            [listOfStoredValues setObject:stringAtIndex atIndexedSubscript:i];
+            continue;
+        }
+        int dashPlace = (int)[stringAtIndex rangeOfString:@"-"].location;
+        NSString *storingValue = [self trimLeadingAndTrailingSpaces:[stringAtIndex substringToIndex:dashPlace]];
+        [listOfStoredValues setObject:storingValue atIndexedSubscript:i];
+    }
+    return [NSArray arrayWithArray:listOfStoredValues];
+}
+
 - (NSString *)picked
 {
     if ([picked.text length] == 0 || ![picked.text containsString:@"-"])
