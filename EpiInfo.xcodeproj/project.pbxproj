@@ -276,8 +276,6 @@
 		928FCEF619E570B300641A95 /* VHFButtonNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 928FCEF419E570B300641A95 /* VHFButtonNR.png */; };
 		92921B9619A63E0000AA9477 /* MeansObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 92921B9519A63E0000AA9477 /* MeansObject.m */; };
 		92921B9919A6427000AA9477 /* MeansView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92921B9819A6427000AA9477 /* MeansView.m */; };
-		929230151EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 929230141EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework */; };
-		9292301B1EC4F3EE0078D9C2 /* WindowsAzureMobileServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921974961880583D007F6DFA /* WindowsAzureMobileServices.framework */; };
 		9292B6E12298384700802240 /* FormFieldsLegalValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 9292B6E02298384700802240 /* FormFieldsLegalValues.m */; };
 		92936298234FABD600949AF4 /* NewVariableInputs.m in Sources */ = {isa = PBXBuildFile; fileRef = 92936297234FABD600949AF4 /* NewVariableInputs.m */; };
 		9293629B234FAE2400949AF4 /* DateMathFunctionInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 9293629A234FAE2400949AF4 /* DateMathFunctionInput.m */; };
@@ -674,7 +672,6 @@
 		921500861EAA3E8D00E2CF9A /* BarButtonBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BarButtonBack.png; sourceTree = "<group>"; };
 		9218EA591869D37500A4E2D9 /* ClickingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClickingView.h; sourceTree = "<group>"; };
 		9218EA5A1869D37500A4E2D9 /* ClickingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClickingView.m; sourceTree = "<group>"; };
-		921974961880583D007F6DFA /* WindowsAzureMobileServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WindowsAzureMobileServices.framework; sourceTree = "<group>"; };
 		9219749918805915007F6DFA /* QSEpiInfoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSEpiInfoService.h; sourceTree = "<group>"; };
 		9219749A18805915007F6DFA /* QSEpiInfoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSEpiInfoService.m; sourceTree = "<group>"; };
 		921E6B552277593C00C46A72 /* CheckCodeWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckCodeWriter.h; sourceTree = "<group>"; };
@@ -883,7 +880,6 @@
 		92921B9519A63E0000AA9477 /* MeansObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeansObject.m; sourceTree = "<group>"; };
 		92921B9719A6427000AA9477 /* MeansView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeansView.h; sourceTree = "<group>"; };
 		92921B9819A6427000AA9477 /* MeansView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeansView.m; sourceTree = "<group>"; };
-		929230141EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MicrosoftAzureMobile.framework; sourceTree = "<group>"; };
 		9292B6DF2298384700802240 /* FormFieldsLegalValues.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormFieldsLegalValues.h; sourceTree = "<group>"; };
 		9292B6E02298384700802240 /* FormFieldsLegalValues.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormFieldsLegalValues.m; sourceTree = "<group>"; };
 		92936296234FABD600949AF4 /* NewVariableInputs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewVariableInputs.h; sourceTree = "<group>"; };
@@ -1067,7 +1063,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9292301B1EC4F3EE0078D9C2 /* WindowsAzureMobileServices.framework in Frameworks */,
 				C39E67AD1E03381A0002A4EF /* libPEGKitIOS.a in Frameworks */,
 				92A5D8D018CF91820048C160 /* Security.framework in Frameworks */,
 				9224991018C66FB500D8105E /* MessageUI.framework in Frameworks */,
@@ -1077,7 +1072,6 @@
 				9249822622C2C57800C36CF3 /* BoxContentSDK.framework in Frameworks */,
 				9252018017D0CC930071C754 /* QuartzCore.framework in Frameworks */,
 				9249822722C2C5B100C36CF3 /* BoxContentSDK.framework in Frameworks */,
-				929230151EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework in Frameworks */,
 				9284E8ED17B94BDB00158139 /* libsqlite3.dylib in Frameworks */,
 				4AFD852A161F137B00FFBA65 /* UIKit.framework in Frameworks */,
 				4AFD852C161F137B00FFBA65 /* Foundation.framework in Frameworks */,
@@ -1170,14 +1164,12 @@
 			isa = PBXGroup;
 			children = (
 				9249822522C2C57700C36CF3 /* BoxContentSDK.framework */,
-				929230141EC4F20E0078D9C2 /* MicrosoftAzureMobile.framework */,
 				92A5D8CF18CF91820048C160 /* Security.framework */,
 				92DE0E1E18CA4770000D388E /* libcorecrypto.dylib */,
 				92DE0E1C18CA46D3000D388E /* libcommonCrypto.dylib */,
 				9224990F18C66FB500D8105E /* MessageUI.framework */,
 				927B555B18B65281000AB7B1 /* SystemConfiguration.framework */,
 				92D30F5A1899726100CEBCAE /* CoreLocation.framework */,
-				921974961880583D007F6DFA /* WindowsAzureMobileServices.framework */,
 				92001B96186C8C2E00B87D21 /* CoreImage.framework */,
 				4AFD8529161F137B00FFBA65 /* UIKit.framework */,
 				4AFD852B161F137B00FFBA65 /* Foundation.framework */,
@@ -2617,7 +2609,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development: John Copeland (JZTF9F25RD)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: John Copeland (JZTF9F25RD)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = J8992FE8QS;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2636,7 +2628,7 @@
 					"$(SRCROOT)",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				MARKETING_VERSION = 5.5.1;
+				MARKETING_VERSION = 5.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = gov.cdc.csels.EpiInfo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2657,7 +2649,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Centers for Disease Control and Prevention (J8992FE8QS)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Centers for Disease Control and Prevention (J8992FE8QS)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = J8992FE8QS;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2676,7 +2668,7 @@
 					"$(SRCROOT)",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				MARKETING_VERSION = 5.5.1;
+				MARKETING_VERSION = 5.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = gov.cdc.csels.EpiInfo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
