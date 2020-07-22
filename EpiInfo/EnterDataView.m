@@ -817,7 +817,8 @@
 //                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Getting Azure credentials (line 784)\n", [NSDate date]]];
 //                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: self.formName = %@\n", [NSDate date], self.formName]];
 //                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Queried values = %s, %s, %s, %s\n", [NSDate date], sqlite3_column_text(statement, 0), sqlite3_column_text(statement, 1), sqlite3_column_text(statement, 2), sqlite3_column_text(statement, 3)]];
-                                    self.client = [MSClient clientWithApplicationURLString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)]];
+                                    // Azure Removal
+//                                    self.client = [MSClient clientWithApplicationURLString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)]];
                                     self.cloudService = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)];
                                     self.cloudKey = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)];
                                     //                  self.epiinfoService = [[QSEpiInfoService alloc] initWithURL:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)] AndKey:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)]];
@@ -965,7 +966,8 @@
 //                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Getting Azure credentials (line 932)\n", [NSDate date]]];
 //                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: self.formName = %@\n", [NSDate date], self.formName]];
 //                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Queried values = %s, %s, %s, %s\n", [NSDate date], sqlite3_column_text(statement, 0), sqlite3_column_text(statement, 1), sqlite3_column_text(statement, 2), sqlite3_column_text(statement, 3)]];
-                                    self.client = [MSClient clientWithApplicationURLString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)]];
+                                    // Azure Removal
+//                                    self.client = [MSClient clientWithApplicationURLString:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)]];
                                     self.cloudService = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)];
                                     self.cloudKey = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)];
                                     //                  self.epiinfoService = [[QSEpiInfoService alloc] initWithURL:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 2)] AndKey:[NSString stringWithFormat:@"%s", sqlite3_column_text(statement, 3)]];
@@ -1532,7 +1534,8 @@
                     //                    [alert show];
                     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Submit" message:@"Row inserted into local database." preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                        if (self.client)
+                        // Azure Removal
+                        if (NO)
                         {
                             UIAlertController *alertCloud = [UIAlertController alertControllerWithTitle:@"Submit" message:@"See logs for cloud database results." preferredStyle:UIAlertControllerStyleAlert];
                             UIAlertAction *okActionCloud = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
@@ -2341,7 +2344,8 @@
 //                    [alert show];
                     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Submit" message:@"Row inserted into local database." preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                        if (self.client)
+                        // Azure Removal
+                        if (NO)
                         {
                             UIAlertController *alertCloud = [UIAlertController alertControllerWithTitle:@"Submit" message:@"See logs for cloud database results." preferredStyle:UIAlertControllerStyleAlert];
                             UIAlertAction *okActionCloud = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
@@ -3104,7 +3108,8 @@
                     //                    [alert show];
                     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Update" message:@"Local database row updated." preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                        if (self.client)
+                        // Azure Removal
+                        if (NO)
                         {
                             UIAlertController *alertCloud = [UIAlertController alertControllerWithTitle:@"Update" message:@"See logs for cloud database results." preferredStyle:UIAlertControllerStyleAlert];
                             UIAlertAction *okActionCloud = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
@@ -4008,7 +4013,8 @@
 //                    [alert show];
                     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Update" message:@"Local database row updated." preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                        if (self.client)
+                        // Azure Removal
+                        if (NO)
                         {
                             UIAlertController *alertCloud = [UIAlertController alertControllerWithTitle:@"Update" message:@"See logs for cloud database results." preferredStyle:UIAlertControllerStyleAlert];
                             UIAlertAction *okActionCloud = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
@@ -4964,7 +4970,8 @@
                     [uiaiv setHidden:NO];
                     [uiaiv startAnimating];
                     [okButton setEnabled:NO];
-                    if (self.client)
+                    // Azure Removal
+                    if (NO)
                     {
                     }
                     //          if (self.epiinfoService.applicationURL)

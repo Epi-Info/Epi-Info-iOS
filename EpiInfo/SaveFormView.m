@@ -135,8 +135,8 @@
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
         {
             UIButton *azureButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, repositoryButtonsView0.frame.size.width - 40, 40)];
-            [azureButton setTitle:@"MS Azure" forState:UIControlStateNormal];
-            [azureButton setAccessibilityLabel:@"Microsoft Azure Cloud Database"];
+            [azureButton setTitle:@"Cloud Database" forState:UIControlStateNormal];
+            [azureButton setAccessibilityLabel:@"Cloud Database Credentials"];
             [azureButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
             [azureButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
             [azureButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -150,8 +150,8 @@
         {
             [repositoryButtonsView0 setFrame:CGRectMake(0, repositoriesLabel.frame.origin.y + 40, self.frame.size.width, 96)];
             UIButton *azureButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, 280, 40)];
-            [azureButton setTitle:@"MS Azure" forState:UIControlStateNormal];
-            [azureButton setAccessibilityLabel:@"Microsoft Azure Cloud Database"];
+            [azureButton setTitle:@"Cloud Database" forState:UIControlStateNormal];
+            [azureButton setAccessibilityLabel:@"Cloud Database Credentials"];
             [azureButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
             [azureButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
             [azureButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];

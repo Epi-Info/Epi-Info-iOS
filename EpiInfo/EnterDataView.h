@@ -39,7 +39,8 @@
 #import "FieldsAndStringValues.h"
 #import "DictionaryOfFields.h"
 #import "QRScannerButton.h"
-#import <MicrosoftAzureMobile/MicrosoftAzureMobile.h>
+// Azure Removal
+//#import <MicrosoftAzureMobile/MicrosoftAzureMobile.h>
 
 @interface EnterDataView : UIScrollView <NSXMLParserDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UITextViewDelegate>
 {
@@ -160,7 +161,8 @@
 @property(strong) NSMutableArray *elmArray;
 //@property(nonatomic) BOOL firstEdit;
 
-@property (strong, nonatomic) MSClient *client;
+// Azure Removal
+//@property (strong, nonatomic) MSClient *client;
 @property (strong, nonatomic) NSString *cloudService;
 @property (strong, nonatomic) NSString *cloudKey;
 
