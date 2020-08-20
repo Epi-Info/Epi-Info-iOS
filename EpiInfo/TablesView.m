@@ -11,6 +11,7 @@
 #import "Twox2StrataData.h"
 #import "Twox2SummaryData.h"
 #import "SharedResources.h"
+#import "FEXACT.h"
 
 @implementation TablesView
 {
@@ -1704,9 +1705,11 @@
         k++;
     }
     
+    NSMutableArray *fisherTestArray = [[NSMutableArray alloc] init];
     k = 0;
     for (int i = 0; i < to.exposureValues.count; i++)
     {
+        NSMutableArray *fisherRowArray = [[NSMutableArray alloc] init];
         EpiInfoUILabel *exposureValueLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(27, 42 + i * 42, 50, 40)];
         [exposureValueLabel setBackgroundColor:[UIColor clearColor]];
         [exposureValueLabel setTextAlignment:NSTextAlignmentCenter];
@@ -1718,6 +1721,7 @@
             [exposureValueLabel setText:@"Missing"];
         else
             [exposureValueLabel setText:[NSString stringWithFormat:@"%@", [to.exposureValues objectAtIndex:i]]];
+        [fisherRowArray addObject:[exposureValueLabel text]];
         dispatch_async(dispatch_get_main_queue(), ^{
             [outputTableView addSubview:exposureValueLabel];
         });
@@ -1748,6 +1752,7 @@
             [countLabel setTextAlignment:NSTextAlignmentCenter];
             [countLabel setBackgroundColor:[UIColor clearColor]];
             [countLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [fisherRowArray addObject:[countLabel text]];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [countView addSubview:countLabel];
             });
@@ -1770,6 +1775,7 @@
             });
             k++;
         }
+        [fisherTestArray addObject:fisherRowArray];
     }
     int grandTotal = 0;
     for (int i = 0; i < to.exposureValues.count; i++)
@@ -1900,19 +1906,36 @@
             }
         }
         double chiSqP = [SharedResources PValFromChiSq:chiSq PVFCSdf:(double)((to.exposureValues.count - 1) * (to.outcomeValues.count - 1))];
+        float fExact = 1.0;
+        @try {
+            fExact = [FEXACT FEXACT:[NSArray arrayWithArray:fisherTestArray]];
+        } @catch (NSException *exception) {
+            NSLog(@"Exception in FEXACT: %@", exception);
+        } @finally {
+            //
+        }
         EpiInfoUILabel *chiSqLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(outputTableView.frame.origin.x, outputTableView.frame.origin.y + outputTableView.frame.size.height, outputTableView.frame.size.width, 20)];
         [chiSqLabel setBackgroundColor:[UIColor clearColor]];
         [chiSqLabel setText:[NSString stringWithFormat:@"Chi Square: %.2f, df: %lu, p-value: %.3f", chiSq, (to.exposureValues.count - 1) * (to.outcomeValues.count - 1), chiSqP]];
         [chiSqLabel setAccessibilityLabel:[NSString stringWithFormat:@"Ky Square: %.2f, degrees of freedom: %lu, p-value: %.3f", chiSq, (to.exposureValues.count - 1) * (to.outcomeValues.count - 1), chiSqP]];
         [chiSqLabel setTextAlignment:NSTextAlignmentCenter];
         [chiSqLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
+        
+        EpiInfoUILabel *fisherLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(outputTableView.frame.origin.x, outputTableView.frame.origin.y + outputTableView.frame.size.height + 20, outputTableView.frame.size.width, 20)];
+        [fisherLabel setBackgroundColor:[UIColor clearColor]];
+        [fisherLabel setText:[NSString stringWithFormat:@"Fisher's Exact: %.4f", fExact]];
+        [fisherLabel setAccessibilityLabel:[NSString stringWithFormat:@"Fisher's Exact: %.4f", fExact]];
+        [fisherLabel setTextAlignment:NSTextAlignmentCenter];
+        [fisherLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
         dispatch_async(dispatch_get_main_queue(), ^{
             [outputV addSubview: chiSqLabel];
+            if (fExact < 1.0)
+                [outputV addSubview:fisherLabel];
         });
         outputTableViewHeight += chiSqLabel.frame.size.height;
         if (lowExpectation)
         {
-            EpiInfoUILabel *lowExpectationLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, chiSqLabel.frame.origin.y + 20.0, chiSqLabel.frame.size.width, 20)];
+            EpiInfoUILabel *lowExpectationLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, fisherLabel.frame.origin.y + 20.0, chiSqLabel.frame.size.width, 20)];
             [lowExpectationLabel setBackgroundColor:[UIColor clearColor]];
             [lowExpectationLabel setText:@"An expected cell count is <5. Chi squared may not be valid."];
             [lowExpectationLabel setAccessibilityLabel:@"An expected cell count is <5. Ky squared may not be valid."];

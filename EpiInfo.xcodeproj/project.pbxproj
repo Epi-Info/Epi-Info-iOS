@@ -158,6 +158,7 @@
 		9228250B186387DA00DF9493 /* SubmitButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92282507186387DA00DF9493 /* SubmitButton.png */; };
 		9228250C186387DA00DF9493 /* SubmitButtonOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 92282508186387DA00DF9493 /* SubmitButtonOrange.png */; };
 		922920851AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922920841AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift */; };
+		9229998424D06B5100781E89 /* FEXACT.m in Sources */ = {isa = PBXBuildFile; fileRef = 9229998324D06B5100781E89 /* FEXACT.m */; };
 		922D259B2469D56100064419 /* EpiInfoBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 922D259A2469D56100064419 /* EpiInfoBarButtonItem.m */; };
 		922D259E246AD23B00064419 /* FunctionsMenuBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 922D259D246AD23B00064419 /* FunctionsMenuBarButtonItem.m */; };
 		922D49ED1D64F3D40090631E /* ParseAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 922D49EC1D64F3D40090631E /* ParseAssignment.m */; };
@@ -198,6 +199,8 @@
 		9249822622C2C57800C36CF3 /* BoxContentSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9249822522C2C57700C36CF3 /* BoxContentSDK.framework */; };
 		9249822722C2C5B100C36CF3 /* BoxContentSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9249822522C2C57700C36CF3 /* BoxContentSDK.framework */; };
 		9249822822C2C5B100C36CF3 /* BoxContentSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9249822522C2C57700C36CF3 /* BoxContentSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		924A2EE924DB519A008FA3D2 /* EIDoubleArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A2EE824DB519A008FA3D2 /* EIDoubleArray.m */; };
+		924A2EF124DB51B2008FA3D2 /* EIIntArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A2EF024DB51B2008FA3D2 /* EIIntArray.m */; };
 		924A7D1419C21D2900F168A0 /* MeansCrosstabCompute.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A7D1319C21D2900F168A0 /* MeansCrosstabCompute.m */; };
 		924B5B812125F2DF00B519CE /* DownTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 924B5B802125F2DF00B519CE /* DownTriangle.m */; };
 		924CF54F239AD8A500372E8B /* VariablesInGroupSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 924CF54E239AD8A500372E8B /* VariablesInGroupSelector.m */; };
@@ -692,6 +695,8 @@
 		92282507186387DA00DF9493 /* SubmitButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SubmitButton.png; sourceTree = "<group>"; };
 		92282508186387DA00DF9493 /* SubmitButtonOrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SubmitButtonOrange.png; sourceTree = "<group>"; };
 		922920841AB07A3D00EA4F1A /* EpiInfoMultiLineIndentedUILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpiInfoMultiLineIndentedUILabel.swift; sourceTree = "<group>"; };
+		9229998224D06B5100781E89 /* FEXACT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FEXACT.h; sourceTree = "<group>"; };
+		9229998324D06B5100781E89 /* FEXACT.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FEXACT.m; sourceTree = "<group>"; };
 		922D25992469D56100064419 /* EpiInfoBarButtonItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EpiInfoBarButtonItem.h; sourceTree = "<group>"; };
 		922D259A2469D56100064419 /* EpiInfoBarButtonItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EpiInfoBarButtonItem.m; sourceTree = "<group>"; };
 		922D259C246AD23B00064419 /* FunctionsMenuBarButtonItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FunctionsMenuBarButtonItem.h; sourceTree = "<group>"; };
@@ -760,6 +765,10 @@
 		9247F20E181ADB4E00C96F94 /* BlurryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlurryView.m; sourceTree = "<group>"; };
 		9248261C19CB40E300A0C1DD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9249822522C2C57700C36CF3 /* BoxContentSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BoxContentSDK.framework; sourceTree = "<group>"; };
+		924A2EE724DB519A008FA3D2 /* EIDoubleArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EIDoubleArray.h; sourceTree = "<group>"; };
+		924A2EE824DB519A008FA3D2 /* EIDoubleArray.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EIDoubleArray.m; sourceTree = "<group>"; };
+		924A2EEF24DB51B2008FA3D2 /* EIIntArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EIIntArray.h; sourceTree = "<group>"; };
+		924A2EF024DB51B2008FA3D2 /* EIIntArray.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EIIntArray.m; sourceTree = "<group>"; };
 		924A7D1219C21D2900F168A0 /* MeansCrosstabCompute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeansCrosstabCompute.h; sourceTree = "<group>"; };
 		924A7D1319C21D2900F168A0 /* MeansCrosstabCompute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeansCrosstabCompute.m; sourceTree = "<group>"; };
 		924B5B7F2125F2DF00B519CE /* DownTriangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownTriangle.h; sourceTree = "<group>"; };
@@ -1420,6 +1429,12 @@
 				9240E96119548243006345FE /* GrowthPercentilesCompute.m */,
 				924A7D1219C21D2900F168A0 /* MeansCrosstabCompute.h */,
 				924A7D1319C21D2900F168A0 /* MeansCrosstabCompute.m */,
+				9229998224D06B5100781E89 /* FEXACT.h */,
+				9229998324D06B5100781E89 /* FEXACT.m */,
+				924A2EE724DB519A008FA3D2 /* EIDoubleArray.h */,
+				924A2EE824DB519A008FA3D2 /* EIDoubleArray.m */,
+				924A2EEF24DB51B2008FA3D2 /* EIIntArray.h */,
+				924A2EF024DB51B2008FA3D2 /* EIIntArray.m */,
 			);
 			name = Statistics;
 			sourceTree = "<group>";
@@ -2404,6 +2419,7 @@
 				929E47AF21A5D16900D88EF0 /* LogisticRegressionResults.m in Sources */,
 				923A02CD2289A07300C33F3B /* EnableDisableClear.m in Sources */,
 				92936298234FABD600949AF4 /* NewVariableInputs.m in Sources */,
+				9229998424D06B5100781E89 /* FEXACT.m in Sources */,
 				923226771E53825E0099439F /* ExpressionActionParser.m in Sources */,
 				921500821EA92A2100E2CF9A /* MainMenuMenu.m in Sources */,
 				92A25C011938E0AC003225E1 /* TimeField.m in Sources */,
@@ -2434,6 +2450,7 @@
 				922D49F01D64F4490090631E /* AssignmentModel.m in Sources */,
 				92EBAD03194A400D000EF983 /* EpiInfoUILabel.m in Sources */,
 				92B8E4CC191A8011007E4ECC /* EpiInfoLineListView.m in Sources */,
+				924A2EF124DB51B2008FA3D2 /* EIIntArray.m in Sources */,
 				9246478523DF6E6A00BDD5AC /* VariableValueMapper.m in Sources */,
 				4AE6939A169F5CE700BE2AA3 /* Twox2StrataData.m in Sources */,
 				4A50FF0E16A4443F00A638C4 /* Twox2SummaryData.m in Sources */,
@@ -2513,6 +2530,7 @@
 				9266C53118466ED600739AF2 /* Checkbox.m in Sources */,
 				928AF0F11DF09D91002BFEF8 /* AssignStatementParser.m in Sources */,
 				9252017E17D0C89A0071C754 /* ShinyButton.m in Sources */,
+				924A2EE924DB519A008FA3D2 /* EIDoubleArray.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -147,8 +147,8 @@
             filePath = "EpiInfo/TablesView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "470"
-            endingLineNumber = "470"
+            startingLineNumber = "471"
+            endingLineNumber = "471"
             landmarkName = "-setFrame:"
             landmarkType = "7">
          </BreakpointContent>
