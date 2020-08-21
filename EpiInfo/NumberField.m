@@ -222,6 +222,9 @@
 
 - (NSString *)epiInfoControlValue
 {
+    NSString *selfText = [self text];
+    if ([selfText length] == 0)
+        return selfText;
     NSScanner *scanner = [NSScanner localizedScannerWithString:[self text]];
     float selfFloat;
     [scanner scanFloat:&selfFloat];
