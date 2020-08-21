@@ -1911,6 +1911,7 @@
             fExact = [FEXACT FEXACT:[NSArray arrayWithArray:fisherTestArray]];
         } @catch (NSException *exception) {
             NSLog(@"Exception in FEXACT: %@", exception);
+            fExact = -INFINITY;
         } @finally {
             //
         }
@@ -1925,6 +1926,11 @@
         [fisherLabel setBackgroundColor:[UIColor clearColor]];
         [fisherLabel setText:[NSString stringWithFormat:@"Fisher's Exact: %.4f", fExact]];
         [fisherLabel setAccessibilityLabel:[NSString stringWithFormat:@"Fisher's Exact: %.4f", fExact]];
+        if (fExact == -INFINITY)
+        {
+            [fisherLabel setText:@"Cannot compute Fisher's Exact; too many iterations."];
+            [fisherLabel setAccessibilityLabel:@"Cannot compute Fisher's Exact; too many iterations."];
+        }
         [fisherLabel setTextAlignment:NSTextAlignmentCenter];
         [fisherLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
         dispatch_async(dispatch_get_main_queue(), ^{
