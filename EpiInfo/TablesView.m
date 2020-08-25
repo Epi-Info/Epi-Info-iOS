@@ -1939,6 +1939,7 @@
                 [outputV addSubview:fisherLabel];
         });
         outputTableViewHeight += chiSqLabel.frame.size.height;
+        outputTableViewHeight += fisherLabel.frame.size.height;
         if (lowExpectation)
         {
             EpiInfoUILabel *lowExpectationLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, fisherLabel.frame.origin.y + 20.0, chiSqLabel.frame.size.width, 20)];
@@ -1957,7 +1958,9 @@
     //Set the parent view controller's content size for scrolling
 //    [avc setContentSize:CGSizeMake(MAX(self.frame.size.width, outputTableViewWidth + 4.0), MAX(self.frame.size.height, outputTableViewHeight + 110.0))];
     
-    [outputV setFrame:CGRectMake(outputV.frame.origin.x, outputV.frame.origin.y, MAX(outputV.frame.size.width, outputTableViewWidth), outputTableViewHeight + outputTableView.frame.origin.y)];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [outputV setFrame:CGRectMake(outputV.frame.origin.x, outputV.frame.origin.y, MAX(outputV.frame.size.width, outputTableViewWidth), outputTableViewHeight + outputTableView.frame.origin.y)];
+    });
     if (stratVar)
         return CGSizeMake(MAX(self.frame.size.width, outputTableViewWidth + 4.0), outputTableViewHeight + outputTableView.frame.origin.y + 110.0);
 
