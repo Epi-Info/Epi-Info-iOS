@@ -127,6 +127,8 @@
     [self.mainMenuMenu setWidth:10.0];
     [self.navigationItem setLeftBarButtonItem:self.mainMenuMenu];
     
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
 //        [self.statCalcButton sendActionsForControlEvents:UIControlEventTouchUpInside];
@@ -342,6 +344,13 @@
         [clearButton3 setAccessibilityLabel:@"Stat calc. Statistical calculators for sample size, power, and more."];
         [v3 addSubview:clearButton3];
        
+       if ([languageInUse isEqualToString:@"es"])
+       {
+           [clearButton1 setAccessibilityLabel:@"Entrar datos. Crear cuestionarios, introducir, revisar, y búscar registros."];
+           [clearButton2 setAccessibilityLabel:@"Analizar datos. Ver resultados analîticos con instrumentos, gráficos y tablas."];
+           [clearButton3 setAccessibilityLabel:@"Stat calc. Calculadora estadística para el tamaño de la muestra, el poder, y mucho más."];
+       }
+
         // Use a larger label than just the nav bar for the title in the iPad
         [self setTitle:@""];
         [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
@@ -603,6 +612,22 @@
         [clearButton3 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
         [clearButton3 setAccessibilityLabel:@"Stat calc. Statistical calculators for sample size, power, and more."];
         [v3 addSubview:clearButton3];
+        
+        if ([languageInUse isEqualToString:@"es"])
+        {
+            [clearButton1 setAccessibilityLabel:@"Entrar datos. Crear cuestionarios, introducir, revisar, y búscar registros."];
+            [clearButton2 setAccessibilityLabel:@"Analizar datos. Ver resultados analîticos con instrumentos, gráficos y tablas."];
+            [clearButton3 setAccessibilityLabel:@"Stat calc. Calculadora estadística para el tamaño de la muestra, el poder, y mucho más."];
+        }
+    }
+    
+    if ([languageInUse isEqualToString:@"es"])
+    {
+        [l1a setText:@"ENTRAR DATOS"];
+        [l1b setText:@"Crear cuestionarios, introducir, revisar, y búscar registros."];
+        [l2a setText:@"ANALIZAR DATOS"];
+        [l2b setText:@"Ver resultados analîticos con instrumentos, gráficos y tablas."];
+        [l3b setText:@"Calculadora estadística para el tamaño de la muestra y más."];
     }
     // Remove this section when ready to add analysis
 //    [v2 setHidden:YES];

@@ -899,7 +899,12 @@
             [sampSizePow setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
             [sampSizePow setText:@"Sample Size and Power"];
             [unblurryView addSubview:sampSizePow];
-            
+            NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+            if ([languageInUse isEqualToString:@"es"])
+            {
+                [sampSizePow setText:@"El Tamaño de la Muestra y El Poder"];
+            }
+
 //            [blurryView setFrame:CGRectMake(button1Frame.origin.x - 20, button1Frame.origin.y, button1Frame.size.width + 40, v8.frame.origin.y + v8.frame.size.height + sqrtf(800))];
             [unblurryView setFrame:CGRectMake(button1Frame.origin.x - 20, button1Frame.origin.y - 30, button1Frame.size.width + 40, v8.frame.origin.y + v8.frame.size.height + sqrtf(800))];
         }
@@ -928,6 +933,14 @@
         [self.navigationItem setHidesBackButton:NO];
     else
         [self.navigationItem setHidesBackButton:NO];
+    
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    if ([languageInUse isEqualToString:@"es"])
+    {
+        [self.phoneHeaderLabel setText:@"StatCalc Calculadora Estadística"];
+        [subHeaderLabel setText:@"Calculadora Estadística"];
+        [powerSectionHeaderLabel setText:@"El Tamaño de la Muestra y El Poder"];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
