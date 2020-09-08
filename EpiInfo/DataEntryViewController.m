@@ -234,7 +234,14 @@
             [self.view addSubview:openButton];
             [openButton setEnabled:NO];
             
-            manageButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0 + 10.0, 155, 120, 40)];
+            NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+            if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+            {
+                [enterDataLabel setText:@"Epi Info Entrar Datos"];
+                [openButton setTitle:@"Abrir" forState:UIControlStateNormal];
+            }
+            
+manageButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0 + 10.0, 155, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
             [manageButton setTitle:@"Manage. Triple tap to manage." forState:UIControlStateNormal];
@@ -295,6 +302,13 @@
             [openButton addTarget:self action:@selector(openButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
             [openButton setEnabled:NO];
+            
+            NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+            if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+            {
+                [enterDataLabel setText:@"Epi Info Entrar Datos"];
+                [openButton setTitle:@"Abrir" forState:UIControlStateNormal];
+            }
             
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0 + 10.0, 155, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
@@ -362,6 +376,16 @@
             [openButton setTag:1];
             [openButton addTarget:self action:@selector(openButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
+            
+            NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+            if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+            {
+                [enterDataLabel setText:@"Epi Info Entrar Datos"];
+                [pickerLabel setText:@"Seleccione un Formulario:"];
+                [openButton setTitle:@"Abrir" forState:UIControlStateNormal];
+                [openButton setImage:[UIImage imageNamed:@"AbrirButtonWhite.png"] forState:UIControlStateNormal];
+                [pickerLabel setText:@"Formulario:"];
+            }
             
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2.0 + 10.0, 155, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
@@ -462,6 +486,14 @@
             [openButton addTarget:self action:@selector(openButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
             
+            NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+            if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+            {
+                [enterDataLabel setText:@"Epi Info Entrar Datos"];
+                [openButton setTitle:@"Abrir" forState:UIControlStateNormal];
+                [openButton setImage:[UIImage imageNamed:@"AbrirButtonWhite.png"] forState:UIControlStateNormal];
+            }
+            
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 155, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
@@ -522,6 +554,14 @@
             [openButton setTag:1];
             [openButton addTarget:self action:@selector(openButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
+            
+            NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+            if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+            {
+                [enterDataLabel setText:@"Epi Info Entrar Datos"];
+                [openButton setTitle:@"Abrir" forState:UIControlStateNormal];
+                [openButton setImage:[UIImage imageNamed:@"AbrirButtonWhite.png"] forState:UIControlStateNormal];
+            }
             
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 155, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
@@ -591,6 +631,16 @@
             [openButton addTarget:self action:@selector(openButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
             [self.view addSubview:openButton];
             
+            NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+            if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+            {
+                [enterDataLabel setText:@"Epi Info Entrar Datos"];
+                [pickerLabel setText:@"Seleccione un Formulario:"];
+                [openButton setTitle:@"Abrir" forState:UIControlStateNormal];
+                [openButton setImage:[UIImage imageNamed:@"AbrirButtonWhite.png"] forState:UIControlStateNormal];
+                [pickerLabel setText:@"Formulario:"];
+            }
+            
             manageButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 155, 120, 40)];
             [manageButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [manageButton.layer setCornerRadius:4.0];
@@ -640,6 +690,13 @@
         [formDesignerButton addTarget:self action:@selector(formDesignerButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [formDesignerButton.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
         [self.view addSubview:formDesignerButton];
+        
+        NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+        if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+        {
+            [googleSheetButton setTitle:@"Crear Formulario con Google Sheet" forState:UIControlStateNormal];
+            [formDesignerButton setTitle:@"Crear Formulario con Diseñador de Formularios" forState:UIControlStateNormal];
+        }
     }
     //
     

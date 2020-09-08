@@ -128,6 +128,7 @@
     [self.navigationItem setLeftBarButtonItem:self.mainMenuMenu];
     
     NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    NSLog(@"languageInUse: %@", languageInUse);
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
@@ -344,7 +345,7 @@
         [clearButton3 setAccessibilityLabel:@"Stat calc. Statistical calculators for sample size, power, and more."];
         [v3 addSubview:clearButton3];
        
-       if ([languageInUse isEqualToString:@"es"])
+       if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
        {
            [clearButton1 setAccessibilityLabel:@"Entrar datos. Crear cuestionarios, introducir, revisar, y búscar registros."];
            [clearButton2 setAccessibilityLabel:@"Analizar datos. Ver resultados analîticos con instrumentos, gráficos y tablas."];
@@ -613,7 +614,7 @@
         [clearButton3 setAccessibilityLabel:@"Stat calc. Statistical calculators for sample size, power, and more."];
         [v3 addSubview:clearButton3];
         
-        if ([languageInUse isEqualToString:@"es"])
+        if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
         {
             [clearButton1 setAccessibilityLabel:@"Entrar datos. Crear cuestionarios, introducir, revisar, y búscar registros."];
             [clearButton2 setAccessibilityLabel:@"Analizar datos. Ver resultados analîticos con instrumentos, gráficos y tablas."];
@@ -621,7 +622,7 @@
         }
     }
     
-    if ([languageInUse isEqualToString:@"es"])
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
     {
         [l1a setText:@"ENTRAR DATOS"];
         [l1b setText:@"Crear cuestionarios, introducir, revisar, y búscar registros."];

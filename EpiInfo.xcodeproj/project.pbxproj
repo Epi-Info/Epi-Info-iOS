@@ -343,6 +343,7 @@
 		92BA7F9718C773E400841104 /* PackageAndEmailDataButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BA7F9518C773E400841104 /* PackageAndEmailDataButton.png */; };
 		92BA7F9818C773E400841104 /* UploadDataToCloudButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BA7F9618C773E400841104 /* UploadDataToCloudButton.png */; };
 		92BB3C3621AC79BC00D785CD /* EIMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BB3C3521AC79BC00D785CD /* EIMatrix.m */; };
+		92BC80E924FD58560021D367 /* AbrirButtonWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BC80E324FD58560021D367 /* AbrirButtonWhite.png */; };
 		92BDFE36248FED11006EF6FA /* BoxData.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BDFE35248FED11006EF6FA /* BoxData.m */; };
 		92BE663E23267DC500F9A5B5 /* CommandButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BE663D23267DC500F9A5B5 /* CommandButton.m */; };
 		92C2BC4D1E857E880034F85B /* 2x2_icon_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC3B1E857E880034F85B /* 2x2_icon_6+.png */; };
@@ -976,6 +977,7 @@
 		92BA7F9618C773E400841104 /* UploadDataToCloudButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UploadDataToCloudButton.png; sourceTree = "<group>"; };
 		92BB3C3421AC79BC00D785CD /* EIMatrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EIMatrix.h; sourceTree = "<group>"; };
 		92BB3C3521AC79BC00D785CD /* EIMatrix.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EIMatrix.m; sourceTree = "<group>"; };
+		92BC80E324FD58560021D367 /* AbrirButtonWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AbrirButtonWhite.png; sourceTree = "<group>"; };
 		92BDFE34248FED11006EF6FA /* BoxData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoxData.h; sourceTree = "<group>"; };
 		92BDFE35248FED11006EF6FA /* BoxData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BoxData.m; sourceTree = "<group>"; };
 		92BE663C23267DC500F9A5B5 /* CommandButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommandButton.h; sourceTree = "<group>"; };
@@ -1938,6 +1940,7 @@
 				9208F82218624D170022C6FB /* OpenButton.png */,
 				9208F824186250070022C6FB /* OpenButtonOrange.png */,
 				92130D061CE12496001040D6 /* ManageButtonWhite.png */,
+				92BC80E324FD58560021D367 /* AbrirButtonWhite.png */,
 				92130D071CE12496001040D6 /* OpenButtonWhite.png */,
 				92BA7F9518C773E400841104 /* PackageAndEmailDataButton.png */,
 				9273F95818C8E08E00815573 /* PackageForiTunesButton.png */,
@@ -2272,6 +2275,7 @@
 				92FD405D182D2208004B4729 /* PadNRH.png in Resources */,
 				92095BDF183564D000B7A0ED /* SettingsR.png in Resources */,
 				928FCEF519E570B300641A95 /* VHFButton.png in Resources */,
+				92BC80E924FD58560021D367 /* AbrirButtonWhite.png in Resources */,
 				92C2BC5B1E857E880034F85B /* poisson_icon_6+.png in Resources */,
 				92A192501C690DD40095E69F /* NextPage.png in Resources */,
 				926817851AA8C54E00935BE9 /* SimulateCohortNR.png in Resources */,

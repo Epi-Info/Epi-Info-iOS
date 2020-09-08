@@ -297,6 +297,7 @@
         [analysisList addSubview:doTablesAnalysisButton];
         //Add the means button to the list
         UIButton *doMeansAnalysisButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 150, zoomingView.frame.size.width, 50)];
+
         [doMeansAnalysisButton setTitle:@"  Means" forState:UIControlStateNormal];
         [doMeansAnalysisButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [doMeansAnalysisButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
@@ -348,6 +349,20 @@
         dataSourceList = [[UIScrollView alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 50)];
         [dataSourceList setBackgroundColor:[UIColor whiteColor]];
         [self.view addSubview:dataSourceList];
+        NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+        if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+        {
+            [chooseAnalysis setTitle:@"Añadir Análisis" forState:UIControlStateNormal];
+            [filterButtonLabel setText:@"Filtros"];
+            [newVariablesButtonLabel setText:@"Variables Definidas"];
+            [cancelAnalysisList setTitle:@"  Cancelar" forState:UIControlStateNormal];
+            [doFrequencyAnalysisButton setTitle:@"  Frecuencia" forState:UIControlStateNormal];
+            [doTablesAnalysisButton setTitle:@"  MxN / Tabla 2x2" forState:UIControlStateNormal];
+            [doTablesAnalysisButton setAccessibilityLabel:@"Tabla (2 x 2, M x N)"];
+            [doMeansAnalysisButton setTitle:@"  Medias" forState:UIControlStateNormal];
+            [doLinearAnalysisButton setTitle:@"  Regresión Lineal" forState:UIControlStateNormal];
+            [doLogisticAnalysisButton setTitle:@"  Regresión Logística" forState:UIControlStateNormal];
+        }
     }
     else
     {
@@ -584,7 +599,29 @@
             initialContentSize = CGSizeMake(320, 416);
             initialLandscapeContentSize = CGSizeMake(480, 268);
         }
+        NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+        if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+        {
+            [chooseAnalysis setTitle:@"Añadir Análisis" forState:UIControlStateNormal];
+            [filterButtonLabel setText:@"Filtros"];
+            [newVariablesButtonLabel setText:@"Variables Definidas"];
+            [cancelAnalysisList setTitle:@"  Cancelar" forState:UIControlStateNormal];
+            [doFrequencyAnalysisButton setTitle:@"  Frecuencia" forState:UIControlStateNormal];
+            [doTablesAnalysisButton setTitle:@"  MxN / Tabla 2x2" forState:UIControlStateNormal];
+            [doTablesAnalysisButton setAccessibilityLabel:@"Tabla (2 x 2, M x N)"];
+            [doMeansAnalysisButton setTitle:@"  Medias" forState:UIControlStateNormal];
+            [doLinearAnalysisButton setTitle:@"  Regresión Lineal" forState:UIControlStateNormal];
+            [doLogisticAnalysisButton setTitle:@"  Regresión Logística" forState:UIControlStateNormal];
+        }
     }
+    
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [analyzeDataLabel setText:@"Analizar Datos"];
+        [setDataSource setTitle:[setDataSource.titleLabel.text stringByReplacingOccurrencesOfString:@"Set Data Source" withString:@"Establecer base de datos"] forState:UIControlStateNormal];
+    }
+
     [filterButton setAccessibilityLabel:@"Add, or, remove, data filters"];
     [newVariablesButton setAccessibilityLabel:@"Add, temporary, variables, to dataset."];
     
@@ -996,8 +1033,14 @@
     //One data type plus a cancel button
     numberOfDataTypes = 3.0;
     
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, zoomingView.frame.size.width, 50)];
     [button setTitle:@"  Table from Device" forState:UIControlStateNormal];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [button setTitle:@"  Table from Device" forState:UIControlStateNormal];
+    }
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -1006,9 +1049,13 @@
     [bottomLineView setBackgroundColor:[UIColor blackColor]];
     [button addSubview:bottomLineView];
     [dataTypeList addSubview:button];
-    
+
     button = [[UIButton alloc] initWithFrame:CGRectMake(0, 50, zoomingView.frame.size.width, 50)];
     [button setTitle:@"  Use SQL Tool" forState:UIControlStateNormal];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [button setTitle:@"  Use SQL Tool" forState:UIControlStateNormal];
+    }
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -1031,6 +1078,10 @@
     
     button = [[UIButton alloc] initWithFrame:CGRectMake(0, 100, zoomingView.frame.size.width, 50)];
     [button setTitle:@"  Cancel" forState:UIControlStateNormal];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [button setTitle:@"  Cancelar" forState:UIControlStateNormal];
+    }
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -1129,8 +1180,13 @@
         [dataSourceList addSubview:button];
         numberOfFiles++;
     }
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 50.0 * numberOfFiles, zoomingView.frame.size.width, 50)];
     [button setTitle:@"  Cancel" forState:UIControlStateNormal];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [button setTitle:@"  Cancelar" forState:UIControlStateNormal];
+    }
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];

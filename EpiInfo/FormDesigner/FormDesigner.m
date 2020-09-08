@@ -806,6 +806,28 @@
         [menu addSubview:distributeFormButton];
         [distributeFormButton setEnabled:formNamed];
         
+        NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+        if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+        {
+            [newFormButton setTitle:@"\tNew Form" forState:UIControlStateNormal];
+            [cancelButton setTitle:@"\tCancelar" forState:UIControlStateNormal];
+            [labelButton setTitle:@"\tEtiqueta/Título" forState:UIControlStateNormal];
+            [textButton setTitle:@"\tTexto" forState:UIControlStateNormal];
+            [uppercasetextButton setTitle:@"\tTexto (Mayúscula)" forState:UIControlStateNormal];
+            [multilineButton setTitle:@"\tMultílinea" forState:UIControlStateNormal];
+            [numberButton setTitle:@"\tNúmero" forState:UIControlStateNormal];
+            [phonenumberButton setTitle:@"\tNúmero de Teléfono" forState:UIControlStateNormal];
+            [dateButton setTitle:@"\tFecha" forState:UIControlStateNormal];
+            [checkboxButton setTitle:@"\tCasilla" forState:UIControlStateNormal];
+            [yesnoButton setTitle:@"\tSi/No" forState:UIControlStateNormal];
+            [optionButton setTitle:@"\tOpción" forState:UIControlStateNormal];
+            [imagefieldButton setTitle:@"\tImagen" forState:UIControlStateNormal];
+            [legalvaluesButton setTitle:@"\tValores Legales" forState:UIControlStateNormal];
+            [commentlegalButton setTitle:@"\tCódigo-Descripcíon" forState:UIControlStateNormal];
+            [pageBreakButton setTitle:@"\tInsert Page Break" forState:UIControlStateNormal];
+            [distributeFormButton setTitle:@"\tDistribute Form Template" forState:UIControlStateNormal];
+        }
+
         [self addSubview:menu];
         
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -1103,6 +1125,32 @@
         [showFormTemplateButton setTag:tagIncrementer++ * 1000000 + 1957];
         [menu addSubview:showFormTemplateButton];
         [showFormTemplateButton setEnabled:formNamed];
+        
+        NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+        if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+        {
+            [newFormButton setTitle:@"\tNew Form" forState:UIControlStateNormal];
+            [cancelButton setTitle:@"\tCancelar" forState:UIControlStateNormal];
+            [labelButton setTitle:@"\tEtiqueta/Título" forState:UIControlStateNormal];
+            [textButton setTitle:@"\tTexto" forState:UIControlStateNormal];
+            [uppercasetextButton setTitle:@"\tTexto (Mayúscula)" forState:UIControlStateNormal];
+            [multilineButton setTitle:@"\tMultílinea" forState:UIControlStateNormal];
+            [numberButton setTitle:@"\tNúmero" forState:UIControlStateNormal];
+            [phonenumberButton setTitle:@"\tNúmero de Teléfono" forState:UIControlStateNormal];
+            [dateButton setTitle:@"\tFecha" forState:UIControlStateNormal];
+            [checkboxButton setTitle:@"\tCasilla" forState:UIControlStateNormal];
+            [yesnoButton setTitle:@"\tSi/No" forState:UIControlStateNormal];
+            [optionButton setTitle:@"\tOpción" forState:UIControlStateNormal];
+            [imagefieldButton setTitle:@"\tImagen" forState:UIControlStateNormal];
+            [legalvaluesButton setTitle:@"\tValores Legales" forState:UIControlStateNormal];
+            [commentlegalButton setTitle:@"\tCódigo-Descripcíon" forState:UIControlStateNormal];
+            [pageBreakButton setTitle:@"\tInsert Page Break" forState:UIControlStateNormal];
+            [distributeFormButton setTitle:@"\tDistribute Form Template" forState:UIControlStateNormal];
+            [pageCheckCodeButton setTitle:@"\tCódigo Check" forState:UIControlStateNormal];
+            [showFormTemplateButton setTitle:@"\tShow Form Template Text" forState:UIControlStateNormal];
+            [commandbuttonButton setTitle:@"\tBotón de Comando" forState:UIControlStateNormal];
+            [groupButton setTitle:@"\tGrupo" forState:UIControlStateNormal];
+        }
 
         [self addSubview:menu];
         

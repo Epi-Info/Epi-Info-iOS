@@ -900,7 +900,7 @@
             [sampSizePow setText:@"Sample Size and Power"];
             [unblurryView addSubview:sampSizePow];
             NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
-            if ([languageInUse isEqualToString:@"es"])
+            if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
             {
                 [sampSizePow setText:@"El Tamaño de la Muestra y El Poder"];
             }
@@ -935,7 +935,7 @@
         [self.navigationItem setHidesBackButton:NO];
     
     NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
-    if ([languageInUse isEqualToString:@"es"])
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
     {
         [self.phoneHeaderLabel setText:@"StatCalc Calculadora Estadística"];
         [subHeaderLabel setText:@"Calculadora Estadística"];
