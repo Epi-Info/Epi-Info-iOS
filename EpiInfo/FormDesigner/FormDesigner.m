@@ -809,7 +809,7 @@
         NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
         if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
         {
-            [newFormButton setTitle:@"\tNew Form" forState:UIControlStateNormal];
+            [newFormButton setTitle:@"\tNuevo" forState:UIControlStateNormal];
             [cancelButton setTitle:@"\tCancelar" forState:UIControlStateNormal];
             [labelButton setTitle:@"\tEtiqueta/Título" forState:UIControlStateNormal];
             [textButton setTitle:@"\tTexto" forState:UIControlStateNormal];
@@ -1129,7 +1129,7 @@
         NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
         if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
         {
-            [newFormButton setTitle:@"\tNew Form" forState:UIControlStateNormal];
+            [newFormButton setTitle:@"\tNuevo" forState:UIControlStateNormal];
             [cancelButton setTitle:@"\tCancelar" forState:UIControlStateNormal];
             [labelButton setTitle:@"\tEtiqueta/Título" forState:UIControlStateNormal];
             [textButton setTitle:@"\tTexto" forState:UIControlStateNormal];
@@ -1487,6 +1487,19 @@
         [controlViewSaveButton setEnabled:YES];
     }
     
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [controlViewViewLabel setText:@"\tEtiqueta/Título"];
+        [controlViewPromptText setPlaceholder:@"Etiqueta/Título Texto"];
+        [controlViewFieldNameText setPlaceholder:@"Field Name"];
+        [controlViewMoveUpButton setTitle:@"Move Up" forState:UIControlStateNormal];
+        [controlViewMoveDnButton setTitle:@"Move Down" forState:UIControlStateNormal];
+        [controlViewDeleteButton setTitle:@"Eliminar" forState:UIControlStateNormal];
+        [controlViewCancelButton setTitle:@"Cancelar" forState:UIControlStateNormal];
+        [controlViewSaveButton setTitle:@"Guardar" forState:UIControlStateNormal];
+    }
+    
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 202)];
         [controlViewViewLabel setFrame:CGRectMake(1, 1, controlViewGrayBackground.frame.size.width - 2, 40)];
@@ -1628,6 +1641,19 @@
         }
     }
     
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [controlViewViewLabel setText:@"\tTexto"];
+        [controlViewPromptText setPlaceholder:@"Field Prompt"];
+        [controlViewFieldNameText setPlaceholder:@"Field Name"];
+        [controlViewMoveUpButton setTitle:@"Move Up" forState:UIControlStateNormal];
+        [controlViewMoveDnButton setTitle:@"Move Down" forState:UIControlStateNormal];
+        [controlViewDeleteButton setTitle:@"Eliminar" forState:UIControlStateNormal];
+        [controlViewCancelButton setTitle:@"Cancelar" forState:UIControlStateNormal];
+        [controlViewSaveButton setTitle:@"Guardar" forState:UIControlStateNormal];
+    }
+
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 242)];
         [controlViewViewLabel setFrame:CGRectMake(1, 1, controlViewGrayBackground.frame.size.width - 2, 40)];
@@ -1770,6 +1796,19 @@
         }
     }
     
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [controlViewViewLabel setText:@"\tMayúscula"];
+        [controlViewPromptText setPlaceholder:@"Field Prompt"];
+        [controlViewFieldNameText setPlaceholder:@"Field Name"];
+        [controlViewMoveUpButton setTitle:@"Move Up" forState:UIControlStateNormal];
+        [controlViewMoveDnButton setTitle:@"Move Down" forState:UIControlStateNormal];
+        [controlViewDeleteButton setTitle:@"Eliminar" forState:UIControlStateNormal];
+        [controlViewCancelButton setTitle:@"Cancelar" forState:UIControlStateNormal];
+        [controlViewSaveButton setTitle:@"Guardar" forState:UIControlStateNormal];
+    }
+
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 242)];
         [controlViewViewLabel setFrame:CGRectMake(1, 1, controlViewGrayBackground.frame.size.width - 2, 40)];
@@ -1912,6 +1951,19 @@
         }
     }
     
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [controlViewViewLabel setText:@"\tMultílinea"];
+        [controlViewPromptText setPlaceholder:@"Field Prompt"];
+        [controlViewFieldNameText setPlaceholder:@"Field Name"];
+        [controlViewMoveUpButton setTitle:@"Move Up" forState:UIControlStateNormal];
+        [controlViewMoveDnButton setTitle:@"Move Down" forState:UIControlStateNormal];
+        [controlViewDeleteButton setTitle:@"Eliminar" forState:UIControlStateNormal];
+        [controlViewCancelButton setTitle:@"Cancelar" forState:UIControlStateNormal];
+        [controlViewSaveButton setTitle:@"Guardar" forState:UIControlStateNormal];
+    }
+
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 242)];
         [controlViewViewLabel setFrame:CGRectMake(1, 1, controlViewGrayBackground.frame.size.width - 2, 40)];
@@ -2054,6 +2106,19 @@
         }
     }
     
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [controlViewViewLabel setText:@"\tNúmero"];
+        [controlViewPromptText setPlaceholder:@"Field Prompt"];
+        [controlViewFieldNameText setPlaceholder:@"Field Name"];
+        [controlViewMoveUpButton setTitle:@"Move Up" forState:UIControlStateNormal];
+        [controlViewMoveDnButton setTitle:@"Move Down" forState:UIControlStateNormal];
+        [controlViewDeleteButton setTitle:@"Eliminar" forState:UIControlStateNormal];
+        [controlViewCancelButton setTitle:@"Cancelar" forState:UIControlStateNormal];
+        [controlViewSaveButton setTitle:@"Guardar" forState:UIControlStateNormal];
+    }
+
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 242)];
         [controlViewViewLabel setFrame:CGRectMake(1, 1, controlViewGrayBackground.frame.size.width - 2, 40)];
@@ -2196,6 +2261,19 @@
         }
     }
     
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [controlViewViewLabel setText:@"\tNúmero de Teléfono"];
+        [controlViewPromptText setPlaceholder:@"Field Prompt"];
+        [controlViewFieldNameText setPlaceholder:@"Field Name"];
+        [controlViewMoveUpButton setTitle:@"Move Up" forState:UIControlStateNormal];
+        [controlViewMoveDnButton setTitle:@"Move Down" forState:UIControlStateNormal];
+        [controlViewDeleteButton setTitle:@"Eliminar" forState:UIControlStateNormal];
+        [controlViewCancelButton setTitle:@"Cancelar" forState:UIControlStateNormal];
+        [controlViewSaveButton setTitle:@"Guardar" forState:UIControlStateNormal];
+    }
+
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 242)];
         [controlViewViewLabel setFrame:CGRectMake(1, 1, controlViewGrayBackground.frame.size.width - 2, 40)];
@@ -2339,6 +2417,19 @@
         }
     }
     
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [controlViewViewLabel setText:@"\tFecha"];
+        [controlViewPromptText setPlaceholder:@"Field Prompt"];
+        [controlViewFieldNameText setPlaceholder:@"Field Name"];
+        [controlViewMoveUpButton setTitle:@"Move Up" forState:UIControlStateNormal];
+        [controlViewMoveDnButton setTitle:@"Move Down" forState:UIControlStateNormal];
+        [controlViewDeleteButton setTitle:@"Eliminar" forState:UIControlStateNormal];
+        [controlViewCancelButton setTitle:@"Cancelar" forState:UIControlStateNormal];
+        [controlViewSaveButton setTitle:@"Guardar" forState:UIControlStateNormal];
+    }
+
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 242)];
         [controlViewViewLabel setFrame:CGRectMake(1, 1, controlViewGrayBackground.frame.size.width - 2, 40)];
@@ -2481,6 +2572,19 @@
         }
     }
     
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [controlViewViewLabel setText:@"\tCasilla"];
+        [controlViewPromptText setPlaceholder:@"Field Prompt"];
+        [controlViewFieldNameText setPlaceholder:@"Field Name"];
+        [controlViewMoveUpButton setTitle:@"Move Up" forState:UIControlStateNormal];
+        [controlViewMoveDnButton setTitle:@"Move Down" forState:UIControlStateNormal];
+        [controlViewDeleteButton setTitle:@"Eliminar" forState:UIControlStateNormal];
+        [controlViewCancelButton setTitle:@"Cancelar" forState:UIControlStateNormal];
+        [controlViewSaveButton setTitle:@"Guardar" forState:UIControlStateNormal];
+    }
+
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 242)];
         [controlViewViewLabel setFrame:CGRectMake(1, 1, controlViewGrayBackground.frame.size.width - 2, 40)];
@@ -2623,6 +2727,19 @@
         }
     }
     
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [controlViewViewLabel setText:@"\tSi/No"];
+        [controlViewPromptText setPlaceholder:@"Field Prompt"];
+        [controlViewFieldNameText setPlaceholder:@"Field Name"];
+        [controlViewMoveUpButton setTitle:@"Move Up" forState:UIControlStateNormal];
+        [controlViewMoveDnButton setTitle:@"Move Down" forState:UIControlStateNormal];
+        [controlViewDeleteButton setTitle:@"Eliminar" forState:UIControlStateNormal];
+        [controlViewCancelButton setTitle:@"Cancelar" forState:UIControlStateNormal];
+        [controlViewSaveButton setTitle:@"Guardar" forState:UIControlStateNormal];
+    }
+
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 242)];
         [controlViewViewLabel setFrame:CGRectMake(1, 1, controlViewGrayBackground.frame.size.width - 2, 40)];
@@ -2799,6 +2916,19 @@
         }
     }
     
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [controlViewViewLabel setText:@"\tOpción"];
+        [controlViewPromptText setPlaceholder:@"Field Prompt"];
+        [controlViewFieldNameText setPlaceholder:@"Field Name"];
+        [controlViewMoveUpButton setTitle:@"Move Up" forState:UIControlStateNormal];
+        [controlViewMoveDnButton setTitle:@"Move Down" forState:UIControlStateNormal];
+        [controlViewDeleteButton setTitle:@"Eliminar" forState:UIControlStateNormal];
+        [controlViewCancelButton setTitle:@"Cancelar" forState:UIControlStateNormal];
+        [controlViewSaveButton setTitle:@"Guardar" forState:UIControlStateNormal];
+    }
+
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 242)];
         [controlViewViewLabel setFrame:CGRectMake(1, 1, controlViewGrayBackground.frame.size.width - 2, 40)];
@@ -2931,6 +3061,19 @@
         [controlViewSaveButton setEnabled:YES];
     }
     
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [controlViewViewLabel setText:@"\tImagen"];
+        [controlViewPromptText setPlaceholder:@"Field Prompt"];
+        [controlViewFieldNameText setPlaceholder:@"Field Name"];
+        [controlViewMoveUpButton setTitle:@"Move Up" forState:UIControlStateNormal];
+        [controlViewMoveDnButton setTitle:@"Move Down" forState:UIControlStateNormal];
+        [controlViewDeleteButton setTitle:@"Eliminar" forState:UIControlStateNormal];
+        [controlViewCancelButton setTitle:@"Cancelar" forState:UIControlStateNormal];
+        [controlViewSaveButton setTitle:@"Guardar" forState:UIControlStateNormal];
+    }
+
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 242)];
         [controlViewViewLabel setFrame:CGRectMake(1, 1, controlViewGrayBackground.frame.size.width - 2, 40)];
@@ -3109,6 +3252,19 @@
         }
     }
     
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [controlViewViewLabel setText:@"\tValores Legales"];
+        [controlViewPromptText setPlaceholder:@"Field Prompt"];
+        [controlViewFieldNameText setPlaceholder:@"Field Name"];
+        [controlViewMoveUpButton setTitle:@"Move Up" forState:UIControlStateNormal];
+        [controlViewMoveDnButton setTitle:@"Move Down" forState:UIControlStateNormal];
+        [controlViewDeleteButton setTitle:@"Eliminar" forState:UIControlStateNormal];
+        [controlViewCancelButton setTitle:@"Cancelar" forState:UIControlStateNormal];
+        [controlViewSaveButton setTitle:@"Guardar" forState:UIControlStateNormal];
+    }
+
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 242)];
         [controlViewViewLabel setFrame:CGRectMake(1, 1, controlViewGrayBackground.frame.size.width - 2, 40)];
@@ -3288,6 +3444,19 @@
         }
     }
     
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [controlViewViewLabel setText:@"\tCódigo-Descripcíon"];
+        [controlViewPromptText setPlaceholder:@"Field Prompt"];
+        [controlViewFieldNameText setPlaceholder:@"Field Name"];
+        [controlViewMoveUpButton setTitle:@"Move Up" forState:UIControlStateNormal];
+        [controlViewMoveDnButton setTitle:@"Move Down" forState:UIControlStateNormal];
+        [controlViewDeleteButton setTitle:@"Eliminar" forState:UIControlStateNormal];
+        [controlViewCancelButton setTitle:@"Cancelar" forState:UIControlStateNormal];
+        [controlViewSaveButton setTitle:@"Guardar" forState:UIControlStateNormal];
+    }
+
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 242)];
         [controlViewViewLabel setFrame:CGRectMake(1, 1, controlViewGrayBackground.frame.size.width - 2, 40)];
@@ -3431,6 +3600,19 @@
         }
     }
     
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [controlViewViewLabel setText:@"\tBotón de Comando"];
+        [controlViewPromptText setPlaceholder:@"Button Text"];
+        [controlViewFieldNameText setPlaceholder:@"Field Name"];
+        [controlViewMoveUpButton setTitle:@"Move Up" forState:UIControlStateNormal];
+        [controlViewMoveDnButton setTitle:@"Move Down" forState:UIControlStateNormal];
+        [controlViewDeleteButton setTitle:@"Eliminar" forState:UIControlStateNormal];
+        [controlViewCancelButton setTitle:@"Cancelar" forState:UIControlStateNormal];
+        [controlViewSaveButton setTitle:@"Guardar" forState:UIControlStateNormal];
+    }
+
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 242)];
         [controlViewViewLabel setFrame:CGRectMake(1, 1, controlViewGrayBackground.frame.size.width - 2, 40)];
@@ -3730,6 +3912,19 @@
         [controlViewSaveButton setEnabled:YES];
     }
     
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [controlViewViewLabel setText:@"\tGrupo"];
+        [controlViewPromptText setPlaceholder:@"Group Label"];
+        [controlViewFieldNameText setPlaceholder:@"Group Name"];
+        [controlViewMoveUpButton setTitle:@"Move Up" forState:UIControlStateNormal];
+        [controlViewMoveDnButton setTitle:@"Move Down" forState:UIControlStateNormal];
+        [controlViewDeleteButton setTitle:@"Eliminar" forState:UIControlStateNormal];
+        [controlViewCancelButton setTitle:@"Cancelar" forState:UIControlStateNormal];
+        [controlViewSaveButton setTitle:@"Guardar" forState:UIControlStateNormal];
+    }
+
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [controlViewGrayBackground setFrame:CGRectMake(controlViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 282)];
         [controlViewViewLabel setFrame:CGRectMake(1, 1, controlViewGrayBackground.frame.size.width - 2, 40)];
