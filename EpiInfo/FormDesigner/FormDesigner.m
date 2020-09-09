@@ -67,6 +67,12 @@
         [formDesignerLabel setTitle:@"Form Designer" forState:UIControlStateNormal];
         [formDesignerLabel setAccessibilityLabel:@"Form Designer. Double tap for options."];
         [formDesignerLabel.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+        NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+        if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+        {
+            [formDesignerLabel setTitle:@"Diseñador de Formularios" forState:UIControlStateNormal];
+            [formDesignerLabel setAccessibilityLabel:@"Diseñador de Formularios"];
+        }
         [formDesignerLabel setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
         [formDesignerLabel.titleLabel setTextAlignment:NSTextAlignmentCenter];
         [formDesignerLabel addTarget:self action:@selector(bannerTap:) forControlEvents:UIControlEventTouchUpInside];
