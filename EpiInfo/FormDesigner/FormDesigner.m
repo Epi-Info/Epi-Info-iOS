@@ -1377,6 +1377,15 @@
     [newFormViewSaveButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
     [newFormViewSaveButton addTarget:self action:@selector(newFormSaveOrCancelPressed:) forControlEvents:UIControlEventTouchUpInside];
     [newFormViewGrayBackground addSubview:newFormViewSaveButton];
+    
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+    {
+        [newFormViewLabel setText:@"\tForm Name:"];
+        [newFormViewText setPlaceholder:@"Enter form name."];
+        [newFormViewCancelButton setTitle:@"Cancelar" forState:UIControlStateNormal];
+        [newFormViewSaveButton setTitle:@"Guardar" forState:UIControlStateNormal];
+    }
 
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [newFormViewGrayBackground setFrame:CGRectMake(newFormViewGrayBackground.frame.origin.x, 0.08 * self.frame.size.height, 0.84 * self.frame.size.width, 122)];

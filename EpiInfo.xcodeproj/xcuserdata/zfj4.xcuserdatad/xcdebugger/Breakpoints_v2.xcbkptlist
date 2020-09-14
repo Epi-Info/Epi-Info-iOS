@@ -115,8 +115,8 @@
             filePath = "EpiInfo/FormDesigner/FormDesigner.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5896"
-            endingLineNumber = "5896"
+            startingLineNumber = "5905"
+            endingLineNumber = "5905"
             landmarkName = "-insertPageBreakPressed:"
             landmarkType = "7">
          </BreakpointContent>
@@ -451,8 +451,8 @@
             filePath = "EpiInfo/FormDesigner/FormDesigner.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4951"
-            endingLineNumber = "4951"
+            startingLineNumber = "4960"
+            endingLineNumber = "4960"
             landmarkName = "-commandButtonSaveOrCancelPressed:"
             landmarkType = "7">
          </BreakpointContent>
