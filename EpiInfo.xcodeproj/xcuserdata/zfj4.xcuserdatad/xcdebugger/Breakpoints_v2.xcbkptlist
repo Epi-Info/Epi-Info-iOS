@@ -755,8 +755,8 @@
             filePath = "EpiInfo/DataEntryViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3839"
-            endingLineNumber = "3839"
+            startingLineNumber = "3847"
+            endingLineNumber = "3847"
             landmarkName = "-packageAndEmailData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -771,8 +771,8 @@
             filePath = "EpiInfo/DataEntryViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3805"
-            endingLineNumber = "3805"
+            startingLineNumber = "3813"
+            endingLineNumber = "3813"
             landmarkName = "-packageAndEmailData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -851,8 +851,8 @@
             filePath = "EpiInfo/DataEntryViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4060"
-            endingLineNumber = "4060"
+            startingLineNumber = "4068"
+            endingLineNumber = "4068"
             landmarkName = "-emailDataAsCSV:"
             landmarkType = "7">
          </BreakpointContent>
@@ -867,8 +867,8 @@
             filePath = "EpiInfo/DataEntryViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4075"
-            endingLineNumber = "4075"
+            startingLineNumber = "4083"
+            endingLineNumber = "4083"
             landmarkName = "-emailDataAsCSV:"
             landmarkType = "7">
          </BreakpointContent>
@@ -886,6 +886,54 @@
             startingLineNumber = "226"
             endingLineNumber = "226"
             landmarkName = "-epiInfoControlValue"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EF9F7712-B3B2-4CB5-8E31-213E658D7A19"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/MatchedPairCompute.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "-McNemarCorrectedVal:cellb:cellc:celld:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C33A6FBB-3DE1-4F96-9705-DD309ACCE7E8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/MatchedPairCompute.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "-fisherLimits:cellb:cellc:celld:limits:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A97DC204-1EC1-4400-8F70-477A8EB3CAAC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/MatchedPairCompute.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "-oneFish:cellb:cellc:celld:rvs:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

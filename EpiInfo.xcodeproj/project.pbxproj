@@ -396,6 +396,7 @@
 		92E9801618A538C30011CC8B /* MSAzure.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E9801318A538C30011CC8B /* MSAzure.png */; };
 		92E9801718A538C30011CC8B /* MSAzureNR.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E9801418A538C30011CC8B /* MSAzureNR.png */; };
 		92E9801818A538C30011CC8B /* MSAzurePhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 92E9801518A538C30011CC8B /* MSAzurePhone.png */; };
+		92EA31D8251D368300739678 /* AdministrarButtonWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 92EA31D7251D368300739678 /* AdministrarButtonWhite.png */; };
 		92EB1ACC1DCA660100694282 /* FieldsAndStringValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 92EB1ACB1DCA660100694282 /* FieldsAndStringValues.m */; };
 		92EB1ACF1DCA77B900694282 /* DictionaryOfFields.m in Sources */ = {isa = PBXBuildFile; fileRef = 92EB1ACE1DCA77B900694282 /* DictionaryOfFields.m */; };
 		92EBAD03194A400D000EF983 /* EpiInfoUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92EBAD02194A400D000EF983 /* EpiInfoUILabel.m */; };
@@ -1045,6 +1046,7 @@
 		92E9801318A538C30011CC8B /* MSAzure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MSAzure.png; sourceTree = "<group>"; };
 		92E9801418A538C30011CC8B /* MSAzureNR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MSAzureNR.png; sourceTree = "<group>"; };
 		92E9801518A538C30011CC8B /* MSAzurePhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MSAzurePhone.png; sourceTree = "<group>"; };
+		92EA31D7251D368300739678 /* AdministrarButtonWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AdministrarButtonWhite.png; sourceTree = "<group>"; };
 		92EB1ACA1DCA660100694282 /* FieldsAndStringValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldsAndStringValues.h; sourceTree = "<group>"; };
 		92EB1ACB1DCA660100694282 /* FieldsAndStringValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldsAndStringValues.m; sourceTree = "<group>"; };
 		92EB1ACD1DCA77B900694282 /* DictionaryOfFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionaryOfFields.h; sourceTree = "<group>"; };
@@ -1941,6 +1943,7 @@
 				9208F824186250070022C6FB /* OpenButtonOrange.png */,
 				92130D061CE12496001040D6 /* ManageButtonWhite.png */,
 				92BC80E324FD58560021D367 /* AbrirButtonWhite.png */,
+				92EA31D7251D368300739678 /* AdministrarButtonWhite.png */,
 				92130D071CE12496001040D6 /* OpenButtonWhite.png */,
 				92BA7F9518C773E400841104 /* PackageAndEmailDataButton.png */,
 				9273F95818C8E08E00815573 /* PackageForiTunesButton.png */,
@@ -2198,6 +2201,7 @@
 				92BA2E1518AA6B0200E2CC33 /* MSAzureBlue.png in Resources */,
 				68D769FC16A9DDF900D831EB /* Unmatch.png in Resources */,
 				68D769FD16A9DDF900D831EB /* CohortB.png in Resources */,
+				92EA31D8251D368300739678 /* AdministrarButtonWhite.png in Resources */,
 				925C894919534F8000F3DCE7 /* GrowthButton.png in Resources */,
 				92F520EE1CD3BFAC0058F352 /* icon-87.png in Resources */,
 				92F520EF1CD3BFAC0058F352 /* icon-120.png in Resources */,
