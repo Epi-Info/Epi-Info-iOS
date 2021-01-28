@@ -343,6 +343,7 @@
                 count++;
                 [pickerFiles addObject:[(NSString *)i substringToIndex:[(NSString *)i length] - 4]];
             }
+            [pickerFiles sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
             UILabel *enterDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 12, self.view.frame.size.width - 40, 28)];
             [enterDataLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
             [enterDataLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0]];
@@ -602,6 +603,7 @@
                 count++;
                 [pickerFiles addObject:[(NSString *)i substringToIndex:[(NSString *)i length] - 4]];
             }
+            [pickerFiles sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
             UILabel *enterDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 12, 280, 28)];
             [enterDataLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
             [enterDataLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
