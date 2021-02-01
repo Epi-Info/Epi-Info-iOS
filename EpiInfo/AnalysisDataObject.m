@@ -453,6 +453,44 @@
             {
                 //If not row-1, create NSArray from row of text and add to full dataset array
                 NSMutableArray *rowArray = [NSMutableArray arrayWithArray:[[[rowText stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%c", 0x0d] withString:@""] componentsSeparatedByString:@","]];
+                if ([rowArray count] != [[self columnNames] count])
+                {
+                    BOOL insideQuote = NO;
+                    NSMutableArray *results = [[NSMutableArray alloc] init];
+                    NSMutableArray *tmp = [[NSMutableArray alloc] init];
+
+                    for (NSString *s in [[[rowText stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%c", 0x0d] withString:@""] componentsSeparatedByString:@","])
+                    {
+                        if ([s rangeOfString:@"\""].location == NSNotFound)
+                        {
+                            if (insideQuote)
+                            {
+                                [tmp addObject:s];
+                            }
+                            else
+                            {
+                                [results addObject:s];
+                            }
+                        }
+                        else
+                        {
+                            if (insideQuote)
+                            {
+                                insideQuote = NO;
+                                [tmp addObject:s];
+                                [results addObject:[tmp componentsJoinedByString:@","]];
+                                tmp = nil;
+                                tmp = [[NSMutableArray alloc] init];
+                            }
+                            else
+                            {
+                                insideQuote = YES;
+                                [tmp addObject:s];
+                            }
+                        }
+                    }
+                    rowArray = [NSMutableArray arrayWithArray:results];
+                }
                 for (int i = 0; i < rowArray.count; i++)
                 {
                     if ([(NSString *)[rowArray objectAtIndex:i] isEqualToString:@"TRUE"])
