@@ -181,10 +181,10 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1530"
                   endingLineNumber = "1530"
-                  offsetFromSymbolStart = "210">
+                  offsetFromSymbolStart = "256">
                </Location>
                <Location
-                  uuid = "CAE2FC3B-CE51-49AD-B213-FCB319D1EC76 - 6cf9c86d527d8c94"
+                  uuid = "CAE2FC3B-CE51-49AD-B213-FCB319D1EC76 - 6cf9c86d527d8cf5"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -194,9 +194,9 @@
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1530"
-                  endingLineNumber = "1530"
-                  offsetFromSymbolStart = "36">
+                  startingLineNumber = "1531"
+                  endingLineNumber = "1531"
+                  offsetFromSymbolStart = "84">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -229,10 +229,10 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1555"
                   endingLineNumber = "1555"
-                  offsetFromSymbolStart = "481">
+                  offsetFromSymbolStart = "500">
                </Location>
                <Location
-                  uuid = "BFBE3503-7E6D-48BC-BB6D-AF97B5299FF9 - 763e48b6548d7f10"
+                  uuid = "BFBE3503-7E6D-48BC-BB6D-AF97B5299FF9 - 763e48b6548d7ff7"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -242,9 +242,9 @@
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1555"
-                  endingLineNumber = "1555"
-                  offsetFromSymbolStart = "36">
+                  startingLineNumber = "1556"
+                  endingLineNumber = "1556"
+                  offsetFromSymbolStart = "84">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -277,10 +277,10 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1584"
                   endingLineNumber = "1584"
-                  offsetFromSymbolStart = "814">
+                  offsetFromSymbolStart = "816">
                </Location>
                <Location
-                  uuid = "007DA7F9-CDF0-4EA7-8703-2A0A6DC4B9ED - 763e48b6548d73d2"
+                  uuid = "007DA7F9-CDF0-4EA7-8703-2A0A6DC4B9ED - 763e48b6548d73b3"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -290,9 +290,9 @@
                   urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1584"
-                  endingLineNumber = "1584"
-                  offsetFromSymbolStart = "36">
+                  startingLineNumber = "1585"
+                  endingLineNumber = "1585"
+                  offsetFromSymbolStart = "84">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -949,22 +949,6 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "427"
             endingLineNumber = "427"
-            landmarkName = "-initWithCSVFile:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3097DB5E-5C4F-4531-8D8C-F5E9BEAF4B35"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EpiInfo/AnalysisDataObject.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "455"
-            endingLineNumber = "455"
             landmarkName = "-initWithCSVFile:"
             landmarkType = "7">
          </BreakpointContent>

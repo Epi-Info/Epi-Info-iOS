@@ -486,6 +486,13 @@
                             {
                                 insideQuote = YES;
                                 [tmp addObject:s];
+                                if ([s characterAtIndex:[s length] - 1] == '"')
+                                {
+                                    insideQuote = NO;
+                                    [results addObject:[tmp objectAtIndex:0]];
+                                    tmp = nil;
+                                    tmp = [[NSMutableArray alloc] init];
+                                }
                             }
                         }
                     }
