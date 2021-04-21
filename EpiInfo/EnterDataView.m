@@ -4936,7 +4936,9 @@
                                             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                                             }];
                                             [alertC addAction:okAction];
-                                            [self.rootViewController presentViewController:alertC animated:YES completion:nil];
+                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                [self.rootViewController presentViewController:alertC animated:YES completion:nil];
+                                          });
                                         }
                                     }] resume];
                                 }
