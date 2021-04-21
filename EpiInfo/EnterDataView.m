@@ -4342,7 +4342,7 @@
                         NSString *cloudDataLength = [NSString stringWithFormat:@"%d", (int)[cloudData length]];
                         
                         NSMutableURLRequest *getRequest = [[NSMutableURLRequest alloc] init];
-                        [getRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", self.cloudService, self.formName]]];
+                        [getRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@/%@", self.cloudService, self.formName, guidValue]]];
                         
                         [getRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
                         [getRequest setValue:self.cloudKey forHTTPHeaderField:@"epi-token"];
@@ -4882,7 +4882,7 @@
                             [cloudDataString appendString:@" }"];
                             
                             NSMutableURLRequest *getRequest = [[NSMutableURLRequest alloc] init];
-                            [getRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@", self.cloudService, self.formName]]];
+                            [getRequest setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.azurewebsites.net/tables/%@/%@", self.cloudService, self.formName, guidValue]]];
                             
                             [getRequest setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
                             [getRequest setValue:self.cloudKey forHTTPHeaderField:@"epi-token"];
