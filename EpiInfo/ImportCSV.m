@@ -623,6 +623,35 @@
                                 value = [NSString stringWithFormat:@"\"%@\"", value];
                             }
                         }
+                        NSError *regexerror;
+                        NSRange searchedRange = NSMakeRange(0, [value length]);
+                        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}" options:0 error:&regexerror];
+                        NSArray* matches = [regex matchesInString:value options:0 range: searchedRange];
+                        if ([matches count] == 1)
+                        {
+                            for (NSTextCheckingResult* match in matches)
+                            {
+                                NSString *csvDate = [value substringWithRange:[match range]];
+                                NSArray *dateComponents = [csvDate componentsSeparatedByString:@"-"];
+                                if ([dateComponents count] != 3)
+                                    break;
+                                NSString *csvMonth = [dateComponents objectAtIndex:1];
+                                if ([csvMonth intValue] < 10)
+                                    csvMonth = [@"0" stringByAppendingString:csvMonth];
+                                NSString *csvDay = [dateComponents objectAtIndex:2];
+                                if ([csvDay intValue] < 10)
+                                    csvDay = [@"0" stringByAppendingString:csvDay];
+                                BOOL dmy = NO;
+                                NSDate *dateObject = [NSDate date];
+                                dmy = ([[[dateObject descriptionWithLocale:[NSLocale currentLocale]] substringWithRange:NSMakeRange([[dateObject descriptionWithLocale:[NSLocale currentLocale]] rangeOfString:@" "].location + 1, 1)] intValue] > 0);
+                                NSString *newDate = [NSString stringWithFormat:@"%@/%@/%@", csvMonth, csvDay, [dateComponents objectAtIndex:0]];
+                                if (dmy)
+                                {
+                                    newDate = [NSString stringWithFormat:@"%@/%@/%@", csvDay, csvMonth, [dateComponents objectAtIndex:0]];
+                                }
+                                value = [value stringByReplacingOccurrencesOfString:csvDate withString:newDate];
+                            }
+                        }
                     }
                     insertStatement = [insertStatement stringByAppendingString:value];
                 }

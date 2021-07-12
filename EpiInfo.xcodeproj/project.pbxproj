@@ -198,7 +198,6 @@
 		9248261D19CB40E300A0C1DD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9248261C19CB40E300A0C1DD /* Images.xcassets */; };
 		9249822622C2C57800C36CF3 /* BoxContentSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9249822522C2C57700C36CF3 /* BoxContentSDK.framework */; };
 		9249822722C2C5B100C36CF3 /* BoxContentSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9249822522C2C57700C36CF3 /* BoxContentSDK.framework */; };
-		9249822822C2C5B100C36CF3 /* BoxContentSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9249822522C2C57700C36CF3 /* BoxContentSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		924A2EE924DB519A008FA3D2 /* EIDoubleArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A2EE824DB519A008FA3D2 /* EIDoubleArray.m */; };
 		924A2EF124DB51B2008FA3D2 /* EIIntArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A2EF024DB51B2008FA3D2 /* EIIntArray.m */; };
 		924A7D1419C21D2900F168A0 /* MeansCrosstabCompute.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A7D1319C21D2900F168A0 /* MeansCrosstabCompute.m */; };
@@ -468,20 +467,6 @@
 			remoteInfo = PEGKitiOS;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		9249822422C2B82D00C36CF3 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				9249822822C2C5B100C36CF3 /* BoxContentSDK.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4A071E871639C2E3002C05E9 /* BinomialCalculatorCompute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinomialCalculatorCompute.h; sourceTree = "<group>"; };
@@ -2005,7 +1990,6 @@
 				4AFD8521161F137B00FFBA65 /* Sources */,
 				4AFD8522161F137B00FFBA65 /* Frameworks */,
 				4AFD8523161F137B00FFBA65 /* Resources */,
-				9249822422C2B82D00C36CF3 /* Embed Frameworks */,
 				9298FBBD22C5499E0063CA17 /* ShellScript */,
 			);
 			buildRules = (

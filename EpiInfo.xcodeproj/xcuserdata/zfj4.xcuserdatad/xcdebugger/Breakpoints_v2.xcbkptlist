@@ -92,22 +92,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8CE2C8C7-F023-4819-B09D-F793BE961DFA"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EpiInfo/ImportCSV.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "569"
-            endingLineNumber = "569"
-            landmarkName = "-saveTheForm"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "37E8BC55-DA0F-4280-856F-DD5A4D6393F7"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -181,7 +165,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1530"
                   endingLineNumber = "1530"
-                  offsetFromSymbolStart = "256">
+                  offsetFromSymbolStart = "180">
                </Location>
                <Location
                   uuid = "CAE2FC3B-CE51-49AD-B213-FCB319D1EC76 - 6cf9c86d527d8cf5"
@@ -196,7 +180,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1531"
                   endingLineNumber = "1531"
-                  offsetFromSymbolStart = "84">
+                  offsetFromSymbolStart = "60">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -229,7 +213,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1555"
                   endingLineNumber = "1555"
-                  offsetFromSymbolStart = "500">
+                  offsetFromSymbolStart = "424">
                </Location>
                <Location
                   uuid = "BFBE3503-7E6D-48BC-BB6D-AF97B5299FF9 - 763e48b6548d7ff7"
@@ -244,7 +228,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1556"
                   endingLineNumber = "1556"
-                  offsetFromSymbolStart = "84">
+                  offsetFromSymbolStart = "60">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -277,7 +261,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1584"
                   endingLineNumber = "1584"
-                  offsetFromSymbolStart = "816">
+                  offsetFromSymbolStart = "740">
                </Location>
                <Location
                   uuid = "007DA7F9-CDF0-4EA7-8703-2A0A6DC4B9ED - 763e48b6548d73b3"
@@ -292,7 +276,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1585"
                   endingLineNumber = "1585"
-                  offsetFromSymbolStart = "84">
+                  offsetFromSymbolStart = "60">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -886,22 +870,6 @@
             startingLineNumber = "126"
             endingLineNumber = "126"
             landmarkName = "-oneFish:cellb:cellc:celld:rvs:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D4F2B8CA-2AA6-457C-A295-6DFEA2951291"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EpiInfo/AnalysisDataObject.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "427"
-            endingLineNumber = "427"
-            landmarkName = "-initWithCSVFile:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
