@@ -196,8 +196,6 @@
 		924770821C4015EF008F8C90 /* ManageButtonOrange.png in Resources */ = {isa = PBXBuildFile; fileRef = 924770811C4015EF008F8C90 /* ManageButtonOrange.png */; };
 		9247F20F181ADB4E00C96F94 /* BlurryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9247F20E181ADB4E00C96F94 /* BlurryView.m */; };
 		9248261D19CB40E300A0C1DD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9248261C19CB40E300A0C1DD /* Images.xcassets */; };
-		9249822622C2C57800C36CF3 /* BoxContentSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9249822522C2C57700C36CF3 /* BoxContentSDK.framework */; };
-		9249822722C2C5B100C36CF3 /* BoxContentSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9249822522C2C57700C36CF3 /* BoxContentSDK.framework */; };
 		924A2EE924DB519A008FA3D2 /* EIDoubleArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A2EE824DB519A008FA3D2 /* EIDoubleArray.m */; };
 		924A2EF124DB51B2008FA3D2 /* EIIntArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A2EF024DB51B2008FA3D2 /* EIIntArray.m */; };
 		924A7D1419C21D2900F168A0 /* MeansCrosstabCompute.m in Sources */ = {isa = PBXBuildFile; fileRef = 924A7D1319C21D2900F168A0 /* MeansCrosstabCompute.m */; };
@@ -370,6 +368,8 @@
 		92C2BC6E1E8956380034F85B /* population_survey_icon_blue_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC681E8956380034F85B /* population_survey_icon_blue_6+.png */; };
 		92C2BC6F1E8956380034F85B /* population_survey_icon_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC691E8956380034F85B /* population_survey_icon_blue.png */; };
 		92C419D91921595000FA46EA /* DeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C419D81921595000FA46EA /* DeleteButton.png */; };
+		92C6F056269CDB4A0009F322 /* BoxContentSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9249822522C2C57700C36CF3 /* BoxContentSDK.framework */; };
+		92C6F057269CDB4A0009F322 /* BoxContentSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9249822522C2C57700C36CF3 /* BoxContentSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		92CC6086228DBC8200513DC5 /* IfBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC6085228DBC8200513DC5 /* IfBuilder.m */; };
 		92CC608F228ED03A00513DC5 /* IfText.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC608E228ED03A00513DC5 /* IfText.m */; };
 		92CC6092228ED12A00513DC5 /* ConditionText.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC6091228ED12A00513DC5 /* ConditionText.m */; };
@@ -467,6 +467,20 @@
 			remoteInfo = PEGKitiOS;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		92C6F058269CDB4A0009F322 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				92C6F057269CDB4A0009F322 /* BoxContentSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4A071E871639C2E3002C05E9 /* BinomialCalculatorCompute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinomialCalculatorCompute.h; sourceTree = "<group>"; };
@@ -1067,11 +1081,10 @@
 				927B555C18B65281000AB7B1 /* SystemConfiguration.framework in Frameworks */,
 				92D30F5B1899726100CEBCAE /* CoreLocation.framework in Frameworks */,
 				92001B97186C8C2E00B87D21 /* CoreImage.framework in Frameworks */,
-				9249822622C2C57800C36CF3 /* BoxContentSDK.framework in Frameworks */,
 				9252018017D0CC930071C754 /* QuartzCore.framework in Frameworks */,
-				9249822722C2C5B100C36CF3 /* BoxContentSDK.framework in Frameworks */,
 				9284E8ED17B94BDB00158139 /* libsqlite3.dylib in Frameworks */,
 				4AFD852A161F137B00FFBA65 /* UIKit.framework in Frameworks */,
+				92C6F056269CDB4A0009F322 /* BoxContentSDK.framework in Frameworks */,
 				4AFD852C161F137B00FFBA65 /* Foundation.framework in Frameworks */,
 				4AFD852E161F137B00FFBA65 /* CoreGraphics.framework in Frameworks */,
 			);
@@ -1991,6 +2004,7 @@
 				4AFD8522161F137B00FFBA65 /* Frameworks */,
 				4AFD8523161F137B00FFBA65 /* Resources */,
 				9298FBBD22C5499E0063CA17 /* ShellScript */,
+				92C6F058269CDB4A0009F322 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2584,6 +2598,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 4.2;
+				VALIDATE_PRODUCT = NO;
 			};
 			name = Debug;
 		};
@@ -2619,7 +2634,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development: John Copeland (JZTF9F25RD)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: John Copeland (JZTF9F25RD)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = J8992FE8QS;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2659,7 +2674,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Centers for Disease Control and Prevention (J8992FE8QS)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Centers for Disease Control and Prevention (J8992FE8QS)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = J8992FE8QS;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
