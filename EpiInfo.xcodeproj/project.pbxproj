@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -368,8 +368,8 @@
 		92C2BC6E1E8956380034F85B /* population_survey_icon_blue_6+.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC681E8956380034F85B /* population_survey_icon_blue_6+.png */; };
 		92C2BC6F1E8956380034F85B /* population_survey_icon_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C2BC691E8956380034F85B /* population_survey_icon_blue.png */; };
 		92C419D91921595000FA46EA /* DeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C419D81921595000FA46EA /* DeleteButton.png */; };
-		92C6F056269CDB4A0009F322 /* BoxContentSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9249822522C2C57700C36CF3 /* BoxContentSDK.framework */; };
-		92C6F057269CDB4A0009F322 /* BoxContentSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9249822522C2C57700C36CF3 /* BoxContentSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		92C6F072269E1C280009F322 /* BoxContentSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C6F070269E1C240009F322 /* BoxContentSDK.xcframework */; };
+		92C6F073269E1C280009F322 /* BoxContentSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 92C6F070269E1C240009F322 /* BoxContentSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		92CC6086228DBC8200513DC5 /* IfBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC6085228DBC8200513DC5 /* IfBuilder.m */; };
 		92CC608F228ED03A00513DC5 /* IfText.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC608E228ED03A00513DC5 /* IfText.m */; };
 		92CC6092228ED12A00513DC5 /* ConditionText.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CC6091228ED12A00513DC5 /* ConditionText.m */; };
@@ -469,13 +469,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		92C6F058269CDB4A0009F322 /* Embed Frameworks */ = {
+		92C6F074269E1C280009F322 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				92C6F057269CDB4A0009F322 /* BoxContentSDK.framework in Embed Frameworks */,
+				92C6F073269E1C280009F322 /* BoxContentSDK.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -765,7 +765,6 @@
 		9247F20D181ADB4E00C96F94 /* BlurryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlurryView.h; sourceTree = "<group>"; };
 		9247F20E181ADB4E00C96F94 /* BlurryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlurryView.m; sourceTree = "<group>"; };
 		9248261C19CB40E300A0C1DD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		9249822522C2C57700C36CF3 /* BoxContentSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BoxContentSDK.framework; sourceTree = "<group>"; };
 		924A2EE724DB519A008FA3D2 /* EIDoubleArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EIDoubleArray.h; sourceTree = "<group>"; };
 		924A2EE824DB519A008FA3D2 /* EIDoubleArray.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EIDoubleArray.m; sourceTree = "<group>"; };
 		924A2EEF24DB51B2008FA3D2 /* EIIntArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EIIntArray.h; sourceTree = "<group>"; };
@@ -1007,6 +1006,7 @@
 		92C2BC681E8956380034F85B /* population_survey_icon_blue_6+.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "population_survey_icon_blue_6+.png"; sourceTree = "<group>"; };
 		92C2BC691E8956380034F85B /* population_survey_icon_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = population_survey_icon_blue.png; sourceTree = "<group>"; };
 		92C419D81921595000FA46EA /* DeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeleteButton.png; sourceTree = "<group>"; };
+		92C6F070269E1C240009F322 /* BoxContentSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = BoxContentSDK.xcframework; sourceTree = "<group>"; };
 		92CC6084228DBC8200513DC5 /* IfBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IfBuilder.h; sourceTree = "<group>"; };
 		92CC6085228DBC8200513DC5 /* IfBuilder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IfBuilder.m; sourceTree = "<group>"; };
 		92CC608D228ED03A00513DC5 /* IfText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IfText.h; sourceTree = "<group>"; };
@@ -1077,6 +1077,7 @@
 			files = (
 				C39E67AD1E03381A0002A4EF /* libPEGKitIOS.a in Frameworks */,
 				92A5D8D018CF91820048C160 /* Security.framework in Frameworks */,
+				92C6F072269E1C280009F322 /* BoxContentSDK.xcframework in Frameworks */,
 				9224991018C66FB500D8105E /* MessageUI.framework in Frameworks */,
 				927B555C18B65281000AB7B1 /* SystemConfiguration.framework in Frameworks */,
 				92D30F5B1899726100CEBCAE /* CoreLocation.framework in Frameworks */,
@@ -1084,7 +1085,6 @@
 				9252018017D0CC930071C754 /* QuartzCore.framework in Frameworks */,
 				9284E8ED17B94BDB00158139 /* libsqlite3.dylib in Frameworks */,
 				4AFD852A161F137B00FFBA65 /* UIKit.framework in Frameworks */,
-				92C6F056269CDB4A0009F322 /* BoxContentSDK.framework in Frameworks */,
 				4AFD852C161F137B00FFBA65 /* Foundation.framework in Frameworks */,
 				4AFD852E161F137B00FFBA65 /* CoreGraphics.framework in Frameworks */,
 			);
@@ -1174,7 +1174,7 @@
 		4AFD8528161F137B00FFBA65 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9249822522C2C57700C36CF3 /* BoxContentSDK.framework */,
+				92C6F070269E1C240009F322 /* BoxContentSDK.xcframework */,
 				92A5D8CF18CF91820048C160 /* Security.framework */,
 				92DE0E1E18CA4770000D388E /* libcorecrypto.dylib */,
 				92DE0E1C18CA46D3000D388E /* libcommonCrypto.dylib */,
@@ -2004,7 +2004,7 @@
 				4AFD8522161F137B00FFBA65 /* Frameworks */,
 				4AFD8523161F137B00FFBA65 /* Resources */,
 				9298FBBD22C5499E0063CA17 /* ShellScript */,
-				92C6F058269CDB4A0009F322 /* Embed Frameworks */,
+				92C6F074269E1C280009F322 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2634,7 +2634,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development: John Copeland (JZTF9F25RD)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: John Copeland (JZTF9F25RD)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = J8992FE8QS;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2647,7 +2647,10 @@
 				GCC_PREFIX_HEADER = "EpiInfo/EpiInfo-Prefix.pch";
 				INFOPLIST_FILE = "EpiInfo/EpiInfo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -2662,7 +2665,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_WORKSPACE = YES;
+				VALIDATE_WORKSPACE = NO;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2675,7 +2678,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Centers for Disease Control and Prevention (J8992FE8QS)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Centers for Disease Control and Prevention (J8992FE8QS)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = J8992FE8QS;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2688,7 +2691,10 @@
 				GCC_PREFIX_HEADER = "EpiInfo/EpiInfo-Prefix.pch";
 				INFOPLIST_FILE = "EpiInfo/EpiInfo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -2702,7 +2708,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "EpiInfo/EpiInfo-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_WORKSPACE = YES;
+				VALIDATE_WORKSPACE = NO;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
