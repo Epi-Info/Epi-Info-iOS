@@ -151,38 +151,6 @@
             endingLineNumber = "1530"
             landmarkName = "-pickerView:didSelectRow:inComponent:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "CAE2FC3B-CE51-49AD-B213-FCB319D1EC76 - 25d908102666112f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[LogisticView pickerView:didSelectRow:inComponent:]"
-                  moduleName = "EpiInfo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1530"
-                  endingLineNumber = "1530"
-                  offsetFromSymbolStart = "180">
-               </Location>
-               <Location
-                  uuid = "CAE2FC3B-CE51-49AD-B213-FCB319D1EC76 - 6cf9c86d527d8cf5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__52-[LogisticView pickerView:didSelectRow:inComponent:]_block_invoke"
-                  moduleName = "EpiInfo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1531"
-                  endingLineNumber = "1531"
-                  offsetFromSymbolStart = "60">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -199,38 +167,6 @@
             endingLineNumber = "1555"
             landmarkName = "-pickerView:didSelectRow:inComponent:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "BFBE3503-7E6D-48BC-BB6D-AF97B5299FF9 - 25d9081026661476"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[LogisticView pickerView:didSelectRow:inComponent:]"
-                  moduleName = "EpiInfo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1555"
-                  endingLineNumber = "1555"
-                  offsetFromSymbolStart = "424">
-               </Location>
-               <Location
-                  uuid = "BFBE3503-7E6D-48BC-BB6D-AF97B5299FF9 - 763e48b6548d7ff7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__52-[LogisticView pickerView:didSelectRow:inComponent:]_block_invoke_2"
-                  moduleName = "EpiInfo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1556"
-                  endingLineNumber = "1556"
-                  offsetFromSymbolStart = "60">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -247,38 +183,6 @@
             endingLineNumber = "1584"
             landmarkName = "-pickerView:didSelectRow:inComponent:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "007DA7F9-CDF0-4EA7-8703-2A0A6DC4B9ED - 25d9081026661835"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[LogisticView pickerView:didSelectRow:inComponent:]"
-                  moduleName = "EpiInfo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1584"
-                  endingLineNumber = "1584"
-                  offsetFromSymbolStart = "740">
-               </Location>
-               <Location
-                  uuid = "007DA7F9-CDF0-4EA7-8703-2A0A6DC4B9ED - 763e48b6548d73b3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__52-[LogisticView pickerView:didSelectRow:inComponent:]_block_invoke_3"
-                  moduleName = "EpiInfo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zfj4/CodePlex/EpiInfo/EpiInfo/LogisticView.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1585"
-                  endingLineNumber = "1585"
-                  offsetFromSymbolStart = "60">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
