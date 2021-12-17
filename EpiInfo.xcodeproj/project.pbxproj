@@ -2656,7 +2656,7 @@
 					"$(SRCROOT)",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				MARKETING_VERSION = 5.5.6;
+				MARKETING_VERSION = 5.5.7;
 				PRODUCT_BUNDLE_IDENTIFIER = gov.cdc.csels.EpiInfo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2700,7 +2700,7 @@
 					"$(SRCROOT)",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				MARKETING_VERSION = 5.5.6;
+				MARKETING_VERSION = 5.5.7;
 				PRODUCT_BUNDLE_IDENTIFIER = gov.cdc.csels.EpiInfo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
