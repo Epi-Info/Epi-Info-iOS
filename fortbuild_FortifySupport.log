@@ -1,0 +1,2559 @@
+[2021-11-04 16:20:03.789 INFO  ]
+loggerConfig:
+   level:TRACE
+   filename:fortbuild.log
+   appendLogFile:true
+   installLoggingPrintStreams:true
+
+   logger:com.fortify.logging.log4j2.LoggerFactory marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:20:04.018 INFO  ]
+message suppression file not found /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/suppressions.json
+   logger:com.fortify.messaging.MessageSuppressor marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:20:04.022 INFO  ]
+0 suppressions loaded
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:20:04.023 INFO  ]
+message level adjustment file not found: /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/levels.json
+   logger:com.fortify.logging.log4j2.LevelAdjuster marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:20:04.024 INFO  ]
+0 level adjustments loaded
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:20:04.059 DEBUG ]
+Using TypeScript frontend to process JavaScript when possible
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:20:04.072 DEBUG ]
+------------------------- Runtime Information -------------------------------
+SCA Runtime Properties
+WinForms.CollectionMutationMonitor.Label=WinFormsDataSource
+com.fortify.sca.AddImpliedMethods=true
+com.fortify.sca.AntCompilerClass=com.fortify.dev.ant.SCACompiler
+com.fortify.sca.BuildID=EpiInfo
+com.fortify.sca.BundleControlflowIssues=true
+com.fortify.sca.BytecodePreview=true
+com.fortify.sca.CollectPerformanceData=true
+com.fortify.sca.CustomRulesDir=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/customrules
+com.fortify.sca.DaemonCompilers=com.fortify.sca.util.compilers.GppCompiler,com.fortify.sca.util.compilers.GccCompiler,com.fortify.sca.util.compilers.AppleGppCompiler,com.fortify.sca.util.compilers.AppleGccCompiler,com.fortify.sca.util.compilers.MicrosoftCompiler,com.fortify.sca.util.compilers.MicrosoftLinker,com.fortify.sca.util.compilers.LdCompiler,com.fortify.sca.util.compilers.ArUtil,com.fortify.sca.util.compilers.SunCCompiler,com.fortify.sca.util.compilers.SunCppCompiler,com.fortify.sca.util.compilers.IntelCompiler,com.fortify.sca.util.compilers.ExternalCppAdapter,com.fortify.sca.util.compilers.ClangCompiler
+com.fortify.sca.DeadCodeFilter=true
+com.fortify.sca.DeadCodeIgnoreTrivialPredicates=true
+com.fortify.sca.Debug=
+com.fortify.sca.DefaultAnalyzers=semantic:dataflow:controlflow:nullptr:configuration:content:structural:buffer
+com.fortify.sca.DefaultFileTypes=java,rb,erb,jsp,jspx,jspf,tag,tagx,tld,sql,cfm,php,phtml,ctp,pks,pkh,pkb,xml,config,Config,settings,properties,dll,exe,winmd,cs,vb,asax,ascx,ashx,asmx,aspx,master,Master,xaml,baml,cshtml,vbhtml,inc,asp,vbscript,js,jsx,ini,bas,cls,vbs,frm,ctl,html,htm,xsd,wsdd,xmi,py,cfml,cfc,abap,xhtml,cpx,xcfg,jsff,as,mxml,cbl,cscfg,csdef,wadcfg,wadcfgx,appxmanifest,wsdl,plist,bsp,ABAP,BSP,swift,page,trigger,scala,ts,tsx,conf,json,yaml,yml,go,kt,kts
+com.fortify.sca.DefaultJarsDirs=default_jars
+com.fortify.sca.DefaultRulesDir=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/rules
+com.fortify.sca.DisableDeadCodeElimination=false
+com.fortify.sca.DisableFunctionPointers=false
+com.fortify.sca.DisableGlobals=false
+com.fortify.sca.DisableInferredConstants=false
+com.fortify.sca.EnableInterproceduralConstantResolution=true
+com.fortify.sca.EnableNestedWrappers=true
+com.fortify.sca.EnableStructuralMatchCache=true
+com.fortify.sca.EnableWrapperDetection=true
+com.fortify.sca.FVDLDisableDescriptions=false
+com.fortify.sca.FVDLDisableProgramData=false
+com.fortify.sca.FVDLDisableSnippets=false
+com.fortify.sca.FVDLStylesheet=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/resources/sca/fvdl2html.xsl
+com.fortify.sca.GoTranslator=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/private-bin/sca/golang
+com.fortify.sca.IndirectCallGraphBuilders=WinFormsAdHocFunctionBuilder,VirtualCGBuilder,J2EEIndirectCGBuilder,JNICGBuilder,StoredProcedureResolver,JavaWSCGBuilder,StrutsCGBuilder,DotNetWSCGBuilder,SqlServerSPResolver,ASPCGBuilder,ScriptedCGBuilder,NewJspCustomTagCGBuilder,DotNetCABCGBuilder,StateInjectionCGBuilder,SqlServerSPResolver2,PHPLambdaResolver,JavaWebCGBuilder
+com.fortify.sca.JavaSourcepathSearch=true
+com.fortify.sca.JdkVersion=1.8
+com.fortify.sca.LogFile=fortbuild.log
+com.fortify.sca.LowSeverityCutoff=1.0
+com.fortify.sca.MultithreadedAnalysis=true
+com.fortify.sca.NoNestedOutTagOutput=org.apache.taglibs.standard.tag.rt.core.RemoveTag,org.apache.taglibs.standard.tag.rt.core.SetTag
+com.fortify.sca.OldVbNetExcludeFileTypes=vb,asax,ascx,ashx,asmx,aspx,xaml,cshtml,vbhtml
+com.fortify.sca.Phase0HigherOrder.Languages=python,ruby,swift,javascript,typescript
+com.fortify.sca.Phase0HigherOrder.Level=1
+com.fortify.sca.PrintPerformanceDataAfterScan=false
+com.fortify.sca.ProjectRoot=/Users/zfj4/.fortify
+com.fortify.sca.RequireMapKeys=classrule
+com.fortify.sca.SolverTimeout=15
+com.fortify.sca.SqlLanguage=PLSQL
+com.fortify.sca.SuppressLowSeverity=true
+com.fortify.sca.ThreadCount.NameTableLoading=1
+com.fortify.sca.TypeInferenceFunctionTimeout=60
+com.fortify.sca.TypeInferenceLanguages=javascript,typescript,python,ruby
+com.fortify.sca.TypeInferencePhase0Timeout=300
+com.fortify.sca.UnicodeInputFile=true
+com.fortify.sca.UniversalBlacklist=.*yyparse.*
+com.fortify.sca.Verbose=
+com.fortify.sca.alias.mode.csharp=fs
+com.fortify.sca.alias.mode.javascript=fi
+com.fortify.sca.alias.mode.scala=fi
+com.fortify.sca.alias.mode.swift=fi
+com.fortify.sca.alias.mode.typescript=fi
+com.fortify.sca.alias.mode.vb=fs
+com.fortify.sca.analyzer.controlflow.EnableLivenessOptimization=false
+com.fortify.sca.analyzer.controlflow.EnableMachineFiltering=false
+com.fortify.sca.analyzer.controlflow.EnableRefRuleOptimization=false
+com.fortify.sca.analyzer.controlflow.EnableTimeOut=true
+com.fortify.sca.clang.AcceptedParams=-arcmt-migrate-report-output+1,-compatibility_version+1,-current_version+1,-cxx-isystem+1,-D+1,-dependency-dot+1,-dependency-file+1,-F+1,-filelist+1,-flts-model+1,-fmodule-implementation-of+1,-framework+1,-gmodules,-idirafter+1,-iframework+1,-imacros+1,-imultilib+1,-include+1,-include-pch+1,-install_name+1,-iprefix+1,-iquote+1,-isystem+1,-ivfsoverlay+1,-iwithprefix+1,-iwithprefixbefore+1,-iwithsysroot+1,-I+1,-MF+1,-MMD,-MQ+1,-MT+1,-mllvm+1,-o+1,--serialize-diagnostics+1,-U+1,-undefined+1,-working-directory+1,-X*+1,-x+1
+com.fortify.sca.clang.SuppressedParams=--analyze,-e+1,-fapplication-extension,-fembed-bitcode,-fembed-bitcode-marker,-index-store-path+1,-l*,-l+1,-L*,-L+1,-module-file-info+1,-mwatchos-version-min,--param+1,-w,-weak_framework+1,-Xanalyzer+1,-Xassembler+1,-Xlinker+1
+com.fortify.sca.compilers.ant=com.fortify.sca.util.compilers.AntAdapter
+com.fortify.sca.compilers.ar=com.fortify.sca.util.compilers.ArUtil
+com.fortify.sca.compilers.armcc=com.fortify.sca.util.compilers.ArmCcCompiler
+com.fortify.sca.compilers.armcpp=com.fortify.sca.util.compilers.ArmCppCompiler
+com.fortify.sca.compilers.c++=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.cc=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.clang=com.fortify.sca.util.compilers.ClangCompiler
+com.fortify.sca.compilers.clang++=com.fortify.sca.util.compilers.ClangCompiler
+com.fortify.sca.compilers.clearmake=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.fortify=com.fortify.sca.util.compilers.FortifyCompiler
+com.fortify.sca.compilers.g++=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++-*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++2*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++3*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++4*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.gcc=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc-*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc2*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc3*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc4*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gmake=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.gradle=com.fortify.sca.util.compilers.GradleAdapter
+com.fortify.sca.compilers.gradlew=com.fortify.sca.util.compilers.GradleAdapter
+com.fortify.sca.compilers.icc=com.fortify.sca.util.compilers.IntelCompiler
+com.fortify.sca.compilers.icpc=com.fortify.sca.util.compilers.IntelCompiler
+com.fortify.sca.compilers.jam=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.javac=com.fortify.sca.util.compilers.JavacCompiler
+com.fortify.sca.compilers.ld=com.fortify.sca.util.compilers.LdCompiler
+com.fortify.sca.compilers.make=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.mvn=com.fortify.sca.util.compilers.MavenAdapter
+com.fortify.sca.compilers.scalac=com.fortify.sca.util.compilers.ScalacCompiler
+com.fortify.sca.compilers.swift=com.fortify.sca.util.compilers.SwiftCompiler
+com.fortify.sca.compilers.swiftc=com.fortify.sca.util.compilers.SwiftCompiler
+com.fortify.sca.compilers.tcc=com.fortify.sca.util.compilers.ArmCcCompiler
+com.fortify.sca.compilers.tcpp=com.fortify.sca.util.compilers.ArmCppCompiler
+com.fortify.sca.compilers.touchless=com.fortify.sca.util.compilers.FortifyCompiler
+com.fortify.sca.compilers.xcodebuild=com.fortify.sca.util.compilers.XcodebuildScraper
+com.fortify.sca.cpfe.441.command=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/private-bin/sca/cpfe441.rfct
+com.fortify.sca.cpfe.command=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/private-bin/sca/cpfe48
+com.fortify.sca.cpfe.file.option=--gen_c_file_name
+com.fortify.sca.cpfe.options=--remove_unneeded_entities --suppress_vtbl -tused
+com.fortify.sca.fileextensions.ABAP=ABAP
+com.fortify.sca.fileextensions.BSP=ABAP
+com.fortify.sca.fileextensions.Config=XML
+com.fortify.sca.fileextensions.abap=ABAP
+com.fortify.sca.fileextensions.appxmanifest=XML
+com.fortify.sca.fileextensions.as=ACTIONSCRIPT
+com.fortify.sca.fileextensions.asp=ASP
+com.fortify.sca.fileextensions.bas=VB6
+com.fortify.sca.fileextensions.bsp=ABAP
+com.fortify.sca.fileextensions.cfc=CFML
+com.fortify.sca.fileextensions.cfm=CFML
+com.fortify.sca.fileextensions.cfml=CFML
+com.fortify.sca.fileextensions.cls=VB6
+com.fortify.sca.fileextensions.conf=HOCON
+com.fortify.sca.fileextensions.config=XML
+com.fortify.sca.fileextensions.cpx=XML
+com.fortify.sca.fileextensions.cscfg=XML
+com.fortify.sca.fileextensions.csdef=XML
+com.fortify.sca.fileextensions.ctl=VB6
+com.fortify.sca.fileextensions.ctp=PHP
+com.fortify.sca.fileextensions.erb=RUBY_ERB
+com.fortify.sca.fileextensions.faces=JSPX
+com.fortify.sca.fileextensions.frm=VB6
+com.fortify.sca.fileextensions.go=GO
+com.fortify.sca.fileextensions.htm=HTML
+com.fortify.sca.fileextensions.html=HTML
+com.fortify.sca.fileextensions.ini=JAVA_PROPERTIES
+com.fortify.sca.fileextensions.java=JAVA
+com.fortify.sca.fileextensions.js=TYPESCRIPT
+com.fortify.sca.fileextensions.jsff=JSPX
+com.fortify.sca.fileextensions.json=JSON
+com.fortify.sca.fileextensions.jsp=JSP
+com.fortify.sca.fileextensions.jspf=JSP
+com.fortify.sca.fileextensions.jspx=JSPX
+com.fortify.sca.fileextensions.jsx=TYPESCRIPT
+com.fortify.sca.fileextensions.kt=KOTLIN
+com.fortify.sca.fileextensions.kts=KOTLIN
+com.fortify.sca.fileextensions.mxml=MXML
+com.fortify.sca.fileextensions.page=VISUAL_FORCE
+com.fortify.sca.fileextensions.php=PHP
+com.fortify.sca.fileextensions.phtml=PHP
+com.fortify.sca.fileextensions.pkb=PLSQL
+com.fortify.sca.fileextensions.pkh=PLSQL
+com.fortify.sca.fileextensions.pks=PLSQL
+com.fortify.sca.fileextensions.plist=XML
+com.fortify.sca.fileextensions.properties=JAVA_PROPERTIES
+com.fortify.sca.fileextensions.py=PYTHON
+com.fortify.sca.fileextensions.rb=RUBY
+com.fortify.sca.fileextensions.scala=SCALA
+com.fortify.sca.fileextensions.settings=XML
+com.fortify.sca.fileextensions.sql=SQL
+com.fortify.sca.fileextensions.swift=SWIFT
+com.fortify.sca.fileextensions.tag=JSP
+com.fortify.sca.fileextensions.tagx=JSP
+com.fortify.sca.fileextensions.tld=TLD
+com.fortify.sca.fileextensions.trigger=APEX_TRIGGER
+com.fortify.sca.fileextensions.ts=TYPESCRIPT
+com.fortify.sca.fileextensions.tsx=TYPESCRIPT
+com.fortify.sca.fileextensions.vbs=VBSCRIPT
+com.fortify.sca.fileextensions.vbscript=VBSCRIPT
+com.fortify.sca.fileextensions.wadcfg=XML
+com.fortify.sca.fileextensions.wadcfgx=XML
+com.fortify.sca.fileextensions.wsdd=XML
+com.fortify.sca.fileextensions.wsdl=XML
+com.fortify.sca.fileextensions.xcfg=XML
+com.fortify.sca.fileextensions.xhtml=JSPX
+com.fortify.sca.fileextensions.xmi=XML
+com.fortify.sca.fileextensions.xml=XML
+com.fortify.sca.fileextensions.xsd=XML
+com.fortify.sca.fileextensions.yaml=YAML
+com.fortify.sca.fileextensions.yml=YAML
+com.fortify.sca.jsp.UseNativeParser=true
+com.fortify.sca.parser.python.ignore.module.1=test.badsyntax_future3
+com.fortify.sca.parser.python.ignore.module.2=test.badsyntax_future4
+com.fortify.sca.parser.python.ignore.module.3=test.badsyntax_future5
+com.fortify.sca.parser.python.ignore.module.4=test.badsyntax_future6
+com.fortify.sca.parser.python.ignore.module.5=test.badsyntax_future7
+com.fortify.sca.parser.python.ignore.module.6=test.badsyntax_future8
+com.fortify.sca.parser.python.ignore.module.7=test.badsyntax_future9
+com.fortify.sca.parser.python.ignore.module.8=test.badsyntax_nocaret
+com.fortify.sca.skip.libraries.AngularJS=angular.js,angular.min.js,angular-animate.js,angular-aria.js,angular_1_router.js,angular-cookies.js,angular-message-format.js,angular-messages.js,angular-mocks.js,angular-parse-ext.js,angular-resource.js,angular-route.js,angular-sanitize.js,angular-touch.js
+com.fortify.sca.skip.libraries.ES6=es6-shim.min.js,system-polyfills.js,shims_for_IE.js
+com.fortify.sca.skip.libraries.jQuery=jquery.js,jquery.min.js,jquery-migrate.js,jquery-migrate.min.js,jquery-ui.js,jquery-ui.min.js,jquery.mobile.js,jquery.mobile.min.js,jquery.color.js,jquery.color.min.js,jquery.color.svg-names.js,jquery.color.svg-names.min.js,jquery.color.plus-names.js,jquery.color.plus-names.min.js,jquery.tools.min.js
+com.fortify.sca.skip.libraries.javascript=bootstrap.js,bootstrap.min.js,typescript.js,typescriptServices.js
+com.fortify.sca.skip.libraries.typescript=typescript.d.ts,typescriptServices.d.ts
+com.fortify.sca.xcode.Overrides=GCC_PRECOMPILE_PREFIX_HEADER=NO,RUN_CLANG_STATIC_ANALYZER=NO
+
+Fortify Runtime Properties
+com.fortify.AuthenticationKey=/Users/zfj4/.fortify/config/tools
+com.fortify.Core=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core
+com.fortify.InstallationUserName=zfj4
+com.fortify.SCAExecutablePath=
+com.fortify.VS.RequireASPPrecompilation=true
+com.fortify.WorkingDirectory=/Users/zfj4/.fortify
+com.fortify.locale=en
+com.fortify.log.console=true
+com.fortify.search.defaultSyntaxVer=2
+max.file.path.length=255
+
+System Runtime Properties
+awt.toolkit=sun.lwawt.macosx.LWCToolkit
+com.fortify.InstallRoot=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0
+com.fortify.TotalPhysicalMemory=8589934592
+com.fortify.sca.AppendLogFile=true
+com.fortify.sca.JVMArgs=-XX:SoftRefLRUPolicyMSPerMB=3000 -Xmx6442450944 -Xss16M
+com.fortify.sca.LogFile=/Users/zfj4/CodePlex/EpiInfo/fortbuild
+com.fortify.sca.LogFileDir=/Users/zfj4/CodePlex/EpiInfo
+com.fortify.sca.LogFileExt=.log
+com.fortify.sca.LogFileName=fortbuild.log
+com.fortify.sca.LogFileNameNoExt=fortbuild
+com.fortify.sca.LogFilePath=/Users/zfj4/CodePlex/EpiInfo/fortbuild.log
+com.fortify.sca.LogLevel=TRACE
+com.fortify.sca.PID=11325
+com.fortify.sca.ProjectRoot=/Users/zfj4/.fortify
+com.fortify.sca.cpfe.options=--remove_unneeded_entities --suppress_vtbl -tused
+com.fortify.sca.env.exesearchpath=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/bin:/Library/TeX/texbin:/Users/zfj4/jupyter_utilities:/opt/anaconda3/bin:/opt/anaconda3/condabin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/zfj4/EpiInfo/Android/sdk:/Users/zfj4/EpiInfo/Android/sdk/tools:/Users/zfj4/EpiInfo/Android/sdk/platform-tools:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/zfj4/mongodb/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands
+file.encoding=UTF-8
+file.encoding.pkg=sun.io
+file.separator=/
+ftp.nonProxyHosts=local|*.local|169.254/16|*.169.254/16
+gopherProxySet=false
+http.nonProxyHosts=local|*.local|169.254/16|*.169.254/16
+java.awt.graphicsenv=sun.awt.CGraphicsEnvironment
+java.awt.headless=true
+java.awt.printerjob=sun.lwawt.macosx.CPrinterJob
+java.class.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/lib/exe/sca-exe.jar
+java.class.version=52.0
+java.endorsed.dirs=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/endorsed
+java.ext.dirs=/Users/zfj4/Library/Java/Extensions:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java
+java.home=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre
+java.io.tmpdir=/var/folders/v6/gg2ckpj95flfhrghq93gztwc0000gp/T/
+java.library.path=/Users/zfj4/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+java.runtime.name=OpenJDK Runtime Environment
+java.runtime.version=1.8.0_181-b02
+java.specification.name=Java Platform API Specification
+java.specification.vendor=Oracle Corporation
+java.specification.version=1.8
+java.vendor=Azul Systems, Inc.
+java.vendor.url=http://www.azulsystems.com/
+java.vendor.url.bug=http://www.azulsystems.com/support/
+java.version=1.8.0_181
+java.vm.info=mixed mode
+java.vm.name=OpenJDK 64-Bit Server VM
+java.vm.specification.name=Java Virtual Machine Specification
+java.vm.specification.vendor=Oracle Corporation
+java.vm.specification.version=1.8
+java.vm.vendor=Azul Systems, Inc.
+java.vm.version=25.181-b02
+line.separator=
+
+log4j.configurationFile=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/log4j2.xml
+log4j.isThreadContextMapInheritable=true
+os.arch=x86_64
+os.name=Mac OS X
+os.version=10.16
+path.separator=:
+socksNonProxyHosts=local|*.local|169.254/16|*.169.254/16
+stderr.isatty=true
+stdout.isatty=true
+sun.arch.data.model=64
+sun.boot.class.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/resources.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/rt.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/sunrsasign.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jsse.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jce.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/charsets.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jfr.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/classes
+sun.boot.library.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib
+sun.cpu.endian=little
+sun.cpu.isalist=
+sun.io.unicode.encoding=UnicodeBig
+sun.java.command=sourceanalyzer -Djava.awt.headless=true -XX:SoftRefLRUPolicyMSPerMB=3000 -Dcom.fortify.sca.env.exesearchpath=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/bin:/Library/TeX/texbin:/Users/zfj4/jupyter_utilities:/opt/anaconda3/bin:/opt/anaconda3/condabin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/zfj4/EpiInfo/Android/sdk:/Users/zfj4/EpiInfo/Android/sdk/tools:/Users/zfj4/EpiInfo/Android/sdk/platform-tools:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/zfj4/mongodb/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands -Dcom.fortify.sca.ProjectRoot=/Users/zfj4/.fortify -Dstdout.isatty=true -Dstderr.isatty=true -Dcom.fortify.sca.PID=11325 -Xmx6442450944 -Dcom.fortify.TotalPhysicalMemory=8589934592 -Xss16M -Dcom.fortify.sca.JVMArgs=-XX:SoftRefLRUPolicyMSPerMB=3000 -Xmx6442450944 -Xss16M -Djava.class.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/lib/exe/sca-exe.jar -b EpiInfo -verbose -debug -logfile fortbuild.log xcodebuild -project EpiInfo.xcodeproj -scheme EpiInfo -configuration Debug CODE_SIGN_IDENTITY= CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO clean
+sun.jnu.encoding=UTF-8
+sun.management.compiler=HotSpot 64-Bit Tiered Compilers
+sun.os.patch.level=unknown
+user.country=US
+user.dir=/Users/zfj4/CodePlex/EpiInfo
+user.home=/Users/zfj4
+user.language=en
+user.name=zfj4
+user.timezone=America/New_York
+
+VM Info
+OperatingSystemMXBean: Mac OS X
+  Arch: x86_64
+  AvailableProcessors: 4
+  CommittedVirtualMemorySize: 12669018112
+  FreePhysicalMemorySize: 27922432
+  FreeSwapSpaceSize: 1189085184
+  MaxFileDescriptorCount: 10240
+  OpenFileDescriptorCount: 119
+  ProcessCpuLoad: 0.0
+  ProcessCpuTime: 2803754000
+  SystemCpuLoad: 0.0
+  SystemLoadAverage: 2.0830078125
+  TotalPhysicalMemorySize: 8589934592
+  TotalSwapSpaceSize: 5368709120
+  Version: 10.16
+RuntimeMXBean: 11325@MacBook-Air-4.local
+  BootClassPath: /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/resources.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/rt.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/sunrsasign.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jsse.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jce.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/charsets.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jfr.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/classes
+  BootClassPathSupported: true
+  ClassPath: /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/lib/exe/sca-exe.jar
+  LibraryPath: /Users/zfj4/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+  ManagementSpecVersion: 1.2
+  SpecName: Java Virtual Machine Specification
+  SpecVendor: Oracle Corporation
+  SpecVersion: 1.8
+  StartTime: 1636057201715
+  Uptime: 2546
+  VmName: OpenJDK 64-Bit Server VM
+  VmVendor: Azul Systems, Inc.
+  VmVersion: 25.181-b02
+-----------------------------------------------------------------------------
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:20:04.083 DEBUG ]
+Compiler: xcodebuild
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:20:04.124 INFO  ]
+Fortify Static Code Analyzer 20.1.0.0158 (using JRE 1.8.0_181)
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=INFO_VERBOSE, stdout=true} NDC:[]
+[2021-11-04 16:20:04.128 INFO  ]
+Args:
+["-b", "EpiInfo", "-verbose", "-debug", "-logfile", "fortbuild.log", "xcodebuild", "-project", "EpiInfo.xcodeproj", "-scheme", "EpiInfo", "-configuration", "Debug", "CODE_SIGN_IDENTITY=", "CODE_SIGNING_ALLOWED=NO", "CODE_SIGNING_REQUIRED=NO", "clean"]
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_STATUS} NDC:[]
+[2021-11-04 16:20:04.128 INFO  ]
+VM Args:
+"-XX:SoftRefLRUPolicyMSPerMB=3000 -Xmx6442450944 -Xss16M"
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_STATUS} NDC:[]
+[2021-11-04 16:20:04.233 DEBUG ]
+Enabling code generation: Data binding
+   logger:com.fortify.sca.cmd.SCAConfiguration marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:20:04.236 DEBUG ]
+Enabling code generation: Event loops
+   logger:com.fortify.sca.cmd.SCAConfiguration marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:20:04.238 DEBUG ]
+Enabling change notification transformer.
+   logger:com.fortify.sca.cmd.SCAConfiguration marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:20:04.411 TRACE ]
+Resource /deserializableClasses.whitelist not found, no additional class names will be loaded
+   logger:com.fortify.messaging.MessageManager marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_VERBOSE, step=INIT} NDC:[]
+[2021-11-04 16:20:04.413 DEBUG ]
+Running xcodebuild command: [xcodebuild, GCC_PRECOMPILE_PREFIX_HEADER=NO, RUN_CLANG_STATIC_ANALYZER=NO, -project, EpiInfo.xcodeproj, -scheme, EpiInfo, -configuration, Debug, CODE_SIGN_IDENTITY=, CODE_SIGNING_ALLOWED=NO, CODE_SIGNING_REQUIRED=NO, clean, SWIFT_COMPILATION_MODE=incremental]
+   logger:com.fortify.sca.util.compilers.XcodebuildScraper marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG, step=INIT} NDC:[]
+[2021-11-04 16:20:11.634 INFO  ]
+Front End complete
+   logger:com.fortify.sca.frontend.FrontEndSession marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_STATUS, step=INIT} NDC:[]
+[2021-11-04 16:20:11.651 DEBUG ]
+Nothing to store.
+   logger:com.fortify.sca.metadata.BuildSession marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG, step=INIT} NDC:[]
+[2021-11-04 16:20:11.652 INFO  ]
+message id statistics:
+   id:        -1 total:        18 totalSuppressedCount:         0 scope:[]
+
+   logger:com.fortify.messaging.MessageSuppressor marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE, step=INIT} NDC:[]
+[2021-11-04 16:20:11.652 INFO  ]
+logger:null  count:19
+   level:TRACE count:1
+   level:INFO count:10
+   level:DEBUG count:8
+logger:com.fortify.messaging.MessageSuppressor  count:2
+   level:INFO count:2
+logger:com.fortify.logging.log4j2.LevelAdjuster  count:1
+   level:INFO count:1
+logger:com.fortify.sca.metadata.BuildSession  count:1
+   level:DEBUG count:1
+logger:com.fortify.sca.util.compilers.XcodebuildScraper  count:1
+   level:DEBUG count:1
+logger:com.fortify.sca.cmd.CommandLine  count:5
+   level:INFO count:2
+   level:DEBUG count:3
+logger:com.fortify.logging.log4j2.LoggerFactory  count:1
+   level:INFO count:1
+logger:com.fortify.messaging.MessageManager  count:1
+   level:TRACE count:1
+logger:com.fortify.sca.Main  count:3
+   level:INFO count:3
+logger:com.fortify.sca.cmd.SCAConfiguration  count:3
+   level:DEBUG count:3
+logger:com.fortify.sca.frontend.FrontEndSession  count:1
+   level:INFO count:1
+
+   logger:com.fortify.logging.LoggerStats marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE, step=INIT} NDC:[]
+[2021-11-04 16:20:18.348 INFO  ]
+loggerConfig:
+   level:TRACE
+   filename:fortbuild.log
+   appendLogFile:true
+   installLoggingPrintStreams:true
+
+   logger:com.fortify.logging.log4j2.LoggerFactory marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:20:18.461 INFO  ]
+message suppression file not found /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/suppressions.json
+   logger:com.fortify.messaging.MessageSuppressor marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:20:18.465 INFO  ]
+0 suppressions loaded
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:20:18.465 INFO  ]
+message level adjustment file not found: /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/levels.json
+   logger:com.fortify.logging.log4j2.LevelAdjuster marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:20:18.466 INFO  ]
+0 level adjustments loaded
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:20:18.485 DEBUG ]
+Using TypeScript frontend to process JavaScript when possible
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:20:18.496 DEBUG ]
+------------------------- Runtime Information -------------------------------
+SCA Runtime Properties
+WinForms.CollectionMutationMonitor.Label=WinFormsDataSource
+com.fortify.sca.AddImpliedMethods=true
+com.fortify.sca.AntCompilerClass=com.fortify.dev.ant.SCACompiler
+com.fortify.sca.BuildID=EpiInfo
+com.fortify.sca.BundleControlflowIssues=true
+com.fortify.sca.BytecodePreview=true
+com.fortify.sca.CollectPerformanceData=true
+com.fortify.sca.CustomRulesDir=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/customrules
+com.fortify.sca.DaemonCompilers=com.fortify.sca.util.compilers.GppCompiler,com.fortify.sca.util.compilers.GccCompiler,com.fortify.sca.util.compilers.AppleGppCompiler,com.fortify.sca.util.compilers.AppleGccCompiler,com.fortify.sca.util.compilers.MicrosoftCompiler,com.fortify.sca.util.compilers.MicrosoftLinker,com.fortify.sca.util.compilers.LdCompiler,com.fortify.sca.util.compilers.ArUtil,com.fortify.sca.util.compilers.SunCCompiler,com.fortify.sca.util.compilers.SunCppCompiler,com.fortify.sca.util.compilers.IntelCompiler,com.fortify.sca.util.compilers.ExternalCppAdapter,com.fortify.sca.util.compilers.ClangCompiler
+com.fortify.sca.DeadCodeFilter=true
+com.fortify.sca.DeadCodeIgnoreTrivialPredicates=true
+com.fortify.sca.Debug=
+com.fortify.sca.DefaultAnalyzers=semantic:dataflow:controlflow:nullptr:configuration:content:structural:buffer
+com.fortify.sca.DefaultFileTypes=java,rb,erb,jsp,jspx,jspf,tag,tagx,tld,sql,cfm,php,phtml,ctp,pks,pkh,pkb,xml,config,Config,settings,properties,dll,exe,winmd,cs,vb,asax,ascx,ashx,asmx,aspx,master,Master,xaml,baml,cshtml,vbhtml,inc,asp,vbscript,js,jsx,ini,bas,cls,vbs,frm,ctl,html,htm,xsd,wsdd,xmi,py,cfml,cfc,abap,xhtml,cpx,xcfg,jsff,as,mxml,cbl,cscfg,csdef,wadcfg,wadcfgx,appxmanifest,wsdl,plist,bsp,ABAP,BSP,swift,page,trigger,scala,ts,tsx,conf,json,yaml,yml,go,kt,kts
+com.fortify.sca.DefaultJarsDirs=default_jars
+com.fortify.sca.DefaultRulesDir=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/rules
+com.fortify.sca.DisableDeadCodeElimination=false
+com.fortify.sca.DisableFunctionPointers=false
+com.fortify.sca.DisableGlobals=false
+com.fortify.sca.DisableInferredConstants=false
+com.fortify.sca.EnableInterproceduralConstantResolution=true
+com.fortify.sca.EnableNestedWrappers=true
+com.fortify.sca.EnableStructuralMatchCache=true
+com.fortify.sca.EnableWrapperDetection=true
+com.fortify.sca.FVDLDisableDescriptions=false
+com.fortify.sca.FVDLDisableProgramData=false
+com.fortify.sca.FVDLDisableSnippets=false
+com.fortify.sca.FVDLStylesheet=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/resources/sca/fvdl2html.xsl
+com.fortify.sca.GoTranslator=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/private-bin/sca/golang
+com.fortify.sca.IndirectCallGraphBuilders=WinFormsAdHocFunctionBuilder,VirtualCGBuilder,J2EEIndirectCGBuilder,JNICGBuilder,StoredProcedureResolver,JavaWSCGBuilder,StrutsCGBuilder,DotNetWSCGBuilder,SqlServerSPResolver,ASPCGBuilder,ScriptedCGBuilder,NewJspCustomTagCGBuilder,DotNetCABCGBuilder,StateInjectionCGBuilder,SqlServerSPResolver2,PHPLambdaResolver,JavaWebCGBuilder
+com.fortify.sca.JavaSourcepathSearch=true
+com.fortify.sca.JdkVersion=1.8
+com.fortify.sca.LogFile=fortbuild.log
+com.fortify.sca.LowSeverityCutoff=1.0
+com.fortify.sca.MultithreadedAnalysis=true
+com.fortify.sca.NoNestedOutTagOutput=org.apache.taglibs.standard.tag.rt.core.RemoveTag,org.apache.taglibs.standard.tag.rt.core.SetTag
+com.fortify.sca.OldVbNetExcludeFileTypes=vb,asax,ascx,ashx,asmx,aspx,xaml,cshtml,vbhtml
+com.fortify.sca.Phase0HigherOrder.Languages=python,ruby,swift,javascript,typescript
+com.fortify.sca.Phase0HigherOrder.Level=1
+com.fortify.sca.PrintPerformanceDataAfterScan=false
+com.fortify.sca.ProjectRoot=/Users/zfj4/.fortify
+com.fortify.sca.RequireMapKeys=classrule
+com.fortify.sca.SolverTimeout=15
+com.fortify.sca.SqlLanguage=PLSQL
+com.fortify.sca.SuppressLowSeverity=true
+com.fortify.sca.ThreadCount.NameTableLoading=1
+com.fortify.sca.TypeInferenceFunctionTimeout=60
+com.fortify.sca.TypeInferenceLanguages=javascript,typescript,python,ruby
+com.fortify.sca.TypeInferencePhase0Timeout=300
+com.fortify.sca.UnicodeInputFile=true
+com.fortify.sca.UniversalBlacklist=.*yyparse.*
+com.fortify.sca.Verbose=
+com.fortify.sca.alias.mode.csharp=fs
+com.fortify.sca.alias.mode.javascript=fi
+com.fortify.sca.alias.mode.scala=fi
+com.fortify.sca.alias.mode.swift=fi
+com.fortify.sca.alias.mode.typescript=fi
+com.fortify.sca.alias.mode.vb=fs
+com.fortify.sca.analyzer.controlflow.EnableLivenessOptimization=false
+com.fortify.sca.analyzer.controlflow.EnableMachineFiltering=false
+com.fortify.sca.analyzer.controlflow.EnableRefRuleOptimization=false
+com.fortify.sca.analyzer.controlflow.EnableTimeOut=true
+com.fortify.sca.clang.AcceptedParams=-arcmt-migrate-report-output+1,-compatibility_version+1,-current_version+1,-cxx-isystem+1,-D+1,-dependency-dot+1,-dependency-file+1,-F+1,-filelist+1,-flts-model+1,-fmodule-implementation-of+1,-framework+1,-gmodules,-idirafter+1,-iframework+1,-imacros+1,-imultilib+1,-include+1,-include-pch+1,-install_name+1,-iprefix+1,-iquote+1,-isystem+1,-ivfsoverlay+1,-iwithprefix+1,-iwithprefixbefore+1,-iwithsysroot+1,-I+1,-MF+1,-MMD,-MQ+1,-MT+1,-mllvm+1,-o+1,--serialize-diagnostics+1,-U+1,-undefined+1,-working-directory+1,-X*+1,-x+1
+com.fortify.sca.clang.SuppressedParams=--analyze,-e+1,-fapplication-extension,-fembed-bitcode,-fembed-bitcode-marker,-index-store-path+1,-l*,-l+1,-L*,-L+1,-module-file-info+1,-mwatchos-version-min,--param+1,-w,-weak_framework+1,-Xanalyzer+1,-Xassembler+1,-Xlinker+1
+com.fortify.sca.compilers.ant=com.fortify.sca.util.compilers.AntAdapter
+com.fortify.sca.compilers.ar=com.fortify.sca.util.compilers.ArUtil
+com.fortify.sca.compilers.armcc=com.fortify.sca.util.compilers.ArmCcCompiler
+com.fortify.sca.compilers.armcpp=com.fortify.sca.util.compilers.ArmCppCompiler
+com.fortify.sca.compilers.c++=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.cc=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.clang=com.fortify.sca.util.compilers.ClangCompiler
+com.fortify.sca.compilers.clang++=com.fortify.sca.util.compilers.ClangCompiler
+com.fortify.sca.compilers.clearmake=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.fortify=com.fortify.sca.util.compilers.FortifyCompiler
+com.fortify.sca.compilers.g++=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++-*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++2*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++3*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++4*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.gcc=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc-*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc2*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc3*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc4*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gmake=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.gradle=com.fortify.sca.util.compilers.GradleAdapter
+com.fortify.sca.compilers.gradlew=com.fortify.sca.util.compilers.GradleAdapter
+com.fortify.sca.compilers.icc=com.fortify.sca.util.compilers.IntelCompiler
+com.fortify.sca.compilers.icpc=com.fortify.sca.util.compilers.IntelCompiler
+com.fortify.sca.compilers.jam=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.javac=com.fortify.sca.util.compilers.JavacCompiler
+com.fortify.sca.compilers.ld=com.fortify.sca.util.compilers.LdCompiler
+com.fortify.sca.compilers.make=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.mvn=com.fortify.sca.util.compilers.MavenAdapter
+com.fortify.sca.compilers.scalac=com.fortify.sca.util.compilers.ScalacCompiler
+com.fortify.sca.compilers.swift=com.fortify.sca.util.compilers.SwiftCompiler
+com.fortify.sca.compilers.swiftc=com.fortify.sca.util.compilers.SwiftCompiler
+com.fortify.sca.compilers.tcc=com.fortify.sca.util.compilers.ArmCcCompiler
+com.fortify.sca.compilers.tcpp=com.fortify.sca.util.compilers.ArmCppCompiler
+com.fortify.sca.compilers.touchless=com.fortify.sca.util.compilers.FortifyCompiler
+com.fortify.sca.compilers.xcodebuild=com.fortify.sca.util.compilers.XcodebuildScraper
+com.fortify.sca.cpfe.441.command=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/private-bin/sca/cpfe441.rfct
+com.fortify.sca.cpfe.command=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/private-bin/sca/cpfe48
+com.fortify.sca.cpfe.file.option=--gen_c_file_name
+com.fortify.sca.cpfe.options=--remove_unneeded_entities --suppress_vtbl -tused
+com.fortify.sca.fileextensions.ABAP=ABAP
+com.fortify.sca.fileextensions.BSP=ABAP
+com.fortify.sca.fileextensions.Config=XML
+com.fortify.sca.fileextensions.abap=ABAP
+com.fortify.sca.fileextensions.appxmanifest=XML
+com.fortify.sca.fileextensions.as=ACTIONSCRIPT
+com.fortify.sca.fileextensions.asp=ASP
+com.fortify.sca.fileextensions.bas=VB6
+com.fortify.sca.fileextensions.bsp=ABAP
+com.fortify.sca.fileextensions.cfc=CFML
+com.fortify.sca.fileextensions.cfm=CFML
+com.fortify.sca.fileextensions.cfml=CFML
+com.fortify.sca.fileextensions.cls=VB6
+com.fortify.sca.fileextensions.conf=HOCON
+com.fortify.sca.fileextensions.config=XML
+com.fortify.sca.fileextensions.cpx=XML
+com.fortify.sca.fileextensions.cscfg=XML
+com.fortify.sca.fileextensions.csdef=XML
+com.fortify.sca.fileextensions.ctl=VB6
+com.fortify.sca.fileextensions.ctp=PHP
+com.fortify.sca.fileextensions.erb=RUBY_ERB
+com.fortify.sca.fileextensions.faces=JSPX
+com.fortify.sca.fileextensions.frm=VB6
+com.fortify.sca.fileextensions.go=GO
+com.fortify.sca.fileextensions.htm=HTML
+com.fortify.sca.fileextensions.html=HTML
+com.fortify.sca.fileextensions.ini=JAVA_PROPERTIES
+com.fortify.sca.fileextensions.java=JAVA
+com.fortify.sca.fileextensions.js=TYPESCRIPT
+com.fortify.sca.fileextensions.jsff=JSPX
+com.fortify.sca.fileextensions.json=JSON
+com.fortify.sca.fileextensions.jsp=JSP
+com.fortify.sca.fileextensions.jspf=JSP
+com.fortify.sca.fileextensions.jspx=JSPX
+com.fortify.sca.fileextensions.jsx=TYPESCRIPT
+com.fortify.sca.fileextensions.kt=KOTLIN
+com.fortify.sca.fileextensions.kts=KOTLIN
+com.fortify.sca.fileextensions.mxml=MXML
+com.fortify.sca.fileextensions.page=VISUAL_FORCE
+com.fortify.sca.fileextensions.php=PHP
+com.fortify.sca.fileextensions.phtml=PHP
+com.fortify.sca.fileextensions.pkb=PLSQL
+com.fortify.sca.fileextensions.pkh=PLSQL
+com.fortify.sca.fileextensions.pks=PLSQL
+com.fortify.sca.fileextensions.plist=XML
+com.fortify.sca.fileextensions.properties=JAVA_PROPERTIES
+com.fortify.sca.fileextensions.py=PYTHON
+com.fortify.sca.fileextensions.rb=RUBY
+com.fortify.sca.fileextensions.scala=SCALA
+com.fortify.sca.fileextensions.settings=XML
+com.fortify.sca.fileextensions.sql=SQL
+com.fortify.sca.fileextensions.swift=SWIFT
+com.fortify.sca.fileextensions.tag=JSP
+com.fortify.sca.fileextensions.tagx=JSP
+com.fortify.sca.fileextensions.tld=TLD
+com.fortify.sca.fileextensions.trigger=APEX_TRIGGER
+com.fortify.sca.fileextensions.ts=TYPESCRIPT
+com.fortify.sca.fileextensions.tsx=TYPESCRIPT
+com.fortify.sca.fileextensions.vbs=VBSCRIPT
+com.fortify.sca.fileextensions.vbscript=VBSCRIPT
+com.fortify.sca.fileextensions.wadcfg=XML
+com.fortify.sca.fileextensions.wadcfgx=XML
+com.fortify.sca.fileextensions.wsdd=XML
+com.fortify.sca.fileextensions.wsdl=XML
+com.fortify.sca.fileextensions.xcfg=XML
+com.fortify.sca.fileextensions.xhtml=JSPX
+com.fortify.sca.fileextensions.xmi=XML
+com.fortify.sca.fileextensions.xml=XML
+com.fortify.sca.fileextensions.xsd=XML
+com.fortify.sca.fileextensions.yaml=YAML
+com.fortify.sca.fileextensions.yml=YAML
+com.fortify.sca.jsp.UseNativeParser=true
+com.fortify.sca.parser.python.ignore.module.1=test.badsyntax_future3
+com.fortify.sca.parser.python.ignore.module.2=test.badsyntax_future4
+com.fortify.sca.parser.python.ignore.module.3=test.badsyntax_future5
+com.fortify.sca.parser.python.ignore.module.4=test.badsyntax_future6
+com.fortify.sca.parser.python.ignore.module.5=test.badsyntax_future7
+com.fortify.sca.parser.python.ignore.module.6=test.badsyntax_future8
+com.fortify.sca.parser.python.ignore.module.7=test.badsyntax_future9
+com.fortify.sca.parser.python.ignore.module.8=test.badsyntax_nocaret
+com.fortify.sca.skip.libraries.AngularJS=angular.js,angular.min.js,angular-animate.js,angular-aria.js,angular_1_router.js,angular-cookies.js,angular-message-format.js,angular-messages.js,angular-mocks.js,angular-parse-ext.js,angular-resource.js,angular-route.js,angular-sanitize.js,angular-touch.js
+com.fortify.sca.skip.libraries.ES6=es6-shim.min.js,system-polyfills.js,shims_for_IE.js
+com.fortify.sca.skip.libraries.jQuery=jquery.js,jquery.min.js,jquery-migrate.js,jquery-migrate.min.js,jquery-ui.js,jquery-ui.min.js,jquery.mobile.js,jquery.mobile.min.js,jquery.color.js,jquery.color.min.js,jquery.color.svg-names.js,jquery.color.svg-names.min.js,jquery.color.plus-names.js,jquery.color.plus-names.min.js,jquery.tools.min.js
+com.fortify.sca.skip.libraries.javascript=bootstrap.js,bootstrap.min.js,typescript.js,typescriptServices.js
+com.fortify.sca.skip.libraries.typescript=typescript.d.ts,typescriptServices.d.ts
+com.fortify.sca.xcode.Overrides=GCC_PRECOMPILE_PREFIX_HEADER=NO,RUN_CLANG_STATIC_ANALYZER=NO
+
+Fortify Runtime Properties
+com.fortify.AuthenticationKey=/Users/zfj4/.fortify/config/tools
+com.fortify.Core=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core
+com.fortify.InstallationUserName=zfj4
+com.fortify.SCAExecutablePath=
+com.fortify.VS.RequireASPPrecompilation=true
+com.fortify.WorkingDirectory=/Users/zfj4/.fortify
+com.fortify.locale=en
+com.fortify.log.console=true
+com.fortify.search.defaultSyntaxVer=2
+max.file.path.length=255
+
+System Runtime Properties
+awt.toolkit=sun.lwawt.macosx.LWCToolkit
+com.fortify.InstallRoot=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0
+com.fortify.TotalPhysicalMemory=8589934592
+com.fortify.sca.AppendLogFile=true
+com.fortify.sca.JVMArgs=-XX:SoftRefLRUPolicyMSPerMB=3000 -Xmx6442450944 -Xss16M
+com.fortify.sca.LogFile=/Users/zfj4/CodePlex/EpiInfo/fortbuild
+com.fortify.sca.LogFileDir=/Users/zfj4/CodePlex/EpiInfo
+com.fortify.sca.LogFileExt=.log
+com.fortify.sca.LogFileName=fortbuild.log
+com.fortify.sca.LogFileNameNoExt=fortbuild
+com.fortify.sca.LogFilePath=/Users/zfj4/CodePlex/EpiInfo/fortbuild.log
+com.fortify.sca.LogLevel=TRACE
+com.fortify.sca.PID=11337
+com.fortify.sca.ProjectRoot=/Users/zfj4/.fortify
+com.fortify.sca.cpfe.options=--remove_unneeded_entities --suppress_vtbl -tused
+com.fortify.sca.env.exesearchpath=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/bin:/Library/TeX/texbin:/Users/zfj4/jupyter_utilities:/opt/anaconda3/bin:/opt/anaconda3/condabin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/zfj4/EpiInfo/Android/sdk:/Users/zfj4/EpiInfo/Android/sdk/tools:/Users/zfj4/EpiInfo/Android/sdk/platform-tools:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/zfj4/mongodb/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands
+file.encoding=UTF-8
+file.encoding.pkg=sun.io
+file.separator=/
+ftp.nonProxyHosts=local|*.local|169.254/16|*.169.254/16
+gopherProxySet=false
+http.nonProxyHosts=local|*.local|169.254/16|*.169.254/16
+java.awt.graphicsenv=sun.awt.CGraphicsEnvironment
+java.awt.headless=true
+java.awt.printerjob=sun.lwawt.macosx.CPrinterJob
+java.class.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/lib/exe/sca-exe.jar
+java.class.version=52.0
+java.endorsed.dirs=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/endorsed
+java.ext.dirs=/Users/zfj4/Library/Java/Extensions:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java
+java.home=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre
+java.io.tmpdir=/var/folders/v6/gg2ckpj95flfhrghq93gztwc0000gp/T/
+java.library.path=/Users/zfj4/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+java.runtime.name=OpenJDK Runtime Environment
+java.runtime.version=1.8.0_181-b02
+java.specification.name=Java Platform API Specification
+java.specification.vendor=Oracle Corporation
+java.specification.version=1.8
+java.vendor=Azul Systems, Inc.
+java.vendor.url=http://www.azulsystems.com/
+java.vendor.url.bug=http://www.azulsystems.com/support/
+java.version=1.8.0_181
+java.vm.info=mixed mode
+java.vm.name=OpenJDK 64-Bit Server VM
+java.vm.specification.name=Java Virtual Machine Specification
+java.vm.specification.vendor=Oracle Corporation
+java.vm.specification.version=1.8
+java.vm.vendor=Azul Systems, Inc.
+java.vm.version=25.181-b02
+line.separator=
+
+log4j.configurationFile=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/log4j2.xml
+log4j.isThreadContextMapInheritable=true
+os.arch=x86_64
+os.name=Mac OS X
+os.version=10.16
+path.separator=:
+socksNonProxyHosts=local|*.local|169.254/16|*.169.254/16
+stderr.isatty=true
+stdout.isatty=true
+sun.arch.data.model=64
+sun.boot.class.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/resources.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/rt.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/sunrsasign.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jsse.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jce.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/charsets.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jfr.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/classes
+sun.boot.library.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib
+sun.cpu.endian=little
+sun.cpu.isalist=
+sun.io.unicode.encoding=UnicodeBig
+sun.java.command=sourceanalyzer -Djava.awt.headless=true -XX:SoftRefLRUPolicyMSPerMB=3000 -Dcom.fortify.sca.env.exesearchpath=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/bin:/Library/TeX/texbin:/Users/zfj4/jupyter_utilities:/opt/anaconda3/bin:/opt/anaconda3/condabin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/zfj4/EpiInfo/Android/sdk:/Users/zfj4/EpiInfo/Android/sdk/tools:/Users/zfj4/EpiInfo/Android/sdk/platform-tools:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/zfj4/mongodb/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands -Dcom.fortify.sca.ProjectRoot=/Users/zfj4/.fortify -Dstdout.isatty=true -Dstderr.isatty=true -Dcom.fortify.sca.PID=11337 -Xmx6442450944 -Dcom.fortify.TotalPhysicalMemory=8589934592 -Xss16M -Dcom.fortify.sca.JVMArgs=-XX:SoftRefLRUPolicyMSPerMB=3000 -Xmx6442450944 -Xss16M -Djava.class.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/lib/exe/sca-exe.jar -b EpiInfo -verbose -debug -logfile fortbuild.log xcodebuild -project EpiInfo.xcodeproj -scheme EpiInfo -configuration Debug CODE_SIGN_IDENTITY= CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO
+sun.jnu.encoding=UTF-8
+sun.management.compiler=HotSpot 64-Bit Tiered Compilers
+sun.os.patch.level=unknown
+user.country=US
+user.dir=/Users/zfj4/CodePlex/EpiInfo
+user.home=/Users/zfj4
+user.language=en
+user.name=zfj4
+user.timezone=America/New_York
+
+VM Info
+OperatingSystemMXBean: Mac OS X
+  Arch: x86_64
+  AvailableProcessors: 4
+  CommittedVirtualMemorySize: 12668358656
+  FreePhysicalMemorySize: 262733824
+  FreeSwapSpaceSize: 1189085184
+  MaxFileDescriptorCount: 10240
+  OpenFileDescriptorCount: 119
+  ProcessCpuLoad: 0.0
+  ProcessCpuTime: 2418073000
+  SystemCpuLoad: 0.0
+  SystemLoadAverage: 2.3291015625
+  TotalPhysicalMemorySize: 8589934592
+  TotalSwapSpaceSize: 5368709120
+  Version: 10.16
+RuntimeMXBean: 11337@MacBook-Air-4.local
+  BootClassPath: /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/resources.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/rt.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/sunrsasign.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jsse.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jce.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/charsets.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jfr.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/classes
+  BootClassPathSupported: true
+  ClassPath: /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/lib/exe/sca-exe.jar
+  LibraryPath: /Users/zfj4/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+  ManagementSpecVersion: 1.2
+  SpecName: Java Virtual Machine Specification
+  SpecVendor: Oracle Corporation
+  SpecVersion: 1.8
+  StartTime: 1636057217135
+  Uptime: 1414
+  VmName: OpenJDK 64-Bit Server VM
+  VmVendor: Azul Systems, Inc.
+  VmVersion: 25.181-b02
+-----------------------------------------------------------------------------
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:20:18.502 DEBUG ]
+Compiler: xcodebuild
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:20:18.529 INFO  ]
+Fortify Static Code Analyzer 20.1.0.0158 (using JRE 1.8.0_181)
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=INFO_VERBOSE, stdout=true} NDC:[]
+[2021-11-04 16:20:18.531 INFO  ]
+Args:
+["-b", "EpiInfo", "-verbose", "-debug", "-logfile", "fortbuild.log", "xcodebuild", "-project", "EpiInfo.xcodeproj", "-scheme", "EpiInfo", "-configuration", "Debug", "CODE_SIGN_IDENTITY=", "CODE_SIGNING_ALLOWED=NO", "CODE_SIGNING_REQUIRED=NO"]
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_STATUS} NDC:[]
+[2021-11-04 16:20:18.531 INFO  ]
+VM Args:
+"-XX:SoftRefLRUPolicyMSPerMB=3000 -Xmx6442450944 -Xss16M"
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_STATUS} NDC:[]
+[2021-11-04 16:20:18.594 DEBUG ]
+Enabling code generation: Data binding
+   logger:com.fortify.sca.cmd.SCAConfiguration marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:20:18.595 DEBUG ]
+Enabling code generation: Event loops
+   logger:com.fortify.sca.cmd.SCAConfiguration marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:20:18.597 DEBUG ]
+Enabling change notification transformer.
+   logger:com.fortify.sca.cmd.SCAConfiguration marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:20:18.697 TRACE ]
+Resource /deserializableClasses.whitelist not found, no additional class names will be loaded
+   logger:com.fortify.messaging.MessageManager marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_VERBOSE, step=INIT} NDC:[]
+[2021-11-04 16:20:18.699 DEBUG ]
+Running xcodebuild command: [xcodebuild, GCC_PRECOMPILE_PREFIX_HEADER=NO, RUN_CLANG_STATIC_ANALYZER=NO, -project, EpiInfo.xcodeproj, -scheme, EpiInfo, -configuration, Debug, CODE_SIGN_IDENTITY=, CODE_SIGNING_ALLOWED=NO, CODE_SIGNING_REQUIRED=NO, SWIFT_COMPILATION_MODE=incremental]
+   logger:com.fortify.sca.util.compilers.XcodebuildScraper marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG, step=INIT} NDC:[]
+[2021-11-04 16:22:20.908 WARN  ]
+java.lang.NullPointerException
+java.lang.NullPointerException
+	at com.fortify.sca.util.compilers.XcodebuildScraper.addSwiftJob(XcodebuildScraper.java:399)
+	at com.fortify.sca.util.compilers.XcodebuildScraper.initialize(XcodebuildScraper.java:234)
+	at com.fortify.sca.frontend.FrontEndSession.runFrontEnd(FrontEndSession.java:95)
+	at com.fortify.sca.Main$Sourceanalyzer.run(Main.java:533)
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, prefix=, severity=INTERNAL_WARNING, stderr=true, step=INIT} NDC:[]
+[2021-11-04 16:22:20.917 INFO  ]
+message id statistics:
+   id:        -1 total:        17 totalSuppressedCount:         0 scope:[]
+
+   logger:com.fortify.messaging.MessageSuppressor marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE, step=INIT} NDC:[]
+[2021-11-04 16:22:20.917 INFO  ]
+logger:null  count:18
+   level:TRACE count:1
+   level:INFO count:9
+   level:DEBUG count:7
+   level:WARN count:1
+logger:com.fortify.messaging.MessageSuppressor  count:2
+   level:INFO count:2
+logger:com.fortify.logging.log4j2.LevelAdjuster  count:1
+   level:INFO count:1
+logger:com.fortify.sca.util.compilers.XcodebuildScraper  count:1
+   level:DEBUG count:1
+logger:com.fortify.sca.cmd.CommandLine  count:5
+   level:INFO count:2
+   level:DEBUG count:3
+logger:com.fortify.logging.log4j2.LoggerFactory  count:1
+   level:INFO count:1
+logger:com.fortify.messaging.MessageManager  count:1
+   level:TRACE count:1
+logger:com.fortify.sca.Main  count:4
+   level:INFO count:3
+   level:WARN count:1
+logger:com.fortify.sca.cmd.SCAConfiguration  count:3
+   level:DEBUG count:3
+
+   logger:com.fortify.logging.LoggerStats marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE, step=INIT} NDC:[]
+[2021-11-04 16:27:28.993 INFO  ]
+loggerConfig:
+   level:TRACE
+   filename:fortbuild.log
+   appendLogFile:true
+   installLoggingPrintStreams:true
+
+   logger:com.fortify.logging.log4j2.LoggerFactory marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:27:29.109 INFO  ]
+message suppression file not found /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/suppressions.json
+   logger:com.fortify.messaging.MessageSuppressor marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:27:29.114 INFO  ]
+0 suppressions loaded
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:27:29.114 INFO  ]
+message level adjustment file not found: /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/levels.json
+   logger:com.fortify.logging.log4j2.LevelAdjuster marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:27:29.115 INFO  ]
+0 level adjustments loaded
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:27:29.135 DEBUG ]
+Using TypeScript frontend to process JavaScript when possible
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:27:29.146 DEBUG ]
+------------------------- Runtime Information -------------------------------
+SCA Runtime Properties
+WinForms.CollectionMutationMonitor.Label=WinFormsDataSource
+com.fortify.sca.AddImpliedMethods=true
+com.fortify.sca.AntCompilerClass=com.fortify.dev.ant.SCACompiler
+com.fortify.sca.BuildID=EpiInfo_test
+com.fortify.sca.BundleControlflowIssues=true
+com.fortify.sca.BytecodePreview=true
+com.fortify.sca.CollectPerformanceData=true
+com.fortify.sca.CustomRulesDir=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/customrules
+com.fortify.sca.DaemonCompilers=com.fortify.sca.util.compilers.GppCompiler,com.fortify.sca.util.compilers.GccCompiler,com.fortify.sca.util.compilers.AppleGppCompiler,com.fortify.sca.util.compilers.AppleGccCompiler,com.fortify.sca.util.compilers.MicrosoftCompiler,com.fortify.sca.util.compilers.MicrosoftLinker,com.fortify.sca.util.compilers.LdCompiler,com.fortify.sca.util.compilers.ArUtil,com.fortify.sca.util.compilers.SunCCompiler,com.fortify.sca.util.compilers.SunCppCompiler,com.fortify.sca.util.compilers.IntelCompiler,com.fortify.sca.util.compilers.ExternalCppAdapter,com.fortify.sca.util.compilers.ClangCompiler
+com.fortify.sca.DeadCodeFilter=true
+com.fortify.sca.DeadCodeIgnoreTrivialPredicates=true
+com.fortify.sca.Debug=
+com.fortify.sca.DefaultAnalyzers=semantic:dataflow:controlflow:nullptr:configuration:content:structural:buffer
+com.fortify.sca.DefaultFileTypes=java,rb,erb,jsp,jspx,jspf,tag,tagx,tld,sql,cfm,php,phtml,ctp,pks,pkh,pkb,xml,config,Config,settings,properties,dll,exe,winmd,cs,vb,asax,ascx,ashx,asmx,aspx,master,Master,xaml,baml,cshtml,vbhtml,inc,asp,vbscript,js,jsx,ini,bas,cls,vbs,frm,ctl,html,htm,xsd,wsdd,xmi,py,cfml,cfc,abap,xhtml,cpx,xcfg,jsff,as,mxml,cbl,cscfg,csdef,wadcfg,wadcfgx,appxmanifest,wsdl,plist,bsp,ABAP,BSP,swift,page,trigger,scala,ts,tsx,conf,json,yaml,yml,go,kt,kts
+com.fortify.sca.DefaultJarsDirs=default_jars
+com.fortify.sca.DefaultRulesDir=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/rules
+com.fortify.sca.DisableDeadCodeElimination=false
+com.fortify.sca.DisableFunctionPointers=false
+com.fortify.sca.DisableGlobals=false
+com.fortify.sca.DisableInferredConstants=false
+com.fortify.sca.EnableInterproceduralConstantResolution=true
+com.fortify.sca.EnableNestedWrappers=true
+com.fortify.sca.EnableStructuralMatchCache=true
+com.fortify.sca.EnableWrapperDetection=true
+com.fortify.sca.FVDLDisableDescriptions=false
+com.fortify.sca.FVDLDisableProgramData=false
+com.fortify.sca.FVDLDisableSnippets=false
+com.fortify.sca.FVDLStylesheet=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/resources/sca/fvdl2html.xsl
+com.fortify.sca.GoTranslator=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/private-bin/sca/golang
+com.fortify.sca.IndirectCallGraphBuilders=WinFormsAdHocFunctionBuilder,VirtualCGBuilder,J2EEIndirectCGBuilder,JNICGBuilder,StoredProcedureResolver,JavaWSCGBuilder,StrutsCGBuilder,DotNetWSCGBuilder,SqlServerSPResolver,ASPCGBuilder,ScriptedCGBuilder,NewJspCustomTagCGBuilder,DotNetCABCGBuilder,StateInjectionCGBuilder,SqlServerSPResolver2,PHPLambdaResolver,JavaWebCGBuilder
+com.fortify.sca.JavaSourcepathSearch=true
+com.fortify.sca.JdkVersion=1.8
+com.fortify.sca.LogFile=fortbuild.log
+com.fortify.sca.LowSeverityCutoff=1.0
+com.fortify.sca.MultithreadedAnalysis=true
+com.fortify.sca.NoNestedOutTagOutput=org.apache.taglibs.standard.tag.rt.core.RemoveTag,org.apache.taglibs.standard.tag.rt.core.SetTag
+com.fortify.sca.OldVbNetExcludeFileTypes=vb,asax,ascx,ashx,asmx,aspx,xaml,cshtml,vbhtml
+com.fortify.sca.Phase0HigherOrder.Languages=python,ruby,swift,javascript,typescript
+com.fortify.sca.Phase0HigherOrder.Level=1
+com.fortify.sca.PrintPerformanceDataAfterScan=false
+com.fortify.sca.ProjectRoot=/Users/zfj4/.fortify
+com.fortify.sca.RequireMapKeys=classrule
+com.fortify.sca.SolverTimeout=15
+com.fortify.sca.SqlLanguage=PLSQL
+com.fortify.sca.SuppressLowSeverity=true
+com.fortify.sca.ThreadCount.NameTableLoading=1
+com.fortify.sca.TypeInferenceFunctionTimeout=60
+com.fortify.sca.TypeInferenceLanguages=javascript,typescript,python,ruby
+com.fortify.sca.TypeInferencePhase0Timeout=300
+com.fortify.sca.UnicodeInputFile=true
+com.fortify.sca.UniversalBlacklist=.*yyparse.*
+com.fortify.sca.Verbose=
+com.fortify.sca.alias.mode.csharp=fs
+com.fortify.sca.alias.mode.javascript=fi
+com.fortify.sca.alias.mode.scala=fi
+com.fortify.sca.alias.mode.swift=fi
+com.fortify.sca.alias.mode.typescript=fi
+com.fortify.sca.alias.mode.vb=fs
+com.fortify.sca.analyzer.controlflow.EnableLivenessOptimization=false
+com.fortify.sca.analyzer.controlflow.EnableMachineFiltering=false
+com.fortify.sca.analyzer.controlflow.EnableRefRuleOptimization=false
+com.fortify.sca.analyzer.controlflow.EnableTimeOut=true
+com.fortify.sca.clang.AcceptedParams=-arcmt-migrate-report-output+1,-compatibility_version+1,-current_version+1,-cxx-isystem+1,-D+1,-dependency-dot+1,-dependency-file+1,-F+1,-filelist+1,-flts-model+1,-fmodule-implementation-of+1,-framework+1,-gmodules,-idirafter+1,-iframework+1,-imacros+1,-imultilib+1,-include+1,-include-pch+1,-install_name+1,-iprefix+1,-iquote+1,-isystem+1,-ivfsoverlay+1,-iwithprefix+1,-iwithprefixbefore+1,-iwithsysroot+1,-I+1,-MF+1,-MMD,-MQ+1,-MT+1,-mllvm+1,-o+1,--serialize-diagnostics+1,-U+1,-undefined+1,-working-directory+1,-X*+1,-x+1
+com.fortify.sca.clang.SuppressedParams=--analyze,-e+1,-fapplication-extension,-fembed-bitcode,-fembed-bitcode-marker,-index-store-path+1,-l*,-l+1,-L*,-L+1,-module-file-info+1,-mwatchos-version-min,--param+1,-w,-weak_framework+1,-Xanalyzer+1,-Xassembler+1,-Xlinker+1
+com.fortify.sca.compilers.ant=com.fortify.sca.util.compilers.AntAdapter
+com.fortify.sca.compilers.ar=com.fortify.sca.util.compilers.ArUtil
+com.fortify.sca.compilers.armcc=com.fortify.sca.util.compilers.ArmCcCompiler
+com.fortify.sca.compilers.armcpp=com.fortify.sca.util.compilers.ArmCppCompiler
+com.fortify.sca.compilers.c++=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.cc=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.clang=com.fortify.sca.util.compilers.ClangCompiler
+com.fortify.sca.compilers.clang++=com.fortify.sca.util.compilers.ClangCompiler
+com.fortify.sca.compilers.clearmake=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.fortify=com.fortify.sca.util.compilers.FortifyCompiler
+com.fortify.sca.compilers.g++=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++-*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++2*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++3*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++4*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.gcc=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc-*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc2*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc3*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc4*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gmake=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.gradle=com.fortify.sca.util.compilers.GradleAdapter
+com.fortify.sca.compilers.gradlew=com.fortify.sca.util.compilers.GradleAdapter
+com.fortify.sca.compilers.icc=com.fortify.sca.util.compilers.IntelCompiler
+com.fortify.sca.compilers.icpc=com.fortify.sca.util.compilers.IntelCompiler
+com.fortify.sca.compilers.jam=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.javac=com.fortify.sca.util.compilers.JavacCompiler
+com.fortify.sca.compilers.ld=com.fortify.sca.util.compilers.LdCompiler
+com.fortify.sca.compilers.make=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.mvn=com.fortify.sca.util.compilers.MavenAdapter
+com.fortify.sca.compilers.scalac=com.fortify.sca.util.compilers.ScalacCompiler
+com.fortify.sca.compilers.swift=com.fortify.sca.util.compilers.SwiftCompiler
+com.fortify.sca.compilers.swiftc=com.fortify.sca.util.compilers.SwiftCompiler
+com.fortify.sca.compilers.tcc=com.fortify.sca.util.compilers.ArmCcCompiler
+com.fortify.sca.compilers.tcpp=com.fortify.sca.util.compilers.ArmCppCompiler
+com.fortify.sca.compilers.touchless=com.fortify.sca.util.compilers.FortifyCompiler
+com.fortify.sca.compilers.xcodebuild=com.fortify.sca.util.compilers.XcodebuildScraper
+com.fortify.sca.cpfe.441.command=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/private-bin/sca/cpfe441.rfct
+com.fortify.sca.cpfe.command=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/private-bin/sca/cpfe48
+com.fortify.sca.cpfe.file.option=--gen_c_file_name
+com.fortify.sca.cpfe.options=--remove_unneeded_entities --suppress_vtbl -tused
+com.fortify.sca.fileextensions.ABAP=ABAP
+com.fortify.sca.fileextensions.BSP=ABAP
+com.fortify.sca.fileextensions.Config=XML
+com.fortify.sca.fileextensions.abap=ABAP
+com.fortify.sca.fileextensions.appxmanifest=XML
+com.fortify.sca.fileextensions.as=ACTIONSCRIPT
+com.fortify.sca.fileextensions.asp=ASP
+com.fortify.sca.fileextensions.bas=VB6
+com.fortify.sca.fileextensions.bsp=ABAP
+com.fortify.sca.fileextensions.cfc=CFML
+com.fortify.sca.fileextensions.cfm=CFML
+com.fortify.sca.fileextensions.cfml=CFML
+com.fortify.sca.fileextensions.cls=VB6
+com.fortify.sca.fileextensions.conf=HOCON
+com.fortify.sca.fileextensions.config=XML
+com.fortify.sca.fileextensions.cpx=XML
+com.fortify.sca.fileextensions.cscfg=XML
+com.fortify.sca.fileextensions.csdef=XML
+com.fortify.sca.fileextensions.ctl=VB6
+com.fortify.sca.fileextensions.ctp=PHP
+com.fortify.sca.fileextensions.erb=RUBY_ERB
+com.fortify.sca.fileextensions.faces=JSPX
+com.fortify.sca.fileextensions.frm=VB6
+com.fortify.sca.fileextensions.go=GO
+com.fortify.sca.fileextensions.htm=HTML
+com.fortify.sca.fileextensions.html=HTML
+com.fortify.sca.fileextensions.ini=JAVA_PROPERTIES
+com.fortify.sca.fileextensions.java=JAVA
+com.fortify.sca.fileextensions.js=TYPESCRIPT
+com.fortify.sca.fileextensions.jsff=JSPX
+com.fortify.sca.fileextensions.json=JSON
+com.fortify.sca.fileextensions.jsp=JSP
+com.fortify.sca.fileextensions.jspf=JSP
+com.fortify.sca.fileextensions.jspx=JSPX
+com.fortify.sca.fileextensions.jsx=TYPESCRIPT
+com.fortify.sca.fileextensions.kt=KOTLIN
+com.fortify.sca.fileextensions.kts=KOTLIN
+com.fortify.sca.fileextensions.mxml=MXML
+com.fortify.sca.fileextensions.page=VISUAL_FORCE
+com.fortify.sca.fileextensions.php=PHP
+com.fortify.sca.fileextensions.phtml=PHP
+com.fortify.sca.fileextensions.pkb=PLSQL
+com.fortify.sca.fileextensions.pkh=PLSQL
+com.fortify.sca.fileextensions.pks=PLSQL
+com.fortify.sca.fileextensions.plist=XML
+com.fortify.sca.fileextensions.properties=JAVA_PROPERTIES
+com.fortify.sca.fileextensions.py=PYTHON
+com.fortify.sca.fileextensions.rb=RUBY
+com.fortify.sca.fileextensions.scala=SCALA
+com.fortify.sca.fileextensions.settings=XML
+com.fortify.sca.fileextensions.sql=SQL
+com.fortify.sca.fileextensions.swift=SWIFT
+com.fortify.sca.fileextensions.tag=JSP
+com.fortify.sca.fileextensions.tagx=JSP
+com.fortify.sca.fileextensions.tld=TLD
+com.fortify.sca.fileextensions.trigger=APEX_TRIGGER
+com.fortify.sca.fileextensions.ts=TYPESCRIPT
+com.fortify.sca.fileextensions.tsx=TYPESCRIPT
+com.fortify.sca.fileextensions.vbs=VBSCRIPT
+com.fortify.sca.fileextensions.vbscript=VBSCRIPT
+com.fortify.sca.fileextensions.wadcfg=XML
+com.fortify.sca.fileextensions.wadcfgx=XML
+com.fortify.sca.fileextensions.wsdd=XML
+com.fortify.sca.fileextensions.wsdl=XML
+com.fortify.sca.fileextensions.xcfg=XML
+com.fortify.sca.fileextensions.xhtml=JSPX
+com.fortify.sca.fileextensions.xmi=XML
+com.fortify.sca.fileextensions.xml=XML
+com.fortify.sca.fileextensions.xsd=XML
+com.fortify.sca.fileextensions.yaml=YAML
+com.fortify.sca.fileextensions.yml=YAML
+com.fortify.sca.jsp.UseNativeParser=true
+com.fortify.sca.parser.python.ignore.module.1=test.badsyntax_future3
+com.fortify.sca.parser.python.ignore.module.2=test.badsyntax_future4
+com.fortify.sca.parser.python.ignore.module.3=test.badsyntax_future5
+com.fortify.sca.parser.python.ignore.module.4=test.badsyntax_future6
+com.fortify.sca.parser.python.ignore.module.5=test.badsyntax_future7
+com.fortify.sca.parser.python.ignore.module.6=test.badsyntax_future8
+com.fortify.sca.parser.python.ignore.module.7=test.badsyntax_future9
+com.fortify.sca.parser.python.ignore.module.8=test.badsyntax_nocaret
+com.fortify.sca.skip.libraries.AngularJS=angular.js,angular.min.js,angular-animate.js,angular-aria.js,angular_1_router.js,angular-cookies.js,angular-message-format.js,angular-messages.js,angular-mocks.js,angular-parse-ext.js,angular-resource.js,angular-route.js,angular-sanitize.js,angular-touch.js
+com.fortify.sca.skip.libraries.ES6=es6-shim.min.js,system-polyfills.js,shims_for_IE.js
+com.fortify.sca.skip.libraries.jQuery=jquery.js,jquery.min.js,jquery-migrate.js,jquery-migrate.min.js,jquery-ui.js,jquery-ui.min.js,jquery.mobile.js,jquery.mobile.min.js,jquery.color.js,jquery.color.min.js,jquery.color.svg-names.js,jquery.color.svg-names.min.js,jquery.color.plus-names.js,jquery.color.plus-names.min.js,jquery.tools.min.js
+com.fortify.sca.skip.libraries.javascript=bootstrap.js,bootstrap.min.js,typescript.js,typescriptServices.js
+com.fortify.sca.skip.libraries.typescript=typescript.d.ts,typescriptServices.d.ts
+com.fortify.sca.xcode.Overrides=GCC_PRECOMPILE_PREFIX_HEADER=NO,RUN_CLANG_STATIC_ANALYZER=NO
+
+Fortify Runtime Properties
+com.fortify.AuthenticationKey=/Users/zfj4/.fortify/config/tools
+com.fortify.Core=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core
+com.fortify.InstallationUserName=zfj4
+com.fortify.SCAExecutablePath=
+com.fortify.VS.RequireASPPrecompilation=true
+com.fortify.WorkingDirectory=/Users/zfj4/.fortify
+com.fortify.locale=en
+com.fortify.log.console=true
+com.fortify.search.defaultSyntaxVer=2
+max.file.path.length=255
+
+System Runtime Properties
+awt.toolkit=sun.lwawt.macosx.LWCToolkit
+com.fortify.InstallRoot=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0
+com.fortify.TotalPhysicalMemory=8589934592
+com.fortify.sca.AppendLogFile=true
+com.fortify.sca.JVMArgs=-XX:SoftRefLRUPolicyMSPerMB=3000 -Xmx6442450944 -Xss16M
+com.fortify.sca.LogFile=/Users/zfj4/CodePlex/EpiInfo/fortbuild
+com.fortify.sca.LogFileDir=/Users/zfj4/CodePlex/EpiInfo
+com.fortify.sca.LogFileExt=.log
+com.fortify.sca.LogFileName=fortbuild.log
+com.fortify.sca.LogFileNameNoExt=fortbuild
+com.fortify.sca.LogFilePath=/Users/zfj4/CodePlex/EpiInfo/fortbuild.log
+com.fortify.sca.LogLevel=TRACE
+com.fortify.sca.PID=13254
+com.fortify.sca.ProjectRoot=/Users/zfj4/.fortify
+com.fortify.sca.cpfe.options=--remove_unneeded_entities --suppress_vtbl -tused
+com.fortify.sca.env.exesearchpath=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/bin:/Library/TeX/texbin:/Users/zfj4/jupyter_utilities:/opt/anaconda3/bin:/opt/anaconda3/condabin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/zfj4/EpiInfo/Android/sdk:/Users/zfj4/EpiInfo/Android/sdk/tools:/Users/zfj4/EpiInfo/Android/sdk/platform-tools:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/zfj4/mongodb/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands
+file.encoding=UTF-8
+file.encoding.pkg=sun.io
+file.separator=/
+ftp.nonProxyHosts=local|*.local|169.254/16|*.169.254/16
+gopherProxySet=false
+http.nonProxyHosts=local|*.local|169.254/16|*.169.254/16
+java.awt.graphicsenv=sun.awt.CGraphicsEnvironment
+java.awt.headless=true
+java.awt.printerjob=sun.lwawt.macosx.CPrinterJob
+java.class.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/lib/exe/sca-exe.jar
+java.class.version=52.0
+java.endorsed.dirs=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/endorsed
+java.ext.dirs=/Users/zfj4/Library/Java/Extensions:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java
+java.home=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre
+java.io.tmpdir=/var/folders/v6/gg2ckpj95flfhrghq93gztwc0000gp/T/
+java.library.path=/Users/zfj4/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+java.runtime.name=OpenJDK Runtime Environment
+java.runtime.version=1.8.0_181-b02
+java.specification.name=Java Platform API Specification
+java.specification.vendor=Oracle Corporation
+java.specification.version=1.8
+java.vendor=Azul Systems, Inc.
+java.vendor.url=http://www.azulsystems.com/
+java.vendor.url.bug=http://www.azulsystems.com/support/
+java.version=1.8.0_181
+java.vm.info=mixed mode
+java.vm.name=OpenJDK 64-Bit Server VM
+java.vm.specification.name=Java Virtual Machine Specification
+java.vm.specification.vendor=Oracle Corporation
+java.vm.specification.version=1.8
+java.vm.vendor=Azul Systems, Inc.
+java.vm.version=25.181-b02
+line.separator=
+
+log4j.configurationFile=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/log4j2.xml
+log4j.isThreadContextMapInheritable=true
+os.arch=x86_64
+os.name=Mac OS X
+os.version=10.16
+path.separator=:
+socksNonProxyHosts=local|*.local|169.254/16|*.169.254/16
+stderr.isatty=true
+stdout.isatty=true
+sun.arch.data.model=64
+sun.boot.class.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/resources.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/rt.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/sunrsasign.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jsse.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jce.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/charsets.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jfr.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/classes
+sun.boot.library.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib
+sun.cpu.endian=little
+sun.cpu.isalist=
+sun.io.unicode.encoding=UnicodeBig
+sun.java.command=sourceanalyzer -Djava.awt.headless=true -XX:SoftRefLRUPolicyMSPerMB=3000 -Dcom.fortify.sca.env.exesearchpath=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/bin:/Library/TeX/texbin:/Users/zfj4/jupyter_utilities:/opt/anaconda3/bin:/opt/anaconda3/condabin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/zfj4/EpiInfo/Android/sdk:/Users/zfj4/EpiInfo/Android/sdk/tools:/Users/zfj4/EpiInfo/Android/sdk/platform-tools:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/zfj4/mongodb/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands -Dcom.fortify.sca.ProjectRoot=/Users/zfj4/.fortify -Dstdout.isatty=true -Dstderr.isatty=true -Dcom.fortify.sca.PID=13254 -Xmx6442450944 -Dcom.fortify.TotalPhysicalMemory=8589934592 -Xss16M -Dcom.fortify.sca.JVMArgs=-XX:SoftRefLRUPolicyMSPerMB=3000 -Xmx6442450944 -Xss16M -Djava.class.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/lib/exe/sca-exe.jar -b EpiInfo_test -verbose -debug -logfile fortbuild.log xcodebuild -project EpiInfo.xcodeproj -scheme EpiInfo -configuration Debug CODE_SIGN_IDENTITY= CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO clean
+sun.jnu.encoding=UTF-8
+sun.management.compiler=HotSpot 64-Bit Tiered Compilers
+sun.os.patch.level=unknown
+user.country=US
+user.dir=/Users/zfj4/CodePlex/EpiInfo
+user.home=/Users/zfj4
+user.language=en
+user.name=zfj4
+user.timezone=America/New_York
+
+VM Info
+OperatingSystemMXBean: Mac OS X
+  Arch: x86_64
+  AvailableProcessors: 4
+  CommittedVirtualMemorySize: 12669194240
+  FreePhysicalMemorySize: 107208704
+  FreeSwapSpaceSize: 1189085184
+  MaxFileDescriptorCount: 10240
+  OpenFileDescriptorCount: 119
+  ProcessCpuLoad: 0.0
+  ProcessCpuTime: 2359847000
+  SystemCpuLoad: 0.0
+  SystemLoadAverage: 2.21044921875
+  TotalPhysicalMemorySize: 8589934592
+  TotalSwapSpaceSize: 5368709120
+  Version: 10.16
+RuntimeMXBean: 13254@MacBook-Air-4.local
+  BootClassPath: /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/resources.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/rt.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/sunrsasign.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jsse.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jce.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/charsets.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jfr.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/classes
+  BootClassPathSupported: true
+  ClassPath: /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/lib/exe/sca-exe.jar
+  LibraryPath: /Users/zfj4/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+  ManagementSpecVersion: 1.2
+  SpecName: Java Virtual Machine Specification
+  SpecVendor: Oracle Corporation
+  SpecVersion: 1.8
+  StartTime: 1636057647735
+  Uptime: 1467
+  VmName: OpenJDK 64-Bit Server VM
+  VmVendor: Azul Systems, Inc.
+  VmVersion: 25.181-b02
+-----------------------------------------------------------------------------
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:27:29.153 DEBUG ]
+Compiler: xcodebuild
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:27:29.179 INFO  ]
+Fortify Static Code Analyzer 20.1.0.0158 (using JRE 1.8.0_181)
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=INFO_VERBOSE, stdout=true} NDC:[]
+[2021-11-04 16:27:29.182 INFO  ]
+Args:
+["-b", "EpiInfo_test", "-verbose", "-debug", "-logfile", "fortbuild.log", "xcodebuild", "-project", "EpiInfo.xcodeproj", "-scheme", "EpiInfo", "-configuration", "Debug", "CODE_SIGN_IDENTITY=", "CODE_SIGNING_ALLOWED=NO", "CODE_SIGNING_REQUIRED=NO", "clean"]
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_STATUS} NDC:[]
+[2021-11-04 16:27:29.182 INFO  ]
+VM Args:
+"-XX:SoftRefLRUPolicyMSPerMB=3000 -Xmx6442450944 -Xss16M"
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_STATUS} NDC:[]
+[2021-11-04 16:27:29.244 DEBUG ]
+Enabling code generation: Data binding
+   logger:com.fortify.sca.cmd.SCAConfiguration marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:27:29.246 DEBUG ]
+Enabling code generation: Event loops
+   logger:com.fortify.sca.cmd.SCAConfiguration marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:27:29.247 DEBUG ]
+Enabling change notification transformer.
+   logger:com.fortify.sca.cmd.SCAConfiguration marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:27:29.337 TRACE ]
+Resource /deserializableClasses.whitelist not found, no additional class names will be loaded
+   logger:com.fortify.messaging.MessageManager marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_VERBOSE, step=INIT} NDC:[]
+[2021-11-04 16:27:29.339 DEBUG ]
+Running xcodebuild command: [xcodebuild, GCC_PRECOMPILE_PREFIX_HEADER=NO, RUN_CLANG_STATIC_ANALYZER=NO, -project, EpiInfo.xcodeproj, -scheme, EpiInfo, -configuration, Debug, CODE_SIGN_IDENTITY=, CODE_SIGNING_ALLOWED=NO, CODE_SIGNING_REQUIRED=NO, clean, SWIFT_COMPILATION_MODE=incremental]
+   logger:com.fortify.sca.util.compilers.XcodebuildScraper marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG, step=INIT} NDC:[]
+[2021-11-04 16:27:34.967 INFO  ]
+Front End complete
+   logger:com.fortify.sca.frontend.FrontEndSession marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_STATUS, step=INIT} NDC:[]
+[2021-11-04 16:27:34.984 DEBUG ]
+Nothing to store.
+   logger:com.fortify.sca.metadata.BuildSession marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG, step=INIT} NDC:[]
+[2021-11-04 16:27:34.985 INFO  ]
+message id statistics:
+   id:        -1 total:        18 totalSuppressedCount:         0 scope:[]
+
+   logger:com.fortify.messaging.MessageSuppressor marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE, step=INIT} NDC:[]
+[2021-11-04 16:27:34.985 INFO  ]
+logger:null  count:19
+   level:TRACE count:1
+   level:INFO count:10
+   level:DEBUG count:8
+logger:com.fortify.messaging.MessageSuppressor  count:2
+   level:INFO count:2
+logger:com.fortify.logging.log4j2.LevelAdjuster  count:1
+   level:INFO count:1
+logger:com.fortify.sca.metadata.BuildSession  count:1
+   level:DEBUG count:1
+logger:com.fortify.sca.util.compilers.XcodebuildScraper  count:1
+   level:DEBUG count:1
+logger:com.fortify.sca.cmd.CommandLine  count:5
+   level:INFO count:2
+   level:DEBUG count:3
+logger:com.fortify.logging.log4j2.LoggerFactory  count:1
+   level:INFO count:1
+logger:com.fortify.messaging.MessageManager  count:1
+   level:TRACE count:1
+logger:com.fortify.sca.Main  count:3
+   level:INFO count:3
+logger:com.fortify.sca.cmd.SCAConfiguration  count:3
+   level:DEBUG count:3
+logger:com.fortify.sca.frontend.FrontEndSession  count:1
+   level:INFO count:1
+
+   logger:com.fortify.logging.LoggerStats marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE, step=INIT} NDC:[]
+[2021-11-04 16:27:41.205 INFO  ]
+loggerConfig:
+   level:TRACE
+   filename:fortbuild.log
+   appendLogFile:true
+   installLoggingPrintStreams:true
+
+   logger:com.fortify.logging.log4j2.LoggerFactory marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:27:41.321 INFO  ]
+message suppression file not found /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/suppressions.json
+   logger:com.fortify.messaging.MessageSuppressor marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:27:41.324 INFO  ]
+0 suppressions loaded
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:27:41.325 INFO  ]
+message level adjustment file not found: /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/levels.json
+   logger:com.fortify.logging.log4j2.LevelAdjuster marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:27:41.326 INFO  ]
+0 level adjustments loaded
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:27:41.345 DEBUG ]
+Using TypeScript frontend to process JavaScript when possible
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:27:41.356 DEBUG ]
+------------------------- Runtime Information -------------------------------
+SCA Runtime Properties
+WinForms.CollectionMutationMonitor.Label=WinFormsDataSource
+com.fortify.sca.AddImpliedMethods=true
+com.fortify.sca.AntCompilerClass=com.fortify.dev.ant.SCACompiler
+com.fortify.sca.BuildID=EpiInfo_test
+com.fortify.sca.BundleControlflowIssues=true
+com.fortify.sca.BytecodePreview=true
+com.fortify.sca.CollectPerformanceData=true
+com.fortify.sca.CustomRulesDir=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/customrules
+com.fortify.sca.DaemonCompilers=com.fortify.sca.util.compilers.GppCompiler,com.fortify.sca.util.compilers.GccCompiler,com.fortify.sca.util.compilers.AppleGppCompiler,com.fortify.sca.util.compilers.AppleGccCompiler,com.fortify.sca.util.compilers.MicrosoftCompiler,com.fortify.sca.util.compilers.MicrosoftLinker,com.fortify.sca.util.compilers.LdCompiler,com.fortify.sca.util.compilers.ArUtil,com.fortify.sca.util.compilers.SunCCompiler,com.fortify.sca.util.compilers.SunCppCompiler,com.fortify.sca.util.compilers.IntelCompiler,com.fortify.sca.util.compilers.ExternalCppAdapter,com.fortify.sca.util.compilers.ClangCompiler
+com.fortify.sca.DeadCodeFilter=true
+com.fortify.sca.DeadCodeIgnoreTrivialPredicates=true
+com.fortify.sca.Debug=
+com.fortify.sca.DefaultAnalyzers=semantic:dataflow:controlflow:nullptr:configuration:content:structural:buffer
+com.fortify.sca.DefaultFileTypes=java,rb,erb,jsp,jspx,jspf,tag,tagx,tld,sql,cfm,php,phtml,ctp,pks,pkh,pkb,xml,config,Config,settings,properties,dll,exe,winmd,cs,vb,asax,ascx,ashx,asmx,aspx,master,Master,xaml,baml,cshtml,vbhtml,inc,asp,vbscript,js,jsx,ini,bas,cls,vbs,frm,ctl,html,htm,xsd,wsdd,xmi,py,cfml,cfc,abap,xhtml,cpx,xcfg,jsff,as,mxml,cbl,cscfg,csdef,wadcfg,wadcfgx,appxmanifest,wsdl,plist,bsp,ABAP,BSP,swift,page,trigger,scala,ts,tsx,conf,json,yaml,yml,go,kt,kts
+com.fortify.sca.DefaultJarsDirs=default_jars
+com.fortify.sca.DefaultRulesDir=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/rules
+com.fortify.sca.DisableDeadCodeElimination=false
+com.fortify.sca.DisableFunctionPointers=false
+com.fortify.sca.DisableGlobals=false
+com.fortify.sca.DisableInferredConstants=false
+com.fortify.sca.EnableInterproceduralConstantResolution=true
+com.fortify.sca.EnableNestedWrappers=true
+com.fortify.sca.EnableStructuralMatchCache=true
+com.fortify.sca.EnableWrapperDetection=true
+com.fortify.sca.FVDLDisableDescriptions=false
+com.fortify.sca.FVDLDisableProgramData=false
+com.fortify.sca.FVDLDisableSnippets=false
+com.fortify.sca.FVDLStylesheet=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/resources/sca/fvdl2html.xsl
+com.fortify.sca.GoTranslator=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/private-bin/sca/golang
+com.fortify.sca.IndirectCallGraphBuilders=WinFormsAdHocFunctionBuilder,VirtualCGBuilder,J2EEIndirectCGBuilder,JNICGBuilder,StoredProcedureResolver,JavaWSCGBuilder,StrutsCGBuilder,DotNetWSCGBuilder,SqlServerSPResolver,ASPCGBuilder,ScriptedCGBuilder,NewJspCustomTagCGBuilder,DotNetCABCGBuilder,StateInjectionCGBuilder,SqlServerSPResolver2,PHPLambdaResolver,JavaWebCGBuilder
+com.fortify.sca.JavaSourcepathSearch=true
+com.fortify.sca.JdkVersion=1.8
+com.fortify.sca.LogFile=fortbuild.log
+com.fortify.sca.LowSeverityCutoff=1.0
+com.fortify.sca.MultithreadedAnalysis=true
+com.fortify.sca.NoNestedOutTagOutput=org.apache.taglibs.standard.tag.rt.core.RemoveTag,org.apache.taglibs.standard.tag.rt.core.SetTag
+com.fortify.sca.OldVbNetExcludeFileTypes=vb,asax,ascx,ashx,asmx,aspx,xaml,cshtml,vbhtml
+com.fortify.sca.Phase0HigherOrder.Languages=python,ruby,swift,javascript,typescript
+com.fortify.sca.Phase0HigherOrder.Level=1
+com.fortify.sca.PrintPerformanceDataAfterScan=false
+com.fortify.sca.ProjectRoot=/Users/zfj4/.fortify
+com.fortify.sca.RequireMapKeys=classrule
+com.fortify.sca.SolverTimeout=15
+com.fortify.sca.SqlLanguage=PLSQL
+com.fortify.sca.SuppressLowSeverity=true
+com.fortify.sca.ThreadCount.NameTableLoading=1
+com.fortify.sca.TypeInferenceFunctionTimeout=60
+com.fortify.sca.TypeInferenceLanguages=javascript,typescript,python,ruby
+com.fortify.sca.TypeInferencePhase0Timeout=300
+com.fortify.sca.UnicodeInputFile=true
+com.fortify.sca.UniversalBlacklist=.*yyparse.*
+com.fortify.sca.Verbose=
+com.fortify.sca.alias.mode.csharp=fs
+com.fortify.sca.alias.mode.javascript=fi
+com.fortify.sca.alias.mode.scala=fi
+com.fortify.sca.alias.mode.swift=fi
+com.fortify.sca.alias.mode.typescript=fi
+com.fortify.sca.alias.mode.vb=fs
+com.fortify.sca.analyzer.controlflow.EnableLivenessOptimization=false
+com.fortify.sca.analyzer.controlflow.EnableMachineFiltering=false
+com.fortify.sca.analyzer.controlflow.EnableRefRuleOptimization=false
+com.fortify.sca.analyzer.controlflow.EnableTimeOut=true
+com.fortify.sca.clang.AcceptedParams=-arcmt-migrate-report-output+1,-compatibility_version+1,-current_version+1,-cxx-isystem+1,-D+1,-dependency-dot+1,-dependency-file+1,-F+1,-filelist+1,-flts-model+1,-fmodule-implementation-of+1,-framework+1,-gmodules,-idirafter+1,-iframework+1,-imacros+1,-imultilib+1,-include+1,-include-pch+1,-install_name+1,-iprefix+1,-iquote+1,-isystem+1,-ivfsoverlay+1,-iwithprefix+1,-iwithprefixbefore+1,-iwithsysroot+1,-I+1,-MF+1,-MMD,-MQ+1,-MT+1,-mllvm+1,-o+1,--serialize-diagnostics+1,-U+1,-undefined+1,-working-directory+1,-X*+1,-x+1
+com.fortify.sca.clang.SuppressedParams=--analyze,-e+1,-fapplication-extension,-fembed-bitcode,-fembed-bitcode-marker,-index-store-path+1,-l*,-l+1,-L*,-L+1,-module-file-info+1,-mwatchos-version-min,--param+1,-w,-weak_framework+1,-Xanalyzer+1,-Xassembler+1,-Xlinker+1
+com.fortify.sca.compilers.ant=com.fortify.sca.util.compilers.AntAdapter
+com.fortify.sca.compilers.ar=com.fortify.sca.util.compilers.ArUtil
+com.fortify.sca.compilers.armcc=com.fortify.sca.util.compilers.ArmCcCompiler
+com.fortify.sca.compilers.armcpp=com.fortify.sca.util.compilers.ArmCppCompiler
+com.fortify.sca.compilers.c++=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.cc=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.clang=com.fortify.sca.util.compilers.ClangCompiler
+com.fortify.sca.compilers.clang++=com.fortify.sca.util.compilers.ClangCompiler
+com.fortify.sca.compilers.clearmake=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.fortify=com.fortify.sca.util.compilers.FortifyCompiler
+com.fortify.sca.compilers.g++=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++-*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++2*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++3*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++4*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.gcc=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc-*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc2*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc3*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc4*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gmake=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.gradle=com.fortify.sca.util.compilers.GradleAdapter
+com.fortify.sca.compilers.gradlew=com.fortify.sca.util.compilers.GradleAdapter
+com.fortify.sca.compilers.icc=com.fortify.sca.util.compilers.IntelCompiler
+com.fortify.sca.compilers.icpc=com.fortify.sca.util.compilers.IntelCompiler
+com.fortify.sca.compilers.jam=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.javac=com.fortify.sca.util.compilers.JavacCompiler
+com.fortify.sca.compilers.ld=com.fortify.sca.util.compilers.LdCompiler
+com.fortify.sca.compilers.make=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.mvn=com.fortify.sca.util.compilers.MavenAdapter
+com.fortify.sca.compilers.scalac=com.fortify.sca.util.compilers.ScalacCompiler
+com.fortify.sca.compilers.swift=com.fortify.sca.util.compilers.SwiftCompiler
+com.fortify.sca.compilers.swiftc=com.fortify.sca.util.compilers.SwiftCompiler
+com.fortify.sca.compilers.tcc=com.fortify.sca.util.compilers.ArmCcCompiler
+com.fortify.sca.compilers.tcpp=com.fortify.sca.util.compilers.ArmCppCompiler
+com.fortify.sca.compilers.touchless=com.fortify.sca.util.compilers.FortifyCompiler
+com.fortify.sca.compilers.xcodebuild=com.fortify.sca.util.compilers.XcodebuildScraper
+com.fortify.sca.cpfe.441.command=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/private-bin/sca/cpfe441.rfct
+com.fortify.sca.cpfe.command=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/private-bin/sca/cpfe48
+com.fortify.sca.cpfe.file.option=--gen_c_file_name
+com.fortify.sca.cpfe.options=--remove_unneeded_entities --suppress_vtbl -tused
+com.fortify.sca.fileextensions.ABAP=ABAP
+com.fortify.sca.fileextensions.BSP=ABAP
+com.fortify.sca.fileextensions.Config=XML
+com.fortify.sca.fileextensions.abap=ABAP
+com.fortify.sca.fileextensions.appxmanifest=XML
+com.fortify.sca.fileextensions.as=ACTIONSCRIPT
+com.fortify.sca.fileextensions.asp=ASP
+com.fortify.sca.fileextensions.bas=VB6
+com.fortify.sca.fileextensions.bsp=ABAP
+com.fortify.sca.fileextensions.cfc=CFML
+com.fortify.sca.fileextensions.cfm=CFML
+com.fortify.sca.fileextensions.cfml=CFML
+com.fortify.sca.fileextensions.cls=VB6
+com.fortify.sca.fileextensions.conf=HOCON
+com.fortify.sca.fileextensions.config=XML
+com.fortify.sca.fileextensions.cpx=XML
+com.fortify.sca.fileextensions.cscfg=XML
+com.fortify.sca.fileextensions.csdef=XML
+com.fortify.sca.fileextensions.ctl=VB6
+com.fortify.sca.fileextensions.ctp=PHP
+com.fortify.sca.fileextensions.erb=RUBY_ERB
+com.fortify.sca.fileextensions.faces=JSPX
+com.fortify.sca.fileextensions.frm=VB6
+com.fortify.sca.fileextensions.go=GO
+com.fortify.sca.fileextensions.htm=HTML
+com.fortify.sca.fileextensions.html=HTML
+com.fortify.sca.fileextensions.ini=JAVA_PROPERTIES
+com.fortify.sca.fileextensions.java=JAVA
+com.fortify.sca.fileextensions.js=TYPESCRIPT
+com.fortify.sca.fileextensions.jsff=JSPX
+com.fortify.sca.fileextensions.json=JSON
+com.fortify.sca.fileextensions.jsp=JSP
+com.fortify.sca.fileextensions.jspf=JSP
+com.fortify.sca.fileextensions.jspx=JSPX
+com.fortify.sca.fileextensions.jsx=TYPESCRIPT
+com.fortify.sca.fileextensions.kt=KOTLIN
+com.fortify.sca.fileextensions.kts=KOTLIN
+com.fortify.sca.fileextensions.mxml=MXML
+com.fortify.sca.fileextensions.page=VISUAL_FORCE
+com.fortify.sca.fileextensions.php=PHP
+com.fortify.sca.fileextensions.phtml=PHP
+com.fortify.sca.fileextensions.pkb=PLSQL
+com.fortify.sca.fileextensions.pkh=PLSQL
+com.fortify.sca.fileextensions.pks=PLSQL
+com.fortify.sca.fileextensions.plist=XML
+com.fortify.sca.fileextensions.properties=JAVA_PROPERTIES
+com.fortify.sca.fileextensions.py=PYTHON
+com.fortify.sca.fileextensions.rb=RUBY
+com.fortify.sca.fileextensions.scala=SCALA
+com.fortify.sca.fileextensions.settings=XML
+com.fortify.sca.fileextensions.sql=SQL
+com.fortify.sca.fileextensions.swift=SWIFT
+com.fortify.sca.fileextensions.tag=JSP
+com.fortify.sca.fileextensions.tagx=JSP
+com.fortify.sca.fileextensions.tld=TLD
+com.fortify.sca.fileextensions.trigger=APEX_TRIGGER
+com.fortify.sca.fileextensions.ts=TYPESCRIPT
+com.fortify.sca.fileextensions.tsx=TYPESCRIPT
+com.fortify.sca.fileextensions.vbs=VBSCRIPT
+com.fortify.sca.fileextensions.vbscript=VBSCRIPT
+com.fortify.sca.fileextensions.wadcfg=XML
+com.fortify.sca.fileextensions.wadcfgx=XML
+com.fortify.sca.fileextensions.wsdd=XML
+com.fortify.sca.fileextensions.wsdl=XML
+com.fortify.sca.fileextensions.xcfg=XML
+com.fortify.sca.fileextensions.xhtml=JSPX
+com.fortify.sca.fileextensions.xmi=XML
+com.fortify.sca.fileextensions.xml=XML
+com.fortify.sca.fileextensions.xsd=XML
+com.fortify.sca.fileextensions.yaml=YAML
+com.fortify.sca.fileextensions.yml=YAML
+com.fortify.sca.jsp.UseNativeParser=true
+com.fortify.sca.parser.python.ignore.module.1=test.badsyntax_future3
+com.fortify.sca.parser.python.ignore.module.2=test.badsyntax_future4
+com.fortify.sca.parser.python.ignore.module.3=test.badsyntax_future5
+com.fortify.sca.parser.python.ignore.module.4=test.badsyntax_future6
+com.fortify.sca.parser.python.ignore.module.5=test.badsyntax_future7
+com.fortify.sca.parser.python.ignore.module.6=test.badsyntax_future8
+com.fortify.sca.parser.python.ignore.module.7=test.badsyntax_future9
+com.fortify.sca.parser.python.ignore.module.8=test.badsyntax_nocaret
+com.fortify.sca.skip.libraries.AngularJS=angular.js,angular.min.js,angular-animate.js,angular-aria.js,angular_1_router.js,angular-cookies.js,angular-message-format.js,angular-messages.js,angular-mocks.js,angular-parse-ext.js,angular-resource.js,angular-route.js,angular-sanitize.js,angular-touch.js
+com.fortify.sca.skip.libraries.ES6=es6-shim.min.js,system-polyfills.js,shims_for_IE.js
+com.fortify.sca.skip.libraries.jQuery=jquery.js,jquery.min.js,jquery-migrate.js,jquery-migrate.min.js,jquery-ui.js,jquery-ui.min.js,jquery.mobile.js,jquery.mobile.min.js,jquery.color.js,jquery.color.min.js,jquery.color.svg-names.js,jquery.color.svg-names.min.js,jquery.color.plus-names.js,jquery.color.plus-names.min.js,jquery.tools.min.js
+com.fortify.sca.skip.libraries.javascript=bootstrap.js,bootstrap.min.js,typescript.js,typescriptServices.js
+com.fortify.sca.skip.libraries.typescript=typescript.d.ts,typescriptServices.d.ts
+com.fortify.sca.xcode.Overrides=GCC_PRECOMPILE_PREFIX_HEADER=NO,RUN_CLANG_STATIC_ANALYZER=NO
+
+Fortify Runtime Properties
+com.fortify.AuthenticationKey=/Users/zfj4/.fortify/config/tools
+com.fortify.Core=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core
+com.fortify.InstallationUserName=zfj4
+com.fortify.SCAExecutablePath=
+com.fortify.VS.RequireASPPrecompilation=true
+com.fortify.WorkingDirectory=/Users/zfj4/.fortify
+com.fortify.locale=en
+com.fortify.log.console=true
+com.fortify.search.defaultSyntaxVer=2
+max.file.path.length=255
+
+System Runtime Properties
+awt.toolkit=sun.lwawt.macosx.LWCToolkit
+com.fortify.InstallRoot=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0
+com.fortify.TotalPhysicalMemory=8589934592
+com.fortify.sca.AppendLogFile=true
+com.fortify.sca.JVMArgs=-XX:SoftRefLRUPolicyMSPerMB=3000 -Xmx6442450944 -Xss16M
+com.fortify.sca.LogFile=/Users/zfj4/CodePlex/EpiInfo/fortbuild
+com.fortify.sca.LogFileDir=/Users/zfj4/CodePlex/EpiInfo
+com.fortify.sca.LogFileExt=.log
+com.fortify.sca.LogFileName=fortbuild.log
+com.fortify.sca.LogFileNameNoExt=fortbuild
+com.fortify.sca.LogFilePath=/Users/zfj4/CodePlex/EpiInfo/fortbuild.log
+com.fortify.sca.LogLevel=TRACE
+com.fortify.sca.PID=13259
+com.fortify.sca.ProjectRoot=/Users/zfj4/.fortify
+com.fortify.sca.cpfe.options=--remove_unneeded_entities --suppress_vtbl -tused
+com.fortify.sca.env.exesearchpath=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/bin:/Library/TeX/texbin:/Users/zfj4/jupyter_utilities:/opt/anaconda3/bin:/opt/anaconda3/condabin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/zfj4/EpiInfo/Android/sdk:/Users/zfj4/EpiInfo/Android/sdk/tools:/Users/zfj4/EpiInfo/Android/sdk/platform-tools:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/zfj4/mongodb/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands
+file.encoding=UTF-8
+file.encoding.pkg=sun.io
+file.separator=/
+ftp.nonProxyHosts=local|*.local|169.254/16|*.169.254/16
+gopherProxySet=false
+http.nonProxyHosts=local|*.local|169.254/16|*.169.254/16
+java.awt.graphicsenv=sun.awt.CGraphicsEnvironment
+java.awt.headless=true
+java.awt.printerjob=sun.lwawt.macosx.CPrinterJob
+java.class.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/lib/exe/sca-exe.jar
+java.class.version=52.0
+java.endorsed.dirs=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/endorsed
+java.ext.dirs=/Users/zfj4/Library/Java/Extensions:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java
+java.home=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre
+java.io.tmpdir=/var/folders/v6/gg2ckpj95flfhrghq93gztwc0000gp/T/
+java.library.path=/Users/zfj4/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+java.runtime.name=OpenJDK Runtime Environment
+java.runtime.version=1.8.0_181-b02
+java.specification.name=Java Platform API Specification
+java.specification.vendor=Oracle Corporation
+java.specification.version=1.8
+java.vendor=Azul Systems, Inc.
+java.vendor.url=http://www.azulsystems.com/
+java.vendor.url.bug=http://www.azulsystems.com/support/
+java.version=1.8.0_181
+java.vm.info=mixed mode
+java.vm.name=OpenJDK 64-Bit Server VM
+java.vm.specification.name=Java Virtual Machine Specification
+java.vm.specification.vendor=Oracle Corporation
+java.vm.specification.version=1.8
+java.vm.vendor=Azul Systems, Inc.
+java.vm.version=25.181-b02
+line.separator=
+
+log4j.configurationFile=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/log4j2.xml
+log4j.isThreadContextMapInheritable=true
+os.arch=x86_64
+os.name=Mac OS X
+os.version=10.16
+path.separator=:
+socksNonProxyHosts=local|*.local|169.254/16|*.169.254/16
+stderr.isatty=true
+stdout.isatty=true
+sun.arch.data.model=64
+sun.boot.class.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/resources.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/rt.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/sunrsasign.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jsse.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jce.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/charsets.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jfr.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/classes
+sun.boot.library.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib
+sun.cpu.endian=little
+sun.cpu.isalist=
+sun.io.unicode.encoding=UnicodeBig
+sun.java.command=sourceanalyzer -Djava.awt.headless=true -XX:SoftRefLRUPolicyMSPerMB=3000 -Dcom.fortify.sca.env.exesearchpath=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/bin:/Library/TeX/texbin:/Users/zfj4/jupyter_utilities:/opt/anaconda3/bin:/opt/anaconda3/condabin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/zfj4/EpiInfo/Android/sdk:/Users/zfj4/EpiInfo/Android/sdk/tools:/Users/zfj4/EpiInfo/Android/sdk/platform-tools:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/zfj4/mongodb/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands -Dcom.fortify.sca.ProjectRoot=/Users/zfj4/.fortify -Dstdout.isatty=true -Dstderr.isatty=true -Dcom.fortify.sca.PID=13259 -Xmx6442450944 -Dcom.fortify.TotalPhysicalMemory=8589934592 -Xss16M -Dcom.fortify.sca.JVMArgs=-XX:SoftRefLRUPolicyMSPerMB=3000 -Xmx6442450944 -Xss16M -Djava.class.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/lib/exe/sca-exe.jar -b EpiInfo_test -verbose -debug -logfile fortbuild.log xcodebuild -project EpiInfo.xcodeproj -scheme EpiInfo -configuration Debug CODE_SIGN_IDENTITY= CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO
+sun.jnu.encoding=UTF-8
+sun.management.compiler=HotSpot 64-Bit Tiered Compilers
+sun.os.patch.level=unknown
+user.country=US
+user.dir=/Users/zfj4/CodePlex/EpiInfo
+user.home=/Users/zfj4
+user.language=en
+user.name=zfj4
+user.timezone=America/New_York
+
+VM Info
+OperatingSystemMXBean: Mac OS X
+  Arch: x86_64
+  AvailableProcessors: 4
+  CommittedVirtualMemorySize: 12668235776
+  FreePhysicalMemorySize: 321396736
+  FreeSwapSpaceSize: 1189085184
+  MaxFileDescriptorCount: 10240
+  OpenFileDescriptorCount: 119
+  ProcessCpuLoad: 0.0
+  ProcessCpuTime: 2311568000
+  SystemCpuLoad: 0.0
+  SystemLoadAverage: 2.16943359375
+  TotalPhysicalMemorySize: 8589934592
+  TotalSwapSpaceSize: 5368709120
+  Version: 10.16
+RuntimeMXBean: 13259@MacBook-Air-4.local
+  BootClassPath: /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/resources.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/rt.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/sunrsasign.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jsse.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jce.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/charsets.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jfr.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/classes
+  BootClassPathSupported: true
+  ClassPath: /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/lib/exe/sca-exe.jar
+  LibraryPath: /Users/zfj4/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+  ManagementSpecVersion: 1.2
+  SpecName: Java Virtual Machine Specification
+  SpecVendor: Oracle Corporation
+  SpecVersion: 1.8
+  StartTime: 1636057660125
+  Uptime: 1283
+  VmName: OpenJDK 64-Bit Server VM
+  VmVendor: Azul Systems, Inc.
+  VmVersion: 25.181-b02
+-----------------------------------------------------------------------------
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:27:41.363 DEBUG ]
+Compiler: xcodebuild
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:27:41.390 INFO  ]
+Fortify Static Code Analyzer 20.1.0.0158 (using JRE 1.8.0_181)
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=INFO_VERBOSE, stdout=true} NDC:[]
+[2021-11-04 16:27:41.392 INFO  ]
+Args:
+["-b", "EpiInfo_test", "-verbose", "-debug", "-logfile", "fortbuild.log", "xcodebuild", "-project", "EpiInfo.xcodeproj", "-scheme", "EpiInfo", "-configuration", "Debug", "CODE_SIGN_IDENTITY=", "CODE_SIGNING_ALLOWED=NO", "CODE_SIGNING_REQUIRED=NO"]
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_STATUS} NDC:[]
+[2021-11-04 16:27:41.392 INFO  ]
+VM Args:
+"-XX:SoftRefLRUPolicyMSPerMB=3000 -Xmx6442450944 -Xss16M"
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_STATUS} NDC:[]
+[2021-11-04 16:27:41.457 DEBUG ]
+Enabling code generation: Data binding
+   logger:com.fortify.sca.cmd.SCAConfiguration marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:27:41.459 DEBUG ]
+Enabling code generation: Event loops
+   logger:com.fortify.sca.cmd.SCAConfiguration marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:27:41.461 DEBUG ]
+Enabling change notification transformer.
+   logger:com.fortify.sca.cmd.SCAConfiguration marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:27:41.555 TRACE ]
+Resource /deserializableClasses.whitelist not found, no additional class names will be loaded
+   logger:com.fortify.messaging.MessageManager marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_VERBOSE, step=INIT} NDC:[]
+[2021-11-04 16:27:41.557 DEBUG ]
+Running xcodebuild command: [xcodebuild, GCC_PRECOMPILE_PREFIX_HEADER=NO, RUN_CLANG_STATIC_ANALYZER=NO, -project, EpiInfo.xcodeproj, -scheme, EpiInfo, -configuration, Debug, CODE_SIGN_IDENTITY=, CODE_SIGNING_ALLOWED=NO, CODE_SIGNING_REQUIRED=NO, SWIFT_COMPILATION_MODE=incremental]
+   logger:com.fortify.sca.util.compilers.XcodebuildScraper marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG, step=INIT} NDC:[]
+[2021-11-04 16:29:23.013 WARN  ]
+java.lang.NullPointerException
+java.lang.NullPointerException
+	at com.fortify.sca.util.compilers.XcodebuildScraper.addSwiftJob(XcodebuildScraper.java:399)
+	at com.fortify.sca.util.compilers.XcodebuildScraper.initialize(XcodebuildScraper.java:234)
+	at com.fortify.sca.frontend.FrontEndSession.runFrontEnd(FrontEndSession.java:95)
+	at com.fortify.sca.Main$Sourceanalyzer.run(Main.java:533)
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, prefix=, severity=INTERNAL_WARNING, stderr=true, step=INIT} NDC:[]
+[2021-11-04 16:29:23.019 INFO  ]
+message id statistics:
+   id:        -1 total:        17 totalSuppressedCount:         0 scope:[]
+
+   logger:com.fortify.messaging.MessageSuppressor marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE, step=INIT} NDC:[]
+[2021-11-04 16:29:23.020 INFO  ]
+logger:null  count:18
+   level:TRACE count:1
+   level:INFO count:9
+   level:DEBUG count:7
+   level:WARN count:1
+logger:com.fortify.messaging.MessageSuppressor  count:2
+   level:INFO count:2
+logger:com.fortify.logging.log4j2.LevelAdjuster  count:1
+   level:INFO count:1
+logger:com.fortify.sca.util.compilers.XcodebuildScraper  count:1
+   level:DEBUG count:1
+logger:com.fortify.sca.cmd.CommandLine  count:5
+   level:INFO count:2
+   level:DEBUG count:3
+logger:com.fortify.logging.log4j2.LoggerFactory  count:1
+   level:INFO count:1
+logger:com.fortify.messaging.MessageManager  count:1
+   level:TRACE count:1
+logger:com.fortify.sca.Main  count:4
+   level:INFO count:3
+   level:WARN count:1
+logger:com.fortify.sca.cmd.SCAConfiguration  count:3
+   level:DEBUG count:3
+
+   logger:com.fortify.logging.LoggerStats marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE, step=INIT} NDC:[]
+[2021-11-04 16:41:46.594 INFO  ]
+loggerConfig:
+   level:TRACE
+   filename:fortbuild.log
+   appendLogFile:true
+   installLoggingPrintStreams:true
+
+   logger:com.fortify.logging.log4j2.LoggerFactory marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:41:46.833 INFO  ]
+message suppression file not found /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/suppressions.json
+   logger:com.fortify.messaging.MessageSuppressor marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:41:46.836 INFO  ]
+0 suppressions loaded
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:41:46.837 INFO  ]
+message level adjustment file not found: /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/levels.json
+   logger:com.fortify.logging.log4j2.LevelAdjuster marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:41:46.838 INFO  ]
+0 level adjustments loaded
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:41:46.872 DEBUG ]
+Using TypeScript frontend to process JavaScript when possible
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:41:46.884 DEBUG ]
+------------------------- Runtime Information -------------------------------
+SCA Runtime Properties
+WinForms.CollectionMutationMonitor.Label=WinFormsDataSource
+com.fortify.sca.AddImpliedMethods=true
+com.fortify.sca.AntCompilerClass=com.fortify.dev.ant.SCACompiler
+com.fortify.sca.BuildID=EpiInfo_test
+com.fortify.sca.BundleControlflowIssues=true
+com.fortify.sca.BytecodePreview=true
+com.fortify.sca.CollectPerformanceData=true
+com.fortify.sca.CustomRulesDir=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/customrules
+com.fortify.sca.DaemonCompilers=com.fortify.sca.util.compilers.GppCompiler,com.fortify.sca.util.compilers.GccCompiler,com.fortify.sca.util.compilers.AppleGppCompiler,com.fortify.sca.util.compilers.AppleGccCompiler,com.fortify.sca.util.compilers.MicrosoftCompiler,com.fortify.sca.util.compilers.MicrosoftLinker,com.fortify.sca.util.compilers.LdCompiler,com.fortify.sca.util.compilers.ArUtil,com.fortify.sca.util.compilers.SunCCompiler,com.fortify.sca.util.compilers.SunCppCompiler,com.fortify.sca.util.compilers.IntelCompiler,com.fortify.sca.util.compilers.ExternalCppAdapter,com.fortify.sca.util.compilers.ClangCompiler
+com.fortify.sca.DeadCodeFilter=true
+com.fortify.sca.DeadCodeIgnoreTrivialPredicates=true
+com.fortify.sca.Debug=
+com.fortify.sca.DefaultAnalyzers=semantic:dataflow:controlflow:nullptr:configuration:content:structural:buffer
+com.fortify.sca.DefaultFileTypes=java,rb,erb,jsp,jspx,jspf,tag,tagx,tld,sql,cfm,php,phtml,ctp,pks,pkh,pkb,xml,config,Config,settings,properties,dll,exe,winmd,cs,vb,asax,ascx,ashx,asmx,aspx,master,Master,xaml,baml,cshtml,vbhtml,inc,asp,vbscript,js,jsx,ini,bas,cls,vbs,frm,ctl,html,htm,xsd,wsdd,xmi,py,cfml,cfc,abap,xhtml,cpx,xcfg,jsff,as,mxml,cbl,cscfg,csdef,wadcfg,wadcfgx,appxmanifest,wsdl,plist,bsp,ABAP,BSP,swift,page,trigger,scala,ts,tsx,conf,json,yaml,yml,go,kt,kts
+com.fortify.sca.DefaultJarsDirs=default_jars
+com.fortify.sca.DefaultRulesDir=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/rules
+com.fortify.sca.DisableDeadCodeElimination=false
+com.fortify.sca.DisableFunctionPointers=false
+com.fortify.sca.DisableGlobals=false
+com.fortify.sca.DisableInferredConstants=false
+com.fortify.sca.EnableInterproceduralConstantResolution=true
+com.fortify.sca.EnableNestedWrappers=true
+com.fortify.sca.EnableStructuralMatchCache=true
+com.fortify.sca.EnableWrapperDetection=true
+com.fortify.sca.FVDLDisableDescriptions=false
+com.fortify.sca.FVDLDisableProgramData=false
+com.fortify.sca.FVDLDisableSnippets=false
+com.fortify.sca.FVDLStylesheet=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/resources/sca/fvdl2html.xsl
+com.fortify.sca.GoTranslator=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/private-bin/sca/golang
+com.fortify.sca.IndirectCallGraphBuilders=WinFormsAdHocFunctionBuilder,VirtualCGBuilder,J2EEIndirectCGBuilder,JNICGBuilder,StoredProcedureResolver,JavaWSCGBuilder,StrutsCGBuilder,DotNetWSCGBuilder,SqlServerSPResolver,ASPCGBuilder,ScriptedCGBuilder,NewJspCustomTagCGBuilder,DotNetCABCGBuilder,StateInjectionCGBuilder,SqlServerSPResolver2,PHPLambdaResolver,JavaWebCGBuilder
+com.fortify.sca.JavaSourcepathSearch=true
+com.fortify.sca.JdkVersion=1.8
+com.fortify.sca.LogFile=fortbuild.log
+com.fortify.sca.LowSeverityCutoff=1.0
+com.fortify.sca.MultithreadedAnalysis=true
+com.fortify.sca.NoNestedOutTagOutput=org.apache.taglibs.standard.tag.rt.core.RemoveTag,org.apache.taglibs.standard.tag.rt.core.SetTag
+com.fortify.sca.OldVbNetExcludeFileTypes=vb,asax,ascx,ashx,asmx,aspx,xaml,cshtml,vbhtml
+com.fortify.sca.Phase0HigherOrder.Languages=python,ruby,swift,javascript,typescript
+com.fortify.sca.Phase0HigherOrder.Level=1
+com.fortify.sca.PrintPerformanceDataAfterScan=false
+com.fortify.sca.ProjectRoot=/Users/zfj4/.fortify
+com.fortify.sca.RequireMapKeys=classrule
+com.fortify.sca.SolverTimeout=15
+com.fortify.sca.SqlLanguage=PLSQL
+com.fortify.sca.SuppressLowSeverity=true
+com.fortify.sca.ThreadCount.NameTableLoading=1
+com.fortify.sca.TypeInferenceFunctionTimeout=60
+com.fortify.sca.TypeInferenceLanguages=javascript,typescript,python,ruby
+com.fortify.sca.TypeInferencePhase0Timeout=300
+com.fortify.sca.UnicodeInputFile=true
+com.fortify.sca.UniversalBlacklist=.*yyparse.*
+com.fortify.sca.Verbose=
+com.fortify.sca.alias.mode.csharp=fs
+com.fortify.sca.alias.mode.javascript=fi
+com.fortify.sca.alias.mode.scala=fi
+com.fortify.sca.alias.mode.swift=fi
+com.fortify.sca.alias.mode.typescript=fi
+com.fortify.sca.alias.mode.vb=fs
+com.fortify.sca.analyzer.controlflow.EnableLivenessOptimization=false
+com.fortify.sca.analyzer.controlflow.EnableMachineFiltering=false
+com.fortify.sca.analyzer.controlflow.EnableRefRuleOptimization=false
+com.fortify.sca.analyzer.controlflow.EnableTimeOut=true
+com.fortify.sca.clang.AcceptedParams=-arcmt-migrate-report-output+1,-compatibility_version+1,-current_version+1,-cxx-isystem+1,-D+1,-dependency-dot+1,-dependency-file+1,-F+1,-filelist+1,-flts-model+1,-fmodule-implementation-of+1,-framework+1,-gmodules,-idirafter+1,-iframework+1,-imacros+1,-imultilib+1,-include+1,-include-pch+1,-install_name+1,-iprefix+1,-iquote+1,-isystem+1,-ivfsoverlay+1,-iwithprefix+1,-iwithprefixbefore+1,-iwithsysroot+1,-I+1,-MF+1,-MMD,-MQ+1,-MT+1,-mllvm+1,-o+1,--serialize-diagnostics+1,-U+1,-undefined+1,-working-directory+1,-X*+1,-x+1
+com.fortify.sca.clang.SuppressedParams=--analyze,-e+1,-fapplication-extension,-fembed-bitcode,-fembed-bitcode-marker,-index-store-path+1,-l*,-l+1,-L*,-L+1,-module-file-info+1,-mwatchos-version-min,--param+1,-w,-weak_framework+1,-Xanalyzer+1,-Xassembler+1,-Xlinker+1
+com.fortify.sca.compilers.ant=com.fortify.sca.util.compilers.AntAdapter
+com.fortify.sca.compilers.ar=com.fortify.sca.util.compilers.ArUtil
+com.fortify.sca.compilers.armcc=com.fortify.sca.util.compilers.ArmCcCompiler
+com.fortify.sca.compilers.armcpp=com.fortify.sca.util.compilers.ArmCppCompiler
+com.fortify.sca.compilers.c++=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.cc=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.clang=com.fortify.sca.util.compilers.ClangCompiler
+com.fortify.sca.compilers.clang++=com.fortify.sca.util.compilers.ClangCompiler
+com.fortify.sca.compilers.clearmake=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.fortify=com.fortify.sca.util.compilers.FortifyCompiler
+com.fortify.sca.compilers.g++=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++-*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++2*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++3*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++4*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.gcc=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc-*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc2*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc3*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc4*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gmake=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.gradle=com.fortify.sca.util.compilers.GradleAdapter
+com.fortify.sca.compilers.gradlew=com.fortify.sca.util.compilers.GradleAdapter
+com.fortify.sca.compilers.icc=com.fortify.sca.util.compilers.IntelCompiler
+com.fortify.sca.compilers.icpc=com.fortify.sca.util.compilers.IntelCompiler
+com.fortify.sca.compilers.jam=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.javac=com.fortify.sca.util.compilers.JavacCompiler
+com.fortify.sca.compilers.ld=com.fortify.sca.util.compilers.LdCompiler
+com.fortify.sca.compilers.make=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.mvn=com.fortify.sca.util.compilers.MavenAdapter
+com.fortify.sca.compilers.scalac=com.fortify.sca.util.compilers.ScalacCompiler
+com.fortify.sca.compilers.swift=com.fortify.sca.util.compilers.SwiftCompiler
+com.fortify.sca.compilers.swiftc=com.fortify.sca.util.compilers.SwiftCompiler
+com.fortify.sca.compilers.tcc=com.fortify.sca.util.compilers.ArmCcCompiler
+com.fortify.sca.compilers.tcpp=com.fortify.sca.util.compilers.ArmCppCompiler
+com.fortify.sca.compilers.touchless=com.fortify.sca.util.compilers.FortifyCompiler
+com.fortify.sca.compilers.xcodebuild=com.fortify.sca.util.compilers.XcodebuildScraper
+com.fortify.sca.cpfe.441.command=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/private-bin/sca/cpfe441.rfct
+com.fortify.sca.cpfe.command=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/private-bin/sca/cpfe48
+com.fortify.sca.cpfe.file.option=--gen_c_file_name
+com.fortify.sca.cpfe.options=--remove_unneeded_entities --suppress_vtbl -tused
+com.fortify.sca.fileextensions.ABAP=ABAP
+com.fortify.sca.fileextensions.BSP=ABAP
+com.fortify.sca.fileextensions.Config=XML
+com.fortify.sca.fileextensions.abap=ABAP
+com.fortify.sca.fileextensions.appxmanifest=XML
+com.fortify.sca.fileextensions.as=ACTIONSCRIPT
+com.fortify.sca.fileextensions.asp=ASP
+com.fortify.sca.fileextensions.bas=VB6
+com.fortify.sca.fileextensions.bsp=ABAP
+com.fortify.sca.fileextensions.cfc=CFML
+com.fortify.sca.fileextensions.cfm=CFML
+com.fortify.sca.fileextensions.cfml=CFML
+com.fortify.sca.fileextensions.cls=VB6
+com.fortify.sca.fileextensions.conf=HOCON
+com.fortify.sca.fileextensions.config=XML
+com.fortify.sca.fileextensions.cpx=XML
+com.fortify.sca.fileextensions.cscfg=XML
+com.fortify.sca.fileextensions.csdef=XML
+com.fortify.sca.fileextensions.ctl=VB6
+com.fortify.sca.fileextensions.ctp=PHP
+com.fortify.sca.fileextensions.erb=RUBY_ERB
+com.fortify.sca.fileextensions.faces=JSPX
+com.fortify.sca.fileextensions.frm=VB6
+com.fortify.sca.fileextensions.go=GO
+com.fortify.sca.fileextensions.htm=HTML
+com.fortify.sca.fileextensions.html=HTML
+com.fortify.sca.fileextensions.ini=JAVA_PROPERTIES
+com.fortify.sca.fileextensions.java=JAVA
+com.fortify.sca.fileextensions.js=TYPESCRIPT
+com.fortify.sca.fileextensions.jsff=JSPX
+com.fortify.sca.fileextensions.json=JSON
+com.fortify.sca.fileextensions.jsp=JSP
+com.fortify.sca.fileextensions.jspf=JSP
+com.fortify.sca.fileextensions.jspx=JSPX
+com.fortify.sca.fileextensions.jsx=TYPESCRIPT
+com.fortify.sca.fileextensions.kt=KOTLIN
+com.fortify.sca.fileextensions.kts=KOTLIN
+com.fortify.sca.fileextensions.mxml=MXML
+com.fortify.sca.fileextensions.page=VISUAL_FORCE
+com.fortify.sca.fileextensions.php=PHP
+com.fortify.sca.fileextensions.phtml=PHP
+com.fortify.sca.fileextensions.pkb=PLSQL
+com.fortify.sca.fileextensions.pkh=PLSQL
+com.fortify.sca.fileextensions.pks=PLSQL
+com.fortify.sca.fileextensions.plist=XML
+com.fortify.sca.fileextensions.properties=JAVA_PROPERTIES
+com.fortify.sca.fileextensions.py=PYTHON
+com.fortify.sca.fileextensions.rb=RUBY
+com.fortify.sca.fileextensions.scala=SCALA
+com.fortify.sca.fileextensions.settings=XML
+com.fortify.sca.fileextensions.sql=SQL
+com.fortify.sca.fileextensions.swift=SWIFT
+com.fortify.sca.fileextensions.tag=JSP
+com.fortify.sca.fileextensions.tagx=JSP
+com.fortify.sca.fileextensions.tld=TLD
+com.fortify.sca.fileextensions.trigger=APEX_TRIGGER
+com.fortify.sca.fileextensions.ts=TYPESCRIPT
+com.fortify.sca.fileextensions.tsx=TYPESCRIPT
+com.fortify.sca.fileextensions.vbs=VBSCRIPT
+com.fortify.sca.fileextensions.vbscript=VBSCRIPT
+com.fortify.sca.fileextensions.wadcfg=XML
+com.fortify.sca.fileextensions.wadcfgx=XML
+com.fortify.sca.fileextensions.wsdd=XML
+com.fortify.sca.fileextensions.wsdl=XML
+com.fortify.sca.fileextensions.xcfg=XML
+com.fortify.sca.fileextensions.xhtml=JSPX
+com.fortify.sca.fileextensions.xmi=XML
+com.fortify.sca.fileextensions.xml=XML
+com.fortify.sca.fileextensions.xsd=XML
+com.fortify.sca.fileextensions.yaml=YAML
+com.fortify.sca.fileextensions.yml=YAML
+com.fortify.sca.jsp.UseNativeParser=true
+com.fortify.sca.parser.python.ignore.module.1=test.badsyntax_future3
+com.fortify.sca.parser.python.ignore.module.2=test.badsyntax_future4
+com.fortify.sca.parser.python.ignore.module.3=test.badsyntax_future5
+com.fortify.sca.parser.python.ignore.module.4=test.badsyntax_future6
+com.fortify.sca.parser.python.ignore.module.5=test.badsyntax_future7
+com.fortify.sca.parser.python.ignore.module.6=test.badsyntax_future8
+com.fortify.sca.parser.python.ignore.module.7=test.badsyntax_future9
+com.fortify.sca.parser.python.ignore.module.8=test.badsyntax_nocaret
+com.fortify.sca.skip.libraries.AngularJS=angular.js,angular.min.js,angular-animate.js,angular-aria.js,angular_1_router.js,angular-cookies.js,angular-message-format.js,angular-messages.js,angular-mocks.js,angular-parse-ext.js,angular-resource.js,angular-route.js,angular-sanitize.js,angular-touch.js
+com.fortify.sca.skip.libraries.ES6=es6-shim.min.js,system-polyfills.js,shims_for_IE.js
+com.fortify.sca.skip.libraries.jQuery=jquery.js,jquery.min.js,jquery-migrate.js,jquery-migrate.min.js,jquery-ui.js,jquery-ui.min.js,jquery.mobile.js,jquery.mobile.min.js,jquery.color.js,jquery.color.min.js,jquery.color.svg-names.js,jquery.color.svg-names.min.js,jquery.color.plus-names.js,jquery.color.plus-names.min.js,jquery.tools.min.js
+com.fortify.sca.skip.libraries.javascript=bootstrap.js,bootstrap.min.js,typescript.js,typescriptServices.js
+com.fortify.sca.skip.libraries.typescript=typescript.d.ts,typescriptServices.d.ts
+com.fortify.sca.xcode.Overrides=GCC_PRECOMPILE_PREFIX_HEADER=NO,RUN_CLANG_STATIC_ANALYZER=NO
+
+Fortify Runtime Properties
+com.fortify.AuthenticationKey=/Users/zfj4/.fortify/config/tools
+com.fortify.Core=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core
+com.fortify.InstallationUserName=zfj4
+com.fortify.SCAExecutablePath=
+com.fortify.VS.RequireASPPrecompilation=true
+com.fortify.WorkingDirectory=/Users/zfj4/.fortify
+com.fortify.locale=en
+com.fortify.log.console=true
+com.fortify.search.defaultSyntaxVer=2
+max.file.path.length=255
+
+System Runtime Properties
+awt.toolkit=sun.lwawt.macosx.LWCToolkit
+com.fortify.InstallRoot=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0
+com.fortify.TotalPhysicalMemory=8589934592
+com.fortify.sca.AppendLogFile=true
+com.fortify.sca.JVMArgs=-XX:SoftRefLRUPolicyMSPerMB=3000 -Xmx6442450944 -Xss16M
+com.fortify.sca.LogFile=/Users/zfj4/CodePlex/EpiInfo/fortbuild
+com.fortify.sca.LogFileDir=/Users/zfj4/CodePlex/EpiInfo
+com.fortify.sca.LogFileExt=.log
+com.fortify.sca.LogFileName=fortbuild.log
+com.fortify.sca.LogFileNameNoExt=fortbuild
+com.fortify.sca.LogFilePath=/Users/zfj4/CodePlex/EpiInfo/fortbuild.log
+com.fortify.sca.LogLevel=TRACE
+com.fortify.sca.PID=15213
+com.fortify.sca.ProjectRoot=/Users/zfj4/.fortify
+com.fortify.sca.cpfe.options=--remove_unneeded_entities --suppress_vtbl -tused
+com.fortify.sca.env.exesearchpath=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/bin:/Library/TeX/texbin:/Users/zfj4/jupyter_utilities:/opt/anaconda3/bin:/opt/anaconda3/condabin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/zfj4/EpiInfo/Android/sdk:/Users/zfj4/EpiInfo/Android/sdk/tools:/Users/zfj4/EpiInfo/Android/sdk/platform-tools:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/zfj4/mongodb/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands
+file.encoding=UTF-8
+file.encoding.pkg=sun.io
+file.separator=/
+ftp.nonProxyHosts=local|*.local|169.254/16|*.169.254/16
+gopherProxySet=false
+http.nonProxyHosts=local|*.local|169.254/16|*.169.254/16
+java.awt.graphicsenv=sun.awt.CGraphicsEnvironment
+java.awt.headless=true
+java.awt.printerjob=sun.lwawt.macosx.CPrinterJob
+java.class.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/lib/exe/sca-exe.jar
+java.class.version=52.0
+java.endorsed.dirs=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/endorsed
+java.ext.dirs=/Users/zfj4/Library/Java/Extensions:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java
+java.home=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre
+java.io.tmpdir=/var/folders/v6/gg2ckpj95flfhrghq93gztwc0000gp/T/
+java.library.path=/Users/zfj4/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+java.runtime.name=OpenJDK Runtime Environment
+java.runtime.version=1.8.0_181-b02
+java.specification.name=Java Platform API Specification
+java.specification.vendor=Oracle Corporation
+java.specification.version=1.8
+java.vendor=Azul Systems, Inc.
+java.vendor.url=http://www.azulsystems.com/
+java.vendor.url.bug=http://www.azulsystems.com/support/
+java.version=1.8.0_181
+java.vm.info=mixed mode
+java.vm.name=OpenJDK 64-Bit Server VM
+java.vm.specification.name=Java Virtual Machine Specification
+java.vm.specification.vendor=Oracle Corporation
+java.vm.specification.version=1.8
+java.vm.vendor=Azul Systems, Inc.
+java.vm.version=25.181-b02
+line.separator=
+
+log4j.configurationFile=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/log4j2.xml
+log4j.isThreadContextMapInheritable=true
+os.arch=x86_64
+os.name=Mac OS X
+os.version=10.16
+path.separator=:
+socksNonProxyHosts=local|*.local|169.254/16|*.169.254/16
+stderr.isatty=true
+stdout.isatty=true
+sun.arch.data.model=64
+sun.boot.class.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/resources.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/rt.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/sunrsasign.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jsse.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jce.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/charsets.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jfr.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/classes
+sun.boot.library.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib
+sun.cpu.endian=little
+sun.cpu.isalist=
+sun.io.unicode.encoding=UnicodeBig
+sun.java.command=sourceanalyzer -Djava.awt.headless=true -XX:SoftRefLRUPolicyMSPerMB=3000 -Dcom.fortify.sca.env.exesearchpath=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/bin:/Library/TeX/texbin:/Users/zfj4/jupyter_utilities:/opt/anaconda3/bin:/opt/anaconda3/condabin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/zfj4/EpiInfo/Android/sdk:/Users/zfj4/EpiInfo/Android/sdk/tools:/Users/zfj4/EpiInfo/Android/sdk/platform-tools:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/zfj4/mongodb/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands -Dcom.fortify.sca.ProjectRoot=/Users/zfj4/.fortify -Dstdout.isatty=true -Dstderr.isatty=true -Dcom.fortify.sca.PID=15213 -Xmx6442450944 -Dcom.fortify.TotalPhysicalMemory=8589934592 -Xss16M -Dcom.fortify.sca.JVMArgs=-XX:SoftRefLRUPolicyMSPerMB=3000 -Xmx6442450944 -Xss16M -Djava.class.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/lib/exe/sca-exe.jar -b EpiInfo_test -verbose -debug -logfile fortbuild.log xcodebuild -project EpiInfo.xcodeproj -scheme EpiInfo -configuration Debug CODE_SIGN_IDENTITY= CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO clean
+sun.jnu.encoding=UTF-8
+sun.management.compiler=HotSpot 64-Bit Tiered Compilers
+sun.os.patch.level=unknown
+user.country=US
+user.dir=/Users/zfj4/CodePlex/EpiInfo
+user.home=/Users/zfj4
+user.language=en
+user.name=zfj4
+user.timezone=America/New_York
+
+VM Info
+OperatingSystemMXBean: Mac OS X
+  Arch: x86_64
+  AvailableProcessors: 4
+  CommittedVirtualMemorySize: 12669313024
+  FreePhysicalMemorySize: 26062848
+  FreeSwapSpaceSize: 1189085184
+  MaxFileDescriptorCount: 10240
+  OpenFileDescriptorCount: 119
+  ProcessCpuLoad: 0.0
+  ProcessCpuTime: 2739200000
+  SystemCpuLoad: 0.0
+  SystemLoadAverage: 1.64404296875
+  TotalPhysicalMemorySize: 8589934592
+  TotalSwapSpaceSize: 5368709120
+  Version: 10.16
+RuntimeMXBean: 15213@MacBook-Air-4.local
+  BootClassPath: /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/resources.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/rt.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/sunrsasign.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jsse.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jce.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/charsets.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jfr.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/classes
+  BootClassPathSupported: true
+  ClassPath: /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/lib/exe/sca-exe.jar
+  LibraryPath: /Users/zfj4/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+  ManagementSpecVersion: 1.2
+  SpecName: Java Virtual Machine Specification
+  SpecVendor: Oracle Corporation
+  SpecVersion: 1.8
+  StartTime: 1636058504655
+  Uptime: 2411
+  VmName: OpenJDK 64-Bit Server VM
+  VmVendor: Azul Systems, Inc.
+  VmVersion: 25.181-b02
+-----------------------------------------------------------------------------
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:41:46.896 DEBUG ]
+Compiler: xcodebuild
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:41:46.936 INFO  ]
+Fortify Static Code Analyzer 20.1.0.0158 (using JRE 1.8.0_181)
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=INFO_VERBOSE, stdout=true} NDC:[]
+[2021-11-04 16:41:46.938 INFO  ]
+Args:
+["-b", "EpiInfo_test", "-verbose", "-debug", "-logfile", "fortbuild.log", "xcodebuild", "-project", "EpiInfo.xcodeproj", "-scheme", "EpiInfo", "-configuration", "Debug", "CODE_SIGN_IDENTITY=", "CODE_SIGNING_ALLOWED=NO", "CODE_SIGNING_REQUIRED=NO", "clean"]
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_STATUS} NDC:[]
+[2021-11-04 16:41:46.938 INFO  ]
+VM Args:
+"-XX:SoftRefLRUPolicyMSPerMB=3000 -Xmx6442450944 -Xss16M"
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_STATUS} NDC:[]
+[2021-11-04 16:41:47.046 DEBUG ]
+Enabling code generation: Data binding
+   logger:com.fortify.sca.cmd.SCAConfiguration marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:41:47.048 DEBUG ]
+Enabling code generation: Event loops
+   logger:com.fortify.sca.cmd.SCAConfiguration marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:41:47.051 DEBUG ]
+Enabling change notification transformer.
+   logger:com.fortify.sca.cmd.SCAConfiguration marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:41:47.229 TRACE ]
+Resource /deserializableClasses.whitelist not found, no additional class names will be loaded
+   logger:com.fortify.messaging.MessageManager marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_VERBOSE, step=INIT} NDC:[]
+[2021-11-04 16:41:47.230 DEBUG ]
+Running xcodebuild command: [xcodebuild, GCC_PRECOMPILE_PREFIX_HEADER=NO, RUN_CLANG_STATIC_ANALYZER=NO, -project, EpiInfo.xcodeproj, -scheme, EpiInfo, -configuration, Debug, CODE_SIGN_IDENTITY=, CODE_SIGNING_ALLOWED=NO, CODE_SIGNING_REQUIRED=NO, clean, SWIFT_COMPILATION_MODE=incremental]
+   logger:com.fortify.sca.util.compilers.XcodebuildScraper marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG, step=INIT} NDC:[]
+[2021-11-04 16:41:53.445 INFO  ]
+Front End complete
+   logger:com.fortify.sca.frontend.FrontEndSession marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_STATUS, step=INIT} NDC:[]
+[2021-11-04 16:41:53.464 DEBUG ]
+Nothing to store.
+   logger:com.fortify.sca.metadata.BuildSession marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG, step=INIT} NDC:[]
+[2021-11-04 16:41:53.465 INFO  ]
+message id statistics:
+   id:        -1 total:        18 totalSuppressedCount:         0 scope:[]
+
+   logger:com.fortify.messaging.MessageSuppressor marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE, step=INIT} NDC:[]
+[2021-11-04 16:41:53.465 INFO  ]
+logger:null  count:19
+   level:TRACE count:1
+   level:INFO count:10
+   level:DEBUG count:8
+logger:com.fortify.messaging.MessageSuppressor  count:2
+   level:INFO count:2
+logger:com.fortify.logging.log4j2.LevelAdjuster  count:1
+   level:INFO count:1
+logger:com.fortify.sca.metadata.BuildSession  count:1
+   level:DEBUG count:1
+logger:com.fortify.sca.util.compilers.XcodebuildScraper  count:1
+   level:DEBUG count:1
+logger:com.fortify.sca.cmd.CommandLine  count:5
+   level:INFO count:2
+   level:DEBUG count:3
+logger:com.fortify.logging.log4j2.LoggerFactory  count:1
+   level:INFO count:1
+logger:com.fortify.messaging.MessageManager  count:1
+   level:TRACE count:1
+logger:com.fortify.sca.Main  count:3
+   level:INFO count:3
+logger:com.fortify.sca.cmd.SCAConfiguration  count:3
+   level:DEBUG count:3
+logger:com.fortify.sca.frontend.FrontEndSession  count:1
+   level:INFO count:1
+
+   logger:com.fortify.logging.LoggerStats marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE, step=INIT} NDC:[]
+[2021-11-04 16:42:05.249 INFO  ]
+loggerConfig:
+   level:TRACE
+   filename:fortbuild.log
+   appendLogFile:true
+   installLoggingPrintStreams:true
+
+   logger:com.fortify.logging.log4j2.LoggerFactory marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:42:05.364 INFO  ]
+message suppression file not found /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/suppressions.json
+   logger:com.fortify.messaging.MessageSuppressor marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:42:05.367 INFO  ]
+0 suppressions loaded
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:42:05.368 INFO  ]
+message level adjustment file not found: /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/levels.json
+   logger:com.fortify.logging.log4j2.LevelAdjuster marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:42:05.369 INFO  ]
+0 level adjustments loaded
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE} NDC:[]
+[2021-11-04 16:42:05.389 DEBUG ]
+Using TypeScript frontend to process JavaScript when possible
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:42:05.400 DEBUG ]
+------------------------- Runtime Information -------------------------------
+SCA Runtime Properties
+WinForms.CollectionMutationMonitor.Label=WinFormsDataSource
+com.fortify.sca.AddImpliedMethods=true
+com.fortify.sca.AntCompilerClass=com.fortify.dev.ant.SCACompiler
+com.fortify.sca.BuildID=EpiInfo_test
+com.fortify.sca.BundleControlflowIssues=true
+com.fortify.sca.BytecodePreview=true
+com.fortify.sca.CollectPerformanceData=true
+com.fortify.sca.CustomRulesDir=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/customrules
+com.fortify.sca.DaemonCompilers=com.fortify.sca.util.compilers.GppCompiler,com.fortify.sca.util.compilers.GccCompiler,com.fortify.sca.util.compilers.AppleGppCompiler,com.fortify.sca.util.compilers.AppleGccCompiler,com.fortify.sca.util.compilers.MicrosoftCompiler,com.fortify.sca.util.compilers.MicrosoftLinker,com.fortify.sca.util.compilers.LdCompiler,com.fortify.sca.util.compilers.ArUtil,com.fortify.sca.util.compilers.SunCCompiler,com.fortify.sca.util.compilers.SunCppCompiler,com.fortify.sca.util.compilers.IntelCompiler,com.fortify.sca.util.compilers.ExternalCppAdapter,com.fortify.sca.util.compilers.ClangCompiler
+com.fortify.sca.DeadCodeFilter=true
+com.fortify.sca.DeadCodeIgnoreTrivialPredicates=true
+com.fortify.sca.Debug=
+com.fortify.sca.DefaultAnalyzers=semantic:dataflow:controlflow:nullptr:configuration:content:structural:buffer
+com.fortify.sca.DefaultFileTypes=java,rb,erb,jsp,jspx,jspf,tag,tagx,tld,sql,cfm,php,phtml,ctp,pks,pkh,pkb,xml,config,Config,settings,properties,dll,exe,winmd,cs,vb,asax,ascx,ashx,asmx,aspx,master,Master,xaml,baml,cshtml,vbhtml,inc,asp,vbscript,js,jsx,ini,bas,cls,vbs,frm,ctl,html,htm,xsd,wsdd,xmi,py,cfml,cfc,abap,xhtml,cpx,xcfg,jsff,as,mxml,cbl,cscfg,csdef,wadcfg,wadcfgx,appxmanifest,wsdl,plist,bsp,ABAP,BSP,swift,page,trigger,scala,ts,tsx,conf,json,yaml,yml,go,kt,kts
+com.fortify.sca.DefaultJarsDirs=default_jars
+com.fortify.sca.DefaultRulesDir=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/rules
+com.fortify.sca.DisableDeadCodeElimination=false
+com.fortify.sca.DisableFunctionPointers=false
+com.fortify.sca.DisableGlobals=false
+com.fortify.sca.DisableInferredConstants=false
+com.fortify.sca.EnableInterproceduralConstantResolution=true
+com.fortify.sca.EnableNestedWrappers=true
+com.fortify.sca.EnableStructuralMatchCache=true
+com.fortify.sca.EnableWrapperDetection=true
+com.fortify.sca.FVDLDisableDescriptions=false
+com.fortify.sca.FVDLDisableProgramData=false
+com.fortify.sca.FVDLDisableSnippets=false
+com.fortify.sca.FVDLStylesheet=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/resources/sca/fvdl2html.xsl
+com.fortify.sca.GoTranslator=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/private-bin/sca/golang
+com.fortify.sca.IndirectCallGraphBuilders=WinFormsAdHocFunctionBuilder,VirtualCGBuilder,J2EEIndirectCGBuilder,JNICGBuilder,StoredProcedureResolver,JavaWSCGBuilder,StrutsCGBuilder,DotNetWSCGBuilder,SqlServerSPResolver,ASPCGBuilder,ScriptedCGBuilder,NewJspCustomTagCGBuilder,DotNetCABCGBuilder,StateInjectionCGBuilder,SqlServerSPResolver2,PHPLambdaResolver,JavaWebCGBuilder
+com.fortify.sca.JavaSourcepathSearch=true
+com.fortify.sca.JdkVersion=1.8
+com.fortify.sca.LogFile=fortbuild.log
+com.fortify.sca.LowSeverityCutoff=1.0
+com.fortify.sca.MultithreadedAnalysis=true
+com.fortify.sca.NoNestedOutTagOutput=org.apache.taglibs.standard.tag.rt.core.RemoveTag,org.apache.taglibs.standard.tag.rt.core.SetTag
+com.fortify.sca.OldVbNetExcludeFileTypes=vb,asax,ascx,ashx,asmx,aspx,xaml,cshtml,vbhtml
+com.fortify.sca.Phase0HigherOrder.Languages=python,ruby,swift,javascript,typescript
+com.fortify.sca.Phase0HigherOrder.Level=1
+com.fortify.sca.PrintPerformanceDataAfterScan=false
+com.fortify.sca.ProjectRoot=/Users/zfj4/.fortify
+com.fortify.sca.RequireMapKeys=classrule
+com.fortify.sca.SolverTimeout=15
+com.fortify.sca.SqlLanguage=PLSQL
+com.fortify.sca.SuppressLowSeverity=true
+com.fortify.sca.ThreadCount.NameTableLoading=1
+com.fortify.sca.TypeInferenceFunctionTimeout=60
+com.fortify.sca.TypeInferenceLanguages=javascript,typescript,python,ruby
+com.fortify.sca.TypeInferencePhase0Timeout=300
+com.fortify.sca.UnicodeInputFile=true
+com.fortify.sca.UniversalBlacklist=.*yyparse.*
+com.fortify.sca.Verbose=
+com.fortify.sca.alias.mode.csharp=fs
+com.fortify.sca.alias.mode.javascript=fi
+com.fortify.sca.alias.mode.scala=fi
+com.fortify.sca.alias.mode.swift=fi
+com.fortify.sca.alias.mode.typescript=fi
+com.fortify.sca.alias.mode.vb=fs
+com.fortify.sca.analyzer.controlflow.EnableLivenessOptimization=false
+com.fortify.sca.analyzer.controlflow.EnableMachineFiltering=false
+com.fortify.sca.analyzer.controlflow.EnableRefRuleOptimization=false
+com.fortify.sca.analyzer.controlflow.EnableTimeOut=true
+com.fortify.sca.clang.AcceptedParams=-arcmt-migrate-report-output+1,-compatibility_version+1,-current_version+1,-cxx-isystem+1,-D+1,-dependency-dot+1,-dependency-file+1,-F+1,-filelist+1,-flts-model+1,-fmodule-implementation-of+1,-framework+1,-gmodules,-idirafter+1,-iframework+1,-imacros+1,-imultilib+1,-include+1,-include-pch+1,-install_name+1,-iprefix+1,-iquote+1,-isystem+1,-ivfsoverlay+1,-iwithprefix+1,-iwithprefixbefore+1,-iwithsysroot+1,-I+1,-MF+1,-MMD,-MQ+1,-MT+1,-mllvm+1,-o+1,--serialize-diagnostics+1,-U+1,-undefined+1,-working-directory+1,-X*+1,-x+1
+com.fortify.sca.clang.SuppressedParams=--analyze,-e+1,-fapplication-extension,-fembed-bitcode,-fembed-bitcode-marker,-index-store-path+1,-l*,-l+1,-L*,-L+1,-module-file-info+1,-mwatchos-version-min,--param+1,-w,-weak_framework+1,-Xanalyzer+1,-Xassembler+1,-Xlinker+1
+com.fortify.sca.compilers.ant=com.fortify.sca.util.compilers.AntAdapter
+com.fortify.sca.compilers.ar=com.fortify.sca.util.compilers.ArUtil
+com.fortify.sca.compilers.armcc=com.fortify.sca.util.compilers.ArmCcCompiler
+com.fortify.sca.compilers.armcpp=com.fortify.sca.util.compilers.ArmCppCompiler
+com.fortify.sca.compilers.c++=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.cc=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.clang=com.fortify.sca.util.compilers.ClangCompiler
+com.fortify.sca.compilers.clang++=com.fortify.sca.util.compilers.ClangCompiler
+com.fortify.sca.compilers.clearmake=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.fortify=com.fortify.sca.util.compilers.FortifyCompiler
+com.fortify.sca.compilers.g++=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++-*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++2*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++3*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.g++4*=com.fortify.sca.util.compilers.AppleGppCompiler
+com.fortify.sca.compilers.gcc=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc-*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc2*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc3*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gcc4*=com.fortify.sca.util.compilers.AppleGccCompiler
+com.fortify.sca.compilers.gmake=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.gradle=com.fortify.sca.util.compilers.GradleAdapter
+com.fortify.sca.compilers.gradlew=com.fortify.sca.util.compilers.GradleAdapter
+com.fortify.sca.compilers.icc=com.fortify.sca.util.compilers.IntelCompiler
+com.fortify.sca.compilers.icpc=com.fortify.sca.util.compilers.IntelCompiler
+com.fortify.sca.compilers.jam=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.javac=com.fortify.sca.util.compilers.JavacCompiler
+com.fortify.sca.compilers.ld=com.fortify.sca.util.compilers.LdCompiler
+com.fortify.sca.compilers.make=com.fortify.sca.util.compilers.TouchlessCompiler
+com.fortify.sca.compilers.mvn=com.fortify.sca.util.compilers.MavenAdapter
+com.fortify.sca.compilers.scalac=com.fortify.sca.util.compilers.ScalacCompiler
+com.fortify.sca.compilers.swift=com.fortify.sca.util.compilers.SwiftCompiler
+com.fortify.sca.compilers.swiftc=com.fortify.sca.util.compilers.SwiftCompiler
+com.fortify.sca.compilers.tcc=com.fortify.sca.util.compilers.ArmCcCompiler
+com.fortify.sca.compilers.tcpp=com.fortify.sca.util.compilers.ArmCppCompiler
+com.fortify.sca.compilers.touchless=com.fortify.sca.util.compilers.FortifyCompiler
+com.fortify.sca.compilers.xcodebuild=com.fortify.sca.util.compilers.XcodebuildScraper
+com.fortify.sca.cpfe.441.command=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/private-bin/sca/cpfe441.rfct
+com.fortify.sca.cpfe.command=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/private-bin/sca/cpfe48
+com.fortify.sca.cpfe.file.option=--gen_c_file_name
+com.fortify.sca.cpfe.options=--remove_unneeded_entities --suppress_vtbl -tused
+com.fortify.sca.fileextensions.ABAP=ABAP
+com.fortify.sca.fileextensions.BSP=ABAP
+com.fortify.sca.fileextensions.Config=XML
+com.fortify.sca.fileextensions.abap=ABAP
+com.fortify.sca.fileextensions.appxmanifest=XML
+com.fortify.sca.fileextensions.as=ACTIONSCRIPT
+com.fortify.sca.fileextensions.asp=ASP
+com.fortify.sca.fileextensions.bas=VB6
+com.fortify.sca.fileextensions.bsp=ABAP
+com.fortify.sca.fileextensions.cfc=CFML
+com.fortify.sca.fileextensions.cfm=CFML
+com.fortify.sca.fileextensions.cfml=CFML
+com.fortify.sca.fileextensions.cls=VB6
+com.fortify.sca.fileextensions.conf=HOCON
+com.fortify.sca.fileextensions.config=XML
+com.fortify.sca.fileextensions.cpx=XML
+com.fortify.sca.fileextensions.cscfg=XML
+com.fortify.sca.fileextensions.csdef=XML
+com.fortify.sca.fileextensions.ctl=VB6
+com.fortify.sca.fileextensions.ctp=PHP
+com.fortify.sca.fileextensions.erb=RUBY_ERB
+com.fortify.sca.fileextensions.faces=JSPX
+com.fortify.sca.fileextensions.frm=VB6
+com.fortify.sca.fileextensions.go=GO
+com.fortify.sca.fileextensions.htm=HTML
+com.fortify.sca.fileextensions.html=HTML
+com.fortify.sca.fileextensions.ini=JAVA_PROPERTIES
+com.fortify.sca.fileextensions.java=JAVA
+com.fortify.sca.fileextensions.js=TYPESCRIPT
+com.fortify.sca.fileextensions.jsff=JSPX
+com.fortify.sca.fileextensions.json=JSON
+com.fortify.sca.fileextensions.jsp=JSP
+com.fortify.sca.fileextensions.jspf=JSP
+com.fortify.sca.fileextensions.jspx=JSPX
+com.fortify.sca.fileextensions.jsx=TYPESCRIPT
+com.fortify.sca.fileextensions.kt=KOTLIN
+com.fortify.sca.fileextensions.kts=KOTLIN
+com.fortify.sca.fileextensions.mxml=MXML
+com.fortify.sca.fileextensions.page=VISUAL_FORCE
+com.fortify.sca.fileextensions.php=PHP
+com.fortify.sca.fileextensions.phtml=PHP
+com.fortify.sca.fileextensions.pkb=PLSQL
+com.fortify.sca.fileextensions.pkh=PLSQL
+com.fortify.sca.fileextensions.pks=PLSQL
+com.fortify.sca.fileextensions.plist=XML
+com.fortify.sca.fileextensions.properties=JAVA_PROPERTIES
+com.fortify.sca.fileextensions.py=PYTHON
+com.fortify.sca.fileextensions.rb=RUBY
+com.fortify.sca.fileextensions.scala=SCALA
+com.fortify.sca.fileextensions.settings=XML
+com.fortify.sca.fileextensions.sql=SQL
+com.fortify.sca.fileextensions.swift=SWIFT
+com.fortify.sca.fileextensions.tag=JSP
+com.fortify.sca.fileextensions.tagx=JSP
+com.fortify.sca.fileextensions.tld=TLD
+com.fortify.sca.fileextensions.trigger=APEX_TRIGGER
+com.fortify.sca.fileextensions.ts=TYPESCRIPT
+com.fortify.sca.fileextensions.tsx=TYPESCRIPT
+com.fortify.sca.fileextensions.vbs=VBSCRIPT
+com.fortify.sca.fileextensions.vbscript=VBSCRIPT
+com.fortify.sca.fileextensions.wadcfg=XML
+com.fortify.sca.fileextensions.wadcfgx=XML
+com.fortify.sca.fileextensions.wsdd=XML
+com.fortify.sca.fileextensions.wsdl=XML
+com.fortify.sca.fileextensions.xcfg=XML
+com.fortify.sca.fileextensions.xhtml=JSPX
+com.fortify.sca.fileextensions.xmi=XML
+com.fortify.sca.fileextensions.xml=XML
+com.fortify.sca.fileextensions.xsd=XML
+com.fortify.sca.fileextensions.yaml=YAML
+com.fortify.sca.fileextensions.yml=YAML
+com.fortify.sca.jsp.UseNativeParser=true
+com.fortify.sca.parser.python.ignore.module.1=test.badsyntax_future3
+com.fortify.sca.parser.python.ignore.module.2=test.badsyntax_future4
+com.fortify.sca.parser.python.ignore.module.3=test.badsyntax_future5
+com.fortify.sca.parser.python.ignore.module.4=test.badsyntax_future6
+com.fortify.sca.parser.python.ignore.module.5=test.badsyntax_future7
+com.fortify.sca.parser.python.ignore.module.6=test.badsyntax_future8
+com.fortify.sca.parser.python.ignore.module.7=test.badsyntax_future9
+com.fortify.sca.parser.python.ignore.module.8=test.badsyntax_nocaret
+com.fortify.sca.skip.libraries.AngularJS=angular.js,angular.min.js,angular-animate.js,angular-aria.js,angular_1_router.js,angular-cookies.js,angular-message-format.js,angular-messages.js,angular-mocks.js,angular-parse-ext.js,angular-resource.js,angular-route.js,angular-sanitize.js,angular-touch.js
+com.fortify.sca.skip.libraries.ES6=es6-shim.min.js,system-polyfills.js,shims_for_IE.js
+com.fortify.sca.skip.libraries.jQuery=jquery.js,jquery.min.js,jquery-migrate.js,jquery-migrate.min.js,jquery-ui.js,jquery-ui.min.js,jquery.mobile.js,jquery.mobile.min.js,jquery.color.js,jquery.color.min.js,jquery.color.svg-names.js,jquery.color.svg-names.min.js,jquery.color.plus-names.js,jquery.color.plus-names.min.js,jquery.tools.min.js
+com.fortify.sca.skip.libraries.javascript=bootstrap.js,bootstrap.min.js,typescript.js,typescriptServices.js
+com.fortify.sca.skip.libraries.typescript=typescript.d.ts,typescriptServices.d.ts
+com.fortify.sca.xcode.Overrides=GCC_PRECOMPILE_PREFIX_HEADER=NO,RUN_CLANG_STATIC_ANALYZER=NO
+
+Fortify Runtime Properties
+com.fortify.AuthenticationKey=/Users/zfj4/.fortify/config/tools
+com.fortify.Core=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core
+com.fortify.InstallationUserName=zfj4
+com.fortify.SCAExecutablePath=
+com.fortify.VS.RequireASPPrecompilation=true
+com.fortify.WorkingDirectory=/Users/zfj4/.fortify
+com.fortify.locale=en
+com.fortify.log.console=true
+com.fortify.search.defaultSyntaxVer=2
+max.file.path.length=255
+
+System Runtime Properties
+awt.toolkit=sun.lwawt.macosx.LWCToolkit
+com.fortify.InstallRoot=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0
+com.fortify.TotalPhysicalMemory=8589934592
+com.fortify.sca.AppendLogFile=true
+com.fortify.sca.JVMArgs=-XX:SoftRefLRUPolicyMSPerMB=3000 -Xmx6442450944 -Xss16M
+com.fortify.sca.LogFile=/Users/zfj4/CodePlex/EpiInfo/fortbuild
+com.fortify.sca.LogFileDir=/Users/zfj4/CodePlex/EpiInfo
+com.fortify.sca.LogFileExt=.log
+com.fortify.sca.LogFileName=fortbuild.log
+com.fortify.sca.LogFileNameNoExt=fortbuild
+com.fortify.sca.LogFilePath=/Users/zfj4/CodePlex/EpiInfo/fortbuild.log
+com.fortify.sca.LogLevel=TRACE
+com.fortify.sca.PID=15218
+com.fortify.sca.ProjectRoot=/Users/zfj4/.fortify
+com.fortify.sca.cpfe.options=--remove_unneeded_entities --suppress_vtbl -tused
+com.fortify.sca.env.exesearchpath=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/bin:/Library/TeX/texbin:/Users/zfj4/jupyter_utilities:/opt/anaconda3/bin:/opt/anaconda3/condabin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/zfj4/EpiInfo/Android/sdk:/Users/zfj4/EpiInfo/Android/sdk/tools:/Users/zfj4/EpiInfo/Android/sdk/platform-tools:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/zfj4/mongodb/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands
+file.encoding=UTF-8
+file.encoding.pkg=sun.io
+file.separator=/
+ftp.nonProxyHosts=local|*.local|169.254/16|*.169.254/16
+gopherProxySet=false
+http.nonProxyHosts=local|*.local|169.254/16|*.169.254/16
+java.awt.graphicsenv=sun.awt.CGraphicsEnvironment
+java.awt.headless=true
+java.awt.printerjob=sun.lwawt.macosx.CPrinterJob
+java.class.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/lib/exe/sca-exe.jar
+java.class.version=52.0
+java.endorsed.dirs=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/endorsed
+java.ext.dirs=/Users/zfj4/Library/Java/Extensions:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java
+java.home=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre
+java.io.tmpdir=/var/folders/v6/gg2ckpj95flfhrghq93gztwc0000gp/T/
+java.library.path=/Users/zfj4/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+java.runtime.name=OpenJDK Runtime Environment
+java.runtime.version=1.8.0_181-b02
+java.specification.name=Java Platform API Specification
+java.specification.vendor=Oracle Corporation
+java.specification.version=1.8
+java.vendor=Azul Systems, Inc.
+java.vendor.url=http://www.azulsystems.com/
+java.vendor.url.bug=http://www.azulsystems.com/support/
+java.version=1.8.0_181
+java.vm.info=mixed mode
+java.vm.name=OpenJDK 64-Bit Server VM
+java.vm.specification.name=Java Virtual Machine Specification
+java.vm.specification.vendor=Oracle Corporation
+java.vm.specification.version=1.8
+java.vm.vendor=Azul Systems, Inc.
+java.vm.version=25.181-b02
+line.separator=
+
+log4j.configurationFile=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/config/log4j2.xml
+log4j.isThreadContextMapInheritable=true
+os.arch=x86_64
+os.name=Mac OS X
+os.version=10.16
+path.separator=:
+socksNonProxyHosts=local|*.local|169.254/16|*.169.254/16
+stderr.isatty=true
+stdout.isatty=true
+sun.arch.data.model=64
+sun.boot.class.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/resources.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/rt.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/sunrsasign.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jsse.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jce.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/charsets.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jfr.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/classes
+sun.boot.library.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib
+sun.cpu.endian=little
+sun.cpu.isalist=
+sun.io.unicode.encoding=UnicodeBig
+sun.java.command=sourceanalyzer -Djava.awt.headless=true -XX:SoftRefLRUPolicyMSPerMB=3000 -Dcom.fortify.sca.env.exesearchpath=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/bin:/Library/TeX/texbin:/Users/zfj4/jupyter_utilities:/opt/anaconda3/bin:/opt/anaconda3/condabin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/zfj4/EpiInfo/Android/sdk:/Users/zfj4/EpiInfo/Android/sdk/tools:/Users/zfj4/EpiInfo/Android/sdk/platform-tools:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/zfj4/mongodb/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands -Dcom.fortify.sca.ProjectRoot=/Users/zfj4/.fortify -Dstdout.isatty=true -Dstderr.isatty=true -Dcom.fortify.sca.PID=15218 -Xmx6442450944 -Dcom.fortify.TotalPhysicalMemory=8589934592 -Xss16M -Dcom.fortify.sca.JVMArgs=-XX:SoftRefLRUPolicyMSPerMB=3000 -Xmx6442450944 -Xss16M -Djava.class.path=/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/lib/exe/sca-exe.jar -b EpiInfo_test -verbose -debug -logfile fortbuild.log xcodebuild -project EpiInfo.xcodeproj -scheme EpiInfo -configuration Debug CODE_SIGN_IDENTITY= CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO
+sun.jnu.encoding=UTF-8
+sun.management.compiler=HotSpot 64-Bit Tiered Compilers
+sun.os.patch.level=unknown
+user.country=US
+user.dir=/Users/zfj4/CodePlex/EpiInfo
+user.home=/Users/zfj4
+user.language=en
+user.name=zfj4
+user.timezone=America/New_York
+
+VM Info
+OperatingSystemMXBean: Mac OS X
+  Arch: x86_64
+  AvailableProcessors: 4
+  CommittedVirtualMemorySize: 12669231104
+  FreePhysicalMemorySize: 451502080
+  FreeSwapSpaceSize: 1189085184
+  MaxFileDescriptorCount: 10240
+  OpenFileDescriptorCount: 119
+  ProcessCpuLoad: 0.0
+  ProcessCpuTime: 2317359000
+  SystemCpuLoad: 0.0
+  SystemLoadAverage: 2.341796875
+  TotalPhysicalMemorySize: 8589934592
+  TotalSwapSpaceSize: 5368709120
+  Version: 10.16
+RuntimeMXBean: 15218@MacBook-Air-4.local
+  BootClassPath: /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/resources.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/rt.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/sunrsasign.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jsse.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jce.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/charsets.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/lib/jfr.jar:/Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/jre/classes
+  BootClassPathSupported: true
+  ClassPath: /Applications/Fortify/Fortify_SCA_and_Apps_20.1.0/Core/lib/exe/sca-exe.jar
+  LibraryPath: /Users/zfj4/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+  ManagementSpecVersion: 1.2
+  SpecName: Java Virtual Machine Specification
+  SpecVendor: Oracle Corporation
+  SpecVersion: 1.8
+  StartTime: 1636058524187
+  Uptime: 1267
+  VmName: OpenJDK 64-Bit Server VM
+  VmVendor: Azul Systems, Inc.
+  VmVersion: 25.181-b02
+-----------------------------------------------------------------------------
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:42:05.406 DEBUG ]
+Compiler: xcodebuild
+   logger:com.fortify.sca.cmd.CommandLine marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:42:05.434 INFO  ]
+Fortify Static Code Analyzer 20.1.0.0158 (using JRE 1.8.0_181)
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=INFO_VERBOSE, stdout=true} NDC:[]
+[2021-11-04 16:42:05.436 INFO  ]
+Args:
+["-b", "EpiInfo_test", "-verbose", "-debug", "-logfile", "fortbuild.log", "xcodebuild", "-project", "EpiInfo.xcodeproj", "-scheme", "EpiInfo", "-configuration", "Debug", "CODE_SIGN_IDENTITY=", "CODE_SIGNING_ALLOWED=NO", "CODE_SIGNING_REQUIRED=NO"]
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_STATUS} NDC:[]
+[2021-11-04 16:42:05.436 INFO  ]
+VM Args:
+"-XX:SoftRefLRUPolicyMSPerMB=3000 -Xmx6442450944 -Xss16M"
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_STATUS} NDC:[]
+[2021-11-04 16:42:05.496 DEBUG ]
+Enabling code generation: Data binding
+   logger:com.fortify.sca.cmd.SCAConfiguration marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:42:05.497 DEBUG ]
+Enabling code generation: Event loops
+   logger:com.fortify.sca.cmd.SCAConfiguration marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:42:05.499 DEBUG ]
+Enabling change notification transformer.
+   logger:com.fortify.sca.cmd.SCAConfiguration marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG} NDC:[]
+[2021-11-04 16:42:05.588 TRACE ]
+Resource /deserializableClasses.whitelist not found, no additional class names will be loaded
+   logger:com.fortify.messaging.MessageManager marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG_VERBOSE, step=INIT} NDC:[]
+[2021-11-04 16:42:05.589 DEBUG ]
+Running xcodebuild command: [xcodebuild, GCC_PRECOMPILE_PREFIX_HEADER=NO, RUN_CLANG_STATIC_ANALYZER=NO, -project, EpiInfo.xcodeproj, -scheme, EpiInfo, -configuration, Debug, CODE_SIGN_IDENTITY=, CODE_SIGNING_ALLOWED=NO, CODE_SIGNING_REQUIRED=NO, SWIFT_COMPILATION_MODE=incremental]
+   logger:com.fortify.sca.util.compilers.XcodebuildScraper marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=LOG, step=INIT} NDC:[]
+[2021-11-04 16:43:42.650 WARN  ]
+java.lang.NullPointerException
+java.lang.NullPointerException
+	at com.fortify.sca.util.compilers.XcodebuildScraper.addSwiftJob(XcodebuildScraper.java:399)
+	at com.fortify.sca.util.compilers.XcodebuildScraper.initialize(XcodebuildScraper.java:234)
+	at com.fortify.sca.frontend.FrontEndSession.runFrontEnd(FrontEndSession.java:95)
+	at com.fortify.sca.Main$Sourceanalyzer.run(Main.java:533)
+   logger:com.fortify.sca.Main marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, prefix=, severity=INTERNAL_WARNING, stderr=true, step=INIT} NDC:[]
+[2021-11-04 16:43:42.663 INFO  ]
+message id statistics:
+   id:        -1 total:        17 totalSuppressedCount:         0 scope:[]
+
+   logger:com.fortify.messaging.MessageSuppressor marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE, step=INIT} NDC:[]
+[2021-11-04 16:43:42.664 INFO  ]
+logger:null  count:18
+   level:TRACE count:1
+   level:INFO count:9
+   level:DEBUG count:7
+   level:WARN count:1
+logger:com.fortify.messaging.MessageSuppressor  count:2
+   level:INFO count:2
+logger:com.fortify.logging.log4j2.LevelAdjuster  count:1
+   level:INFO count:1
+logger:com.fortify.sca.util.compilers.XcodebuildScraper  count:1
+   level:DEBUG count:1
+logger:com.fortify.sca.cmd.CommandLine  count:5
+   level:INFO count:2
+   level:DEBUG count:3
+logger:com.fortify.logging.log4j2.LoggerFactory  count:1
+   level:INFO count:1
+logger:com.fortify.messaging.MessageManager  count:1
+   level:TRACE count:1
+logger:com.fortify.sca.Main  count:4
+   level:INFO count:3
+   level:WARN count:1
+logger:com.fortify.sca.cmd.SCAConfiguration  count:3
+   level:DEBUG count:3
+
+   logger:com.fortify.logging.LoggerStats marker:DEV thread:sourceanalyzer-10
+   MDC:{msgId=-1, severity=NONE, step=INIT} NDC:[]

@@ -1,0 +1,8 @@
+[2021-11-04 16:30:38.254 ERROR 1123]
+Unable to load build session with ID "EpiInfo_test". See log file for more details.
+[2021-11-04 16:30:38.257 WARN  20213]
+exit(1)
+[2021-11-04 16:35:15.695 ERROR 1123]
+Unable to load build session with ID "EpiInfo". See log file for more details.
+[2021-11-04 16:35:15.697 WARN  20213]
+exit(1)

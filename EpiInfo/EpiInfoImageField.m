@@ -50,7 +50,7 @@
     
     [self setImage:smallerImage forState:UIControlStateNormal];
     [((EnterDataView *)[[self superview] superview]).rootViewController dismissViewControllerAnimated:YES completion:nil];
-    if ([imageGUID length] == 0)
+    if ([imageGUID length] == 0 || [imageGUID isEqualToString:@"(null)"])
     {
         imageGUID = CFBridgingRelease(CFUUIDCreateString(NULL, CFUUIDCreate(NULL)));
     }
