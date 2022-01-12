@@ -797,6 +797,9 @@
     {
         case MFMailComposeResultCancelled:
 //            NSLog(@"Result: canceled");
+            useCustomKeys = NO;
+            customKeyString = @"";
+            customSaltString = @"";
             break;
         case MFMailComposeResultSaved:
             NSLog(@"Result: saved");
@@ -806,12 +809,33 @@
             break;
         case MFMailComposeResultFailed:
             NSLog(@"Result: failed");
+            useCustomKeys = NO;
+            customKeyString = @"";
+            customSaltString = @"";
             break;
         default:
             NSLog(@"Result: not sent");
+            useCustomKeys = NO;
+            customKeyString = @"";
+            customSaltString = @"";
             break;
     }
     [self dismissViewControllerAnimated:YES completion:^{
+        if (useCustomKeys)
+        {
+            useCustomKeys = NO;
+            MFMailComposeViewController *keysComposer = [[MFMailComposeViewController alloc] init];
+            [keysComposer setMailComposeDelegate:self];
+            [keysComposer setSubject:@"Epi Info Data Additional Information"];
+            [keysComposer setMessageBody:[NSString stringWithFormat:@"initVector: %@\npasswordSalt: %@", customKeyString, customSaltString] isHTML:NO];
+            [self presentViewController:keysComposer animated:YES completion:^(void){
+                mailComposerShown = YES;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                });
+            }];
+            customKeyString = @"";
+            customSaltString = @"";
+        }
     }];
     mailComposerShown = NO;
 }
@@ -1884,9 +1908,10 @@
     else
     {
 //        [packageDataButton setImage:[UIImage imageNamed:@"PackageAndEmailDataButton.png"] forState:UIControlStateNormal];
+        useCustomKeys = NO;
         [packageDataButton setTitle:@"Package and Email Data" forState:UIControlStateNormal];
         [packageDataButton setAccessibilityLabel:@"Package and email"];
-        [packageDataButton addTarget:self action:@selector(packageAndEmailData:) forControlEvents:UIControlEventTouchUpInside];
+        [packageDataButton addTarget:self action:@selector(choiceOfKeys:) forControlEvents:UIControlEventTouchUpInside];
     }
     [messageView addSubview:packageDataButton];
     
@@ -1910,6 +1935,22 @@
         [noButton setFrame:CGRectMake(messageView.frame.size.width / 2.0 -  openButton.frame.size.width / 2.0, openButton.frame.origin.y + 46.0, openButton.frame.size.width, openButton.frame.size.height)];
     } completion:^(BOOL finished){
     }];
+}
+
+- (void)choiceOfKeys:(UIButton *)sender
+{
+    UIAlertController *chooseKeys = [UIAlertController alertControllerWithTitle:@"Choose Encryption Keys" message:@"Use Standard Keys if destination is Epi Info for Windows or another iOS device. Use Custom Keys if destination is Python." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *standard = [UIAlertAction actionWithTitle:@"Standard Keys" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        useCustomKeys = NO;
+        [self packageAndEmailData:sender];
+    }];
+    UIAlertAction *custom = [UIAlertAction actionWithTitle:@"Custom Keys" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        useCustomKeys = YES;
+        [self packageAndEmailData:sender];
+    }];
+    [chooseKeys addAction:standard];
+    [chooseKeys addAction:custom];
+    [self presentViewController:chooseKeys animated:YES completion:nil];
 }
 
 - (void)oldPackageDataForiTunes:(UIButton *)sender
@@ -3888,6 +3929,28 @@
         NSString *keyString = INITVECTOR;
         NSString *saltString = PASSWORDSALT;
         
+        if (useCustomKeys)
+        {
+            NSMutableString *newKey = [[NSMutableString alloc] init];
+            NSMutableString *newSalt = [[NSMutableString alloc] init];
+            for (int i = 0; i < 16; i++)
+            {
+                NSString *byteToAdd = [NSString stringWithFormat:@"%0X", arc4random() % 256];
+                if ([byteToAdd length] == 1)
+                    byteToAdd = [@"0" stringByAppendingString:byteToAdd];
+                [newKey appendString:byteToAdd];
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                NSString *byteToAdd = [NSString stringWithFormat:@"%0X", arc4random() % 256];
+                if ([byteToAdd length] == 1)
+                    byteToAdd = [@"0" stringByAppendingString:byteToAdd];
+                [newSalt appendString:byteToAdd];
+            }
+            keyString = [NSString stringWithString:newKey];
+            saltString = [NSString stringWithString:newSalt];
+        }
+        
         NSMutableData *keyArray = [[NSMutableData alloc] init];
         unsigned char key_whole_byte;
         char key_byte_chars[3] = {'\0', '\0', '\0'};
@@ -3969,6 +4032,11 @@
         if (result == kCCSuccess)
         {
             MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
+            if (useCustomKeys)
+            {
+                customKeyString = keyString;
+                customSaltString = saltString;
+            }
             [composer setMailComposeDelegate:self];
 //            NSData *encryptedData = [NSData dataWithBytes:thisEncipher length:numBytesEncrypted];
             NSData *encryptedData = [NSData dataWithBytes:(const void *)bufferPtr length:(NSUInteger)totalBytesWritten];

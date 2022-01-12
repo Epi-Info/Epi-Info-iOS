@@ -675,8 +675,8 @@
             filePath = "EpiInfo/DataEntryViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4070"
-            endingLineNumber = "4070"
+            startingLineNumber = "4138"
+            endingLineNumber = "4138"
             landmarkName = "-emailDataAsCSV:"
             landmarkType = "7">
          </BreakpointContent>
@@ -691,8 +691,8 @@
             filePath = "EpiInfo/DataEntryViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4085"
-            endingLineNumber = "4085"
+            startingLineNumber = "4153"
+            endingLineNumber = "4153"
             landmarkName = "-emailDataAsCSV:"
             landmarkType = "7">
          </BreakpointContent>
@@ -950,6 +950,54 @@
             startingLineNumber = "3861"
             endingLineNumber = "3861"
             landmarkName = "-updateButtonPressed"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FF012829-BBEB-4F33-ACAF-17EBF27E86B6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/SyncView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
+            landmarkName = "-decryptSyncFile"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CE5F6E61-7FB8-4DC2-AD56-A3F694117C05"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/SyncView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
+            landmarkName = "-decryptSyncFile"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "355D28D8-F103-4783-900E-63D01D1EB85C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EpiInfo/SyncView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
+            landmarkName = "-decryptSyncFile"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -74,6 +74,10 @@
     
     PageDots *pagedots;
     NSMutableArray *arrayOfPageDots;
+    
+    BOOL useCustomKeys;
+    NSString *customKeyString;
+    NSString *customSaltString;
 }
 @property NSMutableDictionary *legalValuesDictionary;
 @property FieldsAndStringValues *fieldsAndStringValues;
