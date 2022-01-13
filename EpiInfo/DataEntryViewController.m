@@ -827,7 +827,7 @@
             MFMailComposeViewController *keysComposer = [[MFMailComposeViewController alloc] init];
             [keysComposer setMailComposeDelegate:self];
             [keysComposer setSubject:@"Epi Info Data Additional Information"];
-            [keysComposer setMessageBody:[NSString stringWithFormat:@"initVector: %@\npasswordSalt: %@", customKeyString, customSaltString] isHTML:NO];
+            [keysComposer setMessageBody:[NSString stringWithFormat:@"Python decryption:\ninitVector = '%@'\npasswordSalt = '%@'", customKeyString, customSaltString] isHTML:NO];
             [self presentViewController:keysComposer animated:YES completion:^(void){
                 mailComposerShown = YES;
                 dispatch_async(dispatch_get_main_queue(), ^{
