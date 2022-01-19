@@ -1219,11 +1219,13 @@
             [self bringSubviewToFront:inputView];
         [avc setContentSize:CGSizeMake(contentSizeWidth, contentSizeHeight)];
     }
-    [spinner setHidden:YES];
-    [spinner stopAnimating];
-    [gearButton setEnabled:YES];
-    [xButton setEnabled:YES];
-    [avc setDataSourceEnabled:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [spinner setHidden:YES];
+        [spinner stopAnimating];
+        [gearButton setEnabled:YES];
+        [xButton setEnabled:YES];
+        [avc setDataSourceEnabled:YES];
+    });
 }
 
 - (BOOL)stopTheSpinner
