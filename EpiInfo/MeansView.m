@@ -839,79 +839,82 @@
         stratum = 0;
         MeansObject *mo = [[MeansObject alloc] initWithSQLiteData:sqliteData AndWhereClause:nil AndMeansVariable:[availableOutcomeVariables objectAtIndex:[[meansLVE selectedIndex] intValue]] AndIncludeMissing:includeMissing];
         
-        outputTableView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, outputView.frame.size.width - 4.0, outputView.frame.size.height - 4.0)];
-        [outputTableView setBackgroundColor:epiInfoLightBlue];
-        [outputTableView setClipsToBounds:YES];
-        [outputTableView.layer setCornerRadius:10.0];
-        
-        EpiInfoUILabel *meansVariableNameLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, outputTableView.frame.size.width, 40)];
-        [meansVariableNameLabel setTextAlignment:NSTextAlignmentCenter];
-        [meansVariableNameLabel setTextColor:[UIColor whiteColor]];
-        [meansVariableNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
-        [meansVariableNameLabel setText:mo.meansVariable];
-        [outputTableView addSubview:meansVariableNameLabel];
-        
-        NSArray *labelsArray = @[@"Observations",
-                                 @"Total",
-                                 @"Mean",
-                                 @"Variance",
-                                 @"Standard Deviation",
-                                 @"Minimum",
-                                 @"25%",
-                                 @"Median",
-                                 @"75%",
-                                 @"Maximum"];
-        float yValue = 0.0;
-        for (int i = 0; i < labelsArray.count; i++)
-        {
-            UIView *statView = [[UIView alloc] initWithFrame:CGRectMake(2, 40.0 + yValue, outputTableView.frame.size.width / 2.0 - 3.0, 20)];
-            [statView setBackgroundColor:[UIColor whiteColor]];
-            EpiInfoUILabel *statLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8, 0, statView.frame.size.width - 8.0, 20)];
-            [statLabel setBackgroundColor:[UIColor clearColor]];
-            [statLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-            [statLabel setText:[labelsArray objectAtIndex:i]];
-            [statView addSubview:statLabel];
-            if (i == labelsArray.count - 1)
-            {
-                [statView.layer setCornerRadius:8.0];
-                UIView *white0 = [[UIView alloc] initWithFrame:CGRectMake(statView.frame.origin.x, statView.frame.origin.y, 40, 10)];
-                UIView *white1 = [[UIView alloc] initWithFrame:CGRectMake(statView.frame.size.width / 2.0 + 2.0, statView.frame.origin.y, statView.frame.size.width / 2.0, 20)];
-                [white0 setBackgroundColor:[UIColor whiteColor]];
-                [white1 setBackgroundColor:[UIColor whiteColor]];
-                [outputTableView addSubview:white0];
-                [outputTableView addSubview:white1];
-            }
-            [outputTableView addSubview:statView];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            outputTableView = [[UIView alloc] initWithFrame:CGRectMake(2, 2, outputView.frame.size.width - 4.0, outputView.frame.size.height - 4.0)];
+            [outputTableView setBackgroundColor:epiInfoLightBlue];
+            [outputTableView setClipsToBounds:YES];
+            [outputTableView.layer setCornerRadius:10.0];
             
-            UIView *valueView = [[UIView alloc] initWithFrame:CGRectMake(outputTableView.frame.size.width / 2.0 + 1.0, 40.0 + yValue, statView.frame.size.width, 20)];
-            [valueView setBackgroundColor:[UIColor whiteColor]];
-            EpiInfoUILabel *valueLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8, 0, valueView.frame.size.width - 8.0, 20)];
-            [valueLabel setBackgroundColor:[UIColor clearColor]];
-            [valueLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-            [valueLabel setText:[mo.meansVariableValues objectAtIndex:i]];
-            [valueView addSubview:valueLabel];
-            if (i == labelsArray.count - 1)
+            EpiInfoUILabel *meansVariableNameLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, outputTableView.frame.size.width, 40)];
+            [meansVariableNameLabel setTextAlignment:NSTextAlignmentCenter];
+            [meansVariableNameLabel setTextColor:[UIColor whiteColor]];
+            [meansVariableNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+            [meansVariableNameLabel setText:mo.meansVariable];
+            [outputTableView addSubview:meansVariableNameLabel];
+            
+            NSArray *labelsArray = @[@"Observations",
+                                     @"Total",
+                                     @"Mean",
+                                     @"Variance",
+                                     @"Standard Deviation",
+                                     @"Minimum",
+                                     @"25%",
+                                     @"Median",
+                                     @"75%",
+                                     @"Maximum"];
+            float yValue = 0.0;
+            for (int i = 0; i < labelsArray.count; i++)
             {
-                [valueView.layer setCornerRadius:8.0];
-                UIView *white0 = [[UIView alloc] initWithFrame:CGRectMake(outputTableView.frame.size.width - 42, valueView.frame.origin.y, 40, 10)];
-                UIView *white1 = [[UIView alloc] initWithFrame:CGRectMake(valueView.frame.origin.x, valueView.frame.origin.y, 40, 20)];
-                [white0 setBackgroundColor:[UIColor whiteColor]];
-                [white1 setBackgroundColor:[UIColor whiteColor]];
-                [outputTableView addSubview:white0];
-                [outputTableView addSubview:white1];
-            }
-            [outputTableView addSubview:valueView];
+                UIView *statView = [[UIView alloc] initWithFrame:CGRectMake(2, 40.0 + yValue, outputTableView.frame.size.width / 2.0 - 3.0, 20)];
+                [statView setBackgroundColor:[UIColor whiteColor]];
+                EpiInfoUILabel *statLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8, 0, statView.frame.size.width - 8.0, 20)];
+                [statLabel setBackgroundColor:[UIColor clearColor]];
+                [statLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                [statLabel setText:[labelsArray objectAtIndex:i]];
+                [statView addSubview:statLabel];
+                if (i == labelsArray.count - 1)
+                {
+                    [statView.layer setCornerRadius:8.0];
+                    UIView *white0 = [[UIView alloc] initWithFrame:CGRectMake(statView.frame.origin.x, statView.frame.origin.y, 40, 10)];
+                    UIView *white1 = [[UIView alloc] initWithFrame:CGRectMake(statView.frame.size.width / 2.0 + 2.0, statView.frame.origin.y, statView.frame.size.width / 2.0, 20)];
+                    [white0 setBackgroundColor:[UIColor whiteColor]];
+                    [white1 setBackgroundColor:[UIColor whiteColor]];
+                    [outputTableView addSubview:white0];
+                    [outputTableView addSubview:white1];
+                }
+                [outputTableView addSubview:statView];
+                
+                UIView *valueView = [[UIView alloc] initWithFrame:CGRectMake(outputTableView.frame.size.width / 2.0 + 1.0, 40.0 + yValue, statView.frame.size.width, 20)];
+                [valueView setBackgroundColor:[UIColor whiteColor]];
+                EpiInfoUILabel *valueLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8, 0, valueView.frame.size.width - 8.0, 20)];
+                [valueLabel setBackgroundColor:[UIColor clearColor]];
+                [valueLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                [valueLabel setText:[mo.meansVariableValues objectAtIndex:i]];
+                [valueView addSubview:valueLabel];
+                if (i == labelsArray.count - 1)
+                {
+                    [valueView.layer setCornerRadius:8.0];
+                    UIView *white0 = [[UIView alloc] initWithFrame:CGRectMake(outputTableView.frame.size.width - 42, valueView.frame.origin.y, 40, 10)];
+                    UIView *white1 = [[UIView alloc] initWithFrame:CGRectMake(valueView.frame.origin.x, valueView.frame.origin.y, 40, 20)];
+                    [white0 setBackgroundColor:[UIColor whiteColor]];
+                    [white1 setBackgroundColor:[UIColor whiteColor]];
+                    [outputTableView addSubview:white0];
+                    [outputTableView addSubview:white1];
+                }
+                [outputTableView addSubview:valueView];
 
-            yValue += 22.0;
-        }
-        
-        [outputTableView setFrame:CGRectMake(outputTableView.frame.origin.x, outputTableView.frame.origin.y, outputTableView.frame.size.width, 40.0 + yValue)];
+                yValue += 22.0;
+            }
+            
+            [outputTableView setFrame:CGRectMake(outputTableView.frame.origin.x, outputTableView.frame.origin.y, outputTableView.frame.size.width, 40.0 + yValue)];
+            [outputView addSubview:outputTableView];
+        });
 
         mo = nil;
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [outputView addSubview:outputTableView];
-        });
+ //       dispatch_async(dispatch_get_main_queue(), ^{
+ //           [outputView addSubview:outputTableView];
+ //       });
     }
     // With crosstabulation without stratification
     if ([[meansLVE selectedIndex] intValue] > 0 && [[crosstabLVE selectedIndex] intValue] > 0)
@@ -948,17 +951,19 @@
             
             if (i == 0)
             {
-                outputTableView = [[UIView alloc] initWithFrame:CGRectMake(2, otvyValue, outputView.frame.size.width - 4.0, outputView.frame.size.height - 4.0)];
-                [outputTableView setBackgroundColor:epiInfoLightBlue];
-                [outputTableView setClipsToBounds:YES];
-                [outputTableView.layer setCornerRadius:10.0];
-                
-                EpiInfoUILabel *meansVariableNameLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, outputTableView.frame.size.width, 40)];
-                [meansVariableNameLabel setTextAlignment:NSTextAlignmentCenter];
-                [meansVariableNameLabel setTextColor:[UIColor whiteColor]];
-                [meansVariableNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
-                [meansVariableNameLabel setText:[NSString stringWithFormat:@"%@ (%@ = %@)", mo.meansVariable, crosstabVariableName, [fo.variableValues objectAtIndex:i]]];
-                [outputTableView addSubview:meansVariableNameLabel];
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    outputTableView = [[UIView alloc] initWithFrame:CGRectMake(2, otvyValue, outputView.frame.size.width - 4.0, outputView.frame.size.height - 4.0)];
+                    [outputTableView setBackgroundColor:epiInfoLightBlue];
+                    [outputTableView setClipsToBounds:YES];
+                    [outputTableView.layer setCornerRadius:10.0];
+                    
+                    EpiInfoUILabel *meansVariableNameLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, outputTableView.frame.size.width, 40)];
+                    [meansVariableNameLabel setTextAlignment:NSTextAlignmentCenter];
+                    [meansVariableNameLabel setTextColor:[UIColor whiteColor]];
+                    [meansVariableNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+                    [meansVariableNameLabel setText:[NSString stringWithFormat:@"%@ (%@ = %@)", mo.meansVariable, crosstabVariableName, [fo.variableValues objectAtIndex:i]]];
+                    [outputTableView addSubview:meansVariableNameLabel];
+                });
                 
                 NSArray *labelsArray = @[@"Observations",
                                          @"Total",
@@ -972,67 +977,74 @@
                                          @"Maximum"];
                 for (int i = 0; i < labelsArray.count; i++)
                 {
-                    UIView *statView = [[UIView alloc] initWithFrame:CGRectMake(2, 40.0 + yValue, outputTableView.frame.size.width / 2.0 - 3.0, 20)];
-                    [statView setBackgroundColor:[UIColor whiteColor]];
-                    EpiInfoUILabel *statLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8, 0, statView.frame.size.width - 8.0, 20)];
-                    [statLabel setBackgroundColor:[UIColor clearColor]];
-                    [statLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-                    [statLabel setText:[labelsArray objectAtIndex:i]];
-                    [statView addSubview:statLabel];
-                    if (i == labelsArray.count - 1)
-                    {
-                        [statView.layer setCornerRadius:8.0];
-                        UIView *white0 = [[UIView alloc] initWithFrame:CGRectMake(statView.frame.origin.x, statView.frame.origin.y, 40, 10)];
-                        UIView *white1 = [[UIView alloc] initWithFrame:CGRectMake(statView.frame.size.width / 2.0 + 2.0, statView.frame.origin.y, statView.frame.size.width / 2.0, 20)];
-                        [white0 setBackgroundColor:[UIColor whiteColor]];
-                        [white1 setBackgroundColor:[UIColor whiteColor]];
-                        [outputTableView addSubview:white0];
-                        [outputTableView addSubview:white1];
-                    }
-                    [outputTableView addSubview:statView];
-                    
-                    UIView *valueView = [[UIView alloc] initWithFrame:CGRectMake(outputTableView.frame.size.width / 2.0 + 1.0, 40.0 + yValue, statView.frame.size.width, 20)];
-                    [valueView setBackgroundColor:[UIColor whiteColor]];
-                    EpiInfoUILabel *valueLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8, 0, valueView.frame.size.width - 8.0, 20)];
-                    [valueLabel setBackgroundColor:[UIColor clearColor]];
-                    [valueLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-                    [valueLabel setText:[mo.meansVariableValues objectAtIndex:i]];
-                    [valueView addSubview:valueLabel];
-                    if (i == labelsArray.count - 1)
-                    {
-                        [valueView.layer setCornerRadius:8.0];
-                        UIView *white0 = [[UIView alloc] initWithFrame:CGRectMake(outputTableView.frame.size.width - 42, valueView.frame.origin.y, 40, 10)];
-                        UIView *white1 = [[UIView alloc] initWithFrame:CGRectMake(valueView.frame.origin.x, valueView.frame.origin.y, 40, 20)];
-                        [white0 setBackgroundColor:[UIColor whiteColor]];
-                        [white1 setBackgroundColor:[UIColor whiteColor]];
-                        [outputTableView addSubview:white0];
-                        [outputTableView addSubview:white1];
-                    }
-                    [outputTableView addSubview:valueView];
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        UIView *statView = [[UIView alloc] initWithFrame:CGRectMake(2, 40.0 + yValue, outputTableView.frame.size.width / 2.0 - 3.0, 20)];
+                        [statView setBackgroundColor:[UIColor whiteColor]];
+                        EpiInfoUILabel *statLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8, 0, statView.frame.size.width - 8.0, 20)];
+                        [statLabel setBackgroundColor:[UIColor clearColor]];
+                        [statLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                        [statLabel setText:[labelsArray objectAtIndex:i]];
+                        [statView addSubview:statLabel];
+                        if (i == labelsArray.count - 1)
+                        {
+                            [statView.layer setCornerRadius:8.0];
+                            UIView *white0 = [[UIView alloc] initWithFrame:CGRectMake(statView.frame.origin.x, statView.frame.origin.y, 40, 10)];
+                            UIView *white1 = [[UIView alloc] initWithFrame:CGRectMake(statView.frame.size.width / 2.0 + 2.0, statView.frame.origin.y, statView.frame.size.width / 2.0, 20)];
+                            [white0 setBackgroundColor:[UIColor whiteColor]];
+                            [white1 setBackgroundColor:[UIColor whiteColor]];
+                            [outputTableView addSubview:white0];
+                            [outputTableView addSubview:white1];
+                        }
+                        [outputTableView addSubview:statView];
+                        
+                        UIView *valueView = [[UIView alloc] initWithFrame:CGRectMake(outputTableView.frame.size.width / 2.0 + 1.0, 40.0 + yValue, statView.frame.size.width, 20)];
+                        [valueView setBackgroundColor:[UIColor whiteColor]];
+                        EpiInfoUILabel *valueLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8, 0, valueView.frame.size.width - 8.0, 20)];
+                        [valueLabel setBackgroundColor:[UIColor clearColor]];
+                        [valueLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                        [valueLabel setText:[mo.meansVariableValues objectAtIndex:i]];
+                        [valueView addSubview:valueLabel];
+                        if (i == labelsArray.count - 1)
+                        {
+                            [valueView.layer setCornerRadius:8.0];
+                            UIView *white0 = [[UIView alloc] initWithFrame:CGRectMake(outputTableView.frame.size.width - 42, valueView.frame.origin.y, 40, 10)];
+                            UIView *white1 = [[UIView alloc] initWithFrame:CGRectMake(valueView.frame.origin.x, valueView.frame.origin.y, 40, 20)];
+                            [white0 setBackgroundColor:[UIColor whiteColor]];
+                            [white1 setBackgroundColor:[UIColor whiteColor]];
+                            [outputTableView addSubview:white0];
+                            [outputTableView addSubview:white1];
+                        }
+                        [outputTableView addSubview:valueView];
+                    });
                     
                     yValue += 22.0;
                 }
                 
+                dispatch_sync(dispatch_get_main_queue(), ^{
                 [outputTableView setFrame:CGRectMake(outputTableView.frame.origin.x, outputTableView.frame.origin.y, outputTableView.frame.size.width, 40.0 + yValue)];
+                });
                 otvyValue += 42.0 + yValue;
 
-                dispatch_async(dispatch_get_main_queue(), ^{
+                dispatch_sync(dispatch_get_main_queue(), ^{
                     [outputView addSubview:outputTableView];
                 });
             }
             else
             {
-                UIView *outputTableView2 = [[UIView alloc] initWithFrame:CGRectMake(2, otvyValue, outputView.frame.size.width - 4.0, outputView.frame.size.height - 4.0)];
-                [outputTableView2 setBackgroundColor:epiInfoLightBlue];
-                [outputTableView2 setClipsToBounds:YES];
-                [outputTableView2.layer setCornerRadius:10.0];
-                
-                EpiInfoUILabel *meansVariableNameLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, outputTableView2.frame.size.width, 40)];
-                [meansVariableNameLabel setTextAlignment:NSTextAlignmentCenter];
-                [meansVariableNameLabel setTextColor:[UIColor whiteColor]];
-                [meansVariableNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
-                [meansVariableNameLabel setText:[NSString stringWithFormat:@"%@ (%@ = %@)", mo.meansVariable, crosstabVariableName, [fo.variableValues objectAtIndex:i]]];
-                [outputTableView2 addSubview:meansVariableNameLabel];
+                __block UIView *outputTableView2 = nil;
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    outputTableView2 = [[UIView alloc] initWithFrame:CGRectMake(2, otvyValue, outputView.frame.size.width - 4.0, outputView.frame.size.height - 4.0)];
+                    [outputTableView2 setBackgroundColor:epiInfoLightBlue];
+                    [outputTableView2 setClipsToBounds:YES];
+                    [outputTableView2.layer setCornerRadius:10.0];
+                    
+                    EpiInfoUILabel *meansVariableNameLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, outputTableView2.frame.size.width, 40)];
+                    [meansVariableNameLabel setTextAlignment:NSTextAlignmentCenter];
+                    [meansVariableNameLabel setTextColor:[UIColor whiteColor]];
+                    [meansVariableNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+                    [meansVariableNameLabel setText:[NSString stringWithFormat:@"%@ (%@ = %@)", mo.meansVariable, crosstabVariableName, [fo.variableValues objectAtIndex:i]]];
+                    [outputTableView2 addSubview:meansVariableNameLabel];
+                });
                 
                 NSArray *labelsArray = @[@"Observations",
                                          @"Total",
@@ -1046,51 +1058,54 @@
                                          @"Maximum"];
                 for (int i = 0; i < labelsArray.count; i++)
                 {
-                    UIView *statView = [[UIView alloc] initWithFrame:CGRectMake(2, 40.0 + yValue, outputTableView2.frame.size.width / 2.0 - 3.0, 20)];
-                    [statView setBackgroundColor:[UIColor whiteColor]];
-                    EpiInfoUILabel *statLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8, 0, statView.frame.size.width - 8.0, 20)];
-                    [statLabel setBackgroundColor:[UIColor clearColor]];
-                    [statLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-                    [statLabel setText:[labelsArray objectAtIndex:i]];
-                    [statView addSubview:statLabel];
-                    if (i == labelsArray.count - 1)
-                    {
-                        [statView.layer setCornerRadius:8.0];
-                        UIView *white0 = [[UIView alloc] initWithFrame:CGRectMake(statView.frame.origin.x, statView.frame.origin.y, 40, 10)];
-                        UIView *white1 = [[UIView alloc] initWithFrame:CGRectMake(statView.frame.size.width / 2.0 + 2.0, statView.frame.origin.y, statView.frame.size.width / 2.0, 20)];
-                        [white0 setBackgroundColor:[UIColor whiteColor]];
-                        [white1 setBackgroundColor:[UIColor whiteColor]];
-                        [outputTableView2 addSubview:white0];
-                        [outputTableView2 addSubview:white1];
-                    }
-                    [outputTableView2 addSubview:statView];
-                    
-                    UIView *valueView = [[UIView alloc] initWithFrame:CGRectMake(outputTableView2.frame.size.width / 2.0 + 1.0, 40.0 + yValue, statView.frame.size.width, 20)];
-                    [valueView setBackgroundColor:[UIColor whiteColor]];
-                    EpiInfoUILabel *valueLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8, 0, valueView.frame.size.width - 8.0, 20)];
-                    [valueLabel setBackgroundColor:[UIColor clearColor]];
-                    [valueLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-                    [valueLabel setText:[mo.meansVariableValues objectAtIndex:i]];
-                    [valueView addSubview:valueLabel];
-                    if (i == labelsArray.count - 1)
-                    {
-                        [valueView.layer setCornerRadius:8.0];
-                        UIView *white0 = [[UIView alloc] initWithFrame:CGRectMake(outputTableView2.frame.size.width - 42, valueView.frame.origin.y, 40, 10)];
-                        UIView *white1 = [[UIView alloc] initWithFrame:CGRectMake(valueView.frame.origin.x, valueView.frame.origin.y, 40, 20)];
-                        [white0 setBackgroundColor:[UIColor whiteColor]];
-                        [white1 setBackgroundColor:[UIColor whiteColor]];
-                        [outputTableView2 addSubview:white0];
-                        [outputTableView2 addSubview:white1];
-                    }
-                    [outputTableView2 addSubview:valueView];
-                    
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        UIView *statView = [[UIView alloc] initWithFrame:CGRectMake(2, 40.0 + yValue, outputTableView2.frame.size.width / 2.0 - 3.0, 20)];
+                        [statView setBackgroundColor:[UIColor whiteColor]];
+                        EpiInfoUILabel *statLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8, 0, statView.frame.size.width - 8.0, 20)];
+                        [statLabel setBackgroundColor:[UIColor clearColor]];
+                        [statLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                        [statLabel setText:[labelsArray objectAtIndex:i]];
+                        [statView addSubview:statLabel];
+                        if (i == labelsArray.count - 1)
+                        {
+                            [statView.layer setCornerRadius:8.0];
+                            UIView *white0 = [[UIView alloc] initWithFrame:CGRectMake(statView.frame.origin.x, statView.frame.origin.y, 40, 10)];
+                            UIView *white1 = [[UIView alloc] initWithFrame:CGRectMake(statView.frame.size.width / 2.0 + 2.0, statView.frame.origin.y, statView.frame.size.width / 2.0, 20)];
+                            [white0 setBackgroundColor:[UIColor whiteColor]];
+                            [white1 setBackgroundColor:[UIColor whiteColor]];
+                            [outputTableView2 addSubview:white0];
+                            [outputTableView2 addSubview:white1];
+                        }
+                        [outputTableView2 addSubview:statView];
+                        
+                        UIView *valueView = [[UIView alloc] initWithFrame:CGRectMake(outputTableView2.frame.size.width / 2.0 + 1.0, 40.0 + yValue, statView.frame.size.width, 20)];
+                        [valueView setBackgroundColor:[UIColor whiteColor]];
+                        EpiInfoUILabel *valueLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8, 0, valueView.frame.size.width - 8.0, 20)];
+                        [valueLabel setBackgroundColor:[UIColor clearColor]];
+                        [valueLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                        [valueLabel setText:[mo.meansVariableValues objectAtIndex:i]];
+                        [valueView addSubview:valueLabel];
+                        if (i == labelsArray.count - 1)
+                        {
+                            [valueView.layer setCornerRadius:8.0];
+                            UIView *white0 = [[UIView alloc] initWithFrame:CGRectMake(outputTableView2.frame.size.width - 42, valueView.frame.origin.y, 40, 10)];
+                            UIView *white1 = [[UIView alloc] initWithFrame:CGRectMake(valueView.frame.origin.x, valueView.frame.origin.y, 40, 20)];
+                            [white0 setBackgroundColor:[UIColor whiteColor]];
+                            [white1 setBackgroundColor:[UIColor whiteColor]];
+                            [outputTableView2 addSubview:white0];
+                            [outputTableView2 addSubview:white1];
+                        }
+                        [outputTableView2 addSubview:valueView];
+                    });
                     yValue += 22.0;
                 }
                 
-                [outputTableView2 setFrame:CGRectMake(outputTableView.frame.origin.x, outputTableView2.frame.origin.y, outputTableView2.frame.size.width, 40.0 + yValue)];
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [outputTableView2 setFrame:CGRectMake(outputTableView.frame.origin.x, outputTableView2.frame.origin.y, outputTableView2.frame.size.width, 40.0 + yValue)];
+                });
                 otvyValue += 42.0 + yValue;
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
+                dispatch_sync(dispatch_get_main_queue(), ^{
                     [outputView addSubview:outputTableView2];
                 });
             }
@@ -1100,7 +1115,7 @@
         }
         
         // Do crosstab statistics
-        float statsTableY = otvyValue;
+        __block float statsTableY = otvyValue;
         
         // Build arrays for Kruskal-Wallis
         // verticalFrequencies
@@ -1174,275 +1189,276 @@
 
             float outputRowsT = 11.0;
             
-            UIView *tTestView = [[UIView alloc] initWithFrame:CGRectMake(2, statsTableY, outputView.frame.size.width - 4.0, 48.0 + outputRowsT * 22.0)];
-            [tTestView setBackgroundColor:epiInfoLightBlue];
-            [tTestView setClipsToBounds:YES];
-            [tTestView.layer setCornerRadius:10.0];
+            __block UIView *tTestView = nil;
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                tTestView = [[UIView alloc] initWithFrame:CGRectMake(2, statsTableY, outputView.frame.size.width - 4.0, 48.0 + outputRowsT * 22.0)];
+                [tTestView setBackgroundColor:epiInfoLightBlue];
+                [tTestView setClipsToBounds:YES];
+                [tTestView.layer setCornerRadius:10.0];
+                
+                EpiInfoUILabel *tTestHeaderLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, tTestView.frame.size.width, 40)];
+                [tTestHeaderLabel setTextAlignment:NSTextAlignmentCenter];
+                [tTestHeaderLabel setTextColor:[UIColor whiteColor]];
+                [tTestHeaderLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+                [tTestHeaderLabel setText:[NSString stringWithFormat:@"T-Test"]];
+                [tTestView addSubview:tTestHeaderLabel];
+                
+                UIView *whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 40, tTestView.frame.size.width - 4, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+                [sectionLabel setText:@"Difference (Group 1 - Group 2)"];
+                [sectionLabel setAccessibilityLabel:@"Difference (Group 1 minus Group 2)"];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 62, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2, 62, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+                [sectionLabel setText:@"Pooled"];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2), 62, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+                [sectionLabel setText:@"Satterwaite"];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 84, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width - 8, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentRight];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+                [sectionLabel setText:@"Mean"];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2, 84, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                [sectionLabel setText:[tTestResults objectAtIndex:0]];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2), 84, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                [sectionLabel setText:[tTestResults objectAtIndex:4]];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 106, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width - 8, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentRight];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+                [sectionLabel setText:@"95% LCL"];
+                [sectionLabel setAccessibilityLabel:@"95% Lower Confidence Limit"];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2, 106, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                [sectionLabel setText:[tTestResults objectAtIndex:1]];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2), 106, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                [sectionLabel setText:[tTestResults objectAtIndex:5]];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 128, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width - 8, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentRight];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+                [sectionLabel setText:@"UCL"];
+                [sectionLabel setAccessibilityLabel:@"Upper Confidence Limit"];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2, 128, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                [sectionLabel setText:[tTestResults objectAtIndex:2]];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2), 128, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                [sectionLabel setText:[tTestResults objectAtIndex:6]];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 150, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width - 8, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentRight];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+                [sectionLabel setText:@"Std Dev"];
+                [sectionLabel setAccessibilityLabel:@"Standard Deviation"];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2, 150, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                [sectionLabel setText:[tTestResults objectAtIndex:3]];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2), 150, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 180, tTestView.frame.size.width - 4, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+                [sectionLabel setText:@"Results for Equal and Unequal Variances"];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 202, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2, 202, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+                [sectionLabel setText:@"Equal"];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2), 202, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+                [sectionLabel setText:@"Unequal"];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 224, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width - 8, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentRight];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+                [sectionLabel setText:@"DF"];
+                [sectionLabel setAccessibilityLabel:@"Degrees of Freedom"];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2, 224, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                [sectionLabel setText:[tTestResults objectAtIndex:7]];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2), 224, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                [sectionLabel setText:[tTestResults objectAtIndex:10]];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 246, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width - 8, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentRight];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+                [sectionLabel setText:@"t Value"];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2, 246, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                [sectionLabel setText:[tTestResults objectAtIndex:8]];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2), 246, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                [sectionLabel setText:[tTestResults objectAtIndex:11]];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                EpiInfoViewForRounding *roundedBox = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(2, 48 + 22 * (outputRowsT - 1), (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20) AndIsSquareLeft:NO AndIsSquareRight:YES];
+                [roundedBox setBackgroundColor:[UIColor whiteColor]];
+                [roundedBox.layer setCornerRadius:8.0];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, roundedBox.frame.size.width - 8, roundedBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentRight];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+                [sectionLabel setText:@"P(>|t|)"];
+                [sectionLabel setAccessibilityLabel:@"Probability (greater than absolute value of t)"];
+                [roundedBox addSubview:sectionLabel];
+                [tTestView addSubview:roundedBox];
+                
+                whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + roundedBox.frame.size.width + 2, roundedBox.frame.origin.y, roundedBox.frame.size.width, 20)];
+                [whiteBox setBackgroundColor:[UIColor whiteColor]];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                [sectionLabel setText:[tTestResults objectAtIndex:9]];
+                [whiteBox addSubview:sectionLabel];
+                [tTestView addSubview:whiteBox];
+                
+                roundedBox = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(whiteBox.frame.origin.x + whiteBox.frame.size.width + 2, whiteBox.frame.origin.y, whiteBox.frame.size.width, 20) AndIsSquareLeft:YES AndIsSquareRight:NO];
+                [roundedBox setBackgroundColor:[UIColor whiteColor]];
+                [roundedBox.layer setCornerRadius:8.0];
+                sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, roundedBox.frame.size.width, roundedBox.frame.size.height)];
+                [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+                [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                [sectionLabel setText:[tTestResults objectAtIndex:12]];
+                [roundedBox addSubview:sectionLabel];
+                [tTestView addSubview:roundedBox];
             
-            EpiInfoUILabel *tTestHeaderLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, tTestView.frame.size.width, 40)];
-            [tTestHeaderLabel setTextAlignment:NSTextAlignmentCenter];
-            [tTestHeaderLabel setTextColor:[UIColor whiteColor]];
-            [tTestHeaderLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
-            [tTestHeaderLabel setText:[NSString stringWithFormat:@"T-Test"]];
-            [tTestView addSubview:tTestHeaderLabel];
-            
-            UIView *whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 40, tTestView.frame.size.width - 4, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-            [sectionLabel setText:@"Difference (Group 1 - Group 2)"];
-            [sectionLabel setAccessibilityLabel:@"Difference (Group 1 minus Group 2)"];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 62, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2, 62, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-            [sectionLabel setText:@"Pooled"];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2), 62, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-            [sectionLabel setText:@"Satterwaite"];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 84, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width - 8, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentRight];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-            [sectionLabel setText:@"Mean"];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2, 84, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-            [sectionLabel setText:[tTestResults objectAtIndex:0]];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2), 84, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-            [sectionLabel setText:[tTestResults objectAtIndex:4]];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 106, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width - 8, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentRight];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-            [sectionLabel setText:@"95% LCL"];
-            [sectionLabel setAccessibilityLabel:@"95% Lower Confidence Limit"];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2, 106, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-            [sectionLabel setText:[tTestResults objectAtIndex:1]];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2), 106, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-            [sectionLabel setText:[tTestResults objectAtIndex:5]];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 128, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width - 8, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentRight];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-            [sectionLabel setText:@"UCL"];
-            [sectionLabel setAccessibilityLabel:@"Upper Confidence Limit"];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2, 128, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-            [sectionLabel setText:[tTestResults objectAtIndex:2]];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2), 128, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-            [sectionLabel setText:[tTestResults objectAtIndex:6]];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 150, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width - 8, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentRight];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-            [sectionLabel setText:@"Std Dev"];
-            [sectionLabel setAccessibilityLabel:@"Standard Deviation"];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2, 150, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-            [sectionLabel setText:[tTestResults objectAtIndex:3]];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2), 150, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 180, tTestView.frame.size.width - 4, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-            [sectionLabel setText:@"Results for Equal and Unequal Variances"];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 202, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2, 202, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-            [sectionLabel setText:@"Equal"];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2), 202, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-            [sectionLabel setText:@"Unequal"];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 224, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width - 8, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentRight];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-            [sectionLabel setText:@"DF"];
-            [sectionLabel setAccessibilityLabel:@"Degrees of Freedom"];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2, 224, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-            [sectionLabel setText:[tTestResults objectAtIndex:7]];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2), 224, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-            [sectionLabel setText:[tTestResults objectAtIndex:10]];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 246, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width - 8, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentRight];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-            [sectionLabel setText:@"t Value"];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2, 246, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-            [sectionLabel setText:[tTestResults objectAtIndex:8]];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((tTestView.frame.size.width - 5) / 3.0 - 1.0) + 2), 246, (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-            [sectionLabel setText:[tTestResults objectAtIndex:11]];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            EpiInfoViewForRounding *roundedBox = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(2, 48 + 22 * (outputRowsT - 1), (tTestView.frame.size.width - 5) / 3.0 - 1.0, 20) AndIsSquareLeft:NO AndIsSquareRight:YES];
-            [roundedBox setBackgroundColor:[UIColor whiteColor]];
-            [roundedBox.layer setCornerRadius:8.0];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, roundedBox.frame.size.width - 8, roundedBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentRight];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-            [sectionLabel setText:@"P(>|t|)"];
-            [sectionLabel setAccessibilityLabel:@"Probability (greater than absolute value of t)"];
-            [roundedBox addSubview:sectionLabel];
-            [tTestView addSubview:roundedBox];
-            
-            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + roundedBox.frame.size.width + 2, roundedBox.frame.origin.y, roundedBox.frame.size.width, 20)];
-            [whiteBox setBackgroundColor:[UIColor whiteColor]];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-            [sectionLabel setText:[tTestResults objectAtIndex:9]];
-            [whiteBox addSubview:sectionLabel];
-            [tTestView addSubview:whiteBox];
-            
-            roundedBox = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(whiteBox.frame.origin.x + whiteBox.frame.size.width + 2, whiteBox.frame.origin.y, whiteBox.frame.size.width, 20) AndIsSquareLeft:YES AndIsSquareRight:NO];
-            [roundedBox setBackgroundColor:[UIColor whiteColor]];
-            [roundedBox.layer setCornerRadius:8.0];
-            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, roundedBox.frame.size.width, roundedBox.frame.size.height)];
-            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-            [sectionLabel setText:[tTestResults objectAtIndex:12]];
-            [roundedBox addSubview:sectionLabel];
-            [tTestView addSubview:roundedBox];
-            
-            statsTableY += tTestView.frame.size.height + 2.0;
+                statsTableY += tTestView.frame.size.height + 2.0;
 
-            dispatch_async(dispatch_get_main_queue(), ^{
                 [outputView addSubview:tTestView];
             });
         }
@@ -1451,308 +1467,314 @@
         NSArray *anovaResults = [MeansCrosstabCompute doANOVA:statisticsInputsArray andKruakalWallisWithHorizontalFrequencies:horizontalFrequencies AndVerticalFrequencies:verticalFrequencies AndLocalFrequencies:allLocalFrequencies AndRecordCount:recordCount];
         
         float outputRowsANOVA = 6.0;
+        
+        __block UIView *anovaView = nil;
+        __block UIView *bartlettView = nil;
+        __block UIView *wilcoxonView = nil;
 
-        UIView *anovaView = [[UIView alloc] initWithFrame:CGRectMake(2, statsTableY, outputView.frame.size.width - 4.0, 40 + 22 * outputRowsANOVA)];
-        [anovaView setBackgroundColor:epiInfoLightBlue];
-        [anovaView setClipsToBounds:YES];
-        [anovaView.layer setCornerRadius:10.0];
-        
-        EpiInfoUILabel *anovaHeaderLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, anovaView.frame.size.width, 40)];
-        [anovaHeaderLabel setTextAlignment:NSTextAlignmentCenter];
-        [anovaHeaderLabel setTextColor:[UIColor whiteColor]];
-        [anovaHeaderLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
-        [anovaHeaderLabel setText:[NSString stringWithFormat:@"ANOVA"]];
-        [anovaView addSubview:anovaHeaderLabel];
-        
-        UIView *whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 40, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        [anovaView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2, 40, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-        [sectionLabel setText:@"Between"];
-        [whiteBox addSubview:sectionLabel];
-        [anovaView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2), 40, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-        [sectionLabel setText:@"Within"];
-        [whiteBox addSubview:sectionLabel];
-        [anovaView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 3.0 * (((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2), 40, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-        [sectionLabel setText:@"Total"];
-        [whiteBox addSubview:sectionLabel];
-        [anovaView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 62, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width - 8, whiteBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentRight];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-        [sectionLabel setText:@"SS"];
-        [sectionLabel setAccessibilityLabel:@"Sum of Squares"];
-        [whiteBox addSubview:sectionLabel];
-        [anovaView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2, 62, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-        [sectionLabel setText:[anovaResults objectAtIndex:0]];
-        [whiteBox addSubview:sectionLabel];
-        [anovaView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2), 62, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        sectionLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-        [sectionLabel setText:[anovaResults objectAtIndex:4]];
-        [whiteBox addSubview:sectionLabel];
-        [anovaView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 3.0 * (((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2), 62, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        sectionLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-        [sectionLabel setText:[anovaResults objectAtIndex:7]];
-        [whiteBox addSubview:sectionLabel];
-        [anovaView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 84, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width - 8, whiteBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentRight];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-        [sectionLabel setText:@"df"];
-        [sectionLabel setAccessibilityLabel:@"Degrees of Freedom"];
-        [whiteBox addSubview:sectionLabel];
-        [anovaView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2, 84, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-        [sectionLabel setText:[anovaResults objectAtIndex:1]];
-        [whiteBox addSubview:sectionLabel];
-        [anovaView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2), 84, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-        [sectionLabel setText:[anovaResults objectAtIndex:5]];
-        [whiteBox addSubview:sectionLabel];
-        [anovaView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 3.0 * (((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2), 84, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-        [sectionLabel setText:[anovaResults objectAtIndex:8]];
-        [whiteBox addSubview:sectionLabel];
-        [anovaView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 106, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width - 8, whiteBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentRight];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-        [sectionLabel setText:@"MS"];
-        [sectionLabel setAccessibilityLabel:@"Mean Square"];
-        [whiteBox addSubview:sectionLabel];
-        [anovaView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2, 106, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-        [sectionLabel setText:[anovaResults objectAtIndex:2]];
-        [whiteBox addSubview:sectionLabel];
-        [anovaView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2), 106, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-        [sectionLabel setText:[anovaResults objectAtIndex:6]];
-        [whiteBox addSubview:sectionLabel];
-        [anovaView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 3.0 * (((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2), 106, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        [anovaView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 128, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width - 8, whiteBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentRight];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-        [sectionLabel setText:@"F"];
-        [sectionLabel setAccessibilityLabel:@"F Statistic"];
-        [whiteBox addSubview:sectionLabel];
-        [anovaView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2, 128, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-        [sectionLabel setText:[anovaResults objectAtIndex:3]];
-        [whiteBox addSubview:sectionLabel];
-        [anovaView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2), 128, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        [anovaView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 3.0 * (((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2), 128, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        [anovaView addSubview:whiteBox];
-        
-        EpiInfoViewForRounding *roundedBox = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(2, 40 + 22 * (outputRowsANOVA - 1), anovaView.frame.size.width - 4, 20) AndIsSquareLeft:NO AndIsSquareRight:NO];
-        [roundedBox setBackgroundColor:[UIColor whiteColor]];
-        [roundedBox.layer setCornerRadius:8.0];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, roundedBox.frame.size.width, roundedBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-        [sectionLabel setText:[NSString stringWithFormat:@"P-value = %@", [anovaResults objectAtIndex:9]]];
-        [roundedBox addSubview:sectionLabel];
-        [anovaView addSubview:roundedBox];
-        
-        statsTableY += anovaView.frame.size.height + 2.0;
-        
-        // Do Bartlett Test
-        float outputRowsBartlet = 2.0;
-        
-        UIView *bartlettView = [[UIView alloc] initWithFrame:CGRectMake(2, statsTableY, outputView.frame.size.width - 4.0, 40 + 22 * outputRowsBartlet)];
-        [bartlettView setBackgroundColor:epiInfoLightBlue];
-        [bartlettView setClipsToBounds:YES];
-        [bartlettView.layer setCornerRadius:10.0];
-        
-        EpiInfoUILabel *bartlettHeaderLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, bartlettView.frame.size.width, 40)];
-        [bartlettHeaderLabel setTextAlignment:NSTextAlignmentCenter];
-        [bartlettHeaderLabel setTextColor:[UIColor whiteColor]];
-        [bartlettHeaderLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17.5]];
-        [bartlettHeaderLabel setText:[NSString stringWithFormat:@"Bartlett's Test for Variance Inequality"]];
-        [bartlettView addSubview:bartlettHeaderLabel];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 40, (bartlettView.frame.size.width - 4) / 2.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-        [sectionLabel setText:[NSString stringWithFormat:@"Bartlett's X%@", @"\u00B2"]];
-        [sectionLabel setAccessibilityLabel:@"Bartlett's Ky Square"];
-        [whiteBox addSubview:sectionLabel];
-        [bartlettView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + (bartlettView.frame.size.width - 4) / 2.0 + 1, 40, (bartlettView.frame.size.width - 4) / 2.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-        [sectionLabel setText:@"P-value"];
-        [whiteBox addSubview:sectionLabel];
-        [bartlettView addSubview:whiteBox];
-        
-        roundedBox = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(2, 40 + 22 * (outputRowsBartlet - 1), (bartlettView.frame.size.width - 4) / 2.0 - 1.0, 20) AndIsSquareLeft:NO AndIsSquareRight:YES];
-        [roundedBox setBackgroundColor:[UIColor whiteColor]];
-        [roundedBox.layer setCornerRadius:8.0];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, roundedBox.frame.size.width, roundedBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-        [sectionLabel setText:[anovaResults objectAtIndex:10]];
-        [roundedBox addSubview:sectionLabel];
-        [bartlettView addSubview:roundedBox];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            anovaView = [[UIView alloc] initWithFrame:CGRectMake(2, statsTableY, outputView.frame.size.width - 4.0, 40 + 22 * outputRowsANOVA)];
+            [anovaView setBackgroundColor:epiInfoLightBlue];
+            [anovaView setClipsToBounds:YES];
+            [anovaView.layer setCornerRadius:10.0];
+            
+            EpiInfoUILabel *anovaHeaderLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, anovaView.frame.size.width, 40)];
+            [anovaHeaderLabel setTextAlignment:NSTextAlignmentCenter];
+            [anovaHeaderLabel setTextColor:[UIColor whiteColor]];
+            [anovaHeaderLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
+            [anovaHeaderLabel setText:[NSString stringWithFormat:@"ANOVA"]];
+            [anovaView addSubview:anovaHeaderLabel];
+            
+            UIView *whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 40, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            [anovaView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2, 40, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+            [sectionLabel setText:@"Between"];
+            [whiteBox addSubview:sectionLabel];
+            [anovaView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2), 40, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+            [sectionLabel setText:@"Within"];
+            [whiteBox addSubview:sectionLabel];
+            [anovaView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 3.0 * (((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2), 40, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+            [sectionLabel setText:@"Total"];
+            [whiteBox addSubview:sectionLabel];
+            [anovaView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 62, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width - 8, whiteBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentRight];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+            [sectionLabel setText:@"SS"];
+            [sectionLabel setAccessibilityLabel:@"Sum of Squares"];
+            [whiteBox addSubview:sectionLabel];
+            [anovaView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2, 62, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [sectionLabel setText:[anovaResults objectAtIndex:0]];
+            [whiteBox addSubview:sectionLabel];
+            [anovaView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2), 62, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            sectionLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [sectionLabel setText:[anovaResults objectAtIndex:4]];
+            [whiteBox addSubview:sectionLabel];
+            [anovaView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 3.0 * (((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2), 62, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            sectionLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [sectionLabel setText:[anovaResults objectAtIndex:7]];
+            [whiteBox addSubview:sectionLabel];
+            [anovaView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 84, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width - 8, whiteBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentRight];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+            [sectionLabel setText:@"df"];
+            [sectionLabel setAccessibilityLabel:@"Degrees of Freedom"];
+            [whiteBox addSubview:sectionLabel];
+            [anovaView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2, 84, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [sectionLabel setText:[anovaResults objectAtIndex:1]];
+            [whiteBox addSubview:sectionLabel];
+            [anovaView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2), 84, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [sectionLabel setText:[anovaResults objectAtIndex:5]];
+            [whiteBox addSubview:sectionLabel];
+            [anovaView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 3.0 * (((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2), 84, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [sectionLabel setText:[anovaResults objectAtIndex:8]];
+            [whiteBox addSubview:sectionLabel];
+            [anovaView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 106, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width - 8, whiteBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentRight];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+            [sectionLabel setText:@"MS"];
+            [sectionLabel setAccessibilityLabel:@"Mean Square"];
+            [whiteBox addSubview:sectionLabel];
+            [anovaView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2, 106, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [sectionLabel setText:[anovaResults objectAtIndex:2]];
+            [whiteBox addSubview:sectionLabel];
+            [anovaView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2), 106, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [sectionLabel setText:[anovaResults objectAtIndex:6]];
+            [whiteBox addSubview:sectionLabel];
+            [anovaView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 3.0 * (((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2), 106, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            [anovaView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 128, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width - 8, whiteBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentRight];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+            [sectionLabel setText:@"F"];
+            [sectionLabel setAccessibilityLabel:@"F Statistic"];
+            [whiteBox addSubview:sectionLabel];
+            [anovaView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + ((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2, 128, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [sectionLabel setText:[anovaResults objectAtIndex:3]];
+            [whiteBox addSubview:sectionLabel];
+            [anovaView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 2.0 * (((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2), 128, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            [anovaView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + 3.0 * (((anovaView.frame.size.width - 6) / 4.0 - 1.0) + 2), 128, (anovaView.frame.size.width - 6) / 4.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            [anovaView addSubview:whiteBox];
+            
+            EpiInfoViewForRounding *roundedBox = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(2, 40 + 22 * (outputRowsANOVA - 1), anovaView.frame.size.width - 4, 20) AndIsSquareLeft:NO AndIsSquareRight:NO];
+            [roundedBox setBackgroundColor:[UIColor whiteColor]];
+            [roundedBox.layer setCornerRadius:8.0];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, roundedBox.frame.size.width, roundedBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+            [sectionLabel setText:[NSString stringWithFormat:@"P-value = %@", [anovaResults objectAtIndex:9]]];
+            [roundedBox addSubview:sectionLabel];
+            [anovaView addSubview:roundedBox];
+            
+            statsTableY += anovaView.frame.size.height + 2.0;
+            
+            // Do Bartlett Test
+            float outputRowsBartlet = 2.0;
+            
+            bartlettView = [[UIView alloc] initWithFrame:CGRectMake(2, statsTableY, outputView.frame.size.width - 4.0, 40 + 22 * outputRowsBartlet)];
+            [bartlettView setBackgroundColor:epiInfoLightBlue];
+            [bartlettView setClipsToBounds:YES];
+            [bartlettView.layer setCornerRadius:10.0];
+            
+            EpiInfoUILabel *bartlettHeaderLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, bartlettView.frame.size.width, 40)];
+            [bartlettHeaderLabel setTextAlignment:NSTextAlignmentCenter];
+            [bartlettHeaderLabel setTextColor:[UIColor whiteColor]];
+            [bartlettHeaderLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17.5]];
+            [bartlettHeaderLabel setText:[NSString stringWithFormat:@"Bartlett's Test for Variance Inequality"]];
+            [bartlettView addSubview:bartlettHeaderLabel];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 40, (bartlettView.frame.size.width - 4) / 2.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+            [sectionLabel setText:[NSString stringWithFormat:@"Bartlett's X%@", @"\u00B2"]];
+            [sectionLabel setAccessibilityLabel:@"Bartlett's Ky Square"];
+            [whiteBox addSubview:sectionLabel];
+            [bartlettView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + (bartlettView.frame.size.width - 4) / 2.0 + 1, 40, (bartlettView.frame.size.width - 4) / 2.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+            [sectionLabel setText:@"P-value"];
+            [whiteBox addSubview:sectionLabel];
+            [bartlettView addSubview:whiteBox];
+            
+            roundedBox = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(2, 40 + 22 * (outputRowsBartlet - 1), (bartlettView.frame.size.width - 4) / 2.0 - 1.0, 20) AndIsSquareLeft:NO AndIsSquareRight:YES];
+            [roundedBox setBackgroundColor:[UIColor whiteColor]];
+            [roundedBox.layer setCornerRadius:8.0];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, roundedBox.frame.size.width, roundedBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [sectionLabel setText:[anovaResults objectAtIndex:10]];
+            [roundedBox addSubview:sectionLabel];
+            [bartlettView addSubview:roundedBox];
 
-        roundedBox = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(2 + (bartlettView.frame.size.width - 4) / 2.0 + 1, 40 + 22 * (outputRowsBartlet - 1), (bartlettView.frame.size.width - 4) / 2.0 - 1.0, 20) AndIsSquareLeft:YES AndIsSquareRight:NO];
-        [roundedBox setBackgroundColor:[UIColor whiteColor]];
-        [roundedBox.layer setCornerRadius:8.0];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, roundedBox.frame.size.width, roundedBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-        [sectionLabel setText:[anovaResults objectAtIndex:12]];
-        [roundedBox addSubview:sectionLabel];
-        [bartlettView addSubview:roundedBox];
-        
-        statsTableY += bartlettView.frame.size.height + 2.0;
-        
-        // Do Wilcoxon Kruskal Wallis Test
-        float outputRowsKW = 2.0;
-        
-        UIView *wilcoxonView = [[UIView alloc] initWithFrame:CGRectMake(2, statsTableY, outputView.frame.size.width - 4.0, 40 + 22 * outputRowsKW)];
-        [wilcoxonView setBackgroundColor:epiInfoLightBlue];
-        [wilcoxonView setClipsToBounds:YES];
-        [wilcoxonView.layer setCornerRadius:10.0];
-        
-        EpiInfoUILabel *wilcoxonHeaderLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, wilcoxonView.frame.size.width, 40)];
-        [wilcoxonHeaderLabel setTextAlignment:NSTextAlignmentCenter];
-        [wilcoxonHeaderLabel setTextColor:[UIColor whiteColor]];
-        [wilcoxonHeaderLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15.0]];
-        [wilcoxonHeaderLabel setText:[NSString stringWithFormat:@"Wilcoxon Two-Sample Test (Kruskal-Wallis)"]];
-        [wilcoxonView addSubview:wilcoxonHeaderLabel];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 40, (wilcoxonView.frame.size.width - 4) / 2.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-        [sectionLabel setText:[NSString stringWithFormat:@"Kruskal-Wallis X%@", @"\u00B2"]];
-        [sectionLabel setAccessibilityLabel:@"Kruskal-Wallis Ky Square"];
-        [whiteBox addSubview:sectionLabel];
-        [wilcoxonView addSubview:whiteBox];
-        
-        whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + (wilcoxonView.frame.size.width - 4) / 2.0 + 1, 40, (wilcoxonView.frame.size.width - 4) / 2.0 - 1.0, 20)];
-        [whiteBox setBackgroundColor:[UIColor whiteColor]];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
-        [sectionLabel setText:@"P-value"];
-        [whiteBox addSubview:sectionLabel];
-        [wilcoxonView addSubview:whiteBox];
-        
-        roundedBox = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(2, 40 + 22 * (outputRowsKW - 1), (wilcoxonView.frame.size.width - 4) / 2.0 - 1.0, 20) AndIsSquareLeft:NO AndIsSquareRight:YES];
-        [roundedBox setBackgroundColor:[UIColor whiteColor]];
-        [roundedBox.layer setCornerRadius:8.0];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, roundedBox.frame.size.width, roundedBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-        [sectionLabel setText:[anovaResults objectAtIndex:13]];
-        [roundedBox addSubview:sectionLabel];
-        [wilcoxonView addSubview:roundedBox];
-        
-        roundedBox = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(2 + (wilcoxonView.frame.size.width - 4) / 2.0 + 1, 40 + 22 * (outputRowsKW - 1), (wilcoxonView.frame.size.width - 4) / 2.0 - 1.0, 20) AndIsSquareLeft:YES AndIsSquareRight:NO];
-        [roundedBox setBackgroundColor:[UIColor whiteColor]];
-        [roundedBox.layer setCornerRadius:8.0];
-        sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, roundedBox.frame.size.width, roundedBox.frame.size.height)];
-        [sectionLabel setTextAlignment:NSTextAlignmentCenter];
-        [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-        [sectionLabel setText:[anovaResults objectAtIndex:15]];
-        [roundedBox addSubview:sectionLabel];
-        [wilcoxonView addSubview:roundedBox];
-        
-        statsTableY += wilcoxonView.frame.size.height + 2.0;
+            roundedBox = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(2 + (bartlettView.frame.size.width - 4) / 2.0 + 1, 40 + 22 * (outputRowsBartlet - 1), (bartlettView.frame.size.width - 4) / 2.0 - 1.0, 20) AndIsSquareLeft:YES AndIsSquareRight:NO];
+            [roundedBox setBackgroundColor:[UIColor whiteColor]];
+            [roundedBox.layer setCornerRadius:8.0];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, roundedBox.frame.size.width, roundedBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [sectionLabel setText:[anovaResults objectAtIndex:12]];
+            [roundedBox addSubview:sectionLabel];
+            [bartlettView addSubview:roundedBox];
+            
+            statsTableY += bartlettView.frame.size.height + 2.0;
+            
+            // Do Wilcoxon Kruskal Wallis Test
+            float outputRowsKW = 2.0;
+            
+            wilcoxonView = [[UIView alloc] initWithFrame:CGRectMake(2, statsTableY, outputView.frame.size.width - 4.0, 40 + 22 * outputRowsKW)];
+            [wilcoxonView setBackgroundColor:epiInfoLightBlue];
+            [wilcoxonView setClipsToBounds:YES];
+            [wilcoxonView.layer setCornerRadius:10.0];
+            
+            EpiInfoUILabel *wilcoxonHeaderLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, wilcoxonView.frame.size.width, 40)];
+            [wilcoxonHeaderLabel setTextAlignment:NSTextAlignmentCenter];
+            [wilcoxonHeaderLabel setTextColor:[UIColor whiteColor]];
+            [wilcoxonHeaderLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15.0]];
+            [wilcoxonHeaderLabel setText:[NSString stringWithFormat:@"Wilcoxon Two-Sample Test (Kruskal-Wallis)"]];
+            [wilcoxonView addSubview:wilcoxonHeaderLabel];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2, 40, (wilcoxonView.frame.size.width - 4) / 2.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+            [sectionLabel setText:[NSString stringWithFormat:@"Kruskal-Wallis X%@", @"\u00B2"]];
+            [sectionLabel setAccessibilityLabel:@"Kruskal-Wallis Ky Square"];
+            [whiteBox addSubview:sectionLabel];
+            [wilcoxonView addSubview:whiteBox];
+            
+            whiteBox = [[UIView alloc] initWithFrame:CGRectMake(2 + (wilcoxonView.frame.size.width - 4) / 2.0 + 1, 40, (wilcoxonView.frame.size.width - 4) / 2.0 - 1.0, 20)];
+            [whiteBox setBackgroundColor:[UIColor whiteColor]];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteBox.frame.size.width, whiteBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
+            [sectionLabel setText:@"P-value"];
+            [whiteBox addSubview:sectionLabel];
+            [wilcoxonView addSubview:whiteBox];
+            
+            roundedBox = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(2, 40 + 22 * (outputRowsKW - 1), (wilcoxonView.frame.size.width - 4) / 2.0 - 1.0, 20) AndIsSquareLeft:NO AndIsSquareRight:YES];
+            [roundedBox setBackgroundColor:[UIColor whiteColor]];
+            [roundedBox.layer setCornerRadius:8.0];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, roundedBox.frame.size.width, roundedBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [sectionLabel setText:[anovaResults objectAtIndex:13]];
+            [roundedBox addSubview:sectionLabel];
+            [wilcoxonView addSubview:roundedBox];
+            
+            roundedBox = [[EpiInfoViewForRounding alloc] initWithFrame:CGRectMake(2 + (wilcoxonView.frame.size.width - 4) / 2.0 + 1, 40 + 22 * (outputRowsKW - 1), (wilcoxonView.frame.size.width - 4) / 2.0 - 1.0, 20) AndIsSquareLeft:YES AndIsSquareRight:NO];
+            [roundedBox setBackgroundColor:[UIColor whiteColor]];
+            [roundedBox.layer setCornerRadius:8.0];
+            sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, roundedBox.frame.size.width, roundedBox.frame.size.height)];
+            [sectionLabel setTextAlignment:NSTextAlignmentCenter];
+            [sectionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+            [sectionLabel setText:[anovaResults objectAtIndex:15]];
+            [roundedBox addSubview:sectionLabel];
+            [wilcoxonView addSubview:roundedBox];
+            
+            statsTableY += wilcoxonView.frame.size.height + 2.0;
 
-        [avc setContentSize:CGSizeMake(self.frame.size.width, statsTableY + 96.0)];
+            [avc setContentSize:CGSizeMake(self.frame.size.width, statsTableY + 96.0)];
+        });
         
         horizontalFrequencies = nil;
         verticalFrequencies = nil;
@@ -1874,11 +1896,13 @@
             [self bringSubviewToFront:inputView];
         [avc setContentSize:CGSizeMake(contentSizeWidth, contentSizeHeight)];
     }
-    [spinner setHidden:YES];
-    [spinner stopAnimating];
-    [gearButton setEnabled:YES];
-    [xButton setEnabled:YES];
-    [avc setDataSourceEnabled:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [spinner setHidden:YES];
+        [spinner stopAnimating];
+        [gearButton setEnabled:YES];
+        [xButton setEnabled:YES];
+        [avc setDataSourceEnabled:YES];
+    });
 }
 
 - (BOOL)stopTheSpinner
