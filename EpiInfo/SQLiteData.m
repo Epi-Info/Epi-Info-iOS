@@ -167,7 +167,12 @@
 
 - (void)provideUpdate:(NSString *)buttonLabel
 {
-    [self.databaseButton setTitle:buttonLabel forState:UIControlStateHighlighted];
+    if ([NSThread isMainThread])
+        [self.databaseButton setTitle:buttonLabel forState:UIControlStateHighlighted];
+    else
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self.databaseButton setTitle:buttonLabel forState:UIControlStateHighlighted];
+        });
 }
 
 - (void)makeSQLiteWorkingTableWithWhereClause:(NSString *)whereClause AndNewVariblesList:(NSArray *)newVariablesList

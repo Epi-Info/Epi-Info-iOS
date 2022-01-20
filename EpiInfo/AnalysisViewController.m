@@ -1987,7 +1987,12 @@
 
 - (void)provideUpdate
 {
-    [datasetButton setTitle:[[datasetButton titleLabel].text stringByAppendingString:@" 0%"] forState:UIControlStateHighlighted];
+    if ([NSThread isMainThread])
+        [datasetButton setTitle:[[datasetButton titleLabel].text stringByAppendingString:@" 0%"] forState:UIControlStateHighlighted];
+    else
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [datasetButton setTitle:[[datasetButton titleLabel].text stringByAppendingString:@" 0%"] forState:UIControlStateHighlighted];
+        });
 }
 
 - (void)didReceiveMemoryWarning
