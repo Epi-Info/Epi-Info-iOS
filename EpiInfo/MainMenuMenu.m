@@ -13,6 +13,7 @@
 
 @implementation MainMenuMenu
 @synthesize eivc = _eivc;
+@synthesize customKeysOptionButton = _customKeysOptionButton;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -47,7 +48,7 @@
         [back setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [item setRightBarButtonItem:back];
         
-        UIView *gravView = [[UIView alloc] initWithFrame:CGRectMake(0, 32, frame.size.width, 270)];
+        UIView *gravView = [[UIView alloc] initWithFrame:CGRectMake(0, 32, frame.size.width, 315)];
         [gravView setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
         [self addSubview:gravView];
         
@@ -128,6 +129,19 @@
         [boxLogoutButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
         [boxLogoutButton setEnabled:([users count] > 0)];
         [gravView addSubview:boxLogoutButton];
+        
+        self.customKeysOptionButton = [[UIButton alloc] initWithFrame:CGRectMake(0, boxLogoutButton.frame.origin.y + boxLogoutButton.frame.size.height + 1, frame.size.width, boxLogoutButton.frame.size.height)];
+        [self.customKeysOptionButton setTag:6];
+        [self.customKeysOptionButton addTarget:self action:@selector(toggleCustomKeysOption:) forControlEvents:UIControlEventTouchUpInside];
+        [self.customKeysOptionButton setBackgroundColor:[UIColor whiteColor]];
+        [self.customKeysOptionButton setTitle:@"Give Option for Custom Encryption" forState:UIControlStateNormal];
+        [self.customKeysOptionButton setTitleColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [self.customKeysOptionButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [self.customKeysOptionButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateDisabled];
+        [self.customKeysOptionButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [self.customKeysOptionButton setContentEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
+        [self.customKeysOptionButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+        [gravView addSubview:self.customKeysOptionButton];
 
         UILabel *versionInfo = [[UILabel alloc] initWithFrame:CGRectMake(4, frame.size.height - 30, frame.size.width - 4, 30)];
         [versionInfo setTextAlignment:NSTextAlignmentLeft];
@@ -176,6 +190,22 @@
             [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Error logging in to Box: %@\n", [NSDate date], error]];
         }
     }];
+}
+
+- (void)toggleCustomKeysOption:(UIButton *)sender
+{
+    BOOL ck = [(NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:@"customKeys"] boolValue];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:!ck] forKey:@"customKeys"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self setEncryptionKeysButtonTitle:sender];
+}
+- (void)setEncryptionKeysButtonTitle:(UIButton *)sender
+{
+    BOOL ck = [(NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:@"customKeys"] boolValue];
+    if (ck)
+        [sender setTitle:@"Remove Option for Custom Encryption" forState:UIControlStateNormal];
+    else
+        [sender setTitle:@"Give Option for Custom Encryption" forState:UIControlStateNormal];
 }
 
 - (void)boxDisconnect:(UIButton *)sender

@@ -674,6 +674,9 @@
     [questionMarkButton setImage:questionMarkImage forState:UIControlStateNormal];
     [questionMarkButton addTarget:self action:@selector(tutorialButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:questionMarkButton];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"customKeys"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 -(void)loadSampleForm:(NSString*)resourceName
@@ -979,6 +982,7 @@
 {
     MainMenuMenu *mmm = [[MainMenuMenu alloc] initWithFrame:CGRectMake(-self.view.frame.size.width, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [mmm setEivc:self];
+    [mmm setEncryptionKeysButtonTitle:mmm.customKeysOptionButton];
     [self.view addSubview:mmm];
     
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{

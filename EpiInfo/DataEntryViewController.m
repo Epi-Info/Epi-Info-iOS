@@ -1939,6 +1939,12 @@
 
 - (void)choiceOfKeys:(UIButton *)sender
 {
+    BOOL ck = [(NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:@"customKeys"] boolValue];
+    if (!ck)
+    {
+        [self packageAndEmailData:sender];
+        return;
+    }
     UIAlertController *chooseKeys = [UIAlertController alertControllerWithTitle:@"Choose Encryption Keys" message:@"Use Standard Keys if destination is Epi Info for Windows or another iOS device. Use Custom Keys if destination is Python." preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *standard = [UIAlertAction actionWithTitle:@"Standard Keys" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         useCustomKeys = NO;

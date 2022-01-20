@@ -10,4 +10,6 @@
 
 @interface MainMenuMenu : UIView
 @property UIViewController *eivc;
+@property UIButton *customKeysOptionButton;
+-(void)setEncryptionKeysButtonTitle:(UIButton *)sender;
 @end
