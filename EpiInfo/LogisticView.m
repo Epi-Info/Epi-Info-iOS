@@ -137,7 +137,7 @@
             gadgetTitle = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 44)];
             [gadgetTitle setText:@"Logistic Regression"];
             [gadgetTitle setTextColor:epiInfoLightBlue];
-            [gadgetTitle setFont:[UIFont boldSystemFontOfSize:18.0]];
+            [gadgetTitle setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
             [titleBar addSubview:gadgetTitle];
             
             //Add the quit button
@@ -282,7 +282,7 @@
             gadgetTitle = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 44)];
             [gadgetTitle setText:@"Logistic Regression"];
             [gadgetTitle setTextColor:epiInfoLightBlue];
-            [gadgetTitle setFont:[UIFont boldSystemFontOfSize:18.0]];
+            [gadgetTitle setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
             [titleBar addSubview:gadgetTitle];
             
             //Add the quit button
@@ -2241,7 +2241,7 @@
             [stratumHeader setBackgroundColor:[UIColor clearColor]];
             [stratumHeader setTextColor:epiInfoLightBlue];
             [stratumHeader setText:[NSString stringWithFormat:@"%@ = %@", stratVar, stratValue]];
-            [stratumHeader setFont:[UIFont boldSystemFontOfSize:18.0]];
+            [stratumHeader setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
             [stratumHeader setTextAlignment:NSTextAlignmentCenter];
             [outputV addSubview:stratumHeader];
         }
@@ -2263,25 +2263,25 @@
         float exposureValueFontSize = 16.0;
         
         //Reduce font sizes until they fit
-        //        while ([to.outcomeVariable sizeWithFont:[UIFont boldSystemFontOfSize:outcomeVariableLabelFontSize]].width > 120)
+        //        while ([to.outcomeVariable sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:outcomeVariableLabelFontSize]].width > 120)
         // Deprecation replacement
-        while ([to.outcomeVariable sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:outcomeVariableLabelFontSize]}].width > 120)
+        while ([to.outcomeVariable sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:outcomeVariableLabelFontSize]}].width > 120)
             outcomeVariableLabelFontSize -= 0.1;
-        //        while ([to.exposureVariable sizeWithFont:[UIFont boldSystemFontOfSize:exposureVariableLabelFontSize]].width > 120)
+        //        while ([to.exposureVariable sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:exposureVariableLabelFontSize]].width > 120)
         // Deprecation replacement
-        while ([to.exposureVariable sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:exposureVariableLabelFontSize]}].width > 120)
+        while ([to.exposureVariable sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:exposureVariableLabelFontSize]}].width > 120)
             exposureVariableLabelFontSize -= 0.1;
         float outcomeValueWidthWithFont = 0.0;
         for (int i = 0; i < to.outcomeValues.count; i++)
         {
             NSString *tempStr = [NSString stringWithFormat:@"%@", [to.outcomeValues objectAtIndex:i]];
-            outcomeValueWidthWithFont = MAX(outcomeValueWidthWithFont, [tempStr sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:outcomeValueFontSize]}].width);
+            outcomeValueWidthWithFont = MAX(outcomeValueWidthWithFont, [tempStr sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:outcomeValueFontSize]}].width);
         }
         float exposureValueWidthWithFont = 0.0;
         for (int i = 0; i < to.exposureValues.count; i++)
         {
             NSString *tempStr = [NSString stringWithFormat:@"%@", [to.exposureValues objectAtIndex:i]];
-            exposureValueWidthWithFont = MAX(exposureValueWidthWithFont, [tempStr sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:exposureValueFontSize]}].width);
+            exposureValueWidthWithFont = MAX(exposureValueWidthWithFont, [tempStr sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:exposureValueFontSize]}].width);
         }
         while (outcomeValueWidthWithFont > cellWidth)
         {
@@ -2290,7 +2290,7 @@
             for (int i = 0; i < to.outcomeValues.count; i++)
             {
                 NSString *tempStr = [NSString stringWithFormat:@"%@", [to.outcomeValues objectAtIndex:i]];
-                outcomeValueWidthWithFont = MAX(outcomeValueWidthWithFont, [tempStr sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:outcomeValueFontSize]}].width);
+                outcomeValueWidthWithFont = MAX(outcomeValueWidthWithFont, [tempStr sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:outcomeValueFontSize]}].width);
             }
         }
         while (exposureValueWidthWithFont > 50)
@@ -2300,7 +2300,7 @@
             for (int i = 0; i < to.exposureValues.count; i++)
             {
                 NSString *tempStr = [NSString stringWithFormat:@"%@", [to.exposureValues objectAtIndex:i]];
-                exposureValueWidthWithFont = MAX(exposureValueWidthWithFont, [tempStr sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:exposureValueFontSize]}].width);
+                exposureValueWidthWithFont = MAX(exposureValueWidthWithFont, [tempStr sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:exposureValueFontSize]}].width);
             }
         }
         
@@ -2310,7 +2310,7 @@
             [outcomeVariableLabel setTextAlignment:NSTextAlignmentCenter];
             [outcomeVariableLabel setTextColor:[UIColor whiteColor]];
             [outcomeVariableLabel setBackgroundColor:[UIColor clearColor]];
-            [outcomeVariableLabel setFont:[UIFont boldSystemFontOfSize:outcomeVariableLabelFontSize]];
+            [outcomeVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:outcomeVariableLabelFontSize]];
             [outputTableView addSubview:outcomeVariableLabel];
             EpiInfoUILabel *exposureVariableLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(-45, 70, 120, 20)];
             [exposureVariableLabel setText:to.exposureVariable];
@@ -2318,7 +2318,7 @@
             [exposureVariableLabel setTransform:CGAffineTransformMakeRotation(-M_PI / 2.0)];
             [exposureVariableLabel setTextColor:[UIColor whiteColor]];
             [exposureVariableLabel setBackgroundColor:[UIColor clearColor]];
-            [exposureVariableLabel setFont:[UIFont boldSystemFontOfSize:exposureVariableLabelFontSize]];
+            [exposureVariableLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:exposureVariableLabelFontSize]];
             [outputTableView addSubview:exposureVariableLabel];
         });
         
@@ -2335,7 +2335,7 @@
                 [exposureValueLabel setBackgroundColor:[UIColor clearColor]];
                 [exposureValueLabel setTextAlignment:NSTextAlignmentCenter];
                 [exposureValueLabel setTextColor:[UIColor whiteColor]];
-                [exposureValueLabel setFont:[UIFont boldSystemFontOfSize:exposureValueFontSize]];
+                [exposureValueLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:exposureValueFontSize]];
                 if ([[to.exposureValues objectAtIndex:i] isKindOfClass:[NSNull class]])
                     [exposureValueLabel setText:@"Missing"];
                 else if ([[to.exposureValues objectAtIndex:i] isKindOfClass:[NSString class]] && [[to.exposureValues objectAtIndex:i] isEqualToString:@"(null)"])
@@ -2351,7 +2351,7 @@
                         [outcomeValueLabel setBackgroundColor:[UIColor clearColor]];
                         [outcomeValueLabel setTextAlignment:NSTextAlignmentCenter];
                         [outcomeValueLabel setTextColor:[UIColor whiteColor]];
-                        [outcomeValueLabel setFont:[UIFont boldSystemFontOfSize:outcomeValueFontSize]];
+                        [outcomeValueLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:outcomeValueFontSize]];
                         if ([[to.outcomeValues objectAtIndex:j] isKindOfClass:[NSNull class]])
                             [outcomeValueLabel setText:@"Missing"];
                         else if ([[to.outcomeValues objectAtIndex:j] isKindOfClass:[NSString class]] && [[to.outcomeValues objectAtIndex:j] isEqualToString:@"(null)"])
@@ -2367,19 +2367,19 @@
                     [countLabel setText:[NSString stringWithFormat:@"%@", [to.cellCounts objectAtIndex:k]]];
                     [countLabel setTextAlignment:NSTextAlignmentCenter];
                     [countLabel setBackgroundColor:[UIColor clearColor]];
-                    [countLabel setFont:[UIFont systemFontOfSize:16.0]];
+                    [countLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
                     [countView addSubview:countLabel];
                     EpiInfoUILabel *rowPctLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 16, cellWidth - 1, 12)];
                     [rowPctLabel setTextAlignment:NSTextAlignmentRight];
                     [rowPctLabel setBackgroundColor:[UIColor clearColor]];
                     [rowPctLabel setTextColor:[UIColor lightGrayColor]];
-                    [rowPctLabel setFont:[UIFont systemFontOfSize:12.0]];
+                    [rowPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
                     [countView addSubview:rowPctLabel];
                     EpiInfoUILabel *colPctLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 27, cellWidth - 1, 12)];
                     [colPctLabel setTextAlignment:NSTextAlignmentRight];
                     [colPctLabel setBackgroundColor:[UIColor clearColor]];
                     [colPctLabel setTextColor:[UIColor lightGrayColor]];
-                    [colPctLabel setFont:[UIFont systemFontOfSize:12.0]];
+                    [colPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
                     [countView addSubview:colPctLabel];
                     if (i == 0)
                     {
@@ -2423,14 +2423,14 @@
             [rowOneRowPctLabel setTextAlignment:NSTextAlignmentRight];
             [rowOneRowPctLabel setBackgroundColor:[UIColor clearColor]];
             [rowOneRowPctLabel setTextColor:[UIColor lightGrayColor]];
-            [rowOneRowPctLabel setFont:[UIFont systemFontOfSize:12.0]];
+            [rowOneRowPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
             [rowOneRowPctLabel setText:@"100%"];
             [rowOneView addSubview:rowOneRowPctLabel];
             EpiInfoUILabel *rowOneColPctLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 27, cellWidth - 1, 12)];
             [rowOneColPctLabel setTextAlignment:NSTextAlignmentRight];
             [rowOneColPctLabel setBackgroundColor:[UIColor clearColor]];
             [rowOneColPctLabel setTextColor:[UIColor lightGrayColor]];
-            [rowOneColPctLabel setFont:[UIFont systemFontOfSize:12.0]];
+            [rowOneColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
             [rowOneColPctLabel setText:[NSString stringWithFormat:@"%.2f%%", 100 * (float)(yy + yn) / (float)(yy + yn + ny + nn)]];
             [rowOneView addSubview:rowOneColPctLabel];
             [outputTableView addSubview:rowOneView];
@@ -2446,14 +2446,14 @@
             [rowTwoRowPctLabel setTextAlignment:NSTextAlignmentRight];
             [rowTwoRowPctLabel setBackgroundColor:[UIColor clearColor]];
             [rowTwoRowPctLabel setTextColor:[UIColor lightGrayColor]];
-            [rowTwoRowPctLabel setFont:[UIFont systemFontOfSize:12.0]];
+            [rowTwoRowPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
             [rowTwoRowPctLabel setText:@"100%"];
             [rowTwoView addSubview:rowTwoRowPctLabel];
             EpiInfoUILabel *rowTwoColPctLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 27, cellWidth - 1, 12)];
             [rowTwoColPctLabel setTextAlignment:NSTextAlignmentRight];
             [rowTwoColPctLabel setBackgroundColor:[UIColor clearColor]];
             [rowTwoColPctLabel setTextColor:[UIColor lightGrayColor]];
-            [rowTwoColPctLabel setFont:[UIFont systemFontOfSize:12.0]];
+            [rowTwoColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
             [rowTwoColPctLabel setText:[NSString stringWithFormat:@"%.2f%%", 100 * (float)(ny + nn) / (float)(yy + yn + ny + nn)]];
             [rowTwoView addSubview:rowTwoColPctLabel];
             [outputTableView addSubview:rowTwoView];
@@ -2470,14 +2470,14 @@
             [colOneRowPctLabel setTextAlignment:NSTextAlignmentRight];
             [colOneRowPctLabel setBackgroundColor:[UIColor clearColor]];
             [colOneRowPctLabel setTextColor:[UIColor lightGrayColor]];
-            [colOneRowPctLabel setFont:[UIFont systemFontOfSize:12.0]];
+            [colOneRowPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
             [colOneRowPctLabel setText:[NSString stringWithFormat:@"%.2f%%", 100 * (float)(yy + ny) / (float)(yy + yn + ny + nn)]];
             [columnOneView addSubview:colOneRowPctLabel];
             EpiInfoUILabel *colOneColPctLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 27, cellWidth - 1, 12)];
             [colOneColPctLabel setTextAlignment:NSTextAlignmentRight];
             [colOneColPctLabel setBackgroundColor:[UIColor clearColor]];
             [colOneColPctLabel setTextColor:[UIColor lightGrayColor]];
-            [colOneColPctLabel setFont:[UIFont systemFontOfSize:12.0]];
+            [colOneColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
             [colOneColPctLabel setText:@"100%"];
             [columnOneView addSubview:colOneColPctLabel];
             [outputTableView addSubview:columnOneView];
@@ -2493,14 +2493,14 @@
             [colTwoRowPctLabel setTextAlignment:NSTextAlignmentRight];
             [colTwoRowPctLabel setBackgroundColor:[UIColor clearColor]];
             [colTwoRowPctLabel setTextColor:[UIColor lightGrayColor]];
-            [colTwoRowPctLabel setFont:[UIFont systemFontOfSize:12.0]];
+            [colTwoRowPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
             [colTwoRowPctLabel setText:[NSString stringWithFormat:@"%.2f%%", 100 * (float)(yn + nn) / (float)(yy + yn + ny + nn)]];
             [columnTwoView addSubview:colTwoRowPctLabel];
             EpiInfoUILabel *colTwoColPctLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 27, cellWidth - 1, 12)];
             [colTwoColPctLabel setTextAlignment:NSTextAlignmentRight];
             [colTwoColPctLabel setBackgroundColor:[UIColor clearColor]];
             [colTwoColPctLabel setTextColor:[UIColor lightGrayColor]];
-            [colTwoColPctLabel setFont:[UIFont systemFontOfSize:12.0]];
+            [colTwoColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
             [colTwoColPctLabel setText:@"100%"];
             [columnTwoView addSubview:colTwoColPctLabel];
             [outputTableView addSubview:columnTwoView];
@@ -2517,14 +2517,14 @@
             [totalRowPctLabel setTextAlignment:NSTextAlignmentRight];
             [totalRowPctLabel setBackgroundColor:[UIColor clearColor]];
             [totalRowPctLabel setTextColor:[UIColor lightGrayColor]];
-            [totalRowPctLabel setFont:[UIFont systemFontOfSize:12.0]];
+            [totalRowPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
             [totalRowPctLabel setText:@"100%"];
             [totalTotalView addSubview:totalRowPctLabel];
             EpiInfoUILabel *totalColPctLabel = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 27, cellWidth - 1, 12)];
             [totalColPctLabel setTextAlignment:NSTextAlignmentRight];
             [totalColPctLabel setBackgroundColor:[UIColor clearColor]];
             [totalColPctLabel setTextColor:[UIColor lightGrayColor]];
-            [totalColPctLabel setFont:[UIFont systemFontOfSize:12.0]];
+            [totalColPctLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
             [totalColPctLabel setText:@"100%"];
             [totalTotalView addSubview:totalColPctLabel];
             [outputTableView addSubview:totalTotalView];
@@ -2558,7 +2558,7 @@
             EpiInfoUILabel *gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, oddsBasedParametersView.frame.size.width, 20)];
             [gridBox setBackgroundColor:[UIColor clearColor]];
             [gridBox setTextColor:[UIColor whiteColor]];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
             [gridBox setTextAlignment:NSTextAlignmentCenter];
             [gridBox setText:@"Adjusted Odds Ratios"];
             [oddsBasedParametersView addSubview:gridBox];
@@ -2566,28 +2566,28 @@
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentLeft];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
             [gridBox setText:nil];
             [oddsBasedParametersView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + fourWidth0, 22, fourWidth1, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentCenter];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
             [gridBox setText:@"Estimate"];
             [oddsBasedParametersView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + fourWidth0 + fourWidth1, 22, fourWidth1, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentCenter];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
             [gridBox setText:@"Lower"];
             [oddsBasedParametersView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8 + fourWidth0 + 2 * fourWidth1, 22, fourWidth1, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentCenter];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
             [gridBox setText:@"Upper"];
             [oddsBasedParametersView addSubview:gridBox];
             for (int i = 0; i < [regressionResults.variables count] - 1 + ismatchedanalysis; i++)
@@ -2596,14 +2596,14 @@
                 [gridBox setBackgroundColor:[UIColor whiteColor]];
                 [gridBox setTextColor:[UIColor blackColor]];
                 [gridBox setTextAlignment:NSTextAlignmentLeft];
-                [gridBox setFont:[UIFont boldSystemFontOfSize:12.0]];
+                [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
                 [gridBox setText:[regressionResults.variables objectAtIndex:i]];
                 [oddsBasedParametersView addSubview:gridBox];
                 gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + fourWidth0, 44 + 22.0 * i, fourWidth1, 20)];
                 [gridBox setBackgroundColor:[UIColor whiteColor]];
                 [gridBox setTextColor:[UIColor blackColor]];
                 [gridBox setTextAlignment:NSTextAlignmentCenter];
-                [gridBox setFont:[UIFont systemFontOfSize:12.0]];
+                [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
                 [gridBox setText:[NSString stringWithFormat:@"%.4f", [(NSNumber *)[regressionResults.oddsRatios objectAtIndex:i] doubleValue]]];
                 [oddsBasedParametersView addSubview:gridBox];
                 [(NSMutableArray *)[summaryTable lastObject] addObject:[NSString stringWithString:[regressionResults.variables objectAtIndex:i]]];
@@ -2612,7 +2612,7 @@
                 [gridBox setBackgroundColor:[UIColor whiteColor]];
                 [gridBox setTextColor:[UIColor blackColor]];
                 [gridBox setTextAlignment:NSTextAlignmentCenter];
-                [gridBox setFont:[UIFont systemFontOfSize:12.0]];
+                [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
                 [gridBox setText:[NSString stringWithFormat:@"%.4f", [(NSNumber *)[regressionResults.lcls objectAtIndex:i] doubleValue]]];
                 [oddsBasedParametersView addSubview:gridBox];
                 [(NSMutableArray *)[summaryTable lastObject] addObject:[NSNumber numberWithFloat:[(NSNumber *)[regressionResults.lcls objectAtIndex:i] floatValue]]];
@@ -2620,7 +2620,7 @@
                 [gridBox setBackgroundColor:[UIColor whiteColor]];
                 [gridBox setTextColor:[UIColor blackColor]];
                 [gridBox setTextAlignment:NSTextAlignmentCenter];
-                [gridBox setFont:[UIFont systemFontOfSize:12.0]];
+                [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
                 [gridBox setText:[NSString stringWithFormat:@"%.4f", [(NSNumber *)[regressionResults.ucls objectAtIndex:i] doubleValue]]];
                 [oddsBasedParametersView addSubview:gridBox];
                 [(NSMutableArray *)[summaryTable lastObject] addObject:[NSNumber numberWithFloat:[(NSNumber *)[regressionResults.ucls objectAtIndex:i] floatValue]]];
@@ -2629,7 +2629,7 @@
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, riskBasedParametersView.frame.size.width, 20)];
             [gridBox setBackgroundColor:[UIColor clearColor]];
             [gridBox setTextColor:[UIColor whiteColor]];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
             [gridBox setTextAlignment:NSTextAlignmentCenter];
             [gridBox setText:@"Coefficients and Significance Test"];
             [riskBasedParametersView addSubview:gridBox];
@@ -2637,28 +2637,28 @@
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentLeft];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
             [gridBox setText:nil];
             [riskBasedParametersView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + fourWidth0, 22, fourWidth1, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentCenter];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
             [gridBox setText:@"Coefficient"];
             [riskBasedParametersView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + fourWidth0 + fourWidth1, 22, fourWidth1, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentCenter];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
             [gridBox setText:@"SE"];
             [riskBasedParametersView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8 + fourWidth0 + 2 * fourWidth1, 22, fourWidth1, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentCenter];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
             [gridBox setText:@"Z (P)"];
             [riskBasedParametersView addSubview:gridBox];
             for (int i = 0; i < [regressionResults.variables count]; i++)
@@ -2667,28 +2667,28 @@
                 [gridBox setBackgroundColor:[UIColor whiteColor]];
                 [gridBox setTextColor:[UIColor blackColor]];
                 [gridBox setTextAlignment:NSTextAlignmentLeft];
-                [gridBox setFont:[UIFont boldSystemFontOfSize:12.0]];
+                [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
                 [gridBox setText:[regressionResults.variables objectAtIndex:i]];
                 [riskBasedParametersView addSubview:gridBox];
                 gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + fourWidth0, 44 + 22.0 * i, fourWidth1, 20)];
                 [gridBox setBackgroundColor:[UIColor whiteColor]];
                 [gridBox setTextColor:[UIColor blackColor]];
                 [gridBox setTextAlignment:NSTextAlignmentCenter];
-                [gridBox setFont:[UIFont systemFontOfSize:12.0]];
+                [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
                 [gridBox setText:[NSString stringWithFormat:@"%.4f", [(NSNumber *)[regressionResults.betas objectAtIndex:i] doubleValue]]];
                 [riskBasedParametersView addSubview:gridBox];
                 gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + fourWidth0 + fourWidth1, 44 + 22.0 * i, fourWidth1, 20)];
                 [gridBox setBackgroundColor:[UIColor whiteColor]];
                 [gridBox setTextColor:[UIColor blackColor]];
                 [gridBox setTextAlignment:NSTextAlignmentCenter];
-                [gridBox setFont:[UIFont systemFontOfSize:12.0]];
+                [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
                 [gridBox setText:[NSString stringWithFormat:@"%.4f", [(NSNumber *)[regressionResults.standardErrors objectAtIndex:i] doubleValue]]];
                 [riskBasedParametersView addSubview:gridBox];
                 gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8 + fourWidth0 + 2 * fourWidth1, 44 + 22.0 * i, fourWidth1, 20)];
                 [gridBox setBackgroundColor:[UIColor whiteColor]];
                 [gridBox setTextColor:[UIColor blackColor]];
                 [gridBox setTextAlignment:NSTextAlignmentCenter];
-                [gridBox setFont:[UIFont systemFontOfSize:12.0]];
+                [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
                 [gridBox setText:[NSString stringWithFormat:@"%.2f (%.3f)", [(NSNumber *)[regressionResults.zStatistics objectAtIndex:i] doubleValue], [(NSNumber *)[regressionResults.pValues objectAtIndex:i] doubleValue]]];
                 [riskBasedParametersView addSubview:gridBox];
             }
@@ -2696,7 +2696,7 @@
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(0, 0, statisticalTestsView.frame.size.width, 20)];
             [gridBox setBackgroundColor:[UIColor clearColor]];
             [gridBox setTextColor:[UIColor whiteColor]];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
             [gridBox setTextAlignment:NSTextAlignmentCenter];
             [gridBox setText:@"Fit Statistics"];
             [statisticalTestsView addSubview:gridBox];
@@ -2704,140 +2704,140 @@
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentLeft];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:12.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
             [gridBox setText:@"  Convergence"];
             [statisticalTestsView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + fourWidth0 + fourWidth1, 22, 2.0 + 2.0 * fourWidth1, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentLeft];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:12.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
             [gridBox setText:[NSString stringWithFormat:@"  %@", regressionResults.convergence]];
             [statisticalTestsView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(2, 44, fourWidth0 + fourWidth1 + 2.0, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentLeft];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:12.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
             [gridBox setText:@" Iterations"];
             [statisticalTestsView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + fourWidth0 + fourWidth1, 44, 2.0 + 2.0 * fourWidth1, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentLeft];
-            [gridBox setFont:[UIFont systemFontOfSize:12.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
             [gridBox setText:[NSString stringWithFormat:@"  %d", regressionResults.iterations]];
             [statisticalTestsView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(2, 66, fourWidth0 + fourWidth1 + 2.0, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentLeft];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:12.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
             [gridBox setText:@" Final -2*Log-Likelihood"];
             [statisticalTestsView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + fourWidth0 + fourWidth1, 66, 2.0 + 2.0 * fourWidth1, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentLeft];
-            [gridBox setFont:[UIFont systemFontOfSize:12.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
             [gridBox setText:[NSString stringWithFormat:@"  %.4f", regressionResults.finalLikelihood]];
             [statisticalTestsView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(2, 88, fourWidth0 + fourWidth1 + 2.0, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentLeft];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:12.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
             [gridBox setText:@" Cases Included"];
             [statisticalTestsView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + fourWidth0 + fourWidth1, 88, 2.0 + 2.0 * fourWidth1, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentLeft];
-            [gridBox setFont:[UIFont systemFontOfSize:12.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
             [gridBox setText:[NSString stringWithFormat:@"  %d", NumRows]];
             [statisticalTestsView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(2, 110, fourWidth0, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentCenter];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
             [gridBox setText:@"Test"];
             [statisticalTestsView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + fourWidth0, 110, fourWidth1, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentCenter];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
             [gridBox setText:@"Statistic"];
             [statisticalTestsView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + fourWidth0 + fourWidth1, 110, fourWidth1, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentCenter];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
             [gridBox setText:@"DF"];
             [statisticalTestsView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8 + fourWidth0 + fourWidth1 + fourWidth1, 110, fourWidth1, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentCenter];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:14.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
             [gridBox setText:@"P-Value"];
             [statisticalTestsView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(2, 132, fourWidth0, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentLeft];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:12.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
             [gridBox setText:@" Score"];
             [statisticalTestsView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + fourWidth0, 132, fourWidth1, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentCenter];
-            [gridBox setFont:[UIFont systemFontOfSize:12.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
             [gridBox setText:[NSString stringWithFormat:@"%.4f", regressionResults.scoreStatistic]];
             [statisticalTestsView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + fourWidth0 + fourWidth1, 132, fourWidth1, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentCenter];
-            [gridBox setFont:[UIFont systemFontOfSize:12.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
             [gridBox setText:[NSString stringWithFormat:@"%.0f", regressionResults.scoreDF]];
             [statisticalTestsView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8 + fourWidth0 + fourWidth1 + fourWidth1, 132, fourWidth1, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentCenter];
-            [gridBox setFont:[UIFont systemFontOfSize:12.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
             [gridBox setText:[NSString stringWithFormat:@"%.4f", regressionResults.scoreP]];
             [statisticalTestsView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(2, 154, fourWidth0, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentLeft];
-            [gridBox setFont:[UIFont boldSystemFontOfSize:12.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
             [gridBox setText:@" Likelihood Ratio"];
             [statisticalTestsView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(4 + fourWidth0, 154, fourWidth1, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentCenter];
-            [gridBox setFont:[UIFont systemFontOfSize:12.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
             [gridBox setText:[NSString stringWithFormat:@"%.4f", regressionResults.LRStatistic]];
             [statisticalTestsView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(6 + fourWidth0 + fourWidth1, 154, fourWidth1, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentCenter];
-            [gridBox setFont:[UIFont systemFontOfSize:12.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
             [gridBox setText:[NSString stringWithFormat:@"%.0f", regressionResults.LRDF]];
             [statisticalTestsView addSubview:gridBox];
             gridBox = [[EpiInfoUILabel alloc] initWithFrame:CGRectMake(8 + fourWidth0 + fourWidth1 + fourWidth1, 154, fourWidth1, 20)];
             [gridBox setBackgroundColor:[UIColor whiteColor]];
             [gridBox setTextColor:[UIColor blackColor]];
             [gridBox setTextAlignment:NSTextAlignmentCenter];
-            [gridBox setFont:[UIFont systemFontOfSize:12.0]];
+            [gridBox setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.0]];
             [gridBox setText:[NSString stringWithFormat:@"%.4f", regressionResults.LRP]];
             [statisticalTestsView addSubview:gridBox];
 

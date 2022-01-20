@@ -103,7 +103,7 @@
             gadgetTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 44)];
             [gadgetTitle setText:@"Frequency"];
             [gadgetTitle setTextColor:epiInfoLightBlue];
-            [gadgetTitle setFont:[UIFont boldSystemFontOfSize:18.0]];
+            [gadgetTitle setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
             [titleBar addSubview:gadgetTitle];
             
             //Add the quit button
@@ -207,7 +207,7 @@
             gadgetTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 44)];
             [gadgetTitle setText:@"Frequency"];
             [gadgetTitle setTextColor:epiInfoLightBlue];
-            [gadgetTitle setFont:[UIFont boldSystemFontOfSize:18.0]];
+            [gadgetTitle setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
             [titleBar addSubview:gadgetTitle];
             
             //Add the quit button
@@ -388,11 +388,11 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         return;
     float fontSize = 18.0;
-//    while ([[NSString stringWithFormat:@"Frequency Variable: %@", [availableVariables objectAtIndex:selectedVariableNumber.integerValue]] sizeWithFont:[UIFont systemFontOfSize:fontSize]].width > chosenFrequencyVariable.frame.size.width - 10.0)
+//    while ([[NSString stringWithFormat:@"Frequency Variable: %@", [availableVariables objectAtIndex:selectedVariableNumber.integerValue]] sizeWithFont:[UIFont fontWithName:@"HelveticaNeue" size:fontSize]].width > chosenFrequencyVariable.frame.size.width - 10.0)
     // Deprecation replacement
-    while ([[NSString stringWithFormat:@"Frequency Variable: %@", [availableVariables objectAtIndex:selectedVariableNumber.integerValue]] sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:fontSize]}].width > chosenFrequencyVariable.frame.size.width - 10.0)
+    while ([[NSString stringWithFormat:@"Frequency Variable: %@", [availableVariables objectAtIndex:selectedVariableNumber.integerValue]] sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:fontSize]}].width > chosenFrequencyVariable.frame.size.width - 10.0)
         fontSize -= 0.1;
-    [chosenFrequencyVariable.titleLabel setFont:[UIFont systemFontOfSize:fontSize]];
+    [chosenFrequencyVariable.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:fontSize]];
     [chosenFrequencyVariable setTitle:[NSString stringWithFormat:@"Frequency Variable: %@", [availableVariables objectAtIndex:selectedVariableNumber.integerValue]] forState:UIControlStateNormal];
     [UIView animateWithDuration:0.9 animations:^{
         [chooseVariable setFrame:CGRectMake(10, 1000, inputView.frame.size.width - 20, 162)];
@@ -459,29 +459,29 @@
             if (chooseVariable.frame.origin.y < 500)
             {
                 float fontSize = 18.0;
-//                while ([[NSString stringWithFormat:@"Frequency Variable: %@", [availableVariables objectAtIndex:selectedVariableNumber.integerValue]] sizeWithFont:[UIFont systemFontOfSize:fontSize]].width > chosenFrequencyVariable.frame.size.width - 10.0)
+//                while ([[NSString stringWithFormat:@"Frequency Variable: %@", [availableVariables objectAtIndex:selectedVariableNumber.integerValue]] sizeWithFont:[UIFont fontWithName:@"HelveticaNeue" size:fontSize]].width > chosenFrequencyVariable.frame.size.width - 10.0)
                 // Deprecation replacement
-                while ([[NSString stringWithFormat:@"Frequency Variable: %@", [availableVariables objectAtIndex:selectedVariableNumber.integerValue]] sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:fontSize]}].width > chosenFrequencyVariable.frame.size.width - 10.0)
+                while ([[NSString stringWithFormat:@"Frequency Variable: %@", [availableVariables objectAtIndex:selectedVariableNumber.integerValue]] sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:fontSize]}].width > chosenFrequencyVariable.frame.size.width - 10.0)
                     fontSize -= 0.1;
-                [chosenFrequencyVariable.titleLabel setFont:[UIFont systemFontOfSize:fontSize]];
+                [chosenFrequencyVariable.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:fontSize]];
                 [chosenFrequencyVariable setTitle:[NSString stringWithFormat:@"Frequency Variable: %@", [availableVariables objectAtIndex:selectedVariableNumber.integerValue]] forState:UIControlStateNormal];
                 [chooseVariable setFrame:CGRectMake(0, -162, chooseVariable.frame.size.width, 162)];
             }
             if (chooseStratificationVariable.frame.origin.y < 500)
             {
                 float fontSize = 18.0;
-                //                while ([[NSString stringWithFormat:@"Frequency Variable: %@", [availableVariables objectAtIndex:selectedVariableNumber.integerValue]] sizeWithFont:[UIFont systemFontOfSize:fontSize]].width > chosenFrequencyVariable.frame.size.width - 10.0)
+                //                while ([[NSString stringWithFormat:@"Frequency Variable: %@", [availableVariables objectAtIndex:selectedVariableNumber.integerValue]] sizeWithFont:[UIFont fontWithName:@"HelveticaNeue" size:fontSize]].width > chosenFrequencyVariable.frame.size.width - 10.0)
                 // Deprecation replacement
                 if (selectedStratificationVariableNumber && selectedStratificationVariableNumber.integerValue > -1)
                 {
                     int padInt = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
-                    while ([[NSString stringWithFormat:@"Stratification Variable: %@", [availableVariables objectAtIndex:selectedStratificationVariableNumber.integerValue + padInt]] sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:fontSize]}].width > chosenStratificationVariable.frame.size.width - 10.0)
+                    while ([[NSString stringWithFormat:@"Stratification Variable: %@", [availableVariables objectAtIndex:selectedStratificationVariableNumber.integerValue + padInt]] sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:fontSize]}].width > chosenStratificationVariable.frame.size.width - 10.0)
                         fontSize -= 0.1;
                     [chosenStratificationVariable setTitle:[NSString stringWithFormat:@"Stratification Variable: %@", [availableVariables objectAtIndex:selectedStratificationVariableNumber.integerValue + padInt]] forState:UIControlStateNormal];
                 }
                 else
                     [chosenStratificationVariable setTitle:@"Select Stratification Variable" forState:UIControlStateNormal];
-                [chosenStratificationVariable.titleLabel setFont:[UIFont systemFontOfSize:fontSize]];
+                [chosenStratificationVariable.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:fontSize]];
                 [chooseStratificationVariable setFrame:CGRectMake(0, -162, chooseStratificationVariable.frame.size.width, 162)];
             }
             [inputView setFrame:CGRectMake(2, 48, self.frame.size.width - 4, 0)];
@@ -551,14 +551,14 @@
                 
                 UILabel *variableLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 2, cellWidth - 4.0, 20)];
                 [variableLabel setText:fo.variableName];
-                [variableLabel setFont:[UIFont boldSystemFontOfSize:16]];
+                [variableLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16]];
                 [variableLabel setBackgroundColor:[UIColor clearColor]];
                 [variableLabel setTextColor:[UIColor whiteColor]];
                 [outputTableView addSubview:variableLabel];
                 
                 UILabel *countHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(cellWidth, 2, cellWidth - 4, 20)];
                 [countHeaderLabel setText:@"Count"];
-                [countHeaderLabel setFont:[UIFont boldSystemFontOfSize:16]];
+                [countHeaderLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16]];
                 [countHeaderLabel setBackgroundColor:[UIColor clearColor]];
                 [countHeaderLabel setTextColor:[UIColor whiteColor]];
                 [countHeaderLabel setTextAlignment:NSTextAlignmentCenter];
@@ -566,7 +566,7 @@
                 
                 UILabel *percentHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(cellWidth + cellWidth + 2, 2, cellWidth, 20)];
                 [percentHeaderLabel setText:@"Percent"];
-                [percentHeaderLabel setFont:[UIFont boldSystemFontOfSize:16]];
+                [percentHeaderLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16]];
                 [percentHeaderLabel setBackgroundColor:[UIColor clearColor]];
                 [percentHeaderLabel setTextColor:[UIColor whiteColor]];
                 [percentHeaderLabel setTextAlignment:NSTextAlignmentCenter];
@@ -581,9 +581,9 @@
                         tempStr = @"Missing";
                     else if ([[fo.variableValues objectAtIndex:i] isKindOfClass:[NSString class]] && [[fo.variableValues objectAtIndex:i] isEqualToString:@"(null)"])
                         tempStr = @"Missing";
-                    //                labelWidthWithFont = MAX(labelWidthWithFont, [tempStr sizeWithFont:[UIFont boldSystemFontOfSize:labelFontSize]].width);
+                    //                labelWidthWithFont = MAX(labelWidthWithFont, [tempStr sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:labelFontSize]].width);
                     // Deprecation replacement
-                    labelWidthWithFont = MAX(labelWidthWithFont, [tempStr sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:labelFontSize]}].width);
+                    labelWidthWithFont = MAX(labelWidthWithFont, [tempStr sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:labelFontSize]}].width);
                 }
                 while (labelWidthWithFont > cellWidth - 10.0)
                 {
@@ -596,9 +596,9 @@
                             tempStr = @"Missing";
                         else if ([[fo.variableValues objectAtIndex:i] isKindOfClass:[NSString class]] && [[fo.variableValues objectAtIndex:i] isEqualToString:@"(null)"])
                             tempStr = @"Missing";
-                        //                    labelWidthWithFont = MAX(labelWidthWithFont, [tempStr sizeWithFont:[UIFont boldSystemFontOfSize:labelFontSize]].width);
+                        //                    labelWidthWithFont = MAX(labelWidthWithFont, [tempStr sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:labelFontSize]].width);
                         // Deprecation replacement
-                        labelWidthWithFont = MAX(labelWidthWithFont, [tempStr sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:labelFontSize]}].width);
+                        labelWidthWithFont = MAX(labelWidthWithFont, [tempStr sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:labelFontSize]}].width);
                     }
                 }
                 
@@ -609,7 +609,7 @@
                 {
                     valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 22 + 22 * i, cellWidth - 4.0, 20)];
                     [valueLabel setBackgroundColor:[UIColor clearColor]];
-                    [valueLabel setFont:[UIFont systemFontOfSize:labelFontSize]];
+                    [valueLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:labelFontSize]];
                     [valueLabel setTextColor:[UIColor whiteColor]];
                     countLabel = [[UILabel alloc] initWithFrame:CGRectMake(cellWidth, 22 + 22 * i, cellWidth - 4, 20)];
                     [countLabel setTextAlignment:NSTextAlignmentCenter];
