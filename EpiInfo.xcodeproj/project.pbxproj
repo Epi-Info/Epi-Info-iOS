@@ -2660,7 +2660,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = gov.cdc.csels.EpiInfo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "John Development Profile 2021";
+				PROVISIONING_PROFILE_SPECIFIER = "John Development Profile 2022";
 				SWIFT_OBJC_BRIDGING_HEADER = "EpiInfo/EpiInfo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -2704,7 +2704,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = gov.cdc.csels.EpiInfo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "CDC App Store Distribution 2021";
+				PROVISIONING_PROFILE_SPECIFIER = "CDC App Store Distribution 2022";
 				SWIFT_OBJC_BRIDGING_HEADER = "EpiInfo/EpiInfo-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

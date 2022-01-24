@@ -3658,17 +3658,15 @@
                             }
                             if ([edv.checkboxes objectForKey:columnName])
                             {
-                                switch (sqlite3_column_int(statement, i))
+                                NSString *whatnsstring = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)];
+                                int switchint = 0;
+                                if ([whatnsstring isEqualToString:@"1"] || [whatnsstring isEqualToString:@"Yes"])
+                                    switchint = 1;
+                                switch (switchint)
                                 {
                                     case (1):
                                     {
-//                                        xmlFileText = [[[[[[[xmlFileText stringByAppendingString:@"\n\t\t<ResponseDetail QuestionName=\""]
-//                                                            stringByAppendingString:columnName]
-//                                                           stringByAppendingString:@"\">"]
-//                                                          stringByAppendingString:@"true"]
-//                                                         stringByAppendingString:@"</"]
-//                                                        stringByAppendingString:@"ResponseDetail"]
-//                                                       stringByAppendingString:@">"];
+
                                         [xmlFileText appendString:@"\n\t\t<ResponseDetail QuestionName=\""];
                                         [xmlFileText appendString:columnName];
                                         [xmlFileText appendString:@"\">"];
@@ -4217,7 +4215,11 @@
                             }
                             if ([edv.checkboxes objectForKey:columnName])
                             {
-                                switch (sqlite3_column_int(statement, i))
+                                NSString *whatnsstring = [NSString stringWithFormat:@"%s", sqlite3_column_text(statement, i)];
+                                int switchint = 0;
+                                if ([whatnsstring isEqualToString:@"1"] || [whatnsstring isEqualToString:@"Yes"])
+                                    switchint = 1;
+                                switch (switchint)
                                 {
                                     case (1):
                                     {
