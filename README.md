@@ -36,3 +36,5 @@ Included calculators are:
 * For unmatched case-control studies
 * For cohort studies
 * For population surveys
+
+For more details, please see the <a href="https://github.com/Epi-Info/Epi-Info-iOS/wiki">Wiki</a>.
