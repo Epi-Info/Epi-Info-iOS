@@ -1361,6 +1361,8 @@
                                     [xmlFileText appendString:[NSString stringWithFormat:@"%@\\", ((EnterDataView *)edv).formName]];
                                 }
                                 [xmlFileText appendString:stringValue];
+                                if ([controlField isKindOfClass:[EpiInfoImageField class]])
+                                    [xmlFileText appendString:@".jpg"];
                                 [xmlFileText appendString:@"</"];
                                 [xmlFileText appendString:@"ResponseDetail"];
                                 [xmlFileText appendString:@">"];
