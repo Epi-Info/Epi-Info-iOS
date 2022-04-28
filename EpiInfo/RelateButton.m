@@ -1481,6 +1481,14 @@
             if (bufferPtr)
                 free(bufferPtr);
             [composer addAttachmentData:[NSData dataWithContentsOfFile:docFile] mimeType:@"text/plain" fileName:[((EnterDataView *)edv).formName stringByAppendingString:@".epi7"]];
+            if (formHasImages)
+            {
+                NSArray *ls = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:((EnterDataView *)edv).formName] error:nil];
+                for (id file in ls)
+                {
+                    [composer addAttachmentData:[NSData dataWithContentsOfFile:[[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:((EnterDataView *)edv).formName] stringByAppendingString:[NSString stringWithFormat:@"/%@", file]]] mimeType:@"image/jpeg" fileName:(NSString *)file];
+                }
+            }
             [composer setSubject:@"Epi Info Data"];
             [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
             [(DataEntryViewController *)rootViewController presentViewController:composer animated:YES completion:^(void){
