@@ -1355,13 +1355,13 @@
                                         stringValue = [NSString stringWithFormat:@"%d", stringValueIntValue - 0];
                                     }
                                 }
-                                if ([controlField isKindOfClass:[EpiInfoImageField class]])
+                                if ([controlField isKindOfClass:[EpiInfoImageField class]] && stringValue && [stringValue length] > 0)
                                 {
-                                    [xmlFileText appendString:@"EpiInfo\\Images\\"];
-                                    [xmlFileText appendString:[NSString stringWithFormat:@"%@\\", ((EnterDataView *)edv).formName]];
+                                    [xmlFileText appendString:@"/sdcard/Download/EpiInfo/Images/"];
+                                    //[xmlFileText appendString:[NSString stringWithFormat:@"%@\\", ((EnterDataView *)edv).formName]];
                                 }
                                 [xmlFileText appendString:stringValue];
-                                if ([controlField isKindOfClass:[EpiInfoImageField class]])
+                                if ([controlField isKindOfClass:[EpiInfoImageField class]] && stringValue && [stringValue length] > 0)
                                     [xmlFileText appendString:@".jpg"];
                                 [xmlFileText appendString:@"</"];
                                 [xmlFileText appendString:@"ResponseDetail"];
