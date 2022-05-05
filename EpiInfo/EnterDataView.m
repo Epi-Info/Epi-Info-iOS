@@ -2138,6 +2138,7 @@
                 else if ([v isKindOfClass:[EpiInfoImageField class]])
                 {
                     formHasImages = YES;
+                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"Form has images so setting formHasImages = YES\n"]];
                     if (valuesClauseBegun)
                     {
                         insertStatement = [insertStatement stringByAppendingString:@",\n"];
@@ -2606,12 +2607,16 @@
                         }];
                         if (formHasImages)
                         {
+                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@ form has images\n", formName]];
                             NSArray *ls = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] error:nil];
+                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"Checking image files against %@\n", imageFileNames]];
                             for (id imagefile in ls)
                             {
                                 NSLog(@"Found image file %@", imagefile);
+                                [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"Found image file %@", imagefile]];
                                 if ([imageFileNames containsObject:[[imagefile componentsSeparatedByString:@"."] objectAtIndex:0]])
                                 {
+                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@ found in imageFileNames\n", imagefile]];
                                     NSData *fileData = [NSData dataWithContentsOfFile:[[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] stringByAppendingString:[NSString stringWithFormat:@"/%@", imagefile]]];
                                     searchRequest = [client0 searchRequestWithQuery:@"__EpiInfoPhotos" inRange:NSMakeRange(0, 1000)];
                                     [searchRequest setType:@"folder"];
@@ -2657,7 +2662,8 @@
                                         }
                                     }];
                                 }
-                                //[composer addAttachmentData:[NSData dataWithContentsOfFile:[[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] stringByAppendingString:[NSString stringWithFormat:@"/%@", file]]] mimeType:@"image/jpeg" fileName:(NSString *)file];
+                                else
+                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@ not found in imageFileNames\n", imagefile]];
                             }
                         }
                     }
