@@ -86,6 +86,8 @@
         [self.navigationController.navigationBar setBarStyle:UIStatusBarStyleDefault];
         [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
         [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 15.0)
+            [self.navigationController.view setBackgroundColor:[UIColor whiteColor]];
 
         if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
             [self setEdgesForExtendedLayout:UIRectEdgeNone];
