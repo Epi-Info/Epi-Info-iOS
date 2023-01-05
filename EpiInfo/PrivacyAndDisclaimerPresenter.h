@@ -29,6 +29,11 @@
     NSRange usingMobileApplicationsBullet1HyperlinkRange0;
     NSRange usingMobileApplicationsBullet1HyperlinkRange1;
     
+    NSLayoutManager *analyticsToolsLayoutManager;
+    NSTextContainer *analyticsToolsTextContainer;
+    NSTextStorage *analyticsToolsTextStorage;
+    NSRange analyticsToolsHyperlinkRange;
+    
     UILabel *content;
 }
 -(id)initWithFrame:(CGRect)frame andTag:(NSInteger)tag;

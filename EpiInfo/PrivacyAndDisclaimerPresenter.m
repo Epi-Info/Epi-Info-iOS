@@ -98,7 +98,7 @@
                 [informationYouGiveUs setFont:[UIFont fontWithName:@"HelveticaNeue" size:20.0]];
                 [informationYouGiveUs setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
                 [informationYouGiveUs setTextAlignment:NSTextAlignmentLeft];
-                [informationYouGiveUs setText:@"Information You Give Us"];
+                [informationYouGiveUs setText:@"Overview"];
                 [contentHolder addSubview:informationYouGiveUs];
                 contentSizeHeight += informationYouGiveUs.frame.size.height;
                 
@@ -108,7 +108,7 @@
                 [informationYouGiveUsBody setFont:[UIFont fontWithName:@"HelveticaNeue" size:paragraphFontSize]];
                 [informationYouGiveUsBody setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
                 [informationYouGiveUsBody setTextAlignment:NSTextAlignmentLeft];
-                [informationYouGiveUsBody setText:@"CDC does not collect any personal information when you use CDC’s digital media from your computer or mobile device unless you choose to provide that information. The CDC privacy policy is as follows:"];
+                [informationYouGiveUsBody setText:@"Epi Info™ Companion mobile application collects data locally or to the cloud, calculates sample sizes, and performs analysis. Data collection forms can be designed using Epi Info™ for Windows and uploaded to or created directly in the mobile application. The mobile application is cloud-aware that allows for the data collected to be uploaded when Internet connectivity is available. Epi Info™ is developed and maintained by the Centers for Disease Control and Prevention, Center for Surveillance, Epidemiology & Laboratory Services (CSELS), Division of Health Informatics & Surveillance (DHIS). Epi Info™ Companion was developed to provide the global community of public health practitioners and researchers the ability to assist with outbreak investigations."];
                 [informationYouGiveUsBody sizeToFit];
                 [contentHolder addSubview:informationYouGiveUsBody];
                 contentSizeHeight += informationYouGiveUsBody.frame.size.height;
@@ -120,8 +120,8 @@
                 [visitsToCDCDotGov setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
                 [visitsToCDCDotGov setTextAlignment:NSTextAlignmentLeft];
                 [visitsToCDCDotGov setText:@"Visits to CDC.Gov:"];
-                [contentHolder addSubview:visitsToCDCDotGov];
-                contentSizeHeight += visitsToCDCDotGov.frame.size.height;
+                //[contentHolder addSubview:visitsToCDCDotGov];
+                //contentSizeHeight += visitsToCDCDotGov.frame.size.height;
                 
                 UILabel *visitsToCDCDotGovIntro = [[UILabel alloc] initWithFrame:CGRectMake(8, visitsToCDCDotGov.frame.origin.y + visitsToCDCDotGov.frame.size.height, contentHolder.frame.size.width - 16.0, 300)];
                 [visitsToCDCDotGovIntro setNumberOfLines:0];
@@ -131,8 +131,8 @@
                 [visitsToCDCDotGovIntro setTextAlignment:NSTextAlignmentLeft];
                 [visitsToCDCDotGovIntro setText:@"While using the CDC’s digital media, certain information will be gathered and stored about your usage of the digital media. This information does not identify you personally. We collect and store only the following information:\n"];
                 [visitsToCDCDotGovIntro sizeToFit];
-                [contentHolder addSubview:visitsToCDCDotGovIntro];
-                contentSizeHeight += visitsToCDCDotGovIntro.frame.size.height;
+                //[contentHolder addSubview:visitsToCDCDotGovIntro];
+                //contentSizeHeight += visitsToCDCDotGovIntro.frame.size.height;
                 
                 UILabel *visitsToCDCDotGovBullet0 = [[UILabel alloc] initWithFrame:CGRectMake(50, visitsToCDCDotGovIntro.frame.origin.y + visitsToCDCDotGovIntro.frame.size.height, contentHolder.frame.size.width - 72.0, 300)];
                 [visitsToCDCDotGovBullet0 setNumberOfLines:0];
@@ -142,8 +142,8 @@
                 [visitsToCDCDotGovBullet0 setTextAlignment:NSTextAlignmentLeft];
                 [visitsToCDCDotGovBullet0 setText:@"The Internet domain name (for example, “xcompany.com” if a private Internet access account is used, or “schoolname.edu” if connecting from a university's domain) and IP address (an IP address is a number that is automatically assigned to a device when surfing the web);"];
                 [visitsToCDCDotGovBullet0 sizeToFit];
-                [contentHolder addSubview:visitsToCDCDotGovBullet0];
-                contentSizeHeight += visitsToCDCDotGovBullet0.frame.size.height;
+                //[contentHolder addSubview:visitsToCDCDotGovBullet0];
+                //contentSizeHeight += visitsToCDCDotGovBullet0.frame.size.height;
                 
                 UILabel *visitsToCDCDotGovBulletA = [[UILabel alloc] initWithFrame:CGRectMake(38, visitsToCDCDotGovBullet0.frame.origin.y - 4, 10, 10)];
                 [visitsToCDCDotGovBulletA setNumberOfLines:0];
@@ -153,7 +153,7 @@
                 [visitsToCDCDotGovBulletA setTextAlignment:NSTextAlignmentLeft];
                 [visitsToCDCDotGovBulletA setText:@"\u2022"];
                 [visitsToCDCDotGovBulletA sizeToFit];
-                [contentHolder addSubview:visitsToCDCDotGovBulletA];
+                //[contentHolder addSubview:visitsToCDCDotGovBulletA];
                
                 UILabel *visitsToCDCDotGovBullet1 = [[UILabel alloc] initWithFrame:CGRectMake(50, visitsToCDCDotGovBullet0.frame.origin.y + visitsToCDCDotGovBullet0.frame.size.height, contentHolder.frame.size.width - 72.0, 300)];
                 [visitsToCDCDotGovBullet1 setNumberOfLines:0];
@@ -162,8 +162,8 @@
                 [visitsToCDCDotGovBullet1 setTextAlignment:NSTextAlignmentLeft];
                 [visitsToCDCDotGovBullet1 setText:@"Information about your computer or mobile device (e.g., type and version of web browser, operating system, screen resolution, and connection speed);"];
                 [visitsToCDCDotGovBullet1 sizeToFit];
-                [contentHolder addSubview:visitsToCDCDotGovBullet1];
-                contentSizeHeight += visitsToCDCDotGovBullet1.frame.size.height;
+                //[contentHolder addSubview:visitsToCDCDotGovBullet1];
+                //contentSizeHeight += visitsToCDCDotGovBullet1.frame.size.height;
                 
                 UILabel *visitsToCDCDotGovBulletB = [[UILabel alloc] initWithFrame:CGRectMake(38, visitsToCDCDotGovBullet1.frame.origin.y - 4, 10, 10)];
                 [visitsToCDCDotGovBulletB setNumberOfLines:0];
@@ -172,7 +172,7 @@
                 [visitsToCDCDotGovBulletB setTextAlignment:NSTextAlignmentLeft];
                 [visitsToCDCDotGovBulletB setText:@"\u2022"];
                 [visitsToCDCDotGovBulletB sizeToFit];
-                [contentHolder addSubview:visitsToCDCDotGovBulletB];
+                //[contentHolder addSubview:visitsToCDCDotGovBulletB];
                 
                 UILabel *visitsToCDCDotGovBullet2 = [[UILabel alloc] initWithFrame:CGRectMake(50, visitsToCDCDotGovBullet1.frame.origin.y + visitsToCDCDotGovBullet1.frame.size.height, contentHolder.frame.size.width - 72.0, 300)];
                 [visitsToCDCDotGovBullet2 setNumberOfLines:0];
@@ -182,8 +182,8 @@
                 [visitsToCDCDotGovBullet2 setTextAlignment:NSTextAlignmentLeft];
                 [visitsToCDCDotGovBullet2 setText:@"The number of times CDC’s digital media was accessed."];
                 [visitsToCDCDotGovBullet2 sizeToFit];
-                [contentHolder addSubview:visitsToCDCDotGovBullet2];
-                contentSizeHeight += visitsToCDCDotGovBullet2.frame.size.height;
+                //[contentHolder addSubview:visitsToCDCDotGovBullet2];
+                //contentSizeHeight += visitsToCDCDotGovBullet2.frame.size.height;
                 
                 UILabel *visitsToCDCDotGovBulletC = [[UILabel alloc] initWithFrame:CGRectMake(38, visitsToCDCDotGovBullet2.frame.origin.y - 4, 10, 10)];
                 [visitsToCDCDotGovBulletC setNumberOfLines:0];
@@ -192,7 +192,7 @@
                 [visitsToCDCDotGovBulletC setTextAlignment:NSTextAlignmentLeft];
                 [visitsToCDCDotGovBulletC setText:@"\u2022"];
                 [visitsToCDCDotGovBulletC sizeToFit];
-                [contentHolder addSubview:visitsToCDCDotGovBulletC];
+                //[contentHolder addSubview:visitsToCDCDotGovBulletC];
                 
                 UILabel *visitsToCDCDotGovBullet3 = [[UILabel alloc] initWithFrame:CGRectMake(50, visitsToCDCDotGovBullet2.frame.origin.y + visitsToCDCDotGovBullet2.frame.size.height, contentHolder.frame.size.width - 72.0, 300)];
                 [visitsToCDCDotGovBullet3 setNumberOfLines:0];
@@ -202,8 +202,8 @@
                 [visitsToCDCDotGovBullet3 setTextAlignment:NSTextAlignmentLeft];
                 [visitsToCDCDotGovBullet3 setText:@"The pages or screens accessed or visited on CDC’s digital media"];
                 [visitsToCDCDotGovBullet3 sizeToFit];
-                [contentHolder addSubview:visitsToCDCDotGovBullet3];
-                contentSizeHeight += visitsToCDCDotGovBullet3.frame.size.height;
+                //[contentHolder addSubview:visitsToCDCDotGovBullet3];
+                //contentSizeHeight += visitsToCDCDotGovBullet3.frame.size.height;
                 
                 UILabel *visitsToCDCDotGovBulletD = [[UILabel alloc] initWithFrame:CGRectMake(38, visitsToCDCDotGovBullet3.frame.origin.y - 4, 10, 10)];
                 [visitsToCDCDotGovBulletD setNumberOfLines:0];
@@ -212,7 +212,7 @@
                 [visitsToCDCDotGovBulletD setTextAlignment:NSTextAlignmentLeft];
                 [visitsToCDCDotGovBulletD setText:@"\u2022"];
                 [visitsToCDCDotGovBulletD sizeToFit];
-                [contentHolder addSubview:visitsToCDCDotGovBulletD];
+                //[contentHolder addSubview:visitsToCDCDotGovBulletD];
                
                 UILabel *visitsToCDCDotGovBullet4 = [[UILabel alloc] initWithFrame:CGRectMake(50, visitsToCDCDotGovBullet3.frame.origin.y + visitsToCDCDotGovBullet3.frame.size.height, contentHolder.frame.size.width - 72.0, 300)];
                 [visitsToCDCDotGovBullet4 setNumberOfLines:0];
@@ -222,8 +222,8 @@
                 [visitsToCDCDotGovBullet4 setTextAlignment:NSTextAlignmentLeft];
                 [visitsToCDCDotGovBullet4 setText:@"The visit date and time;"];
                 [visitsToCDCDotGovBullet4 sizeToFit];
-                [contentHolder addSubview:visitsToCDCDotGovBullet4];
-                contentSizeHeight += visitsToCDCDotGovBullet4.frame.size.height;
+                //[contentHolder addSubview:visitsToCDCDotGovBullet4];
+                //contentSizeHeight += visitsToCDCDotGovBullet4.frame.size.height;
                 
                 UILabel *visitsToCDCDotGovBulletE = [[UILabel alloc] initWithFrame:CGRectMake(38, visitsToCDCDotGovBullet4.frame.origin.y - 4, 10, 10)];
                 [visitsToCDCDotGovBulletE setNumberOfLines:0];
@@ -232,7 +232,7 @@
                 [visitsToCDCDotGovBulletE setTextAlignment:NSTextAlignmentLeft];
                 [visitsToCDCDotGovBulletE setText:@"\u2022"];
                 [visitsToCDCDotGovBulletE sizeToFit];
-                [contentHolder addSubview:visitsToCDCDotGovBulletE];
+                //[contentHolder addSubview:visitsToCDCDotGovBulletE];
                 
                 UILabel *visitsToCDCDotGovBullet5 = [[UILabel alloc] initWithFrame:CGRectMake(50, visitsToCDCDotGovBullet4.frame.origin.y + visitsToCDCDotGovBullet4.frame.size.height, contentHolder.frame.size.width - 72.0, 300)];
                 [visitsToCDCDotGovBullet5 setNumberOfLines:0];
@@ -242,8 +242,8 @@
                 [visitsToCDCDotGovBullet5 setTextAlignment:NSTextAlignmentLeft];
                 [visitsToCDCDotGovBullet5 setText:@"If www.cdc.gov is designated as a home page (in the event your mobile device allows this functionality); and"];
                 [visitsToCDCDotGovBullet5 sizeToFit];
-                [contentHolder addSubview:visitsToCDCDotGovBullet5];
-                contentSizeHeight += visitsToCDCDotGovBullet5.frame.size.height;
+                //[contentHolder addSubview:visitsToCDCDotGovBullet5];
+                //contentSizeHeight += visitsToCDCDotGovBullet5.frame.size.height;
                 
                 UILabel *visitsToCDCDotGovBulletF = [[UILabel alloc] initWithFrame:CGRectMake(38, visitsToCDCDotGovBullet5.frame.origin.y - 4, 10, 10)];
                 [visitsToCDCDotGovBulletF setNumberOfLines:0];
@@ -252,7 +252,7 @@
                 [visitsToCDCDotGovBulletF setTextAlignment:NSTextAlignmentLeft];
                 [visitsToCDCDotGovBulletF setText:@"\u2022"];
                 [visitsToCDCDotGovBulletF sizeToFit];
-                [contentHolder addSubview:visitsToCDCDotGovBulletF];
+                //[contentHolder addSubview:visitsToCDCDotGovBulletF];
                 
                 UILabel *visitsToCDCDotGovBullet6 = [[UILabel alloc] initWithFrame:CGRectMake(50, visitsToCDCDotGovBullet5.frame.origin.y + visitsToCDCDotGovBullet5.frame.size.height, contentHolder.frame.size.width - 72.0, 300)];
                 [visitsToCDCDotGovBullet6 setNumberOfLines:0];
@@ -262,8 +262,8 @@
                 [visitsToCDCDotGovBullet6 setTextAlignment:NSTextAlignmentLeft];
                 [visitsToCDCDotGovBullet6 setText:@"The internet address or URL of the website visited immediately prior to visiting CDC’s digital media, if you connect to CDC.gov via a link from another web page."];
                 [visitsToCDCDotGovBullet6 sizeToFit];
-                [contentHolder addSubview:visitsToCDCDotGovBullet6];
-                contentSizeHeight += visitsToCDCDotGovBullet6.frame.size.height;
+                //[contentHolder addSubview:visitsToCDCDotGovBullet6];
+                //contentSizeHeight += visitsToCDCDotGovBullet6.frame.size.height;
                 
                 UILabel *visitsToCDCDotGovBulletG = [[UILabel alloc] initWithFrame:CGRectMake(38, visitsToCDCDotGovBullet6.frame.origin.y - 4, 10, 10)];
                 [visitsToCDCDotGovBulletG setNumberOfLines:0];
@@ -272,7 +272,7 @@
                 [visitsToCDCDotGovBulletG setTextAlignment:NSTextAlignmentLeft];
                 [visitsToCDCDotGovBulletG setText:@"\u2022"];
                 [visitsToCDCDotGovBulletG sizeToFit];
-                [contentHolder addSubview:visitsToCDCDotGovBulletG];
+                //[contentHolder addSubview:visitsToCDCDotGovBulletG];
                 
                 UILabel *visitsToCDCDotGovEnd = [[UILabel alloc] initWithFrame:CGRectMake(8, visitsToCDCDotGovBullet6.frame.origin.y + visitsToCDCDotGovBullet6.frame.size.height, contentHolder.frame.size.width - 16.0, 300)];
                 [visitsToCDCDotGovEnd setNumberOfLines:0];
@@ -282,8 +282,8 @@
                 [visitsToCDCDotGovEnd setTextAlignment:NSTextAlignmentLeft];
                 [visitsToCDCDotGovEnd setText:@"\nCollection and analysis of this information in the aggregate will help us enhance performance of our digital media, improve informational materials available through digital media, and improve overall customer service"];
                 [visitsToCDCDotGovEnd sizeToFit];
-                [contentHolder addSubview:visitsToCDCDotGovEnd];
-                contentSizeHeight += visitsToCDCDotGovEnd.frame.size.height;
+                //[contentHolder addSubview:visitsToCDCDotGovEnd];
+                //contentSizeHeight += visitsToCDCDotGovEnd.frame.size.height;
                 
                 UILabel *useOfCookies = [[UILabel alloc] initWithFrame:CGRectMake(8, visitsToCDCDotGovEnd.frame.origin.y + visitsToCDCDotGovEnd.frame.size.height, contentHolder.frame.size.width - 16.0, 40)];
                 [useOfCookies setNumberOfLines:0];
@@ -292,8 +292,8 @@
                 [useOfCookies setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
                 [useOfCookies setTextAlignment:NSTextAlignmentLeft];
                 [useOfCookies setText:@"Use of Cookies"];
-                [contentHolder addSubview:useOfCookies];
-                contentSizeHeight += useOfCookies.frame.size.height;
+                //[contentHolder addSubview:useOfCookies];
+                //contentSizeHeight += useOfCookies.frame.size.height;
                 
                 NSMutableAttributedString *useOfCookiesBodyString = [[NSMutableAttributedString alloc] initWithString:@"CDC also uses web measurements and customization technologies (such as “cookies”). You can choose not to accept cookies from any website, including cdc.gov, by changing your browser settings. Click here to learn more about how we use cookies." attributes:nil];
                 useOfCookiesHyperlinkRange = [[useOfCookiesBodyString string] rangeOfString:@"Click here to learn more about how we use cookies"];
@@ -309,8 +309,8 @@
                 [useOfCookiesBody setTextAlignment:NSTextAlignmentLeft];
                 [useOfCookiesBody setAttributedText:useOfCookiesBodyString];
                 [useOfCookiesBody sizeToFit];
-                [contentHolder addSubview:useOfCookiesBody];
-                contentSizeHeight += useOfCookiesBody.frame.size.height;
+                //[contentHolder addSubview:useOfCookiesBody];
+                //contentSizeHeight += useOfCookiesBody.frame.size.height;
                 
                 [useOfCookiesBody setTag:1001];
                 [useOfCookiesBody setUserInteractionEnabled:YES];
@@ -327,13 +327,13 @@
                 [useOfCookiesTextContainer setMaximumNumberOfLines:[useOfCookiesBody numberOfLines]];
                 [useOfCookiesTextContainer setSize:useOfCookiesBody.frame.size];
                 
-                UILabel *usingMobileApplications = [[UILabel alloc] initWithFrame:CGRectMake(8, useOfCookiesBody.frame.origin.y + useOfCookiesBody.frame.size.height, contentHolder.frame.size.width - 16.0, 40)];
+                UILabel *usingMobileApplications = [[UILabel alloc] initWithFrame:CGRectMake(8, informationYouGiveUsBody.frame.origin.y + informationYouGiveUsBody.frame.size.height, contentHolder.frame.size.width - 16.0, 40)];
                 [usingMobileApplications setNumberOfLines:0];
                 [usingMobileApplications setLineBreakMode:NSLineBreakByWordWrapping];
                 [usingMobileApplications setFont:[UIFont fontWithName:@"HelveticaNeue" size:20.0]];
                 [usingMobileApplications setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
                 [usingMobileApplications setTextAlignment:NSTextAlignmentLeft];
-                [usingMobileApplications setText:@"Using CDC’s Mobile Applications"];
+                [usingMobileApplications setText:@"Information Collected"];
                 [contentHolder addSubview:usingMobileApplications];
                 contentSizeHeight += usingMobileApplications.frame.size.height;
                 
@@ -343,17 +343,17 @@
                 [usingMobileApplicationsIntro setFont:[UIFont fontWithName:@"HelveticaNeue" size:paragraphFontSize]];
                 [usingMobileApplicationsIntro setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
                 [usingMobileApplicationsIntro setTextAlignment:NSTextAlignmentLeft];
-                [usingMobileApplicationsIntro setText:@"When you use CDC’s Mobile Applications (Apps), certain information will be gathered and stored about your usage of the App. This information does not identify you personally. We collect and store information as follows:\n"];
+                [usingMobileApplicationsIntro setText:@"CDC does not have access to any of the data that is entered into the mobile application or users of the mobile application's information. All Data collected by the mobile application is either stored locally on the device or sent to a repository via a connection that is established by that user. This mobile application does not access any other mobile application, program, or service on the user’s device. This mobile application does not transmit or share information that is collected by the mobile application to a government server.\n"];
                 [usingMobileApplicationsIntro sizeToFit];
                 [contentHolder addSubview:usingMobileApplicationsIntro];
                 contentSizeHeight += usingMobileApplicationsIntro.frame.size.height;
                 
-                NSMutableAttributedString *usingMobileApplicationsBullet0String = [[NSMutableAttributedString alloc] initWithString:@"CDC receives aggregate data about the use of our Apps, such as the number of times the applications have been opened or the interactions or actions completed in the application. This is gathered via a third party provider (please refer to the tools list). We also receive aggregate data from the platforms that distribute our Apps (currently the iTunes Store, Google Play Store, and the Windows Store), such as the number of people who download the App and mobile set-up information (e.g., device model, App version, country, language, and mobile carrier). Please consult the privacy policies of these third parties for further information." attributes:nil];
-                usingMobileApplicationsBullet0HyperlinkRange = [[usingMobileApplicationsBullet0String string] rangeOfString:@"please refer to the tools list"];
+                NSMutableAttributedString *usingMobileApplicationsBullet0String = [[NSMutableAttributedString alloc] initWithString:@"This mobile application does not collect any information to identify you personally. CDC receives aggregate data about the download of the mobile application and mobile set-up information (e.g., device model, mobile application version, country, language, and mobile carrier). This information is gathered via the platforms that distribute the Apps (currently the iTunes Store, Google Play Store, and the Windows Store). Please consult the privacy policies of these third parties for further information.\n(CDC’s List of Third-Party Tools and Sites)\n" attributes:nil];
+                usingMobileApplicationsBullet0HyperlinkRange = [[usingMobileApplicationsBullet0String string] rangeOfString:@"CDC’s List of Third-Party Tools and Sites"];
                 NSDictionary *bullet0LinkAttributes = @{ NSForegroundColorAttributeName : [UIColor colorWithRed:0.05 green:0.4 blue:0.65 alpha:1.0],
                                                   NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle) };
                 [usingMobileApplicationsBullet0String setAttributes:bullet0LinkAttributes range:usingMobileApplicationsBullet0HyperlinkRange];
-                UILabel *usingMobileApplicationsBullet0 = [[UILabel alloc] initWithFrame:CGRectMake(50, usingMobileApplicationsIntro.frame.origin.y + usingMobileApplicationsIntro.frame.size.height, contentHolder.frame.size.width - 72.0, 300)];
+                UILabel *usingMobileApplicationsBullet0 = [[UILabel alloc] initWithFrame:CGRectMake(8, usingMobileApplicationsIntro.frame.origin.y + usingMobileApplicationsIntro.frame.size.height, contentHolder.frame.size.width - 16.0, 300)];
                 [usingMobileApplicationsBullet0 setNumberOfLines:0];
                 [usingMobileApplicationsBullet0 setLineBreakMode:NSLineBreakByWordWrapping];
                 [usingMobileApplicationsBullet0 setFont:[UIFont fontWithName:@"HelveticaNeue" size:paragraphFontSize]];
@@ -386,16 +386,87 @@
                 [usingMobileApplicationsBulletA setTextAlignment:NSTextAlignmentLeft];
                 [usingMobileApplicationsBulletA setText:@"\u2022"];
                 [usingMobileApplicationsBulletA sizeToFit];
-                [contentHolder addSubview:usingMobileApplicationsBulletA];
+                //[contentHolder addSubview:usingMobileApplicationsBulletA];
                 
-                NSMutableAttributedString *usingMobileApplicationsBullet1String = [[NSMutableAttributedString alloc] initWithString:@"You may sign up to receive “push notification” messages via a third party provider (please refer to the tools list). To make sure messages reach the correct devices, our third party provider relies on a device token unique to your mobile device. A device token is a unique identifier issued to the app by the operating system of the mobile device. While we may be able to access a list of the tokens, the App and tokens do not reveal your identity, unique device ID, or contact information to us. The third party provider may collect the following: the time of an event, how a User came to our site, what search engine and search keywords users may have used to get to our site, information about the device our user is on such as their Operating System, and browser, as well as the city, region and country location of users. This location information enables CDC to send public health push notification messages that are relevant to certain geographic locations. If, at any time, you wish to stop receiving push notifications, simply adjust your phone settings or remove the App." attributes:nil];
-                usingMobileApplicationsBullet1HyperlinkRange0 = [[usingMobileApplicationsBullet1String string] rangeOfString:@"please refer to the tools list"];
-                usingMobileApplicationsBullet1HyperlinkRange1 = [[usingMobileApplicationsBullet1String string] rangeOfString:@"device token"];
+                UILabel *usesOfInformation = [[UILabel alloc] initWithFrame:CGRectMake(8, usingMobileApplicationsBullet0.frame.origin.y + usingMobileApplicationsBullet0.frame.size.height, contentHolder.frame.size.width - 16.0, 40)];
+                [usesOfInformation setNumberOfLines:0];
+                [usesOfInformation setLineBreakMode:NSLineBreakByWordWrapping];
+                [usesOfInformation setFont:[UIFont fontWithName:@"HelveticaNeue" size:20.0]];
+                [usesOfInformation setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+                [usesOfInformation setTextAlignment:NSTextAlignmentLeft];
+                [usesOfInformation setText:@"Uses of Information"];
+                [contentHolder addSubview:usesOfInformation];
+                contentSizeHeight += usesOfInformation.frame.size.height;
+                
+                UILabel *usesOfInformationText = [[UILabel alloc] initWithFrame:CGRectMake(8, usesOfInformation.frame.origin.y + usesOfInformation.frame.size.height, contentHolder.frame.size.width - 16.0, 300)];
+                [usesOfInformationText setNumberOfLines:0];
+                [usesOfInformationText setLineBreakMode:NSLineBreakByWordWrapping];
+                [usesOfInformationText setFont:[UIFont fontWithName:@"HelveticaNeue" size:paragraphFontSize]];
+                [usesOfInformationText setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+                [usesOfInformationText setTextAlignment:NSTextAlignmentLeft];
+                [usesOfInformationText setText:@"CDC does not collect any of the data or user information that is entered into the mobile application. All Data collected by the mobile application is either stored locally on the user's personal device or sent to a repository via a connection that is established by that user and only that has access to that connection.\n"];
+                [usesOfInformationText sizeToFit];
+                [contentHolder addSubview:usesOfInformationText];
+                contentSizeHeight += usesOfInformationText.frame.size.height;
+                
+                UILabel *informationSharing = [[UILabel alloc] initWithFrame:CGRectMake(8, usesOfInformationText.frame.origin.y + usesOfInformationText.frame.size.height, contentHolder.frame.size.width - 16.0, 40)];
+                [informationSharing setNumberOfLines:0];
+                [informationSharing setLineBreakMode:NSLineBreakByWordWrapping];
+                [informationSharing setFont:[UIFont fontWithName:@"HelveticaNeue" size:20.0]];
+                [informationSharing setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+                [informationSharing setTextAlignment:NSTextAlignmentLeft];
+                [informationSharing setText:@"Information Sharing"];
+                [contentHolder addSubview:informationSharing];
+                contentSizeHeight += informationSharing.frame.size.height;
+                
+                UILabel *informationSharingText = [[UILabel alloc] initWithFrame:CGRectMake(8, informationSharing.frame.origin.y + informationSharing.frame.size.height, contentHolder.frame.size.width - 16.0, 300)];
+                [informationSharingText setNumberOfLines:0];
+                [informationSharingText setLineBreakMode:NSLineBreakByWordWrapping];
+                [informationSharingText setFont:[UIFont fontWithName:@"HelveticaNeue" size:paragraphFontSize]];
+                [informationSharingText setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+                [informationSharingText setTextAlignment:NSTextAlignmentLeft];
+                [informationSharingText setText:@"CDC does not disclose, share, sell, or transfer any information about CDC digital media visitors or users unless required for law enforcement or otherwise required by law.\n"];
+                [informationSharingText sizeToFit];
+                [contentHolder addSubview:informationSharingText];
+                contentSizeHeight += informationSharingText.frame.size.height;
+                
+                UILabel *applicationSecurity = [[UILabel alloc] initWithFrame:CGRectMake(8, informationSharingText.frame.origin.y + informationSharingText.frame.size.height, contentHolder.frame.size.width - 16.0, 40)];
+                [applicationSecurity setNumberOfLines:0];
+                [applicationSecurity setLineBreakMode:NSLineBreakByWordWrapping];
+                [applicationSecurity setFont:[UIFont fontWithName:@"HelveticaNeue" size:20.0]];
+                [applicationSecurity setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+                [applicationSecurity setTextAlignment:NSTextAlignmentLeft];
+                [applicationSecurity setText:@"Application Security"];
+                [contentHolder addSubview:applicationSecurity];
+                contentSizeHeight += applicationSecurity.frame.size.height;
+                
+                UILabel *applicationSecurityText = [[UILabel alloc] initWithFrame:CGRectMake(8, applicationSecurity.frame.origin.y + applicationSecurity.frame.size.height, contentHolder.frame.size.width - 16.0, 300)];
+                [applicationSecurityText setNumberOfLines:0];
+                [applicationSecurityText setLineBreakMode:NSLineBreakByWordWrapping];
+                [applicationSecurityText setFont:[UIFont fontWithName:@"HelveticaNeue" size:paragraphFontSize]];
+                [applicationSecurityText setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+                [applicationSecurityText setTextAlignment:NSTextAlignmentLeft];
+                [applicationSecurityText setText:@"All data entered into the mobile application is either stored locally on the user's personal device or transmitted via a connection established by the user and only that user has access to that connection.\n\nFor security purposes and to ensure that this service remains available to all users, the CDC employs software programs to identify unauthorized attempts to upload or change the mobile application, or otherwise cause damage.\n\nAll of the CDC’s digital media are maintained by the U.S. Government and are protected by various provisions of Title 18, U.S. Code. Violations of Title 18 are subject to criminal prosecution in Federal court.\n"];
+                [applicationSecurityText sizeToFit];
+                [contentHolder addSubview:applicationSecurityText];
+                contentSizeHeight += applicationSecurityText.frame.size.height;
+                
+                UILabel *howToAccessOrCorrectYourInformation = [[UILabel alloc] initWithFrame:CGRectMake(8, applicationSecurityText.frame.origin.y + applicationSecurityText.frame.size.height, contentHolder.frame.size.width - 16.0, 40)];
+                [howToAccessOrCorrectYourInformation setNumberOfLines:0];
+                [howToAccessOrCorrectYourInformation setLineBreakMode:NSLineBreakByWordWrapping];
+                [howToAccessOrCorrectYourInformation setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                [howToAccessOrCorrectYourInformation setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+                [howToAccessOrCorrectYourInformation setTextAlignment:NSTextAlignmentLeft];
+                [howToAccessOrCorrectYourInformation setText:@"How to Access or Correct Your Information"];
+                [contentHolder addSubview:howToAccessOrCorrectYourInformation];
+                contentSizeHeight += howToAccessOrCorrectYourInformation.frame.size.height;
+                
+                NSMutableAttributedString *usingMobileApplicationsBullet1String = [[NSMutableAttributedString alloc] initWithString:@"Users of this mobile application who seek to redress which may include access to records about themselves, ensuring the accuracy of the information collected, and or filing complaints will need to contact the Epi Info™ help desk." attributes:nil];
+                usingMobileApplicationsBullet1HyperlinkRange0 = [[usingMobileApplicationsBullet1String string] rangeOfString:@"Epi Info™ help desk"];
                 NSDictionary *bullet1LinkAttributes = @{ NSForegroundColorAttributeName : [UIColor colorWithRed:0.05 green:0.4 blue:0.65 alpha:1.0],
                                                          NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle) };
                 [usingMobileApplicationsBullet1String setAttributes:bullet1LinkAttributes range:usingMobileApplicationsBullet1HyperlinkRange0];
-                [usingMobileApplicationsBullet1String setAttributes:bullet1LinkAttributes range:usingMobileApplicationsBullet1HyperlinkRange1];
-                UILabel *usingMobileApplicationsBullet1 = [[UILabel alloc] initWithFrame:CGRectMake(50, usingMobileApplicationsBullet0.frame.origin.y + usingMobileApplicationsBullet0.frame.size.height, contentHolder.frame.size.width - 72.0, 300)];
+                UILabel *usingMobileApplicationsBullet1 = [[UILabel alloc] initWithFrame:CGRectMake(8, howToAccessOrCorrectYourInformation.frame.origin.y + howToAccessOrCorrectYourInformation.frame.size.height, contentHolder.frame.size.width - 16.0, 300)];
                 [usingMobileApplicationsBullet1 setNumberOfLines:0];
                 [usingMobileApplicationsBullet1 setLineBreakMode:NSLineBreakByWordWrapping];
                 [usingMobileApplicationsBullet1 setFont:[UIFont fontWithName:@"HelveticaNeue" size:paragraphFontSize]];
@@ -420,26 +491,65 @@
                 [usingMobileApplicationsBullet1TextContainer setMaximumNumberOfLines:[usingMobileApplicationsBullet0 numberOfLines]];
                 [usingMobileApplicationsBullet1TextContainer setSize:usingMobileApplicationsBullet0.frame.size];
                 
-                UILabel *usingMobileApplicationsBulletB = [[UILabel alloc] initWithFrame:CGRectMake(38, usingMobileApplicationsBullet1.frame.origin.y - 4, 10, 10)];
-                [usingMobileApplicationsBulletB setNumberOfLines:0];
-                [usingMobileApplicationsBulletB setLineBreakMode:NSLineBreakByWordWrapping];
-                [usingMobileApplicationsBulletB setFont:[UIFont fontWithName:@"HelveticaNeue" size:20.0]];
-                [usingMobileApplicationsBulletB setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
-                [usingMobileApplicationsBulletB setTextAlignment:NSTextAlignmentLeft];
-                [usingMobileApplicationsBulletB setText:@"\u2022"];
-                [usingMobileApplicationsBulletB sizeToFit];
-                [contentHolder addSubview:usingMobileApplicationsBulletB];
+                UILabel *analyticsTools = [[UILabel alloc] initWithFrame:CGRectMake(8, usingMobileApplicationsBullet1.frame.origin.y + usingMobileApplicationsBullet1.frame.size.height, contentHolder.frame.size.width - 16.0, 40)];
+                [analyticsTools setNumberOfLines:0];
+                [analyticsTools setLineBreakMode:NSLineBreakByWordWrapping];
+                [analyticsTools setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+                [analyticsTools setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+                [analyticsTools setTextAlignment:NSTextAlignmentLeft];
+                [analyticsTools setText:@"Analytics Tools"];
+                [contentHolder addSubview:analyticsTools];
+                contentSizeHeight += analyticsTools.frame.size.height;
                 
-                UILabel *usingMobileApplicationsEnd = [[UILabel alloc] initWithFrame:CGRectMake(8, usingMobileApplicationsBullet1.frame.origin.y + usingMobileApplicationsBullet1.frame.size.height, contentHolder.frame.size.width - 16.0, 300)];
-                [usingMobileApplicationsEnd setNumberOfLines:0];
-                [usingMobileApplicationsEnd setLineBreakMode:NSLineBreakByWordWrapping];
-                [usingMobileApplicationsEnd setFont:[UIFont fontWithName:@"HelveticaNeue" size:paragraphFontSize]];
-                [usingMobileApplicationsEnd setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
-                [usingMobileApplicationsEnd setTextAlignment:NSTextAlignmentLeft];
-                [usingMobileApplicationsEnd setText:@"\nCDC does not disclose, share, sell, or transfer any information about CDC digital media visitors or users unless required for law enforcement or otherwise required by law.\n\nFor site security purposes and to ensure that this service remains available to all users, CDC employs software programs to identify unauthorized attempts to upload or change information, or otherwise cause damage.\n\nCDC’s digital media are maintained by the U.S. Government and is protected by various provisions of Title 18, U.S. Code. Violations of Title 18 are subject to criminal prosecution in Federal court."];
-                [usingMobileApplicationsEnd sizeToFit];
-                [contentHolder addSubview:usingMobileApplicationsEnd];
-                contentSizeHeight += usingMobileApplicationsEnd.frame.size.height;
+                NSMutableAttributedString *analyticsToolsString = [[NSMutableAttributedString alloc] initWithString:@"This mobile application relies on the platforms that distribute the mobile application (currently the iTunes Store, Google Play Store, and the Windows Store) to provide analytics about the download of the mobile application. Please consult the privacy policies of these third parties for further information.\n(CDC’s List of Third-Party Tools and Sites)\n" attributes:nil];
+                analyticsToolsHyperlinkRange = [[analyticsToolsString string] rangeOfString:@"CDC’s List of Third-Party Tools and Sites"];
+                NSDictionary *analyticsToolsLinkAttributes = @{ NSForegroundColorAttributeName : [UIColor colorWithRed:0.05 green:0.4 blue:0.65 alpha:1.0], NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle) };
+                [analyticsToolsString setAttributes:analyticsToolsLinkAttributes range:analyticsToolsHyperlinkRange];
+                UILabel *analyticsToolsLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, analyticsTools.frame.origin.y + analyticsTools.frame.size.height, contentHolder.frame.size.width - 16.0, 300)];
+                [analyticsToolsLabel setNumberOfLines:0];
+                [analyticsToolsLabel setLineBreakMode:NSLineBreakByWordWrapping];
+                [analyticsToolsLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:paragraphFontSize]];
+                [analyticsToolsLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+                [analyticsToolsLabel setTextAlignment:NSTextAlignmentLeft];
+                [analyticsToolsLabel setAttributedText:analyticsToolsString];
+                [analyticsToolsLabel sizeToFit];
+                [contentHolder addSubview:analyticsToolsLabel];
+                contentSizeHeight += analyticsToolsLabel.frame.size.height;
+                [analyticsToolsLabel setTag:1042];
+                [analyticsToolsLabel setUserInteractionEnabled:YES];
+                [analyticsToolsLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapsInLabelHyperlinks:)]];
+                analyticsToolsLayoutManager = [[NSLayoutManager alloc] init];
+                analyticsToolsTextContainer = [[NSTextContainer alloc] initWithSize:CGSizeZero];
+                analyticsToolsTextStorage = [[NSTextStorage alloc] initWithAttributedString:analyticsToolsString];
+                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                    [analyticsToolsTextStorage addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue" size:paragraphFontSize] range:NSMakeRange(0, [analyticsToolsTextStorage length])];
+                [analyticsToolsLayoutManager addTextContainer:analyticsToolsTextContainer];
+                [analyticsToolsTextStorage addLayoutManager:analyticsToolsLayoutManager];
+                [analyticsToolsTextContainer setLineFragmentPadding:0.0];
+                [analyticsToolsTextContainer setLineBreakMode:[analyticsToolsLabel lineBreakMode]];
+                [analyticsToolsTextContainer setMaximumNumberOfLines:[analyticsToolsLabel numberOfLines]];
+                [analyticsToolsTextContainer setSize:analyticsToolsLabel.frame.size];
+                
+                UILabel *privacyPolicyContactInformation = [[UILabel alloc] initWithFrame:CGRectMake(8, analyticsToolsLabel.frame.origin.y + analyticsToolsLabel.frame.size.height, contentHolder.frame.size.width - 16.0, 40)];
+                [privacyPolicyContactInformation setNumberOfLines:0];
+                [privacyPolicyContactInformation setLineBreakMode:NSLineBreakByWordWrapping];
+                [privacyPolicyContactInformation setFont:[UIFont fontWithName:@"HelveticaNeue" size:20.0]];
+                [privacyPolicyContactInformation setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+                [privacyPolicyContactInformation setTextAlignment:NSTextAlignmentLeft];
+                [privacyPolicyContactInformation setText:@"Privacy Policy Contact Information"];
+                [contentHolder addSubview:privacyPolicyContactInformation];
+                contentSizeHeight += privacyPolicyContactInformation.frame.size.height;
+                
+                UILabel *privacyPolicyContactInformationText = [[UILabel alloc] initWithFrame:CGRectMake(8, privacyPolicyContactInformation.frame.origin.y + privacyPolicyContactInformation.frame.size.height, contentHolder.frame.size.width - 16.0, 300)];
+                [privacyPolicyContactInformationText setNumberOfLines:0];
+                [privacyPolicyContactInformationText setLineBreakMode:NSLineBreakByWordWrapping];
+                [privacyPolicyContactInformationText setFont:[UIFont fontWithName:@"HelveticaNeue" size:paragraphFontSize]];
+                [privacyPolicyContactInformationText setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
+                [privacyPolicyContactInformationText setTextAlignment:NSTextAlignmentLeft];
+                [privacyPolicyContactInformationText setText:@"If you have questions or concerns related to this CDC Mobile Application Privacy Policy or need further information, please contact the CDC Privacy Office at Privacy@cdc.gov or call 770-488-8660\n"];
+                [privacyPolicyContactInformationText sizeToFit];
+                [contentHolder addSubview:privacyPolicyContactInformationText];
+                contentSizeHeight += privacyPolicyContactInformationText.frame.size.height;
                 
                 [content setFrame:CGRectMake(content.frame.origin.x, content.frame.origin.y, content.frame.size.width, contentSizeHeight)];
             }
@@ -663,6 +773,25 @@
         }
             break;
             
+        case 1042:
+        {
+            CGPoint locationOfTouchInLabel = [tapGesture locationInView:[tapGesture view]];
+            CGSize labelSize = tapGesture.view.bounds.size;
+            CGRect textBoundingBox = [usingMobileApplicationsBullet0LayoutManager usedRectForTextContainer:usingMobileApplicationsBullet0TextContainer];
+            CGPoint textContainerOffset = CGPointMake((labelSize.width - textBoundingBox.size.width) * 0.0 - textBoundingBox.origin.x,
+                                                      (labelSize.height - textBoundingBox.size.height) * 0.0 - textBoundingBox.origin.y);
+            CGPoint locationOfTouchInTextContainer = CGPointMake(locationOfTouchInLabel.x - textContainerOffset.x,
+                                                                 locationOfTouchInLabel.y - textContainerOffset.y);
+            NSInteger indexOfCharacter = [usingMobileApplicationsBullet0LayoutManager characterIndexForPoint:locationOfTouchInTextContainer
+                                                                           inTextContainer:usingMobileApplicationsBullet0TextContainer
+                                                  fractionOfDistanceBetweenInsertionPoints:nil];
+            NSRange linkRange = analyticsToolsHyperlinkRange;
+            if (NSLocationInRange(indexOfCharacter, linkRange)) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.cdc.gov/other/third-party-pages.html"]];
+            }
+        }
+            break;
+            
         case 1003:
         {
             CGPoint locationOfTouchInLabel = [tapGesture locationInView:[tapGesture view]];
@@ -676,10 +805,7 @@
                                                                                              inTextContainer:usingMobileApplicationsBullet1TextContainer
                                                                     fractionOfDistanceBetweenInsertionPoints:nil];
             if (NSLocationInRange(indexOfCharacter, usingMobileApplicationsBullet1HyperlinkRange0)) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.cdc.gov/other/third-party-pages.html"]];
-            }
-            else if (NSLocationInRange(indexOfCharacter, usingMobileApplicationsBullet1HyperlinkRange1)) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.whitehouse.gov/privacy#device"]];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.cdc.gov/epiinfo/support/helpdesk.html"]];
             }
         }
             break;
