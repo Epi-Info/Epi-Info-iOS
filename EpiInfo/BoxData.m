@@ -647,6 +647,13 @@
                                                                     if (![boxDictionary objectForKey:keyForDictionary])
                                                                         continue;
                                                                     NSString *valueFromBoxDictionary = [boxDictionary objectForKey:keyForDictionary];
+                                                                    if ([valueFromBoxDictionary isKindOfClass:[NSString class]])
+                                                                    {
+                                                                        if ([valueFromBoxDictionary containsString:@"'"])
+                                                                        {
+                                                                            valueFromBoxDictionary = [valueFromBoxDictionary stringByReplacingOccurrencesOfString:@"'" withString:@"''"];
+                                                                        }
+                                                                    }
                                                                     if ([v isKindOfClass:[CommandButton class]]) { }
                                                                     else if ([v isKindOfClass:[Checkbox class]])
                                                                     {
@@ -704,6 +711,13 @@
                                                                         if ([valuesArray count] > [valueFromBoxDictionary intValue])
                                                                         {
                                                                             valueFromBoxDictionary = [valuesArray objectAtIndex:[valueFromBoxDictionary intValue]];
+                                                                            if ([valueFromBoxDictionary isKindOfClass:[NSString class]])
+                                                                            {
+                                                                                if ([valueFromBoxDictionary containsString:@"'"])
+                                                                                {
+                                                                                    valueFromBoxDictionary = [valueFromBoxDictionary stringByReplacingOccurrencesOfString:@"'" withString:@"''"];
+                                                                                }
+                                                                            }
                                                                             if (valuesClauseBegun)
                                                                             {
                                                                                 insertStatement = [insertStatement stringByAppendingString:@",\n"];
