@@ -2632,7 +2632,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = J8992FE8QS;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2654,7 +2654,7 @@
 					"$(SRCROOT)",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				MARKETING_VERSION = 5.5.10;
+				MARKETING_VERSION = 5.5.11;
 				PRODUCT_BUNDLE_IDENTIFIER = gov.cdc.csels.EpiInfo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2676,7 +2676,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development: John Copeland (JZTF9F25RD)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = J8992FE8QS;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2698,7 +2698,7 @@
 					"$(SRCROOT)",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				MARKETING_VERSION = 5.5.10;
+				MARKETING_VERSION = 5.5.11;
 				PRODUCT_BUNDLE_IDENTIFIER = gov.cdc.csels.EpiInfo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
