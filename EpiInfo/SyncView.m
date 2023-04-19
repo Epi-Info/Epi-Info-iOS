@@ -288,6 +288,7 @@
 - (BOOL)updateAppendData
 {
     NSLog(@"%@", dataText);
+    dataText = [dataText stringByReplacingOccurrencesOfString:@"&apos;" withString:@"''"];
     arrayOfGUIDs = [[NSMutableArray alloc] init];
     dictionaryOfGuidsAndFKeys = [[NSMutableDictionary alloc] init];
     arrayOfColumns = [[NSMutableArray alloc] init];
