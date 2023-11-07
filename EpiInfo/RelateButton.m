@@ -1569,7 +1569,7 @@
                 for (int k = 0; k < ((EnterDataView *)edv).pagesArray.count; k++)
                     for (int l = 0; l < [(NSMutableArray *)[((EnterDataView *)edv).pagesArray objectAtIndex:k] count]; l++)
                         selStmt = [[selStmt stringByAppendingString:@", "] stringByAppendingString:[(NSMutableArray *)[((EnterDataView *)edv).pagesArray objectAtIndex:k] objectAtIndex:l]];
-                selStmt = [NSString stringWithFormat:@"%@ from %@", selStmt, ((EnterDataView *)edv).formName];
+                selStmt = [NSString stringWithFormat:@"%@, FKEY from %@", selStmt, ((EnterDataView *)edv).formName];
                 const char *query_stmt = [selStmt UTF8String];
                 sqlite3_stmt *statement;
                 if (sqlite3_prepare_v2(epiinfoDB, query_stmt, -1, &statement, NULL) == SQLITE_OK)
