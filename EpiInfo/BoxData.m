@@ -57,6 +57,8 @@
 - (BOOL)sendAllRecordsToBoxInBackground
 {
     sqlite3 *epiinfoDB;
+    BOOL formHasImages = NO;
+    NSMutableArray *imageFileNames = [[NSMutableArray alloc] init];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase"]])
     {
@@ -136,6 +138,14 @@
                                     {
                                         unsigned long indexOfObject = [valuesArray indexOfObject:columnText];
                                         columnText = [NSString stringWithFormat:@"%lu", indexOfObject];
+                                    }
+                                }
+                                else if ([controlForColumn isKindOfClass:[EpiInfoImageField class]])
+                                {
+                                    formHasImages = YES;
+                                    if ([(NSString *)columnText length] > 0)
+                                    {
+                                        [imageFileNames addObject:(NSString *)columnText];
                                     }
                                 }
                             }
@@ -430,6 +440,145 @@
                                 }];
                             }
                         }];
+                        // Image file transfer here
+                        searchRequest = [client0 searchRequestWithQuery:@"__EpiInfoPhotos" inRange:NSMakeRange(0, 1000)];
+                        [searchRequest setType:@"folder"];
+                        [searchRequest setContentTypes:@[@"name"]];
+                        [searchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *items, NSUInteger totalCount, NSRange range, NSError *error) {
+                            if ([items count] > 0)
+                            {
+                                for (BOXItem *bi in items)
+                                {
+                                    if ([bi isKindOfClass:[BOXFolder class]])
+                                    {
+                                        NSString *subfoldername = [NSString stringWithString:formName];
+                                        NSString *eiFolderID = [bi modelID];
+                                        NSLog(@"folder __EpiInfoPhotos exists with ID %@; checking for %@ folder", eiFolderID, subfoldername);
+                                        BOXSearchRequest *subfolderSearchRequest = [client0 searchRequestWithQuery:subfoldername inRange:NSMakeRange(0, 1000)];
+                                        [subfolderSearchRequest setAncestorFolderIDs:@[eiFolderID]];
+                                        [searchRequest setType:@"folder"];
+                                        [subfolderSearchRequest setContentTypes:@[@"name"]];
+                                        [subfolderSearchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *sitems, NSUInteger totalCount, NSRange range, NSError *error) {
+                                            if ([sitems count] > 0)
+                                            {
+                                                for (BOXItem *bi in sitems)
+                                                {
+                                                    if ([bi isKindOfClass:[BOXFolder class]])
+                                                    {
+                                                        NSString *folderID = [bi modelID];
+                                                        NSLog(@"folder %@ exists with ID %@.", subfoldername, folderID);
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:eiFolderID];
+                                                [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                                    NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
+                                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder creation request finished with folder %@, error %@\n", [NSDate date], folder, error]];
+                                                    if (folder && !error)
+                                                    {
+                                                        NSLog(@"folder %@ created.", subfoldername);
+                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created.\n", [NSDate date], subfoldername]];
+                                                    }
+                                                    else
+                                                    {
+                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box could not obtain Directory ID for file storage. Record has been stored locally. Try reloading the record and touching Update.\n", [NSDate date]]];
+                                                        UIAlertController *alertE = [UIAlertController alertControllerWithTitle:@"Alert"
+                                                                                                                        message:@"Box could not obtain Directory ID for file storage. Record has been stored locally. Try reloading the record and touching Update." preferredStyle:UIAlertControllerStyleAlert];
+                                                        UIAlertAction *okActionE = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                        }];
+                                                        [alertE addAction:okActionE];
+                                                        UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                                                        [alertWindow setRootViewController:[[UIViewController alloc] init]];
+                                                        [alertWindow setWindowLevel:UIWindowLevelAlert + 1];
+                                                        [alertWindow makeKeyAndVisible];
+                                                        [[alertWindow rootViewController] presentViewController:alertE animated:YES completion:nil];
+                                                        //[self.rootViewController presentViewController:alertE animated:YES completion:nil];
+                                                    }
+                                                }];
+                                            }
+                                        }];
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                NSString *subfoldername = [NSString stringWithString:formName];
+                                BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:@"__EpiInfoPhotos" parentFolderID:BOXAPIFolderIDRoot];
+                                [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                    NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
+                                    [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder creation request finished with folder %@, error %@\n", [NSDate date], folder, error]];
+                                    if (folder && !error)
+                                    {
+                                        NSLog(@"folder %@ created; attempting to add a subfolder", @"__EpiInfoPhotos");
+                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ created; attempting to add a subfolder\n", [NSDate date], @"__EpiInfoPhotos"]];
+                                        BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:subfoldername parentFolderID:[folder modelID]];
+                                        [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
+                                            NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
+                                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder creation request finished with folder %@, error %@\n", [NSDate date], folder, error]];
+                                        }];
+                                    }
+                                }];
+                            }
+                        }];
+                        if (formHasImages)
+                        {
+                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@ form has images\n", formName]];
+                            NSArray *ls = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] error:nil];
+                            for (id imagefile in ls)
+                            {
+                                if ([imageFileNames containsObject:[[imagefile componentsSeparatedByString:@"."] objectAtIndex:0]])
+                                {
+                                    NSData *fileData = [NSData dataWithContentsOfFile:[[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] stringByAppendingString:[NSString stringWithFormat:@"/%@", imagefile]]];
+                                    searchRequest = [client0 searchRequestWithQuery:@"__EpiInfoPhotos" inRange:NSMakeRange(0, 1000)];
+                                    [searchRequest setType:@"folder"];
+                                    [searchRequest setContentTypes:@[@"name"]];
+                                    [searchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *items, NSUInteger totalCount, NSRange range, NSError *error) {
+                                        if ([items count] > 0)
+                                        {
+                                            for (BOXItem *bi in items)
+                                            {
+                                                if ([bi isKindOfClass:[BOXFolder class]])
+                                                {
+                                                    NSString *subfoldername = [NSString stringWithString:formName];
+                                                    NSString *eiFolderID = [bi modelID];
+                                                    BOXSearchRequest *subfolderSearchRequest = [client0 searchRequestWithQuery:subfoldername inRange:NSMakeRange(0, 1000)];
+                                                    [subfolderSearchRequest setAncestorFolderIDs:@[eiFolderID]];
+                                                    [searchRequest setType:@"folder"];
+                                                    [subfolderSearchRequest setContentTypes:@[@"name"]];
+                                                    [subfolderSearchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *sitems, NSUInteger totalCount, NSRange range, NSError *error) {
+                                                        if ([sitems count] > 0)
+                                                        {
+                                                            for (BOXItem *bi in sitems)
+                                                            {
+                                                                if ([bi isKindOfClass:[BOXFolder class]])
+                                                                {
+                                                                    NSString *folderID = [bi modelID];
+                                                                    NSLog(@"folder %@ exists with ID %@.", subfoldername, folderID);
+                                                                    BOXFileUploadRequest *uploadRequest = [client0 fileUploadRequestToFolderWithID:folderID fromData:fileData fileName:[NSString stringWithFormat:@"%@", imagefile]];
+                                                                    [uploadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                                        NSLog(@"totalBytesTransferred, totalBytesExpectedToTransfer: %lld, %lld", totalBytesTransferred, totalBytesExpectedToTransfer);
+                                                                    } completion:^(BOXFile *file, NSError *error) {
+                                                                        NSLog(@"upload request finished with file %@, error %@", file, error);
+                                                                        [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box upload request finished with file %@ (%@), error %@\n", [NSDate date], file, imagefile, error]];
+                                                                    }];
+                                                                    break;
+                                                                }
+                                                            }
+                                                        }
+                                                    }];
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }];
+                                }
+                            }
+                        }
+                        // End image file transfer
                     }
                     sleep(1);
                 }
