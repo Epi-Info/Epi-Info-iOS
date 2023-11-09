@@ -113,6 +113,41 @@
     [touchBorderImageView removeFromSuperview];
 }
 
+- (void)initRemainingEDVs
+{
+    if ([(EnterDataView *)edv pagesArray].count < 2)
+        return;
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    __block NSString *lvSelectedText;
+    dispatch_sync(dispatch_get_main_queue(), ^{
+      lvSelectedText = relatedViewName;
+    });
+    NSString *path = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/_"] stringByAppendingString:lvSelectedText] stringByAppendingString:@".xml"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+
+    for (int i = 2; i <= [(EnterDataView *)edv pagesArray].count; i++)
+    {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                float viewWidth = self.frame.size.width;
+                EnterDataView *nextEDV = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, self.frame.size.height) AndURL:url AndRootViewController:rootViewController AndNameOfTheForm:lvSelectedText AndPageToDisplay:i];
+                [(EnterDataView *)edv setDictionaryOfPagesObject:self forKey:[NSString stringWithFormat:@"Page%d", i]];
+                [nextEDV setDictionaryOfPages:[(EnterDataView *)edv mutableDictionaryOfPages]];
+            });
+        }
+        else
+        {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                EnterDataView *nextEDV = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, 320, 506) AndURL:url AndRootViewController:rootViewController AndNameOfTheForm:lvSelectedText AndPageToDisplay:i];
+                [(EnterDataView *)edv setDictionaryOfPagesObject:self forKey:[NSString stringWithFormat:@"Page%d", i]];
+                [nextEDV setDictionaryOfPages:[(EnterDataView *)edv mutableDictionaryOfPages]];
+            });
+        }
+    }
+}
+
 - (void)selfPressed:(UIButton *)sender
 {
 //    NSLog(@"Load table %@", relatedViewName);
@@ -255,6 +290,8 @@
                     break;
                 }
             }
+            NSThread *initRemainingEDVsThread = [[NSThread alloc] initWithTarget:self selector:@selector(initRemainingEDVs) object:nil];
+            [initRemainingEDVsThread start];
         }];
     }
 }
