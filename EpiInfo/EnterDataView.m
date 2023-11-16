@@ -5823,6 +5823,32 @@
             if (legalValuesArray)
                 for (id key in attributeDict)
                     [legalValuesArray addObject:[attributeDict objectForKey:key]];
+            if ([attributeDict count] > 1)
+            {
+                if (!codesDictionary)
+                    codesDictionary = [[NSMutableDictionary alloc] init];
+                BOOL alreadyindictionary = NO;
+                for (id key in codesDictionary)
+                {
+                    NSMutableDictionary *nsdm0 = (NSMutableDictionary *)[codesDictionary objectForKey:key];
+                    for (id key0 in attributeDict)
+                    {
+                        if ([nsdm0 objectForKey:key0])
+                        {
+                            NSMutableArray *arr = (NSMutableArray *)[nsdm0 objectForKey:key0];
+                            [arr addObject:[attributeDict objectForKey:key0]];
+                            alreadyindictionary = YES;
+                        }
+                    }
+                }
+                if (!alreadyindictionary)
+                {
+                    NSMutableDictionary *nsmd0 = [[NSMutableDictionary alloc] init];
+                    for (id key in attributeDict)
+                        [nsmd0 setObject:[NSMutableArray arrayWithObject:[attributeDict objectForKey:key]] forKey:key];
+                    [codesDictionary setObject:nsmd0 forKey:lastLegalValuesKey];
+                }
+            }
         }
     }
     
@@ -7477,7 +7503,7 @@
                         else
                             [oddArray addObject:[fullArray objectAtIndex:i]];
                     
-                    lv = [[EpiInfoCodesField alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 300, 180) AndListOfValues:oddArray];
+                    lv = [[EpiInfoCodesField alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 300, 180) AndDictionaryOfCodes:[codesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]] AndFieldName:[attributeDict objectForKey:@"Name"]];
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
                         [lv setFrame:CGRectMake(20, lv.frame.origin.y, lv.frame.size.width, lv.frame.size.height)];
                     [lv setTextColumnValues:evenArray];

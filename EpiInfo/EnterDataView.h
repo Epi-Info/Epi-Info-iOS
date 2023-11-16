@@ -54,6 +54,7 @@
     float contentSizeHeight;
     NSMutableDictionary *legalValuesDictionary;
     NSMutableArray *legalValuesArray;
+    NSMutableDictionary *codesDictionary;
     NSString *lastLegalValuesKey;
     
     NSString *formName;
