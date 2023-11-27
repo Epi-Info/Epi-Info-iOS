@@ -32,4 +32,5 @@
 @property BOOL isReadOnly;
 @property UIButton *valueButton;
 @property UITableView *tv;
+@property UILabel *elementLabel;
 @end

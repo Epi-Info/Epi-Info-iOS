@@ -230,6 +230,12 @@
     [self setAlpha:0.5 + 0.5 * (int)isEnabled];
 }
 
+- (void)setIsHidden:(BOOL)isHidden
+{
+    [self.picker setUserInteractionEnabled:!isHidden];
+    [self setAlpha:1.0 - 0.9 * (int)isHidden];
+}
+
 - (void)selfFocus
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

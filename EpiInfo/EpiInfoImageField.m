@@ -12,6 +12,7 @@
 @implementation EpiInfoImageField
 @synthesize columnName = _columnName;
 @synthesize isReadOnly = _isReadOnly;
+@synthesize elementLabel = _elementLabel;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -83,7 +84,19 @@
     [self setEnabled:isEnabled];
     [self setUserInteractionEnabled:isEnabled];
     [self setAlpha:0.5 + 0.5 * (int)isEnabled];
+    if (self.elementLabel)
+        [self.elementLabel setAlpha:0.5 + 0.5 * (int)isEnabled];
     [(EnterDataView *)[[self superview] superview] setElementListArrayIsEnabledForElement:self.columnName andIsEnabled:isEnabled];
+}
+
+- (void)setIsHidden:(BOOL)isHidden
+{
+    [self setEnabled:!isHidden];
+    [self setUserInteractionEnabled:!isHidden];
+    [self setAlpha:1.0 - 0.9 * (int)isHidden];
+    if (self.elementLabel)
+        [self.elementLabel setAlpha:1.0 - 0.9 * (int)isHidden];
+    [(EnterDataView *)[[self superview] superview] setElementListArrayIsEnabledForElement:self.columnName andIsEnabled:isHidden];
 }
 
 - (void)selfFocus

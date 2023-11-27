@@ -6077,6 +6077,7 @@
                         fieldWidth = 50.0;
                     
                     tf = [[EpiInfoTextField alloc] initWithFrame:CGRectMake(20, contentSizeHeight + 40, fieldWidth, 40)];
+                    [tf setElementLabel:elementLabel];
                     [tf setBorderStyle:UITextBorderStyleRoundedRect];
                     
                     /*CHECK*/
@@ -6226,6 +6227,7 @@
                         fieldWidth = 50.0;
                     
                     tf = [[UppercaseTextField alloc] initWithFrame:CGRectMake(20, contentSizeHeight + 40, fieldWidth, 40)];
+                    [tf setElementLabel:elementLabel];
                     [tf setBorderStyle:UITextBorderStyleRoundedRect];
                     
                     /*CHECK*/
@@ -6359,6 +6361,7 @@
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
                         [bg setFrame:CGRectMake(40, bg.frame.origin.y, MIN(1.5 * bg.frame.size.width, formCanvas.frame.size.width - 80), 160)];
                     tf = [[EpiInfoTextView alloc] initWithFrame:CGRectMake(bg.frame.origin.x + 1, bg.frame.origin.y + 1, bg.frame.size.width - 2, bg.frame.size.height - 2)];
+                    [tf setElementLabel:elementLabel];
                     
                     /*CHECK*/
                     
@@ -6480,6 +6483,7 @@
                         fieldWidth = 50.0;
                     
                     tf  = [[NumberField alloc] initWithFrame:CGRectMake(20, contentSizeHeight + 40, fieldWidth, 40)];
+                    [tf setElementLabel:elementLabel];
                     [tf setBorderStyle:UITextBorderStyleRoundedRect];
                     
                     /*CHECK*/
@@ -6630,6 +6634,7 @@
                         fieldWidth = 280.0;
                     
                     tf  = [[PhoneNumberField alloc] initWithFrame:CGRectMake(20, contentSizeHeight + 40, fieldWidth, 40)];
+                    [tf setElementLabel:elementLabel];
                     [tf setBorderStyle:UITextBorderStyleRoundedRect];
                     
                     /*CHECK*/
@@ -7085,6 +7090,7 @@
                     [elementLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]];
                     
                     cb = [[Checkbox alloc] initWithFrame:CGRectMake(20, contentSizeHeight + 5, 30, 30)];
+                    [cb setElementLabel:elementLabel];
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
                     {
                         [cb setFrame:CGRectMake(40, cb.frame.origin.y, 30, 30)];
@@ -7190,6 +7196,7 @@
                 if (isCurrentPage)
                 {
                     yn = [[YesNo alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 300, 180)];
+                    [yn setElementLabel:elementLabel];
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
                         [yn setFrame:CGRectMake(20, yn.frame.origin.y, yn.frame.size.width, yn.frame.size.height)];
                     
@@ -7299,6 +7306,7 @@
                         fieldWidth = 50.0;
                     
                     tf = [[MirrorField alloc] initWithFrame:CGRectMake(20, contentSizeHeight + 40, fieldWidth, 40)];
+                    [tf setElementLabel:elementLabel];
                     [tf setBorderStyle:UITextBorderStyleRoundedRect];
                     
                     /*CHECK*/
@@ -7395,6 +7403,7 @@
                 if (isCurrentPage)
                 {
                     lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 300, 180) AndListOfValues:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]]];
+                    [lv setElementLabel:elementLabel];
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
                         [lv setFrame:CGRectMake(20, lv.frame.origin.y, lv.frame.size.width, lv.frame.size.height)];
                     
@@ -7504,6 +7513,7 @@
                             [oddArray addObject:[fullArray objectAtIndex:i]];
                     
                     lv = [[EpiInfoCodesField alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 300, 180) AndDictionaryOfCodes:[codesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]] AndFieldName:[attributeDict objectForKey:@"Name"]];
+                    [lv setElementLabel:elementLabel];
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
                         [lv setFrame:CGRectMake(20, lv.frame.origin.y, lv.frame.size.width, lv.frame.size.height)];
                     [lv setTextColumnValues:evenArray];
@@ -7599,6 +7609,7 @@
                 if (isCurrentPage)
                 {
                     lv = [[CommentLegal alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 300, 180) AndListOfValues:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]]];
+                    [lv setElementLabel:elementLabel];
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
                         [lv setFrame:CGRectMake(20, lv.frame.origin.y, lv.frame.size.width, lv.frame.size.height)];
                     
@@ -7695,6 +7706,7 @@
                 if (isCurrentPage)
                 {
                     iv = [[EpiInfoImageField alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 120, 120)];
+                    [iv setElementLabel:elementLabel];
                     [iv setColumnName:[attributeDict objectForKey:@"Name"]];
                     [iv setBackgroundImage:[UIImage imageNamed:@"iconCDC_for_image_field"] forState:UIControlStateNormal];
                     if (isCurrentPage)
@@ -7791,6 +7803,7 @@
                         [nsmaFromValuesList addObject:(NSString *)[nsaFromValuesList objectAtIndex:q]];
                     
                     lv = [[EpiInfoOptionField alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 300, 180) AndListOfValues:nsmaFromValuesList];
+                    [lv setElementLabel:elementLabel];
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
                         [lv setFrame:CGRectMake(20, lv.frame.origin.y, lv.frame.size.width, lv.frame.size.height)];
                     
@@ -7898,6 +7911,7 @@
                         fieldWidth = 50.0;
                     
                     tf = [[EpiInfoUniqueIDField alloc] initWithFrame:CGRectMake(20, contentSizeHeight + 40, fieldWidth, 40)];
+                    [tf setElementLabel:elementLabel];
                     [tf setBorderStyle:UITextBorderStyleRoundedRect];
                     
                     /*CHECK*/
@@ -7983,6 +7997,7 @@
                     [elementLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontsize]];
                     
                     cb = [[CommandButton alloc] initWithFrame:CGRectMake(20, contentSizeHeight + 5, 30, 30) AndPromptText:[attributeDict objectForKey:@"PromptText"]];
+                    [cb setElementLabel:elementLabel];
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
                     {
                         [cb setFrame:CGRectMake(40, cb.frame.origin.y, 30, 30)];

@@ -14,6 +14,7 @@
 @property NSString *columnName;
 @property BOOL isReadOnly;
 @property UITextField *mirroringMe;
+@property UILabel *elementLabel;
 -(void)setFormFieldValue:(NSString *)formFieldValue;
 -(void)reset;
 @end

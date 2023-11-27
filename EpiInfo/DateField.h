@@ -14,6 +14,7 @@
 @property NSString *fieldLabel;
 @property UITextField *mirroringMe;
 @property NSNumber *templateFieldID;
+@property UILabel *elementLabel;
 -(void)setFormFieldValue:(NSString *)formFieldValue;
 -(void)reset;
 @end

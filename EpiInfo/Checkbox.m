@@ -12,6 +12,7 @@
 @implementation Checkbox
 @synthesize columnName = _columnName;
 @synthesize isReadOnly = _isReadOnly;
+@synthesize elementLabel = _elementLabel;
 
 - (void)setText:(NSString *)checkboxText
 {
@@ -139,6 +140,16 @@
 {
     [button setEnabled:isEnabled];
     [self setAlpha:0.5 + 0.5 * (int)isEnabled];
+    if (self.elementLabel)
+        [self.elementLabel setAlpha:0.5 + 0.5 * (int)isEnabled];
+}
+
+- (void)setIsHidden:(BOOL)isHidden
+{
+    [button setEnabled:!isHidden];
+    [self setAlpha:1.0 - 0.9 * (int)isHidden];
+    if (self.elementLabel)
+        [self.elementLabel setAlpha:1.0 - 0.9 * (int)isHidden];
 }
 
 - (void)selfFocus

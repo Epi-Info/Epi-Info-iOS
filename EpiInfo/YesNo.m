@@ -12,6 +12,7 @@
 @synthesize columnName = _columnName;
 @synthesize isReadOnly = _isReadOnly;
 @synthesize tv = _tv;
+@synthesize elementLabel = _elementLabel;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -201,6 +202,18 @@
     [self.valueButton setUserInteractionEnabled:isEnabled];
     [self.tv setFrame:CGRectMake(self.valueButton.frame.origin.x, self.valueButton.frame.origin.y, self.valueButton.frame.size.width, 0)];
     [self setAlpha:0.5 + 0.5 * (int)isEnabled];
+    if (self.elementLabel)
+        [self.elementLabel setAlpha:0.5 + 0.5 * (int)isEnabled];
+}
+
+- (void)setIsHidden:(BOOL)isHidden
+{
+    [picker setUserInteractionEnabled:!isHidden];
+    [self.valueButton setUserInteractionEnabled:!isHidden];
+    [self.tv setFrame:CGRectMake(self.valueButton.frame.origin.x, self.valueButton.frame.origin.y, self.valueButton.frame.size.width, 0)];
+    [self setAlpha:1.0 - 0.9 * (int)isHidden];
+    if (self.elementLabel)
+        [self.elementLabel setAlpha:1.0 - 0.9 * (int)isHidden];
 }
 
 - (void)selfFocus

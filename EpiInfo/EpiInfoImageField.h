@@ -15,5 +15,6 @@
     CGSize initialSize;
 }
 @property NSString *columnName;
+@property UILabel *elementLabel;
 -(UIImage *)epiInfoImageValue;
 @end

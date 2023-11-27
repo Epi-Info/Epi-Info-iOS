@@ -12,6 +12,7 @@
 @interface EpiInfoTextView : UITextView <EpiInfoControlProtocol>
 @property NSString *columnName;
 @property BOOL isReadOnly;
+@property UILabel *elementLabel;
 -(void)setFormFieldValue:(NSString *)formFieldValue;
 -(void)reset;
 @end

@@ -28,4 +28,5 @@
 @property CheckCode *checkcode;
 @property NSString *columnName;
 @property BOOL isReadOnly;
+@property UILabel *elementLabel;
 @end

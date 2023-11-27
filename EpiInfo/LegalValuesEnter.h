@@ -31,6 +31,7 @@
 @property NSNumber *selectedIndex;
 @property UIButton *valueButton;
 @property UITableView *tv;
+@property UILabel *elementLabel;
 - (void)setListOfValues:(NSMutableArray *)lov;
 - (NSMutableArray *)listOfValues;
 - (NSArray *)listOfStoredValues;

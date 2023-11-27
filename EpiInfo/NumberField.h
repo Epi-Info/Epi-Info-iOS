@@ -22,6 +22,7 @@
 @property BOOL hasMinimum;
 @property float maximum;
 @property float minimum;
+@property UILabel *elementLabel;
 
 -(void)setCheckcode:(id)ccode;
 -(id)checkcode;

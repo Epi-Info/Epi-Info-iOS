@@ -294,6 +294,8 @@
                                     if ([edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]])
                                     {
                                         [[edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] setIsEnabled:YES];
+                                        if ([[[[statement uppercaseString] componentsSeparatedByString:@" "] objectAtIndex:0] isEqualToString:@"UNHIDE"])
+                                            [[edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] setIsHidden:NO];
                                         pageAlreadyExists = YES;
                                     }
                                 }
@@ -361,6 +363,8 @@
                                     if ([edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]])
                                     {
                                         [[edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] setIsEnabled:NO];
+                                        if ([[[[statement uppercaseString] componentsSeparatedByString:@" "] objectAtIndex:0] isEqualToString:@"HIDE"])
+                                            [[edv0.dictionaryOfFields objectForKey:[controlsToAlter objectAtIndex:cto]] setIsHidden:YES];
                                         pageAlreadyExists = YES;
                                     }
                                 }
