@@ -1868,6 +1868,15 @@
 
 - (void)prePackageData:(UIButton *)sender
 {
+    if (![MFMailComposeViewController canSendMail])
+    {
+        UIAlertController *alertM = [UIAlertController alertControllerWithTitle:@"" message:@"The native iOS Mail app must be configured to use this feature. Use Settings, Mail, Accounts, to add a mail account." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        }];
+        [alertM addAction:okAction];
+        [self presentViewController:alertM animated:YES completion:nil];
+        return;
+    }
     UIView *messageView = [[UIView alloc] initWithFrame:CGRectMake(sender.frame.origin.x + sender.frame.size.width / 2.0, sender.frame.origin.y + sender.frame.size.height / 2.0, 0, 0)];
     [messageView setBackgroundColor:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
     [messageView.layer setCornerRadius:8.0];
