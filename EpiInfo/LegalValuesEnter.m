@@ -396,9 +396,9 @@
     [self.picker setUserInteractionEnabled:!isHidden];
     [self.valueButton setUserInteractionEnabled:!isHidden];
     [self.tv setFrame:CGRectMake(self.valueButton.frame.origin.x, self.valueButton.frame.origin.y, self.valueButton.frame.size.width, 0)];
-    [self setAlpha:1.0 - 0.9 * (int)isHidden];
+    [self setAlpha:1.0 - 1.0 * (int)isHidden];
     if (self.elementLabel)
-        [self.elementLabel setAlpha:1.0 - 0.9 * (int)isHidden];
+        [self.elementLabel setAlpha:1.0 - 1.0 * (int)isHidden];
 }
 
 - (void)selfFocus

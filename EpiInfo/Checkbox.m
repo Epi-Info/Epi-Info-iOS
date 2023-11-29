@@ -147,9 +147,9 @@
 - (void)setIsHidden:(BOOL)isHidden
 {
     [button setEnabled:!isHidden];
-    [self setAlpha:1.0 - 0.9 * (int)isHidden];
+    [self setAlpha:1.0 - 1.0 * (int)isHidden];
     if (self.elementLabel)
-        [self.elementLabel setAlpha:1.0 - 0.9 * (int)isHidden];
+        [self.elementLabel setAlpha:1.0 - 1.0 * (int)isHidden];
 }
 
 - (void)selfFocus

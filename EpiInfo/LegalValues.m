@@ -233,7 +233,7 @@
 - (void)setIsHidden:(BOOL)isHidden
 {
     [self.picker setUserInteractionEnabled:!isHidden];
-    [self setAlpha:1.0 - 0.9 * (int)isHidden];
+    [self setAlpha:1.0 - 1.0 * (int)isHidden];
 }
 
 - (void)selfFocus
