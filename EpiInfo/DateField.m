@@ -57,7 +57,7 @@
 {
     // First remove midnight if necessary
     NSString *textToUse = [NSString stringWithString:text];
-    if (textToUse != nil && textToUse.length > 3)
+    if (textToUse != nil && textToUse.length > 3 && ![self isKindOfClass:[DateTimeField class]])
     {
         NSRange ran = NSMakeRange(text.length - 4, 4);
         if ([[text substringWithRange:ran] isEqualToString:@"0:00"])
