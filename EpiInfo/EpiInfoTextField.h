@@ -9,12 +9,13 @@
 #import "EpiInfoControlProtocol.h"
 #import <UIKit/UIKit.h>
 
-@interface EpiInfoTextField : UITextField <EpiInfoControlProtocol>
+@interface EpiInfoTextField : UITextField <UITextFieldDelegate, EpiInfoControlProtocol>
 @property CheckCode *checkcode;
 @property NSString *columnName;
 @property BOOL isReadOnly;
 @property UITextField *mirroringMe;
 @property UILabel *elementLabel;
+@property int maxLength;
 -(void)setFormFieldValue:(NSString *)formFieldValue;
 -(void)reset;
 @end

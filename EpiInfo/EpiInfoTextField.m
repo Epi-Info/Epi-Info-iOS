@@ -15,12 +15,14 @@
 @synthesize mirroringMe = _mirroringMe;
 @synthesize checkcode = _checkcode;
 @synthesize elementLabel = _elementLabel;
+@synthesize maxLength = _maxLength;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        [self setMaxLength:0];
         if (@available(iOS 11.0, *)) {
             [self setSmartQuotesType:UITextSmartQuotesTypeNo];
         } else {
@@ -33,6 +35,8 @@
 
 - (void)textFieldAction
 {
+    if (self.maxLength > 0 && [self.text length] > self.maxLength)
+        [super setText:[self.text substringToIndex:self.maxLength]];
     if (self.mirroringMe)
         [self.mirroringMe setText:[self text]];
 }
@@ -165,6 +169,8 @@
 - (void)setText:(NSString *)text
 {
     [super setText:text];
+    if (self.maxLength > 0 && text && [text length] > self.maxLength)
+        [super setText:[text substringToIndex:self.maxLength]];
     [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 

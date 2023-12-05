@@ -6164,6 +6164,8 @@
                     [alterTableElements setObject:@"text" forKey:[attributeDict objectForKey:@"Name"]];
                     [tf setColumnName:[attributeDict objectForKey:@"Name"]];
                     [tf setAccessibilityLabel:[attributeDict objectForKey:@"Name"]];
+                    if ([[attributeDict objectForKey:@"MaxLength"] length] > 0)
+                        [tf setMaxLength:[[attributeDict objectForKey:@"MaxLength"] intValue]];
                     if (self.dictionaryOfWordsArrays)
                     {
                         NSString *checkCodeFieldName = [self.dictionaryOfWordsArrays objectForKey:[attributeDict objectForKey:@"Name"]];
