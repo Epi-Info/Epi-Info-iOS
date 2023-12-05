@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LegalValues.h"
+#import "LegalValuesEnter.h"
 #import "EICalendar.h"
 
 @interface DatePicker : UIView <UIPickerViewDelegate>
@@ -15,6 +16,8 @@
     LegalValues *monthsLV;
     LegalValues *daysLV;
     LegalValues *yearsLV;
+    LegalValuesEnter *hhLV;
+    LegalValuesEnter *mmLV;
     BOOL dmy;
 }
 @property UITextField *dateField;

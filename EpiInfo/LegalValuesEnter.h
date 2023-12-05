@@ -22,6 +22,8 @@
     UIView *shield;
     
     BOOL isAnalysisStyle;
+    
+    BOOL noBlankRow;
 }
 @property NSString *columnName;
 @property BOOL isReadOnly;
@@ -50,4 +52,6 @@
 -(float)contentSizeHeightAdjustment;
 -(void)analysisStyle;
 -(void)valueButtonPressed:(id)sender;
+-(void)overrideTheWidth:(float)w;
+-(void)removeBlankRow;
 @end

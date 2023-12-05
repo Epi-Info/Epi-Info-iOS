@@ -8,6 +8,7 @@
 #import "DatePicker.h"
 #import "BlurryView.h"
 #import "DateField.h"
+#import "DateTimeField.h"
 
 @implementation DatePicker
 @synthesize dateField = _dateField;
@@ -165,6 +166,99 @@
     [eic setDatePickerView:self];
     [self addSubview:eic];
     //
+    if ([dateField isKindOfClass:[DateTimeField class]])
+    {
+        NSMutableArray *hhArray = [[NSMutableArray alloc] init];
+        NSMutableArray *mmArray = [[NSMutableArray alloc] init];
+        [hhArray addObject:@""];
+        [mmArray addObject:@""];
+        for (int i=0; i < 10; i++)
+        {
+            [hhArray addObject:[NSString stringWithFormat:@"0%d", i]];
+            [mmArray addObject:[NSString stringWithFormat:@"0%d", i]];
+        }
+        for (int i=10; i < 24; i++)
+        {
+            [hhArray addObject:[NSString stringWithFormat:@"%d", i]];
+            [mmArray addObject:[NSString stringWithFormat:@"%d", i]];
+        }
+        for (int i=24; i < 60; i++)
+        {
+            [mmArray addObject:[NSString stringWithFormat:@"%d", i]];
+        }
+        hhLV = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(20, 412, 60, 40) AndListOfValues:hhArray];
+        [hhLV overrideTheWidth:60.0];
+        [hhLV removeBlankRow];
+        [self addSubview:hhLV];
+        mmLV = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(100, 412, 60, 40) AndListOfValues:mmArray];
+        [mmLV overrideTheWidth:60.0];
+        [mmLV removeBlankRow];
+        [self addSubview:mmLV];
+        
+        UILabel *colon = [[UILabel alloc] initWithFrame:CGRectMake(94, 424, 10, 32)];
+        [colon setText:@":"];
+        [colon setTextAlignment:NSTextAlignmentCenter];
+        [colon setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:24]];
+        [self addSubview:colon];
+        
+        NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+        [outputFormatter setDateFormat:@"HH:mm:ss"];
+        NSString *currentTimeString = [outputFormatter stringFromDate:[NSDate date]];
+        NSArray *currentTimeArray = [currentTimeString componentsSeparatedByString:@":"];
+        
+        NSArray *dtComponents = [dateField.text componentsSeparatedByString:@" "];
+        if ([dtComponents count] > 1)
+        {
+            NSString *hhmm = [dtComponents objectAtIndex:1];
+            NSArray *hhmmComponents = [hhmm componentsSeparatedByString:@":"];
+            if ([hhmmComponents count] > 1)
+            {
+                @try {
+                    [hhLV assignValue:[hhmmComponents objectAtIndex:0]];
+                    [mmLV assignValue:[hhmmComponents objectAtIndex:1]];
+                } @catch (NSException *exception) {
+                    if ([currentTimeArray count] > 1)
+                    {
+                        [hhLV assignValue:[currentTimeArray objectAtIndex:0]];
+                        [mmLV assignValue:[currentTimeArray objectAtIndex:1]];
+                    }
+                    else
+                    {
+                        [hhLV assignValue:@"00"];
+                        [mmLV assignValue:@"00"];
+                    }
+                } @finally {
+                    //
+                }
+            }
+            else
+            {
+                if ([currentTimeArray count] > 1)
+                {
+                    [hhLV assignValue:[currentTimeArray objectAtIndex:0]];
+                    [mmLV assignValue:[currentTimeArray objectAtIndex:1]];
+                }
+                else
+                {
+                    [hhLV assignValue:@"00"];
+                    [mmLV assignValue:@"00"];
+                }
+            }
+        }
+        else
+        {
+            if ([currentTimeArray count] > 1)
+            {
+                [hhLV assignValue:[currentTimeArray objectAtIndex:0]];
+                [mmLV assignValue:[currentTimeArray objectAtIndex:1]];
+            }
+            else
+            {
+                [hhLV assignValue:@"00"];
+                [mmLV assignValue:@"00"];
+            }
+        }
+    }
     return self;
 }
 
@@ -208,6 +302,10 @@
 
 - (void)removeSelfFromSuperview
 {
+    if (hhLV && mmLV && [[self.dateField text] length] > 0 && [[[self.dateField text] componentsSeparatedByString:@" "] count] == 1)
+    {
+        [self.dateField setText:[NSString stringWithFormat:@"%@ %@:%@", [self.dateField text], [hhLV epiInfoControlValue], [mmLV epiInfoControlValue]]];
+    }
     CGRect finalFrame = CGRectMake(self.frame.origin.x, self.frame.origin.y - self.frame.size.height, self.frame.size.width, self.frame.size.height);
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [self setFrame:finalFrame];

@@ -435,7 +435,7 @@
     }
     
     [cell.textLabel setText:[NSString stringWithFormat:@"%@", [listOfValues objectAtIndex:indexPath.row]]];
-    if (indexPath.row == 0)
+    if (indexPath.row == 0 && !noBlankRow)
         [cell.textLabel setText:@""];
     [cell.textLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
     [cell.textLabel setNumberOfLines:0];
@@ -506,6 +506,29 @@
     for (UIView *v in [valueButtonView subviews])
         [v removeFromSuperview];
     [valueButtonView removeFromSuperview];
+}
+
+- (void)removeTheArrow
+{
+    for (UIView *ob in [self.valueButton subviews])
+    {
+        if ([ob isKindOfClass:[DownTriangle class]])
+        {
+            [ob removeFromSuperview];
+            return;
+        }
+    }
+}
+- (void)overrideTheWidth:(float)w
+{
+    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, w, self.frame.size.height)];
+    [self.valueButton setFrame:CGRectMake(self.valueButton.frame.origin.x, self.valueButton.frame.origin.y, w, self.valueButton.frame.size.height)];
+    [self removeTheArrow];
+}
+- (void)removeBlankRow
+{
+    [listOfValues removeObjectAtIndex:0];
+    noBlankRow = YES;
 }
 
 /*
