@@ -19,8 +19,11 @@
     LegalValuesEnter *hhLV;
     LegalValuesEnter *mmLV;
     BOOL dmy;
+    UIViewController *rootViewController;
 }
 @property UITextField *dateField;
 -(id)initWithFrame:(CGRect)frame AndDateField:(UITextField *)dateField;
 -(void)removeSelfFromSuperview;
+-(void)setRootViewController:(UIViewController *)rvc;
+-(UIViewController *)rootViewController;
 @end

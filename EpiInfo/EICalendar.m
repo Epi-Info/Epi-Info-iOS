@@ -363,6 +363,13 @@
         if ([selectedDate compare:((DateField *)self.dateField).lower] == NSOrderedAscending ||
             [selectedDate compare:((DateField *)self.dateField).upper] == NSOrderedDescending)
         {
+            if (dmy)
+                [dateFormat setDateFormat:@"yyyy-dd-MM"];
+            UIAlertController *alertM = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"Date must be between %@ and %@.", [dateFormat stringFromDate:((DateField *)self.dateField).lower], [dateFormat stringFromDate:((DateField *)self.dateField).upper]] preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            }];
+            [alertM addAction:okAction];
+            [[((DatePicker *)self.datePickerView) rootViewController] presentViewController:alertM animated:YES completion:nil];
             return;
         }
     }

@@ -13,6 +13,15 @@
 @implementation DatePicker
 @synthesize dateField = _dateField;
 
+- (void)setRootViewController:(UIViewController *)rvc
+{
+    rootViewController = rvc;
+}
+- (UIViewController *)rootViewController
+{
+    return rootViewController;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

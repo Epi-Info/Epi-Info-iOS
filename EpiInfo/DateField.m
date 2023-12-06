@@ -21,6 +21,7 @@
 @synthesize elementLabel = _elementLabel;
 @synthesize lower = _lower;
 @synthesize upper = _upper;
+@synthesize rootViewController = _rootViewController;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -111,6 +112,7 @@
     CGRect initialframe = CGRectMake(finalFrame.origin.x, finalFrame.origin.y - finalFrame.size.height, finalFrame.size.width, finalFrame.size.height);
     
     dp = [[DatePicker alloc] initWithFrame:initialframe AndDateField:self];
+    [dp setRootViewController:[self rootViewController]];
     [[[[self superview] superview] superview] addSubview:dp];
     [self resignFirstResponder];
     

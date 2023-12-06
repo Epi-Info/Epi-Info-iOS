@@ -17,6 +17,7 @@
 @property UILabel *elementLabel;
 @property NSDate *lower;
 @property NSDate *upper;
+@property UIViewController *rootViewController;
 -(void)setFormFieldValue:(NSString *)formFieldValue;
 -(void)reset;
 @end

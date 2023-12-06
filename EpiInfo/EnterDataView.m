@@ -6845,6 +6845,7 @@
                         NSDate *upperDate = [dateFormat dateFromString:[attributeDict objectForKey:@"Upper"]];
                         [tf setUpper:upperDate];
                     }
+                    [tf setRootViewController:self.rootViewController];
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
                     {
                         [tf setFrame:CGRectMake(40, tf.frame.origin.y, MIN(1.5 * tf.frame.size.width, formCanvas.frame.size.width - 80), 40)];
