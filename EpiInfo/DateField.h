@@ -15,6 +15,8 @@
 @property UITextField *mirroringMe;
 @property NSNumber *templateFieldID;
 @property UILabel *elementLabel;
+@property NSDate *lower;
+@property NSDate *upper;
 -(void)setFormFieldValue:(NSString *)formFieldValue;
 -(void)reset;
 @end

@@ -19,6 +19,8 @@
 @synthesize templateFieldID = _templateFieldID;
 @synthesize fieldLabel = _fieldLabel;
 @synthesize elementLabel = _elementLabel;
+@synthesize lower = _lower;
+@synthesize upper = _upper;
 
 - (id)initWithFrame:(CGRect)frame
 {

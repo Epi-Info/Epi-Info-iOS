@@ -355,6 +355,18 @@
 {
     int thisday = [[[sender titleLabel] text] intValue];
     
+    if (((DateField *)self.dateField).lower)
+    {
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd"];
+        NSDate *selectedDate = [dateFormat dateFromString:[NSString stringWithFormat:@"%d-%d-%d", year, month, thisday]];
+        if ([selectedDate compare:((DateField *)self.dateField).lower] == NSOrderedAscending ||
+            [selectedDate compare:((DateField *)self.dateField).upper] == NSOrderedDescending)
+        {
+            return;
+        }
+    }
+    
     NSString *date = @"";
     
     if (dmy)
