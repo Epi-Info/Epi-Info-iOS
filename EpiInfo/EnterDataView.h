@@ -44,6 +44,7 @@
 
 @interface EnterDataView : UIScrollView <NSXMLParserDelegate, UITextFieldDelegate, CLLocationManagerDelegate, UITextViewDelegate>
 {
+    BOOL spanishLanguage;
     BOOL firstParse;
     BOOL firstElement;
     

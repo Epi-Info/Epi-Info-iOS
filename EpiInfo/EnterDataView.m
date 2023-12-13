@@ -277,6 +277,11 @@
     
     if (self)
     {
+        NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+        spanishLanguage = NO;
+        if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+            spanishLanguage = YES;
+        
         NSString *xmlString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
         if (![xmlString containsString:@"ActualPageNumber"])
         {
@@ -486,6 +491,13 @@
         //        [formCanvas setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"iPhoneDataEntryBackground.png"]]];
         //    [formCanvas setBackgroundColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:240/255.0 alpha:1.0]];
         [formCanvas setBackgroundColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0]];
+        
+        if (spanishLanguage)
+        {
+            [submitButton setAccessibilityLabel:@"Desliza hacia la izquierda o hacia la derecha para cambiar de página."];
+            [resignAllButton setAccessibilityLabel:@"Toque 4 veces para volver a la página anterior."];
+            [resignAllButtonRight setAccessibilityLabel:@"Toque 4 veces para avanzar a la página siguiente."];
+        }
     }
     
     return self;

@@ -78,6 +78,8 @@
     BOOL useCustomKeys;
     NSString *customKeyString;
     NSString *customSaltString;
+    
+    BOOL spanishLanguage;
 }
 @property NSMutableDictionary *legalValuesDictionary;
 @property FieldsAndStringValues *fieldsAndStringValues;

@@ -103,6 +103,12 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    spanishLanguage = NO;
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+        spanishLanguage = YES;
+    
     // Remove old lines from the logs.
     [EpiInfoLogManager removeOldLinesFromLogs];
 
@@ -184,6 +190,12 @@
         [backToMainMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [backToMainMenu setTitle:@"Back to previous screen"];
         [self.navigationItem setRightBarButtonItem:backToMainMenu];
+        
+        if (spanishLanguage)
+        {
+            [functionsMenu setAccessibilityLabel:@"Opciones de formulario"];
+            [backToMainMenu setAccessibilityLabel:@"Cierre"];
+        }
         
         fadingColorView = [[UIImageView alloc] initWithFrame:self.view.frame];
         [fadingColorView setImage:[UIImage imageNamed:@"iPadBackgroundWhite.png"]];
@@ -1429,6 +1441,8 @@
     [decimalSeparatorLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
     [decimalSeparatorLabel setTextAlignment:NSTextAlignmentLeft];
     [decimalSeparatorLabel setText:@"Decimal separator:"];
+    if (spanishLanguage)
+        [decimalSeparatorLabel setText:@"Separador decimal"];
     [messageView addSubview:decimalSeparatorLabel];
     
     useDotForDecimal = YES;
@@ -1443,6 +1457,8 @@
     [dotDecimalSeparatorButton.layer setMasksToBounds:YES];
     [dotDecimalSeparatorButton setTitle:@"." forState:UIControlStateNormal];
     [dotDecimalSeparatorButton setAccessibilityLabel:@"Use dot for decimal separator"];
+    if (spanishLanguage)
+        [dotDecimalSeparatorButton setAccessibilityLabel:@"Usa punto para separador decimal"];
     [dotDecimalSeparatorButton setImage:[UIImage imageNamed:@"Dot.png"] forState:UIControlStateNormal];
     [dotDecimalSeparatorButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
     [dotDecimalSeparatorButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
@@ -1462,6 +1478,8 @@
     [commaDecimalSeparatorButton.layer setMasksToBounds:YES];
     [commaDecimalSeparatorButton setTitle:@"," forState:UIControlStateNormal];
     [commaDecimalSeparatorButton setAccessibilityLabel:@"Use comma for decimal separator"];
+    if (spanishLanguage)
+        [dotDecimalSeparatorButton setAccessibilityLabel:@"Utilice coma como separador decimal"];
     [commaDecimalSeparatorButton setImage:[UIImage imageNamed:@"Comma.png"] forState:UIControlStateNormal];
     [commaDecimalSeparatorButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
     [commaDecimalSeparatorButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
@@ -1551,6 +1569,24 @@
     [self.view addSubview:dismissView];
     [self.view bringSubviewToFront:dismissView];
     
+    if (spanishLanguage)
+    {
+        [iTunesButton setTitle:@"Datos del paquete para subir a iTunes" forState:UIControlStateNormal];
+        [iTunesButton setAccessibilityLabel:@"Datos del paquete para subir a I Tunes."];
+        [emailButton setTitle:@"Empaquetar y enviar los datos por correo electrónico" forState:UIControlStateNormal];
+        [emailButton setAccessibilityLabel:@"Empaquetar y enviar los datos por correo electrónico"];
+        [yesButton setTitle:@"Cargar los datos en una nube" forState:UIControlStateNormal];
+        [yesButton setAccessibilityLabel:@"Cargar los datos en una nube"];
+        [csvButton setTitle:@"Archivo CSV de correo electrónico (no cifrado)" forState:UIControlStateNormal];
+        [csvButton setAccessibilityLabel:@"Archivo CSV de correo electrónico (no cifrado)"];
+        [noButton setTitle:@"Cancelar" forState:UIControlStateNormal];
+        [iTunesButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+        [emailButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.4]];
+        [yesButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+        [csvButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
+        [noButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    }
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 
     if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"]])
@@ -1574,14 +1610,22 @@
         if (numberOfRecordsToUpload > 0)
         {
             [areYouSure setText:[NSString stringWithFormat:@"Local table contains %d records.", numberOfRecordsToUpload]];
+            if (spanishLanguage)
+                [areYouSure setText:[NSString stringWithFormat:@"La tabla local contiene %d registros.", numberOfRecordsToUpload]];
             [emailButton setEnabled:YES];
             [yesButton setEnabled:YES];
             [noButton setTitle:@"Cancel" forState:UIControlStateNormal];
+            if (spanishLanguage)
+            {
+                [noButton setTitle:@"Cancelar" forState:UIControlStateNormal];
+            }
 //            [noButton setImage:[UIImage imageNamed:@"CancelButton.png"] forState:UIControlStateNormal];
         }
         else
         {
             [areYouSure setText:[NSString stringWithFormat:@"Local table contains no rows."]];
+            if (spanishLanguage)
+                [areYouSure setText:[NSString stringWithFormat:@"La tabla local contiene 0 registros."]];
             [emailButton setEnabled:NO];
             [yesButton setEnabled:NO];
             [noButton setTitle:@"OK" forState:UIControlStateNormal];
@@ -1890,6 +1934,8 @@
     [areYouSure setLineBreakMode:NSLineBreakByWordWrapping];
     [areYouSure setNumberOfLines:0];
     [areYouSure setText:@"Specify a password for encrypted data file:"];
+    if (spanishLanguage)
+        [areYouSure setText:@"Especificar una contraseña para el archivo de datos cifrados:"];
     [messageView addSubview:areYouSure];
     
     EpiInfoTextField *eitf = [[EpiInfoTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
@@ -1913,6 +1959,11 @@
         [packageDataButton setTitle:@"Package Data for Upload to iTunes" forState:UIControlStateNormal];
         [packageDataButton setAccessibilityLabel:@"Package for I tunes upload."];
         [packageDataButton addTarget:self action:@selector(packageDataForiTunes:) forControlEvents:UIControlEventTouchUpInside];
+        if (spanishLanguage)
+        {
+            [packageDataButton setTitle:@"Datos del paquete para subir a iTunes" forState:UIControlStateNormal];
+            [packageDataButton setAccessibilityLabel:@"Datos del paquete para subir a I Tunes."];
+        }
     }
     else
     {
@@ -1921,12 +1972,20 @@
         [packageDataButton setTitle:@"Package and Email Data" forState:UIControlStateNormal];
         [packageDataButton setAccessibilityLabel:@"Package and email"];
         [packageDataButton addTarget:self action:@selector(choiceOfKeys:) forControlEvents:UIControlEventTouchUpInside];
+        if (spanishLanguage)
+        {
+            [packageDataButton setTitle:@"Empaquetar y enviar los datos por correo electrónico" forState:UIControlStateNormal];
+            [packageDataButton setAccessibilityLabel:@"Empaquetar y enviar los datos por correo electrónico"];
+            [packageDataButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.4]];
+        }
     }
     [messageView addSubview:packageDataButton];
     
     UIButton *noButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
 //    [noButton setImage:[UIImage imageNamed:@"CancelButton.png"] forState:UIControlStateNormal];
     [noButton setTitle:@"Cancel" forState:UIControlStateNormal];
+    if (spanishLanguage)
+        [noButton setTitle:@"Cancelar" forState:UIControlStateNormal];
     [noButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
     [noButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
     [noButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];

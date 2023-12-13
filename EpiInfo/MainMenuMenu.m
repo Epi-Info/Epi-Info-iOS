@@ -22,6 +22,11 @@
     {
         [self setBackgroundColor:[UIColor whiteColor]];
         
+        NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+        spanishLanguage = NO;
+        if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+            spanishLanguage = YES;
+        
         UIView *bannerBack = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 32)];
         [bannerBack setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
         [self addSubview:bannerBack];
@@ -150,6 +155,19 @@
         [versionInfo setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [self addSubview:versionInfo];
         
+        if (spanishLanguage)
+        {
+            [item setTitle:@"Información"];
+            [back setAccessibilityLabel:@"Regresar al menú principal"];
+            [privacyPolicyButton setTitle:@"Política de privacidad" forState:UIControlStateNormal];
+            [disclaimerButton setTitle:@"Renuncia" forState:UIControlStateNormal];
+            [activityLogButton setTitle:@"Registro de actividad" forState:UIControlStateNormal];
+            [errorLogButton setTitle:@"Registro de errores" forState:UIControlStateNormal];
+            [boxLoginButton setTitle:@"Conéctese a Box" forState:UIControlStateNormal];
+            [boxLogoutButton setTitle:@"Desconectar de Box" forState:UIControlStateNormal];
+            [self.customKeysOptionButton setTitle:@"Dar opción para el cifrado personalizado" forState:UIControlStateNormal];
+        }
+        
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         {
             [privacyPolicyButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
@@ -203,9 +221,21 @@
 {
     BOOL ck = [(NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:@"customKeys"] boolValue];
     if (ck)
+    {
         [sender setTitle:@"Remove Option for Custom Encryption" forState:UIControlStateNormal];
+        if (spanishLanguage)
+        {
+            [sender setTitle:@"Eliminar la opción de cifrado personalizado" forState:UIControlStateNormal];
+        }
+    }
     else
+    {
         [sender setTitle:@"Give Option for Custom Encryption" forState:UIControlStateNormal];
+        if (spanishLanguage)
+        {
+            [sender setTitle:@"Dar opción para el cifrado personalizado" forState:UIControlStateNormal];
+        }
+    }
 }
 
 - (void)boxDisconnect:(UIButton *)sender

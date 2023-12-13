@@ -40,6 +40,8 @@
     UIBarButtonItem *deleteRecordBarButtonItem;
     
     UIImageView *touchBorderImageView;
+    
+    BOOL spanishLanguage;
 }
 -(void)setRelatedViewName:(NSString *)rvn;
 -(NSString *)relatedViewName;

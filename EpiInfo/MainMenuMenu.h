@@ -9,6 +9,9 @@
 #import "EpiInfoViewController.h"
 
 @interface MainMenuMenu : UIView
+{
+    BOOL spanishLanguage;
+}
 @property UIViewController *eivc;
 @property UIButton *customKeysOptionButton;
 -(void)setEncryptionKeysButtonTitle:(UIButton *)sender;
