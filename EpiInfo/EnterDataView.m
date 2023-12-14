@@ -369,6 +369,8 @@
         [deleteButton setBackgroundColor:[UIColor colorWithRed:3/255.0 green:36/255.0 blue:77/255.0 alpha:1.0]];
         [deleteButton.layer setCornerRadius:4.0];
         [deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+        if (spanishLanguage)
+            [deleteButton setTitle:@"Eliminar" forState:UIControlStateNormal];
         [deleteButton setImage:[UIImage imageNamed:@"DeleteButton.png"] forState:UIControlStateNormal];
         [deleteButton.layer setMasksToBounds:YES];
         [deleteButton.layer setCornerRadius:4.0];
@@ -5331,6 +5333,11 @@
 //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Submit" message:@"Submit this record?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
 //    [alert setTag:0];
     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Submit" message:@"Submit this record?" preferredStyle:UIAlertControllerStyleAlert];
+    if (spanishLanguage)
+    {
+        [alertC setTitle:@"Enviar"];
+        [alertC setMessage:@"¿Enviar este registro?"];
+    }
     UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
     }];
     [alertC addAction:noAction];
@@ -5342,9 +5349,18 @@
         UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
             [self callClearButtonPressed];
         }];
+        if (spanishLanguage)
+            yesAction = [UIAlertAction actionWithTitle:@"Sí" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                [self callClearButtonPressed];
+            }];
         [alertC addAction:yesAction];
         [alertC setTitle:@"Clear"];
         [alertC setMessage:@"Clear all fields without submitting?"];
+        if (spanishLanguage)
+        {
+            [alertC setTitle:@"Borre"];
+            [alertC setMessage:@"¿Borrar todos los campos sin enviar?"];
+        }
     }
     else if ([sender tag] == 8)
     {
@@ -5354,9 +5370,18 @@
         UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
             [self updateButtonPressed];
         }];
+        if (spanishLanguage)
+            yesAction = [UIAlertAction actionWithTitle:@"Sí" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                [self updateButtonPressed];
+            }];
         [alertC addAction:yesAction];
         [alertC setTitle:@"Update"];
         [alertC setMessage:@"Update this record?"];
+        if (spanishLanguage)
+        {
+            [alertC setTitle:@"Actualiza"];
+            [alertC setMessage:@"¿Actualizar este registro?"];
+        }
     }
     else if ([sender tag] == 7)
     {
@@ -5366,15 +5391,28 @@
         UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
             [self deleteButtonPressed];
         }];
+        if (spanishLanguage)
+            yesAction = [UIAlertAction actionWithTitle:@"Sí" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                [self deleteButtonPressed];
+            }];
         [alertC addAction:yesAction];
         [alertC setTitle:@"Delete"];
         [alertC setMessage:@"Delete this record?"];
+        if (spanishLanguage)
+        {
+            [alertC setTitle:@"Eliminar"];
+            [alertC setMessage:@"¿Eliminar este registro?"];
+        }
     }
     else
     {
         UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
             [self submitButtonPressed];
         }];
+        if (spanishLanguage)
+            yesAction = [UIAlertAction actionWithTitle:@"Sí" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                [self submitButtonPressed];
+            }];
         [alertC addAction:yesAction];
     }
 //    [alert show];

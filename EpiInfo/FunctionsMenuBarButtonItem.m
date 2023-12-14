@@ -48,6 +48,11 @@
 
 - (void)selfPressed
 {
+    NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+    spanishLanguage = NO;
+    if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+        spanishLanguage = YES;
+    
     DataEntryViewController *devc = (DataEntryViewController *)uivc;
     UIView *menuView = [[UIView alloc] initWithFrame:CGRectMake(devc.navigationController.view.frame.size.width, 30, 180, 40)];
     [menuView setBackgroundColor:[UIColor whiteColor]];
@@ -62,10 +67,14 @@
     if (scannersEnabled)
     {
         [onOffButton setTitle:@"Hide Scanners" forState:UIControlStateNormal];
+        if (spanishLanguage)
+            [onOffButton setTitle:@"Ocultar escáneres" forState:UIControlStateNormal];
     }
     else
     {
         [onOffButton setTitle:@"Show Scanners" forState:UIControlStateNormal];
+        if (spanishLanguage)
+            [onOffButton setTitle:@"Mostrar escáneres" forState:UIControlStateNormal];
     }
     [menuView addSubview:onOffButton];
     
@@ -120,6 +129,22 @@
         [getAllFromBoxButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [getAllFromBoxButton setTitle:@"Get records from Box" forState:UIControlStateNormal];
         [menuView addSubview:getAllFromBoxButton];
+        
+        if (spanishLanguage)
+        {
+            if (notwo)
+            {
+                [noValueButton setTitle:@"Box: No=0" forState:UIControlStateNormal];
+                [noValueButton setAccessibilityLabel:@"Código No, como cero, en la nube de Box"];
+            }
+            else
+            {
+                [noValueButton setTitle:@"Box: No=2" forState:UIControlStateNormal];
+                [noValueButton setAccessibilityLabel:@"Código No, como dos, en la nube de Box"];
+            }
+            [sendAllToBoxButton setTitle:@"Enviar registros a Box" forState:UIControlStateNormal];
+            [getAllFromBoxButton setTitle:@"Obtener registros de Box" forState:UIControlStateNormal];
+        }
     }
     
     [menuView setFrame:CGRectMake(menuView.frame.origin.x, menuView.frame.origin.y, menuView.frame.size.width, 40.0 * numberofbuttons + 40.0)];
@@ -132,6 +157,11 @@
     [cancelButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
     [menuView addSubview:cancelButton];
+    
+    if (spanishLanguage)
+    {
+        [cancelButton setTitle:@"Cancelar" forState:UIControlStateNormal];
+    }
     
 //    [menuView setBackgroundColor:[UIColor orangeColor]];
 

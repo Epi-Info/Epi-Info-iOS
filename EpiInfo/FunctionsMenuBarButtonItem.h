@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
     BOOL scannersEnabled;
     BOOL connectedToBox;
     BOOL notwo;
+    BOOL spanishLanguage;
 }
 @property NSMutableArray *arrayOfScannerButtons;
 -(void)setConnectedToBox:(BOOL)ctb;

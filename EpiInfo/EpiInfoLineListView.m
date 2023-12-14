@@ -17,6 +17,11 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+        BOOL spanishLanguage = NO;
+        if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+            spanishLanguage = YES;
+        
         [self setBackgroundColor:[UIColor whiteColor]];
         
         // Add label and tool banner
@@ -63,6 +68,8 @@
         [searchField setReturnKeyType:UIReturnKeyDone];
         [searchField setDelegate:self];
         [searchField setPlaceholder:@"Search"];
+        if (spanishLanguage)
+            [searchField setPlaceholder:@"Buscar"];
         [banner addSubview:searchField];
         
         // Add label to banner

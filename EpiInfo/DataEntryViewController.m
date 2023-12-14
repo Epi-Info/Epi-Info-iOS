@@ -180,6 +180,8 @@
         
         functionsMenu = [[FunctionsMenuBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"menu_lines20.png"] style:UIBarButtonItemStylePlain target:self action:@selector(functionsMenuButtonPressed:)];
         [functionsMenu setAccessibilityLabel:@"Form Options"];
+        if (spanishLanguage)
+            [functionsMenu setAccessibilityLabel:@"Opciones de formulario"];
         [functionsMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [functionsMenu setWidth:10.0];
         [functionsMenu setUIVC:self];
@@ -431,6 +433,8 @@
         
         functionsMenu = [[FunctionsMenuBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"menu_lines20.png"] style:UIBarButtonItemStylePlain target:self action:@selector(functionsMenuButtonPressed:)];
         [functionsMenu setAccessibilityLabel:@"Form, options"];
+        if (spanishLanguage)
+            [functionsMenu setAccessibilityLabel:@"Opciones de formulario"];
         [functionsMenu setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [functionsMenu setWidth:10.0];
         [functionsMenu setUIVC:self];
@@ -917,7 +921,7 @@
     [editFormButton.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
     [manageView addSubview:editFormButton];
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [manageView setFrame:CGRectMake(0, 0, self.view.frame.size.width, manageButton.frame.origin.y + manageButton.frame.size.height + 128.0)];
+        [manageView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self->manageButton.frame.origin.y + self->manageButton.frame.size.height + 128.0)];
     } completion:^(BOOL finished){
     }];
 }
@@ -986,17 +990,17 @@
     }
     
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [manageView setFrame:CGRectMake(0, -manageButton.frame.origin.y - manageButton.frame.size.height - 10.0, self.view.frame.size.width, manageButton.frame.origin.y + manageButton.frame.size.height + 10.0)];
+        [manageView setFrame:CGRectMake(0, -1 * (self->manageButton.frame.origin.y) - self->manageButton.frame.size.height - 10.0, self.view.frame.size.width, self->manageButton.frame.origin.y + self->manageButton.frame.size.height + 10.0)];
     } completion:^(BOOL finished){
         [manageView removeFromSuperview];
-        [lv reset];
+        [self->lv reset];
     }];
 }
 - (void)cancelDeleteFormPressed:(UIButton *)sender
 {
     UIView *manageView = [sender superview];
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [manageView setFrame:CGRectMake(0, -manageButton.frame.origin.y - manageButton.frame.size.height - 10.0, self.view.frame.size.width, manageButton.frame.origin.y + manageButton.frame.size.height + 10.0)];
+        [manageView setFrame:CGRectMake(0, -1 * (self->manageButton.frame.origin.y) - self->manageButton.frame.size.height - 10.0, self.view.frame.size.width, self->manageButton.frame.origin.y + self->manageButton.frame.size.height + 10.0)];
     } completion:^(BOOL finished){
         [manageView removeFromSuperview];
     }];
@@ -1130,7 +1134,7 @@
             
             if (resultsString != nil && [[resultsString substringToIndex:9] isEqualToString:@"<Template"] && [resultsString containsString:@"<Field Name="])
             {
-                NSString *formName = [lvSelected text];
+                NSString *formName = [self->lvSelected text];
                 {
                     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
                     if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]] && formName.length > 0)
@@ -1218,47 +1222,56 @@
             [closeFormBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [closeFormBarButtonItem setImageInsets:UIEdgeInsetsMake(-8, 0, 0, 0)];
             [closeFormBarButtonItem setAccessibilityLabel:@"Close Form"];
+            if (spanishLanguage)
+                [closeFormBarButtonItem setAccessibilityLabel:@"Cierre formulario"];
             [formNavigationItem setRightBarButtonItem:closeFormBarButtonItem];
             deleteRecordBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(footerBarDelete)];
-            [deleteRecordBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
-            [deleteRecordBarButtonItem setImageInsets:UIEdgeInsetsMake(-8, 20, 0, -20)];
+            [self->deleteRecordBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+            [self->deleteRecordBarButtonItem setImageInsets:UIEdgeInsetsMake(-8, 20, 0, -20)];
             UIBarButtonItem *packageDataBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(confirmUploadAllRecords)];
             [packageDataBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [packageDataBarButtonItem setImageInsets:UIEdgeInsetsMake(-8, -8, 0, 0)];
             UIBarButtonItem *recordLookupBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(lineListButtonPressed)];
             [recordLookupBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [recordLookupBarButtonItem setImageInsets:UIEdgeInsetsMake(-8, -40, 0, 0)];
-            [formNavigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:packageDataBarButtonItem, recordLookupBarButtonItem, nil]];
-            [formNavigationBar setItems:[NSArray arrayWithObject:formNavigationItem]];
-            [orangeBanner addSubview:formNavigationBar];
-            formNavigationItems = [[NSMutableArray alloc] init];
-            closeFormBarButtonItems = [[NSMutableArray alloc] init];
-            deleteRecordBarButtonItems = [[NSMutableArray alloc] init];
-            [formNavigationItems addObject:formNavigationItem];
-            [closeFormBarButtonItems addObject:closeFormBarButtonItem];
-            [deleteRecordBarButtonItems addObject:deleteRecordBarButtonItem];
+            [self->formNavigationItem setLeftBarButtonItems:[NSArray arrayWithObjects:packageDataBarButtonItem, recordLookupBarButtonItem, nil]];
+            [formNavigationBar setItems:[NSArray arrayWithObject:self->formNavigationItem]];
+            [self->orangeBanner addSubview:formNavigationBar];
+            self->formNavigationItems = [[NSMutableArray alloc] init];
+            self->closeFormBarButtonItems = [[NSMutableArray alloc] init];
+            self->deleteRecordBarButtonItems = [[NSMutableArray alloc] init];
+            [self->formNavigationItems addObject:self->formNavigationItem];
+            [self->closeFormBarButtonItems addObject:self->closeFormBarButtonItem];
+            [self->deleteRecordBarButtonItems addObject:self->deleteRecordBarButtonItem];
             
-            footerBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, viewHeight - 32.0, viewWidth, 32)];
+            self->footerBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, viewHeight - 32.0, viewWidth, 32)];
 //            [footerBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
 //            [footerBar setShadowImage:[UIImage new]];
 //            [footerBar setTranslucent:YES];
-            footerBarNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
-            submitFooterBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Submit" style:UIBarButtonItemStylePlain target:self action:@selector(footerBarSubmit)];
-            [submitFooterBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0] forKey:NSForegroundColorAttributeName] forState:UIControlStateNormal];
-            updateFooterBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Update" style:UIBarButtonItemStylePlain target:self action:@selector(footerBarUpdate)];
-            [updateFooterBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0] forKey:NSForegroundColorAttributeName] forState:UIControlStateNormal];
+            self->footerBarNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
+            self->submitFooterBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Submit" style:UIBarButtonItemStylePlain target:self action:@selector(footerBarSubmit)];
+            [self->submitFooterBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0] forKey:NSForegroundColorAttributeName] forState:UIControlStateNormal];
+            self->updateFooterBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Update" style:UIBarButtonItemStylePlain target:self action:@selector(footerBarUpdate)];
+            [self->updateFooterBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0] forKey:NSForegroundColorAttributeName] forState:UIControlStateNormal];
             UIBarButtonItem *clearFooterBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(footerBarClear)];
             [clearFooterBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0] forKey:NSForegroundColorAttributeName] forState:UIControlStateNormal];
-            [footerBarNavigationItem setRightBarButtonItem:submitFooterBarButtonItem];
-            [footerBarNavigationItem setLeftBarButtonItem:clearFooterBarButtonItem];
-            [footerBar setItems:[NSArray arrayWithObject:footerBarNavigationItem]];
-            [self.view addSubview:footerBar];
+            [self->footerBarNavigationItem setRightBarButtonItem:self->submitFooterBarButtonItem];
+            [self->footerBarNavigationItem setLeftBarButtonItem:clearFooterBarButtonItem];
+            [self->footerBar setItems:[NSArray arrayWithObject:self->footerBarNavigationItem]];
+            [self.view addSubview:self->footerBar];
+            
+            if (self->spanishLanguage)
+            {
+                [self->submitFooterBarButtonItem setTitle:@"Enviar"];
+                [self->updateFooterBarButtonItem setTitle:@"Actualizar"];
+                [clearFooterBarButtonItem setTitle:@"Claro"];
+            }
             
 //            [footerBarNavigationItem setTitle:@"Swipe to turn page."];
-            pagedots = [[PageDots alloc] initWithNumberOfDots:(int)[edv pagesArray].count AndFooterFrame:footerBar.frame];
-            arrayOfPageDots = [[NSMutableArray alloc] init];
-            [arrayOfPageDots addObject:pagedots];
-            [footerBar addSubview: (PageDots *)[arrayOfPageDots lastObject]];
+            self->pagedots = [[PageDots alloc] initWithNumberOfDots:(int)[self->edv pagesArray].count AndFooterFrame:self->footerBar.frame];
+            self->arrayOfPageDots = [[NSMutableArray alloc] init];
+            [self->arrayOfPageDots addObject:self->pagedots];
+            [self->footerBar addSubview: (PageDots *)[self->arrayOfPageDots lastObject]];
             
             UIButton *uploadButton = [[UIButton alloc] initWithFrame:CGRectMake(2, 2, 30, 30)];
             [uploadButton setBackgroundColor:[UIColor clearColor]];
@@ -1284,19 +1297,19 @@
             [lineListButton addTarget:self action:@selector(lineListButtonPressed) forControlEvents:UIControlEventTouchUpInside];
 //            [orangeBanner addSubview:lineListButton];
             
-            [edv setPageBeingDisplayed:[NSNumber numberWithInt:1]];
+            [self->edv setPageBeingDisplayed:[NSNumber numberWithInt:1]];
 //            [header setText:[NSString stringWithFormat:@"%@, page %d of %lu", [edv formName], [edv pageBeingDisplayed].intValue, (unsigned long)[edv pagesArray].count]];
-            [header setText:[NSString stringWithFormat:@"%@", [edv formName]]];
+            [header setText:[NSString stringWithFormat:@"%@", [self->edv formName]]];
             float fontSize = 28.0;
             while ([header.text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontSize]}].width > 160)
                 fontSize -= 0.1;
             [header setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:fontSize]];
             
         }
-        [edv clearButtonPressed];
+        [self->edv clearButtonPressed];
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-            [customBackButton setAlpha:0.0];
-            [backToMainMenu setEnabled:NO];
+            [self->customBackButton setAlpha:0.0];
+            [self->backToMainMenu setEnabled:NO];
             CATransform3D rotate = CATransform3DIdentity;
             rotate.m34 = 1.0 / -2000;
             rotate = CATransform3DRotate(rotate, M_PI * 0.0, 0.0, 1.0, 0.0);
@@ -1305,9 +1318,9 @@
             [alertC dismissViewControllerAnimated:YES completion:nil];
             NSThread *initRemainingEDVsThread = [[NSThread alloc] initWithTarget:self selector:@selector(initRemainingEDVs) object:nil];
             [initRemainingEDVsThread start];
-            [edv getMyLocation];
-            if (![edv superview])
-                [edv restoreToViewController];
+            [self->edv getMyLocation];
+            if (![self->edv superview])
+                [self->edv restoreToViewController];
 
             // JSON section for Box;
             NSArray *users = [BOXContentClient users];
@@ -1318,7 +1331,7 @@
                 UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Alert"
                                                                                 message:@"Box connection found. Records will be sent to Box as well as stored locally." preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                    [functionsMenu setConnectedToBox:YES];
+                    [self->functionsMenu setConnectedToBox:YES];
                 }];
                 [alertC addAction:okAction];
                 [self presentViewController:alertC animated:YES completion:nil];
@@ -1397,7 +1410,7 @@
     [self.view addSubview:eillv];
     
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [eillv setFrame:CGRectMake(0, orangeBanner.frame.origin.y, eillv.frame.size.width, eillv.frame.size.height)];
+        [eillv setFrame:CGRectMake(0, self->orangeBanner.frame.origin.y, eillv.frame.size.width, eillv.frame.size.height)];
     } completion:^(BOOL finished){
     }];
 }
@@ -1793,6 +1806,14 @@
     UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         [self dismissForm];
     }];
+    if (spanishLanguage)
+    {
+        [alertC setTitle:@"Descartar Formulario"];
+        [alertC setMessage:@"¿Descartar este formulario?"];
+        yesAction = [UIAlertAction actionWithTitle:@"Sí" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            [self dismissForm];
+        }];
+    }
     [alertC addAction:noAction];
     [alertC addAction:yesAction];
     [self presentViewController:alertC animated:YES completion:nil];
@@ -1915,6 +1936,8 @@
     if (![MFMailComposeViewController canSendMail])
     {
         UIAlertController *alertM = [UIAlertController alertControllerWithTitle:@"" message:@"The native iOS Mail app must be configured to use this feature. Use Settings, Mail, Accounts, to add a mail account." preferredStyle:UIAlertControllerStyleAlert];
+        if (spanishLanguage)
+            [alertM setMessage:@"La aplicación de correo nativa de iOS debe estar configurada para utilizar esta función. Utilice Configuración, Correo, Cuentas para agregar una cuenta de correo."];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         }];
         [alertM addAction:okAction];
@@ -4184,6 +4207,8 @@
     if (![MFMailComposeViewController canSendMail])
     {
         UIAlertController *alertM = [UIAlertController alertControllerWithTitle:@"" message:@"The native iOS Mail app must be configured to use this feature. Use Settings, Mail, Accounts, to add a mail account." preferredStyle:UIAlertControllerStyleAlert];
+        if (spanishLanguage)
+            [alertM setMessage:@"La aplicación de correo nativa de iOS debe estar configurada para utilizar esta función. Utilice Configuración, Correo, Cuentas para agregar una cuenta de correo."];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         }];
         [alertM addAction:okAction];
