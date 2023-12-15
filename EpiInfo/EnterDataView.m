@@ -1592,7 +1592,7 @@
                                 {
                                     if ([bi isKindOfClass:[BOXFolder class]])
                                     {
-                                        NSString *subfoldername = [NSString stringWithString:formName];
+                                        NSString *subfoldername = [NSString stringWithString:self->formName];
                                         NSString *eiFolderID = [bi modelID];
                                         NSLog(@"folder __EpiInfo exists with ID %@; checking for %@ folder", eiFolderID, subfoldername);
                                         BOXSearchRequest *subfolderSearchRequest = [client0 searchRequestWithQuery:subfoldername inRange:NSMakeRange(0, 1000)];
@@ -1661,7 +1661,7 @@
                             }
                             else
                             {
-                                NSString *subfoldername = [NSString stringWithString:formName];
+                                NSString *subfoldername = [NSString stringWithString:self->formName];
                                 BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:@"__EpiInfo" parentFolderID:BOXAPIFolderIDRoot];
                                 [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
                                     NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
@@ -2406,7 +2406,7 @@
                                 {
                                     if ([bi isKindOfClass:[BOXFolder class]])
                                     {
-                                        NSString *subfoldername = [NSString stringWithString:formName];
+                                        NSString *subfoldername = [NSString stringWithString:self->formName];
                                         NSString *eiFolderID = [bi modelID];
                                         NSLog(@"folder __EpiInfo exists with ID %@; checking for %@ folder", eiFolderID, subfoldername);
                                         BOXSearchRequest *subfolderSearchRequest = [client0 searchRequestWithQuery:subfoldername inRange:NSMakeRange(0, 1000)];
@@ -2475,7 +2475,7 @@
                             }
                             else
                             {
-                                NSString *subfoldername = [NSString stringWithString:formName];
+                                NSString *subfoldername = [NSString stringWithString:self->formName];
                                 BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:@"__EpiInfo" parentFolderID:BOXAPIFolderIDRoot];
                                 [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
                                     NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
@@ -2545,7 +2545,7 @@
                                 {
                                     if ([bi isKindOfClass:[BOXFolder class]])
                                     {
-                                        NSString *subfoldername = [NSString stringWithString:formName];
+                                        NSString *subfoldername = [NSString stringWithString:self->formName];
                                         NSString *eiFolderID = [bi modelID];
                                         NSLog(@"folder __EpiInfoPhotos exists with ID %@; checking for %@ folder", eiFolderID, subfoldername);
                                         BOXSearchRequest *subfolderSearchRequest = [client0 searchRequestWithQuery:subfoldername inRange:NSMakeRange(0, 1000)];
@@ -2600,7 +2600,7 @@
                             }
                             else
                             {
-                                NSString *subfoldername = [NSString stringWithString:formName];
+                                NSString *subfoldername = [NSString stringWithString:self->formName];
                                 BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:@"__EpiInfoPhotos" parentFolderID:BOXAPIFolderIDRoot];
                                 [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
                                     NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
@@ -2637,7 +2637,7 @@
                                             {
                                                 if ([bi isKindOfClass:[BOXFolder class]])
                                                 {
-                                                    NSString *subfoldername = [NSString stringWithString:formName];
+                                                    NSString *subfoldername = [NSString stringWithString:self->formName];
                                                     NSString *eiFolderID = [bi modelID];
                                                     BOXSearchRequest *subfolderSearchRequest = [client0 searchRequestWithQuery:subfoldername inRange:NSMakeRange(0, 1000)];
                                                     [subfolderSearchRequest setAncestorFolderIDs:@[eiFolderID]];
@@ -3306,7 +3306,7 @@
                                 {
                                     if ([bi isKindOfClass:[BOXFolder class]])
                                     {
-                                        NSString *subfoldername = [NSString stringWithString:formName];
+                                        NSString *subfoldername = [NSString stringWithString:self->formName];
                                         NSString *eiFolderID = [bi modelID];
                                         NSLog(@"folder __EpiInfo exists with ID %@; checking for %@ folder", eiFolderID, subfoldername);
                                         BOXSearchRequest *subfolderSearchRequest = [client0 searchRequestWithQuery:subfoldername inRange:NSMakeRange(0, 1000)];
@@ -3462,7 +3462,7 @@
                             }
                             else
                             {
-                                NSString *subfoldername = [NSString stringWithString:formName];
+                                NSString *subfoldername = [NSString stringWithString:self->formName];
                                 BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:@"__EpiInfo" parentFolderID:BOXAPIFolderIDRoot];
                                 [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
                                     NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
@@ -4215,7 +4215,7 @@
                                 {
                                     if ([bi isKindOfClass:[BOXFolder class]])
                                     {
-                                        NSString *subfoldername = [NSString stringWithString:formName];
+                                        NSString *subfoldername = [NSString stringWithString:self->formName];
                                         NSString *eiFolderID = [bi modelID];
                                         NSLog(@"folder __EpiInfo exists with ID %@; checking for %@ folder", eiFolderID, subfoldername);
                                         BOXSearchRequest *subfolderSearchRequest = [client0 searchRequestWithQuery:subfoldername inRange:NSMakeRange(0, 1000)];
@@ -4371,7 +4371,7 @@
                             }
                             else
                             {
-                                NSString *subfoldername = [NSString stringWithString:formName];
+                                NSString *subfoldername = [NSString stringWithString:self->formName];
                                 BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:@"__EpiInfo" parentFolderID:BOXAPIFolderIDRoot];
                                 [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
                                     NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
@@ -4485,7 +4485,7 @@
                                 {
                                     if ([bi isKindOfClass:[BOXFolder class]])
                                     {
-                                        NSString *subfoldername = [NSString stringWithString:formName];
+                                        NSString *subfoldername = [NSString stringWithString:self->formName];
                                         NSString *eiFolderID = [bi modelID];
                                         NSLog(@"folder __EpiInfoPhotos exists with ID %@; checking for %@ folder", eiFolderID, subfoldername);
                                         BOXSearchRequest *subfolderSearchRequest = [client0 searchRequestWithQuery:subfoldername inRange:NSMakeRange(0, 1000)];
@@ -4540,7 +4540,7 @@
                             }
                             else
                             {
-                                NSString *subfoldername = [NSString stringWithString:formName];
+                                NSString *subfoldername = [NSString stringWithString:self->formName];
                                 BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:@"__EpiInfoPhotos" parentFolderID:BOXAPIFolderIDRoot];
                                 [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
                                     NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
@@ -4577,7 +4577,7 @@
                                             {
                                                 if ([bi isKindOfClass:[BOXFolder class]])
                                                 {
-                                                    NSString *subfoldername = [NSString stringWithString:formName];
+                                                    NSString *subfoldername = [NSString stringWithString:self->formName];
                                                     NSString *eiFolderID = [bi modelID];
                                                     BOXSearchRequest *subfolderSearchRequest = [client0 searchRequestWithQuery:subfoldername inRange:NSMakeRange(0, 1000)];
                                                     [subfolderSearchRequest setAncestorFolderIDs:@[eiFolderID]];
@@ -5005,7 +5005,7 @@
                                 {
                                     if ([bi isKindOfClass:[BOXFolder class]])
                                     {
-                                        NSString *subfoldername = [NSString stringWithString:formName];
+                                        NSString *subfoldername = [NSString stringWithString:self->formName];
                                         NSString *eiFolderID = [bi modelID];
                                         NSLog(@"folder __EpiInfo exists with ID %@; checking for %@ folder", eiFolderID, subfoldername);
                                         BOXSearchRequest *subfolderSearchRequest = [client0 searchRequestWithQuery:subfoldername inRange:NSMakeRange(0, 1000)];
@@ -5115,7 +5115,7 @@
                             }
                             else
                             {
-                                NSString *subfoldername = [NSString stringWithString:formName];
+                                NSString *subfoldername = [NSString stringWithString:self->formName];
                                 BOXFolderCreateRequest *folderCreateRequest = [client0 folderCreateRequestWithName:@"__EpiInfo" parentFolderID:BOXAPIFolderIDRoot];
                                 [folderCreateRequest performRequestWithCompletion:^(BOXFolder *folder, NSError *error) {
                                     NSLog(@"folder creation request finished with folder %@, error %@", folder, error);
@@ -5730,7 +5730,7 @@
             [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
                 [self setContentSize:CGSizeMake(self.contentSize.width, self.contentSize.height - 200.0)];
             } completion:^(BOOL finished){
-                hasAFirstResponder = NO;
+                self->hasAFirstResponder = NO;
             }];
         }
         else if ([v isKindOfClass:[UITextView class]] && [v isFirstResponder])
@@ -5739,7 +5739,7 @@
             [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
                 [self setContentSize:CGSizeMake(self.contentSize.width, self.contentSize.height - 200.0)];
             } completion:^(BOOL finished){
-                hasAFirstResponder = NO;
+                self->hasAFirstResponder = NO;
             }];
         }
     }
@@ -8324,7 +8324,7 @@
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         [self setContentSize:CGSizeMake(self.contentSize.width, self.contentSize.height - 200.0)];
     } completion:^(BOOL finished){
-        hasAFirstResponder = NO;
+        self->hasAFirstResponder = NO;
     }];
     NSLog(@" ------------------------- %f, %f",self.contentSize.width, self.contentSize.height - 200.0);
     
@@ -9958,7 +9958,7 @@ newStr{
         if (dialogTitleArray.count>1) {
             defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                 dispatch_async(dispatch_get_main_queue(), ^(void){
-                    UITextField *utf = (UITextField *)[formCanvas viewWithTag:newTag];
+                    UITextField *utf = (UITextField *)[self->formCanvas viewWithTag:newTag];
                     [utf resignFirstResponder];
                     
                     [self showAlertsQueuedTag:newTag];
@@ -9971,7 +9971,7 @@ newStr{
         else
         {
             defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                UITextField *utf = (UITextField *)[formCanvas viewWithTag:newTag];
+                UITextField *utf = (UITextField *)[self->formCanvas viewWithTag:newTag];
                 [utf resignFirstResponder];
                 
                 // [self gotoField:@"before" element:[pageName lowercaseString]];

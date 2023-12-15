@@ -11,6 +11,7 @@
 
 @interface SQLTool : UIScrollView <UITextViewDelegate>
 {
+    BOOL spanishLanguage;
     UIView *sqlStatementFieldBackground;
     UITextView *sqlStatementField;
     float initialHeight;

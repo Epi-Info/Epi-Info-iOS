@@ -15,6 +15,11 @@
     
     if (self)
     {
+        NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
+        spanishLanguage = NO;
+        if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
+            spanishLanguage = YES;
+        
         initialHeight = frame.size.height;
         
         [self setBackgroundColor:[UIColor whiteColor]];
@@ -65,8 +70,16 @@
         UIButton *questionMarkButton = [[UIButton alloc] initWithFrame:CGRectMake(submitButton.frame.origin.x + submitButton.frame.size.width + 2, clearButton.frame.origin.y, clearButton.frame.size.height, clearButton.frame.size.height)];
         [questionMarkButton setImage:[UIImage imageNamed:@"QuestionMarkButton.png"] forState:UIControlStateNormal];
         [questionMarkButton addTarget:self action:@selector(questionMarkPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [questionMarkButton setAccessibilityLabel:@"SQL tool help."];
+        [questionMarkButton setAccessibilityLabel:@"sequel tool help."];
         [self addSubview:questionMarkButton];
+        
+        if (spanishLanguage)
+        {
+            [clearButton setAccessibilityLabel:@"Claro sin presentar(masculine)."];
+            [recallButton setAccessibilityLabel:@"Recordar la última declaración."];
+            [submitButton setAccessibilityLabel:@"Presentar sequel declaración"];
+            [questionMarkButton setAccessibilityLabel:@"ayuda con la herramienta sequel"];
+        }
         
         recentSubmissionsIndex = 0;
         recentSubmissions = [[NSMutableArray alloc] init];
@@ -717,6 +730,15 @@
     [instructionsText appendString:@"\n\nTouch and hold an output field's or column header's text for one second to copy its value to the clipboard."];
     [instructionsText appendString:@"\n\nUse the guid() function to generate a unique GlobalRecordID. (Note: this function generates a single value per submit so do not use when updating more than one record.)"];
     [instructionsText appendString:@"\n\nSubmit an empty statement to clear the results output."];
+    if (spanishLanguage)
+    {
+        instructionsText = [NSMutableString stringWithString:@"Deslice el dedo hacia abajo en la herramienta SQL para volver a Analizar datos."];
+        [instructionsText appendString:@"\n\nEnvíe TABLES para obtener una lista de tablas de información epigráfica en este dispositivo."];
+        [instructionsText appendString:@"\n\nEnvíe METADATA <nombre de la tabla> (o META <nombre de la tabla>) para ver las columnas, los tipos de datos y el número de filas de una tabla."];
+        [instructionsText appendString:@"\n\nMantenga pulsado el texto de un campo de salida o del encabezado de columna durante un segundo para copiar su valor en el portapapeles."];
+        [instructionsText appendString:@"\n\nUse la función guid() para generar un GlobalRecordID único. (Nota: esta función genera un único valor por envío, por lo que no la utilice cuando se actualice más de un registro.)"];
+        [instructionsText appendString:@"\n\nEnvíe una instrucción vacía para borrar la salida de los resultados."];
+    }
     [instructions setText:instructionsText];
     [whiteView addSubview:instructions];
     [instructions sizeToFit];

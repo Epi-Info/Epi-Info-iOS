@@ -1039,7 +1039,7 @@
     [button setTitle:@"  Table from Device" forState:UIControlStateNormal];
     if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
     {
-        [button setTitle:@"  Table from Device" forState:UIControlStateNormal];
+        [button setTitle:@"  Tabla del dispositivo" forState:UIControlStateNormal];
     }
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
@@ -1054,7 +1054,7 @@
     [button setTitle:@"  Use SQL Tool" forState:UIControlStateNormal];
     if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
     {
-        [button setTitle:@"  Use SQL Tool" forState:UIControlStateNormal];
+        [button setTitle:@"  Usar la herramienta SQL" forState:UIControlStateNormal];
     }
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];

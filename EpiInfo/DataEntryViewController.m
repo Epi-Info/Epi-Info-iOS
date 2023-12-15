@@ -733,10 +733,10 @@
 - (void)noFormsFound:(UILabel *)newLabel
 {
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [pickerLabel setAlpha:0.0];
+        [self->pickerLabel setAlpha:0.0];
         [newLabel setAlpha:1.0];
-        [openButton setEnabled:NO];
-        [manageButton setEnabled:NO];
+        [self->openButton setEnabled:NO];
+        [self->manageButton setEnabled:NO];
     } completion:^(BOOL finished){
     }];
 }
@@ -837,20 +837,20 @@
             break;
     }
     [self dismissViewControllerAnimated:YES completion:^{
-        if (useCustomKeys)
+        if (self->useCustomKeys)
         {
-            useCustomKeys = NO;
+            self->useCustomKeys = NO;
             MFMailComposeViewController *keysComposer = [[MFMailComposeViewController alloc] init];
             [keysComposer setMailComposeDelegate:self];
             [keysComposer setSubject:@"Epi Info Data Additional Information"];
-            [keysComposer setMessageBody:[NSString stringWithFormat:@"Python decryption:\ninitVector = '%@'\npasswordSalt = '%@'", customKeyString, customSaltString] isHTML:NO];
+            [keysComposer setMessageBody:[NSString stringWithFormat:@"Python decryption:\ninitVector = '%@'\npasswordSalt = '%@'", self->customKeyString, self->customSaltString] isHTML:NO];
             [self presentViewController:keysComposer animated:YES completion:^(void){
-                mailComposerShown = YES;
+                self->mailComposerShown = YES;
                 dispatch_async(dispatch_get_main_queue(), ^{
                 });
             }];
-            customKeyString = @"";
-            customSaltString = @"";
+            self->customKeyString = @"";
+            self->customSaltString = @"";
         }
     }];
     mailComposerShown = NO;
@@ -1153,44 +1153,44 @@
         if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"]])
         {
             [self setDidShowProjectTemplateWarning:NO];
-            [pickerLabel setHidden:YES];
-            [lv setHidden:YES];
-            [openButton setHidden:YES];
-            [manageButton setHidden:YES];
-            [googleSheetButton setHidden:YES];
-            [formDesignerButton setHidden:YES];
+            [self->pickerLabel setHidden:YES];
+            [self->lv setHidden:YES];
+            [self->openButton setHidden:YES];
+            [self->manageButton setHidden:YES];
+            [self->googleSheetButton setHidden:YES];
+            [self->formDesignerButton setHidden:YES];
 
-            orangeBannerBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 36)];
-            [orangeBannerBackground setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
-            [self.view addSubview:orangeBannerBackground];
+            self->orangeBannerBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 36)];
+            [self->orangeBannerBackground setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
+            [self.view addSubview:self->orangeBannerBackground];
             
-            NSString *path = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/"] stringByAppendingString:lvSelected.text] stringByAppendingString:@".xml"];
+            NSString *path = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms/"] stringByAppendingString:self->lvSelected.text] stringByAppendingString:@".xml"];
             NSURL *url = [NSURL fileURLWithPath:path];
             self.fieldsAndStringValues = [[FieldsAndStringValues alloc] init];
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
             {
-                edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, self.view.frame.size.height) AndURL:url AndRootViewController:self AndNameOfTheForm:lvSelected.text AndPageToDisplay:(int)[sender tag]];
-                orangeBanner = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, 36)];
+                self->edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, self.view.frame.size.height) AndURL:url AndRootViewController:self AndNameOfTheForm:self->lvSelected.text AndPageToDisplay:(int)[sender tag]];
+                self->orangeBanner = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, 36)];
             }
             else
             {
-                edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, 320, 506) AndURL:url AndRootViewController:self AndNameOfTheForm:lvSelected.text AndPageToDisplay:(int)[sender tag]];
-                orangeBanner = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 36)];
+                self->edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, 0, 320, 506) AndURL:url AndRootViewController:self AndNameOfTheForm:self->lvSelected.text AndPageToDisplay:(int)[sender tag]];
+                self->orangeBanner = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 36)];
             }
-            [edv setMyOrangeBanner:orangeBanner];
-            [self.view addSubview:edv];
-            [self.view bringSubviewToFront:edv];
+            [self->edv setMyOrangeBanner:self->orangeBanner];
+            [self.view addSubview:self->edv];
+            [self.view bringSubviewToFront:self->edv];
             
             [self activateFunctionsMenu:YES];
             
-            [orangeBanner setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:0.95]];
-            [self.view addSubview:orangeBanner];
+            [self->orangeBanner setBackgroundColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:0.95]];
+            [self.view addSubview:self->orangeBanner];
             
             UILabel *header = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, viewWidth - 120.0, 34)];
             [header setBackgroundColor:[UIColor clearColor]];
             [header setTextColor:[UIColor whiteColor]];
             [header setTextAlignment:NSTextAlignmentCenter];
-            [orangeBanner addSubview:header];
+            [self->orangeBanner addSubview:header];
             
             UIButton *xButton = [[UIButton alloc] initWithFrame:CGRectMake(viewWidth - 32.0, 2, 30, 30)];
             [xButton setBackgroundColor:[UIColor clearColor]];
@@ -1213,19 +1213,19 @@
             NSString *platform = [NSString stringWithUTF8String:machine];
             if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad &&([platform isEqualToString:@"iPad2,5"] || [platform isEqualToString:@"iPad2,6"] || [platform isEqualToString:@"iPad2,7"]))
                 formNavigationBarY = 12.0;
-            UINavigationBar *formNavigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, formNavigationBarY, orangeBanner.frame.size.width, orangeBanner.frame.size.height - 4)];
+            UINavigationBar *formNavigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, formNavigationBarY, self->orangeBanner.frame.size.width, self->orangeBanner.frame.size.height - 4)];
             [formNavigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
             [formNavigationBar setShadowImage:[UIImage new]];
             [formNavigationBar setTranslucent:YES];
-            formNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
-            closeFormBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(confirmDismissal)];
-            [closeFormBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
-            [closeFormBarButtonItem setImageInsets:UIEdgeInsetsMake(-8, 0, 0, 0)];
-            [closeFormBarButtonItem setAccessibilityLabel:@"Close Form"];
-            if (spanishLanguage)
-                [closeFormBarButtonItem setAccessibilityLabel:@"Cierre formulario"];
-            [formNavigationItem setRightBarButtonItem:closeFormBarButtonItem];
-            deleteRecordBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(footerBarDelete)];
+            self->formNavigationItem = [[UINavigationItem alloc] initWithTitle:@""];
+            self->closeFormBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(confirmDismissal)];
+            [self->closeFormBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+            [self->closeFormBarButtonItem setImageInsets:UIEdgeInsetsMake(-8, 0, 0, 0)];
+            [self->closeFormBarButtonItem setAccessibilityLabel:@"Close Form"];
+            if (self->spanishLanguage)
+                [self->closeFormBarButtonItem setAccessibilityLabel:@"Cierre formulario"];
+            [self->formNavigationItem setRightBarButtonItem:self->closeFormBarButtonItem];
+            self->deleteRecordBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(footerBarDelete)];
             [self->deleteRecordBarButtonItem setTintColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
             [self->deleteRecordBarButtonItem setImageInsets:UIEdgeInsetsMake(-8, 20, 0, -20)];
             UIBarButtonItem *packageDataBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(confirmUploadAllRecords)];
@@ -1758,24 +1758,23 @@
 //        [yesButton setEnabled:NO];
 //        reachability = [Reachability reachabilityWithHostName:@"www.cdc.gov"];
 //    }
-    NetworkStatus *remoteHostStatus = [reachability currentReachabilityStatus];
-    if (remoteHostStatus == NotReachable)
+    
+    if ([reachability currentReachabilityStatus] == NotReachable)
     {
-//        NSLog(@"%@", [[self.epiinfoService.applicationURL substringToIndex:self.epiinfoService.applicationURL.length - 1] substringFromIndex:8]);
         [areYouSure setText:[areYouSure.text stringByAppendingString:@"\nNo internet connection. Cannot upload or email records at this time."]];
         [emailButton setEnabled:NO];
         [yesButton setEnabled:NO];
         [noButton setTitle:@"OK" forState:UIControlStateNormal];
 //        [noButton setImage:[UIImage imageNamed:@"OKButton.png"] forState:UIControlStateNormal];
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-            [dismissView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+            [self->dismissView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
         } completion:^(BOOL finished){
         }];
         return;
     }
     
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [dismissView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        [self->dismissView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     } completion:^(BOOL finished){
     }];
 }
@@ -1912,13 +1911,13 @@
 {
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
 //        [dismissView setFrame:CGRectMake(288, 2, 30, 30)];
-        [dismissView setFrame:CGRectMake(0, -self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
+        [self->dismissView setFrame:CGRectMake(0, -self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
 //        for (UIView *v in [dismissView subviews])
 //            [v setFrame:CGRectMake(0, 0, 30, 30)];
     } completion:^(BOOL finished){
-        [dismissView removeFromSuperview];
-        dismissView = nil;
-        mailComposerShown = NO;
+        [self->dismissView removeFromSuperview];
+        self->dismissView = nil;
+        self->mailComposerShown = NO;
     }];
 }
 
@@ -2019,11 +2018,11 @@
     [messageView addSubview:noButton];
 
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [messageView setFrame:CGRectMake(10, 10, 300, openButton.frame.origin.y + openButton.frame.size.height + 90.0)];
+        [messageView setFrame:CGRectMake(10, 10, 300, self->openButton.frame.origin.y + self->openButton.frame.size.height + 90.0)];
         [areYouSure setFrame:CGRectMake(10, 10, 280, 96)];
         [eitf setFrame:CGRectMake(2, 96, 296, 40)];
-        [packageDataButton setFrame:CGRectMake(1, openButton.frame.origin.y + 42.0 - openButton.frame.size.height, 298, 40)];
-        [noButton setFrame:CGRectMake(messageView.frame.size.width / 2.0 -  openButton.frame.size.width / 2.0, openButton.frame.origin.y + 46.0, openButton.frame.size.width, openButton.frame.size.height)];
+        [packageDataButton setFrame:CGRectMake(1, self->openButton.frame.origin.y + 42.0 - self->openButton.frame.size.height, 298, 40)];
+        [noButton setFrame:CGRectMake(messageView.frame.size.width / 2.0 -  self->openButton.frame.size.width / 2.0, self->openButton.frame.origin.y + 46.0, self->openButton.frame.size.width, self->openButton.frame.size.height)];
     } completion:^(BOOL finished){
     }];
 }
@@ -2038,11 +2037,11 @@
     }
     UIAlertController *chooseKeys = [UIAlertController alertControllerWithTitle:@"Choose Encryption Keys" message:@"Use Standard Keys if destination is Epi Info for Windows or another iOS device. Use Custom Keys if destination is Python." preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *standard = [UIAlertAction actionWithTitle:@"Standard Keys" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        useCustomKeys = NO;
+        self->useCustomKeys = NO;
         [self packageAndEmailData:sender];
     }];
     UIAlertAction *custom = [UIAlertAction actionWithTitle:@"Custom Keys" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        useCustomKeys = YES;
+        self->useCustomKeys = YES;
         [self packageAndEmailData:sender];
     }];
     [chooseKeys addAction:standard];
@@ -3065,12 +3064,12 @@
         [feedbackView setBackgroundColor:[UIColor clearColor]];
         [feedbackView setBlurTintColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0]];
         [feedbackView.layer setCornerRadius:10.0];
-        [dismissView addSubview:feedbackView];
+        [self->dismissView addSubview:feedbackView];
         UIActivityIndicatorView *uiavPackage = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(140, 280, 20, 20)];
         [feedbackView addSubview:uiavPackage];
         [uiavPackage setColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
         [uiavPackage startAnimating];
-        [dismissView bringSubviewToFront:feedbackView];
+        [self->dismissView bringSubviewToFront:feedbackView];
         
         feedbackView.percentLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 280, 40)];
         [feedbackView.percentLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:24]];
@@ -3575,7 +3574,7 @@
             [composer setSubject:@"Epi Info Data"];
             [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
             [self presentViewController:composer animated:YES completion:^(void){
-                mailComposerShown = YES;
+                self->mailComposerShown = YES;
             }];
             //            free(buffer);
             [self dismissPrePackageDataView:sender];
@@ -3603,7 +3602,7 @@
         [composer setSubject:@"Epi Info Data"];
         [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
         [self presentViewController:composer animated:YES completion:^(void){
-            mailComposerShown = YES;
+            self->mailComposerShown = YES;
         }];
     }
 }
@@ -4151,7 +4150,7 @@
             [composer setSubject:@"Epi Info Data"];
             [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
             [self presentViewController:composer animated:YES completion:^(void){
-                mailComposerShown = YES;
+                self->mailComposerShown = YES;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (feedbackView)
                     {
@@ -4188,7 +4187,7 @@
         [composer setSubject:@"Epi Info Data"];
         [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
         [self presentViewController:composer animated:YES completion:^(void){
-            mailComposerShown = YES;
+            self->mailComposerShown = YES;
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (feedbackView)
                 {
@@ -4512,7 +4511,7 @@
             [composer setSubject:@"Epi Info Data"];
             [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
             [self presentViewController:composer animated:YES completion:^(void){
-                mailComposerShown = YES;
+                self->mailComposerShown = YES;
             }];
             return;
         }
@@ -4735,7 +4734,7 @@
                 NSString *requestReply = [[NSString alloc] initWithData:getData encoding:NSASCIIStringEncoding];
                 if (error)
                 {
-                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not read table %@. ERROR=%@ getRequest absoluteString=%@\n", [NSDate date], edv.formName, error, [getRequest.URL absoluteString]]];
+                    [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: AZURE BATCH UPLOAD: Could not read table %@. ERROR=%@ getRequest absoluteString=%@\n", [NSDate date], self->edv.formName, error, [getRequest.URL absoluteString]]];
                 }
                 else if ([requestReply containsString:guidValue])
                 {
@@ -4875,31 +4874,31 @@
         rotate = CATransform3DRotate(rotate, M_PI * 0.5, 0.0, 1.0, 0.0);
         [self.view.layer setTransform:rotate];
     } completion:^(BOOL finished){
-        [pickerLabel setHidden:NO];
-        [lv setHidden:NO];
-        [openButton setHidden:NO];
-        [manageButton setHidden:NO];
-        [googleSheetButton setHidden:NO];
-        [formDesignerButton setHidden:NO];
+        [self->pickerLabel setHidden:NO];
+        [self->lv setHidden:NO];
+        [self->openButton setHidden:NO];
+        [self->manageButton setHidden:NO];
+        [self->googleSheetButton setHidden:NO];
+        [self->formDesignerButton setHidden:NO];
         
-        for (UIView *v in [dismissView subviews])
+        for (UIView *v in [self->dismissView subviews])
         {
             if ([v isKindOfClass:[UIImageView class]])
                 [(UIImageView *)v setImage:nil];
             [v removeFromSuperview];
         }
-        [dismissView removeFromSuperview];
-        dismissView = nil;
-        if ([edv.updateLocationThread isExecuting])
-            [edv.updateLocationThread cancel];
-        [edv removeFromSuperview];
-        edv = nil;
+        [self->dismissView removeFromSuperview];
+        self->dismissView = nil;
+        if ([(self->edv).updateLocationThread isExecuting])
+            [(self->edv).updateLocationThread cancel];
+        [self->edv removeFromSuperview];
+        self->edv = nil;
         self.fieldsAndStringValues.nsmd = nil;
-        [orangeBannerBackground removeFromSuperview];
-        [orangeBanner removeFromSuperview];
-        [footerBar removeFromSuperview];
-        footerBar = nil;
-        orangeBanner = nil;
+        [self->orangeBannerBackground removeFromSuperview];
+        [self->orangeBanner removeFromSuperview];
+        [self->footerBar removeFromSuperview];
+        self->footerBar = nil;
+        self->orangeBanner = nil;
         
         for (UIView *v in [self.view subviews])
             if ([v isKindOfClass:[BlurryView class]] || [v isKindOfClass:[EnterDataView class]])
@@ -4912,8 +4911,8 @@
         rotate = CATransform3DRotate(rotate, M_PI * 1.5, 0.0, 1.0, 0.0);
         [self.view.layer setTransform:rotate];
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-            [customBackButton setAlpha:1.0];
-            [backToMainMenu setEnabled:YES];
+            [self->customBackButton setAlpha:1.0];
+            [self->backToMainMenu setEnabled:YES];
             CATransform3D rotate = CATransform3DIdentity;
             rotate.m34 = 1.0 / -2000;
             rotate = CATransform3DRotate(rotate, M_PI * 0.0, 0.0, 1.0, 0.0);
