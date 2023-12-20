@@ -714,7 +714,7 @@
                 {
                     if ([bi isKindOfClass:[BOXFolder class]])
                     {
-                        NSString *subfoldername = [NSString stringWithString:formName];
+                        NSString *subfoldername = [NSString stringWithString:self->formName];
                         NSString *eiFolderID = [bi modelID];
                         BOXSearchRequest *subfolderSearchRequest = [client0 searchRequestWithQuery:subfoldername inRange:NSMakeRange(0, 1000)];
                         [subfolderSearchRequest setAncestorFolderIDs:@[eiFolderID]];
@@ -752,9 +752,10 @@
                                                         {
                                                             [boxDictionary setObject:[boxDictionary0 objectForKey:key] forKey:[key lowercaseString]];
                                                         }
+                                                        BOOL formHasImages = NO;
                                                         if ([boxDictionary objectForKey:@"id"])
                                                         {
-                                                            NSString *deleteStatement = [NSString stringWithFormat:@"delete from %@", formName];
+                                                            NSString *deleteStatement = [NSString stringWithFormat:@"delete from %@", self->formName];
                                                             deleteStatement = [deleteStatement stringByAppendingString:[NSString stringWithFormat:@"\nwhere GlobalRecordID = '%@'", [boxDictionary objectForKey:@"id"]]];
                                                             const char *dbpath = [databasePath UTF8String];
                                                             sqlite3 *epiinfoboxDB;
@@ -943,6 +944,22 @@
                                                                         insertStatement = [insertStatement stringByAppendingString:[(UppercaseTextField *)v columnName]];
                                                                         valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", valueFromBoxDictionary]];
                                                                     }
+                                                                    else if ([v isKindOfClass:[EpiInfoImageField class]])
+                                                                    {
+                                                                        formHasImages = YES;
+                                                                        if (valuesClauseBegun)
+                                                                        {
+                                                                            insertStatement = [insertStatement stringByAppendingString:@",\n"];
+                                                                            valuesClause = [valuesClause stringByAppendingString:@",\n"];
+                                                                        }
+                                                                        valuesClauseBegun = YES;
+                                                                        insertStatement = [insertStatement stringByAppendingString:[(EpiInfoTextField *)v columnName]];
+                                                                        if ([[valueFromBoxDictionary lowercaseString] containsString:@"sdcard"])
+                                                                            valueFromBoxDictionary = [[valueFromBoxDictionary componentsSeparatedByString:@"/"] lastObject];
+                                                                        if ([[valueFromBoxDictionary lowercaseString] containsString:@".jpg"])
+                                                                            valueFromBoxDictionary = [valueFromBoxDictionary substringToIndex:[[valueFromBoxDictionary lowercaseString] rangeOfString:@".jpg"].location];
+                                                                        valuesClause = [valuesClause stringByAppendingString:[NSString stringWithFormat:@"'%@'", valueFromBoxDictionary]];
+                                                                    }
                                                                 }
                                                             }
                                                             insertStatement = [insertStatement stringByAppendingString:@")"];
@@ -973,8 +990,8 @@
                                                         }
                                                         else
                                                         {
-                                                             [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box record without ID variable found in %@ table.\n", [NSDate date], formName]];
-                                                            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Box record without ID variable found in %@ table.\n", [NSDate date], formName]];
+                                                            [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box record without ID variable found in %@ table.\n", [NSDate date], self->formName]];
+                                                            [EpiInfoLogManager addToErrorLog:[NSString stringWithFormat:@"%@:: Box record without ID variable found in %@ table.\n", [NSDate date], self->formName]];
                                                         }
                                                         });
                                                     }];
@@ -1002,6 +1019,77 @@
             else
             {
                 [EpiInfoLogManager addToActivityLog:[NSString stringWithFormat:@"%@:: Box folder %@ not found.\n", [NSDate date], formName]];
+            }
+        }];
+        BOXSearchRequest *photoSearchRequest = [client0 searchRequestWithQuery:@"__EpiInfoPhotos" inRange:NSMakeRange(0, 1000)];
+        [photoSearchRequest setType:@"folder"];
+        [photoSearchRequest setContentTypes:@[@"name"]];
+        [photoSearchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *photoitems, NSUInteger totalPhotoCount, NSRange photorange, NSError *photoerror)
+         {
+            if ([photoitems count] > 0)
+            {
+                for (BOXItem *bi in photoitems)
+                {
+                    if ([bi isKindOfClass:[BOXFolder class]])
+                    {
+                        NSString *subfoldername = [NSString stringWithString:self->formName];
+                        NSString *eiFolderID = [bi modelID];
+                        BOXSearchRequest *subfolderSearchRequest = [client0 searchRequestWithQuery:subfoldername inRange:NSMakeRange(0, 1000)];
+                        [subfolderSearchRequest setAncestorFolderIDs:@[eiFolderID]];
+                        [searchRequest setType:@"folder"];
+                        [subfolderSearchRequest setContentTypes:@[@"name"]];
+                        [subfolderSearchRequest performRequestWithCompletion:^(NSArray<BOXItem *> *sitems, NSUInteger totalCount, NSRange range, NSError *error)
+                        {
+                            if ([sitems count] > 0)
+                            {
+                                for (BOXItem *bi in sitems)
+                                {
+                                    if ([bi isKindOfClass:[BOXFolder class]])
+                                    {
+                                        NSString *folderID = [bi modelID];
+                                        BOXFolderItemsRequest *listAllInFolder = [client0 folderItemsRequestWithID:folderID];
+                                        [listAllInFolder performRequestWithCompletion:^(NSArray<BOXItem *> *folderItems, NSError *error)
+                                        {
+                                            if ([folderItems count] > 0)
+                                            {
+                                                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                                                if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository"]])
+                                                {
+                                                    if (![[NSFileManager defaultManager] fileExistsAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:self->formName]])
+                                                    {
+                                                        [[NSFileManager defaultManager] createDirectoryAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:self->formName] withIntermediateDirectories:NO attributes:nil error:nil];
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    [[NSFileManager defaultManager] createDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] withIntermediateDirectories:NO attributes:nil error:nil];
+                                                    [[NSFileManager defaultManager] createDirectoryAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:self->formName] withIntermediateDirectories:NO attributes:nil error:nil];
+                                                }
+                                                if ([[NSFileManager defaultManager] fileExistsAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:self->formName]])
+                                                {
+                                                    for (int fi = 0; fi < [folderItems count]; fi++)
+                                                    {
+                                                        NSOutputStream *fileOutputStream = [NSOutputStream outputStreamToMemory];
+                                                        BOXFileDownloadRequest *downloadRequest = [client0 fileDownloadRequestWithID:[(BOXFile *)[folderItems objectAtIndex:fi] modelID] toOutputStream:fileOutputStream];
+                                                        [downloadRequest performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+                                                            //
+                                                        } completion:^(NSError *error) {
+                                                            [fileOutputStream open];
+                                                            NSData *binaryImageData = [fileOutputStream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
+                                                            NSString *imageFileToWrite = [[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:self->formName] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [(BOXFile *)[folderItems objectAtIndex:fi] name]]];
+                                                            [binaryImageData writeToFile:imageFileToWrite atomically:YES];
+                                                            [fileOutputStream close];
+                                                        }];
+                                                    }
+                                                }
+                                            }
+                                        }];
+                                    }
+                                }
+                            }
+                        }];
+                    }
+                }
             }
         }];
     }
