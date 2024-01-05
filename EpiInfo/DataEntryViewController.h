@@ -19,6 +19,7 @@
 #import "EpiInfoLogManager.h"
 #import "EncryptionDecryptionKeys.h"
 #import "FunctionsMenuBarButtonItem.h"
+#import "SendImagesCaller.h"
 #import <CoreImage/CoreImage.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import <CommonCrypto/CommonCrypto.h>
@@ -80,6 +81,8 @@
     NSString *customSaltString;
     
     BOOL spanishLanguage;
+    
+    SendImagesCaller *sendimagescaller;
 }
 @property NSMutableDictionary *legalValuesDictionary;
 @property FieldsAndStringValues *fieldsAndStringValues;

@@ -9,6 +9,7 @@
 #import "BlurryView.h"
 #import "FeedbackView.h"
 #import "Reachability.h"
+#import "SendImagesCaller.h"
 #import "sqlite3.h"
 #import "EncryptionDecryptionKeys.h"
 #import <CoreImage/CoreImage.h>
@@ -42,6 +43,8 @@
     UIImageView *touchBorderImageView;
     
     BOOL spanishLanguage;
+    
+    SendImagesCaller *sendimagescaller;
 }
 -(void)setRelatedViewName:(NSString *)rvn;
 -(NSString *)relatedViewName;

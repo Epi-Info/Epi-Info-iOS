@@ -610,6 +610,36 @@
     [noButton addTarget:self action:@selector(doNotDismiss) forControlEvents:UIControlEventTouchUpInside];
     [messageView addSubview:noButton];
     
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSArray *ls = [[NSArray alloc] init];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:((EnterDataView *)edv).formName]])
+    {
+        ls = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:((EnterDataView *)edv).formName] error:nil];
+    }
+    if ([ls count] > 0)
+    {
+        NSLog(@"%@ has %lu image files", ((EnterDataView *)edv).formName, (unsigned long)[ls count]);
+        [messageView setFrame:CGRectMake(messageView.frame.origin.x, messageView.frame.origin.y, messageView.frame.size.width, messageView.frame.size.height + noButton.frame.size.height + 2.0)];
+        [noButton setFrame:CGRectMake(noButton.frame.origin.x, noButton.frame.origin.y + noButton.frame.size.height + 2.0, noButton.frame.size.width, noButton.frame.size.height)];
+        
+        UIButton *imagesButton = [[UIButton alloc] initWithFrame:CGRectMake(csvButton.frame.origin.x, csvButton.frame.origin.y + csvButton.frame.size.height + 2.0, csvButton.frame.size.width, csvButton.frame.size.height)];
+        [imagesButton setTitle:@"Email Image Files" forState:UIControlStateNormal];
+        [imagesButton setAccessibilityLabel:@"Email Image Files"];
+        [imagesButton setTitleColor:[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [imagesButton setTitleColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0] forState:UIControlStateHighlighted];
+        [imagesButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
+        [imagesButton setBackgroundColor:[UIColor colorWithRed:29/255.0 green:96/255.0 blue:172/255.0 alpha:1.0]];
+        [imagesButton.layer setMasksToBounds:YES];
+        [imagesButton.layer setCornerRadius:4.0];
+        sendimagescaller = [[SendImagesCaller alloc] init];
+        [imagesButton.layer setValue:ls forKey:@"ls"];
+        [imagesButton.layer setValue:[paths objectAtIndex:0] forKey:@"paths0"];
+        [imagesButton.layer setValue:((EnterDataView *)edv).formName forKey:@"formName"];
+        [imagesButton.layer setValue:rootViewController forKey:@"rootViewController"];
+        [imagesButton addTarget:sendimagescaller action:@selector(callSendImages:) forControlEvents:UIControlEventTouchUpInside];
+        [messageView addSubview:imagesButton];
+    }
+    
     [parentEDV.superview addSubview:dismissView];
     [parentEDV.superview bringSubviewToFront:dismissView];
     
@@ -630,8 +660,6 @@
         [csvButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
         [noButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
     }
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/EpiInfo.db"]])
     {
@@ -1579,13 +1607,34 @@
                 NSArray *ls = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:((EnterDataView *)edv).formName] error:nil];
                 for (id file in ls)
                 {
-                    [composer addAttachmentData:[NSData dataWithContentsOfFile:[[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:((EnterDataView *)edv).formName] stringByAppendingString:[NSString stringWithFormat:@"/%@", file]]] mimeType:@"image/jpeg" fileName:(NSString *)file];
+                    UIAlertController *alertI = [UIAlertController alertControllerWithTitle:@"Notice" message:[NSString stringWithFormat:@"This dataset has %lu associated image files. Use the \"Email Image Files\" button to send the images in separate emails.", (unsigned long)[ls count]] preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                        [composer setSubject:@"Epi Info Data"];
+                        [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
+                        [(DataEntryViewController *)self->rootViewController presentViewController:composer animated:YES completion:^(void){
+                            self->mailComposerShown = YES;
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                if (feedbackView)
+                                {
+                                    if ([feedbackView superview])
+                                    {
+                                        [feedbackView removeFromSuperview];
+                                    }
+                                }
+                            });
+                        }];
+                        //            free(buffer);
+                        [self dismissPrePackageDataView:sender];
+                    }];
+                    [alertI addAction:okAction];
+                    [rootViewController presentViewController:alertI animated:YES completion:nil];
+                    return;
                 }
             }
             [composer setSubject:@"Epi Info Data"];
             [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
             [(DataEntryViewController *)rootViewController presentViewController:composer animated:YES completion:^(void){
-                mailComposerShown = YES;
+                self->mailComposerShown = YES;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (feedbackView)
                     {
@@ -1614,7 +1663,7 @@
         [composer setSubject:@"Epi Info Data"];
         [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
         [(DataEntryViewController *)rootViewController presentViewController:composer animated:YES completion:^(void){
-            mailComposerShown = YES;
+            self->mailComposerShown = YES;
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (feedbackView)
                 {
@@ -1877,13 +1926,36 @@
                 NSArray *ls = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:((EnterDataView *)edv).formName] error:nil];
                 for (id file in ls)
                 {
+                    UIAlertController *alertI = [UIAlertController alertControllerWithTitle:@"Notice" message:[NSString stringWithFormat:@"This dataset has %lu associated image files. Use the \"Email Image Files\" button to send the images in separate emails.", (unsigned long)[ls count]] preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                        [composer setSubject:@"Epi Info Data"];
+                        [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
+                        [(DataEntryViewController *)rootViewController presentViewController:composer animated:YES completion:^(void){
+                            self->mailComposerShown = YES;
+                        }];
+                    }];
+                    [alertI addAction:okAction];
+                    [rootViewController presentViewController:alertI animated:YES completion:nil];
+                    return;
+                    if ([ls count] > 10)
+                    {
+                        UIAlertController *alertM = [UIAlertController alertControllerWithTitle:@"" message:@"This dataset has too many images for a single email." preferredStyle:UIAlertControllerStyleAlert];
+                        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                            [(DataEntryViewController *)self->rootViewController presentViewController:composer animated:YES completion:^(void){
+                                self->mailComposerShown = YES;
+                            }];
+                        }];
+                        [alertM addAction:okAction];
+                        [self.rootViewController presentViewController:alertM animated:YES completion:nil];
+                        break;
+                    }
                     [composer addAttachmentData:[NSData dataWithContentsOfFile:[[[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:((EnterDataView *)edv).formName] stringByAppendingString:[NSString stringWithFormat:@"/%@", file]]] mimeType:@"image/jpeg" fileName:(NSString *)file];
                 }
             }
             [composer setSubject:@"Epi Info Data"];
             [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
             [(DataEntryViewController *)rootViewController presentViewController:composer animated:YES completion:^(void){
-                mailComposerShown = YES;
+                self->mailComposerShown = YES;
             }];
             return;
         }

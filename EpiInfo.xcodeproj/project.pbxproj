@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		33A908842B46FFB200D26386 /* SendImagesCaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 33A908832B46FFB200D26386 /* SendImagesCaller.m */; };
 		4A071E891639C2E3002C05E9 /* BinomialCalculatorCompute.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A071E881639C2E3002C05E9 /* BinomialCalculatorCompute.m */; };
 		4A0B99BB174BA98F00FF417B /* ZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A0B99BA174BA98F00FF417B /* ZoomView.m */; };
 		4A19B2DD178C473D00F1E4AD /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A19B2DC178C473D00F1E4AD /* close.png */; };
@@ -484,6 +485,8 @@
 
 /* Begin PBXFileReference section */
 		339EEB042AEADB9F00B5B09E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		33A908822B46FFB200D26386 /* SendImagesCaller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendImagesCaller.h; sourceTree = "<group>"; };
+		33A908832B46FFB200D26386 /* SendImagesCaller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendImagesCaller.m; sourceTree = "<group>"; };
 		4A071E871639C2E3002C05E9 /* BinomialCalculatorCompute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinomialCalculatorCompute.h; sourceTree = "<group>"; };
 		4A071E881639C2E3002C05E9 /* BinomialCalculatorCompute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BinomialCalculatorCompute.m; sourceTree = "<group>"; };
 		4A0B99B9174BA98F00FF417B /* ZoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomView.h; sourceTree = "<group>"; };
@@ -1869,6 +1872,8 @@
 				92EB1ACB1DCA660100694282 /* FieldsAndStringValues.m */,
 				92EB1ACD1DCA77B900694282 /* DictionaryOfFields.h */,
 				92EB1ACE1DCA77B900694282 /* DictionaryOfFields.m */,
+				33A908822B46FFB200D26386 /* SendImagesCaller.h */,
+				33A908832B46FFB200D26386 /* SendImagesCaller.m */,
 			);
 			name = Entry;
 			sourceTree = "<group>";
@@ -2505,6 +2510,7 @@
 				4A556867178DA09400B79542 /* TablesView.m in Sources */,
 				92469BF1232AAE6B00752ADC /* EncryptionDecryptionKeys.m in Sources */,
 				9276EEB917B028AE0050858B /* ChooseAnalysisButton.m in Sources */,
+				33A908842B46FFB200D26386 /* SendImagesCaller.m in Sources */,
 				920BCE3D2178F0AA00BF050A /* FormFromGoogleSheetView.m in Sources */,
 				9294A5CD2208CD1B008695AD /* LinearObject.m in Sources */,
 				9276EEBC17B029E60050858B /* AnalysisList.m in Sources */,
