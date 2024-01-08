@@ -3,7 +3,6 @@
 //  EpiInfo
 //
 //  Created by John Copeland on 1/4/24.
-//  Copyright © 2024 John Copeland. All rights reserved.
 //
 
 #import "SendImagesCaller.h"
@@ -11,6 +10,7 @@
 @implementation SendImagesCaller
 - (void)callSendImages:(UIButton *)sender
 {
+    spanishLanguage = [(NSNumber *)[sender.layer valueForKey:@"spanishLanguage"] boolValue];
     ls = [NSMutableArray arrayWithArray:(NSArray *)[sender.layer valueForKey:@"ls"]];
     paths0 = (NSString *)[sender.layer valueForKey:@"paths0"];
     formName = (NSString *)[sender.layer valueForKey:@"formName"];
@@ -18,6 +18,8 @@
     if (![MFMailComposeViewController canSendMail])
     {
         UIAlertController *alertM = [UIAlertController alertControllerWithTitle:@"" message:@"The native iOS Mail app must be configured to use this feature. Use Settings, Mail, Accounts, to add a mail account." preferredStyle:UIAlertControllerStyleAlert];
+        if (spanishLanguage)
+            [alertM setMessage:@"La aplicación de correo nativa de iOS debe estar configurada para utilizar esta función. Utilice Configuración, Correo, Cuentas para agregar una cuenta de correo."];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         }];
         [alertM addAction:okAction];
@@ -33,6 +35,17 @@
     UIAlertAction *newAction = [UIAlertAction actionWithTitle:@"Send Only Unsent" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         [self emailNewImageFiles];
     }];
+    if (spanishLanguage)
+    {alertI = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"Este conjunto de datos contiene %lu archivos de imágenes. Se enviarán como archivos adjuntos en varios correos electrónicos con un máximo de 10 por correo electrónico.", (unsigned long)[ls count]] preferredStyle:UIAlertControllerStyleAlert];
+        cancelAction = [UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        }];
+        allAction = [UIAlertAction actionWithTitle:@"Enviar todos" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            [self emailAllImageFiles];
+        }];
+        newAction = [UIAlertAction actionWithTitle:@"Enviar solo archivos que no han sido enviados" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+            [self emailNewImageFiles];
+        }];
+    }
     [alertI addAction:allAction];
     [alertI addAction:newAction];
     [alertI addAction:cancelAction];
@@ -95,6 +108,8 @@
         UIAlertController *alertI = [UIAlertController alertControllerWithTitle:@"" message:@"All image files have been sent." preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         }];
+        if (spanishLanguage)
+            alertI = [UIAlertController alertControllerWithTitle:@"" message:@"Todos las imágenes han sido enviadas." preferredStyle:UIAlertControllerStyleAlert];
         [alertI addAction:okAction];
         [rootViewController presentViewController:alertI animated:YES completion:nil];
     }

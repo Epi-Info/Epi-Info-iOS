@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SendImagesCaller : NSObject <MFMailComposeViewControllerDelegate, UIAlertViewDelegate>
 {
+    BOOL spanishLanguage;
     NSMutableArray *ls;
     NSMutableArray *sentImages;
     NSString *paths0;

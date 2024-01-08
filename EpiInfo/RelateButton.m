@@ -632,12 +632,18 @@
         [imagesButton.layer setMasksToBounds:YES];
         [imagesButton.layer setCornerRadius:4.0];
         sendimagescaller = [[SendImagesCaller alloc] init];
+        [imagesButton.layer setValue:[NSNumber numberWithBool:spanishLanguage] forKey:@"spanishLanguage"];
         [imagesButton.layer setValue:ls forKey:@"ls"];
         [imagesButton.layer setValue:[paths objectAtIndex:0] forKey:@"paths0"];
         [imagesButton.layer setValue:((EnterDataView *)edv).formName forKey:@"formName"];
         [imagesButton.layer setValue:rootViewController forKey:@"rootViewController"];
         [imagesButton addTarget:sendimagescaller action:@selector(callSendImages:) forControlEvents:UIControlEventTouchUpInside];
         [messageView addSubview:imagesButton];
+        if (spanishLanguage)
+        {
+            [imagesButton setTitle:@"Enviar las fotos por correo electrónico" forState:UIControlStateNormal];
+            [imagesButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+        }
     }
     
     [parentEDV.superview addSubview:dismissView];
@@ -1608,6 +1614,8 @@
                 for (id file in ls)
                 {
                     UIAlertController *alertI = [UIAlertController alertControllerWithTitle:@"Notice" message:[NSString stringWithFormat:@"This dataset has %lu associated image files. Use the \"Email Image Files\" button to send the images in separate emails.", (unsigned long)[ls count]] preferredStyle:UIAlertControllerStyleAlert];
+                    if (spanishLanguage)
+                        alertI = [UIAlertController alertControllerWithTitle:@"Notice" message:[NSString stringWithFormat:@"Este conjunto de datos contiene %lu archivos de imágenes. Utilice el botón \"Enviar las fotos por correo electrónico\" para enviar las imágenes en correos electrónicos separados.", (unsigned long)[ls count]] preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                         [composer setSubject:@"Epi Info Data"];
                         [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
@@ -1927,10 +1935,12 @@
                 for (id file in ls)
                 {
                     UIAlertController *alertI = [UIAlertController alertControllerWithTitle:@"Notice" message:[NSString stringWithFormat:@"This dataset has %lu associated image files. Use the \"Email Image Files\" button to send the images in separate emails.", (unsigned long)[ls count]] preferredStyle:UIAlertControllerStyleAlert];
+                    if (spanishLanguage)
+                        alertI = [UIAlertController alertControllerWithTitle:@"Notice" message:[NSString stringWithFormat:@"Este conjunto de datos contiene %lu archivos de imágenes. Utilice el botón \"Enviar las fotos por correo electrónico\" para enviar las imágenes en correos electrónicos separados.", (unsigned long)[ls count]] preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                         [composer setSubject:@"Epi Info Data"];
                         [composer setMessageBody:@"Here is some Epi Info data." isHTML:NO];
-                        [(DataEntryViewController *)rootViewController presentViewController:composer animated:YES completion:^(void){
+                        [(DataEntryViewController *)self->rootViewController presentViewController:composer animated:YES completion:^(void){
                             self->mailComposerShown = YES;
                         }];
                     }];
