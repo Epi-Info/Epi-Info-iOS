@@ -651,14 +651,14 @@
     
     if (spanishLanguage)
     {
-        [iTunesButton setTitle:@"Datos del paquete para subir a iTunes" forState:UIControlStateNormal];
-        [iTunesButton setAccessibilityLabel:@"Datos del paquete para subir a I Tunes."];
-        [emailButton setTitle:@"Empaquetar y enviar los datos por correo electrónico" forState:UIControlStateNormal];
-        [emailButton setAccessibilityLabel:@"Empaquetar y enviar los datos por correo electrónico"];
+        [iTunesButton setTitle:@"Empaquetar datos para subir a iTunes" forState:UIControlStateNormal];
+        [iTunesButton setAccessibilityLabel:@"Empaquetar datos para subir a I Tunes."];
+        [emailButton setTitle:@"Empaquetar y enviar datos por correo electrónico" forState:UIControlStateNormal];
+        [emailButton setAccessibilityLabel:@"Empaquetar y enviar datos por correo electrónico"];
         [yesButton setTitle:@"Cargar los datos en una nube" forState:UIControlStateNormal];
         [yesButton setAccessibilityLabel:@"Cargar los datos en una nube"];
-        [csvButton setTitle:@"Archivo CSV de correo electrónico (no cifrado)" forState:UIControlStateNormal];
-        [csvButton setAccessibilityLabel:@"Archivo CSV de correo electrónico (no cifrado)"];
+        [csvButton setTitle:@"Archivo CSV de correo electrónico (no encriptado)" forState:UIControlStateNormal];
+        [csvButton setAccessibilityLabel:@"Archivo CSV de correo electrónico (no encriptado)"];
         [noButton setTitle:@"Cancelar" forState:UIControlStateNormal];
         [iTunesButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
         [emailButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.4]];
@@ -826,7 +826,7 @@
     [areYouSure setNumberOfLines:0];
     [areYouSure setText:@"Specify a password for encrypted data file:"];
     if (spanishLanguage)
-        [areYouSure setText:@"Especificar una contraseña para el archivo de datos cifrados:"];
+        [areYouSure setText:@"Especificar una contraseña para el archivo de datos encriptado:"];
     [messageView addSubview:areYouSure];
     
     EpiInfoTextField *eitf = [[EpiInfoTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
@@ -859,8 +859,8 @@
         
         if (spanishLanguage)
         {
-            [packageDataButton setTitle:@"Empaquetar y enviar los datos por correo electrónico" forState:UIControlStateNormal];
-            [packageDataButton setAccessibilityLabel:@"Empaquetar y enviar los datos por correo electrónico"];
+            [packageDataButton setTitle:@"Empaquetar y enviar datos por correo electrónico" forState:UIControlStateNormal];
+            [packageDataButton setAccessibilityLabel:@"Empaquetar y enviar datos por correo electrónico"];
             [packageDataButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.4]];
         }
     }

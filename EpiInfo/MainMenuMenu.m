@@ -159,13 +159,13 @@
         {
             [item setTitle:@"Información"];
             [back setAccessibilityLabel:@"Regresar al menú principal"];
-            [privacyPolicyButton setTitle:@"Política de privacidad" forState:UIControlStateNormal];
-            [disclaimerButton setTitle:@"Renuncia" forState:UIControlStateNormal];
+            [privacyPolicyButton setTitle:@"Reglas de privacidad" forState:UIControlStateNormal];
+            [disclaimerButton setTitle:@"Aviso Legal" forState:UIControlStateNormal];
             [activityLogButton setTitle:@"Registro de actividad" forState:UIControlStateNormal];
             [errorLogButton setTitle:@"Registro de errores" forState:UIControlStateNormal];
             [boxLoginButton setTitle:@"Conéctese a Box" forState:UIControlStateNormal];
             [boxLogoutButton setTitle:@"Desconectar de Box" forState:UIControlStateNormal];
-            [self.customKeysOptionButton setTitle:@"Dar opción para el cifrado personalizado" forState:UIControlStateNormal];
+            [self.customKeysOptionButton setTitle:@"Dar opción para encripción personalizada" forState:UIControlStateNormal];
         }
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -225,7 +225,7 @@
         [sender setTitle:@"Remove Option for Custom Encryption" forState:UIControlStateNormal];
         if (spanishLanguage)
         {
-            [sender setTitle:@"Eliminar la opción de cifrado personalizado" forState:UIControlStateNormal];
+            [sender setTitle:@"Eliminar opción de ecncripción personalizada" forState:UIControlStateNormal];
         }
     }
     else
@@ -233,7 +233,7 @@
         [sender setTitle:@"Give Option for Custom Encryption" forState:UIControlStateNormal];
         if (spanishLanguage)
         {
-            [sender setTitle:@"Dar opción para el cifrado personalizado" forState:UIControlStateNormal];
+            [sender setTitle:@"Dar opción para encripción personalizada" forState:UIControlStateNormal];
         }
     }
 }

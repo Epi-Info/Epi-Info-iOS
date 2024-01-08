@@ -134,7 +134,7 @@
     if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
         spanishLanguage = YES;
     if (spanishLanguage)
-        [self.mainMenuMenu setAccessibilityLabel:@"Descargos de responsabilidad y política de privacidad, registros y conexión de Box"];
+        [self.mainMenuMenu setAccessibilityLabel:@"Aviso Legal y reglas de privacidad, registros y conexión de Box"];
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
@@ -353,7 +353,7 @@
        
        if (spanishLanguage)
        {
-           [clearButton1 setAccessibilityLabel:@"Entrar datos. Crear cuestionarios, introducir, revisar, y búscar registros."];
+           [clearButton1 setAccessibilityLabel:@"Introducir datos. Crear formularios, introducir datos, examinar registros y buscar en la base de datos."];
            [clearButton2 setAccessibilityLabel:@"Analizar datos. Ver resultados analîticos con instrumentos, gráficos y tablas."];
            [clearButton3 setAccessibilityLabel:@"Stat calc. Calculadora estadística para el tamaño de la muestra, el poder, y mucho más."];
        }
@@ -622,7 +622,7 @@
         
         if (spanishLanguage)
         {
-            [clearButton1 setAccessibilityLabel:@"Entrar datos. Crear cuestionarios, introducir, revisar, y búscar registros."];
+            [clearButton1 setAccessibilityLabel:@"Introducir Datos. Crear formularios, introducir datos, examinar registros y buscar en la base de datos."];
             [clearButton2 setAccessibilityLabel:@"Analizar datos. Ver resultados analîticos con instrumentos, gráficos y tablas."];
             [clearButton3 setAccessibilityLabel:@"Stat calc. Calculadora estadística para el tamaño de la muestra, el poder, y mucho más."];
         }
@@ -630,8 +630,8 @@
     
     if (spanishLanguage)
     {
-        [l1a setText:@"ENTRAR DATOS"];
-        [l1b setText:@"Crear cuestionarios, introducir, revisar, y búscar registros."];
+        [l1a setText:@"INTRODUCIR DATOS"];
+        [l1b setText:@"Crear formularios, introducir datos, examinar registros y buscar en la base de datos."];
         [l2a setText:@"ANALIZAR DATOS"];
         [l2b setText:@"Ver resultados analîticos con instrumentos, gráficos y tablas."];
         [l3b setText:@"Calculadora estadística para el tamaño de la muestra y más."];

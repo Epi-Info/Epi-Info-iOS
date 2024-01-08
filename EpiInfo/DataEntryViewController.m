@@ -251,7 +251,7 @@
             NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
             if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
             {
-                [enterDataLabel setText:@"Epi Info Entrar Datos"];
+                [enterDataLabel setText:@"Epi Info Introducir Datos"];
                 [openButton setTitle:@"Abrir" forState:UIControlStateNormal];
             }
             
@@ -320,7 +320,7 @@
             NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
             if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
             {
-                [enterDataLabel setText:@"Epi Info Entrar Datos"];
+                [enterDataLabel setText:@"Epi Info Introducir Datos"];
                 [openButton setTitle:@"Abrir" forState:UIControlStateNormal];
             }
             
@@ -407,7 +407,7 @@
             NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
             if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
             {
-                [enterDataLabel setText:@"Epi Info Entrar Datos"];
+                [enterDataLabel setText:@"Epi Info Introducir Datos"];
                 [pickerLabel setText:@"Seleccione un Formulario:"];
                 [openButton setTitle:@"Abrir" forState:UIControlStateNormal];
                 [openButton setImage:[UIImage imageNamed:@"AbrirButtonWhite.png"] forState:UIControlStateNormal];
@@ -521,7 +521,7 @@
             NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
             if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
             {
-                [enterDataLabel setText:@"Epi Info Entrar Datos"];
+                [enterDataLabel setText:@"Epi Info Introducir Datos"];
                 [openButton setTitle:@"Abrir" forState:UIControlStateNormal];
                 [openButton setImage:[UIImage imageNamed:@"AbrirButtonWhite.png"] forState:UIControlStateNormal];
                 [manageButton setTitle:@"Retocar para administrar" forState:UIControlStateNormal];
@@ -592,7 +592,7 @@
             NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
             if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
             {
-                [enterDataLabel setText:@"Epi Info Entrar Datos"];
+                [enterDataLabel setText:@"Epi Info Introducir Datoss"];
                 [openButton setTitle:@"Abrir" forState:UIControlStateNormal];
                 [openButton setImage:[UIImage imageNamed:@"AbrirButtonWhite.png"] forState:UIControlStateNormal];
                 [manageButton setTitle:@"Retocar para administrar" forState:UIControlStateNormal];
@@ -670,7 +670,7 @@
             NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
             if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
             {
-                [enterDataLabel setText:@"Epi Info Entrar Datos"];
+                [enterDataLabel setText:@"Epi Info Introducir Datos"];
                 [pickerLabel setText:@"Seleccione un Formulario:"];
                 [openButton setTitle:@"Abrir" forState:UIControlStateNormal];
                 [openButton setImage:[UIImage imageNamed:@"AbrirButtonWhite.png"] forState:UIControlStateNormal];
@@ -1608,14 +1608,14 @@
     
     if (spanishLanguage)
     {
-        [iTunesButton setTitle:@"Datos del paquete para subir a iTunes" forState:UIControlStateNormal];
-        [iTunesButton setAccessibilityLabel:@"Datos del paquete para subir a I Tunes."];
-        [emailButton setTitle:@"Empaquetar y enviar los datos por correo electrónico" forState:UIControlStateNormal];
-        [emailButton setAccessibilityLabel:@"Empaquetar y enviar los datos por correo electrónico"];
+        [iTunesButton setTitle:@"Empaquetar datos para subir a iTunes" forState:UIControlStateNormal];
+        [iTunesButton setAccessibilityLabel:@"Empaquetar datos para subir a I Tunes."];
+        [emailButton setTitle:@"Empaquetar y enviar datos por correo electrónico" forState:UIControlStateNormal];
+        [emailButton setAccessibilityLabel:@"Empaquetar y enviar datos por correo electrónico"];
         [yesButton setTitle:@"Enviar las fotos por correo electrónico" forState:UIControlStateNormal];
         [yesButton setAccessibilityLabel:@"Enviar las fotos por correo electrónico"];
-        [csvButton setTitle:@"Archivo CSV de correo electrónico (no cifrado)" forState:UIControlStateNormal];
-        [csvButton setAccessibilityLabel:@"Archivo CSV de correo electrónico (no cifrado)"];
+        [csvButton setTitle:@"Archivo CSV de correo electrónico (no encriptado)" forState:UIControlStateNormal];
+        [csvButton setAccessibilityLabel:@"Archivo CSV de correo electrónico (no encriptado)"];
         [noButton setTitle:@"Cancelar" forState:UIControlStateNormal];
         [iTunesButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
         [emailButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.4]];
@@ -1979,7 +1979,7 @@
     [areYouSure setNumberOfLines:0];
     [areYouSure setText:@"Specify a password for encrypted data file:"];
     if (spanishLanguage)
-        [areYouSure setText:@"Especificar una contraseña para el archivo de datos cifrados:"];
+        [areYouSure setText:@"Especificar una contraseña para el archivo de datos encriptado:"];
     [messageView addSubview:areYouSure];
     
     EpiInfoTextField *eitf = [[EpiInfoTextField alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
@@ -2005,8 +2005,8 @@
         [packageDataButton addTarget:self action:@selector(packageDataForiTunes:) forControlEvents:UIControlEventTouchUpInside];
         if (spanishLanguage)
         {
-            [packageDataButton setTitle:@"Datos del paquete para subir a iTunes" forState:UIControlStateNormal];
-            [packageDataButton setAccessibilityLabel:@"Datos del paquete para subir a I Tunes."];
+            [packageDataButton setTitle:@"Empaquetar datos para subir a iTunes" forState:UIControlStateNormal];
+            [packageDataButton setAccessibilityLabel:@"Empaquetar datos para subir a I Tunes."];
         }
     }
     else
@@ -2018,8 +2018,8 @@
         [packageDataButton addTarget:self action:@selector(choiceOfKeys:) forControlEvents:UIControlEventTouchUpInside];
         if (spanishLanguage)
         {
-            [packageDataButton setTitle:@"Empaquetar y enviar los datos por correo electrónico" forState:UIControlStateNormal];
-            [packageDataButton setAccessibilityLabel:@"Empaquetar y enviar los datos por correo electrónico"];
+            [packageDataButton setTitle:@"Empaquetar y enviar datos por correo electrónico" forState:UIControlStateNormal];
+            [packageDataButton setAccessibilityLabel:@"Empaquetar y enviar datos por correo electrónico"];
             [packageDataButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12.4]];
         }
     }

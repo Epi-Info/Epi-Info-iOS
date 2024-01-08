@@ -733,9 +733,9 @@
     if (spanishLanguage)
     {
         instructionsText = [NSMutableString stringWithString:@"Deslice el dedo hacia abajo en la herramienta SQL para volver a Analizar datos."];
-        [instructionsText appendString:@"\n\nEnvíe TABLES para obtener una lista de tablas de información epigráfica en este dispositivo."];
+        [instructionsText appendString:@"\n\nEnvíe TABLES para obtener una lista de tablas de información en este dispositivo."];
         [instructionsText appendString:@"\n\nEnvíe METADATA <nombre de la tabla> (o META <nombre de la tabla>) para ver las columnas, los tipos de datos y el número de filas de una tabla."];
-        [instructionsText appendString:@"\n\nMantenga pulsado el texto de un campo de salida o del encabezado de columna durante un segundo para copiar su valor en el portapapeles."];
+        [instructionsText appendString:@"\n\nMantenga pulsado el texto de un campo de salida o del encabezado de columna durante un segundo para copiar al portapapeles."];
         [instructionsText appendString:@"\n\nUse la función guid() para generar un GlobalRecordID único. (Nota: esta función genera un único valor por envío, por lo que no la utilice cuando se actualice más de un registro.)"];
         [instructionsText appendString:@"\n\nEnvíe una instrucción vacía para borrar la salida de los resultados."];
     }
