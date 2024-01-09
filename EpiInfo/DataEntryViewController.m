@@ -349,15 +349,21 @@
             NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] error:nil];
             NSMutableArray *pickerFiles = [[NSMutableArray alloc] init];
             [pickerFiles addObject:@""];
+            NSMutableArray *childForms = [[NSMutableArray alloc] init];
             int count = 0;
             for (id i in files)
             {
                 if ([(NSString *)i characterAtIndex:0] == '_')
+                {
+                    [childForms addObject:[(NSString *)i substringToIndex:[(NSString *)i length] - 4]];
                     continue;
+                }
                 count++;
                 [pickerFiles addObject:[(NSString *)i substringToIndex:[(NSString *)i length] - 4]];
             }
             [pickerFiles sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+            [childForms sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+            [pickerFiles addObjectsFromArray:childForms];
             UILabel *enterDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 12, self.view.frame.size.width - 40, 28)];
             [enterDataLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
             [enterDataLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0]];
@@ -611,15 +617,21 @@
             NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoForms"] error:nil];
             NSMutableArray *pickerFiles = [[NSMutableArray alloc] init];
             [pickerFiles addObject:@""];
+            NSMutableArray *childForms = [[NSMutableArray alloc] init];
             int count = 0;
             for (id i in files)
             {
                 if ([(NSString *)i characterAtIndex:0] == '_')
+                {
+                    [childForms addObject:[(NSString *)i substringToIndex:[(NSString *)i length] - 4]];
                     continue;
+                }
                 count++;
                 [pickerFiles addObject:[(NSString *)i substringToIndex:[(NSString *)i length] - 4]];
             }
             [pickerFiles sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+            [childForms sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+            [pickerFiles addObjectsFromArray:childForms];
             UILabel *enterDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 12, 280, 28)];
             [enterDataLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
             [enterDataLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
@@ -963,6 +975,8 @@
                 //Build the DROP TABLE statement
                 //Convert the sqlStmt to char array
                 const char *sql_stmt = [[NSString stringWithFormat:@"drop table %@", lvSelected.text] UTF8String];
+                if ([lvSelected.text characterAtIndex:0] == '_')
+                    sql_stmt = [[NSString stringWithFormat:@"drop table %@", [lvSelected.text substringFromIndex:1]] UTF8String];
                 
                 //Execute the DROP TABLE statement
                 if (sqlite3_exec(epiinfoDB, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
@@ -982,6 +996,8 @@
             }
             
             NSString *imageDirectoryToRemove = [[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:lvSelected.text];
+            if ([lvSelected.text characterAtIndex:0] == '_')
+                imageDirectoryToRemove = [[[paths objectAtIndex:0] stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:[lvSelected.text substringFromIndex:1]];
             if ([[NSFileManager defaultManager] fileExistsAtPath:imageDirectoryToRemove])
             {
                 [nsfm removeItemAtPath:imageDirectoryToRemove error:&nse];
@@ -1098,6 +1114,8 @@
 - (void)openButtonPressed:(UIButton *)sender
 {
     if (lv.selectedIndex.intValue == 0)
+        return;
+    if ([lvSelected.text characterAtIndex:0] == '_')
         return;
     
     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Re-generating form from Google sheet..." message:@"" preferredStyle:UIAlertControllerStyleAlert];
