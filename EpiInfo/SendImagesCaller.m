@@ -10,6 +10,7 @@
 @implementation SendImagesCaller
 - (void)callSendImages:(UIButton *)sender
 {
+    bytelimit = 64000000;
     spanishLanguage = [(NSNumber *)[sender.layer valueForKey:@"spanishLanguage"] boolValue];
     ls = [NSMutableArray arrayWithArray:(NSArray *)[sender.layer valueForKey:@"ls"]];
     paths0 = (NSString *)[sender.layer valueForKey:@"paths0"];
@@ -26,30 +27,98 @@
         [rootViewController presentViewController:alertM animated:YES completion:nil];
         return;
     }
-    UIAlertController *alertI = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"This dataset has %lu associated image files. They will be sent as attachments to multiple emails with a maximum of 10 per email.", (unsigned long)[ls count]] preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertI = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"This dataset has %lu associated image files. They will be sent as attachments to emails.", (unsigned long)[ls count]] preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
     }];
     UIAlertAction *allAction = [UIAlertAction actionWithTitle:@"Send All" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        [self emailAllImageFiles];
+        [self limitForSendAll];
     }];
     UIAlertAction *newAction = [UIAlertAction actionWithTitle:@"Send Only Unsent" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        [self emailNewImageFiles];
+        [self limitForSendUnsent];
     }];
     if (spanishLanguage)
-    {alertI = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"Este conjunto de datos contiene %lu archivos de imágenes. Se enviarán como archivos adjuntos en varios correos electrónicos con un máximo de 10 por correo electrónico.", (unsigned long)[ls count]] preferredStyle:UIAlertControllerStyleAlert];
+    {alertI = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"Este conjunto de datos contiene %lu archivos de imágenes. Se enviarán como archivos adjuntos en varios correos electrónicos.", (unsigned long)[ls count]] preferredStyle:UIAlertControllerStyleAlert];
         cancelAction = [UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         }];
         allAction = [UIAlertAction actionWithTitle:@"Enviar todos" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            [self emailAllImageFiles];
+            [self limitForSendAll];
         }];
         newAction = [UIAlertAction actionWithTitle:@"Enviar solo archivos que no han sido enviados" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            [self emailNewImageFiles];
+            [self limitForSendUnsent];
         }];
     }
     [alertI addAction:allAction];
     [alertI addAction:newAction];
     [alertI addAction:cancelAction];
     [rootViewController presentViewController:alertI animated:YES completion:nil];
+}
+
+- (void)limitForSendAll
+{
+    UIAlertController *alertB = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"Select a size limit for attachments."] preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+    }];
+    UIAlertAction *action16 = [UIAlertAction actionWithTitle:@"16 MB" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        self->bytelimit = 16000000;
+        [self emailAllImageFiles];
+    }];
+    UIAlertAction *action32 = [UIAlertAction actionWithTitle:@"32 MB" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        self->bytelimit = 32000000;
+        [self emailAllImageFiles];
+    }];
+    UIAlertAction *action64 = [UIAlertAction actionWithTitle:@"64 MB" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        self->bytelimit = 64000000;
+        [self emailAllImageFiles];
+    }];
+    UIAlertAction *action128 = [UIAlertAction actionWithTitle:@"128 MB" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        self->bytelimit = 128000000;
+        [self emailAllImageFiles];
+    }];
+    if (spanishLanguage)
+    {alertB = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"Este conjunto de datos contiene %lu archivos de imágenes. Se enviarán como archivos adjuntos en varios correos electrónicos.", (unsigned long)[ls count]] preferredStyle:UIAlertControllerStyleAlert];
+        cancelAction = [UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        }];
+    }
+    [alertB addAction:action16];
+    [alertB addAction:action32];
+    [alertB addAction:action64];
+    [alertB addAction:action128];
+    [alertB addAction:cancelAction];
+    [rootViewController presentViewController:alertB animated:YES completion:nil];
+}
+
+- (void)limitForSendUnsent
+{
+    UIAlertController *alertB = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"Select a size limit for attachments."] preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+    }];
+    UIAlertAction *action16 = [UIAlertAction actionWithTitle:@"16 MB" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        self->bytelimit = 16000000;
+        [self emailNewImageFiles];
+    }];
+    UIAlertAction *action32 = [UIAlertAction actionWithTitle:@"32 MB" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        self->bytelimit = 32000000;
+        [self emailNewImageFiles];
+    }];
+    UIAlertAction *action64 = [UIAlertAction actionWithTitle:@"64 MB" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        self->bytelimit = 64000000;
+        [self emailNewImageFiles];
+    }];
+    UIAlertAction *action128 = [UIAlertAction actionWithTitle:@"128 MB" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        self->bytelimit = 128000000;
+        [self emailNewImageFiles];
+    }];
+    if (spanishLanguage)
+    {alertB = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"Este conjunto de datos contiene %lu archivos de imágenes. Se enviarán como archivos adjuntos en varios correos electrónicos.", (unsigned long)[ls count]] preferredStyle:UIAlertControllerStyleAlert];
+        cancelAction = [UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        }];
+    }
+    [alertB addAction:action16];
+    [alertB addAction:action32];
+    [alertB addAction:action64];
+    [alertB addAction:action128];
+    [alertB addAction:cancelAction];
+    [rootViewController presentViewController:alertB animated:YES completion:nil];
 }
 
 - (void)emailAllImageFiles
@@ -99,16 +168,14 @@
             continue;
         }
         bytesattached += [contentsOfFile length];
-        if (bytesattached > 32000000)
+        if (bytesattached > bytelimit)
             break;
         [composer addAttachmentData:contentsOfFile mimeType:@"image/jpeg" fileName:(NSString *)file];
         [sentImages addObject:file];
         imagesattached++;
-        if (imagesattached > 9)
-            break;
     }
     [composer setSubject:@"Epi Info Images"];
-    [composer setMessageBody:@"Here are some Epi Info image files." isHTML:NO];
+    [composer setMessageBody:[NSString stringWithFormat:@"Here are %d Epi Info image files.", imagesattached] isHTML:NO];
     if (imagesattached > 0)
         [rootViewController presentViewController:composer animated:YES completion:^(void){
         }];

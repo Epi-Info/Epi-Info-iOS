@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSString *paths0;
     NSString *formName;
     UIViewController *rootViewController;
+    int bytelimit;
 }
 -(void)callSendImages:(UIButton *)sender;
 @end
