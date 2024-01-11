@@ -88,11 +88,20 @@
     MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
     [composer setMailComposeDelegate:self];
     int imagesattached = 0;
+    int bytesattached = 0;
     while ([ls count] > 0)
     {
         id file = [ls objectAtIndex:0];
         [ls removeObjectAtIndex:0];
-        [composer addAttachmentData:[NSData dataWithContentsOfFile:[[[paths0 stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] stringByAppendingString:[NSString stringWithFormat:@"/%@", file]]] mimeType:@"image/jpeg" fileName:(NSString *)file];
+        NSData *contentsOfFile = [NSData dataWithContentsOfFile:[[[paths0 stringByAppendingString:@"/EpiInfoDatabase/ImageRepository/"] stringByAppendingString:formName] stringByAppendingString:[NSString stringWithFormat:@"/%@", file]]];
+        if ([contentsOfFile length] == 0)
+        {
+            continue;
+        }
+        bytesattached += [contentsOfFile length];
+        if (bytesattached > 32000000)
+            break;
+        [composer addAttachmentData:contentsOfFile mimeType:@"image/jpeg" fileName:(NSString *)file];
         [sentImages addObject:file];
         imagesattached++;
         if (imagesattached > 9)
