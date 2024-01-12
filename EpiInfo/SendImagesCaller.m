@@ -109,7 +109,7 @@
         [self emailNewImageFiles];
     }];
     if (spanishLanguage)
-    {alertB = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"Este conjunto de datos contiene %lu archivos de imágenes. Se enviarán como archivos adjuntos en varios correos electrónicos.", (unsigned long)[ls count]] preferredStyle:UIAlertControllerStyleAlert];
+    {alertB = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"Seleccione el tamaño límite para archivos adjuntos."] preferredStyle:UIAlertControllerStyleAlert];
         cancelAction = [UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         }];
     }
