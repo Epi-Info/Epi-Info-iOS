@@ -176,6 +176,7 @@
             url = [NSURL fileURLWithPath:path];
         edv = [[EnterDataView alloc] initWithFrame:CGRectMake(0, parentEDV.frame.size.height, parentEDV.frame.size.width, parentEDV.frame.size.height) AndURL:url AndRootViewController:[(EnterDataView *)parentEDV rootViewController] AndNameOfTheForm:relatedViewName AndPageToDisplay:1 AndParentForm:(EnterDataView *)parentEDV];
         rootViewController = [(EnterDataView *)edv rootViewController];
+        [(EnterDataView *)edv clearButtonPressed];
         [[(DataEntryViewController *)rootViewController edv] setChildEnterDataView:(EnterDataView *)edv];
         
         [(DataEntryViewController *)rootViewController addNewSetOfPageDots:(EnterDataView *)edv];
