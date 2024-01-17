@@ -74,6 +74,10 @@
         self->bytelimit = 128000000;
         [self emailAllImageFiles];
     }];
+    [action16 setAccessibilityLabel:@"16 megabytes"];
+    [action32 setAccessibilityLabel:@"32 megabytes"];
+    [action64 setAccessibilityLabel:@"64 megabytes"];
+    [action128 setAccessibilityLabel:@"128 megabytes"];
     if (spanishLanguage)
     {alertB = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"Este conjunto de datos contiene %lu archivos de imágenes. Se enviarán como archivos adjuntos en varios correos electrónicos.", (unsigned long)[ls count]] preferredStyle:UIAlertControllerStyleAlert];
         cancelAction = [UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
@@ -108,6 +112,10 @@
         self->bytelimit = 128000000;
         [self emailNewImageFiles];
     }];
+    [action16 setAccessibilityLabel:@"16 megabytes"];
+    [action32 setAccessibilityLabel:@"32 megabytes"];
+    [action64 setAccessibilityLabel:@"64 megabytes"];
+    [action128 setAccessibilityLabel:@"128 megabytes"];
     if (spanishLanguage)
     {alertB = [UIAlertController alertControllerWithTitle:@"" message:[NSString stringWithFormat:@"Seleccione el tamaño límite para archivos adjuntos."] preferredStyle:UIAlertControllerStyleAlert];
         cancelAction = [UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
