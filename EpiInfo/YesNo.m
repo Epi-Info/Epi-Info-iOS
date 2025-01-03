@@ -50,6 +50,7 @@
         DownTriangle *dt = [[DownTriangle alloc] initWithFrame:CGRectMake(self.valueButton.frame.size.width - (0.6 * triangleViewDimension), 0, 0.6 * triangleViewDimension, triangleViewDimension)];
         [dt setBackgroundColor:[UIColor whiteColor]];
         [dt addTarget:self action:@selector(valueButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [self.valueButton setAccessibilityLabel:@"Yes No field. Double tap to see values."];
         [self.valueButton addSubview:dt];
         
         self.tv = [[UITableView alloc] initWithFrame:CGRectMake(self.valueButton.frame.origin.x, self.valueButton.frame.origin.y, self.valueButton.frame.size.width, 0) style:UITableViewStylePlain];
