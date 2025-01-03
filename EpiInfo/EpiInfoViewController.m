@@ -318,6 +318,16 @@
         [l3b setNumberOfLines:0];
         [l3b setLineBreakMode:NSLineBreakByWordWrapping];
         
+        imageOfDataEntryButton = [[UIImageView alloc] initWithFrame:[self.dataEntryButton frame]];
+        [imageOfDataEntryButton setImage:[UIImage imageNamed:@"FormsButton.png"]];
+        [v1 addSubview:imageOfDataEntryButton];
+        imageOfAnalyzeDataButton = [[UIImageView alloc] initWithFrame:[self.analyzeDataButton frame]];
+        [imageOfAnalyzeDataButton setImage:[UIImage imageNamed:@"AnalysisButton.png"]];
+        [v2 addSubview:imageOfAnalyzeDataButton];
+        imageOfStatCalcButton = [[UIImageView alloc] initWithFrame:[self.statCalcButton frame]];
+        [imageOfStatCalcButton setImage:[UIImage imageNamed:@"CalculatorButton.png"]];
+        [v3 addSubview:imageOfStatCalcButton];
+        
         [v1 addSubview:l1a];
         [v1 addSubview:l1b];
         [v2 addSubview:l2a];
@@ -326,7 +336,7 @@
         [v3 addSubview:l3b];
         
         // Clear buttons to go over labels
-        UIButton *clearButton1 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
+        UIButton *clearButton1 = [[UIButton alloc] initWithFrame:CGRectMake(v1.frame.origin.x, l1a.frame.origin.y - 8, v1.frame.size.width, v1.frame.size.height)];
         [clearButton1 setBackgroundColor:[UIColor clearColor]];
         [clearButton1 setTag:1];
         [clearButton1 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
@@ -334,7 +344,8 @@
         [clearButton1 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
         [clearButton1 setAccessibilityLabel:@"Enter data. Create forms, enter data, browse records, and search the database."];
         [v1 addSubview:clearButton1];
-        UIButton *clearButton2 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
+        [self.dataEntryButton setAlpha:0.0];
+        UIButton *clearButton2 = [[UIButton alloc] initWithFrame:CGRectMake(v2.frame.origin.x, l1a.frame.origin.y - 8, v2.frame.size.width, v1.frame.size.height)];
         [clearButton2 setBackgroundColor:[UIColor clearColor]];
         [clearButton2 setTag:2];
         [clearButton2 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
@@ -342,7 +353,8 @@
         [clearButton2 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
         [clearButton2 setAccessibilityLabel:@"Analyze data. Visualize analytic results with gadgets, tables, and SQL tools."];
         [v2 addSubview:clearButton2];
-        UIButton *clearButton3 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
+        [self.analyzeDataButton setAlpha:0.0];
+        UIButton *clearButton3 = [[UIButton alloc] initWithFrame:CGRectMake(v3.frame.origin.x, l1a.frame.origin.y - 8, v3.frame.size.width, v1.frame.size.height)];
         [clearButton3 setBackgroundColor:[UIColor clearColor]];
         [clearButton3 setTag:3];
         [clearButton3 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
@@ -350,6 +362,7 @@
         [clearButton3 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
         [clearButton3 setAccessibilityLabel:@"Stat calc. Statistical calculators for sample size, power, and more."];
         [v3 addSubview:clearButton3];
+        [self.statCalcButton setAlpha:0.0];
        
        if (spanishLanguage)
        {
@@ -587,6 +600,16 @@
         [l3a setHighlightedTextColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
         [l3b setHighlightedTextColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
         
+        imageOfDataEntryButton = [[UIImageView alloc] initWithFrame:[self.dataEntryButton frame]];
+        [imageOfDataEntryButton setImage:[UIImage imageNamed:@"FormsButton.png"]];
+        [v1 addSubview:imageOfDataEntryButton];
+        imageOfAnalyzeDataButton = [[UIImageView alloc] initWithFrame:[self.analyzeDataButton frame]];
+        [imageOfAnalyzeDataButton setImage:[UIImage imageNamed:@"AnalysisButton.png"]];
+        [v2 addSubview:imageOfAnalyzeDataButton];
+        imageOfStatCalcButton = [[UIImageView alloc] initWithFrame:[self.statCalcButton frame]];
+        [imageOfStatCalcButton setImage:[UIImage imageNamed:@"CalculatorButton.png"]];
+        [v3 addSubview:imageOfStatCalcButton];
+        
         [v1 addSubview:l1a];
         [v1 addSubview:l1b];
         [v2 addSubview:l2a];
@@ -595,7 +618,7 @@
         [v3 addSubview:l3b];
         
         // Clear buttons to go over labels
-        UIButton *clearButton1 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
+        UIButton *clearButton1 = [[UIButton alloc] initWithFrame:CGRectMake(v1.frame.origin.x, l1a.frame.origin.y - 8, v1.frame.size.width, v1.frame.size.height)];
         [clearButton1 setBackgroundColor:[UIColor clearColor]];
         [clearButton1 setTag:1];
         [clearButton1 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
@@ -603,7 +626,8 @@
         [clearButton1 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
         [clearButton1 setAccessibilityLabel:@"Enter data. Create forms, enter data, browse records, and search the database."];
         [v1 addSubview:clearButton1];
-        UIButton *clearButton2 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
+        [self.dataEntryButton setAlpha:0.0];
+        UIButton *clearButton2 = [[UIButton alloc] initWithFrame:CGRectMake(v2.frame.origin.x, l1a.frame.origin.y - 8, v2.frame.size.width, v1.frame.size.height)];
         [clearButton2 setBackgroundColor:[UIColor clearColor]];
         [clearButton2 setTag:2];
         [clearButton2 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
@@ -611,7 +635,8 @@
         [clearButton2 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
         [clearButton2 setAccessibilityLabel:@"Analyze data. Visualize analytic results with gadgets, tables, and SQL tools."];
         [v2 addSubview:clearButton2];
-        UIButton *clearButton3 = [[UIButton alloc] initWithFrame:CGRectMake(l1a.frame.origin.x, l1a.frame.origin.y - 8, l1a.frame.size.width, v1.frame.size.height)];
+        [self.analyzeDataButton setAlpha:0.0];
+        UIButton *clearButton3 = [[UIButton alloc] initWithFrame:CGRectMake(v3.frame.origin.x, l1a.frame.origin.y - 8, v3.frame.size.width, v1.frame.size.height)];
         [clearButton3 setBackgroundColor:[UIColor clearColor]];
         [clearButton3 setTag:3];
         [clearButton3 addTarget:self action:@selector(clearButtonPressed:) forControlEvents:UIControlEventTouchDown];
@@ -619,6 +644,7 @@
         [clearButton3 addTarget:self action:@selector(clearButtonDragged:) forControlEvents:UIControlEventTouchDragOutside];
         [clearButton3 setAccessibilityLabel:@"Stat calc. Statistical calculators for sample size, power, and more."];
         [v3 addSubview:clearButton3];
+        [self.statCalcButton setAlpha:0.0];
         
         if (spanishLanguage)
         {
@@ -852,18 +878,21 @@
     switch ([sender tag]) {
         case 1:
             [self.dataEntryButton setHighlighted:YES];
+            [imageOfDataEntryButton setAlpha:0.5];
             [l1a setHighlighted:YES];
             [l1b setHighlighted:YES];
             break;
             
         case 2:
             [self.analyzeDataButton setHighlighted:YES];
+            [imageOfAnalyzeDataButton setAlpha:0.5];
             [l2a setHighlighted:YES];
             [l2b setHighlighted:YES];
             break;
             
         case 3:
             [self.statCalcButton setHighlighted:YES];
+            [imageOfStatCalcButton setAlpha:0.5];
             [l3a setHighlighted:YES];
             [l3b setHighlighted:YES];
             break;
@@ -878,6 +907,7 @@
         case 1:
             [self.dataEntryButton sendActionsForControlEvents:UIControlEventTouchUpInside];
             [self.dataEntryButton setHighlighted:NO];
+            [imageOfDataEntryButton setAlpha:1.0];
             [l1a setHighlighted:NO];
             [l1b setHighlighted:NO];
             break;
@@ -885,6 +915,7 @@
         case 2:
             [self.analyzeDataButton sendActionsForControlEvents:UIControlEventTouchUpInside];
             [self.analyzeDataButton setHighlighted:NO];
+            [imageOfAnalyzeDataButton setAlpha:1.0];
             [l2a setHighlighted:NO];
             [l2b setHighlighted:NO];
             break;
@@ -892,6 +923,7 @@
         case 3:
             [self.statCalcButton sendActionsForControlEvents:UIControlEventTouchUpInside];
             [self.statCalcButton setHighlighted:NO];
+            [imageOfStatCalcButton setAlpha:1.0];
             [l3a setHighlighted:NO];
             [l3b setHighlighted:NO];
             break;
@@ -905,18 +937,21 @@
     switch ([sender tag]) {
         case 1:
             [self.dataEntryButton setHighlighted:NO];
+            [imageOfDataEntryButton setAlpha:1.0];
             [l1a setHighlighted:NO];
             [l1b setHighlighted:NO];
             break;
             
         case 2:
             [self.analyzeDataButton setHighlighted:NO];
+            [imageOfAnalyzeDataButton setAlpha:1.0];
             [l2a setHighlighted:NO];
             [l2b setHighlighted:NO];
             break;
             
         case 3:
             [self.statCalcButton setHighlighted:NO];
+            [imageOfStatCalcButton setAlpha:1.0];
             [l3a setHighlighted:NO];
             [l3b setHighlighted:NO];
             break;

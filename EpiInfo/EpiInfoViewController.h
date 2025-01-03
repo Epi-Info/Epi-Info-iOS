@@ -32,6 +32,10 @@
     UIView *v4;
     UIView *v5;
     
+    UIImageView *imageOfDataEntryButton;
+    UIImageView *imageOfAnalyzeDataButton;
+    UIImageView *imageOfStatCalcButton;
+    
     UILabel *l1a;
     UILabel *l1b;
     UILabel *l2a;
