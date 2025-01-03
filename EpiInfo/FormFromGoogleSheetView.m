@@ -15,6 +15,7 @@
     
     if (self)
     {
+        [self setAccessibilityViewIsModal:YES];
         [self setBackgroundColor:[UIColor whiteColor]];
         float textViewX = 4.0;
         float textViewWidth = 312.0;

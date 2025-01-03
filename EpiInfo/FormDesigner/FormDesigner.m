@@ -45,6 +45,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
+        [self setAccessibilityViewIsModal:YES];
         lastPage = 1;
         checkCodeString = @"";
         justParsingForCheckCode = NO;
