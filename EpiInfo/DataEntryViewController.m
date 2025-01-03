@@ -212,6 +212,7 @@
             [enterDataLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
             [enterDataLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
             [enterDataLabel setText:@"Epi Info Enter Data"];
+            [enterDataLabel setAccessibilityTraits:UIAccessibilityTraitHeader];
             [enterDataLabel setBackgroundColor:[UIColor clearColor]];
             [enterDataLabel setTextAlignment:NSTextAlignmentCenter];
             [self.view addSubview:enterDataLabel];
@@ -281,6 +282,7 @@
             [enterDataLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
             [enterDataLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
             [enterDataLabel setText:@"Epi Info Enter Data"];
+            [enterDataLabel setAccessibilityTraits:UIAccessibilityTraitHeader];
             [enterDataLabel setBackgroundColor:[UIColor clearColor]];
             [enterDataLabel setTextAlignment:NSTextAlignmentCenter];
             [self.view addSubview:enterDataLabel];
@@ -368,6 +370,7 @@
             [enterDataLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
             [enterDataLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0]];
             [enterDataLabel setText:@"Epi Info Enter Data"];
+            [enterDataLabel setAccessibilityTraits:UIAccessibilityTraitHeader];
             [enterDataLabel setBackgroundColor:[UIColor clearColor]];
             [enterDataLabel setTextAlignment:NSTextAlignmentCenter];
             [self.view addSubview:enterDataLabel];
@@ -476,6 +479,7 @@
             [enterDataLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
             [enterDataLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
             [enterDataLabel setText:@"Epi Info Enter Data"];
+            [enterDataLabel setAccessibilityTraits:UIAccessibilityTraitHeader];
             [enterDataLabel setBackgroundColor:[UIColor clearColor]];
             [enterDataLabel setTextAlignment:NSTextAlignmentCenter];
             [self.view addSubview:enterDataLabel];
@@ -547,6 +551,7 @@
             [enterDataLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
             [enterDataLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
             [enterDataLabel setText:@"Epi Info Enter Data"];
+            [enterDataLabel setAccessibilityTraits:UIAccessibilityTraitHeader];
             [enterDataLabel setBackgroundColor:[UIColor clearColor]];
             [enterDataLabel setTextAlignment:NSTextAlignmentCenter];
             [self.view addSubview:enterDataLabel];
@@ -636,6 +641,7 @@
             [enterDataLabel setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
             [enterDataLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]];
             [enterDataLabel setText:@"Epi Info Enter Data"];
+            [enterDataLabel setAccessibilityTraits:UIAccessibilityTraitHeader];
             [enterDataLabel setBackgroundColor:[UIColor clearColor]];
             [enterDataLabel setTextAlignment:NSTextAlignmentCenter];
             [self.view addSubview:enterDataLabel];

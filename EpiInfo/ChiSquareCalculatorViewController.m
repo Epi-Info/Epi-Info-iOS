@@ -353,6 +353,8 @@
         [fadingColorView removeFromSuperview];
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
+        
+        [self.phoneHeaderLabel setAccessibilityTraits:UIAccessibilityTraitHeader];
     }
     
     scrollViewFrame = CGRectMake(0, 40, 768,960);

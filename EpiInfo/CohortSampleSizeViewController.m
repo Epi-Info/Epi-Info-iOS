@@ -379,6 +379,8 @@
         [self.phoneCasesOrExposedPercentLabel setFont:[UIFont boldSystemFontOfSize:12.0]];
         [self.unexposedField setFont:[UIFont boldSystemFontOfSize:12.0]];
         [self.exposedField setFont:[UIFont boldSystemFontOfSize:12.0]];
+        
+        [self.phoneTitleLabel setAccessibilityTraits:UIAccessibilityTraitHeader];
     }
 }
 

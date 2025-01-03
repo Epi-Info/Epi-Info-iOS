@@ -122,6 +122,7 @@
     [headerLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:56.0]];
     [headerLabel setTextAlignment:NSTextAlignmentCenter];
     [headerLabel setText:@"StatCalc"];
+    [headerLabel setAccessibilityTraits:UIAccessibilityTraitHeader];
     
     subHeaderLabel = [[UILabel alloc] initWithFrame:subHeaderFrame];
     subHeaderLabel.backgroundColor = [UIColor colorWithRed:99/255.0 green:166/255.0 blue:223/255.0 alpha:0.0];
@@ -129,6 +130,7 @@
     [subHeaderLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:28]];
     [subHeaderLabel setTextAlignment:NSTextAlignmentCenter];
     [subHeaderLabel setText:@"Statistical Calculators from Epi Info"];
+    [subHeaderLabel setAccessibilityTraits:UIAccessibilityTraitHeader];
     
     buttonBox = [[UIView alloc] initWithFrame:CGRectMake(74, 200, 620, 292)];
     buttonBox.backgroundColor = [UIColor colorWithRed:50/255.0 green:71/255.0 blue:92/255.0 alpha:1.0];
@@ -151,6 +153,7 @@
     [powerSectionHeaderLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:22.0]];
     [powerSectionHeaderLabel setTextAlignment:NSTextAlignmentCenter];
     [powerSectionHeaderLabel setText:@"Sample Size and Power"];
+    [powerSectionHeaderLabel setAccessibilityTraits:UIAccessibilityTraitHeader];
     
     CGRect cdcImageFrame = CGRectMake(2, [self.view frame].size.height - 146, (450.0 / 272.0) * 100.0, 100.0);
     cdcImageView = [[UIImageView alloc] initWithFrame:cdcImageFrame];
@@ -606,6 +609,7 @@
             [self.button10.titleLabel setFont:[UIFont boldSystemFontOfSize:16.0]];
             
             [self.phoneHeaderLabel setTextColor:[UIColor colorWithRed:251/255.0 green:251/255.0 blue:251/255.0 alpha:1.0]];
+            [self.phoneHeaderLabel setAccessibilityTraits:UIAccessibilityTraitHeader];
             
             blurryView = [BlurryView new];
             [blurryView setFrame:CGRectMake(button1Frame.origin.x - 20, button1Frame.origin.y, button1Frame.size.width + 40, button6Frame.origin.y - button1Frame.origin.y + button6Frame.size.height + 120 + 40)];

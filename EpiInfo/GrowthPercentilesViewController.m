@@ -112,6 +112,7 @@
         [headerLabel0 setTextAlignment:NSTextAlignmentCenter];
         [headerLabel0 setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:22.0]];
         [headerLabel0 setText:@"Growth Percentiles"];
+        [headerLabel0 setAccessibilityTraits:UIAccessibilityTraitHeader];
         [headerView addSubview:headerLabel0];
         
         UILabel *headerLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, headerView.frame.size.width, 40)];
@@ -347,6 +348,7 @@
         [headerLabel0 setTextAlignment:NSTextAlignmentCenter];
         [headerLabel0 setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]];
         [headerLabel0 setText:@"Growth Percentiles"];
+        [headerLabel0 setAccessibilityTraits:UIAccessibilityTraitHeader];
         [headerView addSubview:headerLabel0];
         
         UILabel *headerLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 24, 300, 40)];

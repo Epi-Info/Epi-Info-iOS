@@ -615,6 +615,8 @@
         }
     }
     
+    [analyzeDataLabel setAccessibilityTraits:UIAccessibilityTraitHeader];
+    
     NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
     if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
     {

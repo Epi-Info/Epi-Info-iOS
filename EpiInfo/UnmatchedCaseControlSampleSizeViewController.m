@@ -361,6 +361,8 @@
         [self.casesExposedField setFont:[UIFont boldSystemFontOfSize:12.0]];
         [self.phoneControlsOrUnexposedLabel setText:@"Percent of controls exposed:"];
         [self.phoneCasesOrExposedLabel setText:@"Percent of cases exposed:"];
+        
+        [self.phoneTitleLabel setAccessibilityTraits:UIAccessibilityTraitHeader];
     }
 }
 

@@ -510,6 +510,7 @@
         [self.view addSubview:fadingColorView];
         [self.view sendSubviewToBack:fadingColorView];
     }
+    [self.phoneMainLabel setAccessibilityTraits:UIAccessibilityTraitHeader];
 }
 
 - (void)viewDidAppear:(BOOL)animated
