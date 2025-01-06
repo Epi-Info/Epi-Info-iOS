@@ -882,11 +882,12 @@
     NSString *editMessage = [NSString stringWithFormat:@"Edit %@ Form", lvSelected.text];
 
     BlurryView *manageView = [[BlurryView alloc] initWithFrame:CGRectMake(0, -manageButton.frame.origin.y - manageButton.frame.size.height - 10.0, self.view.frame.size.width, manageButton.frame.origin.y + manageButton.frame.size.height + 10.0)];
+    [manageView setAccessibilityViewIsModal:YES];
     [manageView setBackgroundColor:[UIColor whiteColor]];
     [manageView setAlpha:0.96];
     [self.view addSubview:manageView];
     
-    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, manageView.frame.size.width - 20, 40.0)];
+    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, manageView.frame.size.width - 20, 60.0)];
     [messageLabel setText:message];
     [messageLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
     [messageLabel setTextAlignment:NSTextAlignmentLeft];
@@ -1442,6 +1443,7 @@
 - (void)confirmUploadAllRecords
 {
     dismissView = [[UIView alloc] initWithFrame:CGRectMake(0, -self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
+    [dismissView setAccessibilityViewIsModal:YES];
     
     BlurryView *dismissImageView = [[BlurryView alloc] initWithFrame:CGRectMake(0, 0, dismissView.frame.size.width, dismissView.frame.size.height)];
     [dismissImageView setBackgroundColor:[UIColor grayColor]];
@@ -1990,6 +1992,7 @@
         return;
     }
     UIView *messageView = [[UIView alloc] initWithFrame:CGRectMake(sender.frame.origin.x + sender.frame.size.width / 2.0, sender.frame.origin.y + sender.frame.size.height / 2.0, 0, 0)];
+    [messageView setAccessibilityViewIsModal:YES];
     [messageView setBackgroundColor:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
     [messageView.layer setCornerRadius:8.0];
     [dismissView addSubview:messageView];

@@ -15,6 +15,7 @@
     
     if (self)
     {
+        [self setAccessibilityViewIsModal:YES];
         [self setBackgroundColor:[UIColor whiteColor]];
         
         UIView *bannerBack = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 32)];

@@ -15,6 +15,7 @@
     
     if (self)
     {
+        [self setAccessibilityViewIsModal:YES];
         NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
         spanishLanguage = NO;
         if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))
@@ -700,6 +701,7 @@
 - (void)questionMarkPressed:(UIButton *)sender
 {
     instructionsView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, initialHeight - 54, self.frame.size.width, initialHeight - 54)];
+    [instructionsView setAccessibilityViewIsModal:YES];
     [instructionsView setBackgroundColor:[UIColor colorWithRed:59/255.0 green:106/255.0 blue:173/255.0 alpha:1.0]];
     [self addSubview:instructionsView];
     
@@ -710,6 +712,7 @@
     UILabel *header = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, whiteView.frame.size.width, 30.0)];
     [header setBackgroundColor:[UIColor clearColor]];
     [header setText:@"SQL Tool Help"];
+    [header setAccessibilityTraits:UIAccessibilityTraitHeader];
     [header setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0]];
     [header setTextAlignment:NSTextAlignmentCenter];
     [header setTextColor:[UIColor blackColor]];

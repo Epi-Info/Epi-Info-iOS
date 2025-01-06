@@ -20,6 +20,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
+        [self setAccessibilityViewIsModal:YES];
         [self setBackgroundColor:[UIColor whiteColor]];
         
         NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];

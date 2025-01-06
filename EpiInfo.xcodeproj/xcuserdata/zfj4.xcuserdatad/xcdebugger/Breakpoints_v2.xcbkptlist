@@ -14,8 +14,8 @@
             filePath = "EpiInfo/DataEntryViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3674"
-            endingLineNumber = "3674"
+            startingLineNumber = "3677"
+            endingLineNumber = "3677"
             landmarkName = "-packageAndEmailData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -348,8 +348,8 @@
             filePath = "EpiInfo/DataEntryViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1290"
-            endingLineNumber = "1290"
+            startingLineNumber = "1291"
+            endingLineNumber = "1291"
             landmarkName = "-openButtonPressed:"
             landmarkType = "7">
          </BreakpointContent>

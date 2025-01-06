@@ -277,6 +277,7 @@
     
     if (self)
     {
+        [self setAccessibilityViewIsModal:YES];
         NSString *languageInUse = [[NSLocale preferredLanguages] firstObject];
         spanishLanguage = NO;
         if ([languageInUse isEqualToString:@"es"] || ([languageInUse length] > 2 && [[languageInUse substringToIndex:2] isEqualToString:@"es"]))

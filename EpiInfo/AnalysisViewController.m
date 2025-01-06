@@ -1022,7 +1022,8 @@
     dataTypeList = nil;
     
     //Re-allociate and instantiate dataTypeList
-    dataTypeList = [[UIView alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 50)];
+    dataTypeList = [[UIView alloc] initWithFrame:CGRectMake(0, -70, self.view.frame.size.width, 50)];
+    [dataTypeList setAccessibilityViewIsModal:YES];
     [dataTypeList setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:dataTypeList];
 
@@ -1122,13 +1123,14 @@
     dataSourceList = nil;
     
     //Re-allocate and instantiate dataSourceList
-    dataSourceList = [[UIScrollView alloc] initWithFrame:CGRectMake(0, -50, self.view.frame.size.width, 50)];
+    dataSourceList = [[UIScrollView alloc] initWithFrame:CGRectMake(0, -70, self.view.frame.size.width, 50)];
+    [dataSourceList setAccessibilityViewIsModal:YES];
     [dataSourceList setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:dataSourceList];
 
     //Move dataTypeList off of the screen
     [UIView animateWithDuration:0.3 animations:^{
-        [dataTypeList setFrame:CGRectMake(0, -50.0 * numberOfDataTypes, zoomingView.frame.size.width, 50.0 * numberOfDataTypes)];
+        [dataTypeList setFrame:CGRectMake(0, -70.0 * numberOfDataTypes, zoomingView.frame.size.width, 50.0 * numberOfDataTypes)];
     }];
     
     //Get the files stored on the device and add a button to dataSourceList for each file
@@ -1199,7 +1201,7 @@
     [dataSourceList addSubview:button];
     
     //Set the dataSourceList frame above the top of the screen
-    [dataSourceList setFrame:CGRectMake(0, -50.0 * (numberOfFiles + 1), zoomingView.frame.size.width, 50.0 * (numberOfFiles + 1))];
+    [dataSourceList setFrame:CGRectMake(0, -70.0 * (numberOfFiles + 1), zoomingView.frame.size.width, 50.0 * (numberOfFiles + 1))];
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
     {
         BlurryView *blurryView = [BlurryView new];
@@ -1437,7 +1439,7 @@
     [filterButton setEnabled:YES];
     [newVariablesButton setEnabled:YES];
     [UIView animateWithDuration:0.3 animations:^{
-        [dataTypeList setFrame:CGRectMake(0, -50.0 * numberOfDataTypes, zoomingView.frame.size.width, 50.0 * numberOfDataTypes)];
+        [dataTypeList setFrame:CGRectMake(0, -70.0 * numberOfDataTypes, zoomingView.frame.size.width, 50.0 * numberOfDataTypes)];
     }];
 }
 
@@ -1449,7 +1451,7 @@
     [filterButton setEnabled:YES];
     [newVariablesButton setEnabled:YES];
     [UIView animateWithDuration:0.3 animations:^{
-        [dataSourceList setFrame:CGRectMake(0, -50.0 * (numberOfFiles + 1), zoomingView.frame.size.width, 50.0 * (numberOfFiles + 1))];
+        [dataSourceList setFrame:CGRectMake(0, -70.0 * (numberOfFiles + 1), zoomingView.frame.size.width, 50.0 * (numberOfFiles + 1))];
     }];
 }
 
