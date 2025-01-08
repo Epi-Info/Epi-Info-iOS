@@ -7472,6 +7472,7 @@
                 {
                     lv = [[LegalValuesEnter alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 300, 180) AndListOfValues:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]]];
                     [lv setElementLabel:elementLabel];
+                    [lv.valueButton setAccessibilityLabel:[NSString stringWithFormat:@"Drop down field for %@. Double tap to see values.", [elementLabel text]]];
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
                         [lv setFrame:CGRectMake(20, lv.frame.origin.y, lv.frame.size.width, lv.frame.size.height)];
                     
@@ -7678,6 +7679,7 @@
                 {
                     lv = [[CommentLegal alloc] initWithFrame:CGRectMake(10, contentSizeHeight + 40, 300, 180) AndListOfValues:[legalValuesDictionary objectForKey:[attributeDict objectForKey:@"SourceTableName"]]];
                     [lv setElementLabel:elementLabel];
+                    [lv.valueButton setAccessibilityLabel:[NSString stringWithFormat:@"Drop down field for %@. Double tap to see values.", [elementLabel text]]];
                     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
                         [lv setFrame:CGRectMake(20, lv.frame.origin.y, lv.frame.size.width, lv.frame.size.height)];
                     
@@ -8144,7 +8146,7 @@
                     [formCanvas addSubview:cb];
                     [alterTableElements setObject:@"integer" forKey:[attributeDict objectForKey:@"Name"]];
                     [cb setColumnName:[attributeDict objectForKey:@"Name"]];
-                    [cb setCheckboxAccessibilityLabel:[attributeDict objectForKey:@"Name"]];
+                    [cb setCheckboxAccessibilityLabel:[[cb elementLabel] text]];
                     //        [self.checkboxes setObject:@"A" forKey:[attributeDict objectForKey:@"Name"]];
                     beginColumList = YES;
                     [self.dictionaryOfFields setObject:cb forKey:[attributeDict objectForKey:@"Name"]];

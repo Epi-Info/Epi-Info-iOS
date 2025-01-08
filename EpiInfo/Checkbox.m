@@ -52,7 +52,7 @@
 
 - (void)setCheckboxAccessibilityLabel:(NSString *)accessibilityLabel
 {
-    [button setAccessibilityLabel:accessibilityLabel];
+    [button setAccessibilityLabel:[NSString stringWithFormat:@"%@ checkbox", accessibilityLabel]];
 }
 
 - (BOOL)value
