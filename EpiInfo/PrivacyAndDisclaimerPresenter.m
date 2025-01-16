@@ -100,6 +100,7 @@
                 [informationYouGiveUs setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
                 [informationYouGiveUs setTextAlignment:NSTextAlignmentLeft];
                 [informationYouGiveUs setText:@"Overview"];
+                [informationYouGiveUs setAccessibilityTraits:UIAccessibilityTraitHeader];
                 [contentHolder addSubview:informationYouGiveUs];
                 contentSizeHeight += informationYouGiveUs.frame.size.height;
                 
@@ -335,6 +336,7 @@
                 [usingMobileApplications setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
                 [usingMobileApplications setTextAlignment:NSTextAlignmentLeft];
                 [usingMobileApplications setText:@"Information Collected"];
+                [usingMobileApplications setAccessibilityTraits:UIAccessibilityTraitHeader];
                 [contentHolder addSubview:usingMobileApplications];
                 contentSizeHeight += usingMobileApplications.frame.size.height;
                 
@@ -396,6 +398,7 @@
                 [usesOfInformation setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
                 [usesOfInformation setTextAlignment:NSTextAlignmentLeft];
                 [usesOfInformation setText:@"Uses of Information"];
+                [informationYouGiveUs setAccessibilityTraits:UIAccessibilityTraitHeader];
                 [contentHolder addSubview:usesOfInformation];
                 contentSizeHeight += usesOfInformation.frame.size.height;
                 
@@ -417,6 +420,7 @@
                 [informationSharing setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
                 [informationSharing setTextAlignment:NSTextAlignmentLeft];
                 [informationSharing setText:@"Information Sharing"];
+                [informationSharing setAccessibilityTraits:UIAccessibilityTraitHeader];
                 [contentHolder addSubview:informationSharing];
                 contentSizeHeight += informationSharing.frame.size.height;
                 
@@ -438,6 +442,7 @@
                 [applicationSecurity setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
                 [applicationSecurity setTextAlignment:NSTextAlignmentLeft];
                 [applicationSecurity setText:@"Application Security"];
+                [applicationSecurity setAccessibilityTraits:UIAccessibilityTraitHeader];
                 [contentHolder addSubview:applicationSecurity];
                 contentSizeHeight += applicationSecurity.frame.size.height;
                 
@@ -538,6 +543,7 @@
                 [privacyPolicyContactInformation setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
                 [privacyPolicyContactInformation setTextAlignment:NSTextAlignmentLeft];
                 [privacyPolicyContactInformation setText:@"Privacy Policy Contact Information"];
+                [privacyPolicyContactInformation setAccessibilityTraits:UIAccessibilityTraitHeader];
                 [contentHolder addSubview:privacyPolicyContactInformation];
                 contentSizeHeight += privacyPolicyContactInformation.frame.size.height;
                 
