@@ -286,10 +286,12 @@
         l3b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1b.frame.origin.y, labelWidth, l1b.frame.size.height)];
         
         [l1a setText:@"ENTER DATA"];
+        [l1a setIsAccessibilityElement:NO];
         [l1a setTextAlignment:NSTextAlignmentLeft];
         [l1a setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [l1a setFont:[UIFont fontWithName:@"HelveticaNeue" size:24.0]];
         [l1b setText:@"Create forms, enter data, browse records, and search the database."];
+        [l1b setIsAccessibilityElement:NO];
         [l1b setTextAlignment:NSTextAlignmentLeft];
         [l1b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [l1b setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -297,10 +299,12 @@
         [l1b setLineBreakMode:NSLineBreakByWordWrapping];
         
         [l2a setText:@"ANALYZE DATA"];
+        [l2a setIsAccessibilityElement:NO];
         [l2a setTextAlignment:NSTextAlignmentLeft];
         [l2a setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [l2a setFont:[UIFont fontWithName:@"HelveticaNeue" size:24.0]];
         [l2b setText:@"Visualize analytic results with gadgets, tables, and SQL tools."];
+        [l2b setIsAccessibilityElement:NO];
         [l2b setTextAlignment:NSTextAlignmentLeft];
         [l2b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [l2b setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -308,10 +312,12 @@
         [l2b setLineBreakMode:NSLineBreakByWordWrapping];
         
         [l3a setText:@"STATCALC"];
+        [l3a setIsAccessibilityElement:NO];
         [l3a setTextAlignment:NSTextAlignmentLeft];
         [l3a setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [l3a setFont:[UIFont fontWithName:@"HelveticaNeue" size:24.0]];
         [l3b setText:@"Statistical calculators for sample size, power, and more."];
+        [l3b setIsAccessibilityElement:NO];
         [l3b setTextAlignment:NSTextAlignmentLeft];
         [l3b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [l3b setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.0]];
@@ -562,10 +568,12 @@
         l3b = [[UILabel alloc] initWithFrame:CGRectMake(labelX, l1b.frame.origin.y, labelWidth, l1b.frame.size.height)];
         
         [l1a setText:@"ENTER DATA"];
+        [l1a setIsAccessibilityElement:NO];
         [l1a setTextAlignment:NSTextAlignmentLeft];
         [l1a setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [l1a setFont:[UIFont fontWithName:@"HelveticaNeue" size:24.0]];
         [l1b setText:@"Create forms, enter data, browse records, and search the database."];
+        [l1b setIsAccessibilityElement:NO];
         [l1b setTextAlignment:NSTextAlignmentLeft];
         [l1b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [l1b setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
@@ -575,10 +583,12 @@
         [l1b setHighlightedTextColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
         
         [l2a setText:@"ANALYZE DATA"];
+        [l2a setIsAccessibilityElement:NO];
         [l2a setTextAlignment:NSTextAlignmentLeft];
         [l2a setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [l2a setFont:[UIFont fontWithName:@"HelveticaNeue" size:24.0]];
         [l2b setText:@"Visualize analytic results with gadgets, tables, and SQL tools."];
+        [l2b setIsAccessibilityElement:NO];
         [l2b setTextAlignment:NSTextAlignmentLeft];
         [l2b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [l2b setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
@@ -588,10 +598,12 @@
         [l2b setHighlightedTextColor:[UIColor colorWithRed:188/255.0 green:190/255.0 blue:192/255.0 alpha:1.0]];
         
         [l3a setText:@"STATCALC"];
+        [l3a setIsAccessibilityElement:NO];
         [l3a setTextAlignment:NSTextAlignmentLeft];
         [l3a setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [l3a setFont:[UIFont fontWithName:@"HelveticaNeue" size:24.0]];
         [l3b setText:@"Statistical calculators for sample size, power, and more."];
+        [l3b setIsAccessibilityElement:NO];
         [l3b setTextAlignment:NSTextAlignmentLeft];
         [l3b setTextColor:[UIColor colorWithRed:88/255.0 green:89/255.0 blue:91/255.0 alpha:1.0]];
         [l3b setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
