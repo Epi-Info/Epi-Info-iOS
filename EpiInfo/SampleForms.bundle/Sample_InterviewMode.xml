@@ -1,4 +1,4 @@
-﻿<Template Name="Sample_InterviewMode" Description="" CreateDate="Wednesday, August 30, 2017 10:25:14 AM" Level="View">
+<Template Name="Sample_InterviewMode" Description="" CreateDate="Wednesday, August 30, 2017 10:25:14 AM" Level="View">
   <Project>
     <View ViewId="1" Name="InterviewForm" IsRelatedView="False" CheckCode="&#xA;&#xD;&#xA;&#xD;&#xA;&#xA;&#xA;&#xA;Page [Page 0]&#xA;&#x9;Before&#xA;&#x9;&#x9;//add code here&#xA;&#x9;&#x9;IF onset_date = &quot;&quot; THEN&#xA;&#x9;&#x9;&#x9;DISABLE DateEstimated&#xA;&#x9;&#x9;ELSE&#xA;&#x9;&#x9;&#x9;ENABLE DateEstimated&#xA;&#x9;&#x9;END-IF&#xA;&#x9;End-Before&#xA;End-Page&#xA;&#xA;Page [Page 4]&#xA;&#x9;After&#xA;&#x9;&#x9;IF sex = &quot;Female&quot; THEN&#xA;&#x9;&#x9;&#x9;GOTO pregnant&#xA;&#x9;&#x9;ELSE&#xA;&#x9;&#x9;&#x9;GOTO onset_date&#xA;&#x9;&#x9;END-IF&#xA;&#x9;End-After&#xA;End-Page&#xA;&#xA;Field Instructions&#xA;&#x9;Click&#xA;&#x9;&#x9;//add code here&#xA;&#x9;&#x9;EXECUTE WAITFOREXIT &quot;http://epiinfoandroid.codeplex.com/documentation&quot;&#xA;&#xA;&#x9;End-Click&#xA;End-Field&#xA;&#xA;&#xA;Field onset_date&#xA;&#x9;After&#xA;&#x9;&#x9;//add code here&#xA;&#x9;&#x9;IF onset_date = &quot;&quot; THEN&#xA;&#x9;&#x9;&#x9;CLEAR DateEstimated&#xA;&#x9;&#x9;&#x9;DISABLE DateEstimated&#xA;&#x9;&#x9;ELSE&#xA;&#x9;&#x9;&#x9;ENABLE DateEstimated&#xA;&#x9;&#x9;END-IF&#xA;&#x9;End-After&#xA;End-Field&#xA;&#xA;Field GetLocation&#xA;&#x9;Click&#xA;&#x9;&#x9;GEOCODE Address, Latitude, Longitude&#xA;&#x9;End-Click&#xA;End-Field&#xA;" Width="549" Height="780" Orientation="Landscape" LabelAlign="Vertical">
       <Page PageId="1" Name="Page 0" Position="0" BackgroundId="0" ViewId="1">
@@ -43,6 +43,5 @@
   <SourceTable TableName="codesex1">
     <Item sex="Male" />
     <Item sex="Female" />
-    <Item sex="Unknown" />
   </SourceTable>
 </Template>
